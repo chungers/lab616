@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Export-Package: com.google.inject.struts2;uses:="com.google.inject.ser
+ vlet,com.google.inject.binder,com.google.inject,com.opensymphony.xwor
+ k2.config.entities,com.opensymphony.xwork2,com.opensymphony.xwork2.in
+ terceptor,com.opensymphony.xwork2.inject,com.opensymphony.xwork2.conf
+ ig";version="1.2"
+Bundle-Name: guice-struts2-plugin
+Created-By: 1.6.0_07 (Apple Inc.)
+Bundle-Copyright: Copyright (C) 2006 Google Inc.
+Bundle-Vendor: Google Inc.
+Bundle-Version: 2.0
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-Description: Guice is a lightweight dependency injection framew
+ ork for Java 5 and above
+Import-Package: com.google.inject;version="[1.2,2)",com.google.inject.
+ binder;version="[1.2,2)",com.google.inject.servlet;version="[1.2,2)",
+ com.google.inject.struts2;version="[1.2,2)",com.opensymphony.xwork2;r
+ esolution:=optional,com.opensymphony.xwork2.config;resolution:=option
+ al,com.opensymphony.xwork2.config.entities;resolution:=optional,com.o
+ pensymphony.xwork2.inject;resolution:=optional,com.opensymphony.xwork
+ 2.interceptor;resolution:=optional
+Bundle-SymbolicName: com.google.inject.struts2
+Bundle-DocURL: http://code.google.com/p/google-guice/
+

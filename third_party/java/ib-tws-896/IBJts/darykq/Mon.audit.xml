@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuditTrail>
+<Entry type="Acknowledged" msgId="2358985372">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000019"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20090727-07:10:04"/>
+	<field tag="37" val="*"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="34100.1248678604.0"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="54" val="1"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="60" val="20090727-07:10:04"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+</Entry>
+<Entry type="ExecutionReport" msgId="1459963256">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000020"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20090727-07:10:09"/>
+	<field tag="6556" val="today12"/>
+	<field tag="17" val="34100.1248678609.0"/>
+	<field tag="32" val="*"/>
+</Entry>
+<Entry type="Acknowledged" msgId="2400184596">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000022"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20090727-07:13:35"/>
+	<field tag="37" val="*"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="34500.1248678815.0"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="54" val="1"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="60" val="20090727-07:13:35"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+</Entry>
+<Entry type="ExecutionReport" msgId="1088021684">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000023"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20090727-07:13:42"/>
+	<field tag="6556" val="today12"/>
+	<field tag="17" val="34500.1248678822.0"/>
+	<field tag="32" val="*"/>
+</Entry>
+<Entry type="Acknowledged" msgId="1099052330">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000017"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20090727-07:17:18"/>
+	<field tag="37" val="*"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="34779.1248679038.0"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="54" val="1"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="60" val="20090727-07:17:18"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+</Entry>
+<Entry type="ExecutionReport" msgId="3437212697">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000018"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20090727-07:17:19"/>
+	<field tag="6556" val="today12"/>
+	<field tag="17" val="34779.1248679039.0"/>
+	<field tag="32" val="*"/>
+</Entry>
+</AuditTrail>

@@ -1,0 +1,33 @@
+SA 01:18:40:394 JTS-Main: Created on: 20090731
+SA 01:18:40:394 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+SA 01:18:40:410 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896//
+SA 01:18:40:433 JTS-Main: Region:Custom dr:false
+SA 01:18:40:446 JTS-Main: Property locale_to_use=null
+SA 01:18:40:450 JTS-Main: JTS Locale=en_US  country=United States  variant=
+SA 01:18:40:450 JTS-Main: Locale=en_US  country=United States  variant=
+SA 01:18:40:452 JTS-Main: prohibiting class lookup [ji18n.Language]
+SA 01:18:40:530 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+SA 01:18:40:532 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+SA 01:18:40:532 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+SA 01:18:40:532 JTS-Main:   actual locale: 
+SA 01:18:40:561 JTS-Main: Property locale_to_use=en
+SA 01:18:40:562 JTS-Main: JTS Locale=en_US  country=United States  variant=
+SA 01:18:40:562 JTS-Main: Property locale_to_use=en
+SA 01:18:40:562 JTS-Main: JTS Locale=en_US  country=United States  variant=
+SA 01:18:40:615 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+SA 01:18:40:616 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+SA 01:18:40:616 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+SA 01:18:40:616 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+SA 01:18:40:616 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+SA 01:18:40:616 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+SA 01:18:40:617 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+SA 01:18:40:617 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+SA 01:18:40:617 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+SA 01:18:40:617 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+SA 01:18:41:060 JTS-Main: jfreechart version =1.0.8
+SA 01:18:41:060 JTS-Main: jcommon version =1.0.12
+SA 01:18:41:122 JTS-Main: plugin support version =1.0
+SA 01:18:41:123 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+SA 01:18:41:128 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+SA 01:18:41:129 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+SA 01:18:41:129 JTS-Main: No peer entry in jts.ini file.

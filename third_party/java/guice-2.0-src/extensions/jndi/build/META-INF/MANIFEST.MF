@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Export-Package: com.google.inject.jndi;uses:="javax.naming,com.google.
+ inject";version="1.2"
+Bundle-Name: guice-jndi
+Created-By: 1.6.0_07 (Apple Inc.)
+Bundle-Copyright: Copyright (C) 2006 Google Inc.
+Bundle-Vendor: Google Inc.
+Bundle-Version: 2.0
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-Description: Guice is a lightweight dependency injection framew
+ ork for Java 5 and above
+Import-Package: com.google.inject;version="[1.2,2)",com.google.inject.
+ jndi;version="[1.2,2)",javax.naming;resolution:=optional
+Bundle-SymbolicName: com.google.inject.jndi
+Bundle-DocURL: http://code.google.com/p/google-guice/
+

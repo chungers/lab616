@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ArPredefinedLinkPattern> 
+    <PredefinedLinkPattern>
+        <useAsDefault>false</useAsDefault>
+        <supplierName>Google News via RSS</supplierName>
+        <link><![CDATA[http://news.google.com/news?hl=en&ned=us&q=$TAG&ie=UTF-8&output=rss]]></link>
+    </PredefinedLinkPattern>
+    <PredefinedLinkPattern>
+        <useAsDefault>true</useAsDefault>
+        <supplierName>Yahoo! Headlines via RSS</supplierName>
+        <link><![CDATA[http://finance.yahoo.com/rss/headline?s=$TAG]]></link>
+    </PredefinedLinkPattern>
+    <PredefinedLinkPattern>
+        <useAsDefault>false</useAsDefault>
+        <supplierName>MSN News Search via RSS</supplierName>
+        <link><![CDATA[http://search.msn.com/news/results.aspx?q=$TAG&format=rss&FORM=RSNR]]></link>
+    </PredefinedLinkPattern>
+    <PredefinedLinkPattern>
+        <useAsDefault>false</useAsDefault>
+        <supplierName>Google News via Atom</supplierName>
+        <link><![CDATA[http://news.google.com/news?hl=en&q=$TAG&tab=wn&ie=UTF-8&output=atom]]></link>
+    </PredefinedLinkPattern>
+    <PredefinedLinkPattern>
+        <useAsDefault>false</useAsDefault>
+        <supplierName>Yahoo! News via RSS</supplierName>
+        <link><![CDATA[http://news.search.yahoo.com/news/rss?p=$TAG&ei=UTF-8&eo=UTF-8]]></link>
+    </PredefinedLinkPattern>
+</ArPredefinedLinkPattern> 
+
+

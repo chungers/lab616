@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="java"/>
+	<classpathentry kind="src" path="javatests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="var" path="THIRD_PARTY/apache-log4j/log4j-1.2.15.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/commons-cli/commons-cli-1.2.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/google-collect/google-collect-1.0-rc2.jar" sourcepath="/THIRD_PARTY/google-collect/src-1.0-rc2.zip"/>
+	<classpathentry kind="var" path="THIRD_PARTY/jsch/jsch-0.1.42.jar" sourcepath="/THIRD_PARTY/jsch/src"/>
+	<classpathentry kind="var" path="THIRD_PARTY/ganymed-ssh2/ganymed-ssh2-build210.jar" sourcepath="/THIRD_PARTY/ganymed-ssh2/src"/>
+	<classpathentry kind="var" path="THIRD_PARTY/guice/guice-2.0.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/guice/guice-assistedinject-2.0.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/guice/guice-multibindings-2.0.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/guice/guice-throwingproviders-2.0.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/guice/aopalliance.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

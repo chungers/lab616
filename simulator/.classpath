@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="java"/>
+	<classpathentry kind="src" path="examples/stockticker/src/main/java"/>
+	<classpathentry kind="src" path="examples/marketdatafeed/src/main/java"/>
+	<classpathentry kind="src" path="examples/ohlcpluginview/src/main/java"/>
+	<classpathentry kind="src" path="javatests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="var" path="THIRD_PARTY/esper/esper-3.1.0.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/esper/esper"/>
+	<classpathentry kind="var" path="THIRD_PARTY/esper/esper/lib/antlr-runtime-3.1.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/esper/esper/lib/cglib-nodep-2.2.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/esper/esper/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/esper/esper/lib/esper_3rdparties.license"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/common"/>
+	<classpathentry kind="var" path="THIRD_PARTY/ib-twsapi/IBJts/jtsclient.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

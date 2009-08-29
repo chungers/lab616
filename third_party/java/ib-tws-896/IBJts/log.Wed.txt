@@ -1,0 +1,918 @@
+IR 14:43:47:158 JTS-Main: Created on: 20090729
+IR 14:43:47:173 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+IR 14:43:47:249 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+IR 14:43:47:356 JTS-Main: Region:America dr:false
+IR 14:43:47:357 JTS-Main: Property locale_to_use=en
+IR 14:43:47:374 JTS-Main: JTS Locale=en_US  country=United States  variant=
+IR 14:43:47:375 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+IR 14:43:47:375 JTS-Main: Property locale_to_use=en
+IR 14:43:47:375 JTS-Main: JTS Locale=en_US  country=United States  variant=
+IR 14:43:47:382 JTS-Main: Property locale_to_use=en
+IR 14:43:47:383 JTS-Main: JTS Locale=en_US  country=United States  variant=
+IR 14:43:47:383 JTS-Main: Locale=en_US  country=United States  variant=
+IR 14:43:47:384 JTS-Main: prohibiting class lookup [ji18n.Language]
+IR 14:43:47:878 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+IR 14:43:47:879 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+IR 14:43:47:879 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+IR 14:43:47:879 JTS-Main:   actual locale: 
+IR 14:43:48:057 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+IR 14:43:48:071 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+IR 14:43:48:071 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+IR 14:43:48:071 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+IR 14:43:48:071 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+IR 14:43:48:072 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+IR 14:43:48:080 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+IR 14:43:48:080 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+IR 14:43:48:080 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+IR 14:43:48:080 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+IR 14:43:49:678 JTS-Main: jfreechart version =1.0.8
+IR 14:43:49:678 JTS-Main: jcommon version =1.0.12
+IR 14:43:49:679 JTS-Main: plugin support version =1.0
+IR 14:43:49:702 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+IR 14:43:49:718 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+IR 14:43:49:779 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+IR 14:43:49:946 JTS-Main: LookAndFeelChangedListener installed
+IR 14:43:49:972 JTS-Main: JtsLookAndFeel initialized
+IR 14:43:50:890 JTS-Main: Current LAF: TWS LAF
+IR 14:43:50:893 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+IR 14:43:52:849 JTS-Main: Started on 20090729-21:43:52
+IR 14:43:52:879 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+IR 14:43:52:892 JTS-DeadlockMonitor: Memory:total=466,048KB free=410,272KB
+IR 14:43:53:100 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+IR 14:43:53:101 JTS-Main: applet = false
+IR 14:43:53:101 JTS-Main: java version = 1.6.0_13
+IR 14:43:53:101 JTS-Main: os = Mac OS X
+IR 14:43:53:101 JTS-Main: host = gw4.ibllc.com
+IR 14:43:53:101 JTS-Main: remotePort = 4000
+IR 14:43:53:101 JTS-Main: localPort = 0
+IR 14:43:54:000 JTS-DeadlockMonitor: CPU:cur=15.39% avg=15.39% 30 min avg=15.39% 5 min avg=15.39% 1 min avg=15.39%
+IR 14:43:54:000 JTS-DeadlockMonitor: GC:called=9 times CPU used=6.28%
+IR 14:43:54:000 JTS-DeadlockMonitor: Finalizer:cur=0.00% avg=0.00% 30 min avg=0.00% 5 min avg=0.00% 1 min avg=0.00%
+IR 14:46:28:903 AWT-EventQueue-0: username = Sfdslo
+IR 14:46:28:929 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+IR 14:46:28:930 AWT-EventQueue-0: Property locale_to_use=en
+IR 14:46:28:930 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+IR 14:46:28:966 AWT-EventQueue-0: Prelogin delay:0
+IR 14:46:28:977 JTS-Login-6: Starting
+IR 14:46:29:066 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+IR 14:46:29:396 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+IR 14:46:29:397 JTS-Login-6: Authenticating
+IR 14:46:29:403 JTS-CCPListener-7: Starting
+IR 14:46:29:418 JTS-CCPListener-7: Initial listener buffer size is 525600
+IR 14:46:29:418 JTS-CCPListener-7: Capping listener buffer size at 65536
+IR 14:46:29:458 JTS-Login-6: Sending connect request
+IR 14:46:29:458 JTS-AuthDispatcher-8: Starting
+IR 14:46:29:466 JTS-Login-6: Terminating
+IR 14:46:29:574 JTS-AuthDispatcher-8: Disconnecting gw4.ibllc.com:4000 with status 7
+IR 14:46:29:576 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by another thread
+IR 14:46:29:582 JTS-AuthDispatcher-8: Terminating
+IR 14:46:29:584 JTS-CCPListener-7: Terminating
+BB 14:47:46:954 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+BB 14:47:46:981 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+BB 14:47:47:018 JTS-Main: Region:America dr:false
+BB 14:47:47:019 JTS-Main: Property locale_to_use=en
+BB 14:47:47:022 JTS-Main: JTS Locale=en_US  country=United States  variant=
+BB 14:47:47:023 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+BB 14:47:47:023 JTS-Main: Property locale_to_use=en
+BB 14:47:47:023 JTS-Main: JTS Locale=en_US  country=United States  variant=
+BB 14:47:47:033 JTS-Main: Property locale_to_use=en
+BB 14:47:47:033 JTS-Main: JTS Locale=en_US  country=United States  variant=
+BB 14:47:47:033 JTS-Main: Locale=en_US  country=United States  variant=
+BB 14:47:47:034 JTS-Main: prohibiting class lookup [ji18n.Language]
+BB 14:47:47:869 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+BB 14:47:47:870 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+BB 14:47:47:870 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+BB 14:47:47:870 JTS-Main:   actual locale: 
+BB 14:47:48:010 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+BB 14:47:48:010 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+BB 14:47:48:010 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+BB 14:47:48:010 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+BB 14:47:48:011 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+BB 14:47:48:011 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+BB 14:47:48:011 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+BB 14:47:48:011 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+BB 14:47:48:011 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+BB 14:47:48:012 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+BB 14:47:48:539 JTS-Main: jfreechart version =1.0.8
+BB 14:47:48:540 JTS-Main: jcommon version =1.0.12
+BB 14:47:48:541 JTS-Main: plugin support version =1.0
+BB 14:47:48:542 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+BB 14:47:48:546 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+BB 14:47:48:547 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+BB 14:47:48:591 JTS-Main: LookAndFeelChangedListener installed
+BB 14:47:48:595 JTS-Main: JtsLookAndFeel initialized
+BB 14:47:49:137 JTS-Main: Current LAF: TWS LAF
+BB 14:47:49:140 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+OW 14:47:49:180 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+OW 14:47:49:197 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+OW 14:47:49:266 JTS-Main: Region:America dr:false
+OW 14:47:49:267 JTS-Main: Property locale_to_use=en
+OW 14:47:49:274 JTS-Main: JTS Locale=en_US  country=United States  variant=
+OW 14:47:49:275 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+OW 14:47:49:275 JTS-Main: Property locale_to_use=en
+OW 14:47:49:275 JTS-Main: JTS Locale=en_US  country=United States  variant=
+OW 14:47:49:285 JTS-Main: Property locale_to_use=en
+OW 14:47:49:285 JTS-Main: JTS Locale=en_US  country=United States  variant=
+OW 14:47:49:287 JTS-Main: Locale=en_US  country=United States  variant=
+OW 14:47:49:289 JTS-Main: prohibiting class lookup [ji18n.Language]
+BB 14:47:49:621 JTS-Main: Started on 20090729-21:47:49
+BB 14:47:49:653 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+BB 14:47:52:582 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+BB 14:47:52:583 JTS-Main: applet = false
+BB 14:47:52:583 JTS-Main: java version = 1.6.0_13
+BB 14:47:52:583 JTS-Main: os = Mac OS X
+BB 14:47:52:583 JTS-Main: host = gw4.ibllc.com
+BB 14:47:52:583 JTS-Main: remotePort = 4000
+BB 14:47:52:583 JTS-Main: localPort = 0
+BB 14:47:52:590 JTS-DeadlockMonitor: Memory:total=466,048KB free=412,775KB
+BB 14:47:53:613 JTS-DeadlockMonitor: CPU:cur=3.14% avg=3.14% 30 min avg=3.14% 5 min avg=3.14% 1 min avg=3.14%
+BB 14:47:53:613 JTS-DeadlockMonitor: GC:called=9 times CPU used=4.64%
+BB 14:47:53:613 JTS-DeadlockMonitor: Finalizer:cur=0.00% avg=0.00% 30 min avg=0.00% 5 min avg=0.00% 1 min avg=0.00%
+BB 14:47:59:408 AWT-EventQueue-0: username = Sk;
+BB 14:47:59:408 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+BB 14:47:59:408 AWT-EventQueue-0: Property locale_to_use=en
+BB 14:47:59:408 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+BB 14:47:59:426 AWT-EventQueue-0: Prelogin delay:0
+BB 14:47:59:428 JTS-Login-6: Starting
+BB 14:47:59:471 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+BB 14:47:59:584 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+BB 14:47:59:585 JTS-Login-6: Authenticating
+BB 14:47:59:590 JTS-CCPListener-7: Starting
+BB 14:47:59:593 JTS-CCPListener-7: Initial listener buffer size is 525600
+BB 14:47:59:593 JTS-CCPListener-7: Capping listener buffer size at 65536
+BB 14:47:59:618 JTS-Login-6: Sending connect request
+BB 14:47:59:618 JTS-AuthDispatcher-8: Starting
+BB 14:47:59:622 JTS-Login-6: Terminating
+BB 14:47:59:732 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by peer
+BB 14:47:59:737 JTS-CCPListener-7: Terminating
+BB 14:47:59:839 JTS-Fuse-ClosedSocket-10: Disconnecting gw4.ibllc.com:4000 with status 1
+BB 14:47:59:839 JTS-Fuse-ClosedSocket-10: NextConnectTime: 14:48:06:527  base=5000  range = 10000 random: 4688
+BB 14:47:59:840 JTS-AuthDispatcher-8: Terminating
+BB 14:48:06:530 JTS-Fuse-Reconnect-11: Prelogin delay:0
+BB 14:48:06:532 JTS-Login-13: Starting
+BB 14:48:06:552 JTS-Login-13: Connecting gw4.ibllc.com:4000 timeout=0
+BB 14:48:06:670 JTS-Login-13: Connected to gw4.ibllc.com:4000 on local port 0
+BB 14:48:06:670 JTS-Login-13: Authenticating
+BB 14:48:06:670 JTS-CCPListener-14: Starting
+BB 14:48:06:672 JTS-Login-13: Sending connect request
+BB 14:48:06:672 JTS-CCPListener-14: Initial listener buffer size is 525600
+BB 14:48:06:672 JTS-CCPListener-14: Capping listener buffer size at 65536
+BB 14:48:06:672 JTS-AuthDispatcher-15: Starting
+BB 14:48:06:672 JTS-Login-13: Terminating
+BB 14:48:06:789 JTS-CCPListener-14: Socket for connection gw4.ibllc.com:4000 was closed by peer
+BB 14:48:06:789 JTS-CCPListener-14: Terminating
+BB 14:48:06:890 JTS-Fuse-ClosedSocket-17: Disconnecting gw4.ibllc.com:4000 with status 1
+BB 14:48:06:890 JTS-Fuse-ClosedSocket-17: NextConnectTime: 14:48:11:890  base=5000  range = 10000 random: 856
+BB 14:48:06:890 JTS-AuthDispatcher-15: Terminating
+BB 14:48:11:891 JTS-Fuse-Reconnect-18: Prelogin delay:0
+BB 14:48:11:892 JTS-Login-20: Starting
+BB 14:48:11:905 JTS-Login-20: Connecting gw4.ibllc.com:4000 timeout=0
+BB 14:48:12:021 JTS-Login-20: Connected to gw4.ibllc.com:4000 on local port 0
+BB 14:48:12:021 JTS-Login-20: Authenticating
+BB 14:48:12:021 JTS-CCPListener-21: Starting
+BB 14:48:12:022 JTS-Login-20: Sending connect request
+BB 14:48:12:024 JTS-CCPListener-21: Initial listener buffer size is 525600
+BB 14:48:12:024 JTS-CCPListener-21: Capping listener buffer size at 65536
+BB 14:48:12:024 JTS-AuthDispatcher-22: Starting
+BB 14:48:12:024 JTS-Login-20: Terminating
+BB 14:48:12:139 JTS-CCPListener-21: Socket for connection gw4.ibllc.com:4000 was closed by peer
+BB 14:48:12:140 JTS-CCPListener-21: Terminating
+BB 14:48:12:242 JTS-Fuse-ClosedSocket-24: Disconnecting gw4.ibllc.com:4000 with status 1
+BB 14:48:12:243 JTS-Fuse-ClosedSocket-24: NextConnectTime: 14:48:17:242  base=5000  range = 10000 random: 2337
+BB 14:48:12:243 JTS-AuthDispatcher-22: Terminating
+BB 14:48:16:975 AWT-EventQueue-0: Application exit
+GL 14:48:39:108 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+GL 14:48:39:124 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+GL 14:48:39:161 JTS-Main: Region:America dr:false
+GL 14:48:39:162 JTS-Main: Property locale_to_use=en
+GL 14:48:39:165 JTS-Main: JTS Locale=en_US  country=United States  variant=
+GL 14:48:39:166 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+GL 14:48:39:166 JTS-Main: Property locale_to_use=en
+GL 14:48:39:166 JTS-Main: JTS Locale=en_US  country=United States  variant=
+GL 14:48:39:175 JTS-Main: Property locale_to_use=en
+GL 14:48:39:175 JTS-Main: JTS Locale=en_US  country=United States  variant=
+GL 14:48:39:175 JTS-Main: Locale=en_US  country=United States  variant=
+GL 14:48:39:179 JTS-Main: prohibiting class lookup [ji18n.Language]
+GL 14:48:39:652 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+GL 14:48:39:654 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+GL 14:48:39:654 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+GL 14:48:39:654 JTS-Main:   actual locale: 
+GL 14:48:39:720 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+GL 14:48:39:721 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+GL 14:48:39:721 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+GL 14:48:39:721 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+GL 14:48:39:721 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+GL 14:48:39:721 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+GL 14:48:39:722 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+GL 14:48:39:722 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+GL 14:48:39:722 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+GL 14:48:39:722 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+GL 14:48:40:056 JTS-Main: jfreechart version =1.0.8
+GL 14:48:40:056 JTS-Main: jcommon version =1.0.12
+GL 14:48:40:057 JTS-Main: plugin support version =1.0
+GL 14:48:40:058 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+GL 14:48:40:065 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+GL 14:48:40:066 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+GL 14:48:40:102 JTS-Main: LookAndFeelChangedListener installed
+GL 14:48:40:106 JTS-Main: JtsLookAndFeel initialized
+GL 14:48:40:476 JTS-Main: Current LAF: TWS LAF
+GL 14:48:40:479 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+GL 14:48:40:759 JTS-Main: Started on 20090729-21:48:40
+GL 14:48:40:764 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+GL 14:48:40:835 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+GL 14:48:40:836 JTS-Main: applet = false
+GL 14:48:40:836 JTS-Main: java version = 1.6.0_13
+GL 14:48:40:836 JTS-Main: os = Mac OS X
+GL 14:48:40:836 JTS-Main: host = gw4.ibllc.com
+GL 14:48:40:836 JTS-Main: remotePort = 4000
+GL 14:48:40:836 JTS-Main: localPort = 0
+GL 14:48:44:172 JTS-DeadlockMonitor: Memory:total=466,048KB free=414,741KB
+GL 14:48:44:275 AWT-EventQueue-0: username = Skjlkj
+GL 14:48:44:275 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+GL 14:48:44:275 AWT-EventQueue-0: Property locale_to_use=en
+GL 14:48:44:275 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+GL 14:48:44:291 AWT-EventQueue-0: Prelogin delay:0
+GL 14:48:44:292 JTS-Login-6: Starting
+GL 14:48:44:365 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+GL 14:48:44:481 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+GL 14:48:44:481 JTS-Login-6: Authenticating
+GL 14:48:44:487 JTS-CCPListener-7: Starting
+GL 14:48:44:490 JTS-CCPListener-7: Initial listener buffer size is 525600
+GL 14:48:44:490 JTS-CCPListener-7: Capping listener buffer size at 65536
+GL 14:48:44:547 JTS-Login-6: Sending connect request
+GL 14:48:44:548 JTS-AuthDispatcher-8: Starting
+GL 14:48:44:558 JTS-Login-6: Terminating
+GL 14:48:44:669 JTS-AuthDispatcher-8: Disconnecting gw4.ibllc.com:4000 with status 7
+GL 14:48:44:671 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by another thread
+GL 14:48:44:678 JTS-AuthDispatcher-8: Terminating
+GL 14:48:44:680 JTS-CCPListener-7: Terminating
+GL 14:48:44:678 AWT-EventQueue-0: Login failed - Invalid username or password.
+
+Please check the "Caps Lock" key;
+usernames must be lower case, and 
+passwords are case sensitive.
+
+Please note that login is possible beginning
+the day after account approval.
+GL 14:48:45:194 JTS-DeadlockMonitor: CPU:cur=27.89% avg=27.89% 30 min avg=27.89% 5 min avg=27.89% 1 min avg=27.89%
+GL 14:48:45:194 JTS-DeadlockMonitor: GC:called=11 times CPU used=4.76%
+GL 14:48:45:194 JTS-DeadlockMonitor: Finalizer:cur=0.00% avg=0.00% 30 min avg=0.00% 5 min avg=0.00% 1 min avg=0.00%
+FO 14:54:33:982 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+FO 14:54:33:997 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+FO 14:54:34:037 JTS-Main: Region:America dr:false
+FO 14:54:34:039 JTS-Main: Property locale_to_use=en
+FO 14:54:34:045 JTS-Main: JTS Locale=en_US  country=United States  variant=
+FO 14:54:34:047 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+FO 14:54:34:047 JTS-Main: Property locale_to_use=en
+FO 14:54:34:047 JTS-Main: JTS Locale=en_US  country=United States  variant=
+FO 14:54:34:056 JTS-Main: Property locale_to_use=en
+FO 14:54:34:056 JTS-Main: JTS Locale=en_US  country=United States  variant=
+FO 14:54:34:056 JTS-Main: Locale=en_US  country=United States  variant=
+FO 14:54:34:058 JTS-Main: prohibiting class lookup [ji18n.Language]
+FO 14:54:34:536 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+FO 14:54:34:537 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+FO 14:54:34:537 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+FO 14:54:34:537 JTS-Main:   actual locale: 
+FO 14:54:34:604 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+FO 14:54:34:605 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+FO 14:54:34:605 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+FO 14:54:34:605 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+FO 14:54:34:605 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+FO 14:54:34:606 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+FO 14:54:34:606 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+FO 14:54:34:606 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+FO 14:54:34:607 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+FO 14:54:34:607 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+FO 14:54:34:945 JTS-Main: jfreechart version =1.0.8
+FO 14:54:34:946 JTS-Main: jcommon version =1.0.12
+FO 14:54:34:946 JTS-Main: plugin support version =1.0
+FO 14:54:34:947 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+FO 14:54:34:951 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+FO 14:54:34:952 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+FO 14:54:34:985 JTS-Main: LookAndFeelChangedListener installed
+FO 14:54:34:990 JTS-Main: JtsLookAndFeel initialized
+FO 14:54:35:359 JTS-Main: Current LAF: TWS LAF
+FO 14:54:35:391 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+FO 14:54:35:631 JTS-Main: Started on 20090729-21:54:35
+FO 14:54:35:637 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+FO 14:54:35:707 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+FO 14:54:35:708 JTS-Main: applet = false
+FO 14:54:35:708 JTS-Main: java version = 1.6.0_13
+FO 14:54:35:708 JTS-Main: os = Mac OS X
+FO 14:54:35:708 JTS-Main: host = gw4.ibllc.com
+FO 14:54:35:708 JTS-Main: remotePort = 4000
+FO 14:54:35:708 JTS-Main: localPort = 0
+FO 14:54:39:033 JTS-DeadlockMonitor: Memory:total=466,048KB free=410,462KB
+FO 14:54:40:062 JTS-DeadlockMonitor: CPU:cur=24.62% avg=24.62% 30 min avg=24.62% 5 min avg=24.62% 1 min avg=24.62%
+FO 14:54:40:062 JTS-DeadlockMonitor: GC:called=12 times CPU used=3.35%
+FO 14:54:40:062 JTS-DeadlockMonitor: Finalizer:cur=0.00% avg=0.00% 30 min avg=0.00% 5 min avg=0.00% 1 min avg=0.00%
+FO 14:55:57:993 AWT-EventQueue-0: username = S
+FO 14:55:57:994 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+FO 14:55:57:994 AWT-EventQueue-0: Property locale_to_use=en
+FO 14:55:57:995 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+FO 14:55:58:001 AWT-EventQueue-0: Prelogin delay:0
+FO 14:55:58:008 JTS-Login-6: Starting
+FO 14:55:58:124 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+FO 14:55:58:259 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+FO 14:55:58:259 JTS-Login-6: Authenticating
+FO 14:55:58:263 JTS-CCPListener-7: Starting
+FO 14:55:58:265 JTS-CCPListener-7: Initial listener buffer size is 525600
+FO 14:55:58:265 JTS-CCPListener-7: Capping listener buffer size at 65536
+FO 14:55:58:290 JTS-AuthDispatcher-8: Starting
+FO 14:55:58:290 JTS-Login-6: Sending connect request
+FO 14:55:58:295 JTS-Login-6: Terminating
+FO 14:55:58:408 JTS-AuthDispatcher-8: Disconnecting gw4.ibllc.com:4000 with status 7
+FO 14:55:58:409 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by another thread
+FO 14:55:58:412 JTS-CCPListener-7: Terminating
+FO 14:55:58:412 JTS-AuthDispatcher-8: Terminating
+FO 14:55:58:412 AWT-EventQueue-0: Login failed - Invalid username or password.
+
+Please check the "Caps Lock" key;
+usernames must be lower case, and 
+passwords are case sensitive.
+
+Please note that login is possible beginning
+the day after account approval.
+FO 14:56:51:145 AWT-EventQueue-0: username = S
+FO 14:56:51:145 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+FO 14:56:51:145 AWT-EventQueue-0: Property locale_to_use=en
+FO 14:56:51:145 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+FO 14:56:51:147 AWT-EventQueue-0: Too many failed login attempts. Please wait 4 minutes & 8 seconds before attempting to re-login again.
+FO 14:56:51:148 AWT-EventQueue-0: username = S
+FO 14:56:51:149 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+FO 14:56:51:149 AWT-EventQueue-0: Property locale_to_use=en
+FO 14:56:51:149 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+FO 14:56:51:151 AWT-EventQueue-0: Too many failed login attempts. Please wait 4 minutes & 8 seconds before attempting to re-login again.
+FO 14:56:51:152 AWT-EventQueue-0: username = S
+FO 14:56:51:153 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+FO 14:56:51:153 AWT-EventQueue-0: Property locale_to_use=en
+FO 14:56:51:153 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+FO 14:56:51:155 AWT-EventQueue-0: Too many failed login attempts. Please wait 4 minutes & 8 seconds before attempting to re-login again.
+FO 14:57:28:055 AWT-EventQueue-0: Application exit
+CR 15:11:15:323 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+CR 15:11:15:337 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+CR 15:11:15:360 JTS-Main: Region:America dr:false
+CR 15:11:15:361 JTS-Main: Property locale_to_use=en
+CR 15:11:15:364 JTS-Main: JTS Locale=en_US  country=United States  variant=
+CR 15:11:15:365 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+CR 15:11:15:365 JTS-Main: Property locale_to_use=en
+CR 15:11:15:365 JTS-Main: JTS Locale=en_US  country=United States  variant=
+CR 15:11:15:371 JTS-Main: Property locale_to_use=en
+CR 15:11:15:371 JTS-Main: JTS Locale=en_US  country=United States  variant=
+CR 15:11:15:371 JTS-Main: Locale=en_US  country=United States  variant=
+CR 15:11:15:372 JTS-Main: prohibiting class lookup [ji18n.Language]
+CR 15:11:15:821 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+CR 15:11:15:821 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+CR 15:11:15:821 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+CR 15:11:15:821 JTS-Main:   actual locale: 
+CR 15:11:15:880 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+CR 15:11:15:881 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+CR 15:11:15:881 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+CR 15:11:15:881 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+CR 15:11:15:881 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+CR 15:11:15:881 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+CR 15:11:15:882 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+CR 15:11:15:882 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+CR 15:11:15:882 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+CR 15:11:15:882 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+CR 15:11:16:196 JTS-Main: jfreechart version =1.0.8
+CR 15:11:16:196 JTS-Main: jcommon version =1.0.12
+CR 15:11:16:197 JTS-Main: plugin support version =1.0
+CR 15:11:16:198 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+CR 15:11:16:202 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+CR 15:11:16:203 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+CR 15:11:16:237 JTS-Main: LookAndFeelChangedListener installed
+CR 15:11:16:241 JTS-Main: JtsLookAndFeel initialized
+CR 15:11:16:545 JTS-Main: Current LAF: TWS LAF
+CR 15:11:16:548 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+CR 15:11:16:792 JTS-Main: Started on 20090729-22:11:16
+CR 15:11:16:797 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+CR 15:11:16:861 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+CR 15:11:16:862 JTS-Main: applet = false
+CR 15:11:16:862 JTS-Main: java version = 1.6.0_13
+CR 15:11:16:862 JTS-Main: os = Mac OS X
+CR 15:11:16:862 JTS-Main: host = gw4.ibllc.com
+CR 15:11:16:862 JTS-Main: remotePort = 4000
+CR 15:11:16:862 JTS-Main: localPort = 0
+CR 15:11:20:365 JTS-DeadlockMonitor: Memory:total=466,048KB free=400,803KB
+CR 15:11:21:391 JTS-DeadlockMonitor: CPU:cur=17.51% avg=17.51% 30 min avg=17.51% 5 min avg=17.51% 1 min avg=17.51%
+CR 15:11:21:391 JTS-DeadlockMonitor: GC:called=12 times CPU used=4.78%
+CR 15:11:21:391 JTS-DeadlockMonitor: Finalizer:cur=0.27% avg=0.27% 30 min avg=0.27% 5 min avg=0.27% 1 min avg=0.27%
+CR 15:11:24:305 AWT-EventQueue-0: username = S
+CR 15:11:24:305 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+CR 15:11:24:305 AWT-EventQueue-0: Property locale_to_use=en
+CR 15:11:24:305 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+CR 15:11:24:308 AWT-EventQueue-0: Prelogin delay:0
+CR 15:11:24:309 JTS-Login-6: Starting
+CR 15:11:24:336 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+CR 15:11:24:452 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+CR 15:11:24:452 JTS-Login-6: Authenticating
+CR 15:11:24:455 JTS-CCPListener-7: Starting
+CR 15:11:24:456 JTS-CCPListener-7: Initial listener buffer size is 525600
+CR 15:11:24:457 JTS-CCPListener-7: Capping listener buffer size at 65536
+CR 15:11:24:471 JTS-Login-6: Sending connect request
+CR 15:11:24:471 JTS-AuthDispatcher-8: Starting
+CR 15:11:24:475 JTS-Login-6: Terminating
+CR 15:11:24:581 JTS-AuthDispatcher-8: Disconnecting gw4.ibllc.com:4000 with status 7
+CR 15:11:24:582 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by another thread
+CR 15:11:24:583 JTS-CCPListener-7: Terminating
+CR 15:11:24:583 JTS-AuthDispatcher-8: Terminating
+CR 15:11:24:583 AWT-EventQueue-0: Login failed - Invalid username or password.
+
+Please check the "Caps Lock" key;
+usernames must be lower case, and 
+passwords are case sensitive.
+
+Please note that login is possible beginning
+the day after account approval.
+HP 15:14:00:560 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+HP 15:14:00:574 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+HP 15:14:00:595 JTS-Main: Region:America dr:false
+HP 15:14:00:596 JTS-Main: Property locale_to_use=en
+HP 15:14:00:599 JTS-Main: JTS Locale=en_US  country=United States  variant=
+HP 15:14:00:600 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+HP 15:14:00:600 JTS-Main: Property locale_to_use=en
+HP 15:14:00:600 JTS-Main: JTS Locale=en_US  country=United States  variant=
+HP 15:14:00:605 JTS-Main: Property locale_to_use=en
+HP 15:14:00:606 JTS-Main: JTS Locale=en_US  country=United States  variant=
+HP 15:14:00:606 JTS-Main: Locale=en_US  country=United States  variant=
+HP 15:14:00:607 JTS-Main: prohibiting class lookup [ji18n.Language]
+HP 15:14:01:003 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+HP 15:14:01:004 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+HP 15:14:01:004 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+HP 15:14:01:004 JTS-Main:   actual locale: 
+HP 15:14:01:067 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+HP 15:14:01:074 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+HP 15:14:01:074 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+HP 15:14:01:074 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+HP 15:14:01:074 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+HP 15:14:01:074 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+HP 15:14:01:075 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+HP 15:14:01:075 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+HP 15:14:01:075 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+HP 15:14:01:075 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+HP 15:14:01:332 JTS-Main: jfreechart version =1.0.8
+HP 15:14:01:333 JTS-Main: jcommon version =1.0.12
+HP 15:14:01:333 JTS-Main: plugin support version =1.0
+HP 15:14:01:334 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+HP 15:14:01:338 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+HP 15:14:01:339 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+HP 15:14:01:373 JTS-Main: LookAndFeelChangedListener installed
+HP 15:14:01:377 JTS-Main: JtsLookAndFeel initialized
+HP 15:14:01:650 JTS-Main: Current LAF: TWS LAF
+HP 15:14:01:652 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+HP 15:14:01:878 JTS-Main: Started on 20090729-22:14:01
+HP 15:14:01:883 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+HP 15:14:01:944 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+HP 15:14:01:945 JTS-Main: applet = false
+HP 15:14:01:945 JTS-Main: java version = 1.6.0_13
+HP 15:14:01:945 JTS-Main: os = Mac OS X
+HP 15:14:01:945 JTS-Main: host = gw4.ibllc.com
+HP 15:14:01:945 JTS-Main: remotePort = 4000
+HP 15:14:01:945 JTS-Main: localPort = 0
+HP 15:14:05:904 JTS-DeadlockMonitor: Memory:total=466,048KB free=425,378KB
+HP 15:14:07:074 JTS-DeadlockMonitor: CPU:cur=14.47% avg=14.47% 30 min avg=14.47% 5 min avg=14.47% 1 min avg=14.47%
+HP 15:14:07:074 JTS-DeadlockMonitor: GC:called=12 times CPU used=5.04%
+HP 15:14:07:074 JTS-DeadlockMonitor: Finalizer:cur=0.00% avg=0.00% 30 min avg=0.00% 5 min avg=0.00% 1 min avg=0.00%
+HP 15:14:07:108 AWT-EventQueue-0: username = S
+HP 15:14:07:108 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+HP 15:14:07:108 AWT-EventQueue-0: Property locale_to_use=en
+HP 15:14:07:108 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+HP 15:14:07:139 AWT-EventQueue-0: Too many failed login attempts. Please wait 2 minutes & 18 seconds before attempting to re-login again.
+IS 15:18:07:508 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+IS 15:18:07:537 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+IS 15:18:07:561 JTS-Main: Region:America dr:false
+IS 15:18:07:563 JTS-Main: Property locale_to_use=en
+IS 15:18:07:568 JTS-Main: JTS Locale=en_US  country=United States  variant=
+IS 15:18:07:569 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+IS 15:18:07:569 JTS-Main: Property locale_to_use=en
+IS 15:18:07:569 JTS-Main: JTS Locale=en_US  country=United States  variant=
+IS 15:18:07:574 JTS-Main: Property locale_to_use=en
+IS 15:18:07:575 JTS-Main: JTS Locale=en_US  country=United States  variant=
+IS 15:18:07:575 JTS-Main: Locale=en_US  country=United States  variant=
+IS 15:18:07:576 JTS-Main: prohibiting class lookup [ji18n.Language]
+IS 15:18:08:000 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+IS 15:18:08:000 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+IS 15:18:08:003 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+IS 15:18:08:003 JTS-Main:   actual locale: 
+IS 15:18:08:068 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+IS 15:18:08:068 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+IS 15:18:08:068 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+IS 15:18:08:068 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+IS 15:18:08:068 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+IS 15:18:08:069 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+IS 15:18:08:069 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+IS 15:18:08:069 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+IS 15:18:08:069 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+IS 15:18:08:069 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+IS 15:18:08:352 JTS-Main: jfreechart version =1.0.8
+IS 15:18:08:352 JTS-Main: jcommon version =1.0.12
+IS 15:18:08:353 JTS-Main: plugin support version =1.0
+IS 15:18:08:353 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+IS 15:18:08:357 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+IS 15:18:08:358 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+IS 15:18:08:390 JTS-Main: LookAndFeelChangedListener installed
+IS 15:18:08:394 JTS-Main: JtsLookAndFeel initialized
+IS 15:18:08:665 JTS-Main: Current LAF: TWS LAF
+IS 15:18:08:668 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+IS 15:18:08:896 JTS-Main: Started on 20090729-22:18:08
+IS 15:18:08:901 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+IS 15:18:08:966 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+IS 15:18:08:966 JTS-Main: applet = false
+IS 15:18:08:966 JTS-Main: java version = 1.6.0_13
+IS 15:18:08:966 JTS-Main: os = Mac OS X
+IS 15:18:08:967 JTS-Main: host = gw4.ibllc.com
+IS 15:18:08:967 JTS-Main: remotePort = 4000
+IS 15:18:08:967 JTS-Main: localPort = 0
+IS 15:18:11:625 AWT-EventQueue-0: username = S
+IS 15:18:11:625 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+IS 15:18:11:625 AWT-EventQueue-0: Property locale_to_use=en
+IS 15:18:11:625 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+IS 15:18:11:661 AWT-EventQueue-0: Prelogin delay:0
+IS 15:18:11:662 JTS-Login-6: Starting
+IS 15:18:11:689 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+IS 15:18:11:806 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+IS 15:18:11:806 JTS-Login-6: Authenticating
+IS 15:18:11:809 JTS-CCPListener-7: Starting
+IS 15:18:11:811 JTS-CCPListener-7: Initial listener buffer size is 525600
+IS 15:18:11:811 JTS-CCPListener-7: Capping listener buffer size at 65536
+IS 15:18:11:830 JTS-AuthDispatcher-8: Starting
+IS 15:18:11:830 JTS-Login-6: Sending connect request
+IS 15:18:11:833 JTS-Login-6: Terminating
+IS 15:18:11:945 JTS-AuthDispatcher-8: Disconnecting gw4.ibllc.com:4000 with status 7
+IS 15:18:11:948 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by another thread
+IS 15:18:11:949 JTS-AuthDispatcher-8: Terminating
+IS 15:18:11:951 JTS-CCPListener-7: Terminating
+IS 15:18:11:952 AWT-EventQueue-0: Login failed - Invalid username or password.
+
+Please check the "Caps Lock" key;
+usernames must be lower case, and 
+passwords are case sensitive.
+
+Please note that login is possible beginning
+the day after account approval.
+IS 15:18:12:757 JTS-DeadlockMonitor: Memory:total=466,048KB free=426,145KB
+IS 15:18:13:773 JTS-DeadlockMonitor: CPU:cur=17.59% avg=17.59% 30 min avg=17.59% 5 min avg=17.59% 1 min avg=17.59%
+IS 15:18:13:773 JTS-DeadlockMonitor: GC:called=12 times CPU used=5.08%
+IS 15:18:13:773 JTS-DeadlockMonitor: Finalizer:cur=0.00% avg=0.00% 30 min avg=0.00% 5 min avg=0.00% 1 min avg=0.00%
+RN 15:21:27:036 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+RN 15:21:27:060 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+RN 15:21:27:082 JTS-Main: Region:America dr:false
+RN 15:21:27:083 JTS-Main: Property locale_to_use=en
+RN 15:21:27:086 JTS-Main: JTS Locale=en_US  country=United States  variant=
+RN 15:21:27:086 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+RN 15:21:27:086 JTS-Main: Property locale_to_use=en
+RN 15:21:27:087 JTS-Main: JTS Locale=en_US  country=United States  variant=
+RN 15:21:27:092 JTS-Main: Property locale_to_use=en
+RN 15:21:27:092 JTS-Main: JTS Locale=en_US  country=United States  variant=
+RN 15:21:27:092 JTS-Main: Locale=en_US  country=United States  variant=
+RN 15:21:27:093 JTS-Main: prohibiting class lookup [ji18n.Language]
+RN 15:21:27:529 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+RN 15:21:27:529 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+RN 15:21:27:533 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+RN 15:21:27:533 JTS-Main:   actual locale: 
+RN 15:21:27:592 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+RN 15:21:27:595 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+RN 15:21:27:595 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+RN 15:21:27:595 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+RN 15:21:27:595 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+RN 15:21:27:595 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+RN 15:21:27:596 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+RN 15:21:27:596 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+RN 15:21:27:596 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+RN 15:21:27:596 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+RN 15:21:27:858 JTS-Main: jfreechart version =1.0.8
+RN 15:21:27:858 JTS-Main: jcommon version =1.0.12
+RN 15:21:27:859 JTS-Main: plugin support version =1.0
+RN 15:21:27:860 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+RN 15:21:27:864 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+RN 15:21:27:865 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+RN 15:21:27:897 JTS-Main: LookAndFeelChangedListener installed
+RN 15:21:27:901 JTS-Main: JtsLookAndFeel initialized
+RN 15:21:28:173 JTS-Main: Current LAF: TWS LAF
+RN 15:21:28:175 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+RN 15:21:28:433 JTS-Main: Started on 20090729-22:21:28
+RN 15:21:28:439 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+RN 15:21:28:506 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+RN 15:21:28:506 JTS-Main: applet = false
+RN 15:21:28:506 JTS-Main: java version = 1.6.0_13
+RN 15:21:28:506 JTS-Main: os = Mac OS X
+RN 15:21:28:506 JTS-Main: host = gw4.ibllc.com
+RN 15:21:28:506 JTS-Main: remotePort = 4000
+RN 15:21:28:507 JTS-Main: localPort = 0
+RN 15:21:30:366 AWT-EventQueue-0: username = S
+RN 15:21:30:366 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+RN 15:21:30:366 AWT-EventQueue-0: Property locale_to_use=en
+RN 15:21:30:366 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+RN 15:21:30:382 AWT-EventQueue-0: Too many failed login attempts. Please wait 1 minutes & 42 seconds before attempting to re-login again.
+RN 15:21:32:086 JTS-DeadlockMonitor: Memory:total=466,048KB free=393,363KB
+RN 15:21:33:104 JTS-DeadlockMonitor: CPU:cur=16.46% avg=16.46% 30 min avg=16.46% 5 min avg=16.46% 1 min avg=16.46%
+RN 15:21:33:104 JTS-DeadlockMonitor: GC:called=12 times CPU used=4.96%
+RN 15:21:33:104 JTS-DeadlockMonitor: Finalizer:cur=0.22% avg=0.22% 30 min avg=0.22% 5 min avg=0.22% 1 min avg=0.22%
+RN 15:21:56:759 AWT-EventQueue-0: Application exit
+KM 15:28:18:625 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+KM 15:28:18:671 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+KM 15:28:18:696 JTS-Main: Region:America dr:false
+KM 15:28:18:697 JTS-Main: Property locale_to_use=en
+KM 15:28:18:700 JTS-Main: JTS Locale=en_US  country=United States  variant=
+KM 15:28:18:701 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+KM 15:28:18:701 JTS-Main: Property locale_to_use=en
+KM 15:28:18:701 JTS-Main: JTS Locale=en_US  country=United States  variant=
+KM 15:28:18:707 JTS-Main: Property locale_to_use=en
+KM 15:28:18:707 JTS-Main: JTS Locale=en_US  country=United States  variant=
+KM 15:28:18:707 JTS-Main: Locale=en_US  country=United States  variant=
+KM 15:28:18:708 JTS-Main: prohibiting class lookup [ji18n.Language]
+KM 15:28:19:348 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+KM 15:28:19:349 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+KM 15:28:19:350 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+KM 15:28:19:350 JTS-Main:   actual locale: 
+KM 15:28:19:417 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+KM 15:28:19:417 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+KM 15:28:19:417 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+KM 15:28:19:417 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+KM 15:28:19:417 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+KM 15:28:19:418 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+KM 15:28:19:419 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+KM 15:28:19:419 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+KM 15:28:19:419 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+KM 15:28:19:419 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+KM 15:28:19:855 JTS-Main: jfreechart version =1.0.8
+KM 15:28:19:855 JTS-Main: jcommon version =1.0.12
+KM 15:28:19:856 JTS-Main: plugin support version =1.0
+KM 15:28:19:857 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+KM 15:28:19:860 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+KM 15:28:19:861 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+KM 15:28:19:900 JTS-Main: LookAndFeelChangedListener installed
+KM 15:28:19:904 JTS-Main: JtsLookAndFeel initialized
+KM 15:28:21:600 JTS-Main: Current LAF: TWS LAF
+KM 15:28:21:603 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+KM 15:28:21:835 JTS-Main: Started on 20090729-22:28:21
+KM 15:28:21:841 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+KM 15:28:22:042 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+KM 15:28:22:043 JTS-Main: applet = false
+KM 15:28:22:043 JTS-Main: java version = 1.6.0_13
+KM 15:28:22:043 JTS-Main: os = Mac OS X
+KM 15:28:22:043 JTS-Main: host = gw4.ibllc.com
+KM 15:28:22:043 JTS-Main: remotePort = 4000
+KM 15:28:22:043 JTS-Main: localPort = 0
+KM 15:28:23:699 JTS-DeadlockMonitor: Memory:total=466,048KB free=380,130KB
+KM 15:28:24:716 JTS-DeadlockMonitor: CPU:cur=30.96% avg=30.96% 30 min avg=30.96% 5 min avg=30.96% 1 min avg=30.96%
+KM 15:28:24:716 JTS-DeadlockMonitor: GC:called=11 times CPU used=8.19%
+KM 15:28:24:716 JTS-DeadlockMonitor: Finalizer:cur=0.29% avg=0.29% 30 min avg=0.29% 5 min avg=0.29% 1 min avg=0.29%
+KM 15:28:24:934 AWT-EventQueue-0: username = S
+KM 15:28:24:934 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+KM 15:28:24:934 AWT-EventQueue-0: Property locale_to_use=en
+KM 15:28:24:934 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+KM 15:28:24:946 AWT-EventQueue-0: Prelogin delay:0
+KM 15:28:24:949 JTS-Login-6: Starting
+KM 15:28:24:990 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+KM 15:28:25:107 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+KM 15:28:25:108 JTS-Login-6: Authenticating
+KM 15:28:25:110 JTS-CCPListener-7: Starting
+KM 15:28:25:111 JTS-CCPListener-7: Initial listener buffer size is 525600
+KM 15:28:25:111 JTS-CCPListener-7: Capping listener buffer size at 65536
+KM 15:28:25:127 JTS-AuthDispatcher-8: Starting
+KM 15:28:25:127 JTS-Login-6: Sending connect request
+KM 15:28:25:129 JTS-Login-6: Terminating
+KM 15:28:25:255 JTS-AuthDispatcher-8: Disconnecting gw4.ibllc.com:4000 with status 7
+KM 15:28:25:256 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by another thread
+KM 15:28:25:261 JTS-AuthDispatcher-8: Terminating
+KM 15:28:25:261 AWT-EventQueue-0: Login failed - Invalid username or password.
+
+Please check the "Caps Lock" key;
+usernames must be lower case, and 
+passwords are case sensitive.
+
+Please note that login is possible beginning
+the day after account approval.
+KM 15:28:25:262 JTS-CCPListener-7: Terminating
+BK 15:34:33:247 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+BK 15:34:33:262 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+BK 15:34:33:285 JTS-Main: Region:America dr:false
+BK 15:34:33:286 JTS-Main: Property locale_to_use=en
+BK 15:34:33:289 JTS-Main: JTS Locale=en_US  country=United States  variant=
+BK 15:34:33:289 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+BK 15:34:33:289 JTS-Main: Property locale_to_use=en
+BK 15:34:33:289 JTS-Main: JTS Locale=en_US  country=United States  variant=
+BK 15:34:33:295 JTS-Main: Property locale_to_use=en
+BK 15:34:33:295 JTS-Main: JTS Locale=en_US  country=United States  variant=
+BK 15:34:33:295 JTS-Main: Locale=en_US  country=United States  variant=
+BK 15:34:33:296 JTS-Main: prohibiting class lookup [ji18n.Language]
+BK 15:34:33:724 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+BK 15:34:33:725 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+BK 15:34:33:725 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+BK 15:34:33:725 JTS-Main:   actual locale: 
+BK 15:34:33:803 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+BK 15:34:33:814 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+BK 15:34:33:814 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+BK 15:34:33:814 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+BK 15:34:33:814 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+BK 15:34:33:814 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+BK 15:34:33:822 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+BK 15:34:33:822 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+BK 15:34:33:822 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+BK 15:34:33:822 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+BK 15:34:34:133 JTS-Main: jfreechart version =1.0.8
+BK 15:34:34:133 JTS-Main: jcommon version =1.0.12
+BK 15:34:34:134 JTS-Main: plugin support version =1.0
+BK 15:34:34:135 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+BK 15:34:34:139 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+BK 15:34:34:157 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+BK 15:34:34:211 JTS-Main: LookAndFeelChangedListener installed
+BK 15:34:34:215 JTS-Main: JtsLookAndFeel initialized
+BK 15:34:34:506 JTS-Main: Current LAF: TWS LAF
+BK 15:34:34:509 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+BK 15:34:34:744 JTS-Main: Started on 20090729-22:34:34
+BK 15:34:34:749 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+BK 15:34:34:811 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+BK 15:34:34:811 JTS-Main: applet = false
+BK 15:34:34:811 JTS-Main: java version = 1.6.0_13
+BK 15:34:34:811 JTS-Main: os = Mac OS X
+BK 15:34:34:812 JTS-Main: host = gw4.ibllc.com
+BK 15:34:34:812 JTS-Main: remotePort = 4000
+BK 15:34:34:812 JTS-Main: localPort = 0
+BK 15:34:36:997 AWT-EventQueue-0: username = S
+BK 15:34:36:997 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+BK 15:34:36:997 AWT-EventQueue-0: Property locale_to_use=en
+BK 15:34:36:997 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+BK 15:34:37:006 AWT-EventQueue-0: Prelogin delay:0
+BK 15:34:37:009 JTS-Login-6: Starting
+BK 15:34:37:053 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+BK 15:34:37:167 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+BK 15:34:37:167 JTS-Login-6: Authenticating
+BK 15:34:37:170 JTS-CCPListener-7: Starting
+BK 15:34:37:173 JTS-CCPListener-7: Initial listener buffer size is 525600
+BK 15:34:37:173 JTS-CCPListener-7: Capping listener buffer size at 65536
+BK 15:34:37:189 JTS-Login-6: Sending connect request
+BK 15:34:37:189 JTS-AuthDispatcher-8: Starting
+BK 15:34:37:193 JTS-Login-6: Terminating
+BK 15:34:37:303 JTS-AuthDispatcher-8: Disconnecting gw4.ibllc.com:4000 with status 7
+BK 15:34:37:304 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by another thread
+BK 15:34:37:306 JTS-AuthDispatcher-8: Terminating
+BK 15:34:37:306 AWT-EventQueue-0: Login failed - Invalid username or password.
+
+Please check the "Caps Lock" key;
+usernames must be lower case, and 
+passwords are case sensitive.
+
+Please note that login is possible beginning
+the day after account approval.
+BK 15:34:37:307 JTS-CCPListener-7: Terminating
+BK 15:34:38:285 JTS-DeadlockMonitor: Memory:total=466,048KB free=380,822KB
+BK 15:34:39:307 JTS-DeadlockMonitor: CPU:cur=13.83% avg=13.83% 30 min avg=13.83% 5 min avg=13.83% 1 min avg=13.83%
+BK 15:34:39:307 JTS-DeadlockMonitor: GC:called=12 times CPU used=5.21%
+BK 15:34:39:307 JTS-DeadlockMonitor: Finalizer:cur=0.23% avg=0.23% 30 min avg=0.23% 5 min avg=0.23% 1 min avg=0.23%
+BK 15:35:20:266 AWT-EventQueue-0: Application exit
+OY 15:44:20:536 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+OY 15:44:20:550 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+OY 15:44:20:571 JTS-Main: Region:America dr:false
+OY 15:44:20:572 JTS-Main: Property locale_to_use=en
+OY 15:44:20:575 JTS-Main: JTS Locale=en_US  country=United States  variant=
+OY 15:44:20:575 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+OY 15:44:20:575 JTS-Main: Property locale_to_use=en
+OY 15:44:20:575 JTS-Main: JTS Locale=en_US  country=United States  variant=
+OY 15:44:20:581 JTS-Main: Property locale_to_use=en
+OY 15:44:20:581 JTS-Main: JTS Locale=en_US  country=United States  variant=
+OY 15:44:20:581 JTS-Main: Locale=en_US  country=United States  variant=
+OY 15:44:20:582 JTS-Main: prohibiting class lookup [ji18n.Language]
+OY 15:44:21:036 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+OY 15:44:21:037 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+OY 15:44:21:037 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+OY 15:44:21:037 JTS-Main:   actual locale: 
+OY 15:44:21:102 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+OY 15:44:21:102 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+OY 15:44:21:102 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+OY 15:44:21:103 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+OY 15:44:21:103 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+OY 15:44:21:103 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+OY 15:44:21:103 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+OY 15:44:21:103 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+OY 15:44:21:103 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+OY 15:44:21:103 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+OY 15:44:21:401 JTS-Main: jfreechart version =1.0.8
+OY 15:44:21:401 JTS-Main: jcommon version =1.0.12
+OY 15:44:21:402 JTS-Main: plugin support version =1.0
+OY 15:44:21:403 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+OY 15:44:21:407 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+OY 15:44:21:408 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+OY 15:44:21:443 JTS-Main: LookAndFeelChangedListener installed
+OY 15:44:21:447 JTS-Main: JtsLookAndFeel initialized
+OY 15:44:21:722 JTS-Main: Current LAF: TWS LAF
+OY 15:44:21:724 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+OY 15:44:21:967 JTS-Main: Started on 20090729-22:44:21
+OY 15:44:21:972 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+OY 15:44:22:035 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+OY 15:44:22:035 JTS-Main: applet = false
+OY 15:44:22:035 JTS-Main: java version = 1.6.0_13
+OY 15:44:22:035 JTS-Main: os = Mac OS X
+OY 15:44:22:035 JTS-Main: host = gw4.ibllc.com
+OY 15:44:22:036 JTS-Main: remotePort = 4000
+OY 15:44:22:036 JTS-Main: localPort = 0
+OY 15:44:23:806 AWT-EventQueue-0: username = S
+OY 15:44:23:806 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+OY 15:44:23:806 AWT-EventQueue-0: Property locale_to_use=en
+OY 15:44:23:806 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+OY 15:44:23:810 AWT-EventQueue-0: Prelogin delay:0
+OY 15:44:23:811 JTS-Login-6: Starting
+OY 15:44:23:841 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+OY 15:44:23:954 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+OY 15:44:23:954 JTS-Login-6: Authenticating
+OY 15:44:23:959 JTS-CCPListener-7: Starting
+OY 15:44:23:960 JTS-CCPListener-7: Initial listener buffer size is 525600
+OY 15:44:23:960 JTS-CCPListener-7: Capping listener buffer size at 65536
+OY 15:44:23:981 JTS-Login-6: Sending connect request
+OY 15:44:23:981 JTS-AuthDispatcher-8: Starting
+OY 15:44:23:985 JTS-Login-6: Terminating
+OY 15:44:24:096 JTS-AuthDispatcher-8: Disconnecting gw4.ibllc.com:4000 with status 7
+OY 15:44:24:096 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by another thread
+OY 15:44:24:099 JTS-AuthDispatcher-8: Terminating
+OY 15:44:24:099 JTS-CCPListener-7: Terminating
+OY 15:44:24:100 AWT-EventQueue-0: Login failed - Invalid username or password.
+
+Please check the "Caps Lock" key;
+usernames must be lower case, and 
+passwords are case sensitive.
+
+Please note that login is possible beginning
+the day after account approval.
+OY 15:44:26:019 JTS-DeadlockMonitor: Memory:total=466,048KB free=425,550KB
+OY 15:44:27:035 JTS-DeadlockMonitor: CPU:cur=17.20% avg=17.20% 30 min avg=17.20% 5 min avg=17.20% 1 min avg=17.20%
+OY 15:44:27:035 JTS-DeadlockMonitor: GC:called=12 times CPU used=6.38%
+OY 15:44:27:035 JTS-DeadlockMonitor: Finalizer:cur=0.00% avg=0.00% 30 min avg=0.00% 5 min avg=0.00% 1 min avg=0.00%
+BW 15:50:14:851 JTS-Main: ------------------------------- TWS RESTART --------------------------------
+BW 15:50:14:876 JTS-Main: Jts dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+BW 15:50:14:898 JTS-Main: Region:America dr:false
+BW 15:50:14:899 JTS-Main: Property locale_to_use=en
+BW 15:50:14:902 JTS-Main: JTS Locale=en_US  country=United States  variant=
+BW 15:50:14:902 JTS-Main: Using JAR file:/Users/david/lab616/third_party/java/ib-tws-896/IBJts/language.jar
+BW 15:50:14:902 JTS-Main: Property locale_to_use=en
+BW 15:50:14:902 JTS-Main: JTS Locale=en_US  country=United States  variant=
+BW 15:50:14:908 JTS-Main: Property locale_to_use=en
+BW 15:50:14:908 JTS-Main: JTS Locale=en_US  country=United States  variant=
+BW 15:50:14:908 JTS-Main: Locale=en_US  country=United States  variant=
+BW 15:50:14:909 JTS-Main: prohibiting class lookup [ji18n.Language]
+BW 15:50:15:354 JTS-Main: prohibiting class lookup [ji18n.Language_en]
+BW 15:50:15:355 JTS-Main: prohibiting class lookup [ji18n.Language_en_US]
+BW 15:50:15:355 JTS-Main: prohibiting resource lookup [ji18n/Language_en_US.properties]
+BW 15:50:15:355 JTS-Main:   actual locale: 
+BW 15:50:15:418 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle]
+BW 15:50:15:419 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en]
+BW 15:50:15:419 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en.properties]
+BW 15:50:15:419 JTS-Main: prohibiting class lookup [org.jfree.chart.LocalizationBundle_en_US]
+BW 15:50:15:419 JTS-Main: prohibiting resource lookup [org/jfree/chart/LocalizationBundle_en_US.properties]
+BW 15:50:15:419 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle]
+BW 15:50:15:420 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en]
+BW 15:50:15:420 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en.properties]
+BW 15:50:15:420 JTS-Main: prohibiting class lookup [org.jfree.chart.plot.LocalizationBundle_en_US]
+BW 15:50:15:420 JTS-Main: prohibiting resource lookup [org/jfree/chart/plot/LocalizationBundle_en_US.properties]
+BW 15:50:15:821 JTS-Main: jfreechart version =1.0.8
+BW 15:50:15:821 JTS-Main: jcommon version =1.0.12
+BW 15:50:15:822 JTS-Main: plugin support version =1.0
+BW 15:50:15:822 JTS-Main: JDOMFactory Class =interface org.jdom.JDOMFactory
+BW 15:50:15:826 JTS-Main: riskfeed typical class = interface riskfeed.api.RiskFeedITF
+BW 15:50:15:827 JTS-Main: hsqldb jdbc =class org.hsqldb.jdbcDriver
+BW 15:50:15:859 JTS-Main: LookAndFeelChangedListener installed
+BW 15:50:15:863 JTS-Main: JtsLookAndFeel initialized
+BW 15:50:16:144 JTS-Main: Current LAF: TWS LAF
+BW 15:50:16:147 JTS-Main: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+BW 15:50:16:402 JTS-Main: Started on 20090729-22:50:16
+BW 15:50:16:407 JTS-Main: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+BW 15:50:16:471 JTS-Main: Build 896.5, Jul 13, 2009 10:32:13 AM
+BW 15:50:16:472 JTS-Main: applet = false
+BW 15:50:16:472 JTS-Main: java version = 1.6.0_13
+BW 15:50:16:472 JTS-Main: os = Mac OS X
+BW 15:50:16:472 JTS-Main: host = gw4.ibllc.com
+BW 15:50:16:472 JTS-Main: remotePort = 4000
+BW 15:50:16:472 JTS-Main: localPort = 0
+BW 15:50:17:785 AWT-EventQueue-0: username = S
+BW 15:50:17:785 AWT-EventQueue-0: Setting dir is /Users/david/lab616/third_party/java/ib-tws-896/IBJts/
+BW 15:50:17:785 AWT-EventQueue-0: Property locale_to_use=en
+BW 15:50:17:786 AWT-EventQueue-0: JTS Locale=en_US  country=United States  variant=
+BW 15:50:17:804 AWT-EventQueue-0: Prelogin delay:0
+BW 15:50:17:805 JTS-Login-6: Starting
+BW 15:50:17:845 JTS-Login-6: Connecting gw4.ibllc.com:4000 timeout=0
+BW 15:50:17:964 JTS-Login-6: Connected to gw4.ibllc.com:4000 on local port 0
+BW 15:50:17:964 JTS-Login-6: Authenticating
+BW 15:50:18:397 JTS-CCPListener-7: Starting
+BW 15:50:18:398 JTS-CCPListener-7: Initial listener buffer size is 525600
+BW 15:50:18:398 JTS-CCPListener-7: Capping listener buffer size at 65536
+BW 15:50:18:418 JTS-Login-6: Sending connect request
+BW 15:50:18:418 JTS-AuthDispatcher-8: Starting
+BW 15:50:18:424 JTS-Login-6: Terminating
+BW 15:50:18:536 JTS-AuthDispatcher-8: Disconnecting gw4.ibllc.com:4000 with status 7
+BW 15:50:18:538 JTS-CCPListener-7: Socket for connection gw4.ibllc.com:4000 was closed by another thread
+BW 15:50:18:542 JTS-AuthDispatcher-8: Terminating
+BW 15:50:18:542 JTS-CCPListener-7: Terminating
+BW 15:50:18:666 AWT-EventQueue-0: Login failed - Invalid username or password.
+
+Please check the "Caps Lock" key;
+usernames must be lower case, and 
+passwords are case sensitive.
+
+Please note that login is possible beginning
+the day after account approval.
+BW 15:50:19:900 JTS-DeadlockMonitor: Memory:total=466,048KB free=398,338KB
+BW 15:50:20:918 JTS-DeadlockMonitor: CPU:cur=22.54% avg=22.54% 30 min avg=22.54% 5 min avg=22.54% 1 min avg=22.54%
+BW 15:50:20:918 JTS-DeadlockMonitor: GC:called=12 times CPU used=5.01%
+BW 15:50:20:918 JTS-DeadlockMonitor: Finalizer:cur=0.24% avg=0.24% 30 min avg=0.24% 5 min avg=0.24% 1 min avg=0.24%
+BW 15:51:25:172 AWT-EventQueue-0: Application exit

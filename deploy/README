@@ -1,0 +1,14 @@
+lab616.com  Copyright, 2009 - All rights reserved.
+
+Directory: deploy
+This directory contains the tools, scripts, and templates necessary
+for production deployment.
+
+An example deployment of the IB TWS container -- from lab616/ directory:
+  deploy/borg --build tws
+  deploy/borg --rsync tws
+  deploy/borg --run tws edemo demouser /home/lab616/runtime/tws/local
+  deploy/borg --tunnel tws 7496 9000
+  telnet localhost 9000
+  deploy/borg --viewlog tws
+  deploy/borg --stop tws

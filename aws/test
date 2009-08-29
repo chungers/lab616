@@ -1,0 +1,4 @@
+cat >> /tmp/dump <<EOF
+export foo="FOO"
+echo "FOO=$foo"
+EOF

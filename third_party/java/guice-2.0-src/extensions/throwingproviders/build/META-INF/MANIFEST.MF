@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Export-Package: com.google.inject.throwingproviders;uses:="com.google.
+ inject,com.google.inject.binder,com.google.inject.util,com.google.inj
+ ect.internal";version="1.2"
+Bundle-Name: guice-throwingproviders
+Created-By: 1.6.0_07 (Apple Inc.)
+Bundle-Copyright: Copyright (C) 2006 Google Inc.
+Bundle-Vendor: Google Inc.
+Bundle-Version: 2.0
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-Description: Guice is a lightweight dependency injection framew
+ ork for Java 5 and above
+Import-Package: com.google.inject;version="[1.2,2)",com.google.inject.
+ binder;version="[1.2,2)",com.google.inject.internal;version="[1.2,2)"
+ ,com.google.inject.throwingproviders;version="[1.2,2)",com.google.inj
+ ect.util;version="[1.2,2)"
+Bundle-SymbolicName: com.google.inject.throwingproviders
+Bundle-DocURL: http://code.google.com/p/google-guice/
+

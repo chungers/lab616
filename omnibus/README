@@ -1,0 +1,13 @@
+Omnibus
+
+Omnibus is a basic common container for all applications.  It contains the
+following components:
+
+1. Esper for complex event processing
+2. Jetty for basic http server functionality
+
+It provides basic functionality of
+1. Commandline flags processing
+2. Shutdown hook
+3. Statuses: healthz, statusz, varz
+4. Remote (via http) administration.

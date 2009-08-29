@@ -1,0 +1,171 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;2.&nbsp;The CSV Input Adapter</title><link rel="stylesheet" href="../shared/css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="EsperIO Adapters"><link rel="up" href="index.html" title="EsperIO Adapters"><link rel="previous" href="adapter_overview.html" title="Chapter&nbsp;1.&nbsp;Adapter Overview"><link rel="next" href="adapter_jms_spring.html" title="Chapter&nbsp;3.&nbsp;The Spring JMS Input and Output Adapters"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;2.&nbsp;The CSV Input Adapter</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="adapter_overview.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="adapter_jms_spring.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="adapter_csv"></a>Chapter&nbsp;2.&nbsp;The CSV Input Adapter</h2></div></div><div></div></div><p>
+        This chapter discusses the CSV input adapter. CSV is an abbreviation for comma-separated values. CSV files are simple text files in which each line
+        is a comma-separated list of values. CSV-formatted text can be read from many different input sources via <tt class="literal">com.espertech.esperio.AdapterInputSource</tt>.
+        Please consult the JavaDoc for additional information on <tt class="literal">AdapterInputSource</tt> and the CSV adapter.
+    </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-intro"></a>2.1.&nbsp;Introduction</h2></div></div><div></div></div><p>
+            In summary the CSV input adapter API performs the following functions. 
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Read events from an input source providing CSV-formatted text and send the events to an Esper engine instance
+				</p><div class="itemizedlist"><ul type="circle" compact><li><p>
+							Read from different types of input sources
+						</p></li><li><p>
+							Use a timestamp column to schedule events being sent into the engine							
+						</p></li><li><p>
+							Playback with options such as file looping, events per second and other options
+						</p></li><li><p>
+							Use the Esper engine timer thread to read the CSV file
+						</p></li></ul></div></li><li><p>
+					Read multiple CSV files using a timestamp column to simulate events coming from different streams
+				</p></li></ul></div><p>
+            The following formatting rules and restrictions apply to CSV-formatted text:
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Comment lines are prefixed with a single hash or pound <tt class="literal">#</tt> character
+				</p></li><li><p>
+					Strings are placed in double quotes, e.g. <tt class="literal">"value"</tt>
+				</p></li><li><p>
+					Escape rules follow common spreadsheet conventions, i.e. double quotes can be escaped via double quote
+				</p></li><li><p>
+					A column header is required unless a property order is defined explicitly
+				</p></li><li><p>
+                    If a column header is used, properties are assumed to be of type String unless otherwise configured
+                </p></li><li><p>
+					The value of the timestamp column, if one is given, must be in ascending order
+				</p></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-step-1"></a>2.2.&nbsp;Playback of CSV-formatted Events</h2></div></div><div></div></div><p>
+				The adapter reads events from a CSV input source and sends events to an engine using the class <tt class="literal">com.espertech.esperio.csv.CSVInputAdapter</tt>.
+        </p><p>
+				The below code snippet reads the CSV-formatted text file "simulation.csv" expecting the file in the classpath. The <tt class="literal">AdapterInputSource</tt> class can take other input sources.
+        </p><pre class="synopsis">AdapterInputSource source = new AdapterInputSource("simulation.csv");
+(new CSVInputAdapter(epServiceProvider, source, "PriceEvent")).start();</pre><p>
+				To use the CSVInputAdapter without any options, the event type <tt class="literal">PriceEvent</tt> and its property names and value types must be known to the engine. The next section elaborates on adapter options.
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Configure the engine instance for a Map-based event type
+				</p></li><li><p>
+					Place a header record in your CSV file that names each column as specified in the event type
+				</p></li></ul></div><p>
+				The sample application code below shows all the steps to configure, via API, a Map-based event type and play the CSV file without setting any of the available options.
+        </p><pre class="programlisting">Map&lt;String, Class&gt; eventProperties = new HashMap&lt;String, Class&gt;();
+eventProperties.put("symbol", String.class);
+eventProperties.put("price", double.class);
+eventProperties.put("volume", Integer.class);
+
+Configuration configuration = new Configuration();
+configuration.addEventTypeAlias("PriceEvent", eventProperties);
+
+epService = EPServiceProviderManager.getDefaultProvider(configuration);
+
+EPStatement stmt = epService.getEPAdministrator().createEPL(
+   "select symbol, price, volume from PriceEvent.win:length(100)");
+
+(new CSVInputAdapter(epService, new AdapterInputSource(filename), "PriceEvent")).start();</pre><p>
+				The contents of a sample CSV file is shown next.
+        </p><pre class="programlisting">symbol,price,volume
+IBM,55.5,1000</pre><p>
+				The next code snippet outlines using a <tt class="literal">java.io.Reader</tt> as an alternative input source :
+        </p><pre class="programlisting">String myCSV = "symbol, price, volume" + NEW_LINE + "IBM, 10.2, 10000";
+StringReader reader = new StringReader(myCSV);
+(new CSVInputAdapter(epService, new AdapterInputSource(reader), "PriceEvent")).start();</pre><p>
+            In the previous code samples, the <tt class="literal">PriceEvent</tt> properties were defined programmatically with their correct types. It is possible to
+            skip this step and use only a column header record. In such a case you must define property types in the header otherwise a type of String is assumed.
+        </p><p>Consider the following:</p><pre class="programlisting">symbol,double price, int volume
+IBM,55.5,1000
+
+symbol,price,volume
+IBM,55.5,1000</pre><p>
+            The first CSV file defines explicit types in the column header while the second file does not. With the second file a statement like
+            <tt class="literal">select sum(volume) from PriceEvent.win:time(1 min)</tt> will be rejected as in the second file <tt class="literal">volume</tt> is defaulted
+            to type String - unless otherwise programmatically configured.
+        </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="csv-beans"></a>2.2.1.&nbsp;Using JavaBean POJO Events</h3></div></div><div></div></div><p>
+				The previous section used an event type based on <tt class="literal">java.util.Map</tt>. The adapter can also populate the CSV data into JavaBean events directly, as long as your event class provides setter-methods that follow JavaBean conventions. Note that esperio will ignore read-only properties i.e. if you have a read-only property priceByVolume it will not expect a corresponding column in the input file.
+			</p><p>
+				To use Java objects as events instead of Map-based event types, simply register the event type name for the Java class and provide the same name to the CSV adapter. 
+			</p><p>
+				The below code snipped assumes that a PriceEvent class exists that exposes setter-methods for the three properties. The setter-methods are, for example, <tt class="literal">setSymbol(String s)</tt>, <tt class="literal">setPrice(double p)</tt> and <tt class="literal">setVolume(long v)</tt>.
+			</p><p>
+				</p><pre class="programlisting">Configuration configuration = new Configuration();
+configuration.addEventTypeAlias("PriceEvent", PriceEvent.class);
+
+epService = EPServiceProviderManager.getDefaultProvider(configuration);
+
+EPStatement stmt = epService.getEPAdministrator().createEPL(
+   "select symbol, price, volume from PriceEvent.win:length(100)");
+
+(new CSVInputAdapter(epService, new AdapterInputSource(filename), "PriceEvent")).start();</pre><p>		
+			</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-step-2"></a>2.3.&nbsp;CSV Playback Options</h2></div></div><div></div></div><p>
+				Use the <tt class="literal">CSVInputAdapterSpec</tt> class to set playback options. The following options are available:
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Loop - Reads the CSV input source in a loop; When the end is reached, the input adapter rewinds to the beginning
+				</p></li><li><p>
+					Events per second - Controls the number of events per second that the adapter sends to the engine
+				</p></li><li><p>
+					Property order - Controls the order of event property values in the CSV input source, for use when the CSV input source does not have a header column
+				</p></li><li><p>
+					Property types - Defines a new Map-based event type given a map of event property names and types. No engine configuration for the event type is required as long as the input adapter is created before statements against the event type are created.
+				</p></li><li><p>
+					Engine thread - Instructs the adapter to use the engine timer thread to read the CSV input source and send events to the engine
+				</p></li><li><p>
+					External timer - Instructs the adapter to use the esper's external timer rather than the internal timer. See "Sending timer events" below
+				</p></li><li><p>
+					Timestamp column name - Defines the name of the timestamp column in the CSV input source; The timestamp column must carry long-typed timestamp values relative to the current time; Use zero for the current time
+				</p></li></ul></div><p>
+				The next code snippet shows the use of <tt class="literal">CSVInputAdapterSpec</tt> to set playback options.
+        </p><pre class="programlisting">CSVInputAdapterSpec spec = new CSVInputAdapterSpec(new AdapterInputSource(myURL), "PriceEvent");
+spec.setEventsPerSec(1000);
+spec.setLooping(true);
+  
+InputAdapter inputAdapter = new CSVInputAdapter(epService, spec);
+inputAdapter.start();	// method blocks unless engine thread option is set</pre><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="csv-timer"></a>2.3.1.&nbsp;Sending timer events</h3></div></div><div></div></div><p>
+			The adapter can be instructed to use either esper's internal timer, or to drive timing itself
+			by sending external timer events. If the internal timer is used, esperio will send all events in "real time". For example, if an input file contains the following data:
+			</p><p>
+				</p><pre class="programlisting">symbol,price,volume,timestamp
+IBM,55.5,1000,2
+GOOG,9.5,1000,3
+MSFT,8.5,1000,3
+JAVA,7.5,1000,1004</pre><p>
+    		</p><p>
+			then esperio will sleep for 1001 milliseconds between sending the MSFT and JAVA events to the engine.
+			</p><p>
+			If external timing is enabled then esperio will run through the input file at full speed 
+			without pausing. The algorithm used sends a time event after all events for a particular time
+			have been received. For the above example file a time event for 2 will be sent after IBM, for 3 after MSFT and 1004 after JAVA. 
+			For many of use cases this gives a performance improvement.
+			</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-step-3"></a>2.4.&nbsp;Simulating Multiple Event Streams</h2></div></div><div></div></div><p>
+				The CSV input adapter can run simulations of events arriving in time-order from different input streams. Use the <tt class="literal">AdapterCoordinator</tt> as a specialized input adapter for coordinating multiple CSV input sources by timestamp.
+        </p><p>
+				The sample application code listed below simulates price and trade events arriving in timestamp order. Via the adapter the application reads two CSV-formatted files from a URL that each contain a timestamp column as well as price or trade events. The <tt class="literal">AdapterCoordinator</tt> uses the timestamp column to send events to the engine in the exact ordering prescribed by the timestamp values.
+        </p><pre class="programlisting">AdapterInputSource sourceOne = new AdapterInputSource(new URL("FILE://prices.csv"));
+CSVInputAdapterSpec inputOne = new CSVInputAdapterSpec(sourceOne, "PriceEvent");
+inputOne.setTimestampColumn("timestamp");
+
+AdapterInputSource sourceTwo = new AdapterInputSource(new URL("FILE://trades.csv"));
+CSVInputAdapterSpec inputTwo = new CSVInputAdapterSpec(sourceTwo, "TradeEvent");
+inputTwo.setTimestampColumn("timestamp");
+
+AdapterCoordinator coordinator = new AdapterCoordinatorImpl(epService, true);
+coordinator.coordinate(new CSVInputAdapter(inputOne));
+coordinator.coordinate(new CSVInputAdapter(inputTwo));
+coordinator.start();</pre><p>
+				The <tt class="literal">AdapterCoordinatorImpl</tt> is provided with two parameters: the engine instance, and a boolean value 
+				that instructs the adapter to use the engine timer thread if set to true, and the adapter can use the application thread if the flag passed is false.
+        </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-step-4"></a>2.5.&nbsp;Pausing and Resuming Operation</h2></div></div><div></div></div><p>
+				The CSV adapter can employ the engine timer thread of an Esper engine instance to read and send events. This can be controlled via the <tt class="literal">setUsingEngineThread</tt> method on <tt class="literal">CSVInputAdapterSpec</tt>. We use that feature in the sample code below to pause and resume a running CSV input adapter.
+        </p><pre class="programlisting">CSVInputAdapterSpec spec = new CSVInputAdapterSpec(new AdapterInputSource(myURL), "PriceEvent");
+spec.setEventsPerSec(100);
+spec.setUsingEngineThread(true);
+  
+InputAdapter inputAdapter = new CSVInputAdapter(epService, spec);
+inputAdapter.start();	// method starts adapter and returns, non-blocking
+Thread.sleep(5000);	// sleep 5 seconds
+inputAdapter.pause();
+Thread.sleep(5000);	// sleep 5 seconds
+inputAdapter.resume();
+Thread.sleep(5000);	// sleep 5 seconds
+inputAdapter.stop();</pre></div></div><hr xmlns="http://www.w3.org/TR/xhtml1/transitional"><center xmlns="http://www.w3.org/TR/xhtml1/transitional">&copy; 2009 EsperTech Inc. All Rights Reserved</center><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-1261295-1");
+	pageTracker._trackPageview();
+	</script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="adapter_overview.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="adapter_jms_spring.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;1.&nbsp;Adapter Overview&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;3.&nbsp;The Spring JMS Input and Output Adapters</td></tr></table></div></body></html>
