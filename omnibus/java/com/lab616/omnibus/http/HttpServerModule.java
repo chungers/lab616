@@ -20,7 +20,7 @@ public class HttpServerModule implements Module {
 
   // The convention is to put Flags inside the Module and leave explicitly
   // named dependencies in the constructor of the injected class.
-  @Flag(name="http", defaultValue="8889")
+  @Flag(name="http", defaultValue="8888")
   public static Integer HTTP_PORT;
   
   static {
