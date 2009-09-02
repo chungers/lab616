@@ -16,7 +16,9 @@ import org.mortbay.jetty.servlet.Context;
 import org.mortbay.jetty.servlet.ServletHolder;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.name.Named;
+import com.lab616.omnibus.Main;
 
 /**
  * HTTP server based on jetty.
@@ -24,7 +26,7 @@ import com.google.inject.name.Named;
  * @author david
  *
  */
-public class HttpServer {
+public class HttpServer implements Provider<Main.Shutdown<Void>>{
 
   static Logger logger = Logger.getLogger(HttpServer.class);
   
@@ -79,5 +81,22 @@ public class HttpServer {
     } catch (Exception e) {
       logger.error("Exception while stopping http server:", e);
     }
+  }
+
+  @Override
+  public Main.Shutdown<Void> get() {
+    return new Main.Shutdown<Void>() {
+      
+      @Override
+      public String getName() {
+        return "http-shutdown";  // by convention, use the annotation name.
+      }
+      
+      @Override
+      public Void call() throws Exception {
+        stop();
+        return null;
+      }
+    };
   }
 }

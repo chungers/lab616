@@ -8,6 +8,7 @@ import com.google.inject.Scopes;
 import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
+import com.lab616.omnibus.Main;
 
 /**
  * Guice module
@@ -32,6 +33,9 @@ public class HttpServerModule implements Module {
     binder.bindConstant().annotatedWith(Names.named("http"))
       .to(HTTP_PORT);
     
+    binder.bind(Main.Shutdown.class).annotatedWith(Names.named("http-shutdown"))
+      .toProvider(HttpServer.class).in(Scopes.SINGLETON);
+
     binder.bind(HttpServer.class).in(Scopes.SINGLETON);
   }
 }

@@ -3,7 +3,6 @@
 package com.lab616.omnibus;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import org.apache.log4j.Logger;
 
@@ -13,6 +12,7 @@ import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.internal.ImmutableList;
 import com.google.inject.internal.Lists;
+import com.google.inject.name.Names;
 import com.lab616.common.flags.Flags;
 import com.lab616.common.logging.Logging;
 import com.lab616.omnibus.http.HttpServer;
@@ -26,6 +26,11 @@ import com.lab616.omnibus.http.HttpServerModule;
  */
 public abstract class Main {
   
+  public interface Shutdown<V> {
+    public String getName();
+    public V call() throws Exception;
+  }
+  
   static Logger logger = Logger.getLogger(Main.class);
   
   private Injector injector;
@@ -34,8 +39,10 @@ public abstract class Main {
     return ImmutableList.of();
   }
 
-  public List<Callable<?>> getShutdownRoutines() {
-    return ImmutableList.of();
+  public Shutdown<?>[] getShutdownRoutines() {
+    return new Shutdown<?>[] { 
+        getInstance(Shutdown.class, "http-shutdown") 
+    };
   }
   
   private Runnable getShutdownHook() {
@@ -43,11 +50,13 @@ public abstract class Main {
       @Override
       public void run() {
         logger.info("Starting shutdown sequence:");
-        for (Callable<?> callable : getShutdownRoutines()) {
+        for (Shutdown<?> callable : getShutdownRoutines()) {
           try {
-            logger.info("Completed shutdown step: " + callable.call());
+            logger.info("Completed shutdown step (" + 
+                callable.getName() + ") => " + callable.call());
           } catch (Exception e) {
-            logger.error("Failure during shutdown:", e);
+            logger.error("Failure during shutdown (" + callable.getName() + 
+                "):", e);
           }
         }
       }
@@ -84,16 +93,21 @@ public abstract class Main {
     Flags.parse(argv);
     Logging.init();
     
-    Thread shutdown = new Thread(getShutdownHook());
-    shutdown.setName("shutdown");
-    Runtime.getRuntime().addShutdownHook(shutdown);
-    
     // Now the injector gets created and during this process, the flag values
     // are read and used by the module bindings.
     injector = Guice.createInjector(allModules);
     
+    // Get any shutdown hooks for the server:
+    Thread shutdown = new Thread(getShutdownHook());
+    shutdown.setName(getClass().getName() + ":shutdown");
+    Runtime.getRuntime().addShutdownHook(shutdown);
+    
     getInstance(HttpServer.class).start();
     run();
+  }
+  
+  public final <T> T getInstance(Class<T> clz, String name) {
+    return getInstance(Key.get(clz, Names.named(name)));
   }
   
   public final <T> T getInstance(Class<T> clz) {
