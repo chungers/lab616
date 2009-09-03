@@ -1,4 +1,4 @@
-prefix=/Users/david/lab616/third_party/java/protobuf/bin
+prefix=/Users/david/lab616/third_party/java/protobuf-2.2.0
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
