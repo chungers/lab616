@@ -96,7 +96,7 @@ public abstract class Main {
     // Now the injector gets created and during this process, the flag values
     // are read and used by the module bindings.
     injector = Guice.createInjector(allModules);
-    
+
     // Get any shutdown hooks for the server:
     Thread shutdown = new Thread(getShutdownHook());
     shutdown.setName(getClass().getName() + ":shutdown");
