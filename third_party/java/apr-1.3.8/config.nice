@@ -1,0 +1,7 @@
+#! /bin/sh
+#
+# Created by configure
+
+"./configure" \
+"--prefix=/Users/david/lab616/third_party/java/apr/platforms/macosx" \
+"$@"

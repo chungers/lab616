@@ -1,0 +1,116 @@
+    1  ping homer.local
+    2  ssh davdc@homer.local
+    3  ping minimac.local
+    4  ls 
+    5  pwd
+    6  top
+    7  exit
+    8  which git
+    9  git
+   10  ssh-keygen
+   11  cat .ssh/id_rsa.pub 
+   12  /Volumes/davdchung667-1/software/ib-tws/IBJts/run.sh ; exit;
+   13  /Volumes/davdchung667-1/software/ib-tws/IBJts/run.sh ; exit;
+   14  /Volumes/davdchung667-1/software/ib-tws/IBJts/run.sh ; exit;
+   15  ssh chunger.local
+   16  ls -al
+   17  cd /Volumes/davdchung667/
+   18  ls -al
+   19  cd software/
+   20  ls -al
+   21  mkdir ib-tws
+   22  cd ib-tws/
+   23  cp ~/Downloads/unixmacosx.jar .
+   24  ls -al
+   25  which java
+   26  jar xvf unixmacosx.jar 
+   27  cd IBJts/
+   28  ls -al
+   29  java -cp jts.jar:pluginsupport.jar:riskfeed.jar:hsqldb.jar:jcommon-1.0.12.jar:jfreechart-1.0.9.jar:jhall.jar:other.jar:rss.jar -Xmx256M jclient.LoginFrame .
+   30  java -cp jts.jar:pluginsupport.jar:riskfeed.jar:hsqldb.jar:jcommon-1.0.12.jar:jfreechart-1.0.9.jar:jhall.jar:other.jar:rss.jar -Xmx256M jclient.LoginFrame .
+   31  java -cp jts.jar:pluginsupport.jar:riskfeed.jar:hsqldb.jar:jcommon-1.0.12.jar:jfreechart-1.0.9.jar:jhall.jar:other.jar:rss.jar -Xmx256M jclient.LoginFrame .
+   32  cat >> run.sh
+   33  ls -al
+   34  chmod a+x run.sh 
+   35  jpw
+   36  pwd
+   37  ls -al
+   38  pwd
+   39  cd ..
+   40  cd ..
+   41  ls -al
+   42  open ib-tws
+   43  open ib-tws
+   44  ls -al /Volumes/
+   45  cd  /Volumes/davdchung667-1
+   46  ls -al
+   47  ls -al software/
+   48  cd software/ib-tws/
+   49  ls -al
+   50  cd
+   51  exit
+   52  /Volumes/davdchung667-1/software/ib-tws/IBJts/run.sh ; exit;
+   53  /Volumes/davdchung667-1/software/ib-tws/IBJts/run.sh ; exit;
+   54  /Volumes/davdchung667-1/software/ib-tws/IBJts/run.sh ; exit;
+   55  /Volumes/davdchung667-1/software/ib-tws/IBJts/run.sh ; exit;
+   56  ls -al
+   57  cd lab616
+   58  cd third_party/java
+   59  ls -al
+   60  git add -v protobuf-2.2.0
+   61  git status
+   62  git commit -a
+   63  pwd
+   64  git pull
+   65  git pull ssh://david@chunger.local/Users/david/lab616/.git
+   66  l s-al
+   67  protobuf/bin/protoc 
+   68  cd protobuf
+   69  bin/protoc --help
+   70  cd bin
+   71  ./protoc
+   72  git pull
+   73  git pull ssh://david@chunger.local/Users/david/lab616/.git
+   74  cd ..
+   75  cd ..
+   76  cd ..
+   77  git pull
+   78  git pull ssh://david@chunger.local/Users/david/lab616/.git
+   79  git status
+   80  java/protobuf/bin/protoc --help
+   81  cd lab616/third_party/java
+   82  mkdir junit
+   83  ls -al
+   84  rm -rf junit
+   85  mv ~/Downloads/junit3.8.2/ .
+   86  ls -al
+   87  ln -s junit3.8.2/ junit
+   88  cd junit
+   89  ls -al
+   90  cd ..
+   91  git add -v junit*
+   92  git commit -a
+   93  which ant
+   94  cd ..
+   95  ls -al
+   96  cd java
+   97  ls -al
+   98  mv tomcat-native-1.1.16-src.tar ~/Downloads/
+   99  mv ~/Downloads/apr-1.3.8.tar .
+  100  tar xvf apr-1.3.8.tar 
+  101  ls -al
+  102  ln -s apr-1.3.8 apr
+  103  mv apr-1.3.8.tar ~/Downloads/
+  104  cd apr
+  105  ls -al
+  106  less README.dev 
+  107  ./configure --prefix=/Users/david/lab616/third_party/java/apr
+  108  ./configure --prefix=/Users/david/lab616/third_party/java/apr/platforms/macosx
+  109  mkdir -p /Users/david/lab616/third_party/java/apr/platforms/macosx
+  110  ls -al
+  111  less README.dev 
+  112  make test
+  113  less README.dev 
+  114  make install
+  115  ls -al platforms/macosx/lib/
+  116  history > build.log
