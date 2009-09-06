@@ -39,10 +39,20 @@ public abstract class Main {
     return ImmutableList.of();
   }
 
-  public Shutdown<?>[] getShutdownRoutines() {
-    return new Shutdown<?>[] { 
-        getInstance(Shutdown.class, "http-shutdown") 
-    };
+  public final List<Shutdown<?>> getShutdownRoutines() {
+    List<Shutdown<?>> list = Lists.newArrayList();
+    
+    list.add(getInstance(Shutdown.class, "http-shutdown"));
+
+    if (getShutdown() != null) {
+      list.add(getShutdown());
+    }
+    
+    return list;
+  }
+  
+  public Shutdown<?> getShutdown() {
+    return null;
   }
   
   private Runnable getShutdownHook() {
@@ -59,6 +69,7 @@ public abstract class Main {
                 "):", e);
           }
         }
+        logger.info("Shutdown sequence comleted.");
       }
     };
   }

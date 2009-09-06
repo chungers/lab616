@@ -28,6 +28,11 @@ function run_remote {
     ssh -i ${REMOTE_ID_FILE} ${REMOTE_USER}@${REMOTE_HOST} $@
 }
 
+# Execute locally
+function run_local {
+    $@
+}
+
 echo "PACKAGE=${PACKAGE}, TARGET=${TARGET_DIR}"
 
 case "${OPTION}" in 
@@ -77,7 +82,16 @@ case "${OPTION}" in
 --stop)
    # Stop remote server.
    PID=`run_remote cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_PID}`
-   run_remote kill -9 ${PID}
+   run_remote kill -s TERM ${PID}
+;;
+--startlocal)
+   # Start remotely.
+   run_local /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_SCRIPT} ${PROFILE} $@
+;;
+--stoplocal)
+   # Stop remote server.
+   PID=`cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_PID}`
+   run_local kill -s TERM ${PID}
 ;;
 --viewlog)
    # View the remote log file.

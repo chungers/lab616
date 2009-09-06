@@ -4,6 +4,8 @@ package com.lab616.ib;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.google.common.collect.Lists;
 import com.google.inject.Binder;
 import com.google.inject.Inject;
@@ -15,7 +17,9 @@ import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.ib.TwsWindowHandlers.STATE;
 import com.lab616.omnibus.Main;
+import com.lab616.omnibus.Main.Shutdown;
 import com.lab616.ui.AWTWindowEventReceiver;
+import com.lab616.util.Time;
 
 /**
  * Basic container for the IB TWS application.  This is the host/ launcher
@@ -27,6 +31,8 @@ import com.lab616.ui.AWTWindowEventReceiver;
  */
 public class TwsContainer {
 
+  static Logger logger = Logger.getLogger(TwsContainer.class);
+  
   public static class GuiceModule implements Module {
 
     @Flag(name = "login", required = true)
@@ -42,7 +48,7 @@ public class TwsContainer {
       Flags.register(GuiceModule.class);
     }
 
-    @Override
+    //@Override //JDK1.5
     public void configure(Binder binder) {
       
       binder.bindConstant().annotatedWith(Names.named("username"))
@@ -74,16 +80,34 @@ public class TwsContainer {
   public static void main(String[] argv) throws Exception {
     (new Main() {
 
-      @Override
+      long startCt;
+      
+      //@Override //JDK1.5
       public List<Module> getModules() {
         return Lists.newArrayList(
             new GuiceModule(),
             new TwsModule());
       }
 
-      @Override
+      //@Override //JDK1.5
       public void run() throws Exception {
+        startCt = Time.now();
+        logger.info("CurrentTime in microsecond = " + startCt);
         getInstance(TwsContainer.class);
+      }
+
+      //@Override
+      public Shutdown<String> getShutdown() {
+        return new Shutdown<String>() {
+
+          public String call() throws Exception {
+            return String.format("Elapsed %d microseconds.", 
+                Time.now() - startCt);
+          }
+          public String getName() {
+            return "TwsContainer/main";
+          }
+        };
       }
       
     }).run(argv);

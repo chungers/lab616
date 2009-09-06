@@ -21,7 +21,7 @@ public class ApiHandler implements InvocationHandler {
     public void receive(Object[] args);
   }
   
-  @Override
+  //@Override //JDK1.5
   public Object invoke(Object proxy, Method method, Object[] args)
       throws Throwable {
     if (handlers.get(method.getName()) != null) {
@@ -41,25 +41,25 @@ public class ApiHandler implements InvocationHandler {
   
   static {
     handlers.put("tickPrice", new Handler() {
-      @Override
+      //@Override //JDK1.5
       public void receive(Object[] args) {
         print("tickPrice", args);
       }
     });
     handlers.put("tickSize", new Handler() {
-      @Override
+      //@Override //JDK1.5
       public void receive(Object[] args) {
         print("tickSize", args);
       }
     });
     handlers.put("tickGeneric", new Handler() {
-      @Override
+      //@Override //JDK1.5
       public void receive(Object[] args) {
         print("tickGeneric", args);
       }
     });
     handlers.put("tickString", new Handler() {
-      @Override
+      //@Override //JDK1.5
       public void receive(Object[] args) {
         print("tickString", args);
       }

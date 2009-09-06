@@ -59,7 +59,7 @@ public class Client implements Runnable {
         new Class[] { EWrapper.class }, new ApiHandler());
   }
   
-  @Override
+  //@Override //JDK1.5
   public void run() {
     if (startSignal != null) {
       try {
