@@ -14,5 +14,6 @@
 	<classpathentry kind="var" path="THIRD_PARTY/guice/guice-multibindings-2.0.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/guice/guice-throwingproviders-2.0.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/guice/aopalliance.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/tomcat-native/jni/dist/tomcat-native-1.0.0.jar" sourcepath="/THIRD_PARTY/tomcat-native/jni/java"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

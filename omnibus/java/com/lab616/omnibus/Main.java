@@ -47,7 +47,7 @@ public abstract class Main {
   
   private Runnable getShutdownHook() {
     return new Runnable() {
-      @Override
+      
       public void run() {
         logger.info("Starting shutdown sequence:");
         for (Shutdown<?> callable : getShutdownRoutines()) {

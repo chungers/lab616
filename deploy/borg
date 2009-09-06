@@ -6,15 +6,18 @@ PROFILE=$3
 
 shift; shift; shift;
 
-TARGET_DIR=`dirname $0`/../runtime/${PACKAGE}
-SOURCE_DIR=`dirname $0`/packages/${PACKAGE}
+DEPLOY_DIR=`dirname $0`
+TARGET_DIR=${DEPLOY_DIR}/../runtime/${PACKAGE}
+SOURCE_DIR=${DEPLOY_DIR}/packages/${PACKAGE}
 BINARY_FILES=${SOURCE_DIR}/bin
 PROFILE_FILES=${SOURCE_DIR}/profiles
 SCRIPT_FILES=${SOURCE_DIR}/${PACKAGE}.sh
+TOMCAT_NATIVE=${DEPLOY_DIR}/../third_party/java/tomcat-native/platforms/
+NATIVE_FILES="${TOMCAT_NATIVE}/linux/lib/libtcnative*.so ${TOMCAT_NATIVE}/macosx/lib/libtcnative*.jnilib"
 TEMPLATES_DIR=${SOURCE_DIR}/templates
 LOCAL_FILES=${TEMPLATES_DIR}/local
 REMOTE_USER=lab616
-REMOTE_ID_FILE=`dirname $0`/accounts/${REMOTE_USER}.id_dsa
+REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
 REMOTE_HOST=dev.lab616.com
 REMOTE_SCRIPT=${PACKAGE}.sh
 REMOTE_LOG=${REMOTE_SCRIPT}.${PROFILE}.log
@@ -28,6 +31,18 @@ function run_remote {
 echo "PACKAGE=${PACKAGE}, TARGET=${TARGET_DIR}"
 
 case "${OPTION}" in 
+--newpackage)
+    if [ ! -d ${SOURCE_DIR} ]; then
+	echo "Directory ${SOURCE_DIR} missing.  Creating."
+	mkdir -p ${SOURCE_DIR}
+	mkdir -p ${BINARY_FILES}
+	mkdir -p ${PROFILE_FILES}
+	mkdir -p ${TEMPLATES_DIR}
+	mkdir -p ${LOCAL_FILES}
+	cp ${DEPLOY_DIR}/template.sh ${SOURCE_DIR}/${PACKAGE}.sh
+	chmod a+x ${SOURCE_DIR}/${PACKAGE}.sh
+    fi
+;;
 --stagelocal)
     if [ ! -d ${TARGET_DIR} ]; then
 	echo "Directory ${TARGET_DIR} missing.  Creating."
@@ -39,6 +54,9 @@ case "${OPTION}" in
     cp -r ${PROFILE_FILES} ${TARGET_DIR}
     cp -r ${SCRIPT_FILES} ${TARGET_DIR}
     cp -r ${LOCAL_FILES} ${TARGET_DIR}
+    for n in ${NATIVE_FILES}; do
+	cp $n ${TARGET_DIR}/bin
+    done
 ;;
 --rsync)
    # Simple case of just copy from local source to remote machine.

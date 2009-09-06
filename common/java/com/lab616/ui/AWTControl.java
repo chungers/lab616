@@ -34,20 +34,20 @@ class AWTControl implements UIControl {
     this.c = c;
   }
   
-  @Override
+  
   public UIControl.Window getWindow() {
     if (c instanceof java.awt.Window) {
       return new UIControl.Window() {
         @SuppressWarnings("deprecation")
-        @Override
+        
         public void setVisible(Boolean b) {
           ((java.awt.Window)c).hide();
         }
-        @Override
+        
         public void resize(int w, int h) {
           ((java.awt.Window)c).setSize(w, h);
         }
-        @Override
+        
         public void dispose() {
           ((java.awt.Window)c).dispatchEvent(
               new WindowEvent((java.awt.Window)c, 
@@ -58,7 +58,7 @@ class AWTControl implements UIControl {
     return null;
   }
 
-  @Override
+  
   public boolean hasMessage(String regex, String... regexs) {
     final JLabel l = JLABEL_FINDER.find(c, regex);
     if (l != null) {
@@ -68,50 +68,50 @@ class AWTControl implements UIControl {
     return o != null;
   }
   
-  @Override
+  
   public Field getField(final int idx) {
     final JTextField f = JTEXTFIELD_FINDER.find(c, idx);
     if (f != null) {
       return new UIControl.Field() {
-        @Override
+        
         public void setValue(String s) {
           f.setText(s);
         }
       };
     } 
     return new UIControl.Field() {
-      @Override
+      
       public void setValue(String s) {
         throw new NoSuchControlException(idx);
       }
     };
   }
 
-  @Override
+  
   public Option getOption(final String key) {
     final JRadioButton r = JRADIOBUTTON_FINDER.find(c, key);
     if (r != null) {
       return new UIControl.Option() {
-        @Override
+        
         public void select() {
           r.setSelected(true);
         }
       };
     }
     return new UIControl.Option() {
-      @Override
+      
       public void select() {
         throw new NoSuchControlException(key);
       }
     };
   }
 
-  @Override
+  
   public Submit getSubmit(final String name) {
     final JButton b = JBUTTON_FINDER.find(c, name);
     if (b != null) {
       return new UIControl.Submit() {
-        @Override
+        
         public void submit() {
           b.doClick();
         }
@@ -122,7 +122,7 @@ class AWTControl implements UIControl {
     final JMenuItem mi = findMenuItem(name);
     if (mi != null) {
       return new UIControl.Submit() {
-        @Override
+        
         public void submit() {
           mi.doClick();
         }
@@ -130,7 +130,7 @@ class AWTControl implements UIControl {
     }
 
     return new UIControl.Submit() {
-      @Override
+      
       public void submit() {
         throw new NoSuchControlException(name);
       }
@@ -226,12 +226,12 @@ class AWTControl implements UIControl {
     Finder(Class<W> wc) {
       super(wc, Container.class);
     }
-    @Override
+    
     Component[] getComponents(Container c) {
       return c.getComponents();
     }
 
-    @Override
+    
     boolean match(W c, String regex, String... regexs) {
       List<String> exps = Lists.asList(regex, regexs);
       String msg = getText(c);
@@ -286,7 +286,7 @@ class AWTControl implements UIControl {
 
   private static Find<JMenuBar, Container> JMENUBAR_FINDER = 
     new Finder<JMenuBar>(JMenuBar.class) {
-    @Override
+    
     boolean match(JMenuBar c, String regex, String... s) {
       return true;
     }
@@ -300,11 +300,11 @@ class AWTControl implements UIControl {
     MenuFinder(Class<W> wc) {
       super(wc, MenuElement.class);
     }
-    @Override
+    
     MenuElement[] getComponents(MenuElement c) {
       return c.getSubElements();
     }
-    @Override
+    
     boolean match(W c, String regex, String... regexs) {
       boolean match = false;
       if (regex != null) {

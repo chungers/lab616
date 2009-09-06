@@ -53,7 +53,7 @@ public class HttpServer implements Provider<Main.Shutdown<Void>>{
 
       private static final long serialVersionUID = 4358999418538102949L;
 
-      @Override
+      
       protected void doGet(HttpServletRequest req, HttpServletResponse resp)
           throws ServletException, IOException {
         resp.setContentType("text/plain");
@@ -83,16 +83,16 @@ public class HttpServer implements Provider<Main.Shutdown<Void>>{
     }
   }
 
-  @Override
+  
   public Main.Shutdown<Void> get() {
     return new Main.Shutdown<Void>() {
       
-      @Override
+      
       public String getName() {
         return "http-shutdown";  // by convention, use the annotation name.
       }
       
-      @Override
+      
       public Void call() throws Exception {
         stop();
         return null;

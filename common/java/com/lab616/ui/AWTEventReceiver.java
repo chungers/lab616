@@ -97,7 +97,7 @@ public abstract class AWTEventReceiver<W, S>  implements AWTEventListener {
    * Receives AWT UI events and dispatch to handlers for processing.
    */
   @SuppressWarnings("unchecked")
-  @Override
+  
   public void eventDispatched(AWTEvent event) {
     if (getEventsToHandle().contains(event.getID())) {
       Container container = getContainer((W)event);

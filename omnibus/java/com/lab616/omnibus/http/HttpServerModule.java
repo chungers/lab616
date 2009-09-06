@@ -27,7 +27,7 @@ public class HttpServerModule implements Module {
     Flags.register(HttpServerModule.class);
   }
   
-  @Override
+  
   public void configure(Binder binder) {
 
     binder.bindConstant().annotatedWith(Names.named("http"))

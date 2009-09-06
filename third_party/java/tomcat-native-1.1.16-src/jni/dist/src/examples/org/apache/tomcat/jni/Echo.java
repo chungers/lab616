@@ -301,6 +301,7 @@ public class Echo {
             Library.initialize(null);
             long [] inf = new long[16];
             System.out.println("Info ...");
+	    System.out.println("  Now           " + Time.now());
             System.out.println("  Native        " + Library.versionString());
             System.out.println("  APR           " + Library.aprVersionString());
             OS.info(inf);

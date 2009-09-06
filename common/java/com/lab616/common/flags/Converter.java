@@ -19,7 +19,6 @@ class Converter {
   
   static Function<String, String> TO_STRING = 
     new Function<String, String>() {
-    @Override
     public String apply(String v) {
       return v;
     }
@@ -27,7 +26,6 @@ class Converter {
   
   static Function<String, Boolean> TO_BOOLEAN = 
     new Function<String, Boolean>() {
-    @Override
     public Boolean apply(String v) {
       return Boolean.parseBoolean(v);
     }
@@ -35,28 +33,28 @@ class Converter {
 
   static Function<String, Integer> TO_INTEGER = 
     new Function<String, Integer>() {
-    @Override
+    
     public Integer apply(String v) {
       return Integer.decode(v);
     }
   };
 
   static Function<String, Long> TO_LONG = new Function<String, Long>() {
-    @Override
+    
     public Long apply(String v) {
       return Long.decode(v);
     }
   };
 
   static Function<String, Float> TO_FLOAT = new Function<String, Float>() {
-    @Override
+    
     public Float apply(String v) {
       return Float.parseFloat(v);
     }
   };
 
   static Function<String, Double> TO_DOUBLE = new Function<String, Double>() {
-    @Override
+    
     public Double apply(String v) {
       return Double.parseDouble(v);
     }
@@ -71,7 +69,7 @@ class Converter {
   
   static Function<String[], String[]> TO_STRING_ARRAY = 
     new Function<String[], String[]>() {
-    @Override
+    
     public String[] apply(String[] v) {
       return v;
     }
@@ -79,7 +77,7 @@ class Converter {
 
   static Function<String[], List<String>> TO_STRING_LIST = 
     new Function<String[], List<String>>() {
-    @Override
+    
     public List<String> apply(String[] v) {
       return Lists.newArrayList(v);
     }
@@ -87,7 +85,7 @@ class Converter {
 
   static Function<String[], Set<String>> TO_STRING_SET = 
     new Function<String[], Set<String>>() {
-    @Override
+    
     public Set<String> apply(String[] v) {
       return Sets.newHashSet(v);
     }
@@ -95,7 +93,7 @@ class Converter {
 
   static Function<String[], Boolean[]> TO_BOOLEAN_ARRAY = 
     new Function<String[], Boolean[]>() {
-    @Override
+    
     public Boolean[] apply(String[] v) {
       return convertArray(v, new Boolean[v.length], TO_BOOLEAN);
     }
@@ -103,7 +101,7 @@ class Converter {
 
   static Function<String[], boolean[]> TO_P_BOOLEAN_ARRAY = 
     new Function<String[], boolean[]>() {
-    @Override
+    
     public boolean[] apply(String[] v) {
       boolean[] result = new boolean[v.length];
       for (int i = 0; i < result.length; i++) {
@@ -115,7 +113,7 @@ class Converter {
 
   static Function<String[], List<Boolean>> TO_BOOLEAN_LIST = 
     new Function<String[], List<Boolean>>() {
-    @Override
+    
     public List<Boolean> apply(String[] v) {
       return Lists.newArrayList(TO_BOOLEAN_ARRAY.apply(v));
     }
@@ -123,7 +121,7 @@ class Converter {
 
   static Function<String[], Set<Boolean>> TO_BOOLEAN_SET = 
     new Function<String[], Set<Boolean>>() {
-    @Override
+    
     public Set<Boolean> apply(String[] v) {
       return Sets.newHashSet(TO_BOOLEAN_ARRAY.apply(v));
     }
@@ -131,7 +129,7 @@ class Converter {
 
   static Function<String[], Integer[]> TO_INTEGER_ARRAY = 
     new Function<String[], Integer[]>() {
-    @Override
+    
     public Integer[] apply(String[] v) {
       return convertArray(v, new Integer[v.length], TO_INTEGER);
     }
@@ -139,7 +137,7 @@ class Converter {
 
   static Function<String[], List<Integer>> TO_INTEGER_LIST = 
     new Function<String[], List<Integer>>() {
-    @Override
+    
     public List<Integer> apply(String[] v) {
       return Lists.newArrayList(TO_INTEGER_ARRAY.apply(v));
     }
@@ -147,7 +145,7 @@ class Converter {
 
   static Function<String[], Set<Integer>> TO_INTEGER_SET = 
     new Function<String[], Set<Integer>>() {
-    @Override
+    
     public Set<Integer> apply(String[] v) {
       return Sets.newHashSet(TO_INTEGER_ARRAY.apply(v));
     }
@@ -155,7 +153,7 @@ class Converter {
 
   static Function<String[], Long[]> TO_LONG_ARRAY = 
     new Function<String[], Long[]>() {
-    @Override
+    
     public Long[] apply(String[] v) {
       return convertArray(v, new Long[v.length], TO_LONG);
     }
@@ -163,7 +161,7 @@ class Converter {
 
   static Function<String[], List<Long>> TO_LONG_LIST = 
     new Function<String[], List<Long>>() {
-    @Override
+    
     public List<Long> apply(String[] v) {
       return Lists.newArrayList(TO_LONG_ARRAY.apply(v));
     }
@@ -171,7 +169,7 @@ class Converter {
 
   static Function<String[], Set<Long>> TO_LONG_SET = 
     new Function<String[], Set<Long>>() {
-    @Override
+    
     public Set<Long> apply(String[] v) {
       return Sets.newHashSet(TO_LONG_ARRAY.apply(v));
     }
@@ -179,7 +177,7 @@ class Converter {
 
   static Function<String[], Float[]> TO_FLOAT_ARRAY = 
     new Function<String[], Float[]>() {
-    @Override
+    
     public Float[] apply(String[] v) {
       return convertArray(v, new Float[v.length], TO_FLOAT);
     }
@@ -187,7 +185,7 @@ class Converter {
 
   static Function<String[], List<Float>> TO_FLOAT_LIST = 
     new Function<String[], List<Float>>() {
-    @Override
+    
     public List<Float> apply(String[] v) {
       return Lists.newArrayList(TO_FLOAT_ARRAY.apply(v));
     }
@@ -195,7 +193,7 @@ class Converter {
 
   static Function<String[], Set<Float>> TO_FLOAT_SET = 
     new Function<String[], Set<Float>>() {
-    @Override
+    
     public Set<Float> apply(String[] v) {
       return Sets.newHashSet(TO_FLOAT_ARRAY.apply(v));
     }
@@ -203,7 +201,7 @@ class Converter {
 
   static Function<String[], Double[]> TO_DOUBLE_ARRAY = 
     new Function<String[], Double[]>() {
-    @Override
+    
     public Double[] apply(String[] v) {
       return convertArray(v, new Double[v.length], TO_DOUBLE);
     }
@@ -211,7 +209,7 @@ class Converter {
 
   static Function<String[], List<Double>> TO_DOUBLE_LIST = 
     new Function<String[], List<Double>>() {
-    @Override
+    
     public List<Double> apply(String[] v) {
       return Lists.newArrayList(TO_DOUBLE_ARRAY.apply(v));
     }
@@ -219,7 +217,7 @@ class Converter {
 
   static Function<String[], Set<Double>> TO_DOUBLE_SET = 
     new Function<String[], Set<Double>>() {
-    @Override
+    
     public Set<Double> apply(String[] v) {
       return Sets.newHashSet(TO_DOUBLE_ARRAY.apply(v));
     }
