@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+DOMAIN=lab616.com
+
+ABSPATH=$(cd ${0%/*} && echo $PWD/${0##*/})
+AWS_DIR=`dirname "$ABSPATH"`
+
+case `uname` in
+Linux)
+	export JAVA_HOME=/opt/jdk1.6
+;;
+Darwin)
+	export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.5/Home
+;;
+*)
+	echo "JAVA_HOME must be set."
+	exit -1
+;;
+esac
+
+export EC2_HOME=${AWS_DIR}/ec2-tools
+export EC2_PRIVATE_KEY=${AWS_DIR}/.account/${DOMAIN}/pk-EQQBM3IKMMJCI4RMXN7CH4ZRGHQSLSXI.pem 
+export EC2_CERT=${AWS_DIR}/.account/${DOMAIN}/cert-EQQBM3IKMMJCI4RMXN7CH4ZRGHQSLSXI.pem 
+export PATH=$JAVA_HOME:$EC2_HOME/bin:$PATH
+
+INSTANCES=${AWS_DIR}/.instance
+AMIS=${AWS_DIR}/.ami
+
+case $1 in
+instances)
+	shift;
+	for i in `ls $INSTANCES`; do
+	    echo "$i --> `cat ${INSTANCES}/$i`"
+	done
+;;
+amis)
+	shift;
+	for i in `ls $AMIS`; do
+	    echo "$i --> `cat ${AMIS}/$i`"
+	done
+;;
+list)
+	shift;
+	ls $EC2_HOME/bin/ec2-*.cmd
+;;
+launch)
+	# Launch instance.
+	# ./ec2 launch <ami_name> <instance_name>
+	# <ami_name> and <instance_name> corresponds to the filenames in the ${AMIS} and ${INSTANCES} directories.
+	shift;
+	ami=`cat ${AMIS}/$1`; shift;
+	name=$1; shift;
+	OUT=`ec2-run-instances $ami -instance-count 1 --instance-type m1.small --availability-zone us-east-1c --group dev --key dev | tail -1`
+	echo $OUT
+	echo $OUT | sed -e 's/pending //g' -e 's/ /|/g' > ${INSTANCES}/${name}
+;;
+status)
+	# Update status.
+	# Pings AWS for the status of the instance.  Updates the list instances if it's running.
+	# ./ec2 update <instance_name>
+	shift;
+	name=$1; shift;
+	id=`cat ${INSTANCES}/$name | awk -F"|" '{print $2}'`
+	OUT=`ec2-describe-instances $id | tail -1`
+	echo $OUT | grep 'running'
+	if [[ "`echo $OUT | grep 'running'`" != "" ]]; then
+	    echo "Running"
+	    echo $OUT | sed -e 's/ /|/g' -e 's/INSTANCE/RUNNING/g'> ${INSTANCES}/${name}
+	else
+	    echo "Not running: $OUT"
+	fi
+;;
+stop)
+	# Terminate the instance.
+	# ./ec2 stop <instance_name>
+	# <instance_name> corresponds to the filenames in the ${INSTANCES} directory.
+	shift;
+	name=$1; shift;
+	state=`cat ${INSTANCES}/$name | awk -F"|" '{print $1}'`
+	if [[ "$state" == "RUNNING" ]]; then
+	    id=`cat ${INSTANCES}/$name | awk -F"|" '{print $2}'`
+	    OUT=`ec2-terminate-instances $id | tail -1`
+	    echo $OUT
+	    echo $OUT | sed -e 's/ /|/g' -e 's/INSTANCE/TERMINATED/g'> ${INSTANCES}/${name}
+	else
+	    echo "Not running: state=$state"
+	fi
+;;
+clean)
+	# Remove instance entry.
+	# ./ec2 clean <instance_name>
+	# <instance_name> corresponds to the filenames in the ${INSTANCES} directory.
+	shift;
+	name=$1; shift;
+	state=`cat ${INSTANCES}/$name | awk -F"|" '{print $1}'`
+	if [[ "$state" == "TERMINATED" ]]; then
+	    rm -f ${INSTANCES}/${name}
+	else
+	    echo "Not Terminated."
+	fi
+;;
+dns)
+	# Public DNS
+	# ./ec2 dns <instance_name>
+	# <instance_name> corresponds to the filenames in the ${INSTANCES} directory.
+	shift;
+	name=$1; shift;
+	state=`cat ${INSTANCES}/$name | awk -F"|" '{print $1}'`
+	if [[ "$state" == "RUNNING" ]]; then
+	    dns=`cat ${INSTANCES}/$name | awk -F"|" '{print $4}'`
+	    echo $dns
+	else
+	    echo "Not Running."
+	fi
+;;
+*)
+;;
+esac
+
+$@

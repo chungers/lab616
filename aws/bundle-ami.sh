@@ -4,14 +4,36 @@ REMOTE_HOST=${1}
 IMAGE_NAME=${2}
 REMOTE_USER="root"
 
-ACCOUNT_CREDENTIALS="./.account"
+DOMAIN=lab616.com
+
+ABSPATH=$(cd ${0%/*} && echo $PWD/${0##*/})
+AWS_DIR=`dirname "$ABSPATH"`
+
+echo "AWS_DIR=$AWS_DIR"
+
+case `uname` in
+Linux)
+	export JAVA_HOME=/opt/jdk1.6
+;;
+Darwin)
+	export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.5/Home
+;;
+*)
+	echo "JAVA_HOME must be set."
+	exit -1
+;;
+esac
+
+export EC2_HOME=${AWS_DIR}/ec2-tools
+export PATH=$JAVA_HOME:$EC2_HOME/bin:$PATH
+
+echo "EC2_HOME = $EC2_HOME"
+
+ACCOUNT_CREDENTIALS="${AWS_DIR}/.account/${DOMAIN}"
 KEY_DIR=${ACCOUNT_CREDENTIALS}/keys
 
-export JAVA_HOME="/usr"
-export EC2_HOME="./ec2-tools"
 export EC2_PRIVATE_KEY=${ACCOUNT_CREDENTIALS}/pk-EQQBM3IKMMJCI4RMXN7CH4ZRGHQSLSXI.pem 
 export EC2_CERT=${ACCOUNT_CREDENTIALS}/cert-EQQBM3IKMMJCI4RMXN7CH4ZRGHQSLSXI.pem 
-export PATH=${JAVA_HOME}:${EC2_HOME}/bin:${PATH}
 
 AWS_USER_ID=`cat ${ACCOUNT_CREDENTIALS}/account-id`
 AWS_ACCESS_KEY_ID=`cat ${ACCOUNT_CREDENTIALS}/access-key-id`

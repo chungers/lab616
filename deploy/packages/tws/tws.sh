@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # Global defaults:
+BIN_NAME=`basename $0 | awk -F. '{print $1}'`
 PROFILE=$1
 PACKAGE_DIR=`dirname $0`
 BINARY_DIR=${PACKAGE_DIR}/bin
 WORKING_DIR=${PACKAGE_DIR}/local
-LOGFILE=$0.${PROFILE}.log
-PID=$0.${PROFILE}.pid
+LOGFILE=${PACKAGE_DIR}/${BIN_NAME}.${PROFILE}.log
+PID=${PACKAGE_DIR}/${BIN_NAME}.${PROFILE}.pid
 TZ="US/Eastern"
 
 echo "DIR = $PACKAGE_DIR"

@@ -2,29 +2,48 @@
 
 OPTION=$1
 PACKAGE=$2
-PROFILE=$3
 
-shift; shift; shift;
+shift; shift;
 
 DEPLOY_DIR=`dirname $0`
+AWS_DIR=${DEPLOY_DIR}/../aws
+AWS_INSTANCES=${AWS_DIR}/.instance
+
 TARGET_DIR=${DEPLOY_DIR}/../runtime/${PACKAGE}
 SOURCE_DIR=${DEPLOY_DIR}/packages/${PACKAGE}
 BINARY_FILES=${SOURCE_DIR}/bin
 PROFILE_FILES=${SOURCE_DIR}/profiles
 SCRIPT_FILES=${SOURCE_DIR}/${PACKAGE}.sh
+APR_NATIVE=${DEPLOY_DIR}/../third_party/java/apr/platforms/
 TOMCAT_NATIVE=${DEPLOY_DIR}/../third_party/java/tomcat-native/platforms/
 NATIVE_FILES="${TOMCAT_NATIVE}/linux/lib/libtcnative*.so ${TOMCAT_NATIVE}/macosx/lib/libtcnative*.jnilib"
+NATIVE_FILES="${APR_NATIVE}/linux/lib/libapr-*.so ${APR_NATIVE}/macosx/lib/libapr-*.jnilib "${NATIVE_FILES}
 TEMPLATES_DIR=${SOURCE_DIR}/templates
 LOCAL_FILES=${TEMPLATES_DIR}/local
-REMOTE_USER=lab616
-REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
-REMOTE_HOST=dev.lab616.com
 REMOTE_SCRIPT=${PACKAGE}.sh
-REMOTE_LOG=${REMOTE_SCRIPT}.${PROFILE}.log
-REMOTE_PID=${REMOTE_SCRIPT}.${PROFILE}.pid
+
+
+# Resolve host name
+function dns {
+	name=$1; shift;
+	state=`cat ${AWS_INSTANCES}/$name | awk -F"|" '{print $1}'`
+	if [[ "$state" == "RUNNING" ]]; then
+	    host=`cat ${AWS_INSTANCES}/$name | awk -F"|" '{print $4}'`
+	    echo $host
+	else
+	    echo "Not running: state=$state"
+	    exit -1
+	fi
+}
+
 
 # Execute remotely
 function run_remote {
+    REMOTE_HOST=`dns $1`
+    REMOTE_USER=$2
+    shift; shift;
+    REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
+
     ssh -i ${REMOTE_ID_FILE} ${REMOTE_USER}@${REMOTE_HOST} $@
 }
 
@@ -66,6 +85,11 @@ case "${OPTION}" in
 --rsync)
    # Simple case of just copy from local source to remote machine.
    # This deployment simply uses rsync.
+   INSTANCE=$1; shift;
+   REMOTE_USER=lab616
+   REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
+   REMOTE_HOST=`dns $INSTANCE`
+   echo "HOST = $REMOTE_HOST, ID = $REMOTE_ID_FILE"
    pushd ${TARGET_DIR}
    SRC=`pwd`
    popd
@@ -75,34 +99,80 @@ case "${OPTION}" in
    # Normally this should be done over ssh and the deployed server will just
    # checkout a given branch from git repository for production.
 ;;
+--console)
+   # Start a console at the instance name
+   INSTANCE=$1; shift;
+   REMOTE_USER=lab616
+   REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
+   REMOTE_HOST=`dns $INSTANCE`
+   echo "HOST = $REMOTE_HOST, ID = $REMOTE_ID_FILE"
+   ssh -i ${REMOTE_ID_FILE} ${REMOTE_USER}@${REMOTE_HOST} $@
+;;
+--cp)
+   # Start a console at the instance name
+   INSTANCE=$1; shift;
+   REMOTE_USER=lab616
+   REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
+   REMOTE_HOST=`dns $INSTANCE`
+   echo "HOST = $REMOTE_HOST, ID = $REMOTE_ID_FILE"
+   scp -i ${REMOTE_ID_FILE} $1 ${REMOTE_USER}@${REMOTE_HOST}:$2
+;;
+--setupssh)
+   # Sets up ssh password-less login at the remote host
+   INSTANCE=$1; shift;
+   REMOTE_USER=lab616
+   REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
+   REMOTE_HOST=`dns $INSTANCE`
+   echo "HOST = $REMOTE_HOST, ID = $REMOTE_ID_FILE"
+   scp -i ${REMOTE_ID_FILE} ${REMOTE_ID_FILE}.pub ${REMOTE_USER}@${REMOTE_HOST}:/home/${REMOTE_USER}/.ssh/authorized_keys
+;;
 --start)
    # Start remotely.
-   run_remote /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_SCRIPT} ${PROFILE} $@
+   PROFILE=$1; shift;
+   INSTANCE=$1; shift;
+   REMOTE_USER=lab616
+   run_remote ${INSTANCE} ${REMOTE_USER} /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_SCRIPT} ${PROFILE} $@
 ;;
 --stop)
    # Stop remote server.
-   PID=`run_remote cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_PID}`
-   run_remote kill -s TERM ${PID}
+   PROFILE=$1; shift;
+   INSTANCE=$1; shift;
+   REMOTE_USER=lab616
+   REMOTE_PID=${PACKAGE}.${PROFILE}.pid
+   PID=`run_remote ${INSTANCE} ${REMOTE_USER} cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_PID}`
+   run_remote ${INSTANCE} ${REMOTE_USER} kill -s TERM ${PID}
+;;
+--viewlog)
+   # View the remote log file.
+   PROFILE=$1; shift;
+   INSTANCE=$1; shift;
+   REMOTE_USER=lab616
+   REMOTE_PID=${PACKAGE}.${PROFILE}.pid
+   REMOTE_LOG=${PACKAGE}.${PROFILE}.log
+   run_remote ${INSTANCE} ${REMOTE_USER} tail -f /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}
 ;;
 --startlocal)
    # Start remotely.
+   PROFILE=$1; shift;
+   REMOTE_USER=lab616
    run_local /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_SCRIPT} ${PROFILE} $@
 ;;
 --stoplocal)
    # Stop remote server.
+   PROFILE=$1; shift;
+   REMOTE_USER=lab616
+   REMOTE_PID=${PACKAGE}.${PROFILE}.pid
    PID=`cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_PID}`
    run_local kill -s TERM ${PID}
 ;;
---viewlog)
-   # View the remote log file.
-   run_remote tail -f /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}
-;;
 --tunnel)
    # SSH tunnel
-   REMOTE_PORT=$1
-   LOCAL_PORT=$2
-   shift; shift;
-   ssh -i ${REMOTE_ID_FILE} -L ${LOCAL_PORT}:localhost:${REMOTE_PORT} ${REMOTE_USER}@${REMOTE_HOST}
+   INSTANCE=$1;
+   REMOTE_PORT=$2
+   LOCAL_PORT=$3
+   REMOTE_USER=lab616
+   REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
+   ssh -i ${REMOTE_ID_FILE} -L ${LOCAL_PORT}:localhost:${REMOTE_PORT} ${REMOTE_USER}@`dns ${INSTANCE}`
 ;;
 esac
 
