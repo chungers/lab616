@@ -1,0 +1,5 @@
+Amazon Simple DB Java Library
+Copyright 2008 Amazon Technologies, Inc
+
+This product includes software developed by
+Amazon Technologies, Inc (http://www.amazon.com/).
