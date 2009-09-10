@@ -1,8 +1,8 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # Global defaults:
 BIN_NAME=`basename $0 | awk -F. '{print $1}'`
-PROFILE=$1
+PROFILE=$1;
 PACKAGE_DIR=`dirname $0`
 BINARY_DIR=${PACKAGE_DIR}/bin
 WORKING_DIR=${PACKAGE_DIR}/local
@@ -41,7 +41,9 @@ JAVA_COMMAND="nohup java ${JVM_ARGS} -jar ${JAR}"
 # Package-specific parameters:
 
 ARGS=""
-${JAVA_COMMAND} ${ARGS} &>${LOGFILE} &
+${JAVA_COMMAND} ${ARGS} $@ &>${LOGFILE} &
 
 # Send the pid to a file (last process captured in $!)
 echo $! > ${PID}
+
+tail -f ${LOGFILE}

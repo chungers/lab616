@@ -30,9 +30,8 @@ public class Logging {
   
   @Flag(name="log", 
         doc="Logging level", 
-        required = false,
-        defaultValue = "DEBUG")
-  public static String LEVEL = null;
+        required = false)
+  public static String LEVEL = "INFO";
   
   static {
     Flags.register(Logging.class);
@@ -49,7 +48,7 @@ public class Logging {
       ConsoleAppender appender = new ConsoleAppender(layout);
       Logger.getRootLogger().addAppender(appender);
       Logger.getRootLogger().setLevel(Level.toLevel(LEVEL));
-    }
+    } 
   }
   
   // For testing only.
