@@ -13,6 +13,7 @@ import com.google.inject.Module;
 import com.google.inject.internal.ImmutableList;
 import com.google.inject.internal.Lists;
 import com.google.inject.name.Names;
+import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.common.logging.Logging;
 import com.lab616.omnibus.http.HttpServer;
@@ -25,7 +26,15 @@ import com.lab616.omnibus.http.HttpServerModule;
  *
  */
 public abstract class Main {
-  
+	
+  @Flag(name = "logLevel")
+  public static String logLevel = "INFO";
+	
+  /**
+   * Interface for shutdown handler.
+   *
+   * @param <V> The return value.
+   */
   public interface Shutdown<V> {
     public String getName();
     public V call() throws Exception;
@@ -102,7 +111,7 @@ public abstract class Main {
     // By now all flags are registered as the module classes were loaded.
     // It's now safe to parse and set all the flags.
     Flags.parse(argv);
-    Logging.init();
+    Logging.init(logLevel);
     
     // Now the injector gets created and during this process, the flag values
     // are read and used by the module bindings.

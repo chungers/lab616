@@ -14,12 +14,14 @@ SOURCE_DIR=${DEPLOY_DIR}/packages/${PACKAGE}
 BINARY_FILES=${SOURCE_DIR}/bin
 PROFILE_FILES=${SOURCE_DIR}/profiles
 SCRIPT_FILES=${SOURCE_DIR}/${PACKAGE}
+TEMPLATES_DIR=${SOURCE_DIR}/templates
+LOCAL_FILES=${TEMPLATES_DIR}/local
+
 APR_NATIVE=${DEPLOY_DIR}/../third_party/java/apr/platforms/
 TOMCAT_NATIVE=${DEPLOY_DIR}/../third_party/java/tomcat-native/platforms/
 NATIVE_FILES="${TOMCAT_NATIVE}/linux/lib/libtcnative*.so ${TOMCAT_NATIVE}/macosx/lib/libtcnative*.jnilib"
 NATIVE_FILES="${APR_NATIVE}/linux/lib/libapr-*.so ${APR_NATIVE}/macosx/lib/libapr-*.jnilib "${NATIVE_FILES}
-TEMPLATES_DIR=${SOURCE_DIR}/templates
-LOCAL_FILES=${TEMPLATES_DIR}/local
+
 REMOTE_SCRIPT=${PACKAGE}
 
 

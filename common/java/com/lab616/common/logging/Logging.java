@@ -27,40 +27,31 @@ public class Logging {
    * Debug layout pattern which includes method and line number in the log.
    */
   public static String DEBUG_PATTERN = "%d [%t] %-5p %c.%M:%L - %m%n";
-  
-  @Flag(name="log", 
-        doc="Logging level", 
-        required = false)
-  public static String LEVEL = "INFO";
-  
-  static {
-    Flags.register(Logging.class);
+
+  /**
+   * Initializes the logging system with the desired log level.
+   * 
+   * @param level The log level in string.
+   */
+  public final static void init(String level) {
+    init(Level.toLevel(level));
   }
   
-  public static void init() {
+  /**
+   * Initializes the logging system with the desired log level.
+   * 
+   * @param level The log level.
+   */
+  public final static void init(Level level) {
     // Initialize logging if log4j.properties file is not set up.
     if (System.getProperty("log4j.configuration") == null ||
         Thread.currentThread().getContextClassLoader()
           .getResource("log4j.properties") == null) {
-      Level level = Level.toLevel(LEVEL);
       PatternLayout layout = (level == Level.DEBUG || level == Level.TRACE) ?
           new PatternLayout(DEBUG_PATTERN) : new PatternLayout(PATTERN);
       ConsoleAppender appender = new ConsoleAppender(layout);
       Logger.getRootLogger().addAppender(appender);
-      Logger.getRootLogger().setLevel(Level.toLevel(LEVEL));
+      Logger.getRootLogger().setLevel(level);
     } 
-  }
-  
-  // For testing only.
-  public static void main(String[] argv) throws Exception {
-    Flags.parse(argv);
-    Logging.init();
-   
-    Logger logger = Logger.getLogger(Logging.class);
-    
-    logger.info("This is info.");
-    logger.debug("This is debug.");
-    logger.trace("This is trace.");
-    logger.warn("This is warning.");
   }
 }

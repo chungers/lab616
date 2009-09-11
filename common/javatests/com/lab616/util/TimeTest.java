@@ -18,10 +18,6 @@ public class TimeTest extends TestCase {
 
   Logger logger = Logger.getLogger(TimeTest.class);
   
-  static {
-    Logging.init();
-  }
-  
   public void testCurrentTimeMicros() throws Exception {
     int tests = 100;
     long t = 0, t1 = 0;

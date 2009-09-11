@@ -21,6 +21,9 @@ import junit.framework.TestCase;
  */
 public class SimpleDBTest extends TestCase {
 
+  @Flag(name = "logLevel")
+  public static String logLevel = "INFO";
+  
   @Flag(name = "domainName")
   public static String domainName;
   
@@ -43,13 +46,13 @@ public class SimpleDBTest extends TestCase {
     };
     
     Flags.parse(args);
-    Logging.init();
+    Logging.init(logLevel);
     
     Injector injector = Guice.createInjector(modules);
     
     SimpleDB sdb = injector.getInstance(SimpleDB.class);
     
-    logger.info("************* SimpleDB started.");
+    logger.debug("************* SimpleDB started.");
     
     if (domainName != null) {
       logger.info("Creating domain " + domainName);
