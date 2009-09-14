@@ -3,6 +3,7 @@
 	<name>ib</name>
 	<comment>Interactive Brokers</comment>
 	<projects>
+		<project>common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

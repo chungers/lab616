@@ -2,13 +2,14 @@
 
 package com.lab616.omnibus.http;
 
-import com.google.inject.Binder;
-import com.google.inject.Module;
 import com.google.inject.Scopes;
 import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.omnibus.Main;
+import com.lab616.omnibus.http.servlets.QuitServlet;
+import com.lab616.omnibus.http.servlets.StatusServlet;
+import com.lab616.omnibus.http.servlets.VarzServlet;
 
 /**
  * Guice module
@@ -16,7 +17,7 @@ import com.lab616.omnibus.Main;
  * @author david
  *
  */
-public class HttpServerModule implements Module {
+public class HttpServerModule extends AbstractHttpServletModule {
 
   // The convention is to put Flags inside the Module and leave explicitly
   // named dependencies in the constructor of the injected class.
@@ -28,14 +29,18 @@ public class HttpServerModule implements Module {
   }
   
   
-  public void configure(Binder binder) {
-
-    binder.bindConstant().annotatedWith(Names.named("http"))
+  public void configure() {
+    bindConstant().annotatedWith(Names.named("http"))
       .to(HTTP_PORT);
     
-    binder.bind(Main.Shutdown.class).annotatedWith(Names.named("http-shutdown"))
+    bind(Main.Shutdown.class).annotatedWith(Names.named("http-shutdown"))
       .toProvider(HttpServer.class).in(Scopes.SINGLETON);
 
-    binder.bind(HttpServer.class).in(Scopes.SINGLETON);
+    bind(HttpServer.class).in(Scopes.SINGLETON);
+    
+    // System servlets
+    bind("/statusz", StatusServlet.class);
+    bind("/varz", VarzServlet.class);
+    bind("/quitquitquit", QuitServlet.class);
   }
 }

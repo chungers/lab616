@@ -16,6 +16,7 @@ import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.common.logging.Logging;
+import com.lab616.omnibus.event.EventModule;
 import com.lab616.omnibus.http.HttpServer;
 import com.lab616.omnibus.http.HttpServerModule;
 
@@ -78,7 +79,7 @@ public abstract class Main {
                 "):", e);
           }
         }
-        logger.info("Shutdown sequence comleted.");
+        logger.info("Shutdown sequence completed.");
       }
     };
   }
@@ -106,6 +107,7 @@ public abstract class Main {
     // where the flag values are used for injection.
     List<Module> allModules = Lists.newArrayList();
     allModules.add(new HttpServerModule());
+    allModules.addAll(EventModule.allModules());
     allModules.addAll(getModules());
 
     // By now all flags are registered as the module classes were loaded.
@@ -116,7 +118,7 @@ public abstract class Main {
     // Now the injector gets created and during this process, the flag values
     // are read and used by the module bindings.
     injector = Guice.createInjector(allModules);
-
+    
     // Get any shutdown hooks for the server:
     Thread shutdown = new Thread(getShutdownHook());
     shutdown.setName(getClass().getName() + ":shutdown");

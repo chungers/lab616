@@ -39,10 +39,12 @@ public class Time {
     boolean nativeImpl = false;
     try {
       Library.initialize(null);
-      logger.info("Native library loaded. Time in useconds.");
+      logger.info(
+      		"Native library loaded. Time accurate to microseconds.");
       nativeImpl = true;
     } catch (Throwable e) {
-      logger.warn("Exception with native library. Time resolution to milliseconds.", e);
+      logger.info(
+      		"Exception with native library. Time accurate to milliseconds.", e);
       nativeImpl = false;
     }
     impl = (nativeImpl) ? new NativeImpl() : new JavaImpl(); 

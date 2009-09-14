@@ -2,12 +2,10 @@
 
 package com.lab616.omnibus.http;
 
-import java.io.IOException;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.mortbay.jetty.Server;
@@ -28,16 +26,19 @@ import com.lab616.omnibus.Main;
  */
 public class HttpServer implements Provider<Main.Shutdown<Void>>{
 
+	
   static Logger logger = Logger.getLogger(HttpServer.class);
   
   final private int port;
   
   final private Server server;
+  final private Map<String, HttpServlet> servletMap;
   
   @Inject
-  public HttpServer(@Named("http")int port) throws Exception {
+  public HttpServer(@Named("http")int port, Map<String, HttpServlet> mapping) 
+  	throws Exception {
     this.port = port;
-    
+    this.servletMap = mapping;
     logger.info("HttpServer @ port = " + this.port);
     this.server = new Server(this.port);
 
@@ -45,25 +46,15 @@ public class HttpServer implements Provider<Main.Shutdown<Void>>{
     server.setHandler(contexts);
     
     Context root = new Context(contexts, "/", Context.SESSIONS);
-    addStatusz(root);
+    for (Entry<String, HttpServlet> map : mapping.entrySet()) {
+    	root.addServlet(new ServletHolder(map.getValue()), map.getKey());
+    }
+  }
+
+  protected final Map<String, HttpServlet> getServletMap() {
+  	return this.servletMap;
   }
   
-  protected void addStatusz(Context context) {
-    context.addServlet(new ServletHolder(new HttpServlet() {
-
-      private static final long serialVersionUID = 4358999418538102949L;
-
-      
-      protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-          throws ServletException, IOException {
-        resp.setContentType("text/plain");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().println("OK");
-      }
-    }), "/statusz");
-    
-  }
-
   public final int getPort() {
     return port;
   }
@@ -83,16 +74,14 @@ public class HttpServer implements Provider<Main.Shutdown<Void>>{
     }
   }
 
-  
+  /**
+   * Implements the Provider<Shutdown> interface.
+   */
   public Main.Shutdown<Void> get() {
     return new Main.Shutdown<Void>() {
-      
-      
       public String getName() {
         return "http-shutdown";  // by convention, use the annotation name.
       }
-      
-      
       public Void call() throws Exception {
         stop();
         return null;
