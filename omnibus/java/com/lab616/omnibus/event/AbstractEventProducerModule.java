@@ -13,17 +13,17 @@ import com.google.inject.multibindings.Multibinder;
  * @author david
  *
  */
-public abstract class AbstractEventProducerModule extends AbstractModule {
+abstract class AbstractEventProducerModule extends AbstractModule {
 
 	@SuppressWarnings("unchecked")
-  public void bind(EventDefinition<?> def) {
+  void bindEventDefinition(EventDefinition<?> def) {
 		Multibinder<EventDefinition> mbinder = 
 			Multibinder.newSetBinder(binder(), EventDefinition.class);
 		mbinder.addBinding().toInstance(def);
 	}
 	
   @SuppressWarnings("unchecked")
-  public void bind(Class<? extends EventDefinition<?>> clz) {
+  void bindEventDefinition(Class<? extends EventDefinition<?>> clz) {
 		Multibinder<EventDefinition> mbinder = 
 			Multibinder.newSetBinder(binder(), EventDefinition.class);
 		mbinder.addBinding().to(clz).in(Scopes.SINGLETON);

@@ -44,18 +44,18 @@ public class EventModuleTest extends TestCase {
 
 		Module extension = new AbstractEventProducerModule() {
 			public void configure() {
-				bind(eType1);
-				bind(eType2);
+				bindEventDefinition(eType1);
+				bindEventDefinition(eType2);
 			}
 		};
 		
-		final EventWatcher watcher = new EventWatcher() {
+		final AbstractEventWatcher watcher = new AbstractEventWatcher() {
 			
 		};
 		
 		Module watchers = new AbstractEventWatcherModule() {
 			public void configure() {
-				bind(watcher);
+				bindEventWatcher(watcher);
 			}
 		};
 		
@@ -80,7 +80,7 @@ public class EventModuleTest extends TestCase {
 		assertEquals(
 				SystemEvent.class.getName(), events.get(SystemEvent.EVENT_NAME));
 
-		List<EventWatcher> rwatchers = engine.getEventWatchers();
+		List<AbstractEventWatcher> rwatchers = engine.getEventWatchers();
 		assertTrue(rwatchers.contains(watcher));
 		assertEquals(engine, rwatchers.get(0).getEngine());
 	}

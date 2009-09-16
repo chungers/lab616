@@ -17,7 +17,6 @@ import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.ib.TwsWindowHandlers.STATE;
 import com.lab616.omnibus.Main;
-import com.lab616.omnibus.Main.Shutdown;
 import com.lab616.ui.AWTWindowEventReceiver;
 import com.lab616.util.Time;
 

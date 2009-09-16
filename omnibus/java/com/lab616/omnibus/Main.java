@@ -16,6 +16,9 @@ import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.common.logging.Logging;
+import com.lab616.monitoring.Varz;
+import com.lab616.monitoring.Varzs;
+import com.lab616.omnibus.event.EventEngine;
 import com.lab616.omnibus.event.EventModule;
 import com.lab616.omnibus.http.HttpServer;
 import com.lab616.omnibus.http.HttpServerModule;
@@ -28,9 +31,17 @@ import com.lab616.omnibus.http.HttpServerModule;
  */
 public abstract class Main {
 	
+  @Flag(name = "server-id")
+  @Varz(name = "server-id")
+  public static String serverId = "obus-" + System.currentTimeMillis();
+	
   @Flag(name = "logLevel")
   public static String logLevel = "INFO";
 	
+  static {
+  	Varzs.export(Main.class);
+  }
+  
   /**
    * Interface for shutdown handler.
    *
@@ -50,24 +61,27 @@ public abstract class Main {
   }
 
   public final List<Shutdown<?>> getShutdownRoutines() {
-    List<Shutdown<?>> list = Lists.newArrayList();
-    
+  	// System-wide services.
+  	List<Shutdown<?>> list = Lists.newArrayList();
     list.add(getInstance(Shutdown.class, "http-shutdown"));
+    list.add(getInstance(Shutdown.class, "event-engine-shutdown"));
 
     if (getShutdown() != null) {
       list.add(getShutdown());
     }
-    
     return list;
   }
-  
+
+  /**
+   * Derived class override this to provide additional shutdown hooks.
+   * @return Shutdown hook.
+   */
   public Shutdown<?> getShutdown() {
     return null;
   }
   
   private Runnable getShutdownHook() {
     return new Runnable() {
-      
       public void run() {
         logger.info("Starting shutdown sequence:");
         for (Shutdown<?> callable : getShutdownRoutines()) {
@@ -101,7 +115,6 @@ public abstract class Main {
    * @throws Exception Uncaught exception.
    */
   public final void run(String[] argv) throws Exception {
-
     // Load all the modules.  This will also force any Flag registration
     // to occur so that the flag parsing will apply to all the module class
     // where the flag values are used for injection.
@@ -123,8 +136,12 @@ public abstract class Main {
     Thread shutdown = new Thread(getShutdownHook());
     shutdown.setName(getClass().getName() + ":shutdown");
     Runtime.getRuntime().addShutdownHook(shutdown);
-    
+
+    // Start all services.
     getInstance(HttpServer.class).start();
+    getInstance(EventEngine.class).start();
+    
+    // Run the main.
     run();
   }
   
@@ -138,5 +155,21 @@ public abstract class Main {
   
   public final <T> T getInstance(Key<T> key) {
     return injector.getInstance(key);
+  }
+
+  /**
+   * Simple main for testing, with only the platform components running.
+   * 
+   * @param argv Command line args
+   * @throws Exception
+   */
+	public static void main(String[] argv) throws Exception {
+  	Main main = new Main() {
+			@Override
+      public void run() throws Exception {
+				logger.info("Running.");
+			}
+  	};
+  	main.run(argv);
   }
 }

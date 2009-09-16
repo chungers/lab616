@@ -67,7 +67,7 @@ public class HttpServer implements Provider<Main.Shutdown<Void>>{
   public void stop() {
     logger.info("Stopping http server.");
     try {
-      this.server.stop();
+    	this.server.setStopAtShutdown(true);
       logger.info("Http server stopped.");
     } catch (Exception e) {
       logger.error("Exception while stopping http server:", e);

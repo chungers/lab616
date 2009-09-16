@@ -2,46 +2,39 @@
 
 package com.lab616.omnibus.event;
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import java.lang.annotation.Annotation;
 
 /**
- * Generalized interface for an entity that is interested in some event
- * stream that matches the given statement with variables.
+ * Event watcher using a Statement which can be created dynamically 
+ * rather than statically in code using annotations.
  * 
  * @author david
  *
+ * @param <A> The annotation type @Pattern or @statement.
  */
-public abstract class EventWatcher {
+public abstract class EventWatcher<A extends Annotation> 
+	extends AbstractEventWatcher {
 
-	@Retention(RUNTIME)
-	@Target({ ElementType.TYPE })
-	public @interface Statement {
-		
-	}
-
-	@Retention(RUNTIME)
-	@Target({ ElementType.TYPE })
-	public @interface Expression {
-		
-	}
-
-	@Retention(RUNTIME)
-	@Target({ ElementType.METHOD })
-	public @interface Var {
-		
-	}
-
-	private EventEngine engine;
+	private final String statement;
+	private final Object[] parameters;
 	
-	public final void setEngine(EventEngine engine) {
-		this.engine = engine;
+	public EventWatcher(String exp, Object... args) {
+		this.statement = exp;
+		this.parameters = args;
 	}
-	
-	protected final EventEngine getEngine() {
-		return this.engine;
+
+	@Override
+  protected final Object[] getParameters() {
+	  return parameters;
+  }
+
+	@Override
+  protected final String getPattern() {
+	  return null;
+  }
+
+	@Override
+  protected final String getStatement() {
+		return this.statement;
 	}
 }

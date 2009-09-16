@@ -39,14 +39,14 @@ public class VarzServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    varzCalls.incrementAndGet();
+    long ctUSec = Time.now();
+    lastSampleDTusec.set(ctUSec - lastSampleTSusec.get());
+    lastSampleTSusec.set(Time.now());
     resp.setContentType("text/plain");
     resp.setStatus(HttpServletResponse.SC_OK);
     for (String varz : Varzs.getValues()) {
     	resp.getWriter().println(varz);
     }
-    long ctUSec = Time.now();
-    lastSampleDTusec.set(ctUSec - lastSampleTSusec.get());
-    lastSampleTSusec.set(Time.now());
-    varzCalls.incrementAndGet();
   }
 }

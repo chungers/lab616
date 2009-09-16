@@ -1,8 +1,13 @@
 // 2009 lab616.com, All Rights Reserved.
 package com.lab616.util;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jni.Library;
+
+import com.lab616.monitoring.Varz;
+import com.lab616.monitoring.Varzs;
 
 
 /**
@@ -12,28 +17,35 @@ import org.apache.tomcat.jni.Library;
  */
 public class Time {
 
+	@Varz(name = "time-resolution-microseconds")
+	public static final AtomicInteger resolution = new AtomicInteger();
+
+	static {
+		Varzs.export(Time.class);
+	}
+	
   static Logger logger = Logger.getLogger(Time.class);
   
   /**
    * Implementation class. Either native or in java.
    */
-  private static interface Impl {
+  private static interface TimeSource {
     long now();
   }
   
-  private static class JavaImpl implements Impl {
+  private static class JavaTimeSource implements TimeSource {
     public long now() {
       return System.currentTimeMillis() * 1000L;
     }
   }
   
-  private static class NativeImpl implements Impl {
+  private static class NativeTimeSource implements TimeSource {
     public long now() {
       return org.apache.tomcat.jni.Time.now();
     }
   }
   
-  final private static Impl impl;
+  final private static TimeSource timeSource;
   
   static {
     boolean nativeImpl = false;
@@ -42,19 +54,22 @@ public class Time {
       logger.info(
       		"Native library loaded. Time accurate to microseconds.");
       nativeImpl = true;
+      resolution.set(1);
     } catch (Throwable e) {
       logger.info(
-      		"Exception with native library. Time accurate to milliseconds.", e);
+      		"Exception loading native library. Time accurate to milliseconds: " +
+      		e.getMessage());
       nativeImpl = false;
+      resolution.set(1000);
     }
-    impl = (nativeImpl) ? new NativeImpl() : new JavaImpl(); 
+    timeSource = (nativeImpl) ? new NativeTimeSource() : new JavaTimeSource(); 
   }
   
   /**
    * Current time in microseconds.
    * @return Micros.
    */
-  public static long now() {
-    return impl.now();
+  public final static long now() {
+    return timeSource.now();
   }
 }

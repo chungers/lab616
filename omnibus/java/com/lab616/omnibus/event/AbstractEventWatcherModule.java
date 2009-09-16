@@ -13,23 +13,23 @@ import com.google.inject.multibindings.Multibinder;
  * @author david
  *
  */
-public abstract class AbstractEventWatcherModule extends AbstractModule {
+abstract class AbstractEventWatcherModule extends AbstractModule {
 
-	public void bind(EventWatcher w) {
-		Multibinder<EventWatcher> mbinder = 
-			Multibinder.newSetBinder(binder(), EventWatcher.class);
+	void bindEventWatcher(AbstractEventWatcher w) {
+		Multibinder<AbstractEventWatcher> mbinder = 
+			Multibinder.newSetBinder(binder(), AbstractEventWatcher.class);
 		mbinder.addBinding().toInstance(w);
 	}
 	
-	public void bind(Class<? extends EventWatcher> clz) {
-		Multibinder<EventWatcher> mbinder = 
-			Multibinder.newSetBinder(binder(), EventWatcher.class);
+	void bindEventWatcher(Class<? extends AbstractEventWatcher> clz) {
+		Multibinder<AbstractEventWatcher> mbinder = 
+			Multibinder.newSetBinder(binder(), AbstractEventWatcher.class);
 		mbinder.addBinding().to(clz).in(Scopes.SINGLETON);
 	}
 
-	public void bind(Provider<EventWatcher> p) {
-		Multibinder<EventWatcher> mbinder = 
-			Multibinder.newSetBinder(binder(), EventWatcher.class);
+	void bindEventWatcher(Provider<AbstractEventWatcher> p) {
+		Multibinder<AbstractEventWatcher> mbinder = 
+			Multibinder.newSetBinder(binder(), AbstractEventWatcher.class);
 		mbinder.addBinding().toProvider(p).in(Scopes.SINGLETON);
 	}
 }
