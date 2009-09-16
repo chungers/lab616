@@ -9,6 +9,7 @@ import com.lab616.common.flags.Flags;
 import com.lab616.omnibus.Main;
 import com.lab616.omnibus.http.servlets.QuitServlet;
 import com.lab616.omnibus.http.servlets.StatusServlet;
+import com.lab616.omnibus.http.servlets.SystemEventServlet;
 import com.lab616.omnibus.http.servlets.VarzServlet;
 
 /**
@@ -42,5 +43,6 @@ public class HttpServerModule extends AbstractHttpServletModule {
     bind("/statusz", StatusServlet.class);
     bind("/varz", VarzServlet.class);
     bind("/quitquitquit", QuitServlet.class);
+    bind("/se", SystemEventServlet.class);
   }
 }

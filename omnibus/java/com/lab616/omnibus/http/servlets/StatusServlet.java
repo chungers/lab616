@@ -46,14 +46,13 @@ public class StatusServlet extends HttpServlet {
 	throws ServletException, IOException {
 		statuszCalls.incrementAndGet();
 		try {
-			sentEvents.incrementAndGet();
-
 			SystemEvent event = new SystemEvent();
 			event.setComponent("system");
 			event.setMethod("ping");
 			
 			eventEngine.post(event);
-			
+
+			sentEvents.incrementAndGet();
 			resp.setContentType("text/plain");
 			resp.setStatus(HttpServletResponse.SC_OK);
 			resp.getWriter().println("OK");
