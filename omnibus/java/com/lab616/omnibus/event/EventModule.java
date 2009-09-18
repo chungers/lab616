@@ -5,7 +5,6 @@ package com.lab616.omnibus.event;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
 import com.google.inject.name.Names;
@@ -19,42 +18,20 @@ import com.lab616.omnibus.event.watchers.SystemEventWatcher;
  * @author david
  *
  */
-public class EventModule extends AbstractModule {
-
-	/**
-	 * Returns all relevant modules for this component.
-	 * 
-	 * @return list of modules.
-	 */
-	public static List<Module> allModules() {
-		List<Module> list = Lists.newArrayList();
-		list.add(new EventProducers());
-		list.add(new EventWatchers());
-		list.add(new EventModule());
-		return list;
-	}
-	
-	public static class EventProducers extends AbstractEventProducerModule {
-
-		public void configure() {
-			bindEventDefinition(new ObjectEventDefinition<SystemEvent>(
-					SystemEvent.EVENT_NAME, SystemEvent.class));
-		}
-	}
-	
-	public static class EventWatchers extends AbstractEventWatcherModule {
-		
-		public void configure() {
-			// Default system-wide watchers:
-			bindEventWatcher(SystemEventWatcher.class);
-			bindEventWatcher(new SystemEventStats("event", 1000L));
-			bindEventWatcher(new SystemEventStats("http", 1000L));
-			bindEventWatcher(new SystemEventStats("system", 1000L));
-		}
-	}
+public class EventModule extends AbstractEventModule {
 
 	public void configure() {
-		bind(EventEngine.class).in(Scopes.SINGLETON);
+    // Event definitions.
+	  bindEventDefinition(new ObjectEventDefinition<SystemEvent>(
+        SystemEvent.EVENT_NAME, SystemEvent.class));
+
+    // Default system-wide watchers:
+    bindEventWatcher(SystemEventWatcher.class);
+    bindEventWatcher(new SystemEventStats("event", 1000L));
+    bindEventWatcher(new SystemEventStats("http", 1000L));
+    bindEventWatcher(new SystemEventStats("system", 1000L));
+
+    bind(EventEngine.class).in(Scopes.SINGLETON);
     bind(Main.Shutdown.class).annotatedWith(Names.named("event-engine-shutdown"))
     .toProvider(EventEngine.class).in(Scopes.SINGLETON);
 	}
@@ -90,14 +67,14 @@ public class EventModule extends AbstractModule {
 		}
 		
 		public Iterable<Module> build() {
-			Module events = new AbstractEventProducerModule() {
+			Module events = new AbstractEventModule() {
 				public void configure() {
 					for (Class<? extends EventDefinition<?>> clz : dlist) {
 						bindEventDefinition(clz);
 					}
 				}
 			};
-			Module watchers = new AbstractEventWatcherModule() {
+			Module watchers = new AbstractEventModule() {
 				public void configure() {
 					for (Class<? extends AbstractEventWatcher> clz : wlist) {
 						bindEventWatcher(clz);
@@ -107,9 +84,9 @@ public class EventModule extends AbstractModule {
 					}
 				}
 			};
-			modules.addAll(EventModule.allModules());
 			modules.add(events);
 			modules.add(watchers);
+      modules.add(new EventModule());
 			return modules;
 		}
 	}

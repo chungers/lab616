@@ -22,7 +22,7 @@ import com.lab616.util.Time;
 public class VarzServlet extends HttpServlet {
 
 	@Varz(name = "varz-invocations")
-	public static AtomicInteger varzCalls = new AtomicInteger(0);
+	public static AtomicInteger calls = new AtomicInteger(0);
 
 	@Varz(name = "varz-last-sample-ts-usec")
 	public static AtomicLong lastSampleTSusec = new AtomicLong(
@@ -39,7 +39,7 @@ public class VarzServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    varzCalls.incrementAndGet();
+    calls.incrementAndGet();
     long ctUSec = Time.now();
     lastSampleDTusec.set(ctUSec - lastSampleTSusec.get());
     lastSampleTSusec.set(Time.now());

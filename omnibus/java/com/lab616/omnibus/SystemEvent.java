@@ -38,25 +38,32 @@ public final class SystemEvent {
   	return component;
   }
 	
-	public void setComponent(String component) {
+	public SystemEvent setComponent(String component) {
   	this.component = component;
+  	return this;
   }
 	
 	public String getMethod() {
   	return method;
   }
 	
-	public void setMethod(String method) {
+	public SystemEvent setMethod(String method) {
   	this.method = method;
+  	return this;
   }
 	
 	public Map<String, String> getParams() {
   	return params;
   }
 	
-	public void setParam(String p, String v) {
+	public SystemEvent setParam(String p, String v) {
   	this.params.put(p, v);
+  	return this;
   }
+	
+	public String getParam(String p) {
+	  return this.params.get(p);
+	}
 	
 	public String toString() {
 		return String.format("%s[%s:%s:%s]", EVENT_NAME, component, method, params);

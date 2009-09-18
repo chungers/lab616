@@ -54,7 +54,9 @@ public class EventWatcherTest extends TestCase {
 		t1.param1 = "Test";
 		t1.param2 = 1000;
 		
-		Map<Integer, Function<AbstractEventWatcher,Object>> view = t1.getParamsFromAnnotations();
+		Map<Integer, Function<AbstractEventWatcher,Object>> view = 
+		  t1.getParamsFromAnnotations();
+		
 		{
 			List<Integer> expected = Lists.newArrayList(1, 2);
 			List<Integer> found = Lists.newArrayList(view.keySet());

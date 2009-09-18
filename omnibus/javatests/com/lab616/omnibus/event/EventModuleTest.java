@@ -42,26 +42,16 @@ public class EventModuleTest extends TestCase {
 		final ObjectEventDefinition<TestEvent2> eType2 = 
 			new ObjectEventDefinition<TestEvent2>(TestEvent2.class);
 
-		Module extension = new AbstractEventProducerModule() {
+		Module extension = new AbstractEventModule() {
 			public void configure() {
 				bindEventDefinition(eType1);
 				bindEventDefinition(eType2);
 			}
 		};
 		
-		final AbstractEventWatcher watcher = new AbstractEventWatcher() {
-			
-		};
-		
-		Module watchers = new AbstractEventWatcherModule() {
-			public void configure() {
-				bindEventWatcher(watcher);
-			}
-		};
-		
-		List<Module> allModules = Lists.newArrayList(EventModule.allModules());
+		List<Module> allModules = Lists.newArrayList();
+    allModules.add(new EventModule());
 		allModules.add(extension);
-		allModules.add(watchers);
 		
 		Injector injector = Guice.createInjector(allModules);
 		
@@ -81,7 +71,6 @@ public class EventModuleTest extends TestCase {
 				SystemEvent.class.getName(), events.get(SystemEvent.EVENT_NAME));
 
 		List<AbstractEventWatcher> rwatchers = engine.getEventWatchers();
-		assertTrue(rwatchers.contains(watcher));
 		assertEquals(engine, rwatchers.get(0).getEngine());
 	}
 }

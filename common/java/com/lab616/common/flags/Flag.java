@@ -41,4 +41,11 @@ public @interface Flag {
 	 * @return The doc string.
 	 */
 	String doc() default "";
+	
+
+	/**
+	 * Do not show the state of this flag in Flagz / system properties.
+	 * @return The privacy setting.
+	 */
+	boolean privacy() default false;
 }

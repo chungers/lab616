@@ -56,8 +56,8 @@ public abstract class Main {
   
   private Injector injector;
   
-  public List<Module> getModules() {
-    return ImmutableList.of();
+  public Module[] getModules() {
+    return new Module[] {};
   }
 
   public final List<Shutdown<?>> getShutdownRoutines() {
@@ -120,8 +120,8 @@ public abstract class Main {
     // where the flag values are used for injection.
     List<Module> allModules = Lists.newArrayList();
     allModules.add(new HttpServerModule());
-    allModules.addAll(EventModule.allModules());
-    allModules.addAll(getModules());
+    allModules.add(new EventModule());
+    allModules.addAll(Lists.newArrayList(getModules()));
 
     // By now all flags are registered as the module classes were loaded.
     // It's now safe to parse and set all the flags.

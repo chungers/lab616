@@ -34,10 +34,10 @@ public class TwsContainer {
   
   public static class GuiceModule implements Module {
 
-    @Flag(name = "login", required = true)
+    @Flag(name = "login", required = true, privacy = true)
     public static String LOGIN_USER;
     
-    @Flag(name = "password", required = true)
+    @Flag(name = "password", required = true, privacy = true)
     public static String PASSWORD;
 
     @Flag(name = "tws_dir", required = true)
@@ -82,10 +82,11 @@ public class TwsContainer {
       long startCt;
       
       //@Override //JDK1.5
-      public List<Module> getModules() {
-        return Lists.newArrayList(
+      public Module[] getModules() {
+        return new Module[] {
             new GuiceModule(),
-            new TwsModule());
+            new TwsModule()
+        };
       }
 
       //@Override //JDK1.5

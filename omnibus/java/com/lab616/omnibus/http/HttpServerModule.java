@@ -7,6 +7,7 @@ import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.omnibus.Main;
+import com.lab616.omnibus.http.servlets.FlagzServlet;
 import com.lab616.omnibus.http.servlets.QuitServlet;
 import com.lab616.omnibus.http.servlets.StatusServlet;
 import com.lab616.omnibus.http.servlets.SystemEventServlet;
@@ -40,6 +41,7 @@ public class HttpServerModule extends AbstractHttpServletModule {
     bind(HttpServer.class).in(Scopes.SINGLETON);
     
     // System servlets
+    bind("/flagz", FlagzServlet.class);
     bind("/statusz", StatusServlet.class);
     bind("/varz", VarzServlet.class);
     bind("/quitquitquit", QuitServlet.class);

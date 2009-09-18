@@ -3,6 +3,7 @@
 package com.lab616.omnibus.http.servlets;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.ServletException;
@@ -55,7 +56,14 @@ public class StatusServlet extends HttpServlet {
 			sentEvents.incrementAndGet();
 			resp.setContentType("text/plain");
 			resp.setStatus(HttpServletResponse.SC_OK);
-			resp.getWriter().println("OK");
+			for (Map.Entry<String, String> p : System.getenv().entrySet()) {
+			  resp.getWriter().println(
+			      String.format("%s=%s", p.getKey(), p.getValue()));
+			}
+      for (Map.Entry<Object, Object> p : System.getProperties().entrySet()) {
+        resp.getWriter().println(
+            String.format("%s=%s", p.getKey(), p.getValue()));
+      }
 		} catch (Exception e) {
 			errorSentEvents.incrementAndGet();
 			resp.setContentType("text/plain");

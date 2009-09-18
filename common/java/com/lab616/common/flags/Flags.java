@@ -52,8 +52,14 @@ import com.google.common.collect.Lists;
  */
 public class Flags {
 
+  public interface Printable {
+    public String getCodeLocation();
+    public String getFlagName();
+    public String getCurrentValue();
+  }
+  
   // I is String or String[], E is the element type.
-  static class FlagParser<I, E> {
+  static class FlagParser<I, E> implements Printable {
     final Flag flag;
     final Field field;
     final Function<I, E> parser;
@@ -87,6 +93,35 @@ public class Flags {
       String value = getOptionValue(cmd);
       if (value != null) {
         this.field.set(null, value);
+      }
+    }
+    
+    public final String getCodeLocation() {
+      return field.getDeclaringClass().getName() + "." + field.getName();
+    }
+    
+    public final String getFlagName() {
+      return flag.name();
+    }
+    
+    protected String format(Object state) {
+      return state.toString();
+    }
+    
+    public final String getCurrentValue() {
+      Object v;
+      try {
+        v = field.get(null); 
+      } catch (Exception e) {
+        v = "exception(" + e.getMessage() + ")";
+      }
+      if (v == null) {
+        return "null";
+      } else {
+        if (flag.privacy()) {
+          return "XXXXXXXXXX";
+        }
+        return format(v);
       }
     }
     
@@ -177,7 +212,12 @@ public class Flags {
 
 
   static List<FlagParser<?,?>> registered = Lists.newArrayList();
+  static List<Printable> view = Lists.newArrayList();
 
+  public static List<Printable> listAll() {
+    return view;
+  }
+  
   /**
    * Registers a class whose public static variables are set by parsing
    * the command line flags.
@@ -216,6 +256,7 @@ public class Flags {
 
           if (desc != null) {
             registered.add(desc);
+            view.add(desc);
           }
         } else if (gType instanceof ParameterizedType && 
 	          ((ParameterizedType)gType).getRawType().equals(List.class)) {
@@ -238,6 +279,7 @@ public class Flags {
           
           if (desc != null) {
             registered.add(desc);
+            view.add(desc);
           }
 	      } else if (gType instanceof ParameterizedType && 
             ((ParameterizedType)gType).getRawType().equals(Set.class)) {
@@ -260,6 +302,7 @@ public class Flags {
           
           if (desc != null) {
             registered.add(desc);
+            view.add(desc);
           }
         } else {
           if (gType.equals(String.class)) {
@@ -278,6 +321,7 @@ public class Flags {
           
           if (desc != null) {
             registered.add(desc);
+            view.add(desc);
           }
         }
 	    }
