@@ -1,0 +1,290 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;9.&nbsp;EPL Reference: Views</title><link rel="stylesheet" href="../shared/css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="Esper - Event Stream and Complex Event Processing for Java"><link rel="up" href="index.html" title="Esper - Event Stream and Complex Event Processing for Java"><link rel="previous" href="functionreference.html" title="Chapter&nbsp;8.&nbsp;EPL Reference: Functions"><link rel="next" href="api.html" title="Chapter&nbsp;10.&nbsp;API Reference"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;9.&nbsp;EPL Reference: Views</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="functionreference.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="api.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="epl-views"></a>Chapter&nbsp;9.&nbsp;EPL Reference: Views</h2></div></div><div></div></div><a class="indexterm" name="d0e14890"></a><a class="indexterm" name="d0e14895"></a><p>
+            This chapter outlines the views that are built into Esper. All views can be arbitrarily combined as many of the examples below show. 
+			The section on <a href="processingmodel.html" title="Chapter&nbsp;3.&nbsp;Processing Model">Chapter&nbsp;3, <i>Processing Model</i></a> provides additional information on the relationship of views, filtering and aggregation. Please also see <a href="epl_clauses.html#epl-from-clause-view-spec" title="4.4.3.&nbsp;Specifying Views">Section&nbsp;4.4.3, &#8220;Specifying Views&#8221;</a> for the use of views in the <tt class="literal">from</tt> clause with streams, patterns and named windows.
+        </p><p>
+            Esper organizes built-in views in namespaces and names. Views that provide sliding or tumbling data windows are in the <tt class="literal">win</tt> namespace. Other most commonly used views are in the <tt class="literal">std</tt> namespace. The <tt class="literal">ext</tt> namespace are views that order events. The <tt class="literal">stat</tt> namespace is used for views that derive statistical data.
+        </p><p>
+            Esper distinguishes between data window views and derived-value views. Data windows, or data window views, are views that retain incoming events until an expiry policy indicates to release events. Derived-value views derive a new value from event streams and post the result as events of a new type.
+        </p><p>
+            Two or more data window views can be combined. This allows a sets of events retained by one data window to be placed into a union or an intersection with the set of events retained by one or more other data windows. Please see <a href="epl_clauses.html#epl-from-clause-view-multidatawindow" title="4.4.4.&nbsp;Multiple Data Window Views">Section&nbsp;4.4.4, &#8220;Multiple Data Window Views&#8221;</a> for more detail.
+        </p><p>
+			The keep-all data window counts as a data window but has no expiry policy: it retains all events received. The group-by data window allocates a new data window per group and thereby counts as a data window, but cannot appear alone.
+        </p><p>
+            The next table summarizes data window views:
+        </p><div class="table"><a name="d0e14933"></a><p class="title"><b>Table&nbsp;9.1.&nbsp;Built-in Data Window Views</b></p><table summary="Built-in Data Window Views" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>View</th><th>Syntax</th><th>Description</th></tr></thead><tbody><tr><td>Length window</td><td>win:length(<span class="emphasis"><em>size</em></span>)</td><td>Sliding length window extending the specified number of elements into the past.</td></tr><tr><td>Length batch window</td><td>win:length_batch(<span class="emphasis"><em>size</em></span>)</td><td>Tumbling window that batches events and releases them when a given minimum number of events has been collected.</td></tr><tr><td>Time window</td><td>win:time(<span class="emphasis"><em>time period</em></span>)</td><td>Sliding time window extending the specified time interval into the past.</td></tr><tr><td>Externally-timed window</td><td>win:ext_timed(<span class="emphasis"><em>timestamp expression</em></span>, <span class="emphasis"><em>time period</em></span>)</td><td>Sliding time window, based on the millisecond time value supplied by an expression.</td></tr><tr><td>Time batch window</td><td>win:time_batch(<span class="emphasis"><em>time period</em></span>[,<span class="emphasis"><em>optional reference point</em></span>] [, <span class="emphasis"><em>flow control</em></span>])</td><td>Tumbling window that batches events and releases them every specified time interval, with flow control options.</td></tr><tr><td>Time-Length combination batch window</td><td>win:time_length_batch(<span class="emphasis"><em>time period, size [, flow control]</em></span>)</td><td>Tumbling multi-policy time and length batch window with flow control options.</td></tr><tr><td>Time-Accumulating window</td><td>win:time_accum(<span class="emphasis"><em>time period</em></span>)</td><td>Sliding time window accumulates events until no more events arrive within a given time interval.</td></tr><tr><td>Keep-All window</td><td>win:keepall()</td><td>The keep-all data window view simply retains all events.</td></tr><tr><td>Sorted window</td><td>ext:sort(<span class="emphasis"><em>size, sort criteria</em></span>)</td><td>Sorts by values returned by sort criteria expressions and keeps only the top events up to the given size.</td></tr><tr><td>Time-Order View</td><td>ext:time_order(<span class="emphasis"><em>timestamp expression, time period</em></span>)</td><td>Orders events that arrive out-of-order, using an expression providing timestamps to be ordered.</td></tr><tr><td>Unique</td><td>std:unique(<span class="emphasis"><em>unique criteria(s)</em></span>)</td><td>Retains only the most recent among events having the same value for the criteria expression(s). Acts as a length window of size 1 for each distinct expression value.</td></tr><tr><td>Group By</td><td>std:groupby(<span class="emphasis"><em>grouping criteria(s)</em></span>)</td><td>Groups events into sub-views by the value of the specified expression(s), generally used to provide a separate data window per group.</td></tr><tr><td>Last Event</td><td>std:lastevent()</td><td>Retains the last event, acts as a length window of size 1.</td></tr><tr><td>First Event</td><td>std:firstevent()</td><td>Retains the very first arriving event, disregarding all subsequent events.</td></tr><tr><td>First Unique</td><td>std:firstunique(<span class="emphasis"><em>unique criteria(s)</em></span>)</td><td>Retains only the very first among events having the same value for the criteria expression(s), disregarding all subsequent events for same value(s).</td></tr><tr><td>First Length</td><td>win:firstlength(<span class="emphasis"><em>size</em></span>)</td><td>Retains the first <span class="emphasis"><em>size</em></span> events, disregarding all subsequent events.</td></tr><tr><td>First Time</td><td>win:firsttime(<span class="emphasis"><em>time period</em></span>)</td><td>Retains the events arriving until the time interval has passed, disregarding all subsequent events.</td></tr></tbody></table></div><a class="indexterm" name="d0e15122"></a><p>
+			The table below summarizes views that derive information from received events and present the derived information as an insert and remove stream of events that are typed specifically to carry the result of the computations: 
+        </p><div class="table"><a name="d0e15129"></a><p class="title"><b>Table&nbsp;9.2.&nbsp;Built-in Derived-Value Views</b></p><table summary="Built-in Derived-Value Views" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>View</th><th>Syntax</th><th>Description</th></tr></thead><tbody><tr><td>Size</td><td>std:size()</td><td>Derives a count of the number of events in a data window, or in an insert stream if used without a data window.</td></tr><tr><td>Univariate statistics</td><td>stat:uni(<span class="emphasis"><em>value expression</em></span>)</td><td>Calculates univariate statistics on the values returned by the expression.</td></tr><tr><td>Regression</td><td>stat:linest(<span class="emphasis"><em>value expression, value expression</em></span>)</td><td>Calculates regression on the values returned by two expressions.</td></tr><tr><td>Correlation</td><td>stat:correl(<span class="emphasis"><em>value expression, value expression</em></span>)</td><td>Calculates the correlation value on the values returned by two expressions.</td></tr><tr><td>Weighted average</td><td>stat:weighted_avg(<span class="emphasis"><em>value expression, value expression</em></span>)</td><td>Calculates weighted average given a weight expression and an expression to compute the average for.</td></tr></tbody></table></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="view-parameters"></a>9.1.&nbsp;A Note on View Parameters</h4></div></div><div></div></div><p>
+			   The syntax for view specifications starts with the namespace name and the name and is followed by optional view parameter expressions in parenthesis:
+		   </p><pre class="synopsis"><span class="emphasis"><em>namespace</em></span>:<span class="emphasis"><em>name</em></span>(<span class="emphasis"><em>view_parameters</em></span>)</pre><p>
+			   This example specifies a time window of 5 seconds:
+		   </p><pre class="programlisting">select * from StockTickEvent.win:time(5 sec)</pre><p>
+			   All expressions are allowed as parameters to views, including expressions that contain variables or substitution parameters for prepared statements.
+		   </p><p>
+			   For example, assuming a variable by name <tt class="literal">VAR_WINDOW_SIZE</tt> is defined:
+		   </p><pre class="programlisting">select * from StockTickEvent.win:time(VAR_WINDOW_SIZE)</pre><p>
+			   Expression parameters for views are evaluated at the time the view is first created. They are not continuously re-evaluated by built-in views. For applications that provide a custom plug-in view, such custom views may re-evaluate parameter expressions.
+		   </p><p>
+			   If a view takes no parameters, use empty parenthesis <tt class="literal">()</tt>.
+		   </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="win-views"></a>9.1.&nbsp;Window views</h2></div></div><div></div></div><p>
+				All the views explained below are data window views, as are <tt class="literal">std:unique</tt>, <tt class="literal">std:firstunique</tt>, <tt class="literal">std:lastevent</tt> and <tt class="literal">std:firstevent</tt>.
+			</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-length"></a>9.1.1.&nbsp;Length window (<tt class="literal">win:length</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15250"></a><a class="indexterm" name="d0e15253"></a><a class="indexterm" name="d0e15258"></a><p>
+					This view is a moving (sliding) length window extending the specified number of elements into the past. The view takes a single expression as a parameter providing a numeric size value that defines the window size:
+				</p><pre class="synopsis">win:length(<span class="emphasis"><em>size_expression</em></span>)</pre><p>
+					The below example sums the price for the last 5 stock ticks for symbol GE.
+				</p><pre class="programlisting">select sum(price) from StockTickEvent(symbol='GE').win:length(5)</pre><p>
+					The next example keeps a length window of 10 events of stock trade events, with a separate window for each symbol. The
+					sum of price is calculated only for the last 10 events for each symbol.
+				</p><pre class="programlisting">select sum(price) from StockTickEvent.std:groupby(symbol).win:length(10)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-length-batch"></a>9.1.2.&nbsp;Length batch window (<tt class="literal">win:length_batch</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15284"></a><a class="indexterm" name="d0e15287"></a><a class="indexterm" name="d0e15292"></a><p>
+					This window view buffers events (tumbling window) and releases them when a given minimum number of events has been collected. Provide an expression defining the number of events to batch as a parameter:
+				</p><pre class="synopsis">win:length_batch(<span class="emphasis"><em>size_expression</em></span>)</pre><p>
+					The next statement buffers events until a minimum of 10 events have collected. Listeners to updates posted by this view receive updated information only when 10 or more events have collected.
+				</p><pre class="programlisting">select * from StockTickEvent.win:length_batch(10)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-time"></a>9.1.3.&nbsp;Time window (<tt class="literal">win:time</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15314"></a><a class="indexterm" name="d0e15317"></a><a class="indexterm" name="d0e15322"></a><p>
+					This view is a moving (sliding) time window extending the specified time interval into the past based on the system time.
+					Provide a time period (see <a href="epl_clauses.html#epl-syntax-time-periods" title="4.2.1.&nbsp;Specifying Time Periods">Section&nbsp;4.2.1, &#8220;Specifying Time Periods&#8221;</a>) or an expression defining the number of seconds as a parameter:
+				</p><pre class="synopsis">win:time(<span class="emphasis"><em>time period</em></span>)</pre><pre class="synopsis">win:time(<span class="emphasis"><em>seconds_interval_expression</em></span>)</pre><p>
+					For the GE stock tick events in the last 1 second, calculate a sum of price.
+				</p><pre class="programlisting">select sum(price) from StockTickEvent(symbol='GE').win:time(1 sec)</pre><p>
+					The following time windows are equivalent specifications:
+				</p><pre class="programlisting">win:time(2 minutes 5 seconds)
+win:time(125 sec)
+win:time(125)
+win:time(MYINTERVAL)  // MYINTERVAL defined as a variable</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-ext_time"></a>9.1.4.&nbsp;Externally-timed window (<tt class="literal">win:ext_timed</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15355"></a><a class="indexterm" name="d0e15358"></a><a class="indexterm" name="d0e15363"></a><p>
+					Similar to the time window, this view is a moving (sliding) time window extending the specified time interval into the past, but based on the millisecond
+					time value supplied by a timestamp expression. The view takes two parameters: the expression to return long-typed timestamp values,
+					and a time period or expression that provides a number of seconds:
+				</p><pre class="synopsis">win:ext_timed(<span class="emphasis"><em>timestamp_expression</em></span>, <span class="emphasis"><em>time_period</em></span>)</pre><pre class="synopsis">win:ext_timed(<span class="emphasis"><em>timestamp_expression</em></span>, <span class="emphasis"><em>seconds_interval_expression</em></span>)</pre><p>
+					The key difference comparing the externally-timed window to the regular time window is that the window slides not based on the engine time, 
+					but strictly based on the result of the timestamp expression when evaluated against the events entering the window.
+				</p><p>
+					The algorithm underlying the view compares the timestamp value returned by the expression when the oldest event arrived with the timestamp value returned by the expression for the newest arriving event on event arrival. 
+					If the time interval between the timestamp values is larger then the timer period parameter, 
+					then the algorithm removes all oldest events tail-first until the difference between the oldest and newest event is within the time interval. The window
+					therefore slides only when events arrive and only considers each event's timestamp property (or other expression value returned) and not engine time.
+				</p><p>
+					This view holds stock tick events of the last 10 seconds based on the timestamp property in <tt class="literal">StockTickEvent</tt>.
+				</p><pre class="programlisting">select * from StockTickEvent.win:ext_timed(timestamp, 10 seconds)</pre><p>
+					The externally-timed data window expects strict ordering of the timestamp values returned by the timestamp expression. The view is not useful for ordering events in time order, please us the time-order view instead.
+				</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-time-batch"></a>9.1.5.&nbsp;Time batch window (<tt class="literal">win:time_batch</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15405"></a><a class="indexterm" name="d0e15408"></a><a class="indexterm" name="d0e15413"></a><p>
+					This window view buffers events (tumbling window) and releases them every specified time interval in one update. The view takes a time period or an expression providing a number of seconds as a parameter, plus optional parameters described next.
+				</p><pre class="synopsis">win:time_batch(<span class="emphasis"><em>time_period</em></span> [,<span class="emphasis"><em>optional_reference_point</em></span>] [,<span class="emphasis"><em>flow_control</em></span>])</pre><pre class="synopsis">win:time_batch(<span class="emphasis"><em>seconds_interval_expression</em></span> [,<span class="emphasis"><em>optional_reference_point</em></span>] [,<span class="emphasis"><em>flow_control</em></span>])</pre><p>
+					The time batch window takes a second, optional parameter that serves as a reference point to batch flush times. If not specified, the arrival of the first event into the batch window sets the 
+					reference point. Therefore if the reference point is not specified and the first event arrives at time t<sub>1</sub>, then the batch flushes at time t<sub>1</sub> plus <span class="emphasis"><em>time_period</em></span> and every <span class="emphasis"><em>time_period</em></span> thereafter.
+				</p><p>
+					The below example batches events into a 5 second window releasing new batches every 5 seconds. Listeners to updates
+					posted by this view receive updated information only every 5 seconds.
+				</p><pre class="programlisting">select * from StockTickEvent.win:time_batch(5 sec)</pre><p>
+					By default, if there are no events arriving in the current interval (insert stream), and no events remain from the prior batch (remove stream), then the view does not post results to listeners. The view allows overriding this
+					default behavior via flow control keywords.
+				</p><p>
+					The synopsis with flow control parameters is:
+				</p><pre class="synopsis">win:time_batch(<span class="emphasis"><em>time_period or seconds_interval_expr</em></span> [,<span class="emphasis"><em>optional_reference_point</em></span>] 
+    [, "flow-control-keyword [, keyword...]"] )</pre><p>
+					The FORCE_UPDATE flow control keyword instructs the view to post an empty result set to listeners if there is no
+					data to post for an interval. When using this keyword the <tt class="literal">irstream</tt> keyword should be used in the <tt class="literal">select</tt> clause to ensure the remove stream is also output. 
+				</p><p>
+					The START_EAGER flow control keyword instructs the view to post empty result sets even before the first event
+					arrives, starting a time interval at statement creation time. As when using FORCE_UPDATE, the view also posts an
+					empty result set to listeners if there is no data to post for an interval, however it starts doing so at time of statement
+					creation rather then at the time of arrival of the first event.
+				</p><p>
+					Taking the two flow control keywords in one sample statement, this example presents a view that waits for 10
+					seconds. It posts empty result sets after one interval after the statement is created, and keeps posting an empty result set as no events arrive during intervals:					
+				</p><pre class="programlisting">select * from MyEvent.win:time_batch(10 sec, "FORCE_UPDATE, START_EAGER")</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-time-length-batch"></a>9.1.6.&nbsp;Time-Length combination batch window (<tt class="literal">win:time_length_batch</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15492"></a><a class="indexterm" name="d0e15495"></a><a class="indexterm" name="d0e15500"></a><p>
+					This data window view is a combination of time and length batch (tumbling) windows. Similar to the time and length batch windows, this view batches events and releases the batched events when either one of the 
+following conditions occurs, whichever occurs first: the data window has collected a given number of events, or a given time interval has passed.
+				</p><p>
+					The view parameters take 2 forms. The first form accepts a time period or an expression providing a number of seconds, and an expression for the number of events:
+				</p><pre class="synopsis">win:time_length_batch(<span class="emphasis"><em>time_period</em></span>, <span class="emphasis"><em>number_of_events_expression</em></span>)</pre><pre class="synopsis">win:time_length_batch(<span class="emphasis"><em>seconds_interval_expression</em></span>, <span class="emphasis"><em>number_of_events_expression</em></span>)</pre><p>
+					The next example shows a time-length combination batch window that batches up to 100 events or all events arriving within a 1-second time interval, whichever condition occurs first:
+				</p><pre class="programlisting"> select * from MyEvent.win:time_length_batch(1 sec, 100)</pre><p>
+					In this example, if 100 events arrive into the window before a 1-second time interval passes, the view posts the batch of 100 events. If less then 100 events arrive within a 1-second interval,
+					the view posts all events that arrived within the 1-second interval at the end of the interval.
+				</p><p>
+					By default, if there are no events arriving in the current interval (insert stream), and no events remain from the prior batch (remove stream), then the view does not post results to listeners. This
+					view allows overriding this default behavior via flow control keywords.
+				</p><p>
+					The synopsis of the view with flow control parameters is:
+				</p><pre class="synopsis">win:time_length_batch(<span class="emphasis"><em>time_period or seconds_interval_expression</em></span>, <span class="emphasis"><em>number_of_events_expression</em></span>, 
+    "<span class="emphasis"><em>flow control keyword [, keyword...]</em></span>")</pre><p>
+					The <tt class="literal">FORCE_UPDATE</tt> flow control keyword instructs the view to post an empty result set to listeners if there is no data to post for an interval. The view begins posting no later then after one time interval passed after the first event arrives. When using this keyword the <tt class="literal">irstream</tt> keyword should be used in the <tt class="literal">select</tt> clause to ensure the remove stream is also output. 
+				</p><p>
+					The <tt class="literal">START_EAGER</tt> flow control keyword instructs the view to post empty result sets even before the first event arrives, starting a time interval at statement creation time. As when using <tt class="literal">FORCE_UPDATE</tt>, the view also posts an empty result set to listeners if there is no data to post for an interval, however it starts doing so at time of statement creation rather then at the time of arrival of the first event.
+				</p><p>
+					Taking the two flow control keywords in one sample statement, this example presents a view that waits for 10 seconds or reacts when the 5th event arrives, whichever comes first. It posts empty result sets after one interval after the statement is created, and keeps posting an empty result set as no events arrive during intervals: 
+				</p><pre class="programlisting"> select * from MyEvent.win:time_length_batch(10 sec, 5, "FORCE_UPDATE, START_EAGER")</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-time-accumulating"></a>9.1.7.&nbsp;Time-Accumulating window (<tt class="literal">win:time_accum</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15575"></a><a class="indexterm" name="d0e15578"></a><a class="indexterm" name="d0e15583"></a><p>
+					This data window view is a specialized moving (sliding) time window that differs from the regular time window in that it accumulates events until no more events arrive within a given time interval, and only then releases the accumulated events as a remove stream.
+				</p><p>
+					The view accepts a single parameter: the time period or seconds-expression specifying the length of the time interval during which no events must arrive until the view releases accumulated events. The synopsis is as follows:
+				</p><pre class="synopsis">win:time_accum(<span class="emphasis"><em>time_period</em></span>)</pre><pre class="synopsis">win:time_accum(<span class="emphasis"><em>seconds_interval_expression</em></span>)</pre><p>
+					The next example shows a time-accumulating window that accumulates events, and then releases events if within the time interval no more events arrive:
+				</p><pre class="programlisting"> select * from MyEvent.win:time_accum(10 sec)</pre><p>
+					This example accumulates events, until when for a period of 10 seconds no more MyEvent events arrive, at which time it posts all accumulated MyEvent events.
+				</p><p>
+					Your application may only be interested in the batches of events as events leave the data window. This can be done simply by selecting the remove stream of this data window, populated by the engine as accumulated events leave the data window all-at-once when no events arrive during the time interval following the time the last event arrived:
+				</p><pre class="programlisting"> select rstream * from MyEvent.win:time_accum(10 sec)</pre><p>
+					If there are no events arriving, then the view does not post results to listeners. 
+				</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-keepall"></a>9.1.8.&nbsp;Keep-All window (<tt class="literal">win:keepall</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15620"></a><a class="indexterm" name="d0e15623"></a><a class="indexterm" name="d0e15628"></a><p>
+					This keep-all data window view simply retains all events. The view does not remove events from the data window, unless used with a named window and the <tt class="literal">on delete</tt> clause.
+				</p><p>
+					The view accepts no parameters. The synopsis is as follows:
+				</p><pre class="synopsis">win:keepall()</pre><p>
+					The next example shows a keep-all window that accumulates all events received into the window:
+				</p><pre class="programlisting"> select * from MyEvent.win:keepall()</pre><p>
+					Note that since the view does not release events, care must be taken to prevent retained events from using all available memory.
+				</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-firstlength"></a>9.1.9.&nbsp;First Length (<tt class="literal">win:firstlength</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15654"></a><a class="indexterm" name="d0e15657"></a><p>
+					The <tt class="literal">firstlength</tt> view retains the very first <span class="emphasis"><em>size_expression</em></span> events.
+				</p><p>
+					The synopsis is:
+				</p><pre class="synopsis">win:firstlength(<span class="emphasis"><em>size_expression</em></span>)</pre><p>
+					If used within a named window and an <tt class="literal">on-delete</tt> clause deletes events, the view accepts further arriving events until the number of retained events reaches the size of <span class="emphasis"><em>size_expression</em></span>.
+				</p><p>
+					The below example creates a view that retains only the first 10 events:
+				</p><pre class="programlisting">select * from MyEvent.win:firstlength(10)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-win-firsttime"></a>9.1.10.&nbsp;First Time (<tt class="literal">win:firsttime</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15695"></a><a class="indexterm" name="d0e15698"></a><p>
+					The <tt class="literal">firsttime</tt> view retains all events arriving within a given time interval after statement start.
+				</p><p>
+					The synopsis is:
+				</p><pre class="synopsis">win:firsttime(<span class="emphasis"><em>time_period</em></span>)</pre><pre class="synopsis">win:firsttime(<span class="emphasis"><em>seconds_interval_expression</em></span>)</pre><p>
+					The below example creates a view that retains only those events arriving within 1 minute and 10 seconds of statement start:
+				</p><pre class="programlisting">select * from MyEvent.win:firsttime(1 minute 10 seconds)</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="std-views"></a>9.2.&nbsp;Standard view set</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-std-unique"></a>9.2.1.&nbsp;Unique (<tt class="literal">std:unique</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15733"></a><a class="indexterm" name="d0e15736"></a><a class="indexterm" name="d0e15741"></a><p>
+					The <tt class="literal">unique</tt> view is a view that includes only the most recent among events having the same value(s) for the result of the specified expression or list of expressions.
+				</p><p>
+					The synopsis is:
+				</p><pre class="synopsis">std:unique(<span class="emphasis"><em>unique_expression</em></span> [, <span class="emphasis"><em>unique_expression</em></span> ...])</pre><p>
+					The view acts as a length window of size 1 for each distinct value returned by an expression, or combination of values returned by multiple expressions. It thus posts as old events the prior event of the same value(s), if any.
+				</p><p>
+					The below example creates a view that retains only the last event per symbol.
+				</p><pre class="programlisting">select * from StockTickEvent.std:unique(symbol)</pre><p>
+					The next example creates a view that retains the last event per symbol and feed.
+				</p><pre class="programlisting">select * from StockTickEvent.std:unique(symbol, feed)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-std-groupby"></a>9.2.2.&nbsp;Group-By (<tt class="literal">std:groupby</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15777"></a><a class="indexterm" name="d0e15780"></a><a class="indexterm" name="d0e15785"></a><p>
+					This view groups events into sub-views by the value returned by the specified expression or the combination of values returned by a list of expressions. The view takes a single expression to supply the group-by values, or a list of expressions as parameters, as the synopsis shows:
+				</p><pre class="synopsis">std:groupby(<span class="emphasis"><em>grouping_expression</em></span> [, <span class="emphasis"><em>grouping_expression</em></span> ...])</pre><p>
+					The <span class="emphasis"><em>grouping_expression</em></span> expression(s) return one or more group keys, by which the view creates sub-views for each distinct group key. Note that the expression should not return an unlimited number of values: the grouping expression should not
+					return a time value or otherwise unlimited key. 
+				</p><p>
+					This example computes the total price for the last 5 events per each symbol:
+				</p><pre class="programlisting">select symbol, sum(price) from StockTickEvent.std:groupby(symbol).win:length(5)</pre><p>
+					The group-by view can also take multiple expressions that provide values to group by. This example computes the total price for each symbol and feed for the last 10 events per symbol and feed combination:
+				</p><pre class="programlisting">select sum(price) from StockTickEvent.std:groupby(symbol, feed).win:length(10)</pre><p>
+					The order in which the group-by view appears within sub-views of a stream controls the data the engine derives from events for each group. The next 2 statements demonstrate this using a length window.
+				</p><p>
+					By putting the group-by view in position after the length window, we can change the semantics of the query. The query now returns the total price per symbol for only the last 10 events across all symbols. Here the engine allocates only one length window for all events:
+				</p><pre class="programlisting">select sum(price) from StockTickEvent.win:length(10).std:groupby(symbol)</pre><p>
+					We have learned that by placing the group-by view before other views, these other views become part of the grouped set of views. The engine dynamically allocates a new view instance for each subview, every time it encounters a new group key such as a new value for symbol. Therefore, in <tt class="literal">std:groupby(symbol).win:length(10)</tt> the engine allocates a new length window for each distinct symbol. However in <tt class="literal">win:length(10).std:groupby(symbol)</tt> the engine maintains a single length window.
+				</p><p>
+					Multiple group-by views can also be used in the same statement. The statement below groups by symbol and feed. As the statement declares the length window after the group-by view for symbols, the engine allocates a new length window per symbol however reports total price per symbol and feed. The query results are total price per symbol and feed for the last 100 events per symbol (and not per feed).
+				</p><pre class="programlisting">select sum(price) from StockTickEvent.std:groupby(symbol).win:length(100)
+    .std:groupby(feed)</pre><p>
+					Last, we consider the permutation where the length window is declared after the group-by. Here, the query results are total price per symbol and feed for the last 100 events per symbol and feed.
+				</p><pre class="programlisting">select sum(price) from StockTickEvent.std:groupby(symbol, feed)
+    .win:length(100)</pre><p>
+					For advanced users: There is an optional view that can control how the group-by view gets evaluated and that view is the <tt class="literal">std:merge</tt> view. 
+					The merge view can only occur after a group-by view in a view chain and controls
+					at what point in the view chain the merge of the data stream occurs from view-instance-per-criteria to single view.
+				</p><p>
+					Compare the following statements:
+				</p><pre class="programlisting">select * from Market.std:groupby(ticker).win:length(1000000)
+    .stat:weighted_avg(price, volume).std:merge(ticker)
+// ... and ...
+select * from Market.std:groupby(ticker).win:length(1000000).std:merge(ticker)
+    .stat:weighted_avg(price, volume)</pre><p>
+					If your statement does not specify the optional <tt class="literal">std:merge</tt> view, the semantics are the same as the first statement.
+				</p><p>
+					The first statement, in which the merge-view is added to the end (same as no merge view), computes weighted average per ticker, considering, per-ticker, the last 1M Market events for each ticker.
+					The second statement, in which the merge view is added to the middle, computes weighted average considering, per-ticker, the last 1M Market events, computing the weighted average for all such events using a single view rather then multiple view instances with one view per ticker. 
+				</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-std-size"></a>9.2.3.&nbsp;Size (<tt class="literal">std:size</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15857"></a><a class="indexterm" name="d0e15860"></a><a class="indexterm" name="d0e15865"></a><p>
+					This view posts the number of events received from a stream or view. The synopsis is:
+				</p><pre class="synopsis">std:size()</pre><p>					
+					The view posts a single long-typed property named <tt class="literal">size</tt>. The view posts the prior size as old data, and the current size as new data to update listeners of the view. Via the <tt class="literal">iterator</tt> method of the statement the size value can also be polled (read).
+				</p><p>					
+					This view provides only a single property named <tt class="literal">size</tt> and no other properties of your selected stream are available. Use the <tt class="literal">count(...)</tt> aggregation function to select other properties of your stream.
+				</p><p>
+					When combined with a data window view, the size view reports the current and prior number of events in the data window. This example reports the number of tick events within the last 1 minute:
+				</p><pre class="programlisting">select size from StockTickEvent.win:time(1 min).std:size()</pre><p>
+					The size view is also useful in conjunction with a group-by view to count the number of events per group. The EPL below returns the number of events per symbol.
+				</p><pre class="programlisting">select size from StockTickEvent.std:groupby(symbol).std:size()</pre><p>
+					When used without a data window, the view simply counts the number of events:
+				</p><pre class="programlisting">select size from StockTickEvent.std:size()</pre><p>
+					All views can be used with pattern statements as well. The next EPL snippet shows a pattern where we look for tick events followed by trade events for the same symbol. The size view counts the number of occurances of the pattern.
+				</p><pre class="programlisting">select size from pattern[every s=StockTickEvent -&gt; TradeEvent(symbol=s.symbol)].std:size()</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-std-last"></a>9.2.4.&nbsp;Last Event (<tt class="literal">std:lastevent</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15912"></a><a class="indexterm" name="d0e15915"></a><a class="indexterm" name="d0e15920"></a><p>
+					This view exposes the last element of its parent view:
+				</p><pre class="synopsis">std:lastevent()</pre><p>
+					The view acts as a length window of size 1. It thus posts as old events the prior event in the stream, if any.
+				</p><p>
+					This example statement retains the last stock tick event for the symbol GE. 
+				</p><pre class="programlisting">select * from StockTickEvent(symbol='GE').std:lastevent()</pre><p>
+					If you want to output the last event within a sliding window, please see <a href="functionreference.html#epl-single-row-function-ref-previous" title="8.1.8.&nbsp;The Previous Function">Section&nbsp;8.1.8, &#8220;The Previous Function&#8221;</a>. That function accepts a relative (count) or absolute index and returns event properties or an event in the context of the specified data window.
+				</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-std-first"></a>9.2.5.&nbsp;First Event (<tt class="literal">std:firstevent</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15945"></a><a class="indexterm" name="d0e15948"></a><p>
+					This view retains only the first arriving event:
+				</p><pre class="synopsis">std:firstevent()</pre><p>
+					All events arriving after the first event are discarded.
+				</p><p>
+					If used within a named window and an <tt class="literal">on-delete</tt> clause deletes the first event, the view resets and will retain the next arriving event.
+				</p><p>
+					An example of a statement that retains the first <tt class="literal">ReferenceData</tt> event arriving is:
+				</p><pre class="programlisting">select * from ReferenceData.std:firstevent()</pre><p>
+					If you want to output the first event within a sliding window, please see <a href="functionreference.html#epl-single-row-function-ref-previous" title="8.1.8.&nbsp;The Previous Function">Section&nbsp;8.1.8, &#8220;The Previous Function&#8221;</a>. That function accepts a relative (count) or absolute index and returns event properties or an event in the context of the specified data window.
+				</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-std-firstunique"></a>9.2.6.&nbsp;First Unique (<tt class="literal">std:firstunique</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e15981"></a><a class="indexterm" name="d0e15984"></a><p>
+					The <tt class="literal">firstunique</tt> view retains only the very first among events having the same value for the specified expression or list of expressions.
+				</p><p>
+					The synopsis is:
+				</p><pre class="synopsis">std:firstunique(<span class="emphasis"><em>unique_expression</em></span> [, <span class="emphasis"><em>unique_expression</em></span> ...])</pre><p>
+					If used within a named window and an <tt class="literal">on-delete</tt> clause deletes events, the view resets and will retain the next arriving event for the expression result value(s) of the deleted events.
+				</p><p>
+					The below example creates a view that retains only the first event per category:
+				</p><pre class="programlisting">select * from ReferenceData.std:firstunique(category)</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="stat-views"></a>9.3.&nbsp;Statistics views</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-stat-uni"></a>9.3.1.&nbsp;Univariate statistics (<tt class="literal">stat:uni</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e16022"></a><a class="indexterm" name="d0e16025"></a><a class="indexterm" name="d0e16030"></a><p>
+					This view calculates univariate statistics on a numeric expression. The view takes a single expression as a parameter. The expression must return a numeric value:
+				</p><pre class="synopsis">stat:uni(<span class="emphasis"><em>value_expression</em></span>)</pre><div class="table"><a name="view-stat-uni-table"></a><p class="title"><b>Table&nbsp;9.3.&nbsp;Univariate statistics derived properties</b></p><table summary="Univariate statistics derived properties" border="1"><colgroup><col><col></colgroup><thead><tr><th>Property Name</th><th>Description</th></tr></thead><tbody><tr><td><tt class="literal">datapoints</tt></td><td>Number of values, equivalent to <tt class="literal">count(*)</tt> for the stream</td></tr><tr><td><tt class="literal">total</tt></td><td>Sum of values</td></tr><tr><td><tt class="literal">average</tt></td><td>Average of values</td></tr><tr><td><tt class="literal">variance</tt></td><td>Variance</td></tr><tr><td><tt class="literal">stddev</tt></td><td>Sample standard deviation (square root of variance) </td></tr><tr><td><tt class="literal">stddevpa</tt></td><td>Population standard deviation</td></tr></tbody></table></div><p>
+					The below example selects the standard deviation on price for stock tick events for the last 10 events.
+				</p><pre class="programlisting">select stddev from StockTickEvent.win:length(10).stat:uni(price)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-stat-linest"></a>9.3.2.&nbsp;Regression (<tt class="literal">stat:linest</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e16104"></a><a class="indexterm" name="d0e16107"></a><a class="indexterm" name="d0e16112"></a><p>
+					This view calculates regression and related intermediate results on the values returned by two expressions. The view takes two expressions as parameters. The expressions must return a numeric value:
+				</p><pre class="synopsis">stat:linest(<span class="emphasis"><em>value_expression</em></span>, <span class="emphasis"><em>value_expression</em></span>)</pre><div class="table"><a name="view-stat-linest-table"></a><p class="title"><b>Table&nbsp;9.4.&nbsp;Regression derived properties</b></p><table summary="Regression derived properties" border="1"><colgroup><col><col></colgroup><thead><tr><th>Property Name</th><th>Description</th></tr></thead><tbody><tr><td><tt class="literal">slope</tt></td><td>Slope.</td></tr><tr><td><tt class="literal">YIntercept</tt></td><td>Y intercept.</td></tr><tr><td><tt class="literal">XAverage</tt></td><td>X average.</td></tr><tr><td><tt class="literal">XStandardDeviationPop</tt></td><td>X standard deviation population.</td></tr><tr><td><tt class="literal">XStandardDeviationSample</tt></td><td>X standard deviation sample.</td></tr><tr><td><tt class="literal">XSum</tt></td><td>X sum.</td></tr><tr><td><tt class="literal">XVariance</tt></td><td>X variance.</td></tr><tr><td><tt class="literal">YAverage</tt></td><td>X average.</td></tr><tr><td><tt class="literal">YStandardDeviationPop</tt></td><td>Y standard deviation population.</td></tr><tr><td><tt class="literal">YStandardDeviationSample</tt></td><td>Y standard deviation sample.</td></tr><tr><td><tt class="literal">YSum</tt></td><td>Y sum.</td></tr><tr><td><tt class="literal">YVariance</tt></td><td>Y variance.</td></tr><tr><td><tt class="literal">dataPoints</tt></td><td>Number of data points.</td></tr><tr><td><tt class="literal">n</tt></td><td>Number of data points.</td></tr><tr><td><tt class="literal">sumX</tt></td><td>Sum of X (same as X Sum).</td></tr><tr><td><tt class="literal">sumXSq</tt></td><td>Sum of X squared.</td></tr><tr><td><tt class="literal">sumXY</tt></td><td>Sum of X times Y.</td></tr><tr><td><tt class="literal">sumY</tt></td><td>Sum of Y (same as Y Sum).</td></tr><tr><td><tt class="literal">sumYSq</tt></td><td>Sum of Y squared.</td></tr></tbody></table></div><p>
+					Calculate regression and return the slope and y-intercept on price and offer for all events in the last 10 seconds.
+				</p><pre class="programlisting">select slope, YIntercept from StockTickEvent.win:time(10 seconds).stat:linest(price, offer)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-stat-correl"></a>9.3.3.&nbsp;Correlation (<tt class="literal">stat:correl</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e16264"></a><a class="indexterm" name="d0e16267"></a><a class="indexterm" name="d0e16272"></a><p>
+					This view calculates the correlation value on the value returned by two expressions. The view takes two expressions as parameters. The expressions must be return a numeric value:
+				</p><pre class="synopsis">stat:correl(<span class="emphasis"><em>value_expression</em></span>, <span class="emphasis"><em>value_expression</em></span>)</pre><div class="table"><a name="view-stat-correl-table"></a><p class="title"><b>Table&nbsp;9.5.&nbsp;Correlation derived properties</b></p><table summary="Correlation derived properties" border="1"><colgroup><col><col></colgroup><thead><tr><th>Property Name</th><th>Description</th></tr></thead><tbody><tr><td><tt class="literal">correlation</tt></td><td>Correlation between two event properties</td></tr></tbody></table></div><p>
+					Calculate correlation on price and offer over all stock tick events for GE.
+				</p><pre class="programlisting">select correlation from StockTickEvent(symbol='GE').stat:correl(price, offer)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-stat-weightedavg"></a>9.3.4.&nbsp;Weighted average (<tt class="literal">stat:weighted_avg</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e16316"></a><a class="indexterm" name="d0e16319"></a><a class="indexterm" name="d0e16324"></a><p>
+					This view returns the weighted average given an expression returning values to compute the average for and an expression returning weight. The view takes two expressions as parameters. The expressions must return numeric values:
+				</p><pre class="synopsis">stat:weighted_avg(<span class="emphasis"><em>value_expression_field</em></span>, <span class="emphasis"><em>value_expression_weight</em></span>)</pre><div class="table"><a name="view-stat-weightedavg-table"></a><p class="title"><b>Table&nbsp;9.6.&nbsp;Weighted average derived properties</b></p><table summary="Weighted average derived properties" border="1"><colgroup><col><col></colgroup><thead><tr><th>Property Name</th><th>Description</th></tr></thead><tbody><tr><td><tt class="literal">average</tt></td><td>Weighted average</td></tr></tbody></table></div><p>
+					A statement that derives the volume-weighted average price for the last 3 seconds:
+				</p><pre class="programlisting">select average 
+from StockTickEvent(symbol='GE').win:time(3 seconds).stat:weighted_avg(price, volume)</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ext-views"></a>9.4.&nbsp;Extension View Set</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-ext-sort"></a>9.4.1.&nbsp;Sorted Window View (<tt class="literal">ext:sort</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e16371"></a><a class="indexterm" name="d0e16374"></a><a class="indexterm" name="d0e16379"></a><p>					
+					This view sorts by values returned by the specified expressionor list of expressions and keeps only the top (or bottom) events up to the given size. 
+				</p><p>
+					The syntax is as follows:
+				</p><pre class="synopsis">ext:sort(<span class="emphasis"><em>size_expression</em></span>, 
+    <span class="emphasis"><em>sort_criteria_expression</em></span> [asc/desc][, <span class="emphasis"><em>sort_criteria_expression</em></span> [asc/desc]...]) </pre><p>					
+					An expression may be followed by the optional <tt class="literal">asc</tt> or <tt class="literal">desc</tt> keywords to indicate that the values returned by that expression are sorted in ascending or descending sort order.
+				</p><p>
+					The view below retains only those events that have the highest 10 prices and reports a total price:
+				</p><pre class="programlisting">select sum(price) from StockTickEvent.ext:sort(10, price desc)</pre><p>
+					The following example sorts events first by price in descending order, and then by symbol name in ascending (alphabetical) order, keeping only the 10
+events with the highest price (with ties resolved by alphabetical order of symbol).
+				</p><pre class="programlisting">select * from StockTickEvent.ext:sort(10, price desc, symbol asc)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="view-time-order"></a>9.4.2.&nbsp;Time-Order View (<tt class="literal">ext:time_order</tt>)</h3></div></div><div></div></div><a class="indexterm" name="d0e16421"></a><a class="indexterm" name="d0e16424"></a><a class="indexterm" name="d0e16429"></a><p>
+					This view orders events that arrive out-of-order, using timestamp-values provided by an expression, and by comparing that timestamp value to engine system time.
+				</p><p>
+					The syntax for this view is as follows.
+				</p><pre class="synopsis">ext:time_order(<span class="emphasis"><em>timestamp_expression</em></span>, <span class="emphasis"><em>time_period</em></span>)</pre><pre class="synopsis">ext:time_order(<span class="emphasis"><em>timestamp_expression</em></span>, <span class="emphasis"><em>seconds_interval_expression</em></span>)</pre><p>
+					The first parameter to the view is the expression that supplies timestamp values. The timestamp is expected to be a long-typed millisecond value that denotes an event's time of consideration by the view (or other expression). This is typically the time of arrival. The second parameter is a number-of-seconds expression or the time period specifying the time interval that an arriving event should maximally be held, in order to consider older events arriving at a later time.
+				</p><p>
+					Since the view compares timestamp values to engine time, the view requires that the timestamp values and current engine time are both following the same clock. Therefore, to the extend that the clocks that originated both timestamps differ, the view may produce inaccurate results.
+				</p><p>
+					As an example, the next statement uses the <tt class="literal">arrival_time</tt> property of <tt class="literal">MyTimestampedEvent</tt> events to order and release events by arrival time:
+				</p><pre class="programlisting">insert rstream into ArrivalTimeOrderedStream
+select rstream * from MyTimestampedEvent.ext:time_order(arrival_time, 10 sec)</pre><p>
+					In the example above, the <tt class="literal">arrival_time</tt> property holds a long-typed timestamp value in milliseconds. On arrival of an event, the engine compares the timestamp value of each event to the tail-time of the window. The tail-time of the window is, in this example, 10 seconds before engine time (continuously sliding). If the timestamp value indicates that the event is older then the tail-time of the time window, the event is released immediately in the remove stream. If the timestamp value indicates that the event is newer then the tail-time of the window, the view retains the event until engine time moves such that the event timestamp is older then tail-time.
+				</p><p>
+					The examples thus holds each arriving event in memory anywhere from zero seconds to 10 seconds, to allow for older events (considering arrival time timestamp) to arrive. In other words, the view holds an event with an arrival time equal to engine time for 10 seconds. The view holds an event with an arrival time that is 2 seconds older then engine time for 8 seconds. The view holds an event with an arrival time that is 10 or more seconds older then engine time for zero seconds, and releases such (old) events immediately into the remove stream. 
+				</p><p>
+					The insert stream of this sliding window consists of all arriving events. The remove stream of the view is ordered by timestamp value: The event that has the oldest timestamp value is released first, followed by the next newer events. Note the statement above uses the <tt class="literal">rstream</tt> keyword in both the <tt class="literal">insert into</tt> clause and the <tt class="literal">select</tt> clause to select ordered events only. It uses the <tt class="literal">insert into</tt> clause to makes such ordered stream available for subsequent statements to use.
+				</p><p>
+					It is up to your application to populate the timestamp property into your events or use a sensible expression that returns timestamp values for consideration by the view. The view also works well if you use externally-provided time via timer events. 
+				</p></div></div></div><hr xmlns="http://www.w3.org/TR/xhtml1/transitional"><center xmlns="http://www.w3.org/TR/xhtml1/transitional">&copy; 2009 EsperTech Inc. All Rights Reserved</center><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-1261295-1");
+	pageTracker._trackPageview();
+	</script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="functionreference.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="api.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;8.&nbsp;EPL Reference: Functions&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;10.&nbsp;API Reference</td></tr></table></div></body></html>

@@ -1,0 +1,54 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;5.&nbsp;The Opentick Input Adapter</title><link rel="stylesheet" href="../shared/css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="EsperIO Adapters"><link rel="up" href="index.html" title="EsperIO Adapters"><link rel="previous" href="adapter_event_representations.html" title="Chapter&nbsp;4.&nbsp;Additional Event Representations"><link rel="next" href="adapter_fix.html" title="Chapter&nbsp;6.&nbsp;The FIX Protocol Adapter"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;5.&nbsp;The Opentick Input Adapter</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="adapter_event_representations.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="adapter_fix.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="adapter_opentick"></a>Chapter&nbsp;5.&nbsp;The Opentick Input Adapter</h2></div></div><div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter-opentick-intro"></a>5.1.&nbsp;Overview</h2></div></div><div></div></div><p>
+			This section describes the use of the Opentick input adapter. Opentick is an API and a service of opentick corporation to receive real-time stock market data, see <tt class="literal">http://www.opentick.com</tt>.
+		</p><p>
+			The Opentick input adapter is configured through a XML configuration file or directly through the <tt class="literal">ConfigurationOpentick</tt> class. The distribution provides a sample configuration file <tt class="literal">esperio-opentickadapter-config-sample.xml</tt> in the EsperIO <tt class="literal">etc</tt> folder.
+		</p><p>
+			There are two path available to start adapter operation: The first option is to register the adapter's plug-in loader and thus automatically load and start the adapter at time of Esper engine initialization. The second option requires your application to instantiate an <tt class="literal">OpentickInputAdapter</tt>.
+		</p><div class="sect4" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="adapter-opentick-loader"></a>5.1.1.&nbsp;Adapter Start via Plug-in Loader</h5></div></div><div></div></div><p>
+				This method loads the adapter automatically at time of engine initialization.
+			</p><p>
+				First, register the <tt class="literal">OpentickPluginLoader</tt> as one of the a plug-in loaders via the <tt class="literal">addPluginLoader</tt> method on the <tt class="literal">Configuration</tt> class or within the Esper configuration XML. For example:
+			</p><pre class="programlisting">Configuration config = new Configuration();
+Properties pluginProperties = new Properties();
+pluginProperties.put("classpath-app-context","esperio-opentickadapter-config-sample.xml");
+config.addPluginLoader("OpentickPluginLoader", 
+    OpentickPluginLoader.class.getName(), pluginProperties);
+EPServiceProvider engine = EPServiceProviderManager.getDefaultProvider(config);</pre><p>
+				At the time of engine initialization the loader class retrieves the XML configuration file from classpath and instantiates and starts the <tt class="literal">OpentickInputAdapter</tt>.
+			</p></div><div class="sect4" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="adapter-opentick-adapter"></a>5.1.2.&nbsp;Adapter Start via Instantiation</h5></div></div><div></div></div><p>
+					Your application may choose to use the <tt class="literal">OpentickInputAdapter</tt> class directly to start, stop, pause, resume and destroy the adapter separately from an Esper engine instance, or to configure via API and change the configuration at runtime.
+				</p><p>
+					This code snippet shows how to load a configuration file from a file location in the classpath and then starts the adapter:
+				</p><pre class="programlisting">ConfigurationOpentick configOT = new ConfigurationOpentick();
+URL url = Thread.currentThread().
+    getContextClassLoader().getResource("esperio-opentickadapter-config-sample.xml");
+if (url == null) {
+  throw new RuntimException("File not found");
+}
+configOT.configure(url);
+
+OpentickInputAdapter adapter = new OpentickInputAdapter(configOT);
+adapter.start();</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter-opentick-config"></a>5.2.&nbsp;Configuration</h2></div></div><div></div></div><p>
+			The opentick adapter XML and API configuration provides the connection information and the streams subscribed to in OT and defines symbol lists as well as associates symbol lists to streams. Please review the sample configuration file
+			in the <tt class="literal">etc</tt> folder of the EsperIO distribution.
+        </p><p>
+			As part of the <tt class="literal">stream</tt> configuration your application may list the following stream names: OTQuote, OTMMQuote, OTTrade, OTBBO. 
+			The <tt class="literal">type-name</tt> attribute assigns an name to the opentick event types available in EPL statements. 
+			The event representation are the respective opentick API POJO objects: <tt class="literal">com.opentick.OTTrade</tt> and <tt class="literal">OTMMQuote</tt>, <tt class="literal">OTTrade</tt>, <tt class="literal">OTBBO</tt>.
+        </p><p>
+			The <tt class="literal">symbollists</tt> element serves to define named lists of exchange and symbol combinations. The <tt class="literal">stream-symbollist</tt> element associates symbols to streams requested through the opentick API.
+        </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter-opentick-operation"></a>5.3.&nbsp;Operation</h2></div></div><div></div></div><p>
+			The opentick adapter, once running, may be configured at runtime as well. To change symbol lists or request new streams at runtime, your application may obtain the <tt class="literal">ConfigurationOpentick</tt> from 
+			the adapter, make changes, and restart the adapter via its <tt class="literal">pause, resume, start, stop and destroy</tt> operations. 
+        </p><p>
+			Use the <tt class="literal">pause</tt> or <tt class="literal">stop</tt> operation and the <tt class="literal">resume</tt> operation to retain the existing connection, drop streams and request new streams based on the new configuration.
+			Use the <tt class="literal">destroy</tt> and <tt class="literal">start</tt> operations to disconnect and reconnect.
+        </p></div></div><hr xmlns="http://www.w3.org/TR/xhtml1/transitional"><center xmlns="http://www.w3.org/TR/xhtml1/transitional">&copy; 2009 EsperTech Inc. All Rights Reserved</center><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-1261295-1");
+	pageTracker._trackPageview();
+	</script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="adapter_event_representations.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="adapter_fix.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;4.&nbsp;Additional Event Representations&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;6.&nbsp;The FIX Protocol Adapter</td></tr></table></div></body></html>

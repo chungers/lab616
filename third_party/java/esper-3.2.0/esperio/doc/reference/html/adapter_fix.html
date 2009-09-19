@@ -1,0 +1,32 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;6.&nbsp;The FIX Protocol Adapter</title><link rel="stylesheet" href="../shared/css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="EsperIO Adapters"><link rel="up" href="index.html" title="EsperIO Adapters"><link rel="previous" href="adapter_opentick.html" title="Chapter&nbsp;5.&nbsp;The Opentick Input Adapter"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;6.&nbsp;The FIX Protocol Adapter</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="adapter_opentick.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;</td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="adapter_fix"></a>Chapter&nbsp;6.&nbsp;The FIX Protocol Adapter</h2></div></div><div></div></div><p>
+        EsperIO's FIX protocol adapter is for use with incoming and outgoing events that follow the financial standard FIX protocol. For more information on FIX please refer to the <a href="http://www.fixprotocol.org/" target="_top"><i class="citetitle">FIX Protocol Organization</i></a>.
+    </p><p>
+        EsperIO provides: 
+    </p><div class="itemizedlist"><ul type="disc"><li><p>
+				A FIX protocol parser for parsing incoming FIX message text.
+			</p></li><li><p>
+				A FIX protocol marshaller for creating FIX message text from an event.
+			</p></li><li><p>
+				For use with the EsperIO Spring JMS adapter, marshallers for receiving JMS text messages (<tt class="literal">javax.jms.TextMessage</tt>) that contain FIX protocol text and for sending FIX protocol text via JMS .
+			</p></li></ul></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter_fix_parser"></a>6.1.&nbsp;FIX Protocol Parser</h2></div></div><div></div></div><p>
+			The EsperIO FIX Protocol parser is provided by <tt class="literal">com.espertech.esperio.message.fix.FixMsgParser</tt>. Use the <tt class="literal">parse</tt> method to parse and validate a FIX message text.
+			The method returns a Map of tag-value pairs that your application can send as an event to Esper.
+		</p><p>
+			At a minimum the parser requires the <tt class="literal">8, 9, 35, 10</tt> tags to be present and the checksum value (tag 10) to be valid.
+		</p><p>
+			Your application must configure the event type for use with the generated Map. Please consult the Esper documentation on Map event representations to configure the properties of the FIX event type.
+		</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter_fix_marshaller"></a>6.2.&nbsp;FIX Protocol Marshaller</h2></div></div><div></div></div><p>
+			The EsperIO FIX Protocol marshaller is provided by <tt class="literal">com.espertech.esperio.message.fix.FixMsgMarshaller</tt>. This utility class marshalls an event via the <tt class="literal">marshalFix</tt> method to a FIX message text with checksum.
+		</p><p>
+			The <tt class="literal">EventBean</tt> event is expected to contain properties that match the FIX protocol tag names.
+		</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter_fix_jms"></a>6.3.&nbsp;For use with Spring JMS</h2></div></div><div></div></div><p>
+			EsperIO provides code for use with the EsperIO Spring JMS adapters and JMS <tt class="literal">javax.jms.TextMessage</tt> messages. The <tt class="literal">com.espertech.esperio.jms.JMSFixProtocolTextMessageUnmarshaller</tt> and <tt class="literal">JMSFixProtocolTextMessageMarshaller</tt> can be configured as part of the Spring configuration to provide FIX protocol and JMS text message connectivity.
+		</p></div></div><hr xmlns="http://www.w3.org/TR/xhtml1/transitional"><center xmlns="http://www.w3.org/TR/xhtml1/transitional">&copy; 2009 EsperTech Inc. All Rights Reserved</center><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-1261295-1");
+	pageTracker._trackPageview();
+	</script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="adapter_opentick.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right">&nbsp;</td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;5.&nbsp;The Opentick Input Adapter&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;</td></tr></table></div></body></html>

@@ -1,0 +1,721 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;12.&nbsp;Extension and Plug-in</title><link rel="stylesheet" href="../shared/css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="Esper - Event Stream and Complex Event Processing for Java"><link rel="up" href="index.html" title="Esper - Event Stream and Complex Event Processing for Java"><link rel="previous" href="configuration.html" title="Chapter&nbsp;11.&nbsp;Configuration"><link rel="next" href="examples.html" title="Chapter&nbsp;13.&nbsp;Examples, Tutorials, Case Studies"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;12.&nbsp;Extension and Plug-in</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="configuration.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="examples.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="extension"></a>Chapter&nbsp;12.&nbsp;Extension and Plug-in</h2></div></div><div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="custom-views"></a>12.1.&nbsp;Custom View Implementation</h2></div></div><div></div></div><a class="indexterm" name="d0e21090"></a><a class="indexterm" name="d0e21095"></a><p>
+			Views in Esper are used to derive information from an event stream, and to represent data windows onto an event stream. This chapter describes how to plug-in a new, custom view. 
+        </p><p>
+			The following steps are required to develop and use a custom view with Esper. 
+        </p><div class="orderedlist"><ol type="1" compact><li><p>
+					Implement a view factory class. View factories are classes that accept and check view parameters and instantiate the appropriate view class.
+				</p></li><li><p>
+					Implement a view class. A view class commonly represents a data window or derives new information from a stream.
+				</p></li><li><p>
+					Configure the view factory class supplying a view namespace and name in the engine configuration file.
+				</p></li></ol></div><p>
+			The example view factory and view class that are used in this chapter can be found in the examples source folder in the OHLC (open-high-low-close) example. The class names are <tt class="literal">OHLCBarPlugInViewFactory</tt> and <tt class="literal">OHLCBarPlugInView</tt>.
+        </p><p>
+			Views can make use of the following engine services available via <tt class="literal">StatementServiceContext</tt>:
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					The <tt class="literal">SchedulingService</tt> interface allows views to schedule timer callbacks to a view
+				</p></li><li><p>
+					The <tt class="literal">EventAdapterService</tt> interface allows views to create new event types and event instances of a given type. 
+				</p></li><li><p>
+					The <tt class="literal">StatementStopService</tt> interface allows view to register a callback that the engine invokes to indicate that the view's statement has been stopped
+				</p></li></ul></div><p>
+			<a href="extension.html#custom-views-contract" title="12.1.3.&nbsp;View Contract">Section&nbsp;12.1.3, &#8220;View Contract&#8221;</a> outlines the requirements for correct behavior of a your custom view within the engine.
+        </p><p>
+			Note that custom views may use engine services and APIs that can be subject to change between major releases. The engine services discussed above and view APIs are considered part of the engine internal public API and are stable. Any changes to such APIs are disclosed through the release change logs and history. Please also consider contributing your custom view to the Esper project team by submitting the view code through the mailing list or via a JIRA issue.
+        </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-views-viewfactory"></a>12.1.1.&nbsp;Implementing a View Factory</h3></div></div><div></div></div><p>
+				A view factory class is responsible for the following functions:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						Accept zero, one or more view parameters. View parameters are themselves expressions. The view factory must validate and evaluate these expressions.
+					</p></li><li><p>
+						Instantiate the actual view class.
+					</p></li><li><p>
+						Provide information about the event type of events posted by the view.
+					</p></li></ul></div><p>
+				View factory classes simply subclass <tt class="literal">com.espertech.esper.view.ViewFactorySupport</tt>:
+			</p><pre class="programlisting">public class OHLCBarPlugInViewFactory extends ViewFactorySupport { ...</pre><p>
+				Your view factory class must implement the <tt class="literal">setViewParameters</tt> method to accept and parse view parameters. The next code snippet shows an implementation of this method. The code checks the number of parameters and retains the parameters passed to the method:
+			</p><pre class="programlisting">public class OHLCBarPlugInViewFactory extends ViewFactorySupport {
+    private ViewFactoryContext viewFactoryContext;
+    private List&lt;ExprNode&gt; viewParameters;
+    private ExprNode timestampExpression;
+    private ExprNode valueExpression;
+
+    public void setViewParameters(ViewFactoryContext viewFactoryContext, 
+            List&lt;ExprNode&gt; viewParameters) throws ViewParameterException {
+        this.viewFactoryContext = viewFactoryContext;
+        if (viewParameters.size() != 2) {
+            throw new ViewParameterException(
+                "View requires a two parameters: " +
+                "the expression returning timestamps and the expression supplying OHLC data points");
+        }
+        this.viewParameters = viewParameters;
+    }
+  ...</pre><p>
+			After the engine supplied view parameters to the factory, the engine will ask the view to attach to its parent view and validate any parameter expressions against the parent view's event type. If the view will be generating events of a different type then the events generated by the parent view, then the view factory can create the new event type in this method:
+		</p><pre class="programlisting">public void attach(EventType parentEventType, 
+		StatementContext statementContext, 
+		ViewFactory optionalParentFactory, 
+		List&lt;ViewFactory&gt; parentViewFactories) throws ViewParameterException {
+		
+    ExprNode[] validatedNodes = ViewFactorySupport.validate("OHLC view", 
+	      parentEventType, statementContext, viewParameters, false);
+
+    timestampExpression = validatedNodes[0];
+    valueExpression = validatedNodes[1];
+
+    if ((timestampExpression.getType() != long.class) &amp;&amp; 
+        (timestampExpression.getType() != Long.class)) {
+        throw new ViewParameterException(
+            "View requires long-typed timestamp values in parameter 1");
+    }
+    if ((valueExpression.getType() != double.class) &amp;&amp; 
+        (valueExpression.getType() != Double.class)) {
+        throw new ViewParameterException(
+            "View requires double-typed values for in parameter 2");
+    }
+}</pre><p>
+			Finally, the engine asks the view factory to create a view instance, and asks for the type of event generated by the view:
+		</p><pre class="programlisting">public View makeView(StatementContext statementContext) {
+    return new OHLCBarPlugInView(statementContext, timestampExpression, valueExpression);
+}
+
+public EventType getEventType() {
+    return OHLCBarPlugInView.getEventType(viewFactoryContext.getEventAdapterService());
+}</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-views-view"></a>12.1.2.&nbsp;Implementing a View</h3></div></div><div></div></div><p>
+				A view class is responsible for:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						The <tt class="literal">setParent</tt> method informs the view of the parent view's event type
+					</p></li><li><p>
+						The <tt class="literal">update</tt> method receives insert streams and remove stream events from its parent view
+					</p></li><li><p>
+						The <tt class="literal">iterator</tt> method supplies an (optional) iterator to allow an application to pull or request results from an <tt class="literal">EPStatement</tt>
+					</p></li><li><p>
+						The <tt class="literal">cloneView</tt> method must make a configured copy of the view to enable the view to work in a grouping context together with a <tt class="literal">std:groupby</tt> parent view
+					</p></li></ul></div><p>
+				View classes simply subclass <tt class="literal">com.espertech.esper.view.ViewSupport</tt>:
+			</p><pre class="programlisting">public class MyTrendSpotterView extends ViewSupport { ...</pre><p>
+				Your view's <tt class="literal">update</tt> method will be processing incoming (insert stream) and outgoing (remove stream) events posted by the parent view (if any), as well as providing incoming and outgoing events to child views. The convention required of your update method implementation is that the view releases any insert stream events (EventBean object references) which the view generates as reference-equal remove stream events (EventBean object references) at a later time. 
+			</p><p>
+				The view implementation must call the <tt class="literal">updateChildren</tt> method to post outgoing insert and remove stream events. Similar to the <tt class="literal">update</tt> method, the <tt class="literal">updateChildren</tt> method takes insert and remove stream events as parameters.
+			</p><p>
+				A sample <tt class="literal">update</tt> method implementation is provided in the OHLC example.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-views-contract"></a>12.1.3.&nbsp;View Contract</h3></div></div><div></div></div><p>
+				The <tt class="literal">update</tt> method must adhere to the following conventions, to prevent memory leaks and to enable correct behavior within the engine:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						A view implementation that posts events to the insert stream must post unique <tt class="literal">EventBean</tt> object references as insert stream events, and cannot post the same <tt class="literal">EventBean</tt> object reference multiple times. The underlying event to the <tt class="literal">EventBean</tt> object reference can be the same object reference, however the <tt class="literal">EventBean</tt> object reference posted by the view into the insert stream must be a new instance for each insert stream event.
+					</p></li><li><p>
+						If the custom view posts a continuous insert stream, then the views must also post a continuous remove stream (second parameter to the <tt class="literal">updateChildren</tt> method). If the view does not post remove stream events, it assumes unbound keep-all semantics.
+					</p></li><li><p>
+						<tt class="literal">EventBean</tt> events posted as remove stream events must be the same object reference as the <tt class="literal">EventBean</tt> events posted as insert stream by the view. Thus remove stream events posted by the view (the <tt class="literal">EventBean</tt> instances, does not affect the underlying representation) must be reference-equal to insert stream events posted by the view as part of an earlier invocation of the update method, or the same invocation of the update method.
+					</p></li><li><p>
+						<tt class="literal">EventBean</tt> events represent a unique observation. The values of the observation can be the same, thus the underlying representation of an <tt class="literal">EventBean</tt> event can be reused, however event property values must be kept immutable and not be subject to change.
+					</p></li><li><p>
+						Array elements of the insert and remove stream events must not carry null values. Array size must match the number of <tt class="literal">EventBean</tt> instances posted. It is recommended to use a <tt class="literal">null</tt> value for no insert or remove stream events rather then an empty zero-size array. 
+					</p></li></ul></div><p>
+				The engine can provide a callback to the view indicating when a statement using the view is stopped. The callback is available to the view via the <tt class="literal">com.espertech.esper.view.StatementStopCallback</tt> interface. Your
+				view code must subscribe to the stop callback in order for the engine to invoke the callback:
+			</p><pre class="programlisting">statementContext.getStatementStopService().addSubscriber(this);</pre><p>
+				Please refer to the sample views for a code sample on how to implement <tt class="literal">iterator</tt> and <tt class="literal">cloneView</tt> methods.
+			</p><p>
+				In terms of multiple threads accessing view state, there is no need for your custom view factory or view implementation to perform any synchronization to protect internal state. The iterator of the custom view implementation does also not need to be thread-safe. The engine ensures the custom view executes in the context of a single thread at a time. If your view uses shared external state, such external state must be still considered for synchronization when using multiple threads.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-views-config"></a>12.1.4.&nbsp;Configuring View Namespace and Name</h3></div></div><div></div></div><p>
+				The view factory class name as well as the view namespace and name for the new view must be added to the engine configuration via the configuration API or using the XML configuration file. The configuration shown below is XML however the same options are available through the configuration API:
+			</p><pre class="programlisting">&lt;esper-configuration
+  &lt;plugin-view namespace="custom" name="trendspotter" 
+      factory-class="com.espertech.esper.regression.view.MyTrendSpotterViewFactory" /&gt; 
+&lt;/esper-configuration&gt;</pre><p>
+				The new view is now ready to use in a statement:
+			</p><pre class="programlisting">select * from StockTick.custom:trendspotter(price)</pre><p>
+				Note that the view must implement additional interfaces if it acts as a data window view, or works in a grouping context, as discussed in more detail below.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-views-datawin"></a>12.1.5.&nbsp;Requirement for Data Window Views</h3></div></div><div></div></div><p>
+				Your custom view may represent an expiry policy and may retain events and thus act as a data window view. In order to allow the engine to validate that your view can be used with named windows, which allow only data window views,
+				this section documents any additional requirement that your classes must fulfill.
+			</p><p>
+				Your view factory class must implement the <tt class="literal">com.espertech.esper.view.DataWindowViewFactory</tt> interface. This marker interface (no methods required) indicates that your view factory provides only data window views.  
+			</p><p>
+				Your view class must implement the <tt class="literal">com.espertech.esper.view.DataWindowView</tt> interface. This marker interface indicates that your view is a data window view and therefore eligible to be used in any construct that requires a data window  view.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-views-grouped"></a>12.1.6.&nbsp;Requirement for Grouped Views</h3></div></div><div></div></div><p>
+				Grouped views are views that operate under the <tt class="literal">std:groupby</tt> view. When operating under one or more <tt class="literal">std:groupby</tt> views, the engine instantiates a single view instance when the statement starts, and a new view instance per group criteria dynamically as new group criteria become known. 
+			</p><p>
+				The next statement shows EPL for using a view instance per grouping criteria:
+			</p><pre class="programlisting">select * from StockTick.std:groupby(symbol).custom:trendspotter(price)</pre><p>
+				Your view must implement the <tt class="literal">com.espertech.esper.view.CloneableView</tt> interface to indicate your view may create new views. This code snippet shows a sample implementation of the <tt class="literal">cloneView</tt> method required by the interface:
+			</p><pre class="programlisting">public View cloneView(StatementContext statementContext) {
+  return new MyPlugInView(statementContext);	// pass any parameters along where
+}</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="custom-aggregation-function"></a>12.2.&nbsp;Custom Aggregation Functions</h2></div></div><div></div></div><a class="indexterm" name="d0e21386"></a><p>
+			Aggregation functions aggregate event property values or expression results obtained from one or more streams. Examples for built-in aggregation functions are <tt class="literal">count(*)</tt>, <tt class="literal">sum(price * volume)</tt> or <tt class="literal">avg(distinct volume)</tt>.
+        </p><p>
+			The optional keyword <tt class="literal">distinct</tt> ensures that only distinct (unique) values are aggregated and duplicate values are ignored by the aggregation function. Custom plug-in aggregation functions do not need to implement the logic to handle <tt class="literal">distinct</tt> values. This is because when the engine encounters the <tt class="literal">distinct</tt> keyword, it eliminates any non-distinct values before passing the value for aggregation to the custom aggregation function.
+        </p><p>
+			Custom aggregation functions can also be passed multiple parameters, as further discribed in <a href="extension.html#custom-aggregation-multiparam" title="12.2.3.&nbsp;Accepting Multiple Parameters">Section&nbsp;12.2.3, &#8220;Accepting Multiple Parameters&#8221;</a>. In the example below the aggregation function accepts a single parameter.
+        </p><p>
+			The following steps are required to develop and use a custom aggregation function with Esper. 
+        </p><div class="orderedlist"><ol type="1" compact><li><p>
+					Implement an aggregation function class.
+				</p></li><li><p>
+					Register the aggregation function class with the engine by supplying a function name, via the engine configuration file or the configuration API.
+				</p></li></ol></div><p>
+			The code for the example aggregation function as shown in this chapter can be found in the test source folder in the package <tt class="literal">com.espertech.esper.regression.client</tt> by the name <tt class="literal">MyConcatAggregationFunction</tt>. The sample function simply concatenates string-type values.
+        </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-aggregation-implementing"></a>12.2.1.&nbsp;Implementing an Aggregation Function</h3></div></div><div></div></div><p>
+				An aggregation function class is responsible for the following functions:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						Implement a <tt class="literal">validate</tt> method that validates the value type of the data points that the function must process.
+					</p></li><li><p>
+						Implement a <tt class="literal">getValueType</tt> method that returns the type of the aggregation value generated by the function. For example, the built-in <tt class="literal">count</tt> aggregation function returns <tt class="literal">Long.class</tt> as it generates <tt class="literal">long</tt> -typed values.
+					</p></li><li><p>
+						Implement an <tt class="literal">enter</tt> method that the engine invokes to add a data point into the aggregation, when an event enters a data window
+					</p></li><li><p>
+						Implement a <tt class="literal">leave</tt> method that the engine invokes to remove a data point from the aggregation, when an event leaves a data window
+					</p></li><li><p>
+						Implement a <tt class="literal">getValue</tt> method that returns the current value of the aggregation. 
+					</p></li></ul></div><p>
+				Aggregation function classes simply subclass <tt class="literal">com.espertech.esper.epl.agg.AggregationSupport</tt>:
+			</p><pre class="programlisting">public class MyConcatAggregationFunction extends AggregationSupport { ...</pre><p>
+				The engine generally constructs one instance of the aggregation function class for each time the function is listed in a statement, however the engine may decide to reduce the number of aggregation class instances if it finds equivalent aggregations. The constructor initializes the aggregation function:
+			</p><pre class="programlisting">public class MyConcatAggregationFunction extends AggregationSupport {
+  private final static char DELIMITER = ' ';
+  private StringBuilder builder;
+  private String delimiter;
+
+  public MyConcatAggregationFunction()
+  {
+    super();
+    builder = new StringBuilder();
+    delimiter = "";
+  }
+  ...</pre><p>
+				An aggregation function must provide an implementation of the <tt class="literal">validate</tt> method that is passed the result type of the expression within the aggregation function. Since the example concatenation function requires string types, it implements a type check:
+			</p><pre class="programlisting">public void validate(Class childNodeType) {
+  if (childNodeType != String.class) {
+    throw new IllegalArgumentException("Concat aggregation requires a String parameter");
+  }
+}</pre><p>
+				The <tt class="literal">enter</tt> method adds a datapoint to the current aggregation value. The example <tt class="literal">enter</tt> method shown below adds a delimiter and the string value to a string buffer:
+			</p><pre class="programlisting">public void enter(Object value) {
+  if (value != null) {
+    builder.append(delimiter);
+    builder.append(value.toString());
+    delimiter = String.valueOf(DELIMITER);
+  }
+}</pre><p>
+				Conversly, the <tt class="literal">leave</tt> method removes a datapoint from the current aggregation value. The example <tt class="literal">leave</tt> method removes from the string buffer:
+			</p><pre class="programlisting">public void leave(Object value) {
+  if (value != null) {
+    builder.delete(0, value.toString().length() + 1);
+  }
+}</pre><p>
+				In order for the engine to validate the type returned by the aggregation function against the types expected by enclosing expressions, the <tt class="literal">getValueType</tt> must return the result type of any values produced by the aggregation function:
+			</p><pre class="programlisting">public Class getValueType() {
+  return String.class;
+}</pre><p>
+				Finally, the engine obtains the current aggregation value by means of the <tt class="literal">getValue</tt> method:
+			</p><pre class="programlisting">public Object getValue() {
+  return builder.toString();
+}</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-aggregation-config"></a>12.2.2.&nbsp;Configuring Aggregation Function Name</h3></div></div><div></div></div><p>
+				The aggregation function class name as well as the function name for the new aggregation function must be added to the engine configuration via the configuration API or using the XML configuration file. The configuration shown below is XML however the same options are available through the configuration API:
+			</p><pre class="programlisting">&lt;esper-configuration
+  &lt;plugin-aggregation-function name="concat" 
+    function-class="com.espertech.esper.regression.client.MyConcatAggregationFunction" /&gt;
+&lt;/esper-configuration&gt;</pre><p>
+				The new aggregation function is now ready to use in a statement:
+			</p><pre class="programlisting">select concat(symbol) from StockTick.win:length(3)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-aggregation-multiparam"></a>12.2.3.&nbsp;Accepting Multiple Parameters</h3></div></div><div></div></div><p>
+				Your plug-in aggregation function may accept multiple parameters, simply by casting the Object parameter of the <tt class="literal">enter</tt> and <tt class="literal">leave</tt> method to <tt class="literal">Object[]</tt>.
+			</p><p>
+				For instance, assume an aggregation function <tt class="literal">rangeCount</tt> that counts all values that fall into a range of values. The EPL that calls this function and provides a lower and upper bounds of 1 and 10 is:
+			</p><pre class="programlisting">select rangeCount(1, 10, myValue) from MyEvent</pre><p>
+				The <tt class="literal">enter</tt> method of the plug-in aggregation function may look as follows:
+			</p><pre class="programlisting">public void enter(Object value)  {
+  Object[] params = (Object[]) value;
+  int lower = (Integer) params[0];
+  int upper = (Integer) params[1];
+  int val = (Integer) params[2];
+  if ((val &gt;= lower) &amp;&amp; (val &lt;= upper)) {
+    count++;
+  }
+}</pre><p>
+				Your plug-in aggregation function may want to validate parameter types or may want to know which parameters are constant-value expressions. Constant-value expressions are evaluated only once by the engine and could
+				therefore be cached by your aggregation function for performance reasons.
+			</p><p>
+				To validate parameter types, or cache constant-value expressions results, override the <tt class="literal">validateMultiParameter</tt> method in your implementation of <tt class="literal">AggregationSupport</tt>. The engine provides the parameter type of each parameter. It also provides a flag indicating that the parameter is the result of a constant-value expression and provides the constant itself (if constant).
+			</p><p>
+				This sample implementation of <tt class="literal">validateMultiParameter</tt> simply checks that boundary values are of type Integer:
+			</p><pre class="programlisting">public void validateMultiParameter(Class[] parameterType, 
+  boolean[] isConstantValue, 
+  Object[] constantValue) {
+  super.validateMultiParameter(childNodeType, isConstantValue, constantValue);
+  if ((childNodeType[0] != Integer.class) || (childNodeType[1] != Integer.class)) {
+    throw new IllegalArgumentException("Expected integer bounds");        
+  }
+}</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="custom-pattern-guard"></a>12.3.&nbsp;Custom Pattern Guard</h2></div></div><div></div></div><a class="indexterm" name="d0e21590"></a><p>
+			Pattern guards are pattern objects that control the lifecycle of the guarded sub-expression, and can filter the events fired by the subexpression. 
+        </p><p>
+			The following steps are required to develop and use a custom guard object with Esper. 
+        </p><div class="orderedlist"><ol type="1" compact><li><p>
+					Implement a guard factory class, responsible for creating guard object instances.
+				</p></li><li><p>
+					Implement a guard class.
+				</p></li><li><p>
+					Register the guard factory class with the engine by supplying a namespace and name, via the engine configuration file or the configuration API.
+				</p></li></ol></div><p>
+			The code for the example guard object as shown in this chapter can be found in the test source folder in the package <tt class="literal">com.espertech.esper.regression.client</tt> by the name <tt class="literal">MyCountToPatternGuardFactory</tt>. The sample guard discussed here counts the number of events occurring up to a maximum number of events, and end the sub-expression when that maximum is reached.
+        </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-pattern-guard-factory-implementing"></a>12.3.1.&nbsp;Implementing a Guard Factory</h3></div></div><div></div></div><p>
+				A guard factory class is responsible for the following functions:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						Implement a <tt class="literal">setGuardParameters</tt> method that takes guard parameters, which are themselves expressions.
+					</p></li><li><p>
+						Implement a <tt class="literal">makeGuard</tt> method that constructs a new guard instance.
+					</p></li></ul></div><p>
+				Guard factory classes subclass <tt class="literal">com.espertech.esper.pattern.guard.GuardFactorySupport</tt>:
+			</p><pre class="programlisting">public class MyCountToPatternGuardFactory extends GuardFactorySupport { ...</pre><p>
+				The engine constructs one instance of the guard factory class for each time the guard is listed in a statement. 
+			</p><p>
+				The guard factory class implements the <tt class="literal">setGuardParameters</tt> method that is passed the parameters to the guard as supplied by the statement. It verifies the guard parameters, similar to the code snippet shown next. Our example counter guard takes a single numeric parameter:
+			</p><pre class="programlisting">public void setGuardParameters(List&lt;ExprNode&gt; guardParameters, 
+			MatchedEventConvertor convertor) throws GuardParameterException {
+    String message = "Count-to guard takes a single integer-value expression as parameter";
+    if (guardParameters.size() != 1) {
+        throw new GuardParameterException(message);
+    }
+
+    if (guardParameters.get(0).getType() != Integer.class) {
+        throw new GuardParameterException(message);
+    }
+
+    this.numCountToExpr = guardParameters.get(0);
+    this.convertor = convertor;
+}</pre><p>
+				The <tt class="literal">makeGuard</tt> method is called by the engine to create a new guard instance. The example <tt class="literal">makeGuard</tt> method shown below passes the maximum count of events to the guard instance. It also passes a <tt class="literal">Quitable</tt> implementation to the guard instance. The guard uses <tt class="literal">Quitable</tt> to indicate that the sub-expression contained within must stop (quit) listening for events.
+			</p><pre class="programlisting">public Guard makeGuard(PatternContext context, 
+      MatchedEventMap beginState, 
+      Quitable quitable, 
+      Object stateNodeId, 
+      Object guardState) {
+      
+    Object parameter = PatternExpressionUtil.evaluate("Count-to guard", 
+        beginState, numCountToExpr, convertor);
+    if (parameter == null) {
+        throw new EPException("Count-to guard parameter evaluated to a null value");
+    }
+
+    Integer numCountTo = (Integer) parameter;
+    return new MyCountToPatternGuard(numCountTo, quitable);
+}</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-pattern-guard-implementing"></a>12.3.2.&nbsp;Implementing a Guard Class</h3></div></div><div></div></div><p>
+				A guard class has the following responsibilities:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						Provides a <tt class="literal">startGuard</tt> method that initalizes the guard.
+					</p></li><li><p>
+						Provides a <tt class="literal">stopGuard</tt> method that stops the guard, called by the engine when the whole pattern is stopped, or the sub-expression containing the guard is stopped.
+					</p></li><li><p>
+						Provides an <tt class="literal">inspect</tt> method that the pattern engine invokes to determine if the guard lets matching events pass for further evaluation by the containing expression.
+					</p></li></ul></div><p>
+				Guard classes subclass <tt class="literal">com.espertech.esper.pattern.guard.GuardSupport</tt> as shown here:
+			</p><pre class="programlisting">public abstract class GuardSupport implements Guard { ...</pre><p>
+				The engine invokes the guard factory class to construct an instance of the guard class for each new sub-expression instance within a statement.
+			</p><p>
+				A guard class must provide an implementation of the <tt class="literal">startGuard</tt> method that the pattern engine invokes to start a guard instance. In our example, the method resets the guard's counter to zero:
+			</p><pre class="programlisting">public void startGuard() {
+  counter = 0;
+}</pre><p>
+				The pattern engine invokes the <tt class="literal">inspect</tt> method for each time the sub-expression indicates a new event result. Our example guard needs to count the number of events matched, and quit if the maximum number is reached:
+			</p><pre class="programlisting">public boolean inspect(MatchedEventMap matchEvent) {
+  counter++;
+  if (counter &gt; numCountTo) {
+    quitable.guardQuit();
+    return false;
+  }
+  return true;
+}</pre><p>
+				The <tt class="literal">inspect</tt> method returns true for events that pass the guard, and false for events that should not pass the guard.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-pattern-guard-config"></a>12.3.3.&nbsp;Configuring Guard Namespace and Name</h3></div></div><div></div></div><p>
+				The guard factory class name as well as the namespace and name for the new guard must be added to the engine configuration via the configuration API or using the XML configuration file. The configuration shown below is XML however the same options are available through the configuration API:
+			</p><pre class="programlisting">&lt;esper-configuration
+  &lt;plugin-pattern-guard namespace="myplugin" name="count_to" 
+      factory-class="com.espertech.esper.regression.client.MyCountToPatternGuardFactory"/&gt;
+&lt;/esper-configuration&gt;</pre><p>
+				The new guard is now ready to use in a statement. The next pattern statement detects the first 10 MyEvent events:
+			</p><pre class="programlisting">select * from pattern [(every MyEvent) where myplugin:count_to(10)]</pre><p>
+				Note that the <tt class="literal">every</tt> keyword was placed within parentheses to ensure the guard controls the repeated matching of events.
+			</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="custom-pattern-observer"></a>12.4.&nbsp;Custom Pattern Observer</h2></div></div><div></div></div><a class="indexterm" name="d0e21738"></a><p>
+			Pattern observers are pattern objects that are executed as part of a pattern expression and can observe events or test conditions. Examples for built-in observers are <tt class="literal">timer:at</tt> and <tt class="literal">timer:interval</tt>. Some suggested uses of observer objects are: 
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Implement custom scheduling logic using the engine's own scheduling and timer services
+				</p></li><li><p>
+					Test conditions related to prior events matching an expression
+				</p></li></ul></div><p>
+			The following steps are required to develop and use a custom observer object within pattern statements: 
+        </p><div class="orderedlist"><ol type="1" compact><li><p>
+					Implement an observer factory class, responsible for creating observer object instances.
+				</p></li><li><p>
+					Implement an observer class.
+				</p></li><li><p>
+					Register an observer factory class with the engine by supplying a namespace and name, via the engine configuration file or the configuration API.
+				</p></li></ol></div><p>
+			The code for the example observer object as shown in this chapter can be found in the test source folder in package <tt class="literal">com.espertech.esper.regression.client</tt> by the name <tt class="literal">MyFileExistsObserver</tt>. The sample observer discussed here very simply checks if a file exists, using the filename supplied by the pattern statement, and via the <tt class="literal">java.io.File</tt> class.
+        </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-pattern-observer-factory-implementing"></a>12.4.1.&nbsp;Implementing an Observer Factory</h3></div></div><div></div></div><p>
+				An observer factory class is responsible for the following functions:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						Implement a <tt class="literal">setObserverParameters</tt> method that takes observer parameters, which are themselves expressions.
+					</p></li><li><p>
+						Implement a <tt class="literal">makeObserver</tt> method that constructs a new observer instance.
+					</p></li></ul></div><p>
+				Observer factory classes subclass <tt class="literal">com.espertech.esper.pattern.observer.ObserverFactorySupport</tt>:
+			</p><pre class="programlisting">public class MyFileExistsObserverFactory extends ObserverFactorySupport { ...</pre><p>
+				The engine constructs one instance of the observer factory class for each time the observer is listed in a statement. 
+			</p><p>
+				The observer factory class implements the <tt class="literal">setObserverParameters</tt> method that is passed the parameters to the observer as supplied by the statement. It verifies the observer parameters, similar to the code snippet shown next. Our example file-exists observer takes a single string parameter:
+			</p><pre class="programlisting">public void setObserverParameters(List&lt;ExprNode&gt; expressionParameters, 
+			MatchedEventConvertor convertor) throws ObserverParameterException {
+    String message = "File exists observer takes a single string filename parameter";
+    if (expressionParameters.size() != 1) {
+	    throw new ObserverParameterException(message);
+    }
+    if (!(expressionParameters.get(0).getType() == String.class)) {
+	    throw new ObserverParameterException(message);
+    }
+
+    this.filenameExpression = expressionParameters.get(0);
+    this.convertor = convertor;
+}</pre><p>
+				The pattern engine calls the <tt class="literal">makeObserver</tt> method to create a new observer instance. The example <tt class="literal">makeObserver</tt> method shown below passes parameters to the observer instance:
+			</p><pre class="programlisting">public EventObserver makeObserver(PatternContext context, 
+			MatchedEventMap beginState, 
+			ObserverEventEvaluator observerEventEvaluator, 
+			Object stateNodeId, 
+			Object observerState) {
+    Object filename = PatternExpressionUtil.evaluate("File-exists observer ", beginState, filenameExpression, convertor);
+    if (filename == null) {
+	    throw new EPException("Filename evaluated to null");
+    }
+
+    return new MyFileExistsObserver(beginState, observerEventEvaluator, filename.toString());
+}</pre><p>
+				The <tt class="literal">ObserverEventEvaluator</tt> parameter allows an observer to indicate events, and to indicate change of truth value to permanently false. Use this interface to indicate when your observer has received or witnessed an event, or changed it's truth value to true or permanently false.
+			</p><p>
+				The <tt class="literal">MatchedEventMap</tt> parameter provides a Map of all matching events for the expression prior to the observer's start. For example, consider a pattern as below:
+			</p><pre class="programlisting">a=MyEvent -&gt; myplugin:my_observer(...)</pre><p>
+				The above pattern tagged the MyEvent instance with the tag "a". The pattern engine starts an instance of <tt class="literal">my_observer</tt> when it receives the first MyEvent. The observer can query the <tt class="literal">MatchedEventMap</tt> using  "a" as a key and obtain the tagged event.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-pattern-observer-implementing"></a>12.4.2.&nbsp;Implementing an Observer Class</h3></div></div><div></div></div><p>
+				An observer class has the following responsibilities:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						Provides a <tt class="literal">startObserve</tt> method that starts the observer.
+					</p></li><li><p>
+						Provides a <tt class="literal">stopObserve</tt> method that stops the observer, called by the engine when the whole pattern is stopped, or the sub-expression containing the observer is stopped.
+					</p></li></ul></div><p>
+				Observer classes subclass <tt class="literal">com.espertech.esper.pattern.observer.ObserverSupport</tt> as shown here:
+			</p><pre class="programlisting">public class MyFileExistsObserver implements EventObserver { ...</pre><p>
+				The engine invokes the observer factory class to construct an instance of the observer class for each new sub-expression instance within a statement.
+			</p><p>
+				An observer class must provide an implementation of the <tt class="literal">startObserve</tt> method that the pattern engine invokes to start an observer instance. In our example, the observer checks for the presence of a file and indicates the truth value to the remainder of the expression:
+			</p><pre class="programlisting">public void startObserve() {
+  File file = new File(filename);
+  if (file.exists()) {
+    observerEventEvaluator.observerEvaluateTrue(beginState);
+  } 
+  else {
+    observerEventEvaluator.observerEvaluateFalse(); 
+  }
+}</pre><p>
+				Note the observer passes the <tt class="literal">ObserverEventEvaluator</tt> an instance of <tt class="literal">MatchedEventMap</tt>. The observer can also create one or more new events and pass these events through the Map to the remaining expressions in the pattern.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-pattern-observer-config"></a>12.4.3.&nbsp;Configuring Observer Namespace and Name</h3></div></div><div></div></div><p>
+				The observer factory class name as well as the namespace and name for the new observer must be added to the engine configuration via the configuration API or using the XML configuration file. The configuration shown below is XML however the same options are available through the configuration API:
+			</p><pre class="programlisting">&lt;esper-configuration
+  &lt;plugin-pattern-observer namespace="myplugin" name="file_exists" 
+    factory-class="com.espertech.esper.regression.client.MyFileExistsObserverFactory" /&gt;
+&lt;/esper-configuration&gt;</pre><p>
+				The new observer is now ready to use in a statement. The next pattern statement checks every 10 seconds if the given file exists, and indicates to the listener when the file is found.
+			</p><pre class="programlisting">select * from pattern [every timer:interval(10 sec) -&gt; myplugin:file_exists("myfile.txt")]</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="custom-event-representation"></a>12.5.&nbsp;Custom Event Representation</h2></div></div><div></div></div><a class="indexterm" name="d0e21901"></a><a class="indexterm" name="d0e21904"></a><p>
+			Creating a plug-in event representation can be useful under any of these conditions:
+		</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Your application has existing Java classes that carry event metadata and event property values and your application does not want to (or cannot) extract or transform such event metadata and event data into one of the built-in event representations (POJO Java objects, Map or XML DOM).
+				</p></li><li><p>
+					Your application wants to provide a faster or short-cut access path to event data, for example to access XML event data through a Streaming API for XML (StAX).
+				</p></li><li><p>
+					Your application must perform a network lookup or other dynamic resolution of event type and events.
+				</p></li></ul></div><p>
+			Note that the classes to plug-in custom event representations are held stable between minor releases, but can be subject to change between major releases. 
+		</p><p>
+			Currently, EsperIO provides the following additional event representations:
+		</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Apache Axiom provides access to XML event data on top of the fast Streaming API for XML (StAX). 
+				</p></li></ul></div><p>
+			The source code is available for these and they are therefore excellent examples for how to implement a plug-in event representation.
+			Please see the EsperIO documentation for usage details.
+		</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-eventrep-overview"></a>12.5.1.&nbsp;How It Works</h3></div></div><div></div></div><p>
+				Your application provides a plug-in event representation as an implementation of the <tt class="literal">com.espertech.esper.plugin.PlugInEventRepresentation</tt> interface. It registers the implementation class in the
+				<tt class="literal">Configuration</tt> and at the same time provides a unique URI. This URI is called the root event representation URI. An example value for a root URI is <tt class="literal">type://xml/apacheaxiom/OMNode</tt>. 
+			</p><p>
+				One can register multiple plug-in event representations. Each representation has a root URI. The root URI serves to divide the overall space of different event representations and plays a role in resolving event types and event objects.
+			</p><p>
+				There are two situations in an Esper engine instance asks an event representation for an event type:
+			</p><div class="orderedlist"><ol type="1"><li><p>
+						When an application registers a new event type using the method <tt class="literal">addPlugInEventType</tt> on <tt class="literal">ConfigurationOperations</tt>, either at runtime or at configuration time.
+					</p></li><li><p>
+						When an EPL statement is created with a new event type name (a name not seen before) and the URIs for resolving such names are set beforehand via <tt class="literal">setPlugInEventTypeNameResolutionURIs</tt> on <tt class="literal">ConfigurationOperations</tt>.
+					</p></li></ol></div><p>
+				The implementation of the <tt class="literal">PlugInEventRepresentation</tt> interface must provide implementations for two key interfaces: <tt class="literal">com.espertech.esper.client.EventType</tt> and <tt class="literal">EventBean</tt>. It must also implement several other related interfaces as described below.
+			</p><p>
+				The <tt class="literal">EventType</tt> methods provide event metadata including property names and property types. They also provide instances of <tt class="literal">EventPropertyGetter</tt> for retrieving event property values. Each instance of <tt class="literal">EventType</tt> represents a distinct type of event.
+			</p><p>
+				The <tt class="literal">EventBean</tt> implementation is the event itself and encapsulates the underlying event object.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-eventrep-steps"></a>12.5.2.&nbsp;Steps</h3></div></div><div></div></div><p>
+				Follow the steps outlined below to process event objects for your event types:
+			</p><div class="orderedlist"><ol type="1" compact><li><p>
+						Implement the <tt class="literal">EventType</tt>, <tt class="literal">EventPropertyGetter</tt> and <tt class="literal">EventBean</tt> interfaces.
+					</p></li><li><p>
+						Implement the <tt class="literal">PlugInEventRepresentation</tt> interface, the <tt class="literal">PlugInEventTypeHandler</tt> and <tt class="literal">PlugInEventBeanFactory</tt> interfaces, then add the <tt class="literal">PlugInEventRepresentation</tt> class name to configuration.
+					</p></li><li><p>
+						Register plug-in event types, and/or set the event type name resolution URIs, via configuration.
+					</p></li><li><p>
+						Obtain an <tt class="literal">EventSender</tt> from <tt class="literal">EPRuntime</tt> via the <tt class="literal">getEventSender(URI[])</tt> method and use that to send in your event objects.
+					</p></li></ol></div><p>
+				Please consult the JavaDoc for further information on each of the interfaces and their respective methods. The Apache Axiom event representation is an example implementation that can be found in the 
+				EsperIO packages.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-eventrep-uriresolution"></a>12.5.3.&nbsp;URI-based Resolution</h3></div></div><div></div></div><p>
+				Assume you have registered event representations using the following URIs:
+			</p><div class="orderedlist"><ol type="1" compact><li><p>
+						type://myFormat/myProject/myName
+					</p></li><li><p>
+						type://myFormat/myProject
+					</p></li><li><p>
+						type://myFormat/myOtherProject
+					</p></li></ol></div><p>
+				When providing an array of child URIs for resolution, the engine compares each child URI to each of the event representation root URIs, in the order provided. Any event representation root URIs that 
+				spans the child URI space becomes a candidate event representation. If multiple root URIs match, the order is defined by the more specific root URI first, to the least specific root URI last.
+			</p><p>
+				During event type resolution and event sender resolution you provide a child URI. Assuming the child URI provided is <tt class="literal">type://myFormat/myProject/myName/myEvent?param1=abc&amp;param2=true</tt>. In this example both root URIs #1 (the more specific) and #1 (the less specific) match, while root URI #3 is not a match. Thus at the time of type resolution the engine invokes the <tt class="literal">acceptType</tt> method on event presentation for URI #1 first (the more specific), before asking #2 (the less specific) to resolve the type.
+			</p><p>			    
+				The <tt class="literal">EventSender</tt> returned by the <tt class="literal">getEventSender(URI[])</tt> method follows the same scheme. The event sender instance asks each matching event representation for each URI to resolve the event object in the order of most specific to least specific root URI, and the first event representation to return an instance of <tt class="literal">EventBean</tt> ends the resolution process for event objects.
+			</p><p>
+				The <tt class="literal">type://</tt> part of the URI is an optional convention for the scheme part of an URI that your application may follow. URIs can also be simple names and can include parameters, as the Java software JavaDoc documents for class <tt class="literal">java.net.URI</tt>.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="custom-eventrep-example"></a>12.5.4.&nbsp;Example</h3></div></div><div></div></div><p>
+					This section implements a minimal sample plug-in event representation. For the sake of keeping the example easy to understand, the event representation is rather straightforward: an event is a <tt class="literal">java.util.Properties</tt> object that consists of key-values pairs of type string.
+				</p><p>
+					The code shown next does not document method footprints. Please consult the JavaDoc API documentation for method details.
+				</p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="custom-eventrep-example-eventtype"></a>12.5.4.1.&nbsp;Sample Event Type</h4></div></div><div></div></div><p>
+					First, the sample shows how to implement the <tt class="literal">EventType</tt> interface. The event type provides information about property names and types, as well as supertypes of the event type.
+				</p><p>
+					Our <tt class="literal">EventType</tt> takes a set of valid property names:
+				</p><pre class="programlisting">public class MyPlugInPropertiesEventType implements EventType {
+  private final Set&lt;String&gt; properties;
+
+  public MyPlugInPropertiesEventType(Set&lt;String&gt; properties) {
+    this.properties = properties;
+  }
+
+  public Class getPropertyType(String property) {
+    if (!isProperty(property)) {
+      return null;
+    }
+    return String.class;
+  }
+
+  public Class getUnderlyingType() {
+    return Properties.class;
+  }
+  
+  //... further methods below
+}</pre><p>
+					An <tt class="literal">EventType</tt> is responsible for providing implementations of <tt class="literal">EventPropertyGetter</tt> to query actual events. The getter simply
+					queries the <tt class="literal">Properties </tt> object underlying each event:
+				</p><pre class="programlisting">  public EventPropertyGetter getGetter(String property) {
+    final String propertyName = property;
+    
+    return new EventPropertyGetter() {
+      public Object get(EventBean eventBean) throws PropertyAccessException {
+        MyPlugInPropertiesEventBean propBean = (MyPlugInPropertiesEventBean) eventBean;
+        return propBean.getProperties().getProperty(propertyName);
+      }
+      
+      public boolean isExistsProperty(EventBean eventBean) {
+        MyPlugInPropertiesEventBean propBean = (MyPlugInPropertiesEventBean) eventBean;
+        return propBean.getProperties().getProperty(propertyName) != null;
+      }
+      
+      public Object getFragment(EventBean eventBean) {
+	    return null;	// The property is not a fragment
+      }
+    };
+  }</pre><p>
+				  Our sample <tt class="literal">EventType</tt> does not have supertypes. Supertypes represent an extends-relationship between event types, and subtypes are expected to exhibit the same event property names and types as each of their supertypes combined:
+				</p><pre class="programlisting">  public EventType[] getSuperTypes() {
+    return null;	// no supertype for this example
+  }
+
+  public Iterator&lt;EventType&gt; getDeepSuperTypes() {
+    return null;
+  }
+  
+  public String getName() {
+    return name;
+  }
+
+  public EventPropertyDescriptor[] getPropertyDescriptors() {
+    Collection&lt;EventPropertyDescriptor&gt; descriptorColl = descriptors.values();
+    return descriptorColl.toArray(new EventPropertyDescriptor[descriptors.size()]);
+  }
+
+  public EventPropertyDescriptor getPropertyDescriptor(String propertyName) {
+    return descriptors.get(propertyName);
+  }
+
+  public FragmentEventType getFragmentType(String property) {
+    return null;  // sample does not provide any fragments
+  }</pre><p>
+			The example event type as above does not provide fragments, which are properties of the event that can themselves be represented as an event, to keep the example simple.
+		  </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="custom-eventrep-example-eventbean"></a>12.5.4.2.&nbsp;Sample Event Bean</h4></div></div><div></div></div><p>
+					Each <tt class="literal">EventBean</tt> instance represents an event. The interface is straightforward to implement. In this example an event is backed by a <tt class="literal">Properties</tt> object:
+				</p><pre class="programlisting">public class MyPlugInPropertiesEventBean implements EventBean {
+  private final MyPlugInPropertiesEventType eventType;
+  private final Properties properties;
+
+  public MyPlugInPropertiesEventBean(MyPlugInPropertiesEventType eventType, 
+        Properties properties) {
+    this.eventType = eventType;
+    this.properties = properties;
+  }
+
+  public EventType getEventType() {
+    return eventType;
+  }
+
+  public Object get(String property) throws PropertyAccessException {
+    EventPropertyGetter getter = eventType.getGetter(property);
+    return getter.get(this);
+  }
+
+  public Object getFragment(String property) {
+    EventPropertyGetter getter = eventType.getGetter(property);
+    if (getter != null) {
+      return getter.getFragment(this);
+    }
+    return null;
+  }
+
+  public Object getUnderlying() {
+    return properties;
+  }
+
+  protected Properties getProperties() {
+    return properties;
+  }    
+}</pre></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="custom-eventrep-example-eventrep"></a>12.5.4.3.&nbsp;Sample Event Representation</h4></div></div><div></div></div><p>
+					A <tt class="literal">PlugInEventRepresentation</tt> serves to create <tt class="literal">EventType</tt> and <tt class="literal">EventBean</tt> instances through its related interfaces.
+				</p><p>
+					The sample event representation creates <tt class="literal">MyPlugInPropertiesEventType</tt> and <tt class="literal">MyPlugInPropertiesEventBean</tt> instances. 
+					The <tt class="literal">PlugInEventTypeHandler</tt> returns the <tt class="literal">EventType</tt> instance and an <tt class="literal">EventSender</tt> instance.
+				</p><p>
+					Our sample event representation accepts all requests for event types by returning boolean true on the <tt class="literal">acceptType</tt> method.  When asked for the <tt class="literal">PlugInEventTypeHandler</tt>, it constructs a new <tt class="literal">EventType</tt>. The list of property names for the new type is passed as an initialization value provided through the configuration API or XML, as a comma-separated list of property names:
+				</p><pre class="programlisting">public class MyPlugInEventRepresentation implements PlugInEventRepresentation {
+
+  private List&lt;MyPlugInPropertiesEventType&gt; types;
+
+  public void init(PlugInEventRepresentationContext context) {
+    types = new ArrayList&lt;MyPlugInPropertiesEventType&gt;();
+  }
+
+  public boolean acceptsType(PlugInEventTypeHandlerContext context) {
+    return true;
+  }
+
+  public PlugInEventTypeHandler getTypeHandler(PlugInEventTypeHandlerContext eventTypeContext) {
+    String proplist = (String) eventTypeContext.getTypeInitializer();
+    String[] propertyList = proplist.split(",");
+
+    Set&lt;String&gt; typeProps = new HashSet&lt;String&gt;(Arrays.asList(propertyList));
+
+    MyPlugInPropertiesEventType eventType = new MyPlugInPropertiesEventType(typeProps);
+    types.add(eventType);
+
+    return new MyPlugInPropertiesEventTypeHandler(eventType);
+  }
+  // ... more methods below
+}</pre><p>
+					The <tt class="literal">PlugInEventTypeHandler</tt> simply returns the <tt class="literal">EventType</tt> as well as an implementation of <tt class="literal">EventSender</tt> for processing same-type events:
+				</p><pre class="programlisting">public class MyPlugInPropertiesEventTypeHandler implements PlugInEventTypeHandler {
+  private final MyPlugInPropertiesEventType eventType;
+
+  public MyPlugInPropertiesEventTypeHandler(MyPlugInPropertiesEventType eventType) {
+    this.eventType = eventType;
+  }
+
+  public EventSender getSender(EPRuntimeEventSender runtimeEventSender) {
+    return new MyPlugInPropertiesEventSender(eventType, runtimeEventSender);
+  }
+
+  public EventType getType() {
+    return eventType;
+  }
+}</pre><p>
+					The <tt class="literal">EventSender</tt> returned by <tt class="literal">PlugInEventTypeHandler</tt> is expected process events of the same type or any subtype:
+				</p><pre class="programlisting">public class MyPlugInPropertiesEventSender implements EventSender {
+  private final MyPlugInPropertiesEventType type;
+  private final EPRuntimeEventSender runtimeSender;
+
+  public MyPlugInPropertiesEventSender(MyPlugInPropertiesEventType type, 
+        EPRuntimeEventSender runtimeSender) {
+    this.type = type;
+    this.runtimeSender = runtimeSender;
+  }
+
+  public void sendEvent(Object event) {
+    if (!(event instanceof Properties)) {
+       throw new EPException("Sender expects a properties event");
+    }
+    EventBean eventBean = new MyPlugInPropertiesEventBean(type, (Properties) event);
+    runtimeSender.processWrappedEvent(eventBean);
+  }
+}</pre></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="custom-eventrep-example-eventbeanfac"></a>12.5.4.4.&nbsp;Sample Event Bean Factory</h4></div></div><div></div></div><p>
+					The plug-in event representation may optionally provide an implementation of <tt class="literal">PlugInEventBeanFactory</tt>. A <tt class="literal">PlugInEventBeanFactory</tt> may inspect event objects and assign an event type dynamically based on resolution URIs and event properties.
+				</p><p>
+					Our sample event representation accepts all URIs and returns a <tt class="literal">MyPlugInPropertiesBeanFactory</tt>:
+				</p><pre class="programlisting">public class MyPlugInEventRepresentation implements PlugInEventRepresentation {
+
+  // ... methods as seen earlier
+  public boolean acceptsEventBeanResolution(
+        PlugInEventBeanReflectorContext eventBeanContext) {
+    return true;
+  }
+
+  public PlugInEventBeanFactory getEventBeanFactory(
+        PlugInEventBeanReflectorContext eventBeanContext) {
+    return new MyPlugInPropertiesBeanFactory(types);
+   }
+}</pre><p>
+			  Last, the sample <tt class="literal">MyPlugInPropertiesBeanFactory</tt> implements the <tt class="literal">PlugInEventBeanFactory</tt> interface. It inspects incoming events and determines
+			  an event type based on whether all properties for that event type are present:
+			</p><pre class="programlisting">public class MyPlugInPropertiesBeanFactory implements PlugInEventBeanFactory {
+  private final List&lt;MyPlugInPropertiesEventType&gt; knownTypes;
+
+  public MyPlugInPropertiesBeanFactory(List&lt;MyPlugInPropertiesEventType&gt; types) {
+    knownTypes = types;
+  }
+
+  public EventBean create(Object event, URI resolutionURI) {
+    Properties properties = (Properties) event;
+
+    // use the known types to determine the type of the object
+    for (MyPlugInPropertiesEventType type : knownTypes) {
+      // if there is one property the event does not contain, then its not the right type
+      boolean hasAllProperties = true;
+      for (String prop : type.getPropertyNames()) {
+        if (!properties.containsKey(prop)) {
+          hasAllProperties = false;
+          break;
+        }
+      }
+
+      if (hasAllProperties) {
+        return new MyPlugInPropertiesEventBean(type, properties);
+      }
+    }
+    return null; // none match, unknown event
+  }
+}</pre></div></div></div></div><hr xmlns="http://www.w3.org/TR/xhtml1/transitional"><center xmlns="http://www.w3.org/TR/xhtml1/transitional">&copy; 2009 EsperTech Inc. All Rights Reserved</center><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-1261295-1");
+	pageTracker._trackPageview();
+	</script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="configuration.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="examples.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;11.&nbsp;Configuration&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;13.&nbsp;Examples, Tutorials, Case Studies</td></tr></table></div></body></html>

@@ -1,0 +1,541 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>EsperIO Adapters</title><link rel="stylesheet" href="../shared/css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="d0e1"></a>EsperIO Adapters</h1></div><div><h2 class="subtitle">EsperIO Reference Documentation</h2></div><div><p class="releaseinfo">3.2.0</p></div><div><p class="copyright">Copyright &copy; 2009 EsperTech Inc.</p></div></div><div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="preface"><a href="#preface">Preface</a></span></dt><dt><span class="chapter"><a href="#adapter_overview">1. Adapter Overview</a></span></dt><dd><dl><dt><span class="sect1"><a href="#adapter-shared">1.1. Adapter Library Classes</a></span></dt><dd><dl><dt><span class="sect2"><a href="#adapter-inputadapter">1.1.1. The Adapter Interface</a></span></dt><dt><span class="sect2"><a href="#adapter-inputsource">1.1.2. Using AdapterInputSource</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#adapter_csv">2. The CSV Input Adapter</a></span></dt><dd><dl><dt><span class="sect1"><a href="#csv-intro">2.1. Introduction</a></span></dt><dt><span class="sect1"><a href="#csv-step-1">2.2. Playback of CSV-formatted Events</a></span></dt><dd><dl><dt><span class="sect2"><a href="#csv-beans">2.2.1. Using JavaBean POJO Events</a></span></dt></dl></dd><dt><span class="sect1"><a href="#csv-step-2">2.3. CSV Playback Options</a></span></dt><dd><dl><dt><span class="sect2"><a href="#csv-timer">2.3.1. Sending timer events</a></span></dt></dl></dd><dt><span class="sect1"><a href="#csv-step-3">2.4. Simulating Multiple Event Streams</a></span></dt><dt><span class="sect1"><a href="#csv-step-4">2.5. Pausing and Resuming Operation</a></span></dt></dl></dd><dt><span class="chapter"><a href="#adapter_jms_spring">3. The Spring JMS Input and Output Adapters</a></span></dt><dd><dl><dt><span class="sect1"><a href="#jms-spring-intro">3.1. Introduction</a></span></dt><dt><span class="sect1"><a href="#jms-spring-engine-config">3.2. Engine Configuration</a></span></dt><dt><span class="sect1"><a href="#jms-spring-input-config">3.3. Input Adapter</a></span></dt><dd><dl><dt><span class="sect2"><a href="#jms-spring-input-config-file">3.3.1. Spring Configuration</a></span></dt><dt><span class="sect2"><a href="#jms-spring-input-unmarshal">3.3.2. JMS Message Unmarshalling</a></span></dt></dl></dd><dt><span class="sect1"><a href="#jms-spring-output-config">3.4. Output Adapter</a></span></dt><dd><dl><dt><span class="sect2"><a href="#jms-spring-output-config-file">3.4.1. Spring Configuration</a></span></dt><dt><span class="sect2"><a href="#jms-spring-output-marshal">3.4.2. JMS Message Marshalling</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#adapter_event_representations">4. Additional Event Representations</a></span></dt><dd><dl><dt><span class="sect1"><a href="#eventrep-axiom">4.1. Apache Axiom Events</a></span></dt></dl></dd><dt><span class="chapter"><a href="#adapter_opentick">5. The Opentick Input Adapter</a></span></dt><dd><dl><dt><span class="sect1"><a href="#adapter-opentick-intro">5.1. Overview</a></span></dt><dt><span class="sect1"><a href="#adapter-opentick-config">5.2. Configuration</a></span></dt><dt><span class="sect1"><a href="#adapter-opentick-operation">5.3. Operation</a></span></dt></dl></dd><dt><span class="chapter"><a href="#adapter_fix">6. The FIX Protocol Adapter</a></span></dt><dd><dl><dt><span class="sect1"><a href="#adapter_fix_parser">6.1. FIX Protocol Parser</a></span></dt><dt><span class="sect1"><a href="#adapter_fix_marshaller">6.2. FIX Protocol Marshaller</a></span></dt><dt><span class="sect1"><a href="#adapter_fix_jms">6.3. For use with Spring JMS</a></span></dt></dl></dd></dl></div><div class="preface" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="preface"></a>Preface</h2></div></div><div></div></div><p>
+			This document describes input and output adapters for the Esper Java event stream and complex event processor.
+        </p><p>
+			If you are new to Esper, the Esper reference manual should be your first stop.
+		</p><p>
+			If you are looking for information on a specific adapter, you are at the right spot.
+		</p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="adapter_overview"></a>Chapter&nbsp;1.&nbsp;Adapter Overview</h2></div></div><div></div></div><p>
+        Input and output adapters to Esper provide the means of accepting events from various sources, and for making available events to destinations.
+    </p><p>
+        The following input and output adapters exist:
+    </p><div class="table"><a name="adapter-available"></a><p class="title"><b>Table&nbsp;1.1.&nbsp;Input and Output Adapters</b></p><table summary="Input and Output Adapters" border="1"><colgroup><col><col></colgroup><thead><tr><th>Adapter</th><th>Description</th></tr></thead><tbody><tr><td>CSV Input Adapter</td><td><p>
+							The CSV input adapter can read one or more CSV-formatted input sources, transform the textual values into events, and play the events into the engine. The adapter also makes it possible to run complete simulations of events arriving in time-order from different input streams.
+						</p></td></tr><tr><td>Spring JMS Input and Output Adapter</td><td><p>
+							JMS adapters based on the JmsTemplate offered by Spring 2. Provides unmarshalling of JMS <tt class="literal">javax.jms.Message</tt> messages for sending into an engine instance, and marshaling of <tt class="literal">com.espertech.esper.client.EventBean</tt> events into JMS messages.
+						</p></td></tr><tr><td>Opentick Input Adapter</td><td><p>
+							The opentick input adapter receives real-time stock market data from opentick corporation's API. Please see <tt class="literal">http://www.opentick.com</tt> for more information. Opentick license, copyright and trademark are properties of opentick corporation.
+						</p></td></tr></tbody></table></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter-shared"></a>1.1.&nbsp;Adapter Library Classes</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="adapter-inputadapter"></a>1.1.1.&nbsp;The Adapter Interface</h3></div></div><div></div></div><p>
+					The <tt class="literal">Adapter</tt> interface allows client applications to control the state of an input and output adapter. It provides state transition methods that each
+					input and output adapter implements. 
+			</p><p>
+					An input or output adapter is always in one of the following states:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						Opened - The begin state; The adapter is not generating or accepting events in this state
+					</p></li><li><p>
+						Started - When the adapter is active, generating and accepting events
+					</p></li><li><p>
+						Paused - When operation of the adapter is suspended
+					</p></li><li><p>
+						Destroyed
+					</p></li></ul></div><p>
+					The state transition table below outlines adapter states and, for each state, the valid state transitions:
+			</p><div class="table"><a name="adapter-states"></a><p class="title"><b>Table&nbsp;1.2.&nbsp;Adapter State Transitions</b></p><table summary="Adapter State Transitions" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Start State</th><th>Method</th><th>Next State</th></tr></thead><tbody><tr><td>Opened</td><td>start()</td><td>Started</td></tr><tr><td>Opened</td><td>destroy()</td><td>Destroyed</td></tr><tr><td>Started</td><td>stop()</td><td>Opened</td></tr><tr><td>Started</td><td>pause()</td><td>Paused</td></tr><tr><td>Started</td><td>destroy()</td><td>Destroyed</td></tr><tr><td>Paused</td><td>resume()</td><td>Started</td></tr><tr><td>Paused</td><td>stop()</td><td>Opened</td></tr><tr><td>Paused</td><td>destroy()</td><td>Destroyed</td></tr></tbody></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="adapter-inputsource"></a>1.1.2.&nbsp;Using AdapterInputSource</h3></div></div><div></div></div><p>
+					The <tt class="literal">com.espertech.esperio.AdapterInputSource</tt> encapsulates information about an input source. Input adapters use the <tt class="literal">AdapterInputSource</tt> to determine how to read input. The class provides constructors for use with different input sources:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						<tt class="literal">java.io.Reader</tt> to read character streams
+					</p></li><li><p>
+						<tt class="literal">java.io.InputStream</tt> to read byte streams
+					</p></li><li><p>
+						<tt class="literal">java.net.URL</tt>
+					</p></li><li><p>
+						Classpath resource by name
+					</p></li><li><p>
+						<tt class="literal">java.io.File</tt>
+					</p></li></ul></div><p>
+					Adapters resolve Classpath resources in the following order:
+			</p><div class="orderedlist"><ol type="1" compact><li><p>
+						Current thread classloader via <tt class="literal">Thread.currentThread().getContextClassLoader().getResourceAsStream</tt>
+					</p></li><li><p>
+						If the resource is not found: <tt class="literal">AdapterInputSource.class.getResourceAsStream</tt>
+					</p></li><li><p>
+						If the resource is not found: <tt class="literal">AdapterInputSource.class.getClassLoader().getResourceAsStream</tt>
+					</p></li></ol></div></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="adapter_csv"></a>Chapter&nbsp;2.&nbsp;The CSV Input Adapter</h2></div></div><div></div></div><p>
+        This chapter discusses the CSV input adapter. CSV is an abbreviation for comma-separated values. CSV files are simple text files in which each line
+        is a comma-separated list of values. CSV-formatted text can be read from many different input sources via <tt class="literal">com.espertech.esperio.AdapterInputSource</tt>.
+        Please consult the JavaDoc for additional information on <tt class="literal">AdapterInputSource</tt> and the CSV adapter.
+    </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-intro"></a>2.1.&nbsp;Introduction</h2></div></div><div></div></div><p>
+            In summary the CSV input adapter API performs the following functions. 
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Read events from an input source providing CSV-formatted text and send the events to an Esper engine instance
+				</p><div class="itemizedlist"><ul type="circle" compact><li><p>
+							Read from different types of input sources
+						</p></li><li><p>
+							Use a timestamp column to schedule events being sent into the engine							
+						</p></li><li><p>
+							Playback with options such as file looping, events per second and other options
+						</p></li><li><p>
+							Use the Esper engine timer thread to read the CSV file
+						</p></li></ul></div></li><li><p>
+					Read multiple CSV files using a timestamp column to simulate events coming from different streams
+				</p></li></ul></div><p>
+            The following formatting rules and restrictions apply to CSV-formatted text:
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Comment lines are prefixed with a single hash or pound <tt class="literal">#</tt> character
+				</p></li><li><p>
+					Strings are placed in double quotes, e.g. <tt class="literal">"value"</tt>
+				</p></li><li><p>
+					Escape rules follow common spreadsheet conventions, i.e. double quotes can be escaped via double quote
+				</p></li><li><p>
+					A column header is required unless a property order is defined explicitly
+				</p></li><li><p>
+                    If a column header is used, properties are assumed to be of type String unless otherwise configured
+                </p></li><li><p>
+					The value of the timestamp column, if one is given, must be in ascending order
+				</p></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-step-1"></a>2.2.&nbsp;Playback of CSV-formatted Events</h2></div></div><div></div></div><p>
+				The adapter reads events from a CSV input source and sends events to an engine using the class <tt class="literal">com.espertech.esperio.csv.CSVInputAdapter</tt>.
+        </p><p>
+				The below code snippet reads the CSV-formatted text file "simulation.csv" expecting the file in the classpath. The <tt class="literal">AdapterInputSource</tt> class can take other input sources.
+        </p><pre class="synopsis">AdapterInputSource source = new AdapterInputSource("simulation.csv");
+(new CSVInputAdapter(epServiceProvider, source, "PriceEvent")).start();</pre><p>
+				To use the CSVInputAdapter without any options, the event type <tt class="literal">PriceEvent</tt> and its property names and value types must be known to the engine. The next section elaborates on adapter options.
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Configure the engine instance for a Map-based event type
+				</p></li><li><p>
+					Place a header record in your CSV file that names each column as specified in the event type
+				</p></li></ul></div><p>
+				The sample application code below shows all the steps to configure, via API, a Map-based event type and play the CSV file without setting any of the available options.
+        </p><pre class="programlisting">Map&lt;String, Class&gt; eventProperties = new HashMap&lt;String, Class&gt;();
+eventProperties.put("symbol", String.class);
+eventProperties.put("price", double.class);
+eventProperties.put("volume", Integer.class);
+
+Configuration configuration = new Configuration();
+configuration.addEventTypeAlias("PriceEvent", eventProperties);
+
+epService = EPServiceProviderManager.getDefaultProvider(configuration);
+
+EPStatement stmt = epService.getEPAdministrator().createEPL(
+   "select symbol, price, volume from PriceEvent.win:length(100)");
+
+(new CSVInputAdapter(epService, new AdapterInputSource(filename), "PriceEvent")).start();</pre><p>
+				The contents of a sample CSV file is shown next.
+        </p><pre class="programlisting">symbol,price,volume
+IBM,55.5,1000</pre><p>
+				The next code snippet outlines using a <tt class="literal">java.io.Reader</tt> as an alternative input source :
+        </p><pre class="programlisting">String myCSV = "symbol, price, volume" + NEW_LINE + "IBM, 10.2, 10000";
+StringReader reader = new StringReader(myCSV);
+(new CSVInputAdapter(epService, new AdapterInputSource(reader), "PriceEvent")).start();</pre><p>
+            In the previous code samples, the <tt class="literal">PriceEvent</tt> properties were defined programmatically with their correct types. It is possible to
+            skip this step and use only a column header record. In such a case you must define property types in the header otherwise a type of String is assumed.
+        </p><p>Consider the following:</p><pre class="programlisting">symbol,double price, int volume
+IBM,55.5,1000
+
+symbol,price,volume
+IBM,55.5,1000</pre><p>
+            The first CSV file defines explicit types in the column header while the second file does not. With the second file a statement like
+            <tt class="literal">select sum(volume) from PriceEvent.win:time(1 min)</tt> will be rejected as in the second file <tt class="literal">volume</tt> is defaulted
+            to type String - unless otherwise programmatically configured.
+        </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="csv-beans"></a>2.2.1.&nbsp;Using JavaBean POJO Events</h3></div></div><div></div></div><p>
+				The previous section used an event type based on <tt class="literal">java.util.Map</tt>. The adapter can also populate the CSV data into JavaBean events directly, as long as your event class provides setter-methods that follow JavaBean conventions. Note that esperio will ignore read-only properties i.e. if you have a read-only property priceByVolume it will not expect a corresponding column in the input file.
+			</p><p>
+				To use Java objects as events instead of Map-based event types, simply register the event type name for the Java class and provide the same name to the CSV adapter. 
+			</p><p>
+				The below code snipped assumes that a PriceEvent class exists that exposes setter-methods for the three properties. The setter-methods are, for example, <tt class="literal">setSymbol(String s)</tt>, <tt class="literal">setPrice(double p)</tt> and <tt class="literal">setVolume(long v)</tt>.
+			</p><p>
+				</p><pre class="programlisting">Configuration configuration = new Configuration();
+configuration.addEventTypeAlias("PriceEvent", PriceEvent.class);
+
+epService = EPServiceProviderManager.getDefaultProvider(configuration);
+
+EPStatement stmt = epService.getEPAdministrator().createEPL(
+   "select symbol, price, volume from PriceEvent.win:length(100)");
+
+(new CSVInputAdapter(epService, new AdapterInputSource(filename), "PriceEvent")).start();</pre><p>		
+			</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-step-2"></a>2.3.&nbsp;CSV Playback Options</h2></div></div><div></div></div><p>
+				Use the <tt class="literal">CSVInputAdapterSpec</tt> class to set playback options. The following options are available:
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Loop - Reads the CSV input source in a loop; When the end is reached, the input adapter rewinds to the beginning
+				</p></li><li><p>
+					Events per second - Controls the number of events per second that the adapter sends to the engine
+				</p></li><li><p>
+					Property order - Controls the order of event property values in the CSV input source, for use when the CSV input source does not have a header column
+				</p></li><li><p>
+					Property types - Defines a new Map-based event type given a map of event property names and types. No engine configuration for the event type is required as long as the input adapter is created before statements against the event type are created.
+				</p></li><li><p>
+					Engine thread - Instructs the adapter to use the engine timer thread to read the CSV input source and send events to the engine
+				</p></li><li><p>
+					External timer - Instructs the adapter to use the esper's external timer rather than the internal timer. See "Sending timer events" below
+				</p></li><li><p>
+					Timestamp column name - Defines the name of the timestamp column in the CSV input source; The timestamp column must carry long-typed timestamp values relative to the current time; Use zero for the current time
+				</p></li></ul></div><p>
+				The next code snippet shows the use of <tt class="literal">CSVInputAdapterSpec</tt> to set playback options.
+        </p><pre class="programlisting">CSVInputAdapterSpec spec = new CSVInputAdapterSpec(new AdapterInputSource(myURL), "PriceEvent");
+spec.setEventsPerSec(1000);
+spec.setLooping(true);
+  
+InputAdapter inputAdapter = new CSVInputAdapter(epService, spec);
+inputAdapter.start();	// method blocks unless engine thread option is set</pre><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="csv-timer"></a>2.3.1.&nbsp;Sending timer events</h3></div></div><div></div></div><p>
+			The adapter can be instructed to use either esper's internal timer, or to drive timing itself
+			by sending external timer events. If the internal timer is used, esperio will send all events in "real time". For example, if an input file contains the following data:
+			</p><p>
+				</p><pre class="programlisting">symbol,price,volume,timestamp
+IBM,55.5,1000,2
+GOOG,9.5,1000,3
+MSFT,8.5,1000,3
+JAVA,7.5,1000,1004</pre><p>
+    		</p><p>
+			then esperio will sleep for 1001 milliseconds between sending the MSFT and JAVA events to the engine.
+			</p><p>
+			If external timing is enabled then esperio will run through the input file at full speed 
+			without pausing. The algorithm used sends a time event after all events for a particular time
+			have been received. For the above example file a time event for 2 will be sent after IBM, for 3 after MSFT and 1004 after JAVA. 
+			For many of use cases this gives a performance improvement.
+			</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-step-3"></a>2.4.&nbsp;Simulating Multiple Event Streams</h2></div></div><div></div></div><p>
+				The CSV input adapter can run simulations of events arriving in time-order from different input streams. Use the <tt class="literal">AdapterCoordinator</tt> as a specialized input adapter for coordinating multiple CSV input sources by timestamp.
+        </p><p>
+				The sample application code listed below simulates price and trade events arriving in timestamp order. Via the adapter the application reads two CSV-formatted files from a URL that each contain a timestamp column as well as price or trade events. The <tt class="literal">AdapterCoordinator</tt> uses the timestamp column to send events to the engine in the exact ordering prescribed by the timestamp values.
+        </p><pre class="programlisting">AdapterInputSource sourceOne = new AdapterInputSource(new URL("FILE://prices.csv"));
+CSVInputAdapterSpec inputOne = new CSVInputAdapterSpec(sourceOne, "PriceEvent");
+inputOne.setTimestampColumn("timestamp");
+
+AdapterInputSource sourceTwo = new AdapterInputSource(new URL("FILE://trades.csv"));
+CSVInputAdapterSpec inputTwo = new CSVInputAdapterSpec(sourceTwo, "TradeEvent");
+inputTwo.setTimestampColumn("timestamp");
+
+AdapterCoordinator coordinator = new AdapterCoordinatorImpl(epService, true);
+coordinator.coordinate(new CSVInputAdapter(inputOne));
+coordinator.coordinate(new CSVInputAdapter(inputTwo));
+coordinator.start();</pre><p>
+				The <tt class="literal">AdapterCoordinatorImpl</tt> is provided with two parameters: the engine instance, and a boolean value 
+				that instructs the adapter to use the engine timer thread if set to true, and the adapter can use the application thread if the flag passed is false.
+        </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="csv-step-4"></a>2.5.&nbsp;Pausing and Resuming Operation</h2></div></div><div></div></div><p>
+				The CSV adapter can employ the engine timer thread of an Esper engine instance to read and send events. This can be controlled via the <tt class="literal">setUsingEngineThread</tt> method on <tt class="literal">CSVInputAdapterSpec</tt>. We use that feature in the sample code below to pause and resume a running CSV input adapter.
+        </p><pre class="programlisting">CSVInputAdapterSpec spec = new CSVInputAdapterSpec(new AdapterInputSource(myURL), "PriceEvent");
+spec.setEventsPerSec(100);
+spec.setUsingEngineThread(true);
+  
+InputAdapter inputAdapter = new CSVInputAdapter(epService, spec);
+inputAdapter.start();	// method starts adapter and returns, non-blocking
+Thread.sleep(5000);	// sleep 5 seconds
+inputAdapter.pause();
+Thread.sleep(5000);	// sleep 5 seconds
+inputAdapter.resume();
+Thread.sleep(5000);	// sleep 5 seconds
+inputAdapter.stop();</pre></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="adapter_jms_spring"></a>Chapter&nbsp;3.&nbsp;The Spring JMS Input and Output Adapters</h2></div></div><div></div></div><p>
+        This chapter discusses the input and output adapters for JMS based on the Spring JmsTemplate technology. For more information on Spring, and the latest version of Spring, please visit <a href="http://www.springframework.org" target="_top">http://www.springframework.org</a>
+    </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="jms-spring-intro"></a>3.1.&nbsp;Introduction</h2></div></div><div></div></div><p>
+			Here are the steps to use the adapters:
+		</p><div class="orderedlist"><ol type="1" compact><li><p>
+					Configure an Esper engine instance to use a <tt class="literal">SpringContextLoader</tt> for loading input and output adapters, and point it to a Spring JmsTemplate configuration file.
+				</p></li><li><p>
+					Create a Spring JmsTemplate configuration file for your JMS provider and add all your input and output adapter entries in the same file.
+				</p></li><li><p>
+					For receiving events from a JMS destination into an engine (input adapter):
+				</p><div class="orderedlist"><ol type="a" compact><li><p>
+							List the destination and un-marshalling class in the Spring configuration. 
+						</p></li><li><p>
+							Create EPL statements using the event type name matching the event objects or the Map-event type names received.
+						</p></li></ol></div></li><li><p>
+					For sending events to a JMS destination (output adapter):
+				</p><div class="orderedlist"><ol type="a" compact><li><p>
+							Use the <tt class="literal">insert-into</tt> syntax naming the stream to insert-into using the same name as listed in the Spring configuration file
+						</p></li><li><p>
+							Configure the Map event type of the stream in the engine configuration
+						</p></li></ol></div></li></ol></div><p>
+            In summary the Spring JMS input adapter performs the following functions:
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Initialize from a given Spring configuration file in classpath or from a filename. The Spring configuration file sets all JMS parameters such as JMS connection factory, destination and listener pools.
+				</p></li><li><p>
+					Attach to a JMS destination and listen to messages using the Spring class <tt class="literal">org.springframework.jms.core.JmsTemplate</tt>
+				</p></li><li><p>
+					Unmarshal a JMS message and send into the configured engine instance
+				</p></li></ul></div><p>
+            The Spring JMS output adapter can:
+        </p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					Initialize from a given Spring configuration file in classpath or from a filename, and attach to a JMS destination
+				</p></li><li><p>
+					Act as a listener to one or more named streams populated via <tt class="literal">insert-into</tt> syntax by EPL statements
+				</p></li><li><p>
+					Marshal events generated by a stream into a JMS message, and send to the given destination
+				</p></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="jms-spring-engine-config"></a>3.2.&nbsp;Engine Configuration</h2></div></div><div></div></div><p>
+            The Spring JMS input and output adapters are configured as part of the Esper engine configuration. EsperIO supplies a <tt class="literal">SpringContextLoader</tt> class that loads a Spring
+            configuration file which in turn configures the JMS input and output adapters. List the <tt class="literal">SpringContextLoader</tt> class as an adapter loader in the Esper configuration file as the below example shows. The configuration API can alternatively be used to configure one or more adapter loaders.
+        </p><pre class="programlisting">&lt;esper-configuration&gt;
+
+  &lt;!-- Sample configuration for an input/output adapter loader --&gt;
+  &lt;plugin-loader name="MyLoader" class-name="com.espertech.esperio.SpringContextLoader"&gt;
+    &lt;!-- SpringApplicationContext translates into Spring ClassPathXmlApplicationContext 
+           or FileSystemXmlApplicationContext. Only one app-context of a sort can be used. 
+           When both attributes are used classpath and file, classpath prevails --&gt;
+    &lt;init-arg name="classpath-app-context" value="spring\jms-spring.xml" /&gt;
+    &lt;init-arg name="file-app-context" value="spring\jms-spring.xml" /&gt;
+  &lt;/plugin-loader&gt;
+
+&lt;/esper-configuration&gt;</pre><p>
+            The loader loads the Spring configuration file from classpath via the <tt class="literal">classpath-app-context</tt> configuration, or from a file via <tt class="literal">file-app-context</tt>.
+        </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="jms-spring-input-config"></a>3.3.&nbsp;Input Adapter</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="jms-spring-input-config-file"></a>3.3.1.&nbsp;Spring Configuration</h3></div></div><div></div></div><p>
+				The Spring configuration file must list input and output adapters to be initialized by <tt class="literal">SpringContextLoader</tt> upon engine initialization.
+				Please refer to your JMS provider documentation, and the Spring framework documentation on help to configure your specific JMS provider via Spring.
+			</p><p>
+				The next XML snippet shows a complete sample configuration for an input adapter. The sample includes the JMS configuration for an Apache ActiveMQ JMS provider.
+			</p><pre class="programlisting">&lt;!-- Spring Application Context --&gt;
+&lt;beans default-destroy-method="destroy"&gt;
+
+  &lt;!-- JMS ActiveMQ Connection Factory --&gt;
+  &lt;bean id="jmsActiveMQFactory" class="org.apache.activemq.pool.PooledConnectionFactory"&gt;
+    &lt;property name="connectionFactory"&gt;
+      &lt;bean class="org.apache.activemq.ActiveMQConnectionFactory"&gt;
+        &lt;property name="brokerURL" value="tcp://localhost:61616"/&gt;
+      &lt;/bean&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+
+  &lt;!--  ActiveMQ destination to use  by default --&gt;
+  &lt;bean id="defaultDestination"
+        class="org.apache.activemq.command.ActiveMQQueue"&gt;
+    &lt;constructor-arg value="ESPER.QUEUE"/&gt;
+  &lt;/bean&gt;
+
+  &lt;!--  Spring JMS Template for ActiveMQ --&gt;
+  &lt;bean id="jmsActiveMQTemplate" class="org.springframework.jms.core.JmsTemplate"&gt;
+    &lt;property name="connectionFactory"&gt;
+      &lt;ref bean="jmsActiveMQFactory"/&gt;
+    &lt;/property&gt;
+    &lt;property name="defaultDestination"&gt;
+      &lt;ref bean="defaultDestination"/&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Provides listener threads --&gt;
+  &lt;bean id="listenerContainer" 
+              class="org.springframework.jms.listener.SimpleMessageListenerContainer"&gt;
+    &lt;property name="connectionFactory" ref="jmsActiveMQFactory"/&gt;
+    &lt;property name="destination" ref="defaultDestination"/&gt;
+    &lt;property name="messageListener" ref="jmsInputAdapter"/&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Default unmarshaller --&gt;
+  &lt;bean id="jmsMessageUnmarshaller" 
+              class="com.espertech.esperio.jms.JMSDefaultAnyMessageUnmarshaller"/&gt;
+
+  &lt;!-- Input adapter --&gt;
+  &lt;bean id="jmsInputAdapter" class="com.espertech.esperio.jms.SpringJMSTemplateInputAdapter"&gt;
+    &lt;property name="jmsTemplate"&gt;
+      &lt;ref bean="jmsActiveMQTemplate"/&gt;
+    &lt;/property&gt;
+    &lt;property name="jmsMessageUnmarshaller"&gt;
+      &lt;ref bean="jmsMessageUnmarshaller"/&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+
+&lt;/beans&gt;</pre><p>
+				This input adapter attaches to the JMS destination <tt class="literal">ESPER.QUEUE</tt> at an Apache MQ broker available at port <tt class="literal">tcp://localhost:61616</tt>. It configures an un-marshalling class as discussed next.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="jms-spring-input-unmarshal"></a>3.3.2.&nbsp;JMS Message Unmarshalling</h3></div></div><div></div></div><p>
+				EsperIO provides a class for unmarshaling JMS message instances into events for processing by an engine in the class <tt class="literal">JMSDefaultAnyMessageUnmarshaller</tt>. The class unmarshals as follows:
+			</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+						If the received Message is of type <tt class="literal">javax.xml.MapMessage</tt>, extract the event type name out of the message and send to the engine via <tt class="literal">sendEvent(name, Map)</tt> 
+					</p></li><li><p>
+						If the received Message is of type <tt class="literal">javax.xml.ObjectMessage</tt>, extract the <tt class="literal">Serializable</tt> out of the message and send to the engine via <tt class="literal">sendEvent(Object)</tt>
+					</p></li><li><p>
+						Else the un-marshaller outputs a warning and ignores the message
+					</p></li></ul></div><p>
+				The unmarshaller must be made aware of the event type of events within <tt class="literal">MapMessage</tt> messages. This is achieved by the client application setting a well-defined property on the message: <tt class="literal">InputAdapter.ESPERIO_MAP_EVENT_TYPE</tt>.  An example code snippet is:
+			</p><pre class="programlisting">MapMessage mapMessage = jmsSession.createMapMessage();
+mapMessage.setObject(InputAdapter.ESPERIO_MAP_EVENT_TYPE, "MyInputEvent");</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="jms-spring-output-config"></a>3.4.&nbsp;Output Adapter</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="jms-spring-output-config-file"></a>3.4.1.&nbsp;Spring Configuration</h3></div></div><div></div></div><p>
+				The Spring configuration file lists all input and output adapters in one file. The <tt class="literal">SpringContextLoader</tt> upon engine initialization starts all input and output adapters.
+			</p><p>
+				The next XML snippet shows a complete sample configuration of an output adapter. Please check with your JMS provider for the appropriate Spring class names and settings. Note that the input and output adapter Spring configurations can be in the same file.
+			</p><pre class="programlisting">
+&lt;!-- Application Context --&gt;
+&lt;beans default-destroy-method="destroy"&gt;
+
+  &lt;!-- JMS ActiveMQ Connection Factory --&gt;
+  &lt;bean id="jmsActiveMQFactory" class="org.apache.activemq.pool.PooledConnectionFactory"&gt;
+    &lt;property name="connectionFactory"&gt;
+      &lt;bean class="org.apache.activemq.ActiveMQConnectionFactory"&gt;
+        &lt;property name="brokerURL" value="tcp://localhost:61616"/&gt;
+      &lt;/bean&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+
+  &lt;!--  ActiveMQ destination to use  by default --&gt;
+  &lt;bean id="defaultDestination"
+        class="org.apache.activemq.command.ActiveMQQueue"&gt;
+    &lt;constructor-arg value="ESPER.QUEUE"/&gt;
+  &lt;/bean&gt;
+
+  &lt;!--  Spring JMS Template for ActiveMQ --&gt;
+  &lt;bean id="jmsActiveMQTemplate" class="org.springframework.jms.core.JmsTemplate"&gt;
+    &lt;property name="connectionFactory"&gt;
+      &lt;ref bean="jmsActiveMQFactory"/&gt;
+    &lt;/property&gt;
+    &lt;property name="defaultDestination"&gt;
+      &lt;ref bean="defaultDestination"/&gt;
+    &lt;/property&gt;
+    &lt;property name="receiveTimeout"&gt;
+      &lt;value&gt;30000&lt;/value&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+
+  &lt;!--  Marshaller marshals events into map messages --&gt;
+  &lt;bean id="jmsMessageMarshaller" class="com.espertech.esperio.jms.JMSDefaultMapMessageMarshaller"/&gt;
+  &lt;bean id="myCustomMarshaller" class="com.espertech.esperio.jms.JMSDefaultMapMessageMarshaller"/&gt;
+
+  &lt;!--  Output adapter puts it all together --&gt;
+  &lt;bean id="jmsOutputAdapter" class="com.espertech.esperio.jms.SpringJMSTemplateOutputAdapter"&gt;
+    &lt;property name="jmsTemplate"&gt;
+      &lt;ref bean="jmsActiveMQTemplate"/&gt;
+    &lt;/property&gt;
+    &lt;property name="subscriptionMap"&gt;
+      &lt;map&gt;
+        &lt;entry&gt;
+          &lt;key&gt;&lt;idref local="subscriptionOne"/&gt;&lt;/key&gt;
+          &lt;ref bean="subscriptionOne"/&gt;
+        &lt;/entry&gt;
+        &lt;entry&gt;
+          &lt;key&gt;&lt;idref local="subscriptionTwo"/&gt;&lt;/key&gt;
+          &lt;ref bean="subscriptionTwo"/&gt;
+        &lt;/entry&gt;
+      &lt;/map&gt;
+    &lt;/property&gt;
+    &lt;property name="jmsMessageMarshaller"&gt;
+      &lt;ref bean="jmsMessageMarshaller"/&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+
+  &lt;bean id="subscriptionOne" class="com.espertech.esperio.jms.JMSSubscription"&gt;
+    &lt;property name="eventTypeAlias" value="MyOutputStream"/&gt;
+  &lt;/bean&gt;
+
+  &lt;bean id="subscriptionTwo" class="com.espertech.esperio.jms.JMSSubscription"&gt;
+    &lt;property name="eventTypeAlias" value="MyOtherOutputStream"/&gt;
+    &lt;property name="jmsMessageMarshaller"&gt;
+      &lt;ref bean="myCustomMarshaller"/&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+
+&lt;/beans&gt;</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="jms-spring-output-marshal"></a>3.4.2.&nbsp;JMS Message Marshalling</h3></div></div><div></div></div><p>
+				EsperIO provides a marshal implementation in the class <tt class="literal">JMSDefaultMapMessageMarshaller</tt>. This marshaller constructs a JMS <tt class="literal">MapMessage</tt> from any event received by copying 
+				event properties into the name-value pairs of the message. The configuration file makes it easy to configure a custom marshaller that adheres to the <tt class="literal">com.espertech.esperio.jms.JMSMessageMarshaller</tt> interface.
+			</p><p>
+                Note that this marshaller uses <tt class="literal">javax.jms.MapMessage</tt> name-value pairs and not general <tt class="literal">javax.jms.Message</tt> properties.
+                This means when you'll read the event properties back from the JMS MapMessage, you will have to use the <tt class="literal">javax.jms.MapMessage.getObject(...)</tt> method.
+            </p><p>
+				The <tt class="literal">SpringJMSTemplateOutputAdapter</tt> is configured with a list of subscription instances of type <tt class="literal">JMSSubscription</tt> as the sample configuration shows. Each subscription defines 
+				an event type name that must be configured and used in the <tt class="literal">insert-into</tt> syntax of a statement.
+			</p><p>
+				To connect the Spring JMS output adapter and the EPL statements producing events, use the <tt class="literal">insert-into</tt> syntax to direct events for output.  Here is a sample statement that sends events into <tt class="literal">MyOutputStream</tt>:
+			</p><pre class="programlisting">insert into MyOutputStream select assetId, zone from RFIDEvent</pre><p>
+				The type <tt class="literal">MyOutputStream</tt> must be known to an engine instance. The output adapter requires the name to be configured with the Engine instance, e.g.:
+			</p><pre class="programlisting">&lt;esper-configuration&gt;
+  &lt;event-type name="MyOutputStream"&gt;
+    &lt;java-util-map&gt;
+      &lt;map-property name="assetId" class="String"/&gt;
+      &lt;map-property name="zone" class="int"/&gt;
+    &lt;/java-util-map&gt;
+  &lt;/event-type&gt;
+&lt;/esper-configuration&gt;</pre></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="adapter_event_representations"></a>Chapter&nbsp;4.&nbsp;Additional Event Representations</h2></div></div><div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="eventrep-axiom"></a>4.1.&nbsp;Apache Axiom Events</h2></div></div><div></div></div><p>
+			The plug-in event representation based on Apache Axiom can process XML documents by means of the Streaming API for XML (StAX) and the concept of "pull parsing", which can gain performance improvements extracting data from XML documents.
+		</p><p>
+			The instructions below have been tested with Apache Axiom version 1.2.5. Please visit <tt class="literal">http://ws.apache.org/commons/axiom/</tt> for more information.
+			Apache Axiom requires additional jar files that are not part of the EsperIO distribution and must be downloaded separately.
+		</p><p>
+			There are 3 steps to follow:
+		</p><div class="orderedlist"><ol type="1" compact><li><p>
+					Enable Apache Axiom by adding the Axiom even representation to the engine configuration.
+				</p></li><li><p>
+					Register your application event type names.
+				</p></li><li><p>
+					Process <tt class="literal">org.apache.axiom.om.OMDocument</tt> or <tt class="literal">OMElement</tt> event objects.
+				</p></li></ol></div><p>
+			To enable Apache Axiom event processing, use the code snippet shown next, or configure via confiugration XML:
+		</p><pre class="programlisting">Configuration config = new Configuration();
+config.addPlugInEventRepresentation(new URI("type://xml/apacheaxiom/OMNode"),
+    AxiomEventRepresentation.class.getName(), null);</pre><p>
+			Your application may register Axiom event types in advance. Here is sample code for adding event types based on Axiom:
+		</p><pre class="programlisting">ConfigurationEventTypeAxiom desc = new ConfigurationEventTypeAxiom();
+desc.setRootElementName("measurement");
+desc.addXPathProperty("measurement", "/sensor/measurement", XPathConstants.NUMBER);
+URI[] resolveURIs = new URI[] {new URI("type://xml/apacheaxiom/OMNode/SensorEvent")};
+configuration.addPlugInEventType("SensorEvent", resolveURIs, desc);</pre><p>
+			The operation above is available at configuration time and also at runtime via <tt class="literal">ConfigurationOperations</tt>. After registering an event type name as above, your application can create EPL statements.
+		</p><p>
+			To send Axiom <tt class="literal">OMDocument</tt>  or <tt class="literal">OMElement</tt> events into the engine, your application code must obtain an <tt class="literal">EventSender</tt> to process Axiom <tt class="literal">OMElement</tt> events:
+		</p><pre class="programlisting">URI[] resolveURIs = new URI[] {new URI("type://xml/apacheaxiom/OMNode/SensorEvent")};
+EventSender sender = epService.getEPRuntime().getEventSender(resolveURIs);
+
+String xml = "&lt;measurement&gt;&lt;temperature&gt;98.6&lt;/temperature&gt;&lt;/measurement&gt;";
+InputStream s = new ByteArrayInputStream(xml.getBytes());
+OMElement omElement = new StAXOMBuilder(s).getDocumentElement();
+
+sender.sendEvent(omElement);</pre></div><p>
+			Configuring an Axiom event type via XML is easy. An Esper configuration XML can be found in the file <tt class="literal">esper-axiom-sample-configuration.xml</tt> in the <tt class="literal">etc</tt>  folder of the EsperIO distribution.
+		</p><p>
+			The configuration XML for the <tt class="literal">ConfigurationEventTypeAxiom</tt> class adheres to the schema <tt class="literal">esperio-axiom-configuration-3-0.xsd</tt> also in the <tt class="literal">etc</tt> folder of the EsperIO distribution.
+		</p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="adapter_opentick"></a>Chapter&nbsp;5.&nbsp;The Opentick Input Adapter</h2></div></div><div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter-opentick-intro"></a>5.1.&nbsp;Overview</h2></div></div><div></div></div><p>
+			This section describes the use of the Opentick input adapter. Opentick is an API and a service of opentick corporation to receive real-time stock market data, see <tt class="literal">http://www.opentick.com</tt>.
+		</p><p>
+			The Opentick input adapter is configured through a XML configuration file or directly through the <tt class="literal">ConfigurationOpentick</tt> class. The distribution provides a sample configuration file <tt class="literal">esperio-opentickadapter-config-sample.xml</tt> in the EsperIO <tt class="literal">etc</tt> folder.
+		</p><p>
+			There are two path available to start adapter operation: The first option is to register the adapter's plug-in loader and thus automatically load and start the adapter at time of Esper engine initialization. The second option requires your application to instantiate an <tt class="literal">OpentickInputAdapter</tt>.
+		</p><div class="sect4" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="adapter-opentick-loader"></a>5.1.1.&nbsp;Adapter Start via Plug-in Loader</h5></div></div><div></div></div><p>
+				This method loads the adapter automatically at time of engine initialization.
+			</p><p>
+				First, register the <tt class="literal">OpentickPluginLoader</tt> as one of the a plug-in loaders via the <tt class="literal">addPluginLoader</tt> method on the <tt class="literal">Configuration</tt> class or within the Esper configuration XML. For example:
+			</p><pre class="programlisting">Configuration config = new Configuration();
+Properties pluginProperties = new Properties();
+pluginProperties.put("classpath-app-context","esperio-opentickadapter-config-sample.xml");
+config.addPluginLoader("OpentickPluginLoader", 
+    OpentickPluginLoader.class.getName(), pluginProperties);
+EPServiceProvider engine = EPServiceProviderManager.getDefaultProvider(config);</pre><p>
+				At the time of engine initialization the loader class retrieves the XML configuration file from classpath and instantiates and starts the <tt class="literal">OpentickInputAdapter</tt>.
+			</p></div><div class="sect4" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="adapter-opentick-adapter"></a>5.1.2.&nbsp;Adapter Start via Instantiation</h5></div></div><div></div></div><p>
+					Your application may choose to use the <tt class="literal">OpentickInputAdapter</tt> class directly to start, stop, pause, resume and destroy the adapter separately from an Esper engine instance, or to configure via API and change the configuration at runtime.
+				</p><p>
+					This code snippet shows how to load a configuration file from a file location in the classpath and then starts the adapter:
+				</p><pre class="programlisting">ConfigurationOpentick configOT = new ConfigurationOpentick();
+URL url = Thread.currentThread().
+    getContextClassLoader().getResource("esperio-opentickadapter-config-sample.xml");
+if (url == null) {
+  throw new RuntimException("File not found");
+}
+configOT.configure(url);
+
+OpentickInputAdapter adapter = new OpentickInputAdapter(configOT);
+adapter.start();</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter-opentick-config"></a>5.2.&nbsp;Configuration</h2></div></div><div></div></div><p>
+			The opentick adapter XML and API configuration provides the connection information and the streams subscribed to in OT and defines symbol lists as well as associates symbol lists to streams. Please review the sample configuration file
+			in the <tt class="literal">etc</tt> folder of the EsperIO distribution.
+        </p><p>
+			As part of the <tt class="literal">stream</tt> configuration your application may list the following stream names: OTQuote, OTMMQuote, OTTrade, OTBBO. 
+			The <tt class="literal">type-name</tt> attribute assigns an name to the opentick event types available in EPL statements. 
+			The event representation are the respective opentick API POJO objects: <tt class="literal">com.opentick.OTTrade</tt> and <tt class="literal">OTMMQuote</tt>, <tt class="literal">OTTrade</tt>, <tt class="literal">OTBBO</tt>.
+        </p><p>
+			The <tt class="literal">symbollists</tt> element serves to define named lists of exchange and symbol combinations. The <tt class="literal">stream-symbollist</tt> element associates symbols to streams requested through the opentick API.
+        </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter-opentick-operation"></a>5.3.&nbsp;Operation</h2></div></div><div></div></div><p>
+			The opentick adapter, once running, may be configured at runtime as well. To change symbol lists or request new streams at runtime, your application may obtain the <tt class="literal">ConfigurationOpentick</tt> from 
+			the adapter, make changes, and restart the adapter via its <tt class="literal">pause, resume, start, stop and destroy</tt> operations. 
+        </p><p>
+			Use the <tt class="literal">pause</tt> or <tt class="literal">stop</tt> operation and the <tt class="literal">resume</tt> operation to retain the existing connection, drop streams and request new streams based on the new configuration.
+			Use the <tt class="literal">destroy</tt> and <tt class="literal">start</tt> operations to disconnect and reconnect.
+        </p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="adapter_fix"></a>Chapter&nbsp;6.&nbsp;The FIX Protocol Adapter</h2></div></div><div></div></div><p>
+        EsperIO's FIX protocol adapter is for use with incoming and outgoing events that follow the financial standard FIX protocol. For more information on FIX please refer to the <a href="http://www.fixprotocol.org/" target="_top"><i class="citetitle">FIX Protocol Organization</i></a>.
+    </p><p>
+        EsperIO provides: 
+    </p><div class="itemizedlist"><ul type="disc"><li><p>
+				A FIX protocol parser for parsing incoming FIX message text.
+			</p></li><li><p>
+				A FIX protocol marshaller for creating FIX message text from an event.
+			</p></li><li><p>
+				For use with the EsperIO Spring JMS adapter, marshallers for receiving JMS text messages (<tt class="literal">javax.jms.TextMessage</tt>) that contain FIX protocol text and for sending FIX protocol text via JMS .
+			</p></li></ul></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter_fix_parser"></a>6.1.&nbsp;FIX Protocol Parser</h2></div></div><div></div></div><p>
+			The EsperIO FIX Protocol parser is provided by <tt class="literal">com.espertech.esperio.message.fix.FixMsgParser</tt>. Use the <tt class="literal">parse</tt> method to parse and validate a FIX message text.
+			The method returns a Map of tag-value pairs that your application can send as an event to Esper.
+		</p><p>
+			At a minimum the parser requires the <tt class="literal">8, 9, 35, 10</tt> tags to be present and the checksum value (tag 10) to be valid.
+		</p><p>
+			Your application must configure the event type for use with the generated Map. Please consult the Esper documentation on Map event representations to configure the properties of the FIX event type.
+		</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter_fix_marshaller"></a>6.2.&nbsp;FIX Protocol Marshaller</h2></div></div><div></div></div><p>
+			The EsperIO FIX Protocol marshaller is provided by <tt class="literal">com.espertech.esperio.message.fix.FixMsgMarshaller</tt>. This utility class marshalls an event via the <tt class="literal">marshalFix</tt> method to a FIX message text with checksum.
+		</p><p>
+			The <tt class="literal">EventBean</tt> event is expected to contain properties that match the FIX protocol tag names.
+		</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="adapter_fix_jms"></a>6.3.&nbsp;For use with Spring JMS</h2></div></div><div></div></div><p>
+			EsperIO provides code for use with the EsperIO Spring JMS adapters and JMS <tt class="literal">javax.jms.TextMessage</tt> messages. The <tt class="literal">com.espertech.esperio.jms.JMSFixProtocolTextMessageUnmarshaller</tt> and <tt class="literal">JMSFixProtocolTextMessageMarshaller</tt> can be configured as part of the Spring configuration to provide FIX protocol and JMS text message connectivity.
+		</p></div></div></div><hr xmlns="http://www.w3.org/TR/xhtml1/transitional"><center xmlns="http://www.w3.org/TR/xhtml1/transitional">&copy; 2009 EsperTech Inc. All Rights Reserved</center><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-1261295-1");
+	pageTracker._trackPageview();
+	</script></body></html>

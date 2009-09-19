@@ -1,0 +1,615 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;5.&nbsp;EPL Reference: Patterns</title><link rel="stylesheet" href="../shared/css/html.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"><link rel="home" href="index.html" title="Esper - Event Stream and Complex Event Processing for Java"><link rel="up" href="index.html" title="Esper - Event Stream and Complex Event Processing for Java"><link rel="previous" href="epl_clauses.html" title="Chapter&nbsp;4.&nbsp;EPL Reference: Clauses"><link rel="next" href="match-recognize.html" title="Chapter&nbsp;6.&nbsp;EPL Reference: Match Recognize"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;5.&nbsp;EPL Reference: Patterns</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="epl_clauses.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="match-recognize.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="event_patterns"></a>Chapter&nbsp;5.&nbsp;EPL Reference: Patterns</h2></div></div><div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="event-pattern-intro"></a>5.1.&nbsp;Event Pattern Overview</h2></div></div><div></div></div><a class="indexterm" name="d0e9121"></a><p>
+			Event patterns match when an event or multiple events occur that match the pattern's definition. Patterns can also be time-based.
+         </p><p>
+			Pattern expressions consist of pattern atoms and pattern operators:
+         </p><div class="orderedlist"><ol type="1"><li><p>
+					Pattern <span class="emphasis"><em>atoms</em></span> are the basic building blocks of patterns. Atoms are filter expressions, observers for time-based events and plug-in custom observers that observe external events not under the control of the engine.
+                </p></li><li><p>
+					Pattern <span class="emphasis"><em>operators</em></span> control expression lifecycle and combine atoms logically or temporally.  
+                </p></li></ol></div><p>
+			The below table outlines the different pattern atoms available:
+		</p><div class="table"><a name="d0e9145"></a><p class="title"><b>Table&nbsp;5.1.&nbsp;Pattern Atoms</b></p><table summary="Pattern Atoms" border="1"><colgroup><col><col></colgroup><thead><tr><th>Pattern Atom</th><th>Example</th></tr></thead><tbody><tr><td>Filter expressions specify an event to look for.</td><td><pre class="programlisting">StockTick(symbol='ABC', price &gt; 100)</pre></td></tr><tr><td>Time-based event observers specify time intervals or time schedules.</td><td><pre class="programlisting">timer:interval(10 seconds)</pre><pre class="programlisting">timer:at(*, 16, *, *, *)</pre></td></tr><tr><td>Custom plug-in observers can add pattern language syntax for observing application-specific events.</td><td><pre class="programlisting">myapplication:myobserver("http://someResource")</pre></td></tr></tbody></table></div><p>
+			There are 4 types of pattern operators:
+         </p><div class="orderedlist"><ol type="1" compact><li><p>
+					Operators that control pattern subexpression repetition: <tt class="literal">every</tt>, <tt class="literal">every-distinct</tt>, <tt class="literal">[num]</tt> and <tt class="literal">until</tt>
+				</p></li><li><p>
+					Logical operators: <tt class="literal">and</tt>, <tt class="literal">or</tt>, <tt class="literal">not</tt>
+				</p></li><li><p>
+					Temporal operators that operate on event order: <tt class="literal">-&gt;</tt> (followed-by)
+				</p></li><li><p>
+					Guards are where-conditions that control the lifecycle of subexpressions. Examples are <tt class="literal">timer:within</tt>. Custom plug-in guards may also be used.
+				</p></li></ol></div><p>
+			Pattern expressions can be nested arbitrarily deep by including the nested expression(s) in <tt class="literal">()</tt> round parenthesis.
+         </p><p>
+			Underlying the pattern matching is a state machine that transitions between states based on arriving events and based on time advancing. A single event or advancing time may 
+			cause a reaction in multiple parts of your active pattern state.
+         </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="pattern-how-to-use"></a>5.2.&nbsp;How to use Patterns</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-howto-syntax"></a>5.2.1.&nbsp;Pattern Syntax</h3></div></div><div></div></div><p>
+				This is an example pattern expression that matches on every <tt class="literal">ServiceMeasurement</tt> events in which the
+				value of the <tt class="literal">latency</tt> event property is over 20 seconds, and on every <tt class="literal">ServiceMeasurement</tt> event in which the
+				<tt class="literal">success</tt> property is false. Either one or the other condition must be true for this pattern to match.
+			</p><pre class="programlisting">every (spike=ServiceMeasurement(latency&gt;20000) or error=ServiceMeasurement(success=false))</pre><p>
+				In the example above, the pattern expression starts with an <tt class="literal">every</tt> operator to indicate that the pattern should fire for every matching events and not just the first
+				matching event. Within the <tt class="literal">every</tt> operator in round brackets is a nested pattern expression using the <tt class="literal">or</tt> operator. 
+				The left hand of the <tt class="literal">or</tt> operator is a filter expression that filters for events with a high latency value. The right hand of the operator 
+				contains a filter expression that filters for events with error status. Filter expressions are explained in <a href="event_patterns.html#pattern-filter" title="5.4.&nbsp;Filter Expressions In Patterns">Section&nbsp;5.4, &#8220;Filter Expressions In Patterns&#8221;</a>.
+			</p><p>
+				The example above assigned the tags <tt class="literal">spike</tt> and <tt class="literal">error</tt> to the events in the pattern. The tags are important since the
+				engine only places tagged events into the output event(s) that a pattern generates, and that the engine supplies to listeners of the pattern statement. The tags can
+				further be selected in the select-clause of an EPL statement as discussed in <a href="epl_clauses.html#epl-from-clause-patterns" title="4.4.2.&nbsp;Pattern-based Event Streams">Section&nbsp;4.4.2, &#8220;Pattern-based Event Streams&#8221;</a>.
+			</p><p>
+				Patterns can also contain comments within the pattern as outlined in <a href="epl_clauses.html#epl-syntax-comments" title="4.2.2.&nbsp;Using Comments">Section&nbsp;4.2.2, &#8220;Using Comments&#8221;</a>.
+			</p><p>
+				Pattern statements are created via the <tt class="literal">EPAdministrator</tt> interface. The <tt class="literal">EPAdministrator</tt> interface allows to create pattern statements in two ways:
+				Pattern statements that want to make use of the EPL <tt class="literal">select</tt> clause or any other EPL constructs use the <tt class="literal">createEPL</tt> method to create a statement that specifies one or more pattern expressions. EPL statements that use patterns are described in more detail in <a href="epl_clauses.html#epl-from-clause-patterns" title="4.4.2.&nbsp;Pattern-based Event Streams">Section&nbsp;4.4.2, &#8220;Pattern-based Event Streams&#8221;</a>. Use the syntax as shown in below example.
+			</p><pre class="programlisting">EPAdministrator admin = EPServiceProviderManager.getDefaultProvider().getEPAdministrator();
+
+String eventName = ServiceMeasurement.class.getName();
+
+EPStatement myTrigger = admin.createEPL("select * from pattern [" +
+  "every (spike=" + eventName + "(latency&gt;20000) or error=" + eventName + "(success=false))]");
+</pre><p>
+				Pattern statements that do not need to make use of the EPL <tt class="literal">select</tt> clause or any other EPL constructs can use the <tt class="literal">createPattern</tt> method, as in below example.
+			</p><pre class="programlisting">EPStatement myTrigger = admin.createPattern(
+  "every (spike=" + eventName + "(latency&gt;20000) or error=" + eventName + "(success=false))");
+</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-in-eql"></a>5.2.2.&nbsp;Patterns in EPL</h3></div></div><div></div></div><p>
+				A pattern may appear anywhere in the <tt class="literal">from</tt> clause of an EPL statement including joins and subqueries. Patterns may therefore be used in combination with the <tt class="literal">where</tt> clause, <tt class="literal">group by</tt> clause, <tt class="literal">having</tt> clause as well as output rate limiting and <tt class="literal">insert into</tt>.
+			</p><p>
+				In addition, a data window view can be declared onto a pattern. A data window declared onto a pattern only serves to retain pattern matches. A data window declared onto a pattern does not limit, cancel, remove or delete intermediate pattern matches of the pattern when pattern matches leave the data window.
+			</p><p>
+				This example statement demonstrates the idea by selecting a total price per customer over pairs of events (ServiceOrder followed by a ProductOrder event for the same customer id within 1 minute), occuring in the last 2 hours, in which the sum of price is greater then 100, and using a <tt class="literal">where</tt> clause to filter on name:
+			</p><pre class="programlisting">select a.custId, sum(a.price + b.price)
+from pattern [every a=ServiceOrder -&gt; 
+    b=ProductOrder(custId = a.custId) where timer:within(1 min)].win:time(2 hour) 
+where a.name in ('Repair', b.name)
+group by a.custId
+having sum(a.price + b.price) &gt; 100</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="patterns-howto-subscribe"></a>5.2.3.&nbsp;Subscribing to Pattern Events</h3></div></div><div></div></div><p>			
+				When a pattern fires it publishes one or more events to any listeners to the pattern statement. 
+				The listener interface is the <tt class="literal">com.espertech.esper.client.UpdateListener</tt> interface.
+			</p><p>            
+				The example below shows an anonymous implementation of the <tt class="literal">com.espertech.esper.client.UpdateListener</tt> interface.
+				We add the anonymous listener implementation to the <tt class="literal">myPattern</tt> statement created earlier. 
+				The listener code simply extracts the underlying event class.
+			</p><pre class="programlisting">myPattern.addListener(new UpdateListener() {
+  public void update(EventBean[] newEvents, EventBean[] oldEvents) {
+    ServiceMeasurement spike = (ServiceMeasurement) newEvents[0].get("spike");
+    ServiceMeasurement error = (ServiceMeasurement) newEvents[0].get("error");
+    ... // either spike or error can be null, depending on which occurred
+    ... // add more logic here
+  }
+});</pre><p>            
+				Listeners receive an array of <tt class="literal">EventBean</tt> instances in the <tt class="literal">newEvents</tt> parameter.
+				There is one <tt class="literal">EventBean</tt> instance passed to the listener for each combination of events that matches
+				the pattern expression. At least one <tt class="literal">EventBean</tt> instance is always passed to the listener.
+			</p><p>
+				The properties of each <tt class="literal">EventBean</tt> instance contain the underlying events that caused the
+				pattern to fire, if events have been named in the filter expression via the <tt class="literal">name=eventType</tt> syntax.
+				The property name is thus the name supplied in the pattern expression, while the property type is the type of the underlying class, 
+				in this example <tt class="literal">ServiceMeasurement</tt>.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-howto-pull-data"></a>5.2.4.&nbsp;Pulling Data from Patterns</h3></div></div><div></div></div><p>
+				Data can also be obtained from pattern statements via the <tt class="literal">safeIterator()</tt> and <tt class="literal">iterator()</tt> methods on <tt class="literal">EPStatement</tt> (the pull API). 
+				If the pattern had fired at least once, then the iterator returns the last event for which it fired.
+				The <tt class="literal">hasNext()</tt> method can be used to determine if the pattern had fired.				 				
+			</p><pre class="programlisting">if (myPattern.iterator().hasNext()) {
+	ServiceMeasurement event = (ServiceMeasurement) view.iterator().next().get("alert");
+    ... // some more code here to process the event
+}
+else {
+    ... // no matching events at this time
+}</pre><p>
+				Further, if a data window is defined onto a pattern, the iterator returns the pattern matches according to the data window expiry policy.
+			</p><p>
+				This pattern specifies a length window of 10 elements that retains the last 10 matches of A and B events, for use via iterator or for use in a join or subquery:
+			</p><pre class="programlisting">select * from pattern [every (A or B).win:length(10)</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="pattern-op-precedence"></a>5.3.&nbsp;Operator Precedence</h2></div></div><div></div></div><a class="indexterm" name="d0e9407"></a><p>
+			The operators at the top of this table take precedence over operators lower on the table. 
+		</p><div class="table"><a name="d0e9414"></a><p class="title"><b>Table&nbsp;5.2.&nbsp;Pattern Operator Precedence</b></p><table summary="Pattern Operator Precedence" border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th>Precedence</th><th>Operator</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>1</td><td>unary</td><td><tt class="literal">every, not, every-distinct</tt></td><td><pre class="programlisting">every MyEvent
+timer:interval(5 min) and not MyEvent</pre></td></tr><tr><td>2</td><td>guard postfix</td><td><tt class="literal">where timer:within</tt> (or plug-in pattern guard)</td><td><pre class="programlisting">MyEvent where timer:within(1 sec)</pre></td></tr><tr><td>3</td><td>repeat</td><td><tt class="literal">[num]</tt>, <tt class="literal">until</tt></td><td><pre class="programlisting">[5] MyEvent</pre><pre class="programlisting">[1..3] MyEvent until MyOtherEvent</pre></td></tr><tr><td>4</td><td>and</td><td><tt class="literal">and</tt></td><td><pre class="programlisting">every (MyEvent and MyOtherEvent)</pre></td></tr><tr><td>5</td><td>or</td><td><tt class="literal">or</tt></td><td><pre class="programlisting">every (MyEvent or MyOtherEvent)</pre></td></tr><tr><td>6</td><td>followed-by</td><td><tt class="literal">-&gt;</tt></td><td><pre class="programlisting">every (MyEvent -&gt; MyOtherEvent)</pre></td></tr></tbody></table></div><p>
+			If you are not sure about the precedence, please consider placing parenthesis <tt class="literal">()</tt> around your subexpressions. Parenthesis can also help make
+			expressions easier to read and understand.
+		</p><p>
+			Note that we are also providing the EPL grammar as a HTML file as part of the documentation set on the project website.
+		</p><p>
+			The following table outlines sample equivalent expressions, with and without the use of parenthesis for subexpressions.
+		</p><div class="table"><a name="d0e9514"></a><p class="title"><b>Table&nbsp;5.3.&nbsp;Equivalent Pattern Expressions</b></p><table summary="Equivalent Pattern Expressions" border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Expression</th><th>Equivalent</th><th>Reason</th></tr></thead><tbody><tr><td>every A or B</td><td>(every A) or B</td><td>The <tt class="literal">every</tt> operator has higher precedence then the <tt class="literal">or</tt> operator.</td></tr><tr><td>every A -&gt; B or C</td><td>(every A) -&gt; (B or C)</td><td>The <tt class="literal">or</tt> operator has higher precedence then the <tt class="literal">followed-by</tt> operator.</td></tr><tr><td>A and B or C</td><td>(A and B) or C</td><td>The <tt class="literal">and</tt> operator has higher precedence then the <tt class="literal">or</tt> operator.</td></tr><tr><td>every A where timer:within(5)</td><td>every (A where timer:within(5))</td><td>The <tt class="literal">every</tt> operator has higher precedence then the <tt class="literal">timer:within</tt> guard postfix.</td></tr><tr><td>A -&gt; B until C -&gt; D</td><td>A -&gt; (B until C) -&gt; D</td><td>The <tt class="literal">until</tt> operator has higher precedence then the <tt class="literal">followed-by</tt> operator.</td></tr><tr><td>[5] A or B </td><td>([5] A) or B</td><td>The <tt class="literal">[num]</tt> repeat operator has higher precedence then the <tt class="literal">or</tt> operator.</td></tr></tbody></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="pattern-filter"></a>5.4.&nbsp;Filter Expressions In Patterns</h2></div></div><div></div></div><a class="indexterm" name="d0e9611"></a><p>
+			The simplest form of filter is a filter for events of a given type without any conditions on the event property values. This filter matches any event of that type regardless of the event's properties. The example below is such a filter. Note that this event pattern would stop firing as soon as the first RfidEvent is encountered.
+		 </p><pre class="programlisting">com.mypackage.myevents.RfidEvent</pre><p>
+			 To make the event pattern fire for every RfidEvent and not just the first event, use the <tt class="literal">every</tt> keyword.
+		 </p><pre class="programlisting">every com.mypackage.myevents.RfidEvent</pre><p>
+			 The example above specifies the fully-qualified Java class name as the event type. Via configuration, the event pattern above can be simplified by using the name
+			 that has been defined for the event type.
+		 </p><pre class="programlisting">every RfidEvent</pre><p>
+			 Interfaces and superclasses are also supported as event types. In the below example <tt class="literal">IRfidReadable</tt> is an interface class, and the statement matches any event that implements this interface:
+		 </p><pre class="programlisting">every org.myorg.rfid.IRfidReadable</pre><p>
+			The filtering criteria to filter for events with certain event property values are placed within parenthesis after the event type name:
+		 </p><pre class="programlisting">RfidEvent(category="Perishable")</pre><p>
+			All expressions can be used in filters, including static method invocations that return a boolean value:
+		 </p><pre class="programlisting">RfidEvent(com.mycompany.MyRFIDLib.isInRange(x, y) or (x&lt;0 and y &lt; 0))</pre><p>
+			Filter expressions can be separated via a single comma '<tt class="literal">,</tt>'. The comma represents a logical AND between expressions:
+		 </p><pre class="programlisting">RfidEvent(zone=1, category=10)
+...is equivalent to...
+RfidEvent(zone=1 and category=10)</pre><p>
+			The following set of operators are highly optimized through indexing and are the preferred means of filtering high-volume event streams:
+		</p><div class="itemizedlist"><ul type="disc" compact><li><p>
+					equals <tt class="literal">=</tt>
+				</p></li><li><p>
+					not equals <tt class="literal">!=</tt>
+				</p></li><li><p>
+					comparison operators <tt class="literal">&lt; , &gt; , &gt;=, &lt;=</tt>
+				</p></li><li><p>
+					ranges 
+				</p><div class="itemizedlist"><ul type="circle" compact><li><p>
+							use the <tt class="literal">between</tt> keyword for a closed range where both endpoints are included
+						</p></li><li><p>
+							use the <tt class="literal">in </tt> keyword and round <tt class="literal">()</tt> or square brackets <tt class="literal">[]</tt> to control how endpoints are included
+						</p></li><li><p>
+							for inverted ranges use the <tt class="literal">not</tt> keyword and the <tt class="literal">between</tt> or <tt class="literal">in</tt> keywords
+						</p></li></ul></div></li><li><p>
+					list-of-values checks using the <tt class="literal">in</tt> keyword or the <tt class="literal">not in </tt> keywords followed by a comma-separated list of values
+				</p></li></ul></div><p>
+			At compile time as well as at run time, the engine scans new filter expressions for subexpressions that can be indexed. Indexing filter values to match event properties of incoming events enables the engine to match incoming events faster. The above list of operators represents the set of operators that the engine can best convert into indexes. The use of comma or logical <tt class="literal">and</tt> in filter expressions does not impact optimizations by the engine. 
+		</p><p>
+			For more information on filters please see <a href="epl_clauses.html#epl-from-clause-filter" title="4.4.1.&nbsp;Filter-based Event Streams">Section&nbsp;4.4.1, &#8220;Filter-based Event Streams&#8221;</a>. Contained-event selection on filters in patterns is further described in <a href="epl_clauses.html#epl-containedeventselect" title="4.20.&nbsp;Contained-Event Selection">Section&nbsp;4.20, &#8220;Contained-Event Selection&#8221;</a>.
+		</p><p>
+			Filter criteria can also refer to events matching prior named events in the same expression. Below pattern is an example in which the pattern
+			matches once for every RfidEvent that is preceded by an RfidEvent with the same asset id.
+		 </p><pre class="programlisting">every e1=RfidEvent -&gt; e2=RfidEvent(assetId=e1.assetId)</pre><p>
+			The syntax shown above allows filter criteria to reference prior results by specifying the event name tag of the prior event, and the event property name. The tag names in the above example were <tt class="literal">e1</tt> and <tt class="literal">e2</tt>. This syntax can be used in all filter operators or expressions including ranges and the <tt class="literal">in</tt> set-of-values check:
+		 </p><pre class="programlisting">every e1=RfidEvent -&gt; 
+  e2=RfidEvent(MyLib.isInRadius(e1.x, e1.y, x, y) and zone in (1, e1.zone))</pre><p>
+			An arriving event changes the truth value of all expressions that look for the event. Consider the pattern as follows:
+		 </p><pre class="programlisting">every (RfidEvent(zone &gt; 1) and RfidEvent(zone &lt; 10))</pre><p>
+			The pattern above is satisfied as soon as only one event with zone in the interval [2, 9] is received.
+		 </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="pattern-operators"></a>5.5.&nbsp;Pattern Operators</h2></div></div><div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-logical-every"></a>5.5.1.&nbsp;Every</h3></div></div><div></div></div><a class="indexterm" name="d0e9757"></a><a class="indexterm" name="d0e9762"></a><p>				
+				The <tt class="literal">every</tt> operator indicates that the pattern subexpression should restart when the subexpression qualified by the <tt class="literal">every</tt> keyword evaluates to true or false.
+				Without the <tt class="literal">every</tt> operator the pattern subexpression stops when the pattern subexpression evaluates to true or false.
+            </p><p>				
+				As a side note, please be aware that a single invocation to the <tt class="literal">UpdateListener</tt> interface may deliver multiple events in one invocation, since the interface accepts an array of values.
+            </p><p>
+				Thus the <tt class="literal">every</tt> operator works like a factory for the pattern subexpression contained within. When the pattern subexpression within it fires and thus quits checking for events, the <tt class="literal">every</tt> causes the start of a new pattern subexpression listening for more occurrences of the same
+				event or set of events.
+            </p><p>
+				Every time a pattern subexpression within an <tt class="literal">every</tt> operator turns true the engine starts a new active subexpression looking 
+				for more event(s) or timing conditions that match the pattern subexpression. If the <tt class="literal">every</tt> operator is not specified for a subexpression, 
+				the subexpression stops after the first match was found.
+            </p><p>
+				This pattern fires when encountering an A event and then stops looking.
+            </p><pre class="programlisting">A</pre><p>
+				This pattern keeps firing when encountering A events, and doesn't stop looking.
+            </p><pre class="programlisting">every A</pre><p>
+				When using <tt class="literal">every</tt> operator with the <tt class="literal">-&gt;</tt> followed-by operator, each time the <tt class="literal">every</tt> operator restarts it also starts a new subexpression instance looking for events in the followed-by subexpression.
+            </p><p>
+				Let's consider an example event sequence as follows.
+            </p><p>
+				A<sub>1</sub> &nbsp;
+				B<sub>1</sub> &nbsp;  
+				C<sub>1</sub> &nbsp;
+				B<sub>2</sub>  &nbsp;
+				A<sub>2</sub>  &nbsp;
+				D<sub>1</sub>  &nbsp;
+				A<sub>3</sub>  &nbsp;
+				B<sub>3</sub>  &nbsp;
+				E<sub>1</sub>  &nbsp;
+				A<sub>4</sub>  &nbsp;
+				F<sub>1</sub>  &nbsp;
+				B<sub>4</sub> 
+            </p><div class="table"><a name="pattern-every-samples"></a><p class="title"><b>Table&nbsp;5.4.&nbsp;'Every' operator examples</b></p><table summary="'Every' operator examples" border="1"><colgroup><col><col></colgroup><thead><tr><th>Example</th><th>Description</th></tr></thead><tbody><tr><td><pre class="programlisting">every ( A -&gt; B )</pre></td><td><p>
+									Detect an A event followed by a B event. 
+									At the time when B occurs the pattern matches, then the pattern matcher restarts and looks for the next A event.
+								</p><div class="orderedlist"><ol type="1" compact><li><p>
+											Matches on B<sub>1</sub> for combination {A<sub>1</sub>, B<sub>1</sub>}
+										</p></li><li><p>
+											Matches on B<sub>3</sub> for combination {A<sub>2</sub>, B<sub>3</sub>}
+										</p></li><li><p>
+											Matches on B<sub>4</sub> for combination {A<sub>4</sub>, B<sub>4</sub>}
+										</p></li></ol></div></td></tr><tr><td><pre class="programlisting">every A -&gt; B</pre></td><td><p>
+									The pattern fires for every A event followed by a B event.
+								</p><div class="orderedlist"><ol type="1" compact><li><p>
+											Matches on B<sub>1</sub> for combination {A<sub>1</sub>, B<sub>1</sub>}
+										</p></li><li><p>
+											Matches on B<sub>3</sub> for combination {A<sub>2</sub>, B<sub>3</sub>}
+											and {A<sub>3</sub>, B<sub>3</sub>}
+										</p></li><li><p>
+											Matches on B<sub>4</sub> for combination {A<sub>4</sub>, B<sub>4</sub>}
+										</p></li></ol></div></td></tr><tr><td><pre class="programlisting">A -&gt; every B</pre></td><td><p>
+									The pattern fires for an A event followed by every B event.
+								</p><div class="orderedlist"><ol type="1" compact><li><p>
+											Matches on B<sub>1</sub> for combination {A<sub>1</sub>, B<sub>1</sub>}.
+										</p></li><li><p>
+											Matches on B<sub>2</sub> for combination {A<sub>1</sub>, B<sub>2</sub>}.
+										</p></li><li><p>
+											Matches on B<sub>3</sub> for combination {A<sub>1</sub>, B<sub>3</sub>}
+										</p></li><li><p>
+											Matches on B<sub>4</sub> for combination {A<sub>1</sub>, B<sub>4</sub>}
+										</p></li></ol></div></td></tr><tr><td><pre class="programlisting">every A -&gt; every B</pre></td><td><p>
+									The pattern fires for every A event followed by every B event.
+								</p><div class="orderedlist"><ol type="1" compact><li><p>
+											Matches on B<sub>1</sub> for combination {A<sub>1</sub>, B<sub>1</sub>}.
+										</p></li><li><p>
+											Matches on B<sub>2</sub> for combination {A<sub>1</sub>, B<sub>2</sub>}.
+										</p></li><li><p>
+											Matches on B<sub>3</sub> for combination {A<sub>1</sub>, B<sub>3</sub>}
+											and {A<sub>2</sub>, B<sub>3</sub>} and {A<sub>3</sub>, B<sub>3</sub>}
+										</p></li><li><p>
+											Matches on B<sub>4</sub> for combination {A<sub>1</sub>, B<sub>4</sub>}
+											and {A<sub>2</sub>, B<sub>4</sub>} and {A<sub>3</sub>, B<sub>4</sub>}
+											and {A<sub>4</sub>, B<sub>4</sub>}
+										</p></li></ol></div></td></tr></tbody></table></div><p>
+				The examples show that it is possible that a pattern fires for multiple combinations of events that match a pattern expression.
+				Each combination is posted as an <tt class="literal">EventBean</tt> instance to the <tt class="literal">update</tt> method in the <tt class="literal">UpdateListener</tt> implementation.
+            </p><p>
+				Let's consider the <tt class="literal">every</tt> operator in conjunction with a subexpression that matches 3 events that follow each other:
+            </p><pre class="programlisting">every (A -&gt; B -&gt; C)</pre><p>
+				The pattern first looks for A events. When an A event arrives, it looks for a B event. After the B event arrives, the pattern looks for a C event. Finally, when the C event arrives the pattern fires. The engine then starts looking for an A event again.
+            </p><p>
+				Assume that between the B event and the C event a second A<sub>2</sub> event arrives. The pattern would ignore the A<sub>2</sub> event entirely since it's then looking for a C event.
+				As observed in the prior example, the <tt class="literal">every</tt> operator restarts the subexpression <tt class="literal">A -&gt; B -&gt; C</tt> only when the subexpression fires.
+            </p><p>
+				In the next statement the <tt class="literal">every</tt> operator applies only to the A event, not the whole subexpression:
+            </p><pre class="programlisting">every A -&gt; B -&gt; C</pre><p>
+				This pattern now matches for each A event that is followed by a B event and then a C event, regardless of when the A event arrives. Note that for each A event that arrives the pattern engine starts a new subexpression looking for a B event and then a C event, outputting each combination of matching events.
+            </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-every-ending-subexp"></a>5.5.1.1.&nbsp;Limiting Subexpression Lifetime</h4></div></div><div></div></div><p>
+					As the introduction of the <tt class="literal">every</tt> operator states, the operator starts new subexpression instances and can cause multiple matches to occur for a single arriving event.
+				</p><p>
+					New subexpressions also take a very small amount of system resources and thereby your application should carefully consider when subexpressions must end when designing patterns. Use the <tt class="literal">timer:within</tt> construct and the <tt class="literal">and not</tt> constructs to end active subexpressions. The data window onto a pattern stream does not serve to limit pattern subexpression lifetime.
+				</p><p>
+					Lets look at a concrete example. Consider the following sequence of events arriving:
+				</p><p>
+					A<sub>1</sub> &nbsp;
+					A<sub>2</sub> &nbsp;  
+					B<sub>1</sub> &nbsp;
+				</p><p>
+					This pattern matches on arrival of B<sub>1</sub> and outputs two events (an array of length 2 if using a listener). The two events are the combinations {A<sub>1</sub>, B<sub>1</sub>} and {A<sub>2</sub>, B<sub>1</sub>}:
+				</p><pre class="programlisting">every a=A -&gt; b=B</pre><p>
+					The <tt class="literal">and not</tt> operators are used to end an active subexpression.
+				</p><p>
+					The next pattern matches on arrival of B<sub>1</sub> and outputs only the last A event which is the combination {A<sub>2</sub>, B<sub>1</sub>}:
+				</p><pre class="programlisting">every a=A -&gt; (b=B and not A)</pre><p>
+					The <tt class="literal">and not</tt> operators cause the subexpression looking for {A<sub>1</sub>, B?} to end when A<sub>2</sub> arrives.
+				</p><p>
+					Similarly, in the pattern below the engine starts a new subexpression looking for a B event every 1 second. After 5 seconds there are 5 subexpressions active looking for a B event and 5 matches occur at once if a B event arrives after 5 seconds.
+				</p><pre class="programlisting">every timer:interval(1 sec) -&gt; b=B</pre><p>
+					Again the <tt class="literal">and not</tt> operators can end subexpressions that are not intended to match any longer:
+				</p><pre class="programlisting">every timer:interval(1 sec) -&gt; (b=B and not timer:interval(1 sec))
+// equivalent to
+every timer:interval(1 sec) -&gt; (b=B where timer:within(1 sec))</pre></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-every-sample1"></a>5.5.1.2.&nbsp;<tt class="literal">Every</tt> Operator Example</h4></div></div><div></div></div><p>
+					In this example we consider a generic pattern in which the pattern must match for each A event followed by a B event and followed by a C event, in which both the B event and the C event must arrive within 1 hour of the A event. The first approach to the pattern is as follows:
+				</p><pre class="programlisting">every A  -&gt; (B -&gt; C) where timer:within(1 hour)</pre><p>
+					Consider the following sequence of events arriving:
+				</p><p>
+					A<sub>1</sub> &nbsp;
+					A<sub>2</sub> &nbsp;  
+					B<sub>1</sub> &nbsp;
+					C<sub>1</sub> &nbsp;  
+					B<sub>2</sub> &nbsp;
+					C<sub>2</sub>
+				</p><p>
+					First, the pattern as above never stops looking for A events since the <tt class="literal">every</tt> operator instructs the pattern to keep looking for A events.
+				</p><p>
+					When A<sub>1</sub> arrives, the pattern starts a new subexpression that keeps A<sub>1</sub> in memory and looks for any B event. At the same time, it also keeps looking for more A events. 
+				</p><p>
+					When A<sub>2</sub> arrives, the pattern starts a new subexpression that keeps A<sub>2</sub> in memory and looks for any B event. At the same time, it also keeps looking for more A events. 
+				</p><p>
+					After the arrival of A<sub>2</sub>, there are 3 subexpressions active:
+				</p><div class="orderedlist"><ol type="1" compact><li><p>
+							The first active subexpression with A<sub>1</sub> in memory, looking for any B event.
+						</p></li><li><p>
+							The second active subexpression with A<sub>2</sub> in memory, looking for any B event.
+						</p></li><li><p>
+							A third active subexpression, looking for the next A event.
+						</p></li></ol></div><p>
+					In the pattern above, we have specified a 1-hour lifetime for subexpressions looking for B and C events. Thus, if no B and no C event arrive within 1 hour after A<sub>1</sub>, the first subexpression goes away. If no B and no C event arrive within 1 hour after A<sub>2</sub>, the second subexpression goes away. The third subexpression however stays around looking for more A events.
+				</p><p>
+					The pattern as shown above thus matches on arrival of C<sub>1</sub> for combination {A<sub>1</sub>, B<sub>1</sub>, C<sub>1</sub>} and
+					for combination {A<sub>2</sub>, B<sub>1</sub>, C<sub>1</sub>}, provided that B<sub>1</sub> and C<sub>1</sub> arrive within an hour of A<sub>1</sub> and A<sub>2</sub>.
+				</p><p>
+					You may now ask how to match on {A<sub>1</sub>, B<sub>1</sub>, C<sub>1</sub>} and {A<sub>2</sub>, B<sub>2</sub>, C<sub>2</sub>} instead, since 
+					you may need to correlate on a given property.					
+				</p><p>
+					The pattern as discussed above matches every A event followed by the first B event followed by the next C event, and doesn't specifically qualify the B or C events to look for based on the A event.  To look for specific B and C events in relation to a given A event, the correlation must use one or more of the properties of the A event, such as the "id" property:
+				</p><pre class="programlisting">every a=A -&gt; (B(id=a.id -&gt; C(id=a.id)) where timer:within(1 hour)</pre><p>
+					The pattern as shown above thus matches on arrival of C<sub>1</sub> for combination {A<sub>1</sub>, B<sub>1</sub>, C<sub>1</sub>} and
+					on arrival of C<sub>2</sub> for combination {A<sub>2</sub>, B<sub>2</sub>, C<sub>2</sub>}.
+				</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-every-sample2"></a>5.5.1.3.&nbsp;Sensor Example</h4></div></div><div></div></div><p>
+					This example looks at temperature sensor events named Sample. The pattern detects when 3 sensor events indicate a temperature of more then 50 degrees uninterrupted within 90 seconds of the first event, considering events for the same sensor only.
+				</p><pre class="programlisting">every sample=Sample(temp &gt; 50) -&gt;
+( (Sample(sensor=sample.sensor, temp &gt; 50) and not Sample(sensor=sample.sensor, temp &lt;= 50))   
+  -&gt;
+  (Sample(sensor=sample.sensor, temp &gt; 50) and not Sample(sensor=sample.sensor, temp &lt;= 50))   
+ ) where timer:within(90 seconds))</pre><p>
+					The pattern starts a new subexpression in the round braces after the first followed-by operator for each time a sensor indicated more then 50 degrees. Each subexpression then lives a maximum of 90 seconds. Each subexpression ends if a temperature of 50 degress or less is encountered for the same sensor. Only if 3 temperature events in a row indicate more then 50 degrees, and within 90 seconds of the first event, and for the same sensor, does this pattern fire.
+				</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-logical-everydistinct"></a>5.5.2.&nbsp;Every-Distinct</h3></div></div><div></div></div><a class="indexterm" name="d0e10416"></a><a class="indexterm" name="d0e10421"></a><p>				
+				Similar to the <tt class="literal">every</tt> operator in most aspects, the <tt class="literal">every-distinct</tt> operator indicates that the pattern subexpression should restart when the subexpression qualified by the <tt class="literal">every-distinct</tt> keyword evaluates to true or false. In addition, the <tt class="literal">every-distinct</tt> eliminates duplicate results received from an active subexpression according to its distinct-value expressions.
+            </p><p>
+				The synopsis for the <tt class="literal">every-distinct</tt> pattern operator is:
+            </p><pre class="synopsis">every-distinct(<span class="emphasis"><em>distinct_value_expr </em></span>[, <span class="emphasis"><em>distinct_value_exp</em></span>[...]])</pre><p>
+				Within parenthesis are one or more <span class="emphasis"><em>distinct_value_expr</em></span> expressions that return the values by which to remove duplicates.
+            </p><p>
+				When specifying properties in the distinct-value expression list, you must ensure that the event types providing properties are tagged. Only properties of event types within filter expressions that are sub-expressions to the <tt class="literal">every-distinct</tt> may be specified.
+            </p><p>
+				For example, this pattern keeps firing for every A event with a distinct value for its <tt class="literal">aprop</tt> property:
+            </p><pre class="programlisting">every-distinct(a.aprop) a=A</pre><p>
+				Note that the pattern above assigns the <tt class="literal">a</tt> tag to the A event and uses <tt class="literal">a.prop</tt> to identify the <tt class="literal">prop</tt> property as a value of the <tt class="literal">a</tt> event  A.
+            </p><p>
+				A pattern that returns the first Sample event for each sensor, assuming sensor is a field that returns a unique id identifying the sensor that originated the Sample event, is:
+            </p><pre class="programlisting">every-distinct(s.sensor) s=Sample</pre><p>
+				The next pattern looks for pairs of A and B events and returns only the first pair for each combination of <tt class="literal">aprop</tt> of an A event and <tt class="literal">bprop</tt> of a B event:
+            </p><pre class="programlisting">every-distinct(a.aprop, b.bprop) (a=A and b=B)</pre><p>
+				The following pattern looks for A events followed by B events for which the value of the <tt class="literal">aprop</tt> of an A event is the same value of the <tt class="literal">bprop</tt> of a B event but only for each distinct value of <tt class="literal">aprop</tt> of an A event:
+            </p><pre class="programlisting">every-distinct(a.aprop) a=A -&gt; b=B(bprop = a.aprop)</pre><p>
+				When specifying properties as part of distinct-value expressions, properties must be available from tagged event types in sub-expressions to the <tt class="literal">every-distinct</tt>.
+            </p><p>
+				The following patterns are not valid:
+            </p><pre class="programlisting">// Invalid: event type in filter not tagged
+every-distinct(aprop) A
+			
+// Invalid: property not from a sub-expression of every-distinct
+a=A -&gt; every-distinct(a.aprop) b=B</pre><p>
+				When an active subexpression to <tt class="literal">every-distinct</tt> becomes permanently false, the distinct-values seen from the active subexpression are removed.
+            </p><p>
+				For example, the below pattern detects each A event distinct by the value of <tt class="literal">aprop</tt>.
+            </p><pre class="programlisting">every-distinct(a.aprop) (a=A  and not B)</pre><p>
+				In the pattern above, when a B event arrives, the subexpression becomes permanently false and is restarted anew, detecting each A event distinct by the value of <tt class="literal">aprop</tt> without considering prior values.
+            </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-repeat"></a>5.5.3.&nbsp;Repeat</h3></div></div><div></div></div><p>
+			   The repeat operator fires when a pattern subexpression evaluates to true a given number of times. The synopsis is as follows:
+		   </p><pre class="synopsis">[<span class="emphasis"><em>match_count</em></span>] <span class="emphasis"><em>repeating_subexpr</em></span></pre><p>
+			   The repeat operator is very similar to the <tt class="literal">every</tt> operator in that it restarts the <span class="emphasis"><em>repeating_subexpr</em></span> pattern subexpression up to a given number of times.
+		   </p><p>
+			   <span class="emphasis"><em>match_count</em></span> is a positive number that specifies how often the <span class="emphasis"><em>repeating_subexpr</em></span> pattern subexpression must evaluate to true before the repeat expression itself evaluates to true.
+		   </p><p>
+			   For example, this pattern fires when the last of five A events arrives:
+		   </p><pre class="programlisting">[5] A</pre><p>
+			   Parenthesis must be used for nested pattern subexpressions. This pattern fires when the last of a total of any five A or B events arrives:
+		   </p><pre class="programlisting">[5] (A or B)</pre><p>
+			   Without parenthesis the pattern semantics change, according to the operator precedence described earlier. This pattern fires when the last of a total of five A events arrives or a single B event arrives, whichever happens first:
+		   </p><pre class="programlisting">[5] A or B</pre><p>
+			   Tags can be used to name events in filter expression of pattern subexpressions. The next pattern looks for an A event followed by a B event, and a second A event followed by a second B event. The output event provides indexed and array properties of the same name:
+		   </p><pre class="programlisting">[2] (a=A -&gt; b=B)</pre><p>
+			   Using tags with repeat is further described in <a href="event_patterns.html#pattern-repeat-tags" title="5.5.4.6.&nbsp;Tags and the Repeat Operator">Section&nbsp;5.5.4.6, &#8220;Tags and the Repeat Operator&#8221;</a>.
+		   </p><p>
+			   Consider the following pattern that demonstrates the behavior when a pattern subexpression becomes permanently false:
+		   </p><pre class="programlisting">[2] (a=A and not C)</pre><p>
+			   In the case where a C event arrives before 2 A events arrive, the pattern above becomes permanently false.
+		   </p><p>
+			   Lets add an <tt class="literal">every</tt> operator to restart the pattern and thus keep matching for all pairs of A events that arrive without a C event in between each pair:
+		   </p><pre class="programlisting">every [2] (a=A and not C)</pre><p>
+			   Since pattern matches return multiple A events, your select clause should use tag <tt class="literal">a</tt> as an array, for example:
+		   </p><pre class="programlisting">select a[0].id, a[1].id from pattern [every [2] (a=A and not C)]</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-repeatuntil"></a>5.5.4.&nbsp;Repeat-Until</h3></div></div><div></div></div><p>
+			   The repeat <tt class="literal">until</tt> operator provides additional control over repeated matching.
+		   </p><p>
+			   The repeat until operator takes an optional range, a pattern subexpression to repeat, the <tt class="literal">until</tt> keyword and a second pattern subexpression that ends the repetition. The synopsis is as follows:
+		   </p><pre class="synopsis">[<span class="emphasis"><em>range</em></span>] <span class="emphasis"><em>repeated_pattern_expr</em></span> until <span class="emphasis"><em>end_pattern_expr</em></span></pre><p>
+				Without a <span class="emphasis"><em>range</em></span>, the engine matches the <span class="emphasis"><em>repeated_pattern_expr</em></span> pattern subexpression until the <span class="emphasis"><em>end_pattern_expr</em></span> evaluates to true, at which time the expression turns true.
+			</p><p>
+				An optional <span class="emphasis"><em>range</em></span> can be used to indicate the minimum number of times that the <span class="emphasis"><em>repeated_pattern_expr</em></span> pattern subexpression must become true.
+			</p><p>
+				The optional <span class="emphasis"><em>range</em></span> can also specify a maximum number of times that <span class="emphasis"><em>repeated_pattern_expr</em></span> pattern subexpression evaluates to true and retains tagged events. When this number is reached, the engine stops the <span class="emphasis"><em>repeated_pattern_expr</em></span> pattern subexpression.
+			</p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-repeatuntil-norange"></a>5.5.4.1.&nbsp;Unbound Repeat</h4></div></div><div></div></div><p>
+				In the unbound repeat, without a <span class="emphasis"><em>range</em></span>, the engine matches the <span class="emphasis"><em>repeated_pattern_expr</em></span> pattern subexpression until the <span class="emphasis"><em>end_pattern_expr</em></span> evaluates to true, at which time the expression turns true. The synopsis is:
+			</p><pre class="synopsis"><span class="emphasis"><em>repeated_pattern_expr</em></span> until <span class="emphasis"><em>end_pattern_expr</em></span></pre><p>
+				   This is a pattern that keeps looking for A events until a B event arrives:
+			   </p><pre class="programlisting">A until B</pre><p>
+				   Nested pattern subexpressions must be placed in parenthesis since the <tt class="literal">until</tt> operator has precedence over most operators. This example collects all A or B events for 10 seconds and places events received in indexed properties 'a' and 'b':
+			   </p><pre class="programlisting">(a=A or b=B) until timer:interval(10 sec)</pre></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-repeatuntil-range"></a>5.5.4.2.&nbsp;Bound Repeat Overview</h4></div></div><div></div></div><p>
+				   The synopsis for the optional <span class="emphasis"><em>range</em></span> qualifier is:
+			   </p><pre class="synopsis">[ [<span class="emphasis"><em>low_endpoint</em></span>] .. [<span class="emphasis"><em>high_endpoint</em></span>] ]</pre><p>
+				   <span class="emphasis"><em>low_endpoint</em></span> is an optional number that appears on the left of two dots (..), after which follows an optional <span class="emphasis"><em>high_endpoint</em></span> number.
+			   </p><p>
+				   A range thus consists of a <span class="emphasis"><em>low_endpoint</em></span> and a <span class="emphasis"><em>high_endpoint</em></span> in square brackets and separated by dot (.) characters. Both endpoint values are optional but either one or both must be supplied. The <span class="emphasis"><em>low_endpoint</em></span> can be omitted to denote a range that starts at zero. The <span class="emphasis"><em>high_endpoint</em></span> can be omitted to denote an open-ended range.
+			   </p><p>
+				   Some examples for valid ranges might be:
+			   </p><pre class="programlisting">[3..10]
+[..3]    // range starts at zero
+[2..]    // open-ended range</pre><p>
+				   The <span class="emphasis"><em>low_endpoint</em></span>, if specified, defines the minimum number of times that the <span class="emphasis"><em>repeated_pattern_expr</em></span> pattern subexpression must become true in order for the expression to become true.
+			   </p><p>
+				   The <span class="emphasis"><em>high_endpoint</em></span>, if specified, is the maximum number of times that the <span class="emphasis"><em>repeated_pattern_expr</em></span> pattern subexpression becomes true. If the number is reached, the engine stops the <span class="emphasis"><em>repeated_pattern_expr</em></span> pattern subexpression.
+			   </p><p>
+				   In all cases, only at the time that the <span class="emphasis"><em>end_pattern_expr</em></span> pattern subexpression evaluates to true does the expression become true. If <span class="emphasis"><em>end_pattern_expr</em></span> pattern subexpression evaluates to false, then the expression evaluates to false.
+			   </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-repeatuntil-range-openended"></a>5.5.4.3.&nbsp;Bound Repeat - Open Ended Range</h4></div></div><div></div></div><p>
+				   An open-ended range specifies only a low endpoint and not a high endpoint.
+			   </p><p>
+				   Consider the following pattern which requires at least three A events to match:
+			   </p><pre class="programlisting">[3..] A until B</pre><p>
+				   In the pattern above, if a B event arrives before 3 A events occurred, the expression ends and evaluates to false. 
+			   </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-repeatuntil-range-nolow"></a>5.5.4.4.&nbsp;Bound Repeat - High Endpoint Range</h4></div></div><div></div></div><p>
+				   A high-endpoint range specifies only a high endpoint and not a low endpoint.
+			   </p><p>
+				   In this sample pattern the engine will be looking for a maximum of 3 A events. The expression turns true as soon as a single B event arrives regardless of the number of A events received:
+			   </p><pre class="programlisting">[..3] A until B</pre><p>
+				   The next pattern matches when a C or D event arrives, regardless of the number of A or B events that occurred:
+			   </p><pre class="programlisting">[..3] (a=A or b=B) until (c=C or d=D)</pre><p>
+				   In the pattern above, if more then 3 A or B events arrive, the pattern stops looking for additional A or B events. The 'a' and 'b' tags retain only the first 3 (combined) matches among A and B events. The output event contains these tagged events as indexed properties.
+			   </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-repeatuntil-range-bounded"></a>5.5.4.5.&nbsp;Bound Repeat - Bounded Range</h4></div></div><div></div></div><p>
+				   A bounded range specifies a low endpoint and a high endpoint.
+			   </p><p>
+				   The next pattern matches after at least one A event arrives upon the arrival of a single B event:
+			   </p><pre class="programlisting">[1..3] a=A until B</pre><p>
+				   If a B event arrives before the first A event, then the pattern does not match. Only the first 3 A events are returned by the pattern.
+			   </p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-repeat-tags"></a>5.5.4.6.&nbsp;Tags and the Repeat Operator</h4></div></div><div></div></div><p>
+				   The tags assigned to events in filter subexpressions within a repeat operator are available for use in filter expressions and also in any EPL clause.
+			   </p><p>
+					This sample pattern matches 2 A events followed by a B event. Note the filter on B events: only a B event that has a value for the "beta" property that equals any of the "id" property values of the two A events is considered:
+			   </p><pre class="programlisting">[2] A -&gt; B(beta in (a[0].id, a[1].id))</pre><p>
+					The next EPL statement returns pairs of A events:
+			   </p><pre class="programlisting">select a, a[0], a[0].id, a[1], a[1].id
+from pattern [ every [2] a=A ] </pre><p>
+					The <tt class="literal">select</tt> clause of the statement above showcases different ways of accessing tagged events:
+			   </p><div class="itemizedlist"><ul type="disc"><li><p>
+							The tag itself can be used to select an array of underlying events. For example, the 'a' expression above returns an array of underlying events of event type A.
+						</p></li><li><p>
+							The tag as an indexed property returns the underlying event at that index. For instance, the 'a[0]' expression returns the first underlying A event, or null if no such A event was matched by the repeat operator.
+						</p></li><li><p>
+							The tag as a nested, indexed property returns a property of the underlying event at that index. For example, the 'a[1].id' expression returns the 'id' property value of the second A event, or null if no such second A event was matched by the repeat operator.
+						</p></li></ul></div></div><p>
+				You may not use indexed tags defined in the sub-expression to the repeat operator in the same subexpression. For example, in the following pattern the subexpression to the repeat operator is <tt class="literal">(a=A() -&gt; b=B(id=a[0].id))</tt> and the tag <tt class="literal">a</tt>  cannot be used in its indexed form in the filter for event B:
+		   </p><pre class="programlisting">// invalid
+every [2] (a=A() -&gt; b=B(id=a[0].id))</pre><p>
+				You can use tags without an index:
+		   </p><pre class="programlisting">// valid
+every [2] (a=A() -&gt; b=B(id=a.id))</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-logical-and"></a>5.5.5.&nbsp;And</h3></div></div><div></div></div><a class="indexterm" name="d0e10840"></a><a class="indexterm" name="d0e10845"></a><p>
+				Similar to the Java &amp;&amp; operator the <tt class="literal">and</tt> operator requires both nested pattern expressions to turn 
+				true before the whole expression turns true (a join pattern).
+            </p><p>
+				This pattern matches when both an A event and a B event arrive, at the time the last of the two events arrive:
+            </p><pre class="programlisting">A and B</pre><p>
+				This pattern matches on any sequence of an A event followed by a B event and then a C event followed by a D event, or a C event followed by a D and an A event followed by a B event:
+            </p><pre class="programlisting">(A -&gt; B) and (C -&gt; D)</pre><p>
+				Note that in an <tt class="literal">and</tt> pattern expression it is not possible to correlate events based on event property values. For example, this is an invalid pattern:
+            </p><pre class="programlisting">// This is NOT valid
+a=A and B(id = a.id)</pre><p>
+				The above expression is invalid as it relies on the order of arrival of events, however in an <tt class="literal">and</tt> expression the order of events is not specified and events fulfill an <tt class="literal">and</tt> condition in any order. The above expression can be changed to use the followed-by operator: 
+            </p><pre class="programlisting">// This is valid
+a=A -&gt; B(id = a.id)
+// another example using 'and'...
+a=A -&gt; (B(id = a.id) and C(id = a.id))</pre><p>
+				Consider a pattern that looks for the same event:
+            </p><pre class="programlisting">A and A</pre><p>
+				The pattern above fires when a single A event arrives. The first arriving A event triggers a state transition in both the left and the right hand side expression.
+            </p><p>
+				In order to match after two A events arrive in any order, there are two options to express this pattern. The followed-by operator is one option and the repeat operator is the second option, as the next two patterns show:
+            </p><pre class="programlisting">A -&gt; A
+// ... or ...
+[2] A</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-logical-or"></a>5.5.6.&nbsp;Or</h3></div></div><div></div></div><a class="indexterm" name="d0e10893"></a><a class="indexterm" name="d0e10898"></a><p>
+				Similar to the Java &#8220;||&#8221; operator the <tt class="literal">or</tt> operator requires either one of the expressions 
+				to turn true before the whole expression turns true.
+            </p><p>
+			   Look for either an A event or a B event. As always, A and B can itself be nested expressions as well.
+            </p><pre class="programlisting">A or B</pre><p>
+				Detect all stock ticks that are either above or below a threshold.
+            </p><pre class="programlisting">every (StockTick(symbol='IBM', price &lt; 100) or StockTick(symbol='IBM', price &gt; 105)</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-logical-not"></a>5.5.7.&nbsp;Not</h3></div></div><div></div></div><a class="indexterm" name="d0e10919"></a><a class="indexterm" name="d0e10924"></a><p>
+				The <tt class="literal">not</tt> operator negates the truth value of an expression. Pattern expressions prefixed with <tt class="literal">not</tt> are automatically 
+				defaulted to true upon start, and turn permanently false when the expression within turns true.
+            </p><p>
+				The <tt class="literal">not</tt> operator is generally used in conjunction with the <tt class="literal">and</tt> operator or subexpressions as the below examples show.
+            </p><p>
+				This pattern matches only when an A event is encountered followed by a B event but only if no C event was encountered before either an A event and a B event, counting from the time the pattern is started:
+            </p><pre class="programlisting">(A -&gt; B) and not C</pre><p>
+				Assume we'd like to detect when an A event is followed by a D event, without any B or C events between the A and D events:
+            </p><pre class="programlisting">A -&gt; (D and not (B or C))</pre><p>
+				It may help your understanding to discuss a pattern that uses the <tt class="literal">or</tt> operator and the <tt class="literal">not</tt> operator together:				
+            </p><pre class="programlisting">a=A -&gt; (b=B or not C)</pre><p>
+				In the pattern above, when an A event arrives then the engine starts the subexpression <tt class="literal">B or not C</tt>. As soon as the subexpression starts, the <tt class="literal">not</tt> operator turns to true. The <tt class="literal">or</tt> expression turns true and thus your listener receives an invocation providing the A event in the property 'a'. The subexpression does not end and continues listening for B and C events. Upon arrival of a B event your listener receives a second invocation. If instead a C event arrives, the <tt class="literal">not</tt> turns permanently false however that does not affect the <tt class="literal">or</tt> operator (but would end an <tt class="literal">and</tt> operator).
+            </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-temporal-followed-by"></a>5.5.8.&nbsp;Followed-by</h3></div></div><div></div></div><a class="indexterm" name="d0e10986"></a><a class="indexterm" name="d0e10991"></a><a class="indexterm" name="d0e10996"></a><p>
+				The followed by <tt class="literal">-&gt;</tt> operator specifies that first the left hand expression must turn true and only 
+				then is the right hand expression evaluated for matching events.
+            </p><p>
+				Look for an A event and if encountered, look for a B event. As always, A and B can itself be nested event pattern expressions.
+            </p><pre class="programlisting">A -&gt; B</pre><p>
+				This is a pattern that fires when 2 status events indicating an error occur one after the other.
+            </p><pre class="programlisting">StatusEvent(status='ERROR') -&gt; StatusEvent(status='ERROR')</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-guards"></a>5.5.9.&nbsp;Pattern Guards</h3></div></div><div></div></div><a class="indexterm" name="d0e11017"></a><p>
+				Guards are where-conditions that control the lifecycle of subexpressions. Custom guard functions can also be used. The section <a href="extension.html" title="Chapter&nbsp;12.&nbsp;Extension and Plug-in">Chapter&nbsp;12, <i>Extension and Plug-in</i></a> outlines guard plug-in development in greater detail.
+			</p><p>
+				The pattern guard where-condition has no relationship to the EPL <tt class="literal">where</tt> clause that filters sets of events.
+			</p><p>
+				Take as an example the following pattern expression:
+			</p><pre class="programlisting">MyEvent where timer.within(10 sec)</pre><p>
+				In this pattern the <tt class="literal">timer:within</tt> guard controls the subexpression that is looking for MyEvent events. The guard terminates the subexpression looking for MyEvent events after 10 seconds after start of the pattern. Thus the pattern alerts only once when the first MyEvent event arrives within 10 seconds after start of the pattern.
+			</p><p>
+				The <tt class="literal">every</tt> keyword requires additional discussion since it also controls subexpression lifecycle. Let's add the <tt class="literal">every</tt> keyword to the example pattern:
+			</p><pre class="programlisting">every MyEvent where timer.within(10 sec)</pre><p>
+				The difference to the pattern without <tt class="literal">every</tt> is that each MyEvent event that arrives now starts a new subexpression, including a new guard, looking for a further MyEvent event. The result is that, when a MyEvent arrives within 10 seconds after pattern start, the pattern execution will look for the next MyEvent event to arrive within 10 seconds after the previous one.
+			</p><p>
+				By placing parentheses around the <tt class="literal">every</tt> keyword and its subexpression, we can have the <tt class="literal">every</tt> under the control of the guard:
+			</p><pre class="programlisting">(every MyEvent) where timer.within(10 sec)</pre><p>
+				In the pattern above, the guard terminates the subexpression looking for all MyEvent events after 10 seconds after start of the pattern. This pattern alerts for all MyEvent events arriving within 10 seconds after pattern start, and then stops.
+			</p><p>
+				Guards do not change the truth value of the subexpression of which the guard controls the lifecycle, and therefore do not cause a restart of the subexpression when used with the <tt class="literal">every</tt> operator. For example, the next pattern stops returning matches after 10 seconds unless a match occurred within 10 seconds after pattern start:
+			</p><pre class="programlisting">every ( (A and B) where timer.within(10 sec) )</pre><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-timer-within"></a>5.5.9.1.&nbsp;timer:within</h4></div></div><div></div></div><a class="indexterm" name="d0e11075"></a><a class="indexterm" name="d0e11080"></a><p>
+					The <tt class="literal">timer:within</tt> guard acts like a stopwatch. 
+					If the associated pattern expression does not turn true within the specified time period it is stopped and permanently false.					
+				</p><p>
+					The <tt class="literal">timer:within</tt> guard takes a time period (see <a href="epl_clauses.html#epl-syntax-time-periods" title="4.2.1.&nbsp;Specifying Time Periods">Section&nbsp;4.2.1, &#8220;Specifying Time Periods&#8221;</a>) or an expression providing a number of seconds as a parameter. The seconds interval expression may
+					contain references to properties of prior events in the same pattern as well as variables and substitution parameters.
+				</p><p>
+					This pattern fires if an A event arrives within 5 seconds after statement creation.
+				</p><pre class="programlisting">A where timer:within (5 seconds)</pre><p>
+					This pattern fires for all A events that arrive within 5 seconds. After 5 seconds, this pattern stops matching even if more A events arrive.
+				</p><pre class="programlisting">(every A) where timer:within (5 seconds)</pre><p>
+					This pattern is similar to the first pattern but here every time A arrives within 5 seconds, the pattern begins looking for A for another 5 seconds. As long
+					as A events arrive within 5 seconds after the last A, the pattern does not stop matching.
+				</p><pre class="programlisting">every (A where timer:within (5 sec))</pre><p>
+					This pattern matches for any one A or B event in the next 5 seconds.
+				</p><pre class="programlisting">( A or B ) where timer:within (5 sec)</pre><p>
+					This pattern matches for any 2 errors that happen 10 seconds within each other.
+				</p><pre class="programlisting">every (StatusEvent(status='ERROR') -&gt; StatusEvent(status='ERROR') where timer:within (10 sec))</pre><p>
+					The following guards are equivalent:
+				</p><pre class="programlisting">timer:within(2 minutes 5 seconds)
+timer:within(125 sec)
+timer:within(125)</pre><div class="sect4" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="pattern-timer-within-parameterized"></a>5.5.9.1.1.&nbsp;Time interval expressions</h5></div></div><div></div></div><p>
+						The <tt class="literal">timer:within</tt> guard may be parameterized by an expression that contains one or more references to properties of prior events in the same pattern.
+					</p><p>
+						As a simple example, this pattern matches every A event followed by a B event that arrives within <tt class="literal">delta</tt> seconds after the A event: 
+					</p><pre class="programlisting">every a=A -&gt; b=B where timer:within (a.delta seconds)</pre><p>
+						Herein A event is assumed to have a <tt class="literal">delta</tt> property that provides the number of seconds to wait for B events. Each arriving A event may have a different value for <tt class="literal">delta</tt>
+						and the guard is therefore parameterized dynamically based on the prior A event received.
+					</p><p>
+						When multiple events accumulate, for example when using the match-until or repeat pattern elements, an index must be provided:
+					</p><pre class="programlisting">[2] a=A -&gt; b=B where timer:within (a[0].delta + a[1].delta)</pre><p>
+						The above pattern matches after 2 A events arrive followed by a B event within a time interval after the A event that is defined by the sum of the <tt class="literal">delta</tt> properties of both A events.
+					</p></div></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="pattern-atoms"></a>5.6.&nbsp;Pattern Atoms</h2></div></div><div></div></div><a class="indexterm" name="d0e11156"></a><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-atom-filter"></a>5.6.1.&nbsp;Filter Atoms</h3></div></div><div></div></div><p>
+				Filter atoms have been described in section <a href="event_patterns.html#pattern-filter" title="5.4.&nbsp;Filter Expressions In Patterns">Section&nbsp;5.4, &#8220;Filter Expressions In Patterns&#8221;</a>.
+			</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="pattern-atom-time"></a>5.6.2.&nbsp;Time-based Observer Atoms</h3></div></div><div></div></div><p>
+				Observers observe time-based events for which the thread-of-control originates by the engine timer or external timer event. Custom observers can also be developed that observe timer events or other engine-external application events such as a file-exists check. The section <a href="extension.html" title="Chapter&nbsp;12.&nbsp;Extension and Plug-in">Chapter&nbsp;12, <i>Extension and Plug-in</i></a> outlines observer plug-in development in greater detail.
+			</p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-timer-interval"></a>5.6.2.1.&nbsp;timer:interval</h4></div></div><div></div></div><a class="indexterm" name="d0e11176"></a><a class="indexterm" name="d0e11181"></a><p>
+					The <tt class="literal">timer:interval</tt> observer waits for the defined time before the truth value of the observer turns true.
+					The observer takes a time period (see <a href="epl_clauses.html#epl-syntax-time-periods" title="4.2.1.&nbsp;Specifying Time Periods">Section&nbsp;4.2.1, &#8220;Specifying Time Periods&#8221;</a>) as a parameter, or an expression that returns the number of seconds.
+				</p><p>
+					The observer may be parameterized by an expression that contains one or more references to properties of prior events in the same pattern, or may also reference variables, substitution parameters or any other expression returning 
+					a numeric value.
+				</p><p>
+					After an A event arrived wait 10 seconds then indicate that the pattern matches.
+				</p><pre class="programlisting">A -&gt; timer:interval(10 seconds) </pre><p>
+					The pattern below fires every 20 seconds.
+				</p><pre class="programlisting">every timer:interval(20 sec)</pre><p>
+					The next example pattern fires for every A event that is not followed by a B event within 60 seconds after the A event arrived. The B event must have the same "id" property
+					value as the A event.
+				</p><pre class="programlisting">every a=A -&gt; (timer:interval(60 sec) and not B(id=a.id)) </pre><p>
+					Consider the next example, which assumes that the A event has a property <tt class="literal">waittime</tt>:
+				</p><pre class="programlisting">every a=A -&gt; (timer:interval(a.waittime + 2) and not B(id=a.id))</pre><p>
+					In the above pattern the logic waits for 2 seconds plus the number of seconds provided by the value of the <tt class="literal">waittime</tt> property of the A event.
+				</p></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="pattern-timer-at"></a>5.6.2.2.&nbsp;timer:at</h4></div></div><div></div></div><a class="indexterm" name="d0e11222"></a><a class="indexterm" name="d0e11227"></a><p>
+					The <tt class="literal">timer:at</tt> observer is similar in function to the Unix &#8220;crontab&#8221; command. At a specified time the 
+					expression turns true. The <tt class="literal">at</tt> operator can also be made to pattern match at regular intervals by using an <tt class="literal">every</tt> operator 
+					in front of the <tt class="literal">timer:at</tt> operator. 
+				</p><p>
+					The syntax is: <tt class="literal">timer:at (minutes, hours, days of month, months, days of week [, seconds]).</tt>
+				</p><p>
+					The value for seconds is optional. Each element allows wildcard <tt class="literal">*</tt> values. Ranges can be specified 
+					by means of lower bounds then a colon &#8216;:&#8217; then the upper bound. The division operator <tt class="literal">*/x</tt> can be used to 
+					specify that every x<sub>th</sub> value is valid. Combinations of these operators can be used by placing these into square brackets([]).
+				</p><p>
+					The <tt class="literal">timer:at</tt> observer may also be parameterized by an expression that contains one or more references to properties of prior events in the same pattern, or may also reference variables, substitution parameters or any other expression returning a numeric value. The frequency division operator <tt class="literal">*/x</tt> and parameters lists within brackets([]) are an exception: they may only contain variables, substitution parameters or numeric values.
+				</p><p>
+					This expression pattern matches every 5 minutes past the hour.
+				</p><pre class="programlisting">every timer:at(5, *, *, *, *)</pre><p>
+					The below <tt class="literal">timer:at</tt> pattern matches every 15 minutes from 8am to 5:45pm (hours 8 to 17 at 0, 15, 30 and 45 minutes past the hour) on even numbered days of the month as well as on the 
+					first day of the month.
+				</p><pre class="programlisting">timer:at (*/15, 8:17, [*/2, 1], *, *)</pre><p>
+					The below table outlines the fields, valid values and keywords available for each field:
+				</p><div class="table"><a name="d0e11283"></a><p class="title"><b>Table&nbsp;5.5.&nbsp;Properties offered by sample statement aggregating price</b></p><table summary="Properties offered by sample statement aggregating price" border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th>Field Name</th><th>Mandatory?</th><th>Allowed Values</th><th>Additional Keywords</th></tr></thead><tbody><tr><td>Minutes</td><td>yes</td><td>0 - 59</td><td>&nbsp;</td></tr><tr><td>Hours</td><td>yes</td><td>0 - 23</td><td>&nbsp;</td></tr><tr><td>Days Of Month</td><td>yes</td><td>1 - 31</td><td>last, weekday, lastweekday</td></tr><tr><td>Months</td><td>yes</td><td>1 - 12</td><td>&nbsp;</td></tr><tr><td>Days Of Week</td><td>yes</td><td>0 (Sunday) - 6 (Saturday)</td><td>last</td></tr><tr><td>Seconds</td><td>no</td><td>0 - 59</td><td>&nbsp;</td></tr></tbody></table></div><p>
+					The keyword <tt class="literal">last</tt> used in the days-of-month field means the last day of the month (current month). To specify the last day of another month, a value for the month field has to be provided. For example: <tt class="literal">timer:at(*, *, last,2,*)</tt> is the last day of February. 
+				</p><p>
+					The <tt class="literal">last</tt> keyword in the day-of-week field by itself simply means Saturday. If used in the day-of-week field after another value, it means "the last xxx day of the month" - for example "5 last" means "the last friday of the month". 
+					So the last Friday of the current month will be: <tt class="literal">timer:at(*, *, *, *, 5 last)</tt>. And the last Friday of June: <tt class="literal">timer:at(*, *, *, 6, 5 last)</tt>.
+				</p><p>
+					The keyword <tt class="literal">weekday</tt> is used to specify the weekday (Monday-Friday) nearest the given day. Variant could include month like in: <tt class="literal">timer:at(*, *, 30 weekday, 9, *)</tt> which is Friday September 28th (no jump over month).
+				</p><p>
+					The keyword <tt class="literal">lastweekday</tt> is a combination of two parameters, the <tt class="literal">last</tt> and the <tt class="literal">weekday</tt> keywords. A typical example could be: <tt class="literal">timer:at(*, *, *, lastweekday, 9, *)</tt> which will define Friday September 28th (example year is 2007).
+				</p><div class="sect4" lang="en"><div class="titlepage"><div><div><h5 class="title"><a name="pattern-timer-at-every"></a>5.6.2.2.1.&nbsp;timer:at and the <tt class="literal">every</tt> Operator</h5></div></div><div></div></div><p>
+						When using <tt class="literal">timer:at</tt> with the <tt class="literal">every</tt> operator the crontab-like timer computes the next time at which the timer should fire based on the specification and the current time. When using <tt class="literal">every</tt>, the current time is the time the timer fired or the statement start time if the timer has not fired once.
+					</p><p>
+						For example, this pattern fires every 1 minute starting at 1:00pm and ending at 1:59pm, every day:
+					</p><pre class="programlisting">every timer:at(*, 13, *, *, *)</pre><p>
+						Assume the above statement gets started at 1:05pm and 20 seconds. In such case the above pattern fires every 1 minute starting at 1:06pm and ending at 1:59pm for that day and 1:00pm to 1:59pm every following day.
+					</p><p>
+						To get the pattern to fire only once at 1pm every day, explicitly specify the minute to start. The pattern below fires every day at 1:00pm:
+					</p><pre class="programlisting">every timer:at(0, 13, *, *, *)</pre><p>
+						By specifying a second resolution the timer can be made to fire every second, for instance:
+					</p><pre class="programlisting">every timer:at(*, *, *, *, *, *)</pre></div></div></div></div></div><hr xmlns="http://www.w3.org/TR/xhtml1/transitional"><center xmlns="http://www.w3.org/TR/xhtml1/transitional">&copy; 2009 EsperTech Inc. All Rights Reserved</center><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script><script xmlns="http://www.w3.org/TR/xhtml1/transitional" type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-1261295-1");
+	pageTracker._trackPageview();
+	</script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="epl_clauses.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="match-recognize.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;4.&nbsp;EPL Reference: Clauses&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;6.&nbsp;EPL Reference: Match Recognize</td></tr></table></div></body></html>
