@@ -66,7 +66,7 @@ public class Client implements Runnable {
     
     this.wrapper = (EWrapper)Proxy.newProxyInstance(
         EWrapper.class.getClassLoader(), 
-        new Class[] { EWrapper.class }, new ApiHandler());
+        new Class[] { EWrapper.class }, new IBProxy(null));
   }
   
   //@Override //JDK1.5

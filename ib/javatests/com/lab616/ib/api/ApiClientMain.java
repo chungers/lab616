@@ -19,7 +19,7 @@ public class ApiClientMain extends Main {
 
   @Override
   public Module[] getModules() {
-    return new Module[] { new ApiClientModule() };
+    return new Module[] { new IBClientModule() };
   }
 
   @Override
