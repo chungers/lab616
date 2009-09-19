@@ -39,6 +39,12 @@ public class IBClient {
     public IBClient create(String name, int id);
   }
   
+  public enum State {
+    INITIALIZED,
+    CONNECTED,
+    DISCONNECTED;
+  }
+  
   static Logger logger = Logger.getLogger(Client.class);
 
   private String name;
@@ -47,7 +53,7 @@ public class IBClient {
   private int clientId;
   private EWrapper wrapper;
   private EventEngine eventEngine;
-  
+  private State state;
   private EClientSocket client;
   
   @Inject
@@ -65,8 +71,13 @@ public class IBClient {
     this.wrapper = (EWrapper)Proxy.newProxyInstance(
         EWrapper.class.getClassLoader(), 
         new Class[] { EWrapper.class }, new IBProxy(engine));
+    this.state = State.INITIALIZED;
   }
 
+  public final State getState() {
+    return this.state;
+  }
+  
   /**
    * Returns the name of this client.
    * @return The name.
@@ -79,25 +90,32 @@ public class IBClient {
    * Connects to the IB TWS.  The Api starts a separate thread to read from
    * the socket.
    */
-  public synchronized void connect() {
+  public synchronized boolean connect() {
     // Start a new thread:
-    if (client == null) {
+    if (client == null && state != State.CONNECTED) {
       client = new EClientSocket(wrapper);
       client.eConnect(host, port, clientId);
       connects.incrementAndGet();
+      state = State.CONNECTED;
+      return true;
     }
+    return false;
   }
   
   /**
    * Disconnects from IB TWS.
    */
-  public synchronized void disconnect() {
-    if (this.client != null) {
+  public synchronized boolean disconnect() {
+    if (this.client != null && this.state == State.CONNECTED) {
       this.client.eDisconnect();
       disconnects.incrementAndGet();
+      state = State.DISCONNECTED;
+      return true;
     }
+    return false;
   }
   
+  // TODO Revise this to accept some kind of contract builder.
   public synchronized void requestMarketData(String symbol) {
     Contract contract = new Contract();
     contract.m_symbol = symbol;

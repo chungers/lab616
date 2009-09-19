@@ -11,10 +11,7 @@ import com.google.inject.Inject;
 import com.google.inject.internal.Maps;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
-import com.lab616.omnibus.SystemEvent;
 import com.lab616.omnibus.Main.Shutdown;
-import com.lab616.omnibus.event.AbstractEventWatcher;
-import com.lab616.omnibus.event.annotation.Statement;
 import com.lab616.omnibus.http.servlets.StatusServlet;
 
 /**
@@ -24,9 +21,7 @@ import com.lab616.omnibus.http.servlets.StatusServlet;
  * @author david
  *
  */
-@Statement("select * from SystemEvent where component='ib-api'")
-public class IBService extends AbstractEventWatcher 
-  implements Shutdown<Boolean> {
+public final class IBService implements Shutdown<Boolean> {
 
   @Varz(name = "ib-api-started-clients")
   public static AtomicInteger clients = new AtomicInteger(0);
@@ -35,7 +30,7 @@ public class IBService extends AbstractEventWatcher
     Varzs.export(StatusServlet.class);
   }
 
-  static Logger logger = Logger.getLogger(Client.class);
+  static Logger logger = Logger.getLogger(IBService.class);
 
   private final IBClient.Factory factory;
   private final Map<String, IBClient> apiClients = Maps.newHashMap();
@@ -63,63 +58,66 @@ public class IBService extends AbstractEventWatcher
     return "ib-api-service";
   }
 
+  public int getConnectionCount() {
+    return apiClients.size();
+  }
+
   /**
-   * Implements event subscriber.
-   * @param event The event.
+   * Starts a new connection of given name and assigns a connection id.
+   * @param name The name of the connection.
+   * @return True if successful.
    */
-  public void update(SystemEvent event) {
-    if (!event.getComponent().equals("ib-api")) return;
-    logger.info("Received event " + event);
-    
-    try {
-      // Starting a connection:
-      if ("start".equals(event.getMethod())) {
-        String name = event.getParam("name");
-        logger.info("Starting connection " + name);
-        synchronized (apiClients) {
-          if (!apiClients.containsKey(name)) {
-            int id = apiClients.size();
-            IBClient client = this.factory.create(name, id);
-            client.connect();
-            apiClients.put(name, client);
-            clients.incrementAndGet();
-          }
-        }
-        return;
+  public synchronized boolean newConnection(String name) {
+    Long id = System.currentTimeMillis() / (1000L * 60 * 24); 
+    return newConnection(name, id.intValue());
+  }
+  
+  /**
+   * Starts a new connection of given name.
+   * @param name The name of the connection.
+   * @param id The connection id.
+   * @return True if successful.
+   */
+  public synchronized boolean newConnection(String name, int id) {
+    if (!apiClients.containsKey(name)) {
+      IBClient client = this.factory.create(name, id);
+      if (client.connect()) {
+        apiClients.put(name, client);
+        clients.incrementAndGet();
+        return true;
       }
-      // Stopping a connection:
-      if ("stop".equals(event.getMethod())) {
-        String name = event.getParam("name");
- 
-        synchronized (apiClients) {
-          if (apiClients.containsKey(name)) {
-            logger.info("Stopping connection " + name);
-            IBClient client = apiClients.get(name);
-            client.disconnect();
-            clients.decrementAndGet();
-          }
-        }
-        return;
-      }
-      // Request market data:
-      if ("mkt".equals(event.getMethod())) {
-        String name = event.getParam("name");
-        String symbol = event.getParam("symbol");
- 
-        if (apiClients.containsKey(name)) {
-          logger.info("Request market data " + symbol + " from " + name);
-          IBClient client = apiClients.get(name);
-          client.requestMarketData(symbol);
-        }
-        return;
-      }
-    } catch (Exception e) {
-      logger.error("Error while handling request " + event, e);
-      SystemEvent error = new SystemEvent()
-        .setComponent("error")
-        .setMethod("log")
-        .setParam("original-request", event.toString());
-      post(error);
+    } else {
+      logger.info(String.format("Connection(%s) exists in state = %s",
+          name, apiClients.get(name).getState()));
     }
+    return false;
+  }
+  
+  /**
+   * Stops the connection of the given name.
+   * @param name The connection name.
+   * @return True if successful.
+   */
+  public synchronized boolean stopConnection(String name) {
+    if (apiClients.containsKey(name)) {
+      logger.info("Stopping connection " + name);
+      IBClient client = apiClients.get(name);
+      client.disconnect();
+      clients.decrementAndGet();
+      return true;
+    } else {
+      logger.info(String.format("Connection(%s) does not exist.",
+          name));
+    }
+    return false;
+  }
+  
+  /**
+   * Returns a reference to a client.
+   * @param name The name of the client.
+   * @return The client.
+   */
+  public IBClient getClient(String name) {
+    return apiClients.get(name);
   }
 }

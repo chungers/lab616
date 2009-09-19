@@ -34,7 +34,7 @@ import com.lab616.util.Time;
  * @author david
  *
  */
-public class EventEngine implements Provider<Main.Shutdown<Void>> {
+public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 
 	@Varz(name = "event-engine-event-definitions-count")
 	public static final AtomicInteger countEventDefinitions = new AtomicInteger();
@@ -250,25 +250,26 @@ public class EventEngine implements Provider<Main.Shutdown<Void>> {
 	/**
 	 * Starts the engine.
 	 */
-	public final void start() {
+	public final boolean start() {
 		// Not interesting.  Just send another time event
 		now(this.timeSource.now());
 		this.epService.getEPAdministrator().startAllStatements();
 		this.state = State.RUNNING;
+		return true;
 	}
 	
-	public final void stop() {
+	public final boolean stop() {
 		this.epService.getEPAdministrator().stopAllStatements();
 		this.epService.destroy();
 		this.state = State.STOPPED;
+		return true;
 	}
 
-	public Shutdown<Void> get() {
-	  return new Shutdown<Void>() {
-			public Void call() throws Exception {
+	public Shutdown<Boolean> get() {
+	  return new Shutdown<Boolean>() {
+			public Boolean call() throws Exception {
 				logger.info("Event engine shutting down.");
-				stop();
-	      return null;
+				return stop();
       }
 			public String getName() {
 	      return "event-engine-shutdown";
