@@ -2,11 +2,8 @@
 
 package com.lab616.ib;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
-import com.google.common.collect.Lists;
 import com.google.inject.Binder;
 import com.google.inject.Inject;
 import com.google.inject.Module;

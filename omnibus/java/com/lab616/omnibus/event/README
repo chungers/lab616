@@ -1,0 +1,16 @@
+Design Notes
+
+1. Why use annotation for Statement and Pattern, instead of just passing
+string?
+
+Using annotations basically means java classes must be defined to encapsulate
+the EPL statement and subscriber object (AbstractEventWatcher).  The reason for
+doing this is to make sure that any statements that are issued to Esper have
+been tested.  Each event watcher class should have accompanying unit tests to
+verify that they work.  Otherwise, we can have unpredictable things happening
+in production because Esper inherently does no static type checking or making
+sure that a statement even works correctly.
+
+2. #1 explains why we don't have Builders for ad-hoc statement construction.  
+Instead, everything should map to a tested AbstractEventWatcher class.
+
