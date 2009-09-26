@@ -5,6 +5,8 @@ package com.lab616.ib.api;
 import org.apache.log4j.Logger;
 
 import com.google.inject.Inject;
+import com.lab616.ib.api.builders.ContractBuilder;
+import com.lab616.ib.api.builders.MarketDataRequestBuilder;
 import com.lab616.omnibus.SystemEvent;
 import com.lab616.omnibus.event.AbstractEventWatcher;
 import com.lab616.omnibus.event.annotation.Statement;
@@ -58,7 +60,9 @@ public class IBSystemEventWatcher extends AbstractEventWatcher {
         IBClient client = this.service.getClient(name);
         if (client != null) {
           logger.info("Request market data " + symbol + " from " + name);
-          client.requestMarketData(symbol);
+          client.requestMarketData(
+              new MarketDataRequestBuilder().withDefaultsForStocks()
+              .forStock(new ContractBuilder(symbol)));
         }
         return;
       }

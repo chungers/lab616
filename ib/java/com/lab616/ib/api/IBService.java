@@ -68,8 +68,8 @@ public final class IBService implements Shutdown<Boolean> {
    * @return True if successful.
    */
   public synchronized boolean newConnection(String name) {
-    Long id = System.currentTimeMillis() / (1000L * 60 * 24); 
-    return newConnection(name, id.intValue());
+    int id = apiClients.size(); 
+    return newConnection(name, id);
   }
   
   /**

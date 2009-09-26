@@ -14,7 +14,7 @@ public interface Builder<T> {
 	}
 
 	public T build();
-  public Property<T> setProperty(String name);
+  public Property<T> setProperty(String name, Class<?>... argTypes);
   
-  public Builder<T> setProperty(String name, Object v);
+  public Builder<T> set(String name, Object v);
 }

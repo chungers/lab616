@@ -4,12 +4,19 @@ package com.lab616.ib.api;
 
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotSame;
+
+import java.util.List;
+import java.util.StringTokenizer;
+
 import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.inject.internal.Lists;
 
 /**
  *
@@ -126,6 +133,27 @@ public class ApiTest {
     char[] alphabets = new char[] { 'a', 'A', 'z', 'Z'};
     for (int i = 0; i < alphabets.length; i++) {
       System.err.println(Character.getNumericValue(alphabets[i]));
+    }
+  }
+  
+  private static String LIST = "FAS FAZ SRS GS AAPL GOOG URE RIMM TBT BAC DXD DXO FSLR FXP LDK QID QLD REW SDS SKF BK JPM MS SMN SSO TYH TYP UYM XLE XLV AYI AMZN DDM C COF AXP RTH";
+  
+  @Test
+  public void testNoDups() throws Exception {
+    System.err.println("list = " + LIST);
+    StringTokenizer tok = new StringTokenizer(LIST);
+    List<String> list = Lists.newArrayList();
+    List<Integer> ids = Lists.newArrayList();
+    while (tok.hasMoreTokens()) {
+      String t = tok.nextToken();
+      assertFalse("t = " + t, list.contains(t));
+      
+      int id = TickerId.toTickerId(t);
+      assertFalse(ids.contains(id));
+      list.add(t);
+      ids.add(id);
+      System.err.println(">>>" + list);
+      System.err.println(">>>" + ids);
     }
   }
 }

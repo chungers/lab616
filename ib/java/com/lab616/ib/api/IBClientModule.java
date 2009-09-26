@@ -7,6 +7,7 @@ import com.google.inject.assistedinject.FactoryProvider;
 import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
+import com.lab616.ib.api.watchers.IBEventLogger;
 import com.lab616.omnibus.Main;
 import com.lab616.omnibus.event.AbstractEventModule;
 import com.lab616.omnibus.event.ObjectEventDefinition;
@@ -25,6 +26,9 @@ public class IBClientModule extends AbstractEventModule {
   @Flag(name = "ib-api-port")
   public static Integer API_PORT = 7496;
   
+  @Flag(name = "ib-api-log")
+  public static String API_LOG;
+  
   static {
     Flags.register(IBClientModule.class);
   }
@@ -35,12 +39,15 @@ public class IBClientModule extends AbstractEventModule {
       .to(API_HOST);
     bindConstant().annotatedWith(Names.named("ib-api-port"))
       .to(API_PORT);
+    bindConstant().annotatedWith(Names.named("ib-api-log"))
+      .to(API_LOG);
     
     // Event definitions.
     bindEventDefinition(new ObjectEventDefinition<IBEvent>(
         IBEvent.EVENT_NAME, IBEvent.class));
     // Event watchers.
     bindEventWatcher(IBSystemEventWatcher.class);
+    bindEventWatcher(IBEventLogger.class);
 
     // Client factory
     bind(IBClient.Factory.class).toProvider(

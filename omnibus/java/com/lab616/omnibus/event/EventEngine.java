@@ -4,6 +4,7 @@ package com.lab616.omnibus.event;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -76,6 +77,9 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	private final Set<AbstractEventWatcher> eventWatchers;
 	private final Configuration esperConfiguration;
   private final EPServiceProvider epService;
+ 
+  private long lastTick = Time.now();
+  private static long tickDuration = TimeUnit.MICROSECONDS.toMicros(100L);
   
   private State state;
   private List<AbstractEventWatcher> watchers = Lists.newArrayList();
@@ -105,6 +109,7 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
    */
   public final EventEngine setTimeSource(TimeSource ts) {
   	this.timeSource = ts;
+  	this.lastTick = ts.now();
   	return this;
   }
   
@@ -170,7 +175,11 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	 * @param eventObject The event object.
 	 */
 	public final void post(Object eventObject) {
-		now();
+	  if ((this.timeSource.now() - this.lastTick) > tickDuration) {
+	    now();
+	    this.lastTick = this.timeSource.now();
+	  }
+	  
 		this.epService.getEPRuntime().sendEvent(eventObject);
 		countEvents.incrementAndGet();
 	}

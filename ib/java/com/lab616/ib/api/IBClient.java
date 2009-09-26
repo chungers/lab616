@@ -13,6 +13,8 @@ import com.google.inject.name.Named;
 import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
+import com.lab616.ib.api.builders.MarketDataRequest;
+import com.lab616.ib.api.builders.MarketDataRequestBuilder;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
@@ -114,17 +116,25 @@ public class IBClient {
     }
     return false;
   }
-  
-  // TODO Revise this to accept some kind of contract builder.
-  public synchronized void requestMarketData(String symbol) {
-    Contract contract = new Contract();
-    contract.m_symbol = symbol;
-    contract.m_secType = "STK";
-    contract.m_currency = "USD";
-    contract.m_exchange = "SMART";
+
+  /**
+   * Requests market data.
+   * @param builder The request builder.
+   */
+  public synchronized void requestMarketData(MarketDataRequestBuilder builder) {
+    MarketDataRequest req = builder.build();
     
-    Stock stock = new Stock(symbol);
-    client.reqMktData(stock.getTickerId(), contract, 
-        "225,221,233", false);
+    while (!client.isConnected()) {
+      try {
+        Thread.sleep(100L);
+      } catch (InterruptedException e) {
+        //
+      }
+    } 
+    client.reqMktData(
+        req.getTickerId(), 
+        req.getContract(), 
+        req.getGenericTickList(), 
+        req.getSnapShot());
   }
 }

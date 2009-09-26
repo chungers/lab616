@@ -294,6 +294,9 @@
 			<PositionColumn>
 				<shown>true</shown>
 			</PositionColumn>
+			<PendingCashColumn>
+				<shown>false</shown>
+			</PendingCashColumn>
 			<CurrencyColumn>
 				<shown>true</shown>
 			</CurrencyColumn>
@@ -2608,36 +2611,6 @@
 						<fg>-1</fg>
 						<bg>-13035473</bg>
 					</PositionColumn>
-					<AvgCostColumn>
-						<colId>17</colId>
-						<width>24</width>
-						<alignment>4</alignment>
-						<fg>-1</fg>
-						<bg>-13035473</bg>
-					</AvgCostColumn>
-					<PositionValueColumn>
-						<colId>43</colId>
-						<width>24</width>
-						<alignment>4</alignment>
-						<fg>-1</fg>
-						<bg>-13035473</bg>
-					</PositionValueColumn>
-					<PAndLColumn>
-						<colId>15</colId>
-						<width>40</width>
-						<alignment>4</alignment>
-						<fg>-1</fg>
-						<bg>-13035473</bg>
-						<countDailyOnly>false</countDailyOnly>
-					</PAndLColumn>
-					<UnrPnLColumn>
-						<colId>19</colId>
-						<width>40</width>
-						<alignment>4</alignment>
-						<fg>-1</fg>
-						<bg>-13035473</bg>
-						<showPercentage>false</showPercentage>
-					</UnrPnLColumn>
 					<BidSizeColumn>
 						<colId>3</colId>
 						<width>24</width>
@@ -2920,13 +2893,6 @@
 						<fg>-1</fg>
 						<bg>-13035473</bg>
 					</PositionColumn>
-					<PositionValueColumn>
-						<colId>43</colId>
-						<width>24</width>
-						<alignment>4</alignment>
-						<fg>-1</fg>
-						<bg>-13035473</bg>
-					</PositionValueColumn>
 					<BidPriceColumn>
 						<colId>4</colId>
 						<width>40</width>
@@ -4006,6 +3972,145 @@
 				<displayAcctSelector>true</displayAcctSelector>
 				<askMirrorsBid>false</askMirrorsBid>
 			</Layout>
+			<Layout>
+				<TickerColumns varName="allTickerCols">
+					<UnderlyingColumn>
+						<colId>0</colId>
+						<width>40</width>
+						<alignment>2</alignment>
+						<fg>-16777216</fg>
+						<bg>-1052974</bg>
+					</UnderlyingColumn>
+					<ExchColumn>
+						<colId>1</colId>
+						<width>24</width>
+						<alignment>2</alignment>
+						<fg>-16777216</fg>
+						<bg>-1052974</bg>
+					</ExchColumn>
+					<DescriptionColumn>
+						<colId>2</colId>
+						<width>110</width>
+						<alignment>2</alignment>
+						<fg>-16777216</fg>
+						<bg>-1052974</bg>
+					</DescriptionColumn>
+					<PositionColumn>
+						<colId>14</colId>
+						<width>24</width>
+						<alignment>4</alignment>
+						<fg>-1</fg>
+						<bg>-13035473</bg>
+					</PositionColumn>
+					<BidSizeColumn>
+						<colId>3</colId>
+						<width>24</width>
+						<alignment>4</alignment>
+						<prohibitDynamicColors>false</prohibitDynamicColors>
+					</BidSizeColumn>
+					<BidPriceColumn>
+						<colId>4</colId>
+						<width>40</width>
+						<alignment>4</alignment>
+						<prohibitDynamicColors>false</prohibitDynamicColors>
+					</BidPriceColumn>
+					<AskPriceColumn>
+						<colId>5</colId>
+						<width>40</width>
+						<alignment>4</alignment>
+						<prohibitDynamicColors>false</prohibitDynamicColors>
+					</AskPriceColumn>
+					<AskSizeColumn>
+						<colId>6</colId>
+						<width>24</width>
+						<alignment>4</alignment>
+						<prohibitDynamicColors>false</prohibitDynamicColors>
+					</AskSizeColumn>
+					<LastPriceColumn>
+						<colId>7</colId>
+						<width>40</width>
+						<alignment>4</alignment>
+						<prohibitDynamicColors>false</prohibitDynamicColors>
+					</LastPriceColumn>
+				</TickerColumns>
+				<OrderColumns varName="allOrderCols">
+					<TIFColumn>
+						<colId>3090</colId>
+						<width>40</width>
+						<alignment>2</alignment>
+					</TIFColumn>
+					<ActionColumn>
+						<colId>3130</colId>
+						<width>40</width>
+						<alignment>2</alignment>
+					</ActionColumn>
+					<QuantityColumn>
+						<colId>3180</colId>
+						<width>24</width>
+						<alignment>4</alignment>
+					</QuantityColumn>
+					<OrderTypeColumn>
+						<colId>3210</colId>
+						<width>24</width>
+						<alignment>2</alignment>
+					</OrderTypeColumn>
+					<PriceColumn>
+						<colId>3220</colId>
+						<width>40</width>
+						<alignment>4</alignment>
+						<fg>-16777216</fg>
+						<bg>-1</bg>
+					</PriceColumn>
+					<OtherPriceColumn>
+						<colId>3230</colId>
+						<width>40</width>
+						<alignment>4</alignment>
+						<fg>-16777216</fg>
+						<bg>-1</bg>
+					</OtherPriceColumn>
+					<OrderDestColumn>
+						<colId>3298</colId>
+						<width>24</width>
+						<alignment>2</alignment>
+					</OrderDestColumn>
+					<StatusColumn>
+						<colId>3300</colId>
+						<width>40</width>
+						<alignment>2</alignment>
+					</StatusColumn>
+				</OrderColumns>
+				<fgTicker>-256</fgTicker>
+				<bgTicker>-16777216</bgTicker>
+				<fgOrder>-256</fgOrder>
+				<bgOrder>-16777216</bgOrder>
+				<fgTotalRow>-1</fgTotalRow>
+				<bgTotalRow>-13035473</bgTotalRow>
+				<fgUptick>-16715776</fgUptick>
+				<fgDowntick>-29389</fgDowntick>
+				<fgNoAutoEx>-16897</fgNoAutoEx>
+				<fgImpliedtick>-65281</fgImpliedtick>
+				<fgPreOpen>-3872515</fgPreOpen>
+				<bgAuction>-10079488</bgAuction>
+				<fgImproved>-6684775</fgImproved>
+				<bgImproved>-10092289</bgImproved>
+				<bgAlarm>-14522302</bgAlarm>
+				<bgDirty>-10855896</bgDirty>
+				<bgDirtySel>-6322878</bgDirtySel>
+				<colGrid>-16645630</colGrid>
+				<name>Fundamentals</name>
+				<level>2</level>
+				<version>16</version>
+				<removeAutoColumnResize>false</removeAutoColumnResize>
+				<useCombinedRows>false</useCombinedRows>
+				<displayBySymbol>false</displayBySymbol>
+				<sortedColId>-1</sortedColId>
+				<sortedOrderColId>-1</sortedOrderColId>
+				<sortAscending>true</sortAscending>
+				<sortOrdersAscending>true</sortOrdersAscending>
+				<showTotalRow>true</showTotalRow>
+				<displayAcctSelector>true</displayAcctSelector>
+				<askMirrorsBid>false</askMirrorsBid>
+			</Layout>
 		</ArLayout>
 		<ArAlarms varName="arAlarms">
 		</ArAlarms>
@@ -4032,6 +4137,7 @@
 		<pennyPriceWand>true</pennyPriceWand>
 		<pennyPriceConfirmation>true</pennyPriceConfirmation>
 		<instanRemovalBasketOrders>false</instanRemovalBasketOrders>
+		<titlebarText></titlebarText>
 		<includeFxPositions>false</includeFxPositions>
 		<showToolbarOnDetachedPages>false</showToolbarOnDetachedPages>
 		<displayStocksWithOptsInBold>false</displayStocksWithOptsInBold>
@@ -4043,6 +4149,7 @@
 		<portfolioPageRealizedPnlIntro>false</portfolioPageRealizedPnlIntro>
 		<comboExecColumnAdded>false</comboExecColumnAdded>
 		<expandExecColumnAdded>false</expandExecColumnAdded>
+		<orderDialogStructure></orderDialogStructure>
 		<positionColumnAutoAdded>false</positionColumnAutoAdded>
 		<unrealizedPnlColumnAutoAdded>false</unrealizedPnlColumnAutoAdded>
 		<realizedPnlColumnAutoAdded>false</realizedPnlColumnAutoAdded>
@@ -4070,7 +4177,7 @@
 		<autoExportEnabled>false</autoExportEnabled>
 		<exportDir>/Users/david/lab616/runtime/tws/local/</exportDir>
 		<executionSummaryExportDir>/Users/david/lab616/runtime/tws/local/</executionSummaryExportDir>
-		<autoLogoffTime>11:30,PM</autoLogoffTime>
+		<autoLogoffTime>09:00,PM</autoLogoffTime>
 		<autoExportDirectory>/Users/david/lab616/runtime/tws/local/</autoExportDirectory>
 		<autoExportFile></autoExportFile>
 		<autoExportStart></autoExportStart>
@@ -4092,7 +4199,7 @@
 		<enableChartToolTip>false</enableChartToolTip>
 		<redirectChartToolTip>false</redirectChartToolTip>
 		<twoPendingPages>false</twoPendingPages>
-		<lastAccount>DU15216</lastAccount>
+		<lastAccount>DU71323</lastAccount>
 		<togglePennies>false</togglePennies>
 		<exportSymbol>100</exportSymbol>
 		<specialClearing>false</specialClearing>
@@ -4365,7 +4472,12 @@
 		<showVolup>false</showVolup>
 		<showVoldown>false</showVoldown>
 		<showTdown>false</showTdown>
+		<report1></report1>
+		<report2></report2>
+		<report3></report3>
+		<report4></report4>
 		<actualReport>2</actualReport>
+		<optModEdConfig></optModEdConfig>
 		<volUnits>Annual</volUnits>
 		<referencePriceType>Bid or Ask</referencePriceType>
 		<portfolioUpdate></portfolioUpdate>
@@ -4375,6 +4487,7 @@
 		<mibsxContraTrader></mibsxContraTrader>
 		<mibsxContraCompany></mibsxContraCompany>
 		<mibsxSector></mibsxSector>
+		<mibsxFixedSector></mibsxFixedSector>
 		<intranet>true</intranet>
 		<showRfqMsg>false</showRfqMsg>
 		<rfqDisableNativeCombo>false</rfqDisableNativeCombo>
@@ -4708,6 +4821,10 @@
 		<openingPartialExecutionRep>1</openingPartialExecutionRep>
 		<closingExecutionRep>1</closingExecutionRep>
 		<closingPartialExecutionRep>1</closingPartialExecutionRep>
+		<leftClickInFile></leftClickInFile>
+		<leftClickOutFile></leftClickOutFile>
+		<rightClickInFile></rightClickInFile>
+		<rightClickOutFile></rightClickOutFile>
 	</SoundSettings>
 	<ArSoundRows varName="soundRows">
 		<SoundRow>
@@ -12837,6 +12954,7 @@
 			</ArQuoteElements>
 		</GreekPortfolioConfig>
 		<FundamentalsConfig varName="fundamentalsConfig">
+			<pluginKey>Configuration#Information Tools#Fundamentals</pluginKey>
 			<showMenu>true</showMenu>
 			<showToolbar>true</showToolbar>
 			<HotkeyMgr type="jhotkey.FundamentalsHotkeyMgr" varName="hotkeyMgr">
@@ -20954,6 +21072,248 @@
 			<Workspace>
 				<WindowsSettings varName="windowsSettings">
 					<WindowConfigurationMap varName="settingsMap">
+						<String>Execution Window</String>
+						<WindowConfiguration>
+							<namePrimary>Execution Window</namePrimary>
+							<width>0</width>
+							<height>0</height>
+							<x>0</x>
+							<y>0</y>
+							<restoreWindow>false</restoreWindow>
+							<maximized>false</maximized>
+							<onTop>false</onTop>
+							<minimized>false</minimized>
+							<ListOfContents varName="contents">
+								<ExecutionContent>
+									<version>0</version>
+									<ExtendedConfigurationMap varName="extendedConfiguration">
+									</ExtendedConfigurationMap>
+									<fontSize>14</fontSize>
+									<fontName>Default</fontName>
+									<second>0</second>
+									<autoExpand>false</autoExpand>
+									<ExecTableColumnMgr varName="execColumMgr">
+										<ExecTableColumnCollection varName="columns">
+											<ArColumnInfo varName="arAllColumns">
+												<ColumnInfo>
+													<colId>0</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>26</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>1</colId>
+													<enabled>true</enabled>
+													<alignment>2</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>2</colId>
+													<enabled>true</enabled>
+													<alignment>4</alignment>
+													<width>70</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>3</colId>
+													<enabled>true</enabled>
+													<alignment>0</alignment>
+													<width>80</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>4</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>30</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>5</colId>
+													<enabled>true</enabled>
+													<alignment>2</alignment>
+													<width>120</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>6</colId>
+													<enabled>true</enabled>
+													<alignment>4</alignment>
+													<width>80</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>7</colId>
+													<enabled>true</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>8</colId>
+													<enabled>true</enabled>
+													<alignment>0</alignment>
+													<width>80</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>9</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>120</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>10</colId>
+													<enabled>true</enabled>
+													<alignment>0</alignment>
+													<width>140</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>11</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>100</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>12</colId>
+													<enabled>true</enabled>
+													<alignment>0</alignment>
+													<width>100</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>13</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>70</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>18</colId>
+													<enabled>false</enabled>
+													<alignment>2</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>20</colId>
+													<enabled>true</enabled>
+													<alignment>4</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>21</colId>
+													<enabled>false</enabled>
+													<alignment>4</alignment>
+													<width>80</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>22</colId>
+													<enabled>false</enabled>
+													<alignment>4</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>24</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>25</colId>
+													<enabled>false</enabled>
+													<alignment>4</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>27</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>28</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>29</colId>
+													<enabled>false</enabled>
+													<alignment>4</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>30</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>31</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>32</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>33</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>34</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>35</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>36</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+												<ColumnInfo>
+													<colId>37</colId>
+													<enabled>false</enabled>
+													<alignment>0</alignment>
+													<width>60</width>
+												</ColumnInfo>
+											</ArColumnInfo>
+											<isExportTradeReport>false</isExportTradeReport>
+										</ExecTableColumnCollection>
+									</ExecTableColumnMgr>
+								</ExecutionContent>
+							</ListOfContents>
+							<ExtendedConfigurationMap varName="extendedConfiguration">
+							</ExtendedConfigurationMap>
+							<WindowGroup varName="group">
+								<id>-1</id>
+							</WindowGroup>
+							<groupMinimized>false</groupMinimized>
+						</WindowConfiguration>
+						<String>Welcome</String>
+						<WindowConfiguration>
+							<namePrimary>Welcome</namePrimary>
+							<width>650</width>
+							<height>550</height>
+							<x>315</x>
+							<y>125</y>
+							<restoreWindow>false</restoreWindow>
+							<maximized>false</maximized>
+							<onTop>false</onTop>
+							<minimized>false</minimized>
+							<ListOfContents varName="contents">
+							</ListOfContents>
+							<ExtendedConfigurationMap varName="extendedConfiguration">
+							</ExtendedConfigurationMap>
+							<WindowGroup varName="group">
+								<id>-1</id>
+							</WindowGroup>
+							<groupMinimized>false</groupMinimized>
+						</WindowConfiguration>
 						<String>Configuration</String>
 						<WindowConfiguration>
 							<namePrimary>Configuration</namePrimary>
@@ -20975,26 +21335,6 @@
 										</SplitConfiguration>
 									</ExtendedConfigurationMap>
 								</DefaultContent>
-							</ListOfContents>
-							<ExtendedConfigurationMap varName="extendedConfiguration">
-							</ExtendedConfigurationMap>
-							<WindowGroup varName="group">
-								<id>-1</id>
-							</WindowGroup>
-							<groupMinimized>false</groupMinimized>
-						</WindowConfiguration>
-						<String>Welcome</String>
-						<WindowConfiguration>
-							<namePrimary>Welcome</namePrimary>
-							<width>650</width>
-							<height>550</height>
-							<x>315</x>
-							<y>125</y>
-							<restoreWindow>false</restoreWindow>
-							<maximized>false</maximized>
-							<onTop>false</onTop>
-							<minimized>false</minimized>
-							<ListOfContents varName="contents">
 							</ListOfContents>
 							<ExtendedConfigurationMap varName="extendedConfiguration">
 							</ExtendedConfigurationMap>
@@ -23773,22 +24113,6 @@
 							<maximized>false</maximized>
 							<onTop>false</onTop>
 							<minimized>false</minimized>
-							<WindowGroup varName="group">
-								<id>-1</id>
-							</WindowGroup>
-							<groupMinimized>false</groupMinimized>
-						</WindowConfiguration>
-						<String>Search Results</String>
-						<WindowConfiguration>
-							<namePrimary>Search Results</namePrimary>
-							<width>0</width>
-							<height>0</height>
-							<x>0</x>
-							<y>0</y>
-							<restoreWindow>false</restoreWindow>
-							<maximized>false</maximized>
-							<onTop>false</onTop>
-							<minimized>false</minimized>
 							<ListOfContents varName="contents">
 							</ListOfContents>
 							<ExtendedConfigurationMap varName="extendedConfiguration">
@@ -23838,6 +24162,10 @@
 											<column>1</column>
 											<ascending>false</ascending>
 										</SortableTableConfiguration>
+										<String>MarketValueDVP</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
 										<String>Account Margin Table</String>
 										<TableConfiguration>
 											<ColumnWidthsMap varName="columnWidths">
@@ -23853,10 +24181,6 @@
 											<ColumnOrdinalsMap varName="columnOrdinals">
 											</ColumnOrdinalsMap>
 										</TableConfiguration>
-										<String>MarketValueDVP</String>
-										<FoldingPanelConfiguration>
-											<foldingState>true</foldingState>
-										</FoldingPanelConfiguration>
 										<String>AvailableForTraiding</String>
 										<FoldingPanelConfiguration>
 											<foldingState>true</foldingState>
@@ -24112,13 +24436,1015 @@
 							</WindowGroup>
 							<groupMinimized>false</groupMinimized>
 						</WindowConfiguration>
+						<String>Search Results</String>
+						<WindowConfiguration>
+							<namePrimary>Search Results</namePrimary>
+							<width>0</width>
+							<height>0</height>
+							<x>0</x>
+							<y>0</y>
+							<restoreWindow>false</restoreWindow>
+							<maximized>false</maximized>
+							<onTop>false</onTop>
+							<minimized>false</minimized>
+							<ListOfContents varName="contents">
+							</ListOfContents>
+							<ExtendedConfigurationMap varName="extendedConfiguration">
+							</ExtendedConfigurationMap>
+							<WindowGroup varName="group">
+								<id>-1</id>
+							</WindowGroup>
+							<groupMinimized>false</groupMinimized>
+						</WindowConfiguration>
 					</WindowConfigurationMap>
 				</WindowsSettings>
 				<name>Default Workspace</name>
 				<workspaceKey>-6616197763930739600</workspaceKey>
 			</Workspace>
+			<Workspace>
+				<WindowsSettings varName="windowsSettings">
+					<WindowConfigurationMap varName="settingsMap">
+						<String>Configuration</String>
+						<WindowConfiguration>
+							<namePrimary>Configuration</namePrimary>
+							<width>750</width>
+							<height>660</height>
+							<x>0</x>
+							<y>22</y>
+							<restoreWindow>false</restoreWindow>
+							<maximized>false</maximized>
+							<onTop>false</onTop>
+							<minimized>false</minimized>
+							<ListOfContents varName="contents">
+								<DefaultContent>
+									<version>0</version>
+									<ExtendedConfigurationMap varName="extendedConfiguration">
+										<String>split</String>
+										<SplitConfiguration>
+											<dividerLocation>210</dividerLocation>
+										</SplitConfiguration>
+									</ExtendedConfigurationMap>
+								</DefaultContent>
+							</ListOfContents>
+							<ExtendedConfigurationMap varName="extendedConfiguration">
+							</ExtendedConfigurationMap>
+							<WindowGroup varName="group">
+								<id>-1</id>
+							</WindowGroup>
+							<groupMinimized>false</groupMinimized>
+						</WindowConfiguration>
+						<String>Welcome</String>
+						<WindowConfiguration>
+							<namePrimary>Welcome</namePrimary>
+							<width>650</width>
+							<height>550</height>
+							<x>275</x>
+							<y>685</y>
+							<restoreWindow>false</restoreWindow>
+							<maximized>false</maximized>
+							<onTop>false</onTop>
+							<minimized>false</minimized>
+							<ListOfContents varName="contents">
+							</ListOfContents>
+							<ExtendedConfigurationMap varName="extendedConfiguration">
+							</ExtendedConfigurationMap>
+							<WindowGroup varName="group">
+								<id>-1</id>
+							</WindowGroup>
+							<groupMinimized>false</groupMinimized>
+						</WindowConfiguration>
+						<String>Main Window|0</String>
+						<WindowConfiguration>
+							<namePrimary>Main Window</namePrimary>
+							<nameSecondary>0</nameSecondary>
+							<width>720</width>
+							<height>360</height>
+							<x>0</x>
+							<y>22</y>
+							<restoreWindow>true</restoreWindow>
+							<maximized>false</maximized>
+							<onTop>false</onTop>
+							<minimized>false</minimized>
+							<ListOfContents varName="contents">
+								<MainContent>
+									<version>0</version>
+									<ExtendedConfigurationMap varName="extendedConfiguration">
+									</ExtendedConfigurationMap>
+									<TickerPageSetting varName="pageSetting">
+										<name>Untitled</name>
+										<account></account>
+										<firm></firm>
+										<origin>6</origin>
+										<layout>Default</layout>
+										<stkOnly>false</stkOnly>
+										<showAllOrders>true</showAllOrders>
+										<AccountOrGroup varName="acctOrGroup">
+											<name></name>
+											<isGroup>false</isGroup>
+										</AccountOrGroup>
+										<pageId>1253930721</pageId>
+										<detached>false</detached>
+										<showOrders>SHOW_ALL_ORDERS</showOrders>
+										<CompletedOrderSettings varName="completedSettings">
+										</CompletedOrderSettings>
+										<version>4</version>
+									</TickerPageSetting>
+									<ArTickerEntry varName="entries">
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+										<TickerEntry>
+											<name>.</name>
+											<conid>0</conid>
+											<type>0</type>
+											<exchange>.</exchange>
+											<comboKeyStr></comboKeyStr>
+											<comboTypeId>-1</comboTypeId>
+											<scaled>false</scaled>
+											<cash>0.0</cash>
+											<profit>0.0</profit>
+											<underlyingSpxPrice>0.0</underlyingSpxPrice>
+											<conid_second>0</conid_second>
+										</TickerEntry>
+									</ArTickerEntry>
+								</MainContent>
+							</ListOfContents>
+							<ExtendedConfigurationMap varName="extendedConfiguration">
+								<String>Pages</String>
+								<TabPaneConfiguration>
+									<selectedTab>0</selectedTab>
+								</TabPaneConfiguration>
+								<String>vsplit</String>
+								<SplitConfiguration>
+									<dividerLocation>175</dividerLocation>
+								</SplitConfiguration>
+							</ExtendedConfigurationMap>
+							<WindowGroup varName="group">
+								<id>0</id>
+							</WindowGroup>
+							<groupMinimized>false</groupMinimized>
+						</WindowConfiguration>
+						<String>Unused Features</String>
+						<WindowConfiguration>
+							<namePrimary>Unused Features</namePrimary>
+							<width>373</width>
+							<height>669</height>
+							<x>320</x>
+							<y>475</y>
+							<restoreWindow>false</restoreWindow>
+							<maximized>false</maximized>
+							<onTop>false</onTop>
+							<minimized>false</minimized>
+							<WindowGroup varName="group">
+								<id>-1</id>
+							</WindowGroup>
+							<groupMinimized>false</groupMinimized>
+						</WindowConfiguration>
+						<String>Search Results</String>
+						<WindowConfiguration>
+							<namePrimary>Search Results</namePrimary>
+							<width>0</width>
+							<height>0</height>
+							<x>0</x>
+							<y>0</y>
+							<restoreWindow>false</restoreWindow>
+							<maximized>false</maximized>
+							<onTop>false</onTop>
+							<minimized>false</minimized>
+							<ListOfContents varName="contents">
+							</ListOfContents>
+							<ExtendedConfigurationMap varName="extendedConfiguration">
+							</ExtendedConfigurationMap>
+							<WindowGroup varName="group">
+								<id>-1</id>
+							</WindowGroup>
+							<groupMinimized>false</groupMinimized>
+						</WindowConfiguration>
+						<String>Account Window</String>
+						<WindowConfiguration>
+							<namePrimary>Account Window</namePrimary>
+							<width>800</width>
+							<height>780</height>
+							<x>0</x>
+							<y>22</y>
+							<restoreWindow>false</restoreWindow>
+							<maximized>false</maximized>
+							<onTop>false</onTop>
+							<minimized>false</minimized>
+							<ListOfContents varName="contents">
+								<DefaultContent>
+									<version>1</version>
+									<ExtendedConfigurationMap varName="extendedConfiguration">
+										<String>Account Margin TableExpModel</String>
+										<ExpandableTableConfiguration>
+											<expanded>false</expanded>
+											<ListOfStrings varName="expandedKeyList">
+												<String>MaintMarginReq</String>
+												<String>InitMarginReq</String>
+											</ListOfStrings>
+										</ExpandableTableConfiguration>
+										<String>Account Portfolio Table_Sorting</String>
+										<SortableTableConfiguration>
+											<column>1</column>
+											<ascending>false</ascending>
+										</SortableTableConfiguration>
+										<String>Account Portfolio Table</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>FXAccount Portfolio TableAway_Sorting</String>
+										<SortableTableConfiguration>
+											<column>1</column>
+											<ascending>false</ascending>
+										</SortableTableConfiguration>
+										<String>Account Margin Table</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+												<String>column_1:w</String>
+												<String>144</String>
+												<String>column_3:w</String>
+												<String>99</String>
+												<String>column_0:w</String>
+												<String>182</String>
+												<String>column_2:w</String>
+												<String>144</String>
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>MarketValueDVP</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>AvailableForTraiding</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>Account Balance Table</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+												<String>column_1:w</String>
+												<String>144</String>
+												<String>column_3:w</String>
+												<String>99</String>
+												<String>column_0:w</String>
+												<String>182</String>
+												<String>column_2:w</String>
+												<String>144</String>
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>Balances</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>Account Portfolio TableAway_Sorting</String>
+										<SortableTableConfiguration>
+											<column>1</column>
+											<ascending>false</ascending>
+										</SortableTableConfiguration>
+										<String>Account Market Value Table</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+												<String>column_0:w</String>
+												<String>10</String>
+												<String>column_5:w</String>
+												<String>10</String>
+												<String>column_1:w</String>
+												<String>10</String>
+												<String>column_6:w</String>
+												<String>10</String>
+												<String>column_2:w</String>
+												<String>10</String>
+												<String>column_7:w</String>
+												<String>10</String>
+												<String>column_3:w</String>
+												<String>10</String>
+												<String>column_8:w</String>
+												<String>10</String>
+												<String>column_4:w</String>
+												<String>10</String>
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>Account Market Value TableExpModel</String>
+										<ExpandableTableConfiguration>
+											<expanded>false</expanded>
+											<ListOfStrings varName="expandedKeyList">
+												<String>USD</String>
+											</ListOfStrings>
+										</ExpandableTableConfiguration>
+										<String>FXAccount Portfolio TableDVP</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>Available Funds Table</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+												<String>column_1:w</String>
+												<String>144</String>
+												<String>column_3:w</String>
+												<String>99</String>
+												<String>column_0:w</String>
+												<String>182</String>
+												<String>column_2:w</String>
+												<String>144</String>
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>Tooltips</String>
+										<CheckBoxConfiguration>
+											<selected>true</selected>
+										</CheckBoxConfiguration>
+										<String>Account Portfolio TableDVP_Sorting</String>
+										<SortableTableConfiguration>
+											<column>1</column>
+											<ascending>false</ascending>
+										</SortableTableConfiguration>
+										<String>MarketValue</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>FXAccount Portfolio TableAway</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>Account Balance TableExpModel</String>
+										<ExpandableTableConfiguration>
+											<expanded>false</expanded>
+											<ListOfStrings varName="expandedKeyList">
+												<String>NetLiquidation</String>
+												<String>EquityWithLoanValue</String>
+												<String>TotalCashValue</String>
+											</ListOfStrings>
+										</ExpandableTableConfiguration>
+										<String>Account Market Value TableDVP</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+												<String>column_0:w</String>
+												<String>10</String>
+												<String>column_5:w</String>
+												<String>10</String>
+												<String>column_1:w</String>
+												<String>10</String>
+												<String>column_6:w</String>
+												<String>10</String>
+												<String>column_2:w</String>
+												<String>10</String>
+												<String>column_7:w</String>
+												<String>10</String>
+												<String>column_3:w</String>
+												<String>10</String>
+												<String>column_8:w</String>
+												<String>10</String>
+												<String>column_4:w</String>
+												<String>10</String>
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>FXAccount Portfolio TableDVP_Sorting</String>
+										<SortableTableConfiguration>
+											<column>1</column>
+											<ascending>false</ascending>
+										</SortableTableConfiguration>
+										<String>Account Portfolio TableDVP</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>FXPortfolioDVP</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>FXAccount Portfolio Table</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>FXPortfolio</String>
+										<FoldingPanelConfiguration>
+											<foldingState>false</foldingState>
+										</FoldingPanelConfiguration>
+										<String>Account Market Value TableAway</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+												<String>column_0:w</String>
+												<String>10</String>
+												<String>column_5:w</String>
+												<String>10</String>
+												<String>column_1:w</String>
+												<String>10</String>
+												<String>column_6:w</String>
+												<String>10</String>
+												<String>column_2:w</String>
+												<String>10</String>
+												<String>column_7:w</String>
+												<String>10</String>
+												<String>column_3:w</String>
+												<String>10</String>
+												<String>column_8:w</String>
+												<String>10</String>
+												<String>column_4:w</String>
+												<String>10</String>
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>Portfolio</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>Margin</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>FXAccount Portfolio Table_Sorting</String>
+										<SortableTableConfiguration>
+											<column>1</column>
+											<ascending>false</ascending>
+										</SortableTableConfiguration>
+										<String>PortfolioDVP</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>Account Portfolio TableAway</String>
+										<TableConfiguration>
+											<ColumnWidthsMap varName="columnWidths">
+											</ColumnWidthsMap>
+											<ColumnOrdinalsMap varName="columnOrdinals">
+											</ColumnOrdinalsMap>
+										</TableConfiguration>
+										<String>MarketValueAway</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>Account Market Value TableAwayExpModel</String>
+										<ExpandableTableConfiguration>
+											<expanded>false</expanded>
+											<ListOfStrings varName="expandedKeyList">
+											</ListOfStrings>
+										</ExpandableTableConfiguration>
+										<String>Available Funds TableExpModel</String>
+										<ExpandableTableConfiguration>
+											<expanded>false</expanded>
+											<ListOfStrings varName="expandedKeyList">
+												<String>BuyingPower</String>
+												<String>ExcessLiquidity</String>
+												<String>AvailableFunds</String>
+											</ListOfStrings>
+										</ExpandableTableConfiguration>
+										<String>Account Market Value TableDVPExpModel</String>
+										<ExpandableTableConfiguration>
+											<expanded>false</expanded>
+											<ListOfStrings varName="expandedKeyList">
+											</ListOfStrings>
+										</ExpandableTableConfiguration>
+										<String>FXPortfolioAway</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+										<String>PortfolioAway</String>
+										<FoldingPanelConfiguration>
+											<foldingState>true</foldingState>
+										</FoldingPanelConfiguration>
+									</ExtendedConfigurationMap>
+								</DefaultContent>
+							</ListOfContents>
+							<ExtendedConfigurationMap varName="extendedConfiguration">
+							</ExtendedConfigurationMap>
+							<WindowGroup varName="group">
+								<id>-1</id>
+							</WindowGroup>
+							<groupMinimized>false</groupMinimized>
+						</WindowConfiguration>
+					</WindowConfigurationMap>
+				</WindowsSettings>
+				<name>Default Workspace</name>
+				<workspaceKey>-2486770682741185397</workspaceKey>
+			</Workspace>
 		</ListOfWorkspaces>
-		<currentWorkspaceKey>-6616197763930739600</currentWorkspaceKey>
+		<currentWorkspaceKey>-2486770682741185397</currentWorkspaceKey>
 	</WorkspaceCollection>
 	<SettingsVersion varName="version">
 		<majorVersion>897</majorVersion>
@@ -24154,139 +25480,134 @@
 		</MapOfStrings>
 	</MiscSettings>
 	<ArFeatures varName="arFeatures">
-		<String>What if Check Margin feature</String>
-		<String>Trailing Stop</String>
-		<String>Box Auction orders</String>
-		<String>Adjustable Stop</String>
-		<String>Indicators</String>
-		<String>Trendlines</String>
-		<String>MFI</String>
-		<String>Alerts</String>
-		<String>Option Modeler</String>
-		<String>Scale_Orders</String>
-		<String>Market If Touched</String>
-		<String>IgnoreOpeningAuctionRth</String>
-		<String>Workspace Manager</String>
-		<String>Williams Oscillator</String>
-		<String>Show Non-matching Symbols</String>
-		<String>Deactivate_order</String>
-		<String>Basket Trader</String>
-		<String>Relative</String>
-		<String>ADX DMI</String>
-		<String>Historical Charts</String>
-		<String>Hidden</String>
-		<String>Chart Trader</String>
-		<String>BlockOrder</String>
-		<String>Limit on close</String>
-		<String>Weighted Moving average</String>
-		<String>VAR</String>
-		<String>Fill or Kill</String>
-		<String>Index Trader</String>
-		<String>Immediate or Cancel</String>
-		<String>Stop Limit</String>
-		<String>RFQ</String>
-		<String>Trailing LIT</String>
-		<String>Scale_Trader</String>
-		<String>SEC Filings</String>
-		<String>Auto limit</String>
-		<String>Conditional Orders</String>
-		<String>FavorPriceImprovements</String>
 		<String>Rebalance Allocation Window</String>
-		<String>Stop</String>
-		<String>Limit Price Offset</String>
-		<String>Ask Exchange column</String>
-		<String>CMF</String>
-		<String>Sweep to fill</String>
-		<String>Auto trailing stop</String>
-		<String>Greek delta column</String>
-		<String>Accumulation/Distribution Line</String>
-		<String>News and Research</String>
-		<String>Bond Columns</String>
-		<String>Pivot Points</String>
-		<String>Option Analytics</String>
-		<String>usersguidebook_specializedorderentry_combotrader_htm</String>
-		<String>Envelope</String>
-		<String>Penny_Option</String>
-		<String>Combos  Spreads</String>
-		<String>Financials</String>
-		<String>Market Depth Open Book Level II</String>
-		<String>Market With Protection</String>
-		<String>Algo Trader</String>
-		<String>Keltner Channel</String>
-		<String>Solicitation</String>
-		<String>Display size</String>
-		<String>Presets</String>
 		<String>Ultimate Oscillator</String>
-		<String>Volatility Trading</String>
-		<String>Momentum</String>
-		<String>OCA Orders</String>
-		<String>Bollinger Bands</String>
-		<String>Trailing Key</String>
-		<String>ArcaAuction</String>
-		<String>Bracket orders</String>
-		<String>News</String>
-		<String>IntegratedTicket</String>
+		<String>Envelope</String>
+		<String>Keltner Channel</String>
+		<String>CMF</String>
+		<String>Limit on close</String>
+		<String>Parabolic SAR</String>
+		<String>IgnoreOpeningAuctionRth</String>
+		<String>Trailing MIT</String>
+		<String>Solicitation</String>
+		<String>Weighted Moving average</String>
+		<String>ADX DMI</String>
+		<String>Trailing Stop</String>
+		<String>FavorPriceImprovements</String>
+		<String>Hidden</String>
+		<String>Algo_Orders</String>
+		<String>Firm Electronic quotes only</String>
+		<String>Relative</String>
 		<String>Greek vega column</String>
+		<String>Index Trader</String>
+		<String>BlockOrder</String>
+		<String>Bid Exchange column</String>
+		<String>Discretionary amount</String>
+		<String>PostOnly</String>
+		<String>Simple Moving Average</String>
+		<String>News and Research</String>
+		<String>Penny_Option</String>
+		<String>Rapid Order Entry</String>
+		<String>Scale_Trader</String>
+		<String>Greek Portfolio</String>
+		<String>Alarms</String>
+		<String>Stochastic Oscillator</String>
+		<String>Rate of Change</String>
+		<String>Deactivate_order</String>
+		<String>Box Auction orders</String>
+		<String>Trailing LIT</String>
+		<String>VWAP</String>
+		<String>RFQ</String>
+		<String>Greek delta column</String>
+		<String>Basket Trader</String>
+		<String>Presets</String>
+		<String>Bond Columns</String>
+		<String>Peg to market</String>
+		<String>Accumulation/Distribution Line</String>
+		<String>Directed Orders</String>
+		<String>Earning Estimate</String>
+		<String>Time_and_sales</String>
+		<String>MFI</String>
+		<String>Market If Touched</String>
+		<String>Greek theta column</String>
+		<String>Auto trailing stop</String>
+		<String>Moving Average Column</String>
+		<String>What if Check Margin feature</String>
+		<String>Bracket orders</String>
+		<String>Ask Exchange column</String>
+		<String>SEC Filings</String>
+		<String>Historical Charts</String>
+		<String>Options Exercise</String>
+		<String>Auto limit</String>
+		<String>Arbitrage Meter</String>
+		<String>Company Profile</String>
+		<String>NYSE Priority</String>
+		<String>Trader Dashboard</String>
 		<String>Commodity Channel Index</String>
+		<String>Auction</String>
+		<String>Momentum</String>
+		<String>Option Modeler</String>
+		<String>Good after</String>
+		<String>Market With Protection</String>
+		<String>Portfolio Analytics</String>
+		<String>Alerts</String>
+		<String>Workspace Manager</String>
+		<String>Conditional Orders</String>
+		<String>Peg to midpoint</String>
+		<String>Adjustable Stop</String>
+		<String>RSI</String>
+		<String>Sweep to fill</String>
+		<String>Fill or Kill</String>
+		<String>All or none</String>
+		<String>Greek gamma column</String>
+		<String>Option relative to stock orders</String>
+		<String>Financials</String>
+		<String>Deactivate_on_Close</String>
+		<String>Trendlines</String>
+		<String>Market Depth Open Book Level II</String>
+		<String>News</String>
 		<String>Trading by dollar amount or percentage</String>
 		<String>Market on close</String>
-		<String>Deactivate_on_Close</String>
+		<String>IntegratedTicket</String>
+		<String>Fundamentals</String>
+		<String>Auto stop</String>
+		<String>Insider Trading</String>
+		<String>Option Analytics</String>
+		<String>Analyst Information</String>
+		<String>Minimum Quantity</String>
+		<String>Display size</String>
+		<String>Option Model column</String>
+		<String>Pivot Points</String>
+		<String>Bollinger Bands</String>
+		<String>OCA Orders</String>
+		<String>Auto future rollover</String>
+		<String>VAR</String>
+		<String>Volatility Trading</String>
+		<String>Limit If Touched</String>
+		<String>Average True Range</String>
+		<String>Stop Limit</String>
+		<String>Stop</String>
+		<String>MACD</String>
+		<String>OBV</String>
+		<String>Combos  Spreads</String>
+		<String>Williams Oscillator</String>
+		<String>Algo Trader</String>
+		<String>Good until</String>
+		<String>Immediate or Cancel</String>
+		<String>Show Non-matching Symbols</String>
+		<String>Chart Trader</String>
+		<String>Scale_Orders</String>
+		<String>ArcaAuction</String>
+		<String>Market Scanner</String>
+		<String>PreOpenReRoute</String>
 		<String>Opening</String>
 		<String>Market To Limit Box Top</String>
-		<String>Bid Exchange column</String>
-		<String>Directed Orders</String>
-		<String>Peg to midpoint</String>
-		<String>OBV</String>
-		<String>PostOnly</String>
-		<String>Good until</String>
-		<String>Stochastic Oscillator</String>
-		<String>RSI</String>
-		<String>Discretionary amount</String>
-		<String>Market Scanner</String>
-		<String>Earning Estimate</String>
-		<String>Option relative to stock orders</String>
-		<String>Simple Moving Average</String>
-		<String>Good after</String>
-		<String>Insider Trading</String>
-		<String>Limit If Touched</String>
-		<String>NYSE Priority</String>
-		<String>Rapid Order Entry</String>
-		<String>VWAP</String>
-		<String>Trailing MIT</String>
-		<String>Company Profile</String>
-		<String>Greek gamma column</String>
-		<String>Auction</String>
-		<String>Top Option Analytics</String>
-		<String>Moving Average Column</String>
-		<String>Greek theta column</String>
-		<String>Time_and_sales</String>
-		<String>Option Model column</String>
-		<String>Options Exercise</String>
-		<String>Portfolio Analytics</String>
-		<String>Average True Range</String>
-		<String>usersguidebook_specializedorderentry_volatility_trading_htm</String>
-		<String>PreOpenReRoute</String>
-		<String>Algo_Orders</String>
-		<String>MACD</String>
-		<String>Trader Dashboard</String>
-		<String>Auto stop</String>
-		<String>Stop Price Column</String>
-		<String>Parabolic SAR</String>
-		<String>Auto future rollover</String>
-		<String>Minimum Quantity</String>
-		<String>Analyst Information</String>
 		<String>Quick Stock Entry</String>
-		<String>Rate of Change</String>
-		<String>Peg to market</String>
-		<String>Arbitrage Meter</String>
-		<String>Alarms</String>
-		<String>All or none</String>
-		<String>Firm Electronic quotes only</String>
 	</ArFeatures>
 	<ArFeatureUsage varName="arLastUsedFeatures">
 		<FeatureUsage>
 			<key>Market Depth Open Book Level II</key>
-			<lastUsedTime>1250836422559</lastUsedTime>
+			<lastUsedTime>1253930799966</lastUsedTime>
 		</FeatureUsage>
 		<FeatureUsage>
 			<key>Average cost column</key>
@@ -24306,12 +25627,12 @@
 		</FeatureUsage>
 		<FeatureUsage>
 			<key>P L columns on account window</key>
-			<lastUsedTime>1250836422559</lastUsedTime>
+			<lastUsedTime>1253930799966</lastUsedTime>
 		</FeatureUsage>
 	</ArFeatureUsage>
 	<FeatureUsage varName="lastFSAccessTime">
 		<key>LAST_USED_DIALOG</key>
-		<lastUsedTime>1250836374165</lastUsedTime>
+		<lastUsedTime>1253930725438</lastUsedTime>
 	</FeatureUsage>
 	<ListOfCustomerItem varName="customerDisplayedItem">
 	</ListOfCustomerItem>
@@ -24321,11 +25642,10 @@
 		</RefreshInterval>
 		<enableProxy>false</enableProxy>
 		<ArLinkPattern varName="arLinkPattern">
-			<PredefinedLinkPattern>
+			<LinkPattern>
 				<link>http://finance.yahoo.com/rss/headline?s=$TAG</link>
 				<supplierName>Yahoo! Headlines via RSS</supplierName>
-				<useAsDefault>true</useAsDefault>
-			</PredefinedLinkPattern>
+			</LinkPattern>
 		</ArLinkPattern>
 		<RSSFreshnessColors varName="rssColors">
 			<minutes>-1</minutes>
@@ -24522,7 +25842,7 @@
 		<alternatingRowBrightnessSettingMoved>true</alternatingRowBrightnessSettingMoved>
 		<introSavings>false</introSavings>
 		<introExecSoftDollars>false</introExecSoftDollars>
-		<updateWarnOnExit>true</updateWarnOnExit>
+		<updateWarnOnExit>false</updateWarnOnExit>
 		<ArString varName="introVolatilityModes">
 		</ArString>
 		<introPagesSorted>false</introPagesSorted>

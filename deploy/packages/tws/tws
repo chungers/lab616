@@ -44,7 +44,9 @@ string_prompt=`echo ${profile} | awk -F":" '{ print $1 }'`
 password_prompt=`echo ${profile} | awk -F":" '{ print $2 }'`
 folder_prompt=${WORKING_DIR}
 
-${JAVA_COMMAND} --login=${string_prompt} --password=${password_prompt} --tws_dir=${folder_prompt} &>${LOGFILE} &
+${JAVA_COMMAND} --login=${string_prompt} --password=${password_prompt} --tws_dir=${folder_prompt} $@ &>${LOGFILE} &
 
 # Send the pid to a file (last process captured in $!)
 echo $! > ${PID}
+
+tail -f ${LOGFILE}
