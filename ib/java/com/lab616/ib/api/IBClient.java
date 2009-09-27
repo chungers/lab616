@@ -4,15 +4,12 @@ package com.lab616.ib.api;
 
 import java.lang.reflect.Proxy;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 
-import com.google.common.base.Function;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
@@ -20,7 +17,6 @@ import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
 import com.lab616.ib.api.builders.MarketDataRequest;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
-import com.lab616.ib.api.watchers.IBEventCSVWriter;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
@@ -67,8 +63,6 @@ public class IBClient {
   private BlockingQueue<Runnable> requestQueue;
   private RequestSubmitter requestSubmitter;
   private ExecutorService executor;
-  
-  private IBEventCSVWriter csvWriter = null;
   
   @Inject
   public IBClient(
@@ -130,6 +124,14 @@ public class IBClient {
   
   public final State getState() {
     return this.state;
+  }
+  
+  /**
+   * Returns if the client is ready to accept requests.
+   * @return True if connected and ready.
+   */
+  public final Boolean isReady() {
+    return this.client.isConnected();
   }
   
   /**
@@ -229,16 +231,6 @@ public class IBClient {
     return true;
   }
 
-  /**
-   * Starts a CSV writer for this connection client.
-   */
-  public synchronized void startCsvWriter() {
-    if (this.csvWriter == null) {
-      this.csvWriter = new IBEventCSVWriter(getSourceId());
-      this.eventEngine.add(this.csvWriter);
-    }
-  }
-  
   /**
    * Requests market data.
    * @param builder The request builder.

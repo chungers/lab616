@@ -13,7 +13,6 @@ import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
-import com.lab616.ib.api.watchers.IBEventCSVWriter;
 import com.lab616.omnibus.Main;
 import com.lab616.omnibus.event.AbstractEventModule;
 import com.lab616.omnibus.event.ObjectEventDefinition;

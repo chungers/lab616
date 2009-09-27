@@ -11,9 +11,11 @@ import org.apache.log4j.Logger;
 import com.google.inject.Inject;
 import com.google.inject.internal.Maps;
 import com.google.inject.name.Named;
+import com.lab616.ib.api.watchers.IBEventCSVWriter;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.Main.Shutdown;
+import com.lab616.omnibus.event.EventEngine;
 import com.lab616.omnibus.http.servlets.StatusServlet;
 
 /**
@@ -34,13 +36,17 @@ public final class IBService implements Shutdown<Boolean> {
 
   static Logger logger = Logger.getLogger(IBService.class);
 
+  private final EventEngine eventEngine;
   private final IBClient.Factory factory;
   private final ExecutorService executor;
   private final Map<String, IBClient> apiClients = Maps.newHashMap();
+  private final Map<IBClient, IBEventCSVWriter> csvWriters = Maps.newHashMap();
   
   @Inject
-  public IBService(IBClient.Factory factory, 
+  public IBService(EventEngine eventEngine,
+      IBClient.Factory factory, 
       @Named("ib-api-executor") ExecutorService executor) {
+    this.eventEngine = eventEngine;
     this.factory = factory;
     this.executor = executor;
   }
@@ -128,4 +134,21 @@ public final class IBService implements Shutdown<Boolean> {
   public IBClient getClient(String name) {
     return apiClients.get(name);
   }
+
+  /**
+   * Starts a CSV writer for this connection client.
+   */
+  public synchronized void startCsvWriter(String clientName) {
+    IBClient client = getClient(clientName);
+    if (client == null) {
+      return;
+    }
+    
+    if (client.isReady() && csvWriters.get(client) != null) {
+      IBEventCSVWriter w = new IBEventCSVWriter(client.getSourceId());
+      this.eventEngine.add(w);
+      this.csvWriters.put(client, w);
+    }
+  }
+  
 }
