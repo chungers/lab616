@@ -8,6 +8,8 @@ import com.google.common.collect.Lists;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
 import com.google.inject.name.Names;
+import com.lab616.common.flags.Flag;
+import com.lab616.common.flags.Flags;
 import com.lab616.omnibus.Main;
 import com.lab616.omnibus.SystemEvent;
 import com.lab616.omnibus.event.watchers.SystemEventStats;
@@ -20,7 +22,18 @@ import com.lab616.omnibus.event.watchers.SystemEventWatcher;
  */
 public class EventModule extends AbstractEventModule {
 
+  @Flag(name = "event-engine-threads")
+  public static Integer NUM_THREADS = 20;
+  
+  static {
+    Flags.register(EventModule.class);
+  }
+
 	public void configure() {
+	  // Flags
+	  bindConstant().annotatedWith(Names.named("event-engine-threads"))
+	    .to(NUM_THREADS);
+	  
     // Event definitions.
 	  bindEventDefinition(new ObjectEventDefinition<SystemEvent>(
         SystemEvent.EVENT_NAME, SystemEvent.class));

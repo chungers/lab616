@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.internal.Lists;
+import com.google.inject.name.Named;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.Main;
@@ -83,15 +84,18 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
   
   private State state;
   private List<AbstractEventWatcher> watchers = Lists.newArrayList();
+  private final int threads;
   
   @SuppressWarnings("unchecked")
   @Inject
 	public EventEngine(
 			Set<EventDefinition> eventDefinitions,
-			Set<AbstractEventWatcher> eventWatchers) {
+			Set<AbstractEventWatcher> eventWatchers,
+			@Named("event-engine-threads") int threads) {
   	
   	this.eventDefinitions = eventDefinitions;
   	this.eventWatchers = eventWatchers;
+  	this.threads = threads;
 		this.esperConfiguration = new Configuration();
 		configureEventTypes();
 		configureEngineDefaults(this.esperConfiguration.getEngineDefaults());
@@ -137,11 +141,11 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 		threading.setInsertIntoDispatchPreserveOrder(true);
 		
 		threading.setThreadPoolInbound(true);
-		threading.setThreadPoolInboundNumThreads(10);
+		threading.setThreadPoolInboundNumThreads(threads);
 		threading.setThreadPoolInboundCapacity(10000);
 		
 		threading.setThreadPoolOutbound(true);
-		threading.setThreadPoolOutboundNumThreads(10);
+		threading.setThreadPoolOutboundNumThreads(threads);
 		threading.setThreadPoolOutboundCapacity(10000);
 	}
 	

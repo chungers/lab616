@@ -12,10 +12,11 @@ import com.lab616.util.Time;
  * @author david
  *
  */
-public final class IBEvent {
+public final class IBEvent implements Comparable<IBEvent> {
 
   public static final String EVENT_NAME = "IBEvent";
   
+  private String source;
   private String method;
   private long timestamp;
   private Object[] args;
@@ -42,11 +43,23 @@ public final class IBEvent {
     return args;
   }
 
+  public void setSource(String s) {
+    this.source = s;
+  }
+  
+  public String getSource() {
+    return this.source; 
+  }
+  
   public void setMethod(String m) {
     this.method = m;
   }
   
   public void setArgs(Object[] args) {
     this.args = args;
+  }
+
+  public int compareTo(IBEvent o) {
+    return (int) (this.getTimestamp() - o.getTimestamp());
   }
 }

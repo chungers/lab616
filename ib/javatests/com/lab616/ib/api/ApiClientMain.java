@@ -15,7 +15,7 @@ import com.lab616.omnibus.Main;
  */
 public class ApiClientMain extends Main {
 
-  static Logger logger = Logger.getLogger(Client.class);
+  static Logger logger = Logger.getLogger(ApiClientMain.class);
 
   @Override
   public Module[] getModules() {

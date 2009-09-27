@@ -3,12 +3,14 @@
 package com.lab616.ib.api;
 
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 
 import com.google.inject.Inject;
 import com.google.inject.internal.Maps;
+import com.google.inject.name.Named;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.Main.Shutdown;
@@ -33,11 +35,14 @@ public final class IBService implements Shutdown<Boolean> {
   static Logger logger = Logger.getLogger(IBService.class);
 
   private final IBClient.Factory factory;
+  private final ExecutorService executor;
   private final Map<String, IBClient> apiClients = Maps.newHashMap();
   
   @Inject
-  public IBService(IBClient.Factory factory) {
+  public IBService(IBClient.Factory factory, 
+      @Named("ib-api-executor") ExecutorService executor) {
     this.factory = factory;
+    this.executor = executor;
   }
   
   
@@ -47,7 +52,9 @@ public final class IBService implements Shutdown<Boolean> {
   public Boolean call() throws Exception {
     for (IBClient client : apiClients.values()) {
       client.disconnect();
+      client.shutdown();
     }
+    this.executor.shutdown();
     return true;
   }
 
@@ -89,6 +96,7 @@ public final class IBService implements Shutdown<Boolean> {
     } else {
       logger.info(String.format("Connection(%s) exists in state = %s",
           name, apiClients.get(name).getState()));
+      return apiClients.get(name).connect();
     }
     return false;
   }
