@@ -66,6 +66,7 @@ public class IBSystemEventWatcher extends AbstractEventWatcher {
       // Start CSV file writer
       if ("csv".equals(event.getMethod())) {
         String name = event.getParam("client");
+        logger.info("Starting csv writer for client=" + name);
         this.service.startCsvWriter(name);
         return;
       }

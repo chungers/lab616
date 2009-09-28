@@ -41,7 +41,7 @@ public abstract class AbstractEventWatcher {
 		this.statement.start();
 	}
 	
-	public final void stop() {
+	public void stop() {
 		this.statement.stop();
 	}
 	

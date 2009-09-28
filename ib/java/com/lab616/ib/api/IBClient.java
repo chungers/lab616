@@ -133,6 +133,14 @@ public class IBClient {
   public final Boolean isReady() {
     return this.client.isConnected();
   }
+
+  /**
+   * Returns the associated event engine.
+   * @return The engine.
+   */
+  public final EventEngine getEventEngine() {
+    return this.eventEngine;
+  }
   
   /**
    * Returns the name of this client.

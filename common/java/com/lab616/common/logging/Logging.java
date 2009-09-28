@@ -7,9 +7,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
-import com.lab616.common.flags.Flag;
-import com.lab616.common.flags.Flags;
-
 /**
  * Initializes log4j instead of properties file.
  *
