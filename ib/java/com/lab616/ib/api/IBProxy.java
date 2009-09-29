@@ -10,8 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
 
-import com.google.inject.Inject;
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;

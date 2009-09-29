@@ -34,6 +34,6 @@ public class SystemEventWatcher extends AbstractEventWatcher {
 	 */
 	public void update(SystemEvent event) {
 		countEvents.incrementAndGet();
-		logger.info(event);
+		logger.debug(event);
 	}
 }

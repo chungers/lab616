@@ -45,7 +45,7 @@ public class IBEventCSVWriter extends AbstractEventWatcher {
       throw new IBClientException(e);
     }
     final String id = clientSourceId;
-    this.queueWorker = new AbstractQueueWorker<IBEvent>(clientSourceId, true) {
+    this.queueWorker = new AbstractQueueWorker<IBEvent>(clientSourceId, false) {
       @Override
       protected void execute(IBEvent event) throws Exception {
         write(event);
@@ -68,6 +68,7 @@ public class IBEventCSVWriter extends AbstractEventWatcher {
         logger.info("Stopped csv writer @" + id + " at queue=" + queueSize);
       }
     };
+    this.queueWorker.start();
   }
   
   @Var(1)
@@ -77,7 +78,6 @@ public class IBEventCSVWriter extends AbstractEventWatcher {
   
   private PrintWriter getOutput() throws IOException {
     DateTime today = new DateTime().withMillisOfDay(0);
-    logger.info("Opening output for " + today);
     if (today.isAfter(lastDate)) {
       
       if (print != null) {
@@ -91,6 +91,8 @@ public class IBEventCSVWriter extends AbstractEventWatcher {
       FileWriter fw = new FileWriter(fn, true);
       print = new PrintWriter(fw);
       logger.info(clientSourceId + ": Writing to log file " + fn);
+      print.println("## " + today);
+      print.flush();
       lastDate = today;
       return print;
     }

@@ -54,19 +54,28 @@ public class IBSystemEventWatcher extends AbstractEventWatcher {
       if ("mkt".equals(event.getMethod())) {
         String name = event.getParam("name");
         String symbol = event.getParam("symbol");
-        
+        logger.debug("Requesting market data for " + symbol + " on " + name);
         IBClient client = this.service.getClient(name);
-        if (client != null) {
-          client.requestMarketData(
-              new MarketDataRequestBuilder().withDefaultsForStocks()
-              .forStock(new ContractBuilder(symbol)));
+        if (client == null) {
+          logger.info("\tStarting connection " + name + " = " + 
+              this.service.newConnection(name));
         }
+        
+        client = this.service.getClient(name);
+        client.requestMarketData(
+            new MarketDataRequestBuilder().withDefaultsForStocks()
+            .forStock(new ContractBuilder(symbol)));
         return;
       }
       // Start CSV file writer
       if ("csv".equals(event.getMethod())) {
         String name = event.getParam("client");
-        logger.info("Starting csv writer for client=" + name);
+        logger.debug("Starting csv writer for client=" + name);
+        IBClient client = this.service.getClient(name);
+        if (client == null) {
+          logger.info("\tStarting connection " + name + " = " + 
+              this.service.newConnection(name));
+        }
         this.service.startCsvWriter(name);
         return;
       }

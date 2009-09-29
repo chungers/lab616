@@ -7,6 +7,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
+import org.apache.log4j.Logger;
+
 /**
  * Simple worker thread that continuously takes work off a queue.
  *
@@ -45,11 +47,16 @@ public abstract class AbstractQueueWorker<T> extends Thread {
     return true;
   }
   
+  protected Logger getLogger() {
+    return Logger.getLogger(getClass());
+  }
+  
   /**
    * Override to control the running of the worker.  Return true to continue.
    * @return True if continue.
    */
   protected boolean onStart() {
+    getLogger().info(getClass().getSimpleName() + " starting.");
     return true;
   }
   
@@ -57,6 +64,7 @@ public abstract class AbstractQueueWorker<T> extends Thread {
    * Override to get notification that the thread has stopped.
    */
   protected void onStop(int queueSize) {
+    getLogger().info(getClass().getSimpleName() + " stopped.");
     // Nothing.
   }
   
@@ -66,6 +74,7 @@ public abstract class AbstractQueueWorker<T> extends Thread {
    * @return True to continue.
    */
   protected boolean handleException(Exception e) {
+    getLogger().error(getClass().getSimpleName() + " exception: ", e);
     // Do nothing.
     return true;
   }
@@ -76,6 +85,7 @@ public abstract class AbstractQueueWorker<T> extends Thread {
    * @return True to continue.
    */
   protected boolean handleInterruption(InterruptedException e) {
+    getLogger().error(getClass().getSimpleName() + " interrupted: ", e);
     return true;
   }
   
@@ -110,8 +120,17 @@ public abstract class AbstractQueueWorker<T> extends Thread {
   public final int getQueueDepth() {
     return this.workQueue.size();
   }
+
+  /**
+   * Subclass decides whether to take work from the queue.
+   * @return True if to take work from queue.
+   */
+  protected boolean take() {
+    return true;
+  }
   
   private void execute() {
+    if (!take()) return;
     try {
       T work = this.workQueue.take();
       if (work instanceof Runnable) {
@@ -163,5 +182,7 @@ public abstract class AbstractQueueWorker<T> extends Thread {
     }
   }
   
-  protected abstract void execute(T work) throws Exception;
+  protected void execute(T work) throws Exception {
+    // Do nothing.
+  }
 }

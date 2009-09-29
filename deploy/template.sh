@@ -13,7 +13,8 @@ TZ="US/Eastern"
 echo "DIR = $PACKAGE_DIR"
 case `uname` in
 Linux)
-	export JAVA_HOME=/opt/jdk1.6
+	# export JAVA_HOME=/opt/jdk1.6
+	export JAVA_HOME=/home/lab616/jrrt-3.1.0-1.6.0
 	# Start vncserver
 	vncserver :1
 	export DISPLAY=localhost:1

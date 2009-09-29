@@ -3,9 +3,7 @@
 package com.lab616.ib.api;
 
 import java.lang.reflect.Proxy;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
@@ -15,6 +13,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
+import com.lab616.concurrent.AbstractQueueWorker;
 import com.lab616.ib.api.builders.MarketDataRequest;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
 import com.lab616.monitoring.Varz;
@@ -51,6 +50,19 @@ public class IBClient {
   
   static Logger logger = Logger.getLogger(IBClient.class);
 
+  /**
+   * Work queue that needs to block until the connection is established.
+   */
+  class RequestQueue extends AbstractQueueWorker<Runnable> {
+    RequestQueue() {
+      super(getSourceId(), false);
+    }
+    @Override
+    protected boolean take() {
+      return isReady();
+    }
+  }
+  
   private String name;
   private String host;
   private int port;
@@ -60,8 +72,7 @@ public class IBClient {
   private EventEngine eventEngine;
   private State state;
   private EClientSocket client;
-  private BlockingQueue<Runnable> requestQueue;
-  private RequestSubmitter requestSubmitter;
+  private RequestQueue requestQueue;
   private ExecutorService executor;
   
   @Inject
@@ -89,39 +100,11 @@ public class IBClient {
           }
         });
     this.client = new EClientSocket(wrapper);
-    this.requestQueue = 
-      new LinkedBlockingQueue<Runnable>();
-    this.requestSubmitter = new RequestSubmitter();
-    this.requestSubmitter.start();
+    this.requestQueue = new RequestQueue();
+    this.requestQueue.start();
     this.state = State.INITIALIZED;
   }
 
-  class RequestSubmitter extends Thread {
-    private Boolean running = true;
-    public RequestSubmitter() {
-      super.setName("RequestSubmitter@" + name);
-    }
-    
-    public synchronized void setRunning(Boolean b) { 
-      running = b; 
-    }
-
-    public void run() {
-      logger.info("Started request submitter for connection @" + getSourceId());
-      while (running) {
-        // Dequeue the request
-        if (client.isConnected()) {
-          try {
-            requestQueue.take().run();
-          } catch (InterruptedException e) {
-            logger.warn("Interrupted: " + name, e);
-          }
-        }
-      }
-      logger.info("Terminated request submitter for connection @" + getSourceId());
-    }
-  }
-  
   public final State getState() {
     return this.state;
   }
@@ -231,11 +214,7 @@ public class IBClient {
    * Shuts down everything.
    */
   public synchronized boolean shutdown() {
-    if (!this.requestQueue.isEmpty()) {
-      logger.info("Request queue not empty.  Stopping anyway.");
-    }
-    this.requestSubmitter.setRunning(false);
-    this.requestSubmitter.interrupt();
+    this.requestQueue.setRunning(false);
     return true;
   }
 
@@ -250,25 +229,43 @@ public class IBClient {
           getSourceId()));
     }
     final MarketDataRequest req = builder.build();
-    logger.info(String.format(
+    logger.debug(String.format(
         "Adding request (%s,id=%d) to queue (N=%d) on connection %s" , 
         req.getContract().m_symbol, req.getTickerId(), 
-        requestQueue.size(), getSourceId()));
-    try {
-      this.requestQueue.put(new Runnable() {
-        public void run() {
-          client.reqMktData(
-              req.getTickerId(), 
-              req.getContract(), 
-              req.getGenericTickList(), 
-              req.getSnapShot());
-          logger.info(String.format(
-              "[%s]: Requested market data for %s / id = %d", 
-              getSourceId(), req.getContract().m_symbol, req.getTickerId()));
-        }
-      });
-    } catch (InterruptedException e) {
-      logger.warn(e);
-    }
+        requestQueue.getQueueDepth(), getSourceId()));
+    this.requestQueue.enqueue(new Runnable() {
+      public void run() {
+        client.reqMktData(
+            req.getTickerId(), 
+            req.getContract(), 
+            req.getGenericTickList(), 
+            req.getSnapShot());
+        logger.info(String.format(
+            "[%s]: Requested market data for %s / id = %d", 
+            getSourceId(), req.getContract().m_symbol, req.getTickerId()));
+      }
+    });
+    this.requestQueue.enqueue(new Runnable() {
+      public void run() {
+        client.reqMktDepth(
+            req.getTickerId(), 
+            req.getContract(),
+            10);
+        logger.info(String.format(
+            "[%s]: Requested market depth for %s / id = %d", 
+            getSourceId(), req.getContract().m_symbol, req.getTickerId()));
+      }
+    });
+    this.requestQueue.enqueue(new Runnable() {
+      public void run() {
+        client.reqRealTimeBars(
+            req.getTickerId(), 
+            req.getContract(),
+            5, "TRADES", false);
+        logger.info(String.format(
+            "[%s]: Requested realtime bars for %s / id = %d", 
+            getSourceId(), req.getContract().m_symbol, req.getTickerId()));
+      }
+    });
   }
 }
