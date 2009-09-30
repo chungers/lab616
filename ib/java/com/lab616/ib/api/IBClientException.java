@@ -10,6 +10,10 @@ public class IBClientException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
+  public IBClientException(String msg) {
+    super(msg);
+  }
+  
   public IBClientException(Throwable t) {
     super(t);
   }

@@ -1,0 +1,43 @@
+03:02:29:835 AWT-EventQueue-0: Build 898.3, Sep 23, 2009 5:03:56 PM
+03:03:10:900 AWT-EventQueue-0: Market rule file /Users/david/lab616/third_party/java/ib-tws-898/IBJts/dbuhtmvwt/Wed.rul does not exist or is removed
+03:03:10:904 AWT-EventQueue-0: Settings : loadFromXMLFile : Could not find settings file /Users/david/lab616/third_party/java/ib-tws-898/IBJts/dbuhtmvwt/tws.xml
+03:03:10:985 AWT-EventQueue-0: creating new alarms container
+03:03:10:987 AWT-EventQueue-0: no alarms file
+03:03:10:987 AWT-EventQueue-0: creating new clearing list container
+03:03:10:988 AWT-EventQueue-0: no clearing rule file
+03:03:10:989 AWT-EventQueue-0: creating new sec type sorter container
+03:03:10:991 AWT-EventQueue-0: no sorter map file
+Jolt logger configuration is done.
+03:03:10:001 AWT-EventQueue-0: Could not read from resetTime.dat file - java.io.FileNotFoundException: /Users/david/lab616/third_party/java/ib-tws-898/IBJts/dbuhtmvwt/resetTime.dat (No such file or directory)
+03:03:12:379 JTS-CCPDispatcher-20: enabling penny feature
+03:03:20:306 AWT-EventQueue-0: MainWindowBatchProcessor: All rows have been created
+03:03:27:273 AWT-EventQueue-0: Plugin Name: Configuration loaded in 1
+03:03:27:291 AWT-EventQueue-0: Plugin Name: Configuration loaded in 0
+03:03:27:291 AWT-EventQueue-0: Plugin Name: Configuration loaded in 0
+03:03:27:349 AWT-EventQueue-0: Plugin Name: Configuration loaded in 0
+03:03:28:907 AWT-EventQueue-0: Plugin Name: API loaded in 19
+03:03:37:099 AWT-EventQueue-0: Plugin Name: Lock and Exit loaded in 19
+03:03:51:424 JTS-SocketListener-50: API server listening on port 7496
+03:05:08:758 JTS-EServerSocket-54: [1:46:45:1:0:0:0:ERR] -'zb' : cause - Duplicate ticker id
+03:05:08:759 JTS-EServerSocket-54: Anticipated error
+jextend.b: Duplicate ticker id
+	at jextend.zb.f(zb.java:356)
+	at jextend.ab.j(ab.java:259)
+	at jextend.wd.P(wd.java:946)
+	at jextend.wd.run(wd.java:803)
+	at java.lang.Thread.run(Thread.java:613)
+03:05:08:762 JTS-EServerSocket-54: [1:46:45:1:0:0:0:ERR] -'zb' : cause - Duplicate ticker id
+03:05:08:762 JTS-EServerSocket-54: Anticipated error
+jextend.b: Duplicate ticker id
+	at jextend.zb.f(zb.java:356)
+	at jextend.ab.j(ab.java:259)
+	at jextend.wd.P(wd.java:946)
+	at jextend.wd.run(wd.java:803)
+	at java.lang.Thread.run(Thread.java:613)
+03:08:21:279 JTS-CCPPing-12: Warning: not received heartbeat at 314000 elapsed:11000
+03:09:01:286 JTS-CCPPing-12: Warning: not received heartbeat at 354000 elapsed:11000
+03:09:31:292 JTS-CCPPing-12: Warning: not received heartbeat at 384000 elapsed:11000
+03:12:32:183 JTS-EServerSocket-54: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
+03:12:32:184 JTS-EServerSocket-59: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+03:13:09:328 JTS-CCPPing-12: Warning: not received heartbeat at 602000 elapsed:11000
+03:13:50:002 JTS-CCPPing-12: Warning: not received heartbeat at 640000 elapsed:11000

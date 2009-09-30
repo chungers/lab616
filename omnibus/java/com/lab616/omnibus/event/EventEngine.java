@@ -4,7 +4,6 @@ package com.lab616.omnibus.event;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -17,7 +16,6 @@ import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
 import com.espertech.esper.client.ConfigurationEngineDefaults.Threading;
-import com.espertech.esper.client.time.CurrentTimeEvent;
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -79,9 +77,6 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	private final Configuration esperConfiguration;
   private final EPServiceProvider epService;
  
-  private long lastTick = Time.now();
-  private static long tickDuration = TimeUnit.MICROSECONDS.toMicros(100L);
-  
   private State state;
   private List<AbstractEventWatcher> watchers = Lists.newArrayList();
   private final int threads;
@@ -113,7 +108,6 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
    */
   public final EventEngine setTimeSource(TimeSource ts) {
   	this.timeSource = ts;
-  	this.lastTick = ts.now();
   	return this;
   }
   
@@ -135,9 +129,12 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	}
 
 	protected void configureEngineDefaults(ConfigurationEngineDefaults defaults) {
-		Threading threading = defaults.getThreading();
-		threading.setInternalTimerEnabled(false);
-		threading.setListenerDispatchPreserveOrder(true);
+		defaults.getTimeSource().setTimeSourceType(
+		    ConfigurationEngineDefaults.TimeSourceType.NANO);
+	  
+	  Threading threading = defaults.getThreading();
+	  threading.setInternalTimerEnabled(true);
+    threading.setListenerDispatchPreserveOrder(true);
 		threading.setInsertIntoDispatchPreserveOrder(true);
 		
 		threading.setThreadPoolInbound(true);
@@ -150,7 +147,6 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	}
 	
 	private void configureEventWatchers() {
-		now(this.timeSource.now()); // Sets the time for the engine.
 		for (AbstractEventWatcher watcher : this.eventWatchers) {
 			add(watcher);
 		}
@@ -179,16 +175,20 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	 * @param eventObject The event object.
 	 */
 	public final void post(Object eventObject) {
-	  if ((this.timeSource.now() - this.lastTick) > tickDuration) {
-	    now();
-	    this.lastTick = this.timeSource.now();
-	  }
-	  
 		this.epService.getEPRuntime().sendEvent(eventObject);
 		countEvents.incrementAndGet();
 	}
 	
-	/**
+  /**
+   * Posts an event to the engine.
+   * @param eventObject The event object.
+   */
+  public final void post0(Object eventObject) {
+    this.epService.getEPRuntime().sendEvent(eventObject);
+    countEvents.incrementAndGet();
+  }
+
+  /**
 	 * Removes the watcher from the list tracked by the engine.
 	 * @param watcher The watcher.
 	 */
@@ -232,27 +232,6 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	}
 	
 	/**
-	 * Sends a time event to the engine so that the engine is running on the
-	 * same clock as the external source.  In our case, we use microsecond
-	 * resolution.
-	 */
-	public final void now(long t) {
-		CurrentTimeEvent ct = new CurrentTimeEvent(t);
-		try {
-			this.epService.getEPRuntime().sendEvent(ct);
-		} catch (Exception e) {
-			throw new EventEngineException(e);
-		}
-	}
-	
-	/**
-	 * Advances the time tracked by the engine by the current time in microsecond.
-	 */
-	public final void now() {
-		now(this.timeSource.now());
-	}
-	
-	/**
 	 * Returns the state of the engine.
 	 * @return The state.
 	 */
@@ -265,7 +244,6 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	 */
 	public final boolean start() {
 		// Not interesting.  Just send another time event
-		now(this.timeSource.now());
 		this.epService.getEPAdministrator().startAllStatements();
 		this.state = State.RUNNING;
 		return true;

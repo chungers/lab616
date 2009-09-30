@@ -6,11 +6,13 @@ import java.io.EOFException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
@@ -37,10 +39,12 @@ public class IBProxy implements InvocationHandler {
   
   private final EventEngine engine;
   private final String clientSourceId;
+  private final Set<String> synchronousIBEvents;
   
   public IBProxy(String clientSourceId, EventEngine engine) {
     this.clientSourceId = clientSourceId;
     this.engine = engine;
+    synchronousIBEvents = Sets.newHashSet(synchronousMethods());
   }
   
   public Object invoke(Object proxy, Method m, Object[] args) throws Throwable {
@@ -58,7 +62,12 @@ public class IBProxy implements InvocationHandler {
       } else {
         IBEvent event = new IBEvent(m.getName(), args);
         event.setSource(clientSourceId);
-        engine.post(event);
+        if (synchronousIBEvents.contains(m.getName())) {
+          // Call method directly.
+          handleData(event);
+        } else {
+          engine.post(event);
+        }
       }
       return null;
     } catch (Throwable t) {
@@ -66,6 +75,23 @@ public class IBProxy implements InvocationHandler {
       logger.error("Exception from " + m, t);
       throw t;
     }
+  }
+  
+  /**
+   * Override this to receive data directly instead of via the IBEvent stream.
+   * @param event The event.
+   */
+  protected void handleData(IBEvent event) {
+    // Do nothing.
+  }
+  
+  /**
+   * Returns a list of method names where we don't fire IBEvents but instead
+   * call the handleData method directly.
+   * @return List of filters.
+   */
+  protected String[] synchronousMethods() {
+    return new String[] {};
   }
   
   protected void handleConnectionClosed() {

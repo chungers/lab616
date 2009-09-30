@@ -10,11 +10,10 @@ import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
-import com.ib.client.TickType;
 import com.lab616.concurrent.AbstractQueueWorker;
 import com.lab616.ib.api.IBClientException;
 import com.lab616.ib.api.IBEvent;
-import com.lab616.ib.api.TickerId;
+import com.lab616.ib.api.IBService.Managed;
 import com.lab616.omnibus.event.AbstractEventWatcher;
 import com.lab616.omnibus.event.annotation.Statement;
 import com.lab616.omnibus.event.annotation.Var;
@@ -27,7 +26,7 @@ import com.lab616.omnibus.event.annotation.Var;
  *
  */
 @Statement("select * from IBEvent where source=?")
-public class IBEventCSVWriter extends AbstractEventWatcher {
+public class IBEventCSVWriter extends AbstractEventWatcher implements Managed {
 
   static Logger logger = Logger.getLogger(IBEventCSVWriter.class);
 
@@ -118,25 +117,18 @@ public class IBEventCSVWriter extends AbstractEventWatcher {
   
   private void write(IBEvent event) throws Exception {
     PrintWriter p = getOutput();
-    p.print(event.getTimestamp() + "," + event.getMethod());
-    if (event.getArgs() != null && event.getArgs().length > 0) {
-      Object[] args = event.getArgs();
-      
-      p.print("," + TickerId.fromTickerId((Integer)args[0]));
-      if (args.length > 1) {
-        p.print("," + TickType.getField((Integer)args[1]));
-      } else {
-        p.print("NONE");
-      }
-     
+    StringBuffer line = new StringBuffer();
+    line.append(String.format("%d,%s", event.getTimestamp(), event.getMethod()));
+    Object[] args = event.getArgs();
+    if (args != null && args.length > 0) {
       StringBuffer str = new StringBuffer(args[0].toString());
       for (int i = 1; i < args.length; i++) {
         str.append(",");
         str.append(args[i]);
       }
-      p.print("," + str.toString());
+      line.append("," + str.toString());
     }
-    p.println();
+    p.println(line);
     p.flush();
   }
 }

@@ -4,9 +4,12 @@ package com.lab616.ib.api;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.base.Function;
 import com.google.inject.Inject;
+import com.lab616.ib.api.IBService.Managed;
 import com.lab616.ib.api.builders.ContractBuilder;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
+import com.lab616.ib.api.watchers.IBEventCSVWriter;
 import com.lab616.omnibus.SystemEvent;
 import com.lab616.omnibus.event.AbstractEventWatcher;
 import com.lab616.omnibus.event.annotation.Statement;
@@ -36,47 +39,75 @@ public class IBSystemEventWatcher extends AbstractEventWatcher {
   public void update(SystemEvent event) {
     if (!event.getComponent().equals("ib-api")) return;
     try {
+      // Ping a connection:
+      if ("ping".equals(event.getMethod())) {
+        String name = event.getParam("client");
+        IBClient client = this.service.getClient(name);
+        if (client == null) return;
+        if (client.isReady()) {
+          logger.info("Pinging connection " + name + " = " + client.isReady() +
+              ", currentTime = " + client.ping());
+        } else {
+          logger.info("Pinging connection " + name + " = " + client.isReady() +
+              ", currentState = " + client.getState());
+        }
+        return;
+      }
       // Starting a connection:
       if ("start".equals(event.getMethod())) {
-        String name = event.getParam("name");
+        String name = event.getParam("client");
         logger.info("Starting connection " + name + " = " + 
             this.service.newConnection(name));
         return;
       }
       // Stopping a connection:
       if ("stop".equals(event.getMethod())) {
-        String name = event.getParam("name");
+        String name = event.getParam("client");
         logger.info("Stopping connection " + name + " = " +
             this.service.stopConnection(name));
         return;
       }
-      // Request market data:
+      // Request market data, including realtime bars.
       if ("mkt".equals(event.getMethod())) {
-        String name = event.getParam("name");
-        String symbol = event.getParam("symbol");
+        final String name = event.getParam("client");
+        final String symbol = event.getParam("symbol");
         logger.debug("Requesting market data for " + symbol + " on " + name);
-        IBClient client = this.service.getClient(name);
-        if (client == null) {
-          logger.info("\tStarting connection " + name + " = " + 
-              this.service.newConnection(name));
-        }
-        
-        client = this.service.getClient(name);
-        client.requestMarketData(
-            new MarketDataRequestBuilder().withDefaultsForStocks()
-            .forStock(new ContractBuilder(symbol)));
+        this.service.enqueue(name, true, new Function<IBClient, Boolean>() {
+          public Boolean apply(IBClient client) {
+            client.requestMarketData(
+                new MarketDataRequestBuilder().withDefaultsForStocks()
+                .forStock(new ContractBuilder(symbol)));
+            return true;
+          }
+        });
+        return;
+      }
+      // Request market depth:
+      if ("dom".equals(event.getMethod())) {
+        final String name = event.getParam("client");
+        final String symbol = event.getParam("symbol");
+        logger.debug("Requesting market depth for " + symbol + " on " + name);
+        this.service.enqueue(name, true, new Function<IBClient, Boolean>() {
+          public Boolean apply(IBClient client) {
+            client.requestMarketDepth(
+                new MarketDataRequestBuilder().withDefaultsForStocks()
+                .forStock(new ContractBuilder(symbol)));
+            return true;
+          }
+        });
         return;
       }
       // Start CSV file writer
       if ("csv".equals(event.getMethod())) {
         String name = event.getParam("client");
         logger.debug("Starting csv writer for client=" + name);
-        IBClient client = this.service.getClient(name);
-        if (client == null) {
-          logger.info("\tStarting connection " + name + " = " + 
-              this.service.newConnection(name));
-        }
-        this.service.startCsvWriter(name);
+        this.service.enqueue(name, true, new Function<IBClient, Managed>() {
+          public Managed apply(IBClient client) {
+            IBEventCSVWriter w = new IBEventCSVWriter(client.getSourceId());
+            client.getEventEngine().add(w);
+            return w;
+          }
+        });
         return;
       }
     } catch (Exception e) {

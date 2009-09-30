@@ -2,13 +2,16 @@
 
 package com.lab616.ib.api;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.base.Function;
 import com.google.inject.Inject;
+import com.google.inject.internal.Lists;
 import com.google.inject.internal.Maps;
 import com.google.inject.name.Named;
 import com.lab616.concurrent.AbstractQueueWorker;
@@ -37,24 +40,45 @@ public final class IBService implements Shutdown<Boolean> {
   static Logger logger = Logger.getLogger(IBService.class);
 
   /**
+   * Objects to be managed by the service. 
+   */
+  public interface Managed {
+    public void stop();
+  }
+  
+  /**
    * Queue for work that depends on the client being properly connected.
    */
-  class IBClientQueue extends AbstractQueueWorker<Runnable> {
+  class IBClientQueue extends AbstractQueueWorker<Function<IBClient, ?>> {
     IBClient client;
     IBClientQueue(IBClient c) {
       super(c.getSourceId(), false);
       client = c;
     }
+    
     @Override
     protected boolean take() {
       return client.isReady();
+    }
+    
+    @Override
+    protected void execute(Function<IBClient, ?> work) throws Exception {
+      Object result = work.apply(client);
+      // Managed objects.
+      if (result instanceof Managed) {
+        if (managed.get(client) == null) {
+          List<Managed> list = Lists.newArrayList();
+          managed.put(client, list);
+        }
+        managed.get(client).add((Managed) result);
+      }
     }
   }
   
   private final IBClient.Factory factory;
   private final ExecutorService executor;
   private final Map<String, IBClient> apiClients = Maps.newHashMap();
-  private final Map<IBClient, IBEventCSVWriter> csvWriters = Maps.newHashMap();
+  private final Map<IBClient, List<Managed>> managed = Maps.newHashMap();
   private final Map<IBClient, IBClientQueue> clientQueues = Maps.newHashMap();
   
   @Inject
@@ -75,10 +99,15 @@ public final class IBService implements Shutdown<Boolean> {
       if (q != null) {
         q.setRunning(false);
       }
-      // Stop the writer, if any.
-      IBEventCSVWriter w = csvWriters.get(client);
-      if (w != null) {
-        w.stop();
+      // Stop the managed objects for this client.
+      if (managed.get(client) != null) {
+        for (Managed m : managed.get(client)) {
+          try {
+            m.stop();
+          } catch (Exception e) {
+            logger.warn("Exception while trying to stop: ", e);
+          }
+        }
       }
       // Now shutdown the client connection.
       client.disconnect();
@@ -159,28 +188,20 @@ public final class IBService implements Shutdown<Boolean> {
   }
 
   /**
-   * Starts a CSV writer for this connection client.
+   * Enqueue a request for the named client connection.  Starts the connection
+   * on demand if client is not already running.
+   * 
+   * @param <V> An object type.  Special Managed object can be shutdown by service.
+   * @param name The client name.
+   * @param startClientOnDemand True to start client if not running.
+   * @param work Unit of work to be enqueued.
    */
-  public synchronized void startCsvWriter(String clientName) {
-    final IBClient client = getClient(clientName);
-    if (client == null) {
-      logger.warn("Unknown client: " + clientName);
-      return;
+  public <V> void enqueue(String name, boolean startClientOnDemand, 
+      Function<IBClient, V> work) {
+    if (getClient(name) == null && startClientOnDemand) {
+      newConnection(name);
     }
-    
-    // If we already have a writer, then don't do anything
-    if (csvWriters.get(client) != null) {
-      logger.warn("Already a csv writer.  Do nothing.");
-      return;
-    }
-    // Get the queue for this client:
-    IBClientQueue q = clientQueues.get(client);
-    q.enqueue(new Runnable() {
-      public void run() {
-        IBEventCSVWriter w = new IBEventCSVWriter(client.getSourceId());
-        client.getEventEngine().add(w);
-        IBService.this.csvWriters.put(client, w);
-      }
-    });
+    IBClientQueue q= clientQueues.get(getClient(name));
+    q.enqueue(work);
   }
 }
