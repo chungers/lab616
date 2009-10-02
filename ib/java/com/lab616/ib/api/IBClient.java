@@ -3,31 +3,23 @@
 package com.lab616.ib.api;
 
 import java.lang.reflect.Proxy;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
-import com.lab616.common.Pair;
+import com.lab616.concurrent.FutureData;
 import com.lab616.ib.api.builders.MarketDataRequest;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
 import com.lab616.monitoring.Varz;
@@ -75,8 +67,7 @@ public class IBClient {
   private EClientSocket client;
   private ExecutorService executor;
   
-  // Stores the methodName, and a list of api results.
-  private Map<String, Set<IBEvent>> apiResults = Maps.newHashMap();
+  private Set<FutureData<IBEvent, ?>> futureData = Sets.newHashSet();
   
   @Inject
   public IBClient(
@@ -108,12 +99,10 @@ public class IBClient {
           }
           @Override
           protected void handleData(IBEvent event) {
-            synchronized (apiResults) {
-              if (apiResults.get(event.getMethod()) == null) {
-                Set<IBEvent> list = Sets.newTreeSet();
-                apiResults.put(event.getMethod(), list);
+            for (FutureData<IBEvent, ?> future : futureData) {
+              if (future.accept(event)) {
+                return;
               }
-              apiResults.get(event.getMethod()).add(event);
             }
           }
         });
@@ -240,30 +229,29 @@ public class IBClient {
   }
   
   /**
-   * Pings the client directly.
+   * Pings the client directly.  Note that this is a blocking call, up to 
+   * the given timeout.
+   * @param timeout The timeout.
+   * @param unit The time unit.
    */
-  public DateTime ping() {
-    client.reqCurrentTime();
-    Callable<DateTime> getResult = new Callable<DateTime>() {
-      public DateTime call() {
-        while (true) {
-          Set<IBEvent> l = apiResults.get("currentTime");
-          if (l != null && l.size() > 0) {
-            for (IBEvent e : l) {
-              l.remove(e);
-              return new DateTime((Long)e.getArgs()[0]);
-            }
+  public DateTime ping(long timeout, TimeUnit unit) {
+    // Create a future data.
+    FutureData<IBEvent, DateTime> f = new FutureData<IBEvent, DateTime>(
+        this.executor,
+        timeout, unit, 
+        new Predicate<IBEvent>() {
+          public boolean apply(IBEvent event) {
+            return "currentTime".equals(event.getMethod());
           }
-        }
-      }
-    };
-    Future<DateTime> future = new FutureTask<DateTime>(getResult);
-    this.executor.submit(getResult);
-    try {
-      return future.get(60L, TimeUnit.SECONDS);
-    } catch (Exception e) {
-      throw new IBClientException(e);
-    }
+        }, new Function<IBEvent, DateTime>() {
+          public DateTime apply(IBEvent event) {
+            return new DateTime((Long)event.getArgs()[0]);
+          }
+        });
+    this.futureData.add(f);
+    // Now make the request since we are ready to listen for results.
+    client.reqCurrentTime();
+    return f.get();
   }
   
   /**

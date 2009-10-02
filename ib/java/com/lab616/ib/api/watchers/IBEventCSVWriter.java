@@ -65,6 +65,12 @@ public class IBEventCSVWriter extends AbstractEventWatcher implements Managed {
       @Override
       protected void onStop(int queueSize) {
         logger.info("Stopped csv writer @" + id + " at queue=" + queueSize);
+        try {
+          getOutput().flush();
+          getOutput().close();
+        } catch (IOException e) {
+          logger.warn("Exception", e);
+        }
       }
     };
     this.queueWorker.start();
@@ -104,17 +110,40 @@ public class IBEventCSVWriter extends AbstractEventWatcher implements Managed {
         this.clientSourceId);
   }
   
+  /**
+   * Receives the IBEvent from the event engine.
+   * @param event The event.
+   */
   public void update(IBEvent event) {
     if (event != null) {
       this.queueWorker.enqueue(event);
     }
   }
 
+  /**
+   * Returns if the output writer is ready (open, no errors).
+   */
+  public boolean isReady() {
+    try {
+      return !getOutput().checkError();
+    } catch (IOException e) {
+      return false;
+    }
+  }
+  
+  /**
+   * Stop this writer.
+   */
   public void stop() {
     super.stop();
     this.queueWorker.setRunning(false);
   }
-  
+
+  /**
+   * Writes the event to the output file.
+   * @param event The event.
+   * @throws Exception Exception during writes.
+   */
   private void write(IBEvent event) throws Exception {
     PrintWriter p = getOutput();
     StringBuffer line = new StringBuffer();

@@ -10,12 +10,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.log4j.Logger;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 import com.google.inject.internal.Lists;
 import com.google.inject.internal.Maps;
 import com.google.inject.name.Named;
 import com.lab616.concurrent.AbstractQueueWorker;
-import com.lab616.ib.api.watchers.IBEventCSVWriter;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.Main.Shutdown;
@@ -43,6 +43,7 @@ public final class IBService implements Shutdown<Boolean> {
    * Objects to be managed by the service. 
    */
   public interface Managed {
+    public boolean isReady();
     public void stop();
   }
   
@@ -88,6 +89,24 @@ public final class IBService implements Shutdown<Boolean> {
     this.executor = executor;
   }
   
+  /**
+   * Searches through a list of managed components associated with a client,
+   * for example, a CSV writer, and return the first component that matches
+   * the provided filter.
+   * @param name Name of the client.
+   * @param cond The filter condition.
+   * @return The first match.
+   */
+  public Managed findAssociatedComponent(String name, Predicate<Managed> cond) {
+    if (getClient(name) != null) {
+      for (Managed comp : managed.get(getClient(name))) {
+        if (cond.apply(comp)) {
+          return comp;
+        }
+      }
+    }
+    return null;
+  }
   
   /**
    * Implements Shutdown

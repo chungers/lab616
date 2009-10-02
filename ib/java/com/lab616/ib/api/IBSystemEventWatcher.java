@@ -2,9 +2,12 @@
 
 package com.lab616.ib.api;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.log4j.Logger;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 import com.lab616.ib.api.IBService.Managed;
 import com.lab616.ib.api.builders.ContractBuilder;
@@ -42,11 +45,16 @@ public class IBSystemEventWatcher extends AbstractEventWatcher {
       // Ping a connection:
       if ("ping".equals(event.getMethod())) {
         String name = event.getParam("client");
+        Long timeout = 1000L; 
+        try {
+          timeout = Long.decode(event.getParam("timeout"));
+        } catch (Exception e) {}
+        
         IBClient client = this.service.getClient(name);
         if (client == null) return;
         if (client.isReady()) {
           logger.info("Pinging connection " + name + " = " + client.isReady() +
-              ", currentTime = " + client.ping());
+              ", currentTime = " + client.ping(timeout, TimeUnit.MILLISECONDS));
         } else {
           logger.info("Pinging connection " + name + " = " + client.isReady() +
               ", currentState = " + client.getState());
@@ -101,13 +109,21 @@ public class IBSystemEventWatcher extends AbstractEventWatcher {
       if ("csv".equals(event.getMethod())) {
         String name = event.getParam("client");
         logger.debug("Starting csv writer for client=" + name);
-        this.service.enqueue(name, true, new Function<IBClient, Managed>() {
-          public Managed apply(IBClient client) {
-            IBEventCSVWriter w = new IBEventCSVWriter(client.getSourceId());
-            client.getEventEngine().add(w);
-            return w;
-          }
-        });
+        // Check to see if we already have a writer for this
+        if (this.service.findAssociatedComponent(name,
+            new Predicate<Managed>() {
+            public boolean apply(Managed m) {
+              return m instanceof IBEventCSVWriter;
+            }
+          }) == null) {
+          this.service.enqueue(name, true, new Function<IBClient, Managed>() {
+            public Managed apply(IBClient client) {
+              IBEventCSVWriter w = new IBEventCSVWriter(client.getSourceId());
+              client.getEventEngine().add(w);
+              return w;
+            }
+          });
+        }
         return;
       }
     } catch (Exception e) {
