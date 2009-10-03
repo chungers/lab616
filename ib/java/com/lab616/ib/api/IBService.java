@@ -98,7 +98,7 @@ public final class IBService implements Shutdown<Boolean> {
    * @return The first match.
    */
   public Managed findAssociatedComponent(String name, Predicate<Managed> cond) {
-    if (getClient(name) != null) {
+    if (getClient(name) != null && managed.get(getClient(name)) != null) {
       for (Managed comp : managed.get(getClient(name))) {
         if (cond.apply(comp)) {
           return comp;

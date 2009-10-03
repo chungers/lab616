@@ -110,12 +110,13 @@ public class IBSystemEventWatcher extends AbstractEventWatcher {
         String name = event.getParam("client");
         logger.debug("Starting csv writer for client=" + name);
         // Check to see if we already have a writer for this
-        if (this.service.findAssociatedComponent(name,
+        Managed managed = this.service.findAssociatedComponent(name,
             new Predicate<Managed>() {
-            public boolean apply(Managed m) {
-              return m instanceof IBEventCSVWriter;
-            }
-          }) == null) {
+          public boolean apply(Managed m) {
+            return m instanceof IBEventCSVWriter;
+          }
+        });
+        if (managed == null || !managed.isReady()) {
           this.service.enqueue(name, true, new Function<IBClient, Managed>() {
             public Managed apply(IBClient client) {
               IBEventCSVWriter w = new IBEventCSVWriter(client.getSourceId());

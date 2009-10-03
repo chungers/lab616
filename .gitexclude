@@ -24,6 +24,7 @@ genfiles/
 mock*
 runtime/
 test/
+testing/
 
 # Development tools
 tools/

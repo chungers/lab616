@@ -1,6 +1,7 @@
 // 2009 lab616.com, All Rights Reserved.
 package com.lab616.util;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
@@ -31,17 +32,24 @@ public class Time {
    */
   private static interface TimeSource {
     long now();
+    TimeUnit getTimeUnit();
   }
   
   private static class JavaTimeSource implements TimeSource {
     public long now() {
       return System.currentTimeMillis() * 1000L;
     }
+    public TimeUnit getTimeUnit() {
+      return TimeUnit.MILLISECONDS;
+    }
   }
   
   private static class NativeTimeSource implements TimeSource {
     public long now() {
       return org.apache.tomcat.jni.Time.now();
+    }
+    public TimeUnit getTimeUnit() {
+      return TimeUnit.MICROSECONDS;
     }
   }
   
@@ -63,6 +71,10 @@ public class Time {
       resolution.set(1000);
     }
     timeSource = (nativeImpl) ? new NativeTimeSource() : new JavaTimeSource(); 
+  }
+  
+  public static TimeUnit getTimeUnit() {
+    return timeSource.getTimeUnit();
   }
   
   /**
