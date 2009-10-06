@@ -37,6 +37,7 @@ public class HttpServer implements Provider<Main.Shutdown<Void>>{
   @Inject
   public HttpServer(@Named("http")int port, Map<String, HttpServlet> mapping) 
   	throws Exception {
+    logger.info("Servlet bindings: " + mapping);
     this.port = port;
     this.servletMap = mapping;
     logger.info("HttpServer @ port = " + this.port);

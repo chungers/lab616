@@ -88,10 +88,10 @@ public class IBProxy implements InvocationHandler {
   /**
    * Returns a list of method names where we don't fire IBEvents but instead
    * call the handleData method directly.
-   * @return List of filters.
+   * @return Set of filters.
    */
-  protected String[] synchronousMethods() {
-    return new String[] {};
+  protected Set<String> synchronousMethods() {
+    return Sets.newHashSet();
   }
   
   protected void handleConnectionClosed() {

@@ -62,4 +62,19 @@ public final class IBEvent implements Comparable<IBEvent> {
   public int compareTo(IBEvent o) {
     return (int) (this.getTimestamp() - o.getTimestamp());
   }
+  
+  public String toString() {
+    StringBuffer line = new StringBuffer();
+    line.append(String.format("%d,%s", getTimestamp(), getMethod()));
+    Object[] args = getArgs();
+    if (args != null && args.length > 0) {
+      StringBuffer str = new StringBuffer(args[0].toString());
+      for (int i = 1; i < args.length; i++) {
+        str.append(",");
+        str.append(args[i]);
+      }
+      line.append("," + str.toString());
+    }
+    return line.toString();
+  }
 }

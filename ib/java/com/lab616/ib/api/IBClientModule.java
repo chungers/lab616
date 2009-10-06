@@ -66,6 +66,8 @@ public class IBClientModule extends AbstractEventModule {
         FactoryProvider.newFactory(IBClient.Factory.class, IBClient.class))
         .in(Scopes.SINGLETON);
     
+    bind(IBService.class).in(Scopes.SINGLETON);
+    
     bind(Main.Shutdown.class).annotatedWith(Names.named("ib-api-shutdown"))
     .to(IBService.class).in(Scopes.SINGLETON);
   }

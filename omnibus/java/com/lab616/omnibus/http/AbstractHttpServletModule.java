@@ -16,21 +16,19 @@ import com.google.inject.multibindings.MapBinder;
  */
 public abstract class AbstractHttpServletModule extends AbstractModule {
 
+  protected MapBinder<String, HttpServlet> getServletBinder() {
+    return MapBinder.newMapBinder(binder(), String.class, HttpServlet.class);
+  }
+  
 	public void bind(String url, HttpServlet instance) {
-		MapBinder<String, HttpServlet> mbinder = 
-			MapBinder.newMapBinder(binder(), String.class, HttpServlet.class);
-		mbinder.addBinding(url).toInstance(instance);
+		getServletBinder().addBinding(url).toInstance(instance);
 	}
 
 	public void bind(String url, Provider<HttpServlet> provider) {
-		MapBinder<String, HttpServlet> mbinder = 
-			MapBinder.newMapBinder(binder(), String.class, HttpServlet.class);
-		mbinder.addBinding(url).toProvider(provider);
+	  getServletBinder().addBinding(url).toProvider(provider);
 	}
 
 	public void bind(String url, Class<? extends HttpServlet> servletClz) {
-		MapBinder<String, HttpServlet> mbinder = 
-			MapBinder.newMapBinder(binder(), String.class, HttpServlet.class);
-		mbinder.addBinding(url).to(servletClz);
+	  getServletBinder().addBinding(url).to(servletClz);
 	}
 }

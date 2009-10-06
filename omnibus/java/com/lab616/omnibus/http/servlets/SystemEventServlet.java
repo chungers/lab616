@@ -87,7 +87,7 @@ public class SystemEventServlet extends HttpServlet {
 			logger.warn("Could not send system event:", e);
 			errorSentEvents.incrementAndGet();
 			resp.setContentType("text/plain");
-			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			resp.getWriter().println("SYSTEM-EVENT-ERROR");
 		}
 	}

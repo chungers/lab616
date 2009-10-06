@@ -20,7 +20,7 @@ import com.google.common.base.Predicate;
  * @author david
  *
  */
-public class FutureData<V, T> implements Callable<T>, Future<T> {
+public class FutureData<V, T> implements Callable<T>, Future<T>, FutureHolder<V> {
 
   static Logger logger = Logger.getLogger(FutureData.class);
   

@@ -5,6 +5,7 @@ package com.lab616.ib.api;
 import org.apache.log4j.Logger;
 
 import com.google.inject.Module;
+import com.lab616.ib.api.servlets.IBServletModule;
 import com.lab616.omnibus.Main;
 
 /**
@@ -19,7 +20,7 @@ public class ApiClientMain extends Main {
 
   @Override
   public Module[] getModules() {
-    return new Module[] { new IBClientModule() };
+    return new Module[] { new IBClientModule(), new IBServletModule() };
   }
 
   @Override

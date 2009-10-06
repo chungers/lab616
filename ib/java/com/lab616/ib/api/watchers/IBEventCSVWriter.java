@@ -146,18 +146,7 @@ public class IBEventCSVWriter extends AbstractEventWatcher implements Managed {
    */
   private void write(IBEvent event) throws Exception {
     PrintWriter p = getOutput();
-    StringBuffer line = new StringBuffer();
-    line.append(String.format("%d,%s", event.getTimestamp(), event.getMethod()));
-    Object[] args = event.getArgs();
-    if (args != null && args.length > 0) {
-      StringBuffer str = new StringBuffer(args[0].toString());
-      for (int i = 1; i < args.length; i++) {
-        str.append(",");
-        str.append(args[i]);
-      }
-      line.append("," + str.toString());
-    }
-    p.println(line);
+    p.println(event.toString());
     p.flush();
   }
 }

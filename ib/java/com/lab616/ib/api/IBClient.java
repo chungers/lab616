@@ -10,16 +10,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
-import com.lab616.concurrent.FutureData;
 import com.lab616.ib.api.builders.MarketDataRequest;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
 import com.lab616.monitoring.Varz;
@@ -67,7 +66,7 @@ public class IBClient {
   private EClientSocket client;
   private ExecutorService executor;
   
-  private Set<FutureData<IBEvent, ?>> futureData = Sets.newHashSet();
+  private final TWSBlockingCallManager blockingCalls;
   
   @Inject
   public IBClient(
@@ -85,6 +84,12 @@ public class IBClient {
     this.maxRetries = maxRetries;
     this.executor = executor;
     this.eventEngine = engine;
+    
+    // For implementing blocking calls.
+    this.blockingCalls = new TWSBlockingCallManager(this.executor,
+        500L, TimeUnit.MILLISECONDS,
+        "currentTime", "historicalData");
+
     this.wrapper = (EWrapper)Proxy.newProxyInstance(
         EWrapper.class.getClassLoader(), 
         new Class[] { EWrapper.class }, 
@@ -94,16 +99,12 @@ public class IBClient {
             onDisconnect();
           }
           @Override
-          protected String[] synchronousMethods() {
-            return new String[] {"currentTime"};
+          protected Set<String> synchronousMethods() {
+            return blockingCalls.getSynchronousMethods();
           }
           @Override
           protected void handleData(IBEvent event) {
-            for (FutureData<IBEvent, ?> future : futureData) {
-              if (future.accept(event)) {
-                return;
-              }
-            }
+            blockingCalls.handleData(event);
           }
         });
     this.client = new EClientSocket(wrapper);
@@ -235,23 +236,48 @@ public class IBClient {
    * @param unit The time unit.
    */
   public DateTime ping(long timeout, TimeUnit unit) {
-    // Create a future data.
-    FutureData<IBEvent, DateTime> f = new FutureData<IBEvent, DateTime>(
-        this.executor,
+    checkReady();
+    return this.blockingCalls.blockingCall("currentTime", 
         timeout, unit, 
-        new Predicate<IBEvent>() {
-          public boolean apply(IBEvent event) {
-            return "currentTime".equals(event.getMethod());
-          }
-        }, new Function<IBEvent, DateTime>() {
+        new Function<IBEvent, DateTime>() {
           public DateTime apply(IBEvent event) {
             return new DateTime((Long)event.getArgs()[0]);
           }
+        },
+        new Runnable() {
+          public void run() {
+            client.reqCurrentTime();
+          }
         });
-    this.futureData.add(f);
-    // Now make the request since we are ready to listen for results.
-    client.reqCurrentTime();
-    return f.get();
+  }
+  
+  public Iterable<String> requestHistoricalData(MarketDataRequestBuilder builder,
+      long timeout, TimeUnit unit) {
+    checkReady();
+    final MarketDataRequest req = builder.build();
+    final int tickerId = req.getTickerId();
+    
+    return this.blockingCalls.blockingIterable(timeout, unit,
+        new Predicate<IBEvent>() {
+          public boolean apply(IBEvent event) {
+            return "historicalData".equals(event.getMethod()) &&
+              tickerId == (Integer) event.getArgs()[0];
+          }
+        },
+        new Function<IBEvent, String>() {
+          public String apply(IBEvent event) {
+            return event.toString();
+          }
+        },
+        new Runnable() {
+          public void run() {
+            DateTime now = new DateTime();
+            client.reqHistoricalData(tickerId, req.getContract(), 
+                DateTimeFormat.forPattern("yyyyMMdd HH:mm:ss").print(now), 
+                "5 D", "1 min", 
+                "TRADES", 1, 2);
+          }
+        });
   }
   
   /**

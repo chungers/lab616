@@ -1,308 +1,85 @@
-03:17:59:976 AWT-EventQueue-0: Build 898.3, Sep 23, 2009 5:03:56 PM
-03:18:23:947 AWT-EventQueue-0: Market rule file /Users/david/lab616/third_party/java/ib-tws-898/IBJts/dbuhtmvwt/Fri.rul does not exist or is removed
+00:43:11:331 AWT-EventQueue-0: Build 898.3, Sep 23, 2009 5:03:56 PM
+00:43:44:895 AWT-EventQueue-0: Market rule file /Users/david/lab616/third_party/java/ib-tws-898/IBJts/dbuhtmvwt/Tue.rul does not exist or is removed
 Jolt logger configuration is done.
-03:18:28:799 JTS-SocketListener-30: API server listening on port 7496
-03:18:32:271 JTS-CCPDispatcher-20: MainWindowBatchProcessor: All rows have been created
-03:18:45:115 Thread-77: Opening URL http://www.interactivebrokers.com/en/control/twscontrol.php?ib_entity=llc
-03:20:14:124 JTS-CCPPing-12: Warning: not received heartbeat at 112000 elapsed:11000
-03:20:24:474 AWT-EventQueue-0: Plugin Name: Configuration loaded in 0
-03:20:24:492 AWT-EventQueue-0: Plugin Name: Trader Dashboard loaded in 13
-03:20:24:497 AWT-EventQueue-0: Plugin Name: Trader Dashboard loaded in 0
-03:20:24:552 AWT-EventQueue-0: Plugin Name: Configuration loaded in 1
-03:20:54:131 JTS-CCPPing-12: Warning: not received heartbeat at 152000 elapsed:11000
-03:21:24:136 JTS-CCPPing-12: Warning: not received heartbeat at 182000 elapsed:11000
-03:21:54:142 JTS-CCPPing-12: Warning: not received heartbeat at 212000 elapsed:11000
-03:24:51:351 JTS-EServerSocket-99: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
-03:24:51:354 JTS-EServerSocket-96: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
-03:25:24:183 JTS-CCPPing-12: Warning: not received heartbeat at 422000 elapsed:11000
-03:27:22:109 JTS-EServerSocket-119: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
-03:27:22:111 JTS-EServerSocket-122: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
-03:32:45:693 JTS-CCPPing-12: Warning: not received heartbeat at 862000 elapsed:11000
-03:33:05:696 JTS-CCPPing-12: Warning: not received heartbeat at 882000 elapsed:11000
-03:34:05:706 JTS-CCPPing-12: Warning: not received heartbeat at 942000 elapsed:11000
-03:48:46:014 JTS-CCPPing-12: Warning: not received heartbeat at 1822000 elapsed:11000
-03:55:05:044 JTS-EServerSocket-226: [10:45:45:1:0:0:0:ERR] The application is now locked
-03:55:05:044 JTS-EServerSocket-226: Anticipated error
-jextend.b: The application is now locked
-	at jextend.wd.a(wd.java:815)
-	at jextend.wd.run(wd.java:755)
+00:43:50:891 JTS-SocketListener-26: API server listening on port 7496
+00:43:54:453 JTS-CCPDispatcher-20: MainWindowBatchProcessor: All rows have been created
+00:44:38:275 JTS-CCPPing-12: Warning: not received heartbeat at 55000 elapsed:11000
+00:44:58:277 JTS-CCPPing-12: Warning: not received heartbeat at 75000 elapsed:11000
+00:45:48:284 JTS-CCPPing-12: Warning: not received heartbeat at 125000 elapsed:11000
+00:46:08:287 JTS-CCPPing-12: Warning: not received heartbeat at 145000 elapsed:11000
+00:46:28:291 JTS-CCPPing-12: Warning: not received heartbeat at 165000 elapsed:11000
+01:47:40:540 JTS-CCPPing-12: Warning: not received heartbeat at 3836000 elapsed:11000
+01:50:50:570 JTS-CCPPing-12: Warning: not received heartbeat at 4026000 elapsed:11000
+01:51:20:576 JTS-CCPPing-12: Warning: not received heartbeat at 4056000 elapsed:11000
+01:53:10:594 JTS-CCPPing-12: Warning: not received heartbeat at 4166000 elapsed:11000
+01:53:50:601 JTS-CCPPing-12: Warning: not received heartbeat at 4206000 elapsed:11000
+01:56:56:766 JTS-CCPPing-12: Warning: not received heartbeat at 4392000 elapsed:11000
+01:57:16:771 JTS-CCPPing-12: Warning: not received heartbeat at 4412000 elapsed:11000
+01:57:56:777 JTS-CCPPing-12: Warning: not received heartbeat at 4452000 elapsed:11000
+01:58:16:780 JTS-CCPPing-12: Warning: not received heartbeat at 4472000 elapsed:11000
+01:58:36:784 JTS-CCPPing-12: Warning: not received heartbeat at 4492000 elapsed:11000
+01:59:00:788 JTS-CCPPing-12: Warning: not received heartbeat at 4516000 elapsed:11000
+01:59:20:791 JTS-CCPPing-12: Warning: not received heartbeat at 4536000 elapsed:11000
+02:00:00:798 JTS-CCPPing-12: Warning: not received heartbeat at 4576000 elapsed:11000
+02:00:30:803 JTS-CCPPing-12: Warning: not received heartbeat at 4606000 elapsed:11000
+02:00:50:805 JTS-CCPPing-12: Warning: not received heartbeat at 4626000 elapsed:11000
+02:02:30:819 JTS-CCPPing-12: Warning: not received heartbeat at 4726000 elapsed:11000
+02:03:00:824 JTS-CCPPing-12: Warning: not received heartbeat at 4756000 elapsed:11000
+02:03:30:828 JTS-CCPPing-12: Warning: not received heartbeat at 4786000 elapsed:11000
+02:05:00:878 JTS-CCPPing-12: Warning: not received heartbeat at 4876000 elapsed:11000
+02:05:30:883 JTS-CCPPing-12: Warning: not received heartbeat at 4906000 elapsed:11000
+02:05:50:888 JTS-CCPPing-12: Warning: not received heartbeat at 4926000 elapsed:11000
+02:06:10:893 JTS-CCPPing-12: Warning: not received heartbeat at 4946000 elapsed:11000
+02:07:00:900 JTS-CCPPing-12: Warning: not received heartbeat at 4996000 elapsed:11000
+02:07:20:904 JTS-CCPPing-12: Warning: not received heartbeat at 5016000 elapsed:11000
+02:08:00:910 JTS-CCPPing-12: Warning: not received heartbeat at 5056000 elapsed:11000
+02:09:00:920 JTS-CCPPing-12: Warning: not received heartbeat at 5116000 elapsed:11000
+02:09:40:925 JTS-CCPPing-12: Warning: not received heartbeat at 5156000 elapsed:11000
+02:10:10:930 JTS-CCPPing-12: Warning: not received heartbeat at 5186000 elapsed:11000
+02:10:30:934 JTS-CCPPing-12: Warning: not received heartbeat at 5206000 elapsed:11000
+02:11:20:942 JTS-CCPPing-12: Warning: not received heartbeat at 5256000 elapsed:11000
+02:11:40:945 JTS-CCPPing-12: Warning: not received heartbeat at 5276000 elapsed:11000
+02:12:10:949 JTS-CCPPing-12: Warning: not received heartbeat at 5306000 elapsed:11000
+02:12:40:954 JTS-CCPPing-12: Warning: not received heartbeat at 5336000 elapsed:11000
+02:13:00:957 JTS-CCPPing-12: Warning: not received heartbeat at 5356000 elapsed:11000
+02:13:20:960 JTS-CCPPing-12: Warning: not received heartbeat at 5376000 elapsed:11000
+02:14:36:802 JTS-CCPPing-12: Warning: not received heartbeat at 5452000 elapsed:11000
+02:17:10:828 JTS-CCPPing-12: Warning: not received heartbeat at 5606000 elapsed:11000
+02:17:40:832 JTS-CCPPing-12: Warning: not received heartbeat at 5636000 elapsed:11000
+02:18:10:837 JTS-CCPPing-12: Warning: not received heartbeat at 5666000 elapsed:11000
+02:18:40:842 JTS-CCPPing-12: Warning: not received heartbeat at 5696000 elapsed:11000
+02:19:00:846 JTS-CCPPing-12: Warning: not received heartbeat at 5716000 elapsed:11000
+02:19:20:850 JTS-CCPPing-12: Warning: not received heartbeat at 5736000 elapsed:11000
+02:19:40:853 JTS-CCPPing-12: Warning: not received heartbeat at 5756000 elapsed:11000
+02:20:10:859 JTS-CCPPing-12: Warning: not received heartbeat at 5786000 elapsed:11000
+02:21:10:869 JTS-CCPPing-12: Warning: not received heartbeat at 5846000 elapsed:11000
+02:22:10:879 JTS-CCPPing-12: Warning: not received heartbeat at 5906000 elapsed:11000
+02:24:16:832 JTS-CCPPing-12: Warning: not received heartbeat at 6032000 elapsed:11000
+02:24:46:836 JTS-CCPPing-12: Warning: not received heartbeat at 6062000 elapsed:11000
+02:25:46:847 JTS-CCPPing-12: Warning: not received heartbeat at 6122000 elapsed:11000
+02:26:50:858 JTS-CCPPing-12: Warning: not received heartbeat at 6186000 elapsed:11000
+02:28:40:880 JTS-CCPPing-12: Warning: not received heartbeat at 6296000 elapsed:11000
+02:28:48:585 JTS-EServerSocket-93: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+02:32:54:884 JTS-EServerSocket-417: can't locate query step [2]
+02:32:54:889 JTS-EServerSocket-417: [0:46:45:1:0:0:0:ERR] -'yb' : cause - Historical data bar size setting is invalid. Legal ones are: 1 secs, 5 secs, 15 secs, 30 secs, 1 min, 2 mins, 3 mins, 5 mins, 15 mins, 30 mins, 1 hour, 1 day, 1 week, 1 month, 3 months, 1 year
+02:32:54:889 JTS-EServerSocket-417: Anticipated error
+jextend.d: Historical data bar size setting is invalid. Legal ones are: 1 secs, 5 secs, 15 secs, 30 secs, 1 min, 2 mins, 3 mins, 5 mins, 15 mins, 30 mins, 1 hour, 1 day, 1 week, 1 month, 3 months, 1 year
+	at jextend.yb.e(yb.java:539)
+	at jextend.ab.i(ab.java:249)
+	at jextend.wd.P(wd.java:943)
+	at jextend.wd.run(wd.java:803)
 	at java.lang.Thread.run(Thread.java:613)
-03:58:55:906 JTS-CCPPing-12: Warning: not received heartbeat at 2432000 elapsed:11000
-03:59:15:910 JTS-CCPPing-12: Warning: not received heartbeat at 2452000 elapsed:11000
-03:59:45:915 JTS-CCPPing-12: Warning: not received heartbeat at 2482000 elapsed:11000
-04:08:55:935 JTS-CCPPing-12: Warning: not received heartbeat at 3032000 elapsed:11000
-04:09:35:942 JTS-CCPPing-12: Warning: not received heartbeat at 3072000 elapsed:11000
-04:09:55:946 JTS-CCPPing-12: Warning: not received heartbeat at 3092000 elapsed:11000
-05:13:35:617 JTS-CCPPing-12: Warning: not received heartbeat at 6911000 elapsed:11000
-05:16:25:645 JTS-CCPPing-12: Warning: not received heartbeat at 7081000 elapsed:11000
-05:21:55:780 JTS-CCPPing-12: Warning: not received heartbeat at 7411000 elapsed:11000
-05:24:45:808 JTS-CCPPing-12: Warning: not received heartbeat at 7581000 elapsed:11000
-05:26:05:821 JTS-CCPPing-12: Warning: not received heartbeat at 7661000 elapsed:11000
-05:26:25:825 JTS-CCPPing-12: Warning: not received heartbeat at 7681000 elapsed:11000
-05:27:15:833 JTS-CCPPing-12: Warning: not received heartbeat at 7731000 elapsed:11000
-05:27:35:836 JTS-CCPPing-12: Warning: not received heartbeat at 7751000 elapsed:11000
-05:27:55:839 JTS-CCPPing-12: Warning: not received heartbeat at 7771000 elapsed:11000
-05:28:35:846 JTS-CCPPing-12: Warning: not received heartbeat at 7811000 elapsed:11000
-05:31:45:864 JTS-CCPPing-12: Warning: not received heartbeat at 8001000 elapsed:11000
-05:32:05:867 JTS-CCPPing-12: Warning: not received heartbeat at 8021000 elapsed:11000
-05:32:25:871 JTS-CCPPing-12: Warning: not received heartbeat at 8041000 elapsed:11000
-05:32:45:874 JTS-CCPPing-12: Warning: not received heartbeat at 8061000 elapsed:11000
-05:33:05:878 JTS-CCPPing-12: Warning: not received heartbeat at 8081000 elapsed:11000
-05:33:25:881 JTS-CCPPing-12: Warning: not received heartbeat at 8101000 elapsed:11000
-05:34:25:892 JTS-CCPPing-12: Warning: not received heartbeat at 8161000 elapsed:11000
-05:35:05:899 JTS-CCPPing-12: Warning: not received heartbeat at 8201000 elapsed:11000
-05:36:05:910 JTS-CCPPing-12: Warning: not received heartbeat at 8261000 elapsed:11000
-05:36:25:913 JTS-CCPPing-12: Warning: not received heartbeat at 8281000 elapsed:11000
-05:36:55:919 JTS-CCPPing-12: Warning: not received heartbeat at 8311000 elapsed:11000
-05:37:55:928 JTS-CCPPing-12: Warning: not received heartbeat at 8371000 elapsed:11000
-05:38:25:933 JTS-CCPPing-12: Warning: not received heartbeat at 8401000 elapsed:11000
-05:41:05:950 JTS-CCPPing-12: Warning: not received heartbeat at 8561000 elapsed:11000
-05:41:25:954 JTS-CCPPing-12: Warning: not received heartbeat at 8581000 elapsed:11000
-05:42:05:961 JTS-CCPPing-12: Warning: not received heartbeat at 8621000 elapsed:11000
-05:42:35:967 JTS-CCPPing-12: Warning: not received heartbeat at 8651000 elapsed:11000
-05:43:55:980 JTS-CCPPing-12: Warning: not received heartbeat at 8731000 elapsed:11000
-05:44:15:984 JTS-CCPPing-12: Warning: not received heartbeat at 8751000 elapsed:11000
-05:44:35:988 JTS-CCPPing-12: Warning: not received heartbeat at 8771000 elapsed:11000
-05:45:05:992 JTS-CCPPing-12: Warning: not received heartbeat at 8801000 elapsed:11000
-05:46:16:003 JTS-CCPPing-12: Warning: not received heartbeat at 8871000 elapsed:11000
-05:48:26:025 JTS-CCPPing-12: Warning: not received heartbeat at 9001000 elapsed:11000
-05:48:46:007 JTS-CCPPing-12: Warning: not received heartbeat at 9021000 elapsed:11000
-05:49:46:015 JTS-CCPPing-12: Warning: not received heartbeat at 9081000 elapsed:11000
-05:50:56:027 JTS-CCPPing-12: Warning: not received heartbeat at 9151000 elapsed:11000
-05:51:16:030 JTS-CCPPing-12: Warning: not received heartbeat at 9171000 elapsed:11000
-05:51:46:035 JTS-CCPPing-12: Warning: not received heartbeat at 9201000 elapsed:11000
-05:52:06:039 JTS-CCPPing-12: Warning: not received heartbeat at 9221000 elapsed:11000
-05:52:46:045 JTS-CCPPing-12: Warning: not received heartbeat at 9261000 elapsed:11000
-05:53:56:057 JTS-CCPPing-12: Warning: not received heartbeat at 9331000 elapsed:11000
-05:54:16:061 JTS-CCPPing-12: Warning: not received heartbeat at 9351000 elapsed:11000
-05:54:46:067 JTS-CCPPing-12: Warning: not received heartbeat at 9381000 elapsed:11000
-05:58:56:106 JTS-CCPPing-12: Warning: not received heartbeat at 9631000 elapsed:11000
-05:59:56:115 JTS-CCPPing-12: Warning: not received heartbeat at 9691000 elapsed:11000
-06:00:36:123 JTS-CCPPing-12: Warning: not received heartbeat at 9731000 elapsed:11000
-06:03:26:151 JTS-CCPPing-12: Warning: not received heartbeat at 9901000 elapsed:11000
-06:04:56:166 JTS-CCPPing-12: Warning: not received heartbeat at 9991000 elapsed:11000
-06:25:16:339 JTS-CCPPing-12: Warning: not received heartbeat at 11211000 elapsed:11000
-07:34:25:898 JTS-CCPPing-12: Warning: not received heartbeat at 15360000 elapsed:11000
-07:37:25:925 JTS-CCPPing-12: Warning: not received heartbeat at 15540000 elapsed:11000
-07:37:55:929 JTS-CCPPing-12: Warning: not received heartbeat at 15570000 elapsed:11000
-07:40:45:984 JTS-CCPPing-12: Warning: not received heartbeat at 15740000 elapsed:11000
-07:41:05:988 JTS-CCPPing-12: Warning: not received heartbeat at 15760000 elapsed:11000
-07:43:26:008 JTS-CCPPing-12: Warning: not received heartbeat at 15900000 elapsed:11000
-07:44:06:014 JTS-CCPPing-12: Warning: not received heartbeat at 15940000 elapsed:11000
-07:44:36:019 JTS-CCPPing-12: Warning: not received heartbeat at 15970000 elapsed:11000
-07:47:06:040 JTS-CCPPing-12: Warning: not received heartbeat at 16120000 elapsed:11000
-07:47:26:042 JTS-CCPPing-12: Warning: not received heartbeat at 16140000 elapsed:11000
-07:47:56:047 JTS-CCPPing-12: Warning: not received heartbeat at 16170000 elapsed:11000
-07:48:56:001 JTS-CCPPing-12: Warning: not received heartbeat at 16230000 elapsed:11000
-07:49:36:007 JTS-CCPPing-12: Warning: not received heartbeat at 16270000 elapsed:11000
-07:50:46:030 JTS-CCPPing-12: Warning: not received heartbeat at 16340000 elapsed:11000
-07:51:16:035 JTS-CCPPing-12: Warning: not received heartbeat at 16370000 elapsed:11000
-07:51:36:038 JTS-CCPPing-12: Warning: not received heartbeat at 16390000 elapsed:11000
-07:53:36:055 JTS-CCPPing-12: Warning: not received heartbeat at 16510000 elapsed:11000
-07:54:56:066 JTS-CCPPing-12: Warning: not received heartbeat at 16590000 elapsed:11000
-08:01:06:073 JTS-CCPPing-12: Warning: not received heartbeat at 16960000 elapsed:11000
-08:02:26:084 JTS-CCPPing-12: Warning: not received heartbeat at 17040000 elapsed:11000
-08:03:26:093 JTS-CCPPing-12: Warning: not received heartbeat at 17100000 elapsed:11000
-08:03:46:104 JTS-CCPPing-12: Warning: not received heartbeat at 17120000 elapsed:11000
-08:04:06:107 JTS-CCPPing-12: Warning: not received heartbeat at 17140000 elapsed:11000
-08:05:56:123 JTS-CCPPing-12: Warning: not received heartbeat at 17250000 elapsed:11000
-08:07:06:133 JTS-CCPPing-12: Warning: not received heartbeat at 17320000 elapsed:11000
-08:07:46:139 JTS-CCPPing-12: Warning: not received heartbeat at 17360000 elapsed:11000
-08:08:46:213 JTS-CCPPing-12: Warning: not received heartbeat at 17420000 elapsed:11000
-08:09:26:225 JTS-CCPPing-12: Warning: not received heartbeat at 17460000 elapsed:11000
-08:10:56:238 JTS-CCPPing-12: Warning: not received heartbeat at 17550000 elapsed:11000
-08:12:26:250 JTS-CCPPing-12: Warning: not received heartbeat at 17640000 elapsed:11000
-08:13:06:256 JTS-CCPPing-12: Warning: not received heartbeat at 17680000 elapsed:11000
-08:15:16:274 JTS-CCPPing-12: Warning: not received heartbeat at 17810000 elapsed:11000
-08:16:57:290 JTS-CCPPing-12: Warning: not received heartbeat at 17911000 elapsed:11000
-08:18:17:300 JTS-CCPPing-12: Warning: not received heartbeat at 17991000 elapsed:11000
-08:30:06:388 JTS-CCPPing-12: Warning: not received heartbeat at 18700000 elapsed:11000
-08:30:07:389 JTS-CCPPing-12: Warning: not received heartbeat at 18701000 elapsed:12000
-08:30:13:793 JTS-usfarmDispatcher-50: nosBits overflow detected. nosBits adjusted from 20128 to 85664 based on bodyLen = 10715
-08:30:14:300 JTS-usfarmDispatcher-50: nosBits overflow detected. nosBits adjusted from 34288 to 99824 based on bodyLen = 12485
-08:30:15:045 JTS-usfarmDispatcher-50: nosBits overflow detected. nosBits adjusted from 63072 to 128608 based on bodyLen = 16083
-08:30:15:289 JTS-usfarmDispatcher-50: nosBits overflow detected. nosBits adjusted from 45784 to 111320 based on bodyLen = 13922
-08:30:15:949 JTS-usfarmDispatcher-50: nosBits overflow detected. nosBits adjusted from 48184 to 113720 based on bodyLen = 14222
-08:31:00:586 JTS-usfarmDispatcher-50: nosBits overflow detected. nosBits adjusted from 3728 to 69264 based on bodyLen = 8665
-08:39:36:463 JTS-CCPPing-12: Warning: not received heartbeat at 19270000 elapsed:11000
-09:30:44:749 JTS-usfarmDispatcher-50: nosBits overflow detected. nosBits adjusted from 13800 to 79336 based on bodyLen = 9924
-09:31:46:966 JTS-CCPPing-12: Warning: not received heartbeat at 22400000 elapsed:11000
-09:32:26:970 JTS-CCPPing-12: Warning: not received heartbeat at 22440000 elapsed:11000
-09:33:16:996 JTS-CCPPing-12: Warning: not received heartbeat at 22490000 elapsed:11000
-10:01:56:968 JTS-CCPPing-12: Warning: not received heartbeat at 24209000 elapsed:11000
-10:02:26:972 JTS-CCPPing-12: Warning: not received heartbeat at 24239000 elapsed:11000
-10:04:47:071 JTS-CCPPing-12: Warning: not received heartbeat at 24379000 elapsed:11000
-10:06:17:169 JTS-CCPPing-12: Warning: not received heartbeat at 24469000 elapsed:11000
-10:06:47:195 JTS-CCPPing-12: Warning: not received heartbeat at 24499000 elapsed:11000
-10:27:37:126 JTS-CCPPing-12: Warning: not received heartbeat at 25747000 elapsed:11000
-10:30:46:319 JTS-CCPPing-12: Warning: not received heartbeat at 25936000 elapsed:11000
-10:37:57:095 JTS-CCPPing-12: Warning: not received heartbeat at 26366000 elapsed:11000
-10:44:27:180 JTS-CCPPing-12: Warning: not received heartbeat at 26755000 elapsed:11000
-10:57:36:996 JTS-CCPPing-12: Warning: not received heartbeat at 27543000 elapsed:11000
-10:58:07:138 JTS-CCPPing-12: Warning: not received heartbeat at 27573000 elapsed:11000
-11:04:57:254 JTS-CCPPing-12: Warning: not received heartbeat at 27982000 elapsed:11000
-11:10:16:108 JTS-CCPPing-12: Warning: not received heartbeat at 28300000 elapsed:11000
-11:10:27:110 JTS-CCPPing-12: Warning: not received heartbeat at 28311000 elapsed:11000
-11:10:47:139 JTS-CCPPing-12: Warning: not received heartbeat at 28331000 elapsed:11000
-11:11:47:275 JTS-CCPPing-12: Warning: not received heartbeat at 28391000 elapsed:11000
-11:17:27:213 JTS-CCPPing-12: Warning: not received heartbeat at 28730000 elapsed:11000
-11:25:27:152 JTS-CCPPing-12: Warning: not received heartbeat at 29209000 elapsed:11000
-11:32:07:156 JTS-CCPPing-12: Warning: not received heartbeat at 29607000 elapsed:11000
-11:32:57:386 JTS-CCPPing-12: Warning: not received heartbeat at 29657000 elapsed:11000
-11:36:47:188 JTS-CCPPing-12: Warning: not received heartbeat at 29886000 elapsed:11000
-11:37:07:279 JTS-CCPPing-12: Warning: not received heartbeat at 29906000 elapsed:11000
-11:45:07:431 JTS-CCPPing-12: Warning: not received heartbeat at 30384000 elapsed:11000
-11:49:06:268 JTS-CCPPing-12: Warning: not received heartbeat at 30622000 elapsed:11000
-11:51:07:392 JTS-CCPPing-12: Warning: not received heartbeat at 30743000 elapsed:11000
-12:21:27:206 JTS-CCPPing-12: Warning: not received heartbeat at 32557000 elapsed:11000
-12:24:47:295 JTS-CCPPing-12: Warning: not received heartbeat at 32756000 elapsed:11000
-12:31:57:561 JTS-CCPPing-12: Warning: not received heartbeat at 33184000 elapsed:11000
-12:36:57:466 JTS-CCPPing-12: Warning: not received heartbeat at 33482000 elapsed:11000
-12:55:47:498 JTS-CCPPing-12: Warning: not received heartbeat at 34608000 elapsed:11000
-12:56:27:502 JTS-CCPPing-12: Warning: not received heartbeat at 34648000 elapsed:11000
-12:58:27:387 JTS-CCPPing-12: Warning: not received heartbeat at 34767000 elapsed:11000
-13:01:06:275 JTS-CCPPing-12: Warning: not received heartbeat at 34925000 elapsed:11000
-13:02:27:394 JTS-CCPPing-12: Warning: not received heartbeat at 35006000 elapsed:11000
-13:02:47:395 JTS-CCPPing-12: Warning: not received heartbeat at 35026000 elapsed:11000
-13:05:17:414 JTS-CCPPing-12: Warning: not received heartbeat at 35175000 elapsed:11000
-13:09:46:000 JTS-CCPPing-12: Warning: not received heartbeat at 35442000 elapsed:11000
-13:10:27:226 JTS-CCPPing-12: Warning: not received heartbeat at 35483000 elapsed:11000
-13:10:47:265 JTS-CCPPing-12: Warning: not received heartbeat at 35503000 elapsed:11000
-13:13:57:169 JTS-CCPPing-12: Warning: not received heartbeat at 35692000 elapsed:11000
-13:31:16:195 JTS-CCPPing-12: Warning: not received heartbeat at 36726000 elapsed:11000
-13:35:47:613 JTS-CCPPing-12: Warning: not received heartbeat at 36996000 elapsed:11000
-13:43:07:572 JTS-CCPPing-12: Warning: not received heartbeat at 37433000 elapsed:11000
-13:47:37:557 JTS-CCPPing-12: Warning: not received heartbeat at 37701000 elapsed:11000
-13:53:17:590 JTS-CCPPing-12: Warning: not received heartbeat at 38040000 elapsed:11000
-13:53:47:739 JTS-CCPPing-12: Warning: not received heartbeat at 38070000 elapsed:11000
-13:59:05:878 JTS-CCPPing-12: Warning: not received heartbeat at 38386000 elapsed:11000
-14:00:16:117 JTS-CCPPing-12: Warning: not received heartbeat at 38456000 elapsed:11000
-14:02:37:437 JTS-CCPPing-12: Warning: not received heartbeat at 38596000 elapsed:11000
-14:08:07:482 JTS-CCPPing-12: Warning: not received heartbeat at 38924000 elapsed:11000
-14:13:47:148 JTS-CCPPing-12: Warning: not received heartbeat at 39262000 elapsed:11000
-14:14:17:243 JTS-CCPPing-12: Warning: not received heartbeat at 39292000 elapsed:11000
-14:21:37:605 JTS-CCPPing-12: Warning: not received heartbeat at 39729000 elapsed:11000
-14:22:07:809 JTS-CCPPing-12: Warning: not received heartbeat at 39759000 elapsed:11000
-14:23:57:649 JTS-CCPPing-12: Warning: not received heartbeat at 39868000 elapsed:11000
-14:33:31:079 JTS-CCPPing-12: Warning: not received heartbeat at 40437000 elapsed:11000
-14:36:11:108 JTS-CCPPing-12: Warning: not received heartbeat at 40596000 elapsed:11000
-14:44:11:206 JTS-CCPPing-12: Warning: not received heartbeat at 41071000 elapsed:11000
-15:03:51:179 JTS-CCPPing-12: Warning: not received heartbeat at 42242000 elapsed:11000
-15:04:11:315 JTS-CCPPing-12: Warning: not received heartbeat at 42262000 elapsed:11000
-15:14:12:099 JTS-CCPPing-12: Warning: not received heartbeat at 42859000 elapsed:11000
-15:14:13:100 JTS-CCPPing-12: Warning: not received heartbeat at 42860000 elapsed:12000
-15:14:14:100 JTS-CCPPing-12: Warning: not received heartbeat at 42861000 elapsed:13000
-15:14:15:100 JTS-CCPPing-12: Warning: not received heartbeat at 42862000 elapsed:14000
-15:14:16:100 JTS-CCPPing-12: Warning: sending test request at 42863000
-15:14:17:102 JTS-CCPPing-12: Warning: not received heartbeat at 42864000 elapsed:16000
-15:14:18:102 JTS-CCPPing-12: Warning: not received heartbeat at 42865000 elapsed:17000
-15:14:19:102 JTS-CCPPing-12: Warning: not received heartbeat at 42866000 elapsed:18000
-15:14:20:102 JTS-CCPPing-12: Warning: not received heartbeat at 42867000 elapsed:19000
-15:14:21:102 JTS-CCPPing-12: Warning: not received heartbeat at 42868000 elapsed:20000
-15:14:22:102 JTS-CCPPing-12: Warning: not received heartbeat at 42869000 elapsed:21000
-15:14:23:103 JTS-CCPPing-12: Warning: not received heartbeat at 42870000 elapsed:22000
-15:14:24:103 JTS-CCPPing-12: Warning: not received heartbeat at 42871000 elapsed:23000
-15:14:25:103 JTS-CCPPing-12: Warning: not received heartbeat at 42872000 elapsed:24000
-15:14:26:104 JTS-CCPPing-12: Warning: not received heartbeat at 42873000 elapsed:25000
-15:14:27:104 JTS-CCPPing-12: Warning: not received heartbeat at 42874000 elapsed:26000
-15:14:28:104 JTS-CCPPing-12: Warning: not received heartbeat at 42875000 elapsed:27000
-15:14:29:104 JTS-CCPPing-12: Warning: not received heartbeat at 42876000 elapsed:28000
-15:14:30:104 JTS-CCPPing-12: Warning: not received heartbeat at 42877000 elapsed:29000
-15:14:31:105 JTS-CCPPing-12: Warning: not received heartbeat at 42878000 elapsed:30000
-15:14:32:105 JTS-CCPPing-12: Warning: not received heartbeat at 42879000 elapsed:31000
-15:14:33:105 JTS-CCPPing-12: Warning: not received heartbeat at 42880000 elapsed:32000
-15:14:34:105 JTS-CCPPing-12: Warning: not received heartbeat at 42881000 elapsed:33000
-15:14:35:105 JTS-CCPPing-12: Warning: not received heartbeat at 42882000 elapsed:34000
-15:14:36:106 JTS-CCPPing-12: Warning: not received heartbeat at 42883000 elapsed:35000
-15:15:57:474 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:17:12:094 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:18:27:111 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:19:42:128 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:20:57:146 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:22:12:161 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:23:27:178 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:24:42:196 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:25:57:213 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:27:12:228 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:28:27:244 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:29:42:261 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:30:57:278 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:32:12:294 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:33:27:309 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:34:42:324 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:35:57:340 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:37:12:356 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:38:27:371 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:39:42:386 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:40:57:400 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:42:12:415 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:43:27:430 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:44:42:445 JTS-Login-2315: Error: creating socket failed - java.net.ConnectException: Operation timed out
-15:44:57:893 JTS-CCPPing-5956: Warning: not received heartbeat at 42895000 elapsed:11000
-15:44:58:894 JTS-CCPPing-5956: Warning: not received heartbeat at 42896000 elapsed:12000
-15:44:59:894 JTS-CCPPing-5956: Warning: not received heartbeat at 42897000 elapsed:13000
-15:45:00:894 JTS-CCPPing-5956: Warning: not received heartbeat at 42898000 elapsed:14000
-15:45:01:894 JTS-CCPPing-5956: Warning: sending test request at 42899000
-15:44:48:002 AWT-EventQueue-0: Reconnected!
-15:44:48:002 AWT-EventQueue-0: Transmitted orders are removed from TWS
-15:45:13:163 JTS-CCPPing-5956: Warning: not received heartbeat at 42910000 elapsed:11000
-15:45:14:163 JTS-CCPPing-5956: Warning: not received heartbeat at 42911000 elapsed:12000
-15:45:15:164 JTS-CCPPing-5956: Warning: not received heartbeat at 42912000 elapsed:13000
-15:45:27:158 JTS-CCPPing-5956: Warning: not received heartbeat at 42924000 elapsed:11000
-15:45:28:158 JTS-CCPPing-5956: Warning: not received heartbeat at 42925000 elapsed:12000
-15:45:29:158 JTS-CCPPing-5956: Warning: not received heartbeat at 42926000 elapsed:13000
-15:45:30:159 JTS-CCPPing-5956: Warning: not received heartbeat at 42927000 elapsed:14000
-15:45:31:159 JTS-CCPPing-5956: Warning: sending test request at 42928000
-15:45:32:160 JTS-CCPPing-5956: Warning: not received heartbeat at 42929000 elapsed:16000
-15:45:33:161 JTS-CCPPing-5956: Warning: not received heartbeat at 42930000 elapsed:17000
-15:45:34:161 JTS-CCPPing-5956: Warning: not received heartbeat at 42931000 elapsed:18000
-15:45:35:161 JTS-CCPPing-5956: Warning: not received heartbeat at 42932000 elapsed:19000
-15:45:36:164 JTS-CCPPing-5956: Warning: not received heartbeat at 42933000 elapsed:20000
-15:45:37:164 JTS-CCPPing-5956: Warning: not received heartbeat at 42934000 elapsed:21000
-15:45:38:164 JTS-CCPPing-5956: Warning: not received heartbeat at 42935000 elapsed:22000
-15:45:39:164 JTS-CCPPing-5956: Warning: not received heartbeat at 42936000 elapsed:23000
-15:45:40:165 JTS-CCPPing-5956: Warning: not received heartbeat at 42937000 elapsed:24000
-15:45:41:165 JTS-CCPPing-5956: Warning: not received heartbeat at 42938000 elapsed:25000
-15:45:42:166 JTS-CCPPing-5956: Warning: not received heartbeat at 42939000 elapsed:26000
-15:45:43:166 JTS-CCPPing-5956: Warning: not received heartbeat at 42940000 elapsed:27000
-15:45:44:166 JTS-CCPPing-5956: Warning: not received heartbeat at 42941000 elapsed:28000
-15:45:45:166 JTS-CCPPing-5956: Warning: not received heartbeat at 42942000 elapsed:29000
-15:45:46:167 JTS-CCPPing-5956: Warning: not received heartbeat at 42943000 elapsed:30000
-15:45:47:167 JTS-CCPPing-5956: Warning: not received heartbeat at 42944000 elapsed:31000
-15:45:48:167 JTS-CCPPing-5956: Warning: not received heartbeat at 42945000 elapsed:32000
-15:45:49:168 JTS-CCPPing-5956: Warning: not received heartbeat at 42946000 elapsed:33000
-15:45:50:168 JTS-CCPPing-5956: Warning: not received heartbeat at 42947000 elapsed:34000
-15:45:51:169 JTS-CCPPing-5956: Warning: not received heartbeat at 42948000 elapsed:35000
-15:46:29:014 AWT-EventQueue-0: Reconnected!
-15:46:29:015 AWT-EventQueue-0: Transmitted orders are removed from TWS
-16:00:34:893 JTS-CCPPing-6025: Warning: not received heartbeat at 43787000 elapsed:11000
-16:02:05:078 JTS-CCPPing-6025: Warning: not received heartbeat at 43877000 elapsed:11000
-16:02:25:081 JTS-CCPPing-6025: Warning: not received heartbeat at 43897000 elapsed:11000
-16:09:55:111 JTS-CCPPing-6025: Warning: not received heartbeat at 44346000 elapsed:11000
-16:10:55:121 JTS-CCPPing-6025: Warning: not received heartbeat at 44406000 elapsed:11000
-16:15:33:354 JTS-CCPPing-6025: Warning: not received heartbeat at 44684000 elapsed:11000
-16:16:03:358 JTS-CCPPing-6025: Warning: not received heartbeat at 44714000 elapsed:11000
-16:21:34:859 JTS-CCPPing-6025: Warning: not received heartbeat at 45045000 elapsed:11000
-16:25:14:894 JTS-CCPPing-6025: Warning: not received heartbeat at 45265000 elapsed:11000
-16:26:14:952 JTS-CCPPing-6025: Warning: not received heartbeat at 45325000 elapsed:11000
-16:28:25:224 JTS-CCPPing-6025: Warning: not received heartbeat at 45455000 elapsed:11000
-16:28:45:227 JTS-CCPPing-6025: Warning: not received heartbeat at 45475000 elapsed:11000
-16:32:05:395 JTS-CCPPing-6025: Warning: not received heartbeat at 45675000 elapsed:11000
-16:53:25:109 JTS-CCPPing-6025: Warning: not received heartbeat at 46954000 elapsed:11000
-16:53:45:112 JTS-CCPPing-6025: Warning: not received heartbeat at 46974000 elapsed:11000
-16:54:25:119 JTS-CCPPing-6025: Warning: not received heartbeat at 47014000 elapsed:11000
-16:54:45:122 JTS-CCPPing-6025: Warning: not received heartbeat at 47034000 elapsed:11000
-16:55:55:133 JTS-CCPPing-6025: Warning: not received heartbeat at 47104000 elapsed:11000
-16:56:15:136 JTS-CCPPing-6025: Warning: not received heartbeat at 47124000 elapsed:11000
-17:00:01:194 AWT-EventQueue-0: Not using S3 to upload the config
-17:00:01:194 AWT-EventQueue-0: exitSession3
-17:00:01:482 JTS-EServerSocket-144: [0:46:45:1:0:0:0:ERR] Socket connection for client{0} has closed. 
-17:00:01:483 JTS-EWriter6: Error
-java.net.SocketException: Socket closed
-	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:99)
-	at java.net.SocketOutputStream.write(SocketOutputStream.java:136)
-	at java.io.DataOutputStream.write(DataOutputStream.java:90)
-	at jextend.af.a(af.java:114)
-	at jextend.af.run(af.java:80)
-17:00:01:484 JTS-EWriter6: [0:46:45:1:0:0:0:ERR] Unable write to socket client{0} - 
-17:00:01:485 JTS-EServerSocket-139: [1:46:45:1:0:0:0:ERR] Socket connection for client{1} has closed. 
+02:33:17:692 JTS-EServerSocket-417: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+02:34:07:069 JTS-CCPPing-12: Warning: not received heartbeat at 6622000 elapsed:11000
+02:38:04:828 JTS-EServerSocket-427: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+02:44:22:488 JTS-EServerSocket-445: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+02:47:34:568 JTS-EServerSocket-469: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+02:49:54:305 JTS-EServerSocket-487: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+02:49:56:054 JTS-CCPPing-12: Warning: not received heartbeat at 7571000 elapsed:11000
+02:51:28:064 JTS-EServerSocket-499: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+02:54:45:237 JTS-EServerSocket-514: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+02:55:02:771 JTS-EServerSocket-524: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+03:04:27:261 JTS-CCPPing-12: Warning: not received heartbeat at 8442000 elapsed:11000
+03:23:40:366 JTS-CCPPing-12: Warning: not received heartbeat at 9595000 elapsed:11000
+03:26:40:534 JTS-CCPPing-12: Warning: not received heartbeat at 9775000 elapsed:11000
+03:27:20:541 JTS-CCPPing-12: Warning: not received heartbeat at 9815000 elapsed:11000
