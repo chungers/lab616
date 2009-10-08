@@ -10,7 +10,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
-import com.google.inject.internal.ImmutableList;
 import com.google.inject.internal.Lists;
 import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
