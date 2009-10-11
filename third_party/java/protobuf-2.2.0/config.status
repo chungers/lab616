@@ -445,18 +445,18 @@ enable_static='yes'
 pic_mode='default'
 enable_fast_install='needless'
 host_alias=''
-host='i386-apple-darwin10.0.0'
-host_os='darwin10.0.0'
+host='i386-apple-darwin9.8.0'
+host_os='darwin9.8.0'
 build_alias=''
-build='i386-apple-darwin10.0.0'
-build_os='darwin10.0.0'
+build='i386-apple-darwin9.8.0'
+build_os='darwin9.8.0'
 SED='/usr/bin/sed'
 Xsed='/usr/bin/sed -e 1s/^X//'
 GREP='/usr/bin/grep'
 EGREP='/usr/bin/grep -E'
 FGREP='/usr/bin/grep -F'
-LD='/usr/libexec/gcc/i686-apple-darwin10/4.2.1/ld'
-NM='/usr/bin/nm'
+LD='/usr/libexec/gcc/i686-apple-darwin9/4.0.1/ld'
+NM='/usr/bin/nm -p'
 LN_S='ln -s'
 max_cmd_len='196608'
 ac_objext='o'
@@ -547,7 +547,7 @@ postuninstall_cmds=''
 finish_cmds=''
 finish_eval=''
 hardcode_into_libs='no'
-sys_lib_search_path_spec='/usr/lib/gcc/i686-apple-darwin10/4.2.1/x86_64 /usr/lib/i686-apple-darwin10/4.2.1 /usr/lib /usr/local/lib'
+sys_lib_search_path_spec='/usr/lib/i686-apple-darwin9/4.0.1 /usr/lib /usr/lib/gcc/i686-apple-darwin9/4.0.1 /usr/local/lib'
 sys_lib_dlsearch_path_spec='/usr/local/lib /lib /usr/lib'
 hardcode_action='immediate'
 enable_dlopen='unknown'
@@ -561,7 +561,7 @@ postdep_objects=''
 predeps=''
 postdeps=''
 compiler_lib_search_path=''
-LD_CXX='/usr/libexec/gcc/i686-apple-darwin10/4.2.1/ld'
+LD_CXX='/usr/libexec/gcc/i686-apple-darwin9/4.0.1/ld'
 old_archive_cmds_CXX='$AR $AR_FLAGS $oldlib$oldobjs~$RANLIB $oldlib'
 compiler_CXX='g++'
 GCC_CXX='yes'
@@ -771,18 +771,18 @@ s,@LIBS@,|#_!!_#|-lz ,g
 s,@build_alias@,|#_!!_#|,g
 s,@host_alias@,|#_!!_#|,g
 s,@target_alias@,|#_!!_#|,g
-s,@build@,|#_!!_#|i386-apple-darwin10.0.0,g
+s,@build@,|#_!!_#|i386-apple-darwin9.8.0,g
 s,@build_cpu@,|#_!!_#|i386,g
 s,@build_vendor@,|#_!!_#|apple,g
-s,@build_os@,|#_!!_#|darwin10.0.0,g
-s,@host@,|#_!!_#|i386-apple-darwin10.0.0,g
+s,@build_os@,|#_!!_#|darwin9.8.0,g
+s,@host@,|#_!!_#|i386-apple-darwin9.8.0,g
 s,@host_cpu@,|#_!!_#|i386,g
 s,@host_vendor@,|#_!!_#|apple,g
-s,@host_os@,|#_!!_#|darwin10.0.0,g
-s,@target@,|#_!!_#|i386-apple-darwin10.0.0,g
+s,@host_os@,|#_!!_#|darwin9.8.0,g
+s,@target@,|#_!!_#|i386-apple-darwin9.8.0,g
 s,@target_cpu@,|#_!!_#|i386,g
 s,@target_vendor@,|#_!!_#|apple,g
-s,@target_os@,|#_!!_#|darwin10.0.0,g
+s,@target_os@,|#_!!_#|darwin9.8.0,g
 s,@INSTALL_PROGRAM@,|#_!!_#|${INSTALL},g
 s,@INSTALL_SCRIPT@,|#_!!_#|${INSTALL},g
 s,@INSTALL_DATA@,|#_!!_#|${INSTALL} -m 644,g
@@ -840,10 +840,10 @@ s,@ISAINFO@,|#_!!_#|,g
 s,@LIBTOOL@,|#_!!_#|$(SHELL) $(top_builddir)/libtool,g
 s,@SED@,|#_!!_#|/usr/bin/sed,g
 s,@FGREP@,|#_!!_#|/usr/bin/grep -F,g
-s,@LD@,|#_!!_#|/usr/libexec/gcc/i686-apple-darwin10/4.2.1/ld,g
+s,@LD@,|#_!!_#|/usr/libexec/gcc/i686-apple-darwin9/4.0.1/ld,g
 s,@DUMPBIN@,|#_!!_#|,g
 s,@ac_ct_DUMPBIN@,|#_!!_#|,g
-s,@NM@,|#_!!_#|/usr/bin/nm,g
+s,@NM@,|#_!!_#|/usr/bin/nm -p,g
 s,@LN_S@,|#_!!_#|ln -s,g
 s,@AR@,|#_!!_#|ar,g
 s,@RANLIB@,|#_!!_#|ranlib,g

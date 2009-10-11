@@ -10,8 +10,6 @@ import static junit.framework.Assert.assertNotSame;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

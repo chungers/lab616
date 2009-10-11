@@ -2,8 +2,11 @@
 
 package com.lab616.ib;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.Binder;
 import com.google.inject.Inject;
 import com.google.inject.Module;
@@ -78,22 +81,21 @@ public class TwsContainer {
 
       long startCt;
       
-      //@Override //JDK1.5
-      public Module[] getModules() {
-        return new Module[] {
+      @Override
+      public Set<? extends Module> getModules() {
+        return ImmutableSet.of(
             new GuiceModule(),
-            new TwsModule()
-        };
+            new TwsModule());
       }
 
-      //@Override //JDK1.5
+      @Override
       public void run() throws Exception {
         startCt = Time.now();
         logger.info("CurrentTime in microsecond = " + startCt);
         getInstance(TwsContainer.class);
       }
 
-      //@Override
+      @Override
       public Shutdown<String> getShutdown() {
         return new Shutdown<String>() {
 

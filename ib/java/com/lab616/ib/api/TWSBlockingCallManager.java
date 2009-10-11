@@ -34,7 +34,7 @@ public class TWSBlockingCallManager {
   // from the map once the result is returned.  Even if it doesn't, the next
   // the same thread will simply put a new future when making a subsequent 
   // request.  Also, the map is bounded and easy to search.
-  private Map<Thread, FutureHolder<IBEvent>> futureData = Maps.newHashMap();
+  private Map<Thread, FutureHolder<TWSEvent>> futureData = Maps.newHashMap();
 
   // List of method names that are to be synchronous.
   private Set<String> synchronousMethods;
@@ -63,8 +63,8 @@ public class TWSBlockingCallManager {
    * matching the method name.
    * @param event The event.
    */
-  public void handleData(IBEvent event) {
-    for (FutureHolder<IBEvent> future : futureData.values()) {
+  public void handleData(TWSEvent event) {
+    for (FutureHolder<TWSEvent> future : futureData.values()) {
       if (future.accept(event)) {
         return;
       }
@@ -80,7 +80,7 @@ public class TWSBlockingCallManager {
    * @return The value.
    */
   public <V> V blockingCall(String method, 
-      Function<IBEvent, V> trans, Runnable call) {
+      Function<TWSEvent, V> trans, Runnable call) {
     return blockingCall(method, this.timeout, this.unit, trans, call);
   }
   
@@ -95,15 +95,15 @@ public class TWSBlockingCallManager {
    * @return The value.
    */
   public <V> V blockingCall(final String method, long timeout, TimeUnit unit,
-      Function<IBEvent, V> trans, Runnable call) {
+      Function<TWSEvent, V> trans, Runnable call) {
     if (!this.synchronousMethods.contains(method)) {
       // Not registered, and we will never get any response!
       throw new MisconfigurationException(
           "Not configured to read data: " + method);
     }
     return blockingCall(timeout, unit,
-        new Predicate<IBEvent>() {
-      public boolean apply(IBEvent event) {
+        new Predicate<TWSEvent>() {
+      public boolean apply(TWSEvent event) {
         return method.equals(event.getMethod());
       }
     }, trans, call);
@@ -122,10 +122,10 @@ public class TWSBlockingCallManager {
    * @return The value.
    */
   public <V> V blockingCall(long timeout, TimeUnit unit,
-      Predicate<IBEvent> predicate,
-      Function<IBEvent, V> trans, Runnable call) {
+      Predicate<TWSEvent> predicate,
+      Function<TWSEvent, V> trans, Runnable call) {
     // Create a future data.
-    FutureData<IBEvent, V> f = new FutureData<IBEvent, V>(
+    FutureData<TWSEvent, V> f = new FutureData<TWSEvent, V>(
         this.executor,
         timeout, unit, predicate, trans);
     this.futureData.put(Thread.currentThread(), f);
@@ -151,10 +151,10 @@ public class TWSBlockingCallManager {
    * @return The iterable.
    */
   public <V> Iterable<V> blockingIterable(long timeout, TimeUnit unit,
-      Predicate<IBEvent> predicate,
-      Function<IBEvent, V> trans, Runnable call) {
+      Predicate<TWSEvent> predicate,
+      Function<TWSEvent, V> trans, Runnable call) {
     // Create a future data.
-    FutureIterable<IBEvent, V> f = new FutureIterable<IBEvent, V>(
+    FutureIterable<TWSEvent, V> f = new FutureIterable<TWSEvent, V>(
         timeout, unit, predicate, trans);
     this.futureData.put(Thread.currentThread(), f);
     f.invokeOnNoData(new Callable<Boolean>() {

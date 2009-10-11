@@ -25,6 +25,9 @@ public class EventModule extends AbstractEventModule {
   @Flag(name = "event-engine-threads")
   public static Integer NUM_THREADS = 20;
   
+  @Flag(name = "event-engine-queue-capacity")
+  public static Integer QUEUE_CAPACITY = 20;
+
   static {
     Flags.register(EventModule.class);
   }
@@ -34,6 +37,9 @@ public class EventModule extends AbstractEventModule {
 	  bindConstant().annotatedWith(Names.named("event-engine-threads"))
 	    .to(NUM_THREADS);
 	  
+    bindConstant().annotatedWith(Names.named("event-engine-queue-capacity"))
+      .to(QUEUE_CAPACITY);
+
     // Event definitions.
 	  bindEventDefinition(new ObjectEventDefinition<SystemEvent>(
         SystemEvent.EVENT_NAME, SystemEvent.class));

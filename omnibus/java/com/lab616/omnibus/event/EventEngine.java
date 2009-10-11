@@ -25,7 +25,6 @@ import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.Main;
 import com.lab616.omnibus.Main.Shutdown;
-import com.lab616.util.Time;
 
 /**
  * An event engine that supports addition of event-selecting filter expressions
@@ -55,23 +54,13 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 		STOPPED;
 	}
 	
-	/**
-	 * The Time source.  The default is current time in microsecond.
-	 */
-	public interface TimeSource {
-		public long now();
-	}
-	
-	private TimeSource timeSource = new TimeSource() {
-		public long now() {
-			return Time.now();
-		}
-	};
-	
-	
+  public interface Subscriber<T> {
+    public void update(T obj);
+  }
+
 	static Logger logger = Logger.getLogger(EventEngine.class);
 	
-	@SuppressWarnings("unchecked")
+  @SuppressWarnings("unchecked")
   private final Set<EventDefinition> eventDefinitions;
 	private final Set<AbstractEventWatcher> eventWatchers;
 	private final Configuration esperConfiguration;
@@ -80,17 +69,20 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
   private State state;
   private List<AbstractEventWatcher> watchers = Lists.newArrayList();
   private final int threads;
+  private final int capacity;
   
   @SuppressWarnings("unchecked")
   @Inject
 	public EventEngine(
 			Set<EventDefinition> eventDefinitions,
 			Set<AbstractEventWatcher> eventWatchers,
-			@Named("event-engine-threads") int threads) {
+			@Named("event-engine-threads") int threads,
+      @Named("event-engine-queue-capacity") int queueCapacity) {
   	
   	this.eventDefinitions = eventDefinitions;
   	this.eventWatchers = eventWatchers;
   	this.threads = threads;
+  	this.capacity = queueCapacity;
 		this.esperConfiguration = new Configuration();
 		configureEventTypes();
 		configureEngineDefaults(this.esperConfiguration.getEngineDefaults());
@@ -101,16 +93,6 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
     state = State.INITIALIZED;
 	}
 	
-  /**
-   * Sets the time source for the engine. Useful for testing.
-   * @param ts The time source.
-   * @return The engine.
-   */
-  public final EventEngine setTimeSource(TimeSource ts) {
-  	this.timeSource = ts;
-  	return this;
-  }
-  
   /**
    * Initializes the configuration by registering all statically defined
    * event types.
@@ -139,11 +121,11 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 		
 		threading.setThreadPoolInbound(true);
 		threading.setThreadPoolInboundNumThreads(threads);
-		threading.setThreadPoolInboundCapacity(10000);
+		threading.setThreadPoolInboundCapacity(capacity);
 		
 		threading.setThreadPoolOutbound(true);
 		threading.setThreadPoolOutboundNumThreads(threads);
-		threading.setThreadPoolOutboundCapacity(10000);
+		threading.setThreadPoolOutboundCapacity(capacity);
 	}
 	
 	private void configureEventWatchers() {
@@ -170,6 +152,12 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 		logger.info("Watcher added: " + watcher);
 	}
 
+	
+	public <T> StreamSplitter<T> splitEventStream(Class<T> eventType) {
+	  return new StreamSplitter<T>(eventType, this.eventDefinitions,
+	      this.epService.getEPAdministrator());
+	}
+	
 	/**
 	 * Posts an event to the engine.
 	 * @param eventObject The event object.
@@ -179,15 +167,6 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 		countEvents.incrementAndGet();
 	}
 	
-  /**
-   * Posts an event to the engine.
-   * @param eventObject The event object.
-   */
-  public final void post0(Object eventObject) {
-    this.epService.getEPRuntime().sendEvent(eventObject);
-    countEvents.incrementAndGet();
-  }
-
   /**
 	 * Removes the watcher from the list tracked by the engine.
 	 * @param watcher The watcher.

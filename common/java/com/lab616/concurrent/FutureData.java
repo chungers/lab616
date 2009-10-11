@@ -54,6 +54,9 @@ public class FutureData<V, T> implements Callable<T>, Future<T>, FutureHolder<V>
    * @return True if the value has been accepted.
    */
   public boolean accept(V value) {
+    if (value == null) {
+      return false;
+    }
     if (acceptor.apply(value)) {
       result = value;
       latch.countDown();

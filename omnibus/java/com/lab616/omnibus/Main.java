@@ -3,6 +3,7 @@
 package com.lab616.omnibus;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -11,6 +12,7 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.internal.Lists;
+import com.google.inject.internal.Sets;
 import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
@@ -34,7 +36,7 @@ public abstract class Main {
   @Varz(name = "server-id")
   public static String serverId = "obus-" + System.currentTimeMillis();
 	
-  @Flag(name = "logLevel")
+  @Flag(name = "log-level")
   public static String logLevel = "INFO";
 	
   static {
@@ -55,8 +57,8 @@ public abstract class Main {
   
   private Injector injector;
   
-  public Module[] getModules() {
-    return new Module[] {};
+  public Set<? extends Module> getModules() {
+    return Sets.newHashSet();
   }
 
   public final List<Shutdown<?>> getShutdownRoutines() {

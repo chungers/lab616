@@ -93,6 +93,9 @@ public class FutureIterable<V, T> implements Iterable<T>, FutureHolder<V> {
    * @return True if the value has been accepted.
    */
   public boolean accept(V value) {
+    if (value == null) {
+      return false;
+    }
     if (acceptor.apply(value)) {
       values.add(this.transform.apply(value));
       return true;

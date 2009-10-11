@@ -406,98 +406,118 @@ public final class DomainProtos {
       return com.lab616.trading.domain.DomainProtos.internal_static_trading_Bar_fieldAccessorTable;
     }
     
-    // required uint64 tickerId = 1;
-    public static final int TICKERID_FIELD_NUMBER = 1;
-    private boolean hasTickerId;
-    private long tickerId_ = 0L;
-    public boolean hasTickerId() { return hasTickerId; }
-    public long getTickerId() { return tickerId_; }
-    
-    // required double first = 2;
-    public static final int FIRST_FIELD_NUMBER = 2;
-    private boolean hasFirst;
-    private double first_ = 0D;
-    public boolean hasFirst() { return hasFirst; }
-    public double getFirst() { return first_; }
-    
-    // required double last = 3;
-    public static final int LAST_FIELD_NUMBER = 3;
-    private boolean hasLast;
-    private double last_ = 0D;
-    public boolean hasLast() { return hasLast; }
-    public double getLast() { return last_; }
-    
-    // required double min = 4;
-    public static final int MIN_FIELD_NUMBER = 4;
-    private boolean hasMin;
-    private double min_ = 0D;
-    public boolean hasMin() { return hasMin; }
-    public double getMin() { return min_; }
-    
-    // required double max = 5;
-    public static final int MAX_FIELD_NUMBER = 5;
-    private boolean hasMax;
-    private double max_ = 0D;
-    public boolean hasMax() { return hasMax; }
-    public double getMax() { return max_; }
-    
-    // optional uint32 volume = 6;
-    public static final int VOLUME_FIELD_NUMBER = 6;
-    private boolean hasVolume;
-    private int volume_ = 0;
-    public boolean hasVolume() { return hasVolume; }
-    public int getVolume() { return volume_; }
-    
-    // required .trading.Range range = 7;
-    public static final int RANGE_FIELD_NUMBER = 7;
+    // required .trading.Range range = 1;
+    public static final int RANGE_FIELD_NUMBER = 1;
     private boolean hasRange;
     private com.lab616.trading.domain.DomainProtos.Range range_ = com.lab616.trading.domain.DomainProtos.Range.getDefaultInstance();
     public boolean hasRange() { return hasRange; }
     public com.lab616.trading.domain.DomainProtos.Range getRange() { return range_; }
     
-    // optional .trading.Source source = 8;
-    public static final int SOURCE_FIELD_NUMBER = 8;
+    // required uint64 tickerId = 2;
+    public static final int TICKERID_FIELD_NUMBER = 2;
+    private boolean hasTickerId;
+    private long tickerId_ = 0L;
+    public boolean hasTickerId() { return hasTickerId; }
+    public long getTickerId() { return tickerId_; }
+    
+    // required double first = 3;
+    public static final int FIRST_FIELD_NUMBER = 3;
+    private boolean hasFirst;
+    private double first_ = 0D;
+    public boolean hasFirst() { return hasFirst; }
+    public double getFirst() { return first_; }
+    
+    // required double last = 4;
+    public static final int LAST_FIELD_NUMBER = 4;
+    private boolean hasLast;
+    private double last_ = 0D;
+    public boolean hasLast() { return hasLast; }
+    public double getLast() { return last_; }
+    
+    // required double min = 5;
+    public static final int MIN_FIELD_NUMBER = 5;
+    private boolean hasMin;
+    private double min_ = 0D;
+    public boolean hasMin() { return hasMin; }
+    public double getMin() { return min_; }
+    
+    // required double max = 6;
+    public static final int MAX_FIELD_NUMBER = 6;
+    private boolean hasMax;
+    private double max_ = 0D;
+    public boolean hasMax() { return hasMax; }
+    public double getMax() { return max_; }
+    
+    // optional uint32 volume = 7;
+    public static final int VOLUME_FIELD_NUMBER = 7;
+    private boolean hasVolume;
+    private int volume_ = 0;
+    public boolean hasVolume() { return hasVolume; }
+    public int getVolume() { return volume_; }
+    
+    // optional double wap = 8;
+    public static final int WAP_FIELD_NUMBER = 8;
+    private boolean hasWap;
+    private double wap_ = 0D;
+    public boolean hasWap() { return hasWap; }
+    public double getWap() { return wap_; }
+    
+    // optional uint32 count = 9;
+    public static final int COUNT_FIELD_NUMBER = 9;
+    private boolean hasCount;
+    private int count_ = 0;
+    public boolean hasCount() { return hasCount; }
+    public int getCount() { return count_; }
+    
+    // optional .trading.Source source = 10;
+    public static final int SOURCE_FIELD_NUMBER = 10;
     private boolean hasSource;
     private com.lab616.trading.domain.DomainProtos.Source source_ = com.lab616.trading.domain.DomainProtos.Source.TWS_API;
     public boolean hasSource() { return hasSource; }
     public com.lab616.trading.domain.DomainProtos.Source getSource() { return source_; }
     
     public final boolean isInitialized() {
+      if (!hasRange) return false;
       if (!hasTickerId) return false;
       if (!hasFirst) return false;
       if (!hasLast) return false;
       if (!hasMin) return false;
       if (!hasMax) return false;
-      if (!hasRange) return false;
       if (!getRange().isInitialized()) return false;
       return true;
     }
     
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (hasRange()) {
+        output.writeMessage(1, getRange());
+      }
       if (hasTickerId()) {
-        output.writeUInt64(1, getTickerId());
+        output.writeUInt64(2, getTickerId());
       }
       if (hasFirst()) {
-        output.writeDouble(2, getFirst());
+        output.writeDouble(3, getFirst());
       }
       if (hasLast()) {
-        output.writeDouble(3, getLast());
+        output.writeDouble(4, getLast());
       }
       if (hasMin()) {
-        output.writeDouble(4, getMin());
+        output.writeDouble(5, getMin());
       }
       if (hasMax()) {
-        output.writeDouble(5, getMax());
+        output.writeDouble(6, getMax());
       }
       if (hasVolume()) {
-        output.writeUInt32(6, getVolume());
+        output.writeUInt32(7, getVolume());
       }
-      if (hasRange()) {
-        output.writeMessage(7, getRange());
+      if (hasWap()) {
+        output.writeDouble(8, getWap());
+      }
+      if (hasCount()) {
+        output.writeUInt32(9, getCount());
       }
       if (hasSource()) {
-        output.writeEnum(8, getSource().getNumber());
+        output.writeEnum(10, getSource().getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -508,37 +528,45 @@ public final class DomainProtos {
       if (size != -1) return size;
     
       size = 0;
+      if (hasRange()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getRange());
+      }
       if (hasTickerId()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(1, getTickerId());
+          .computeUInt64Size(2, getTickerId());
       }
       if (hasFirst()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(2, getFirst());
+          .computeDoubleSize(3, getFirst());
       }
       if (hasLast()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, getLast());
+          .computeDoubleSize(4, getLast());
       }
       if (hasMin()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, getMin());
+          .computeDoubleSize(5, getMin());
       }
       if (hasMax()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, getMax());
+          .computeDoubleSize(6, getMax());
       }
       if (hasVolume()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(6, getVolume());
+          .computeUInt32Size(7, getVolume());
       }
-      if (hasRange()) {
+      if (hasWap()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, getRange());
+          .computeDoubleSize(8, getWap());
+      }
+      if (hasCount()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(9, getCount());
       }
       if (hasSource()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(8, getSource().getNumber());
+          .computeEnumSize(10, getSource().getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -689,6 +717,9 @@ public final class DomainProtos {
       
       public Builder mergeFrom(com.lab616.trading.domain.DomainProtos.Bar other) {
         if (other == com.lab616.trading.domain.DomainProtos.Bar.getDefaultInstance()) return this;
+        if (other.hasRange()) {
+          mergeRange(other.getRange());
+        }
         if (other.hasTickerId()) {
           setTickerId(other.getTickerId());
         }
@@ -707,8 +738,11 @@ public final class DomainProtos {
         if (other.hasVolume()) {
           setVolume(other.getVolume());
         }
-        if (other.hasRange()) {
-          mergeRange(other.getRange());
+        if (other.hasWap()) {
+          setWap(other.getWap());
+        }
+        if (other.hasCount()) {
+          setCount(other.getCount());
         }
         if (other.hasSource()) {
           setSource(other.getSource());
@@ -738,31 +772,7 @@ public final class DomainProtos {
               }
               break;
             }
-            case 8: {
-              setTickerId(input.readUInt64());
-              break;
-            }
-            case 17: {
-              setFirst(input.readDouble());
-              break;
-            }
-            case 25: {
-              setLast(input.readDouble());
-              break;
-            }
-            case 33: {
-              setMin(input.readDouble());
-              break;
-            }
-            case 41: {
-              setMax(input.readDouble());
-              break;
-            }
-            case 48: {
-              setVolume(input.readUInt32());
-              break;
-            }
-            case 58: {
+            case 10: {
               com.lab616.trading.domain.DomainProtos.Range.Builder subBuilder = com.lab616.trading.domain.DomainProtos.Range.newBuilder();
               if (hasRange()) {
                 subBuilder.mergeFrom(getRange());
@@ -771,11 +781,43 @@ public final class DomainProtos {
               setRange(subBuilder.buildPartial());
               break;
             }
-            case 64: {
+            case 16: {
+              setTickerId(input.readUInt64());
+              break;
+            }
+            case 25: {
+              setFirst(input.readDouble());
+              break;
+            }
+            case 33: {
+              setLast(input.readDouble());
+              break;
+            }
+            case 41: {
+              setMin(input.readDouble());
+              break;
+            }
+            case 49: {
+              setMax(input.readDouble());
+              break;
+            }
+            case 56: {
+              setVolume(input.readUInt32());
+              break;
+            }
+            case 65: {
+              setWap(input.readDouble());
+              break;
+            }
+            case 72: {
+              setCount(input.readUInt32());
+              break;
+            }
+            case 80: {
               int rawValue = input.readEnum();
               com.lab616.trading.domain.DomainProtos.Source value = com.lab616.trading.domain.DomainProtos.Source.valueOf(rawValue);
               if (value == null) {
-                unknownFields.mergeVarintField(8, rawValue);
+                unknownFields.mergeVarintField(10, rawValue);
               } else {
                 setSource(value);
               }
@@ -786,115 +828,7 @@ public final class DomainProtos {
       }
       
       
-      // required uint64 tickerId = 1;
-      public boolean hasTickerId() {
-        return result.hasTickerId();
-      }
-      public long getTickerId() {
-        return result.getTickerId();
-      }
-      public Builder setTickerId(long value) {
-        result.hasTickerId = true;
-        result.tickerId_ = value;
-        return this;
-      }
-      public Builder clearTickerId() {
-        result.hasTickerId = false;
-        result.tickerId_ = 0L;
-        return this;
-      }
-      
-      // required double first = 2;
-      public boolean hasFirst() {
-        return result.hasFirst();
-      }
-      public double getFirst() {
-        return result.getFirst();
-      }
-      public Builder setFirst(double value) {
-        result.hasFirst = true;
-        result.first_ = value;
-        return this;
-      }
-      public Builder clearFirst() {
-        result.hasFirst = false;
-        result.first_ = 0D;
-        return this;
-      }
-      
-      // required double last = 3;
-      public boolean hasLast() {
-        return result.hasLast();
-      }
-      public double getLast() {
-        return result.getLast();
-      }
-      public Builder setLast(double value) {
-        result.hasLast = true;
-        result.last_ = value;
-        return this;
-      }
-      public Builder clearLast() {
-        result.hasLast = false;
-        result.last_ = 0D;
-        return this;
-      }
-      
-      // required double min = 4;
-      public boolean hasMin() {
-        return result.hasMin();
-      }
-      public double getMin() {
-        return result.getMin();
-      }
-      public Builder setMin(double value) {
-        result.hasMin = true;
-        result.min_ = value;
-        return this;
-      }
-      public Builder clearMin() {
-        result.hasMin = false;
-        result.min_ = 0D;
-        return this;
-      }
-      
-      // required double max = 5;
-      public boolean hasMax() {
-        return result.hasMax();
-      }
-      public double getMax() {
-        return result.getMax();
-      }
-      public Builder setMax(double value) {
-        result.hasMax = true;
-        result.max_ = value;
-        return this;
-      }
-      public Builder clearMax() {
-        result.hasMax = false;
-        result.max_ = 0D;
-        return this;
-      }
-      
-      // optional uint32 volume = 6;
-      public boolean hasVolume() {
-        return result.hasVolume();
-      }
-      public int getVolume() {
-        return result.getVolume();
-      }
-      public Builder setVolume(int value) {
-        result.hasVolume = true;
-        result.volume_ = value;
-        return this;
-      }
-      public Builder clearVolume() {
-        result.hasVolume = false;
-        result.volume_ = 0;
-        return this;
-      }
-      
-      // required .trading.Range range = 7;
+      // required .trading.Range range = 1;
       public boolean hasRange() {
         return result.hasRange();
       }
@@ -931,7 +865,151 @@ public final class DomainProtos {
         return this;
       }
       
-      // optional .trading.Source source = 8;
+      // required uint64 tickerId = 2;
+      public boolean hasTickerId() {
+        return result.hasTickerId();
+      }
+      public long getTickerId() {
+        return result.getTickerId();
+      }
+      public Builder setTickerId(long value) {
+        result.hasTickerId = true;
+        result.tickerId_ = value;
+        return this;
+      }
+      public Builder clearTickerId() {
+        result.hasTickerId = false;
+        result.tickerId_ = 0L;
+        return this;
+      }
+      
+      // required double first = 3;
+      public boolean hasFirst() {
+        return result.hasFirst();
+      }
+      public double getFirst() {
+        return result.getFirst();
+      }
+      public Builder setFirst(double value) {
+        result.hasFirst = true;
+        result.first_ = value;
+        return this;
+      }
+      public Builder clearFirst() {
+        result.hasFirst = false;
+        result.first_ = 0D;
+        return this;
+      }
+      
+      // required double last = 4;
+      public boolean hasLast() {
+        return result.hasLast();
+      }
+      public double getLast() {
+        return result.getLast();
+      }
+      public Builder setLast(double value) {
+        result.hasLast = true;
+        result.last_ = value;
+        return this;
+      }
+      public Builder clearLast() {
+        result.hasLast = false;
+        result.last_ = 0D;
+        return this;
+      }
+      
+      // required double min = 5;
+      public boolean hasMin() {
+        return result.hasMin();
+      }
+      public double getMin() {
+        return result.getMin();
+      }
+      public Builder setMin(double value) {
+        result.hasMin = true;
+        result.min_ = value;
+        return this;
+      }
+      public Builder clearMin() {
+        result.hasMin = false;
+        result.min_ = 0D;
+        return this;
+      }
+      
+      // required double max = 6;
+      public boolean hasMax() {
+        return result.hasMax();
+      }
+      public double getMax() {
+        return result.getMax();
+      }
+      public Builder setMax(double value) {
+        result.hasMax = true;
+        result.max_ = value;
+        return this;
+      }
+      public Builder clearMax() {
+        result.hasMax = false;
+        result.max_ = 0D;
+        return this;
+      }
+      
+      // optional uint32 volume = 7;
+      public boolean hasVolume() {
+        return result.hasVolume();
+      }
+      public int getVolume() {
+        return result.getVolume();
+      }
+      public Builder setVolume(int value) {
+        result.hasVolume = true;
+        result.volume_ = value;
+        return this;
+      }
+      public Builder clearVolume() {
+        result.hasVolume = false;
+        result.volume_ = 0;
+        return this;
+      }
+      
+      // optional double wap = 8;
+      public boolean hasWap() {
+        return result.hasWap();
+      }
+      public double getWap() {
+        return result.getWap();
+      }
+      public Builder setWap(double value) {
+        result.hasWap = true;
+        result.wap_ = value;
+        return this;
+      }
+      public Builder clearWap() {
+        result.hasWap = false;
+        result.wap_ = 0D;
+        return this;
+      }
+      
+      // optional uint32 count = 9;
+      public boolean hasCount() {
+        return result.hasCount();
+      }
+      public int getCount() {
+        return result.getCount();
+      }
+      public Builder setCount(int value) {
+        result.hasCount = true;
+        result.count_ = value;
+        return this;
+      }
+      public Builder clearCount() {
+        result.hasCount = false;
+        result.count_ = 0;
+        return this;
+      }
+      
+      // optional .trading.Source source = 10;
       public boolean hasSource() {
         return result.hasSource();
       }
@@ -1593,40 +1671,41 @@ public final class DomainProtos {
   static {
     java.lang.String[] descriptorData = {
       "\n\014domain.proto\022\007trading\"#\n\005Range\022\r\n\005star" +
-      "t\030\001 \002(\006\022\013\n\003end\030\002 \002(\006\"\236\001\n\003Bar\022\020\n\010tickerId" +
-      "\030\001 \002(\004\022\r\n\005first\030\002 \002(\001\022\014\n\004last\030\003 \002(\001\022\013\n\003m" +
-      "in\030\004 \002(\001\022\013\n\003max\030\005 \002(\001\022\016\n\006volume\030\006 \001(\r\022\035\n" +
-      "\005range\030\007 \002(\0132\016.trading.Range\022\037\n\006source\030\010" +
-      " \001(\0162\017.trading.Source\"\247\010\n\004Tick\022\021\n\ttimest" +
-      "amp\030\001 \002(\006\022 \n\004type\030\002 \002(\0162\022.trading.Tick.T" +
-      "ype\022\020\n\010tickerId\030\003 \002(\004\022\r\n\005value\030\004 \002(\001\022\037\n\006" +
-      "source\030\005 \001(\0162\017.trading.Source\"\247\007\n\004Type\022\014" +
-      "\n\010BID_SIZE\020\000\022\007\n\003BID\020\001\022\007\n\003ASK\020\002\022\014\n\010ASK_SI",
-      "ZE\020\003\022\010\n\004LAST\020\004\022\r\n\tLAST_SIZE\020\005\022\010\n\004HIGH\020\006\022" +
-      "\007\n\003LOW\020\007\022\n\n\006VOLUME\020\010\022\t\n\005CLOSE\020\t\022\016\n\nBID_O" +
-      "PTION\020\n\022\016\n\nASK_OPTION\020\013\022\017\n\013LAST_OPTION\020\014" +
-      "\022\020\n\014MODEL_OPTION\020\r\022\010\n\004OPEN\020\016\022\017\n\013LOW_13_W" +
-      "EEK\020\017\022\020\n\014HIGH_13_WEEK\020\020\022\017\n\013LOW_26_WEEK\020\021" +
-      "\022\020\n\014HIGH_26_WEEK\020\022\022\017\n\013LOW_52_WEEK\020\023\022\020\n\014H" +
-      "IGH_52_WEEK\020\024\022\016\n\nAVG_VOLUME\020\025\022\021\n\rOPEN_IN" +
-      "TEREST\020\026\022\031\n\025OPTION_HISTORICAL_VOL\020\027\022\026\n\022O" +
-      "PTION_IMPLIED_VOL\020\030\022\023\n\017OPTION_BID_EXCH\020\031" +
-      "\022\023\n\017OPTION_ASK_EXCH\020\032\022\035\n\031OPTION_CALL_OPE",
-      "N_INTEREST\020\033\022\034\n\030OPTION_PUT_OPEN_INTEREST" +
-      "\020\034\022\026\n\022OPTION_CALL_VOLUME\020\035\022\025\n\021OPTION_PUT" +
-      "_VOLUME\020\036\022\030\n\024INDEX_FUTURE_PREMIUM\020\037\022\014\n\010B" +
-      "ID_EXCH\020 \022\014\n\010ASK_EXCH\020!\022\022\n\016AUCTION_VOLUM" +
-      "E\020\"\022\021\n\rAUCTION_PRICE\020#\022\025\n\021AUCTION_IMBALA" +
-      "NCE\020$\022\016\n\nMARK_PRICE\020%\022\027\n\023BID_EFP_COMPUTA" +
-      "TION\020&\022\027\n\023ASK_EFP_COMPUTATION\020\'\022\030\n\024LAST_" +
-      "EFP_COMPUTATION\020(\022\030\n\024OPEN_EFP_COMPUTATIO" +
-      "N\020)\022\030\n\024HIGH_EFP_COMPUTATION\020*\022\027\n\023LOW_EFP" +
-      "_COMPUTATION\020+\022\031\n\025CLOSE_EFP_COMPUTATION\020",
-      ",\022\022\n\016LAST_TIMESTAMP\020-\022\r\n\tSHORTABLE\020.\022\026\n\022" +
-      "FUNDAMENTAL_RATIOS\020/\022\r\n\tRT_VOLUME\0200\022\n\n\006H" +
-      "ALTED\0201*2\n\006Source\022\013\n\007TWS_API\020\000\022\r\n\tSIMULA" +
-      "TED\020\001\022\014\n\010BACKTEST\020\002B)\n\031com.lab616.tradin" +
-      "g.domainB\014DomainProtos"
+      "t\030\001 \002(\006\022\013\n\003end\030\002 \002(\006\"\272\001\n\003Bar\022\035\n\005range\030\001 " +
+      "\002(\0132\016.trading.Range\022\020\n\010tickerId\030\002 \002(\004\022\r\n" +
+      "\005first\030\003 \002(\001\022\014\n\004last\030\004 \002(\001\022\013\n\003min\030\005 \002(\001\022" +
+      "\013\n\003max\030\006 \002(\001\022\016\n\006volume\030\007 \001(\r\022\013\n\003wap\030\010 \001(" +
+      "\001\022\r\n\005count\030\t \001(\r\022\037\n\006source\030\n \001(\0162\017.tradi" +
+      "ng.Source\"\247\010\n\004Tick\022\021\n\ttimestamp\030\001 \002(\006\022 \n" +
+      "\004type\030\002 \002(\0162\022.trading.Tick.Type\022\020\n\010ticke" +
+      "rId\030\003 \002(\004\022\r\n\005value\030\004 \002(\001\022\037\n\006source\030\005 \001(\016" +
+      "2\017.trading.Source\"\247\007\n\004Type\022\014\n\010BID_SIZE\020\000",
+      "\022\007\n\003BID\020\001\022\007\n\003ASK\020\002\022\014\n\010ASK_SIZE\020\003\022\010\n\004LAST" +
+      "\020\004\022\r\n\tLAST_SIZE\020\005\022\010\n\004HIGH\020\006\022\007\n\003LOW\020\007\022\n\n\006" +
+      "VOLUME\020\010\022\t\n\005CLOSE\020\t\022\016\n\nBID_OPTION\020\n\022\016\n\nA" +
+      "SK_OPTION\020\013\022\017\n\013LAST_OPTION\020\014\022\020\n\014MODEL_OP" +
+      "TION\020\r\022\010\n\004OPEN\020\016\022\017\n\013LOW_13_WEEK\020\017\022\020\n\014HIG" +
+      "H_13_WEEK\020\020\022\017\n\013LOW_26_WEEK\020\021\022\020\n\014HIGH_26_" +
+      "WEEK\020\022\022\017\n\013LOW_52_WEEK\020\023\022\020\n\014HIGH_52_WEEK\020" +
+      "\024\022\016\n\nAVG_VOLUME\020\025\022\021\n\rOPEN_INTEREST\020\026\022\031\n\025" +
+      "OPTION_HISTORICAL_VOL\020\027\022\026\n\022OPTION_IMPLIE" +
+      "D_VOL\020\030\022\023\n\017OPTION_BID_EXCH\020\031\022\023\n\017OPTION_A",
+      "SK_EXCH\020\032\022\035\n\031OPTION_CALL_OPEN_INTEREST\020\033" +
+      "\022\034\n\030OPTION_PUT_OPEN_INTEREST\020\034\022\026\n\022OPTION" +
+      "_CALL_VOLUME\020\035\022\025\n\021OPTION_PUT_VOLUME\020\036\022\030\n" +
+      "\024INDEX_FUTURE_PREMIUM\020\037\022\014\n\010BID_EXCH\020 \022\014\n" +
+      "\010ASK_EXCH\020!\022\022\n\016AUCTION_VOLUME\020\"\022\021\n\rAUCTI" +
+      "ON_PRICE\020#\022\025\n\021AUCTION_IMBALANCE\020$\022\016\n\nMAR" +
+      "K_PRICE\020%\022\027\n\023BID_EFP_COMPUTATION\020&\022\027\n\023AS" +
+      "K_EFP_COMPUTATION\020\'\022\030\n\024LAST_EFP_COMPUTAT" +
+      "ION\020(\022\030\n\024OPEN_EFP_COMPUTATION\020)\022\030\n\024HIGH_" +
+      "EFP_COMPUTATION\020*\022\027\n\023LOW_EFP_COMPUTATION",
+      "\020+\022\031\n\025CLOSE_EFP_COMPUTATION\020,\022\022\n\016LAST_TI" +
+      "MESTAMP\020-\022\r\n\tSHORTABLE\020.\022\026\n\022FUNDAMENTAL_" +
+      "RATIOS\020/\022\r\n\tRT_VOLUME\0200\022\n\n\006HALTED\0201*2\n\006S" +
+      "ource\022\013\n\007TWS_API\020\000\022\r\n\tSIMULATED\020\001\022\014\n\010BAC" +
+      "KTEST\020\002B)\n\031com.lab616.trading.domainB\014Do" +
+      "mainProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1646,7 +1725,7 @@ public final class DomainProtos {
           internal_static_trading_Bar_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_trading_Bar_descriptor,
-              new java.lang.String[] { "TickerId", "First", "Last", "Min", "Max", "Volume", "Range", "Source", },
+              new java.lang.String[] { "Range", "TickerId", "First", "Last", "Min", "Max", "Volume", "Wap", "Count", "Source", },
               com.lab616.trading.domain.DomainProtos.Bar.class,
               com.lab616.trading.domain.DomainProtos.Bar.Builder.class);
           internal_static_trading_Tick_descriptor =

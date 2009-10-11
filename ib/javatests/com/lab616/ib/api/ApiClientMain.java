@@ -2,10 +2,13 @@
 
 package com.lab616.ib.api;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.Module;
-import com.lab616.ib.api.servlets.IBServletModule;
+import com.lab616.ib.api.servlets.TWSControllerModule;
 import com.lab616.omnibus.Main;
 
 /**
@@ -19,13 +22,15 @@ public class ApiClientMain extends Main {
   static Logger logger = Logger.getLogger(ApiClientMain.class);
 
   @Override
-  public Module[] getModules() {
-    return new Module[] { new IBClientModule(), new IBServletModule() };
+  public Set<? extends Module> getModules() {
+    return ImmutableSet.of( 
+        new TWSClientModule(), 
+        new TWSControllerModule());
   }
 
   @Override
   public Shutdown<?> getShutdown() {
-    return getInstance(Shutdown.class, "ib-api-shutdown");
+    return getInstance(Shutdown.class, "tws-shutdown");
   }
 
   @Override
