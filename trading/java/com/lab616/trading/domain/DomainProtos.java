@@ -1239,12 +1239,12 @@ public final class DomainProtos {
     public boolean hasType() { return hasType; }
     public com.lab616.trading.domain.DomainProtos.Tick.Type getType() { return type_; }
     
-    // required uint64 tickerId = 3;
+    // required uint32 tickerId = 3;
     public static final int TICKERID_FIELD_NUMBER = 3;
     private boolean hasTickerId;
-    private long tickerId_ = 0L;
+    private int tickerId_ = 0;
     public boolean hasTickerId() { return hasTickerId; }
-    public long getTickerId() { return tickerId_; }
+    public int getTickerId() { return tickerId_; }
     
     // required double value = 4;
     public static final int VALUE_FIELD_NUMBER = 4;
@@ -1277,7 +1277,7 @@ public final class DomainProtos {
         output.writeEnum(2, getType().getNumber());
       }
       if (hasTickerId()) {
-        output.writeUInt64(3, getTickerId());
+        output.writeUInt32(3, getTickerId());
       }
       if (hasValue()) {
         output.writeDouble(4, getValue());
@@ -1304,7 +1304,7 @@ public final class DomainProtos {
       }
       if (hasTickerId()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(3, getTickerId());
+          .computeUInt32Size(3, getTickerId());
       }
       if (hasValue()) {
         size += com.google.protobuf.CodedOutputStream
@@ -1518,7 +1518,7 @@ public final class DomainProtos {
               break;
             }
             case 24: {
-              setTickerId(input.readUInt64());
+              setTickerId(input.readUInt32());
               break;
             }
             case 33: {
@@ -1579,21 +1579,21 @@ public final class DomainProtos {
         return this;
       }
       
-      // required uint64 tickerId = 3;
+      // required uint32 tickerId = 3;
       public boolean hasTickerId() {
         return result.hasTickerId();
       }
-      public long getTickerId() {
+      public int getTickerId() {
         return result.getTickerId();
       }
-      public Builder setTickerId(long value) {
+      public Builder setTickerId(int value) {
         result.hasTickerId = true;
         result.tickerId_ = value;
         return this;
       }
       public Builder clearTickerId() {
         result.hasTickerId = false;
-        result.tickerId_ = 0L;
+        result.tickerId_ = 0;
         return this;
       }
       
@@ -1678,7 +1678,7 @@ public final class DomainProtos {
       "\001\022\r\n\005count\030\t \001(\r\022\037\n\006source\030\n \001(\0162\017.tradi" +
       "ng.Source\"\247\010\n\004Tick\022\021\n\ttimestamp\030\001 \002(\006\022 \n" +
       "\004type\030\002 \002(\0162\022.trading.Tick.Type\022\020\n\010ticke" +
-      "rId\030\003 \002(\004\022\r\n\005value\030\004 \002(\001\022\037\n\006source\030\005 \001(\016" +
+      "rId\030\003 \002(\r\022\r\n\005value\030\004 \002(\001\022\037\n\006source\030\005 \001(\016" +
       "2\017.trading.Source\"\247\007\n\004Type\022\014\n\010BID_SIZE\020\000",
       "\022\007\n\003BID\020\001\022\007\n\003ASK\020\002\022\014\n\010ASK_SIZE\020\003\022\010\n\004LAST" +
       "\020\004\022\r\n\tLAST_SIZE\020\005\022\010\n\004HIGH\020\006\022\007\n\003LOW\020\007\022\n\n\006" +

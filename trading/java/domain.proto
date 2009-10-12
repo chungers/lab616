@@ -87,7 +87,7 @@ message Tick {
 
   required fixed64 timestamp = 1;
   required Type type = 2;
-  required uint64 tickerId = 3;
+  required uint32 tickerId = 3;
   required double value = 4;
   optional Source source = 5;
 }

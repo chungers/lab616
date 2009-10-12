@@ -15,5 +15,6 @@
 	<classpathentry kind="var" path="THIRD_PARTY/guice/aopalliance.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/omnibus"/>
 	<classpathentry kind="var" path="THIRD_PARTY/jetty/lib/servlet-api-2.5-20081211.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/protobuf/java/target/protobuf-java-2.2.0.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
