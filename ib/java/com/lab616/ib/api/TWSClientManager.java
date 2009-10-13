@@ -140,7 +140,7 @@ public final class TWSClientManager implements Shutdown<Boolean> {
    * Implements Shutdown
    */
   public String getName() {
-    return "ib-api-service";
+    return "tws-api-service";
   }
 
   public int getConnectionCount() {

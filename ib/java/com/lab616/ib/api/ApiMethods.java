@@ -4,10 +4,12 @@ package com.lab616.ib.api;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 /**
  * @author david
@@ -57,6 +59,18 @@ public class ApiMethods {
   .apiArg("size", int.class).done();
 
   static Map<String, Method> methods = Maps.newHashMap();
+  
+  public static ApiBuilder get(String method) {
+    Set<ApiBuilder> registered = Sets.newHashSet(
+        TICK_GENERIC, TICK_PRICE, TICK_SIZE, TICK_STRING,
+        MKT_DEPTH);
+    for (ApiBuilder a : registered) {
+     if (a.getMethodName().equals(method)) {
+       return a;
+     }
+    }
+    return null;
+  }
   
   static void register(ApiBuilder b) throws NoSuchMethodException {
     methods.put(b.getMethodName(), b.getApiMethod());

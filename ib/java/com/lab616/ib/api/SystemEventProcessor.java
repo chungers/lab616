@@ -16,6 +16,7 @@ import com.lab616.ib.api.builders.MarketDataRequestBuilder;
 import com.lab616.ib.api.simulator.EClientSocketSimulator;
 import com.lab616.ib.api.simulator.EClientSocketSimulator.CSVFileDataSource;
 import com.lab616.ib.api.watchers.TWSEventCSVWriter;
+import com.lab616.ib.api.watchers.TWSEventProtoWriter;
 import com.lab616.omnibus.SystemEvent;
 import com.lab616.omnibus.event.AbstractEventWatcher;
 import com.lab616.omnibus.event.annotation.Statement;
@@ -123,6 +124,33 @@ public class SystemEventProcessor extends AbstractEventWatcher {
           this.service.enqueue(name, true, new Function<TWSClient, Managed>() {
             public Managed apply(TWSClient client) {
               TWSEventCSVWriter w = new TWSEventCSVWriter(client.getSourceId());
+              client.getEventEngine().add(w);
+              return w;
+            }
+          });
+        }
+        return;
+      }
+      // Start proto file writer
+      if ("proto".equals(event.getMethod())) {
+        String name = event.getParam("client");
+        String dir = event.getParam("dir");
+        dir = (dir == null || dir.length() == 0) ? "." : dir;
+        logger.debug("Starting proto writer for client=" + name);
+        // Check to see if we already have a writer for this
+        Managed managed = this.service.findAssociatedComponent(name,
+            new Predicate<Managed>() {
+          public boolean apply(Managed m) {
+            return m instanceof TWSEventProtoWriter;
+          }
+        });
+        final String clientName = name;
+        final String directory = dir;
+        if (managed == null || !managed.isReady()) {
+          this.service.enqueue(name, true, new Function<TWSClient, Managed>() {
+            public Managed apply(TWSClient client) {
+              TWSEventProtoWriter w = 
+                new TWSEventProtoWriter(directory, clientName);
               client.getEventEngine().add(w);
               return w;
             }

@@ -54,10 +54,7 @@ function run_local {
     $@
 }
 
-echo "PACKAGE=${PACKAGE}, TARGET=${TARGET_DIR}"
-
-case "${OPTION}" in 
---newpackage)
+function build_package {
     if [ ! -d ${SOURCE_DIR} ]; then
 	echo "Directory ${SOURCE_DIR} missing.  Creating."
 	mkdir -p ${SOURCE_DIR}
@@ -65,9 +62,19 @@ case "${OPTION}" in
 	mkdir -p ${PROFILE_FILES}
 	mkdir -p ${TEMPLATES_DIR}
 	mkdir -p ${LOCAL_FILES}
-	cp ${DEPLOY_DIR}/template.sh ${SOURCE_DIR}/${PACKAGE}
+	cp ${DEPLOY_DIR}/template-${1}.sh ${SOURCE_DIR}/${PACKAGE}
 	chmod a+x ${SOURCE_DIR}/${PACKAGE}
     fi
+}
+
+echo "PACKAGE=${PACKAGE}, TARGET=${TARGET_DIR}"
+
+case "${OPTION}" in 
+--newserver)
+    build_package server
+;;
+--newtool)
+    build_package tool
 ;;
 --stagelocal)
     if [ ! -d ${TARGET_DIR} ]; then

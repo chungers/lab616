@@ -5,6 +5,8 @@ package com.lab616.ib.api;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.google.common.collect.Lists;
 import com.ib.client.EWrapper;
 import com.lab616.common.Pair;
@@ -15,6 +17,9 @@ import com.lab616.ib.api.proto.TWSProto;
  *
  */
 public class ApiBuilder {
+  
+  static Logger logger = Logger.getLogger(ApiBuilder.class);
+  
   private String method;
   private List<Column> columns = Lists.newArrayList();
   private int methodArgs = 0;
