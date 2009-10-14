@@ -3,6 +3,7 @@
 package com.lab616.ib.api.util;
 
 import java.io.EOFException;
+import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Iterator;
@@ -37,7 +38,6 @@ public class ProtoDataFile {
   private String root;
   private DateTime lastDate;
   private Writer currentWriter;
-  private Reader currentReader;
   
   public ProtoDataFile(String dir, String root) {
     this.dir = dir;
@@ -45,26 +45,25 @@ public class ProtoDataFile {
     this.lastDate = new DateTime().withMillisOfDay(0).minusDays(1);
   }
   
+  
   public Writer getWriter() throws IOException {
     DateTime today = new DateTime().withMillisOfDay(0);
-    if (today.isAfter(lastDate)) {
+    if (today.isAfter(lastDate) || 
+        (currentWriter != null && currentWriter.state == State.CLOSED)) {
       
-      if (currentWriter != null) {
+      if (today.isAfter(lastDate) && currentWriter != null) {
         logger.info(root + ": New day. Flushing old file.");
         currentWriter.close();
       }
       currentWriter = new Writer(getFileName(today));
-      logger.info(root + ": Starting new file: " + currentWriter.name);
+      logger.info(root + ": Writing to file: " + currentWriter.name);
       lastDate = today;
     }
     return currentWriter;
   }
 
-  public Reader getReader(String fname) throws IOException {
-    if (currentReader == null) {
-      currentReader = new Reader(fname);
-    }
-    return currentReader;
+  public static Reader getReader(String fname) throws IOException {
+    return new Reader(fname);
   }
   
   public Reader getReader() throws IOException {
@@ -77,6 +76,14 @@ public class ProtoDataFile {
         this.dir, DateTimeFormat.forPattern("YYYY-MM-dd").print(today), root);
   }
   
+  /**
+   * Returns the current file being written or read.
+   * @return The file.
+   */
+  public File getFile() {
+    DateTime today = new DateTime().withMillisOfDay(0);
+    return new File(getFileName(today));
+  }
   
   public class Writer {
     
@@ -86,8 +93,16 @@ public class ProtoDataFile {
     private String name;
     
     public Writer(String filename) throws IOException {
+      this(filename, true);
+    }
+    
+    public Writer(String filename, boolean append) throws IOException {
       name = filename;
       file = new RandomAccessFile(filename, "rwd");
+      // Move to the end to append.
+      if (append) {
+        file.seek(file.length());
+      }
       state = State.READY;
     }
     
@@ -122,7 +137,7 @@ public class ProtoDataFile {
   }
   
   
-  public class Reader {
+  public static class Reader {
   
     private RandomAccessFile file;
     private String name;
@@ -131,6 +146,7 @@ public class ProtoDataFile {
       file = new RandomAccessFile(filename, "rwd");
       name = filename;
       state = State.READY;
+      file.seek(0L);
     }
     
     public Iterable<TWSProto.Event> readAll() {
@@ -162,10 +178,14 @@ public class ProtoDataFile {
               byte[] buf = new byte[size];
               file.read(buf);
               record = TWSProto.Event.parseFrom(buf);
+              if (!record.isInitialized()) {
+                logger.warn("Record not initialized: " + record);
+              }
               next = true;
             } catch (EOFException e) {
               next = false;
             } catch (IOException e) {
+              logger.error("Exception while reading " + name, e);
               next = false;
             } catch (Exception e) {
               logger.error("Exception while reading " + name, e);

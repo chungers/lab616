@@ -1,5 +1,7 @@
-03:19:26:059 AWT-EventQueue-0: Build 898.3, Sep 23, 2009 5:03:56 PM
-03:20:12:973 AWT-EventQueue-0: Market rule file /Users/david/lab616/third_party/java/ib-tws-898/IBJts/dbuhtmvwt/Tue.rul does not exist or is removed
+03:27:40:281 AWT-EventQueue-0: Build 898.3, Sep 23, 2009 5:03:56 PM
+03:28:09:953 AWT-EventQueue-0: Market rule file /Users/david/lab616/third_party/java/ib-tws-898/IBJts/dbuhtmvwt/Wed.rul does not exist or is removed
 Jolt logger configuration is done.
-03:20:20:565 JTS-SocketListener-31: API server listening on port 7496
-03:20:19:212 JTS-CCPDispatcher-20: MainWindowBatchProcessor: All rows have been created
+03:28:17:128 JTS-SocketListener-31: API server listening on port 7496
+03:28:23:461 JTS-CCPDispatcher-20: MainWindowBatchProcessor: All rows have been created
+03:28:39:413 JTS-session thread-91: Returned real url from web server https://www.interactivebrokers.com/sso/AuthenticateTWS;jsessionid=E2F137856347435CA4FAC9E0B6AC0B0C.wwwsso2?acct_id=U792564&action=TA_MARKET_DATA&TOKEN=49657738396B34353B6C3266613B6D6B356C3433716A66305B617566613930666E716B356C3B716A6B6F3B6671305B7035315A065D59090C053E425801010A090A57464002040A0B5E5355
+03:28:39:414 JTS-session thread-91: Opening URL https://www.interactivebrokers.com/sso/AuthenticateTWS;jsessionid=E2F137856347435CA4FAC9E0B6AC0B0C.wwwsso2?acct_id=U792564&action=TA_MARKET_DATA&TOKEN=49657738396B34353B6C3266613B6D6B356C3433716A66305B617566613930666E716B356C3B716A6B6F3B6671305B7035315A065D59090C053E425801010A090A57464002040A0B5E5355

@@ -2,6 +2,7 @@
 
 package com.lab616.ib.api.util;
 
+import java.io.File;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -46,6 +47,10 @@ public class ProtoDataFileTest extends TestCase {
 
   public void testWriting() throws Exception {
     ProtoDataFile p = new ProtoDataFile("/tmp", "test");
+    File f = p.getFile();
+    if (f.exists()) {
+      f.delete();
+    }
     
     final ApiBuilder builder = ApiMethods.TICK_PRICE;
 
@@ -67,9 +72,8 @@ public class ProtoDataFileTest extends TestCase {
       // send to writer
       p.getWriter().write(e);
     }
-    p.getWriter().close();
-    
     assertEquals(NUM_RECORDS, p.getWriter().countWritten());
+    p.getWriter().close();
   }
   
   
@@ -103,4 +107,60 @@ public class ProtoDataFileTest extends TestCase {
     
     assertEquals(NUM_RECORDS, count);
   }
+  
+  
+  private int writeBlock(ProtoDataFile p, int records) throws Exception {
+    final ApiBuilder builder = ApiMethods.TICK_PRICE;
+    final AtomicReference<TWSProto.Event> eventRef = 
+      new AtomicReference<TWSProto.Event>();
+    
+    EWrapper w = getEWrapper(eventRef, builder);
+   
+    // Create a bunch of TWSEvents.
+    int count = 0;
+    for (int i = 0; i < records; i++) {
+      // Call the wrapper
+      w.tickPrice(100, 1, 20.0 + i, 1);
+      TWSProto.Event proto = eventRef.get();
+      
+      Pair<Method, Object[]> methodArgs = builder.buildArgs(proto);
+      TWSEvent e = new TWSEvent();
+      e.setMethod(methodArgs.first.getName()).setArgs(methodArgs.second);
+      
+      // send to writer
+      p.getWriter().write(e);
+      count++;
+    }
+    p.getWriter().close();
+    return count;
+  }
+  
+  public void testAppending() throws Exception {
+    // Now read the entire file.
+    ProtoDataFile w = new ProtoDataFile("/tmp", "test");
+    File f = w.getFile();
+    if (f.exists()) {
+      f.delete();
+    }
+    
+    int total = 0;
+    for (int i = 0; i < 5; i++) {
+      total += writeBlock(w, 100);
+    }
+    
+    ProtoDataFile p = new ProtoDataFile("/tmp", "test");
+    int count = 0;
+    for (TWSProto.Event e : p.getReader().readAll()) {
+      assertEquals(TWSProto.Method.tickPrice, e.getMethod());
+      assertTrue(e.getTimestamp() > 0);
+      assertTrue(e.isInitialized());
+      count++;
+    }
+    p.getReader().close();
+
+    assertEquals(total, count);
+  }
+
+  
+  
 }

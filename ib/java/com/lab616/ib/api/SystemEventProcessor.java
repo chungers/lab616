@@ -150,7 +150,7 @@ public class SystemEventProcessor extends AbstractEventWatcher {
           this.service.enqueue(name, true, new Function<TWSClient, Managed>() {
             public Managed apply(TWSClient client) {
               TWSEventProtoWriter w = 
-                new TWSEventProtoWriter(directory, clientName);
+                new TWSEventProtoWriter(directory, clientName, client.getSourceId());
               client.getEventEngine().add(w);
               return w;
             }

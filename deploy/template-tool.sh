@@ -33,7 +33,7 @@ echo `java -version`
 JAR=${BINARY_DIR}/`basename $0 | awk -F. '{print $1}'`.jar
 JVM_ARGS="-Djava.library.path=${BINARY_DIR} -Duser.timezone=${TZ}"
 
-JAVA_COMMAND="nohup java ${JVM_ARGS} -jar ${JAR}"
+JAVA_COMMAND="java ${JVM_ARGS} -jar ${JAR}"
 
 ###########################################################
 # Package-specific parameters:

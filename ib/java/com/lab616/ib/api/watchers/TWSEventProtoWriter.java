@@ -31,10 +31,10 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
   private String clientSourceId;
   private AbstractQueueWorker<TWSEvent> queueWorker;
   
-  public TWSEventProtoWriter(String dir, String clientSourceId) {
+  public TWSEventProtoWriter(String dir, String rootName, String clientSourceId) {
     this.clientSourceId = clientSourceId;
     try {
-      this.protoFile = new ProtoDataFile(dir, clientSourceId);
+      this.protoFile = new ProtoDataFile(dir, rootName);
       this.protoFile.getWriter();
     } catch (IOException e) {
       throw new TWSClientException(e);
@@ -43,7 +43,7 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
     this.queueWorker = new AbstractQueueWorker<TWSEvent>(clientSourceId, false) {
       @Override
       protected void execute(TWSEvent event) throws Exception {
-        write(event);
+        protoFile.getWriter().write(event);
       }
       @Override
       protected boolean handleException(Exception e) {
@@ -103,14 +103,5 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
   public void stopRunning() {
     super.stop();
     this.queueWorker.setRunning(false);
-  }
-
-  /**
-   * Writes the event to the output file.
-   * @param event The event.
-   * @throws Exception Exception during writes.
-   */
-  private void write(TWSEvent event) throws Exception {
-    this.protoFile.getWriter().write(event);
   }
 }
