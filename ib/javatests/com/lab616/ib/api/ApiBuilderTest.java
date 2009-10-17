@@ -57,6 +57,10 @@ public class ApiBuilderTest extends TestCase {
         assertTrue(f.hasStringValue());
         assertEquals(v, f.getStringValue());
       }
+      if (v instanceof Long) {
+        assertTrue(f.hasLongValue());
+        assertEquals(v, f.getLongValue());
+      }
     }
     
     Pair<Method, Object[]> p = b.buildArgs(event);
@@ -137,5 +141,19 @@ public class ApiBuilderTest extends TestCase {
     w.updateMktDepth(1, 2, 3, 4, 5., 6);
    
     verify(builder, eventRef.get(), 1, 2, 3, 4, 5., 6);
+  }
+
+  public void testRealtimeBar() throws Exception {
+    final ApiBuilder builder = ApiMethods.REALTIME_BAR;
+
+    final AtomicReference<TWSProto.Event> eventRef = 
+      new AtomicReference<TWSProto.Event>();
+    
+    EWrapper w = getEWrapper(eventRef, builder);
+
+    // Call the wrapper
+    w.realtimeBar(1, 2L, 3., 4., 5., 6., 7L, 8., 9);
+   
+    verify(builder, eventRef.get(), 1, 2L, 3., 4., 5., 6., 7L, 8., 9);
   }
 }

@@ -15,9 +15,10 @@ enum Method {
 }
 
 message Field {
-  optional double doubleValue = 1;
+  optional double doubleValue   = 1;
   optional int32 intValue       = 2;
-  optional string stringValue = 3;
+  optional string stringValue   = 3;
+  optional int64 longValue      = 4;
 }
 
 message Event {

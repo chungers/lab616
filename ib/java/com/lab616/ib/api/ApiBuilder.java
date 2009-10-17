@@ -91,6 +91,17 @@ public class ApiBuilder {
     return null;
   }
   
+  public TWSProto.Event buildProto(String[] col) {
+    TWSProto.Event.Builder eb = TWSProto.Event.newBuilder()
+    .setMethod(TWSProto.Method.valueOf(this.method))
+    .setTimestamp(Long.decode(col[0]));
+    int i = 2;
+    for (Column c: this.columns) {
+      
+    }
+    return null;
+  }
+  
   public TWSProto.Event buildProto(long timestamp, Object[] args) {
     TWSProto.Event.Builder eb = TWSProto.Event.newBuilder()
       .setMethod(TWSProto.Method.valueOf(this.method))
@@ -106,6 +117,8 @@ public class ApiBuilder {
           fb.setDoubleValue((Double) value);
         } else if (value instanceof String) {
           fb.setStringValue((String) value);
+        } else if (value instanceof Long) {
+          fb.setLongValue((Long) value);
         }
         eb.addFields(fb.build());
       }
@@ -126,6 +139,9 @@ public class ApiBuilder {
       }
       if (f.hasIntValue()) {
         args[i] = f.getIntValue();
+      }
+      if (f.hasLongValue()) {
+        args[i] = f.getLongValue();
       }
     }
     return Pair.of(getApiMethod(), args);

@@ -320,4 +320,18 @@ public class TWSClient {
         "[%s]: Requested market depth for %s / id = %d", 
         getSourceId(), req.getContract().m_symbol, req.getTickerId()));
   }
+
+
+  /**
+   * Cancels request for market depth data.
+   * @param builder The request builder.
+   */
+  public void cancelMarketDepth(MarketDataRequestBuilder builder) {
+    checkReady();
+    MarketDataRequest req = builder.build();
+    client.cancelMktDepth(req.getTickerId());
+    logger.info(String.format(
+        "[%s]: Canceled market depth for %s / id = %d", 
+        getSourceId(), req.getContract().m_symbol, req.getTickerId()));
+  }
 }

@@ -35,4 +35,83 @@
 	<field tag="59" val="0"/>
 	<field tag="6674" val="0"/>
 </Entry>
+<Entry type="ExecutionReport" msgId="3167738027">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000005"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20091015-03:10:01"/>
+	<field tag="6556" val="today13"/>
+	<field tag="17" val="99445.1255576201.0"/>
+	<field tag="32" val="*"/>
+</Entry>
+<Entry type="Acknowledged" msgId="1902896810">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000028"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20091015-03:10:09"/>
+	<field tag="37" val="*"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="99445.1255576209.0"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="54" val="1"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="6678" val="1"/>
+	<field tag="60" val="20091015-03:10:09"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+	<field tag="6674" val="0"/>
+</Entry>
+<Entry type="ExecutionReport" msgId="3764078070">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000408"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20091015-04:00:06"/>
+	<field tag="6556" val="today244"/>
+	<field tag="17" val="99445.1255579206.0"/>
+	<field tag="32" val="*"/>
+</Entry>
+<Entry type="ExecutionReport" msgId="1338146978">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000004"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20091015-04:20:22"/>
+	<field tag="6556" val="today468"/>
+	<field tag="17" val="99445.1255580422.0"/>
+	<field tag="32" val="*"/>
+</Entry>
+<Entry type="Acknowledged" msgId="2488510011">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000011"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20091015-04:20:22"/>
+	<field tag="37" val="*"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="99445.1255580422.2"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="54" val="1"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="6678" val="1"/>
+	<field tag="60" val="20091015-04:20:22"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+	<field tag="6674" val="0"/>
+</Entry>
 </AuditTrail>

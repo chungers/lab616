@@ -2,22 +2,28 @@
 
 package com.lab616.common;
 
+import java.io.Serializable;
+
 /**
  * Pair
  *
  * @author david
  *
  */
-public class Pair<A, B> {
+
+public class Pair<A, B> implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 
   public A first;
   public B second;
   
+  public Pair(A first, B second) {
+    this.first = first;
+    this.second = second;
+  }
   
   public static <A, B> Pair<A, B> of(A a, B b) {
-    Pair<A, B> pair = new Pair<A, B>();
-    pair.first = a;
-    pair.second = b;
-    return pair;
+    return new Pair<A, B>(a, b);
   }
 }

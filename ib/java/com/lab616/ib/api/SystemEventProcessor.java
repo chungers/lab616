@@ -109,6 +109,21 @@ public class SystemEventProcessor extends AbstractEventWatcher {
         });
         return;
       }
+      // Request market depth:
+      if ("cancel-dom".equals(event.getMethod())) {
+        final String name = event.getParam("client");
+        final String symbol = event.getParam("symbol");
+        logger.debug("Requesting market depth for " + symbol + " on " + name);
+        this.service.enqueue(name, true, new Function<TWSClient, Boolean>() {
+          public Boolean apply(TWSClient client) {
+            client.cancelMarketDepth(
+                new MarketDataRequestBuilder().withDefaultsForStocks()
+                .forStock(new ContractBuilder(symbol)));
+            return true;
+          }
+        });
+        return;
+      }
       // Start CSV file writer
       if ("csv".equals(event.getMethod())) {
         String name = event.getParam("client");

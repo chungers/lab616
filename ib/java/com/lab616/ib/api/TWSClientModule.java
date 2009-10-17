@@ -5,10 +5,6 @@ package com.lab616.ib.api;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
-import org.apache.log4j.Logger;
-
-import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;

@@ -129,6 +129,13 @@ public final class TWSProto {
     public boolean hasStringValue() { return hasStringValue; }
     public java.lang.String getStringValue() { return stringValue_; }
     
+    // optional int64 longValue = 4;
+    public static final int LONGVALUE_FIELD_NUMBER = 4;
+    private boolean hasLongValue;
+    private long longValue_ = 0L;
+    public boolean hasLongValue() { return hasLongValue; }
+    public long getLongValue() { return longValue_; }
+    
     public final boolean isInitialized() {
       return true;
     }
@@ -143,6 +150,9 @@ public final class TWSProto {
       }
       if (hasStringValue()) {
         output.writeString(3, getStringValue());
+      }
+      if (hasLongValue()) {
+        output.writeInt64(4, getLongValue());
       }
       getUnknownFields().writeTo(output);
     }
@@ -164,6 +174,10 @@ public final class TWSProto {
       if (hasStringValue()) {
         size += com.google.protobuf.CodedOutputStream
           .computeStringSize(3, getStringValue());
+      }
+      if (hasLongValue()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, getLongValue());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -323,6 +337,9 @@ public final class TWSProto {
         if (other.hasStringValue()) {
           setStringValue(other.getStringValue());
         }
+        if (other.hasLongValue()) {
+          setLongValue(other.getLongValue());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -358,6 +375,10 @@ public final class TWSProto {
             }
             case 26: {
               setStringValue(input.readString());
+              break;
+            }
+            case 32: {
+              setLongValue(input.readInt64());
               break;
             }
           }
@@ -419,6 +440,24 @@ public final class TWSProto {
       public Builder clearStringValue() {
         result.hasStringValue = false;
         result.stringValue_ = getDefaultInstance().getStringValue();
+        return this;
+      }
+      
+      // optional int64 longValue = 4;
+      public boolean hasLongValue() {
+        return result.hasLongValue();
+      }
+      public long getLongValue() {
+        return result.getLongValue();
+      }
+      public Builder setLongValue(long value) {
+        result.hasLongValue = true;
+        result.longValue_ = value;
+        return this;
+      }
+      public Builder clearLongValue() {
+        result.hasLongValue = false;
+        result.longValue_ = 0L;
         return this;
       }
     }
@@ -854,16 +893,16 @@ public final class TWSProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014domain.proto\022\002ib\"C\n\005Field\022\023\n\013doubleVal" +
+      "\n\014domain.proto\022\002ib\"V\n\005Field\022\023\n\013doubleVal" +
       "ue\030\001 \001(\001\022\020\n\010intValue\030\002 \001(\005\022\023\n\013stringValu" +
-      "e\030\003 \001(\t\"Q\n\005Event\022\021\n\ttimestamp\030\001 \002(\006\022\032\n\006m" +
-      "ethod\030\002 \002(\0162\n.ib.Method\022\031\n\006fields\030\003 \003(\0132" +
-      "\t.ib.Field*\234\001\n\006Method\022\017\n\013tickGeneric\020\000\022\031" +
-      "\n\025tickOptionComputation\020\001\022\r\n\ttickPrice\020\002" +
-      "\022\014\n\010tickSize\020\003\022\016\n\ntickString\020\004\022\017\n\013realti" +
-      "meBar\020\005\022\022\n\016updateMktDepth\020\006\022\024\n\020updateMkt" +
-      "DepthL2\020\007B#\n\027com.lab616.ib.api.protoB\010TW" +
-      "SProto"
+      "e\030\003 \001(\t\022\021\n\tlongValue\030\004 \001(\003\"Q\n\005Event\022\021\n\tt" +
+      "imestamp\030\001 \002(\006\022\032\n\006method\030\002 \002(\0162\n.ib.Meth" +
+      "od\022\031\n\006fields\030\003 \003(\0132\t.ib.Field*\234\001\n\006Method" +
+      "\022\017\n\013tickGeneric\020\000\022\031\n\025tickOptionComputati" +
+      "on\020\001\022\r\n\ttickPrice\020\002\022\014\n\010tickSize\020\003\022\016\n\ntic" +
+      "kString\020\004\022\017\n\013realtimeBar\020\005\022\022\n\016updateMktD" +
+      "epth\020\006\022\024\n\020updateMktDepthL2\020\007B#\n\027com.lab6" +
+      "16.ib.api.protoB\010TWSProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -875,7 +914,7 @@ public final class TWSProto {
           internal_static_ib_Field_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ib_Field_descriptor,
-              new java.lang.String[] { "DoubleValue", "IntValue", "StringValue", },
+              new java.lang.String[] { "DoubleValue", "IntValue", "StringValue", "LongValue", },
               com.lab616.ib.api.proto.TWSProto.Field.class,
               com.lab616.ib.api.proto.TWSProto.Field.Builder.class);
           internal_static_ib_Event_descriptor =
