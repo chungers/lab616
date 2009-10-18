@@ -4,13 +4,12 @@ package com.lab616.ib.api;
 
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.lab616.common.Pair;
+import com.lab616.ib.api.proto.TWSProto;
 
 /**
  * @author david
@@ -20,7 +19,20 @@ public class ApiMethods {
 
   static Logger logger = Logger.getLogger(ApiMethods.class);
   
-  public static ApiBuilder REALTIME_BAR = new ApiBuilder("realtimeBar")
+  public static ApiBuilder HISTORICAL_DATA = new ApiBuilder(TWSProto.Method.historicalData)
+  .parse("timestamp", Long.class)
+  .parse("method", String.class)
+  .apiArg("tickerId", int.class)
+  .apiArg("date", String.class)
+  .apiArg("open", double.class)
+  .apiArg("high", double.class)
+  .apiArg("low", double.class)
+  .apiArg("close", double.class)
+  .apiArg("volume", int.class)
+  .apiArg("wap", double.class)
+  .apiArg("hasGaps", boolean.class).done();
+  
+  public static ApiBuilder REALTIME_BAR = new ApiBuilder(TWSProto.Method.realtimeBar)
   .parse("timestamp", Long.class)
   .parse("method", String.class)
   .apiArg("tickerId", int.class)
@@ -32,15 +44,15 @@ public class ApiMethods {
   .apiArg("volume", long.class)
   .apiArg("wap", double.class)
   .apiArg("count", int.class).done();
-  
-  public static ApiBuilder TICK_GENERIC = new ApiBuilder("tickGeneric")
+
+  public static ApiBuilder TICK_GENERIC = new ApiBuilder(TWSProto.Method.tickGeneric)
   .parse("timestamp", Long.class)
   .parse("method", String.class)
   .apiArg("tickerId", int.class)
   .apiArg("tickType", int.class)
   .apiArg("value", double.class).done();
   
-  public static ApiBuilder TICK_PRICE = new ApiBuilder("tickPrice")
+  public static ApiBuilder TICK_PRICE = new ApiBuilder(TWSProto.Method.tickPrice)
   .parse("timestamp", Long.class)
   .parse("method", String.class)
   .apiArg("tickerId", int.class)
@@ -48,21 +60,21 @@ public class ApiMethods {
   .apiArg("price", double.class)
   .apiArg("canAutoExecute", int.class).done();
 
-  public static ApiBuilder TICK_SIZE = new ApiBuilder("tickSize")
+  public static ApiBuilder TICK_SIZE = new ApiBuilder(TWSProto.Method.tickSize)
   .parse("timestamp", Long.class)
   .parse("method", String.class)
   .apiArg("tickerId", int.class)
   .apiArg("field", int.class)
   .apiArg("size", int.class).done();
   
-  public static ApiBuilder TICK_STRING = new ApiBuilder("tickString")
+  public static ApiBuilder TICK_STRING = new ApiBuilder(TWSProto.Method.tickString)
   .parse("timestamp", Long.class)
   .parse("method", String.class)
   .apiArg("tickerId", int.class)
   .apiArg("tickType", int.class)
   .apiArg("value", String.class).done();
 
-  public static ApiBuilder MKT_DEPTH = new ApiBuilder("updateMktDepth")
+  public static ApiBuilder MKT_DEPTH = new ApiBuilder(TWSProto.Method.updateMktDepth)
   .parse("timestamp", Long.class)
   .parse("method", String.class)
   .apiArg("tickerId", int.class)

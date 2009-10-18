@@ -16,7 +16,6 @@ import com.google.common.base.Function;
 import com.google.inject.internal.Preconditions;
 import com.lab616.ib.api.ApiBuilder;
 import com.lab616.ib.api.ApiMethods;
-import com.lab616.ib.api.TWSEvent;
 import com.lab616.ib.api.proto.TWSProto;
 
 /**
@@ -106,14 +105,13 @@ public class ProtoDataFile {
       state = State.READY;
     }
     
-    public boolean write(TWSEvent event) throws IOException {
+    public boolean write(TWSProto.Event event) throws IOException {
       if (state != State.READY) {
         return false;
       }
-      ApiBuilder b = ApiMethods.get(event.getMethod());
+      ApiBuilder b = ApiMethods.get(event.getMethod().name());
       if (b != null) {
-        TWSProto.Event e = b.buildProto(event);
-        byte[] bytes = e.toByteArray();
+        byte[] bytes = event.toByteArray();
         file.writeByte(bytes.length);
         file.write(bytes);
         written++;

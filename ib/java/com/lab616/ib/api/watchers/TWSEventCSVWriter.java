@@ -12,8 +12,8 @@ import org.joda.time.format.DateTimeFormat;
 
 import com.lab616.concurrent.AbstractQueueWorker;
 import com.lab616.ib.api.TWSClientException;
-import com.lab616.ib.api.TWSEvent;
 import com.lab616.ib.api.TWSClientManager.Managed;
+import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.omnibus.event.AbstractEventWatcher;
 import com.lab616.omnibus.event.annotation.Statement;
 import com.lab616.omnibus.event.annotation.Var;
@@ -25,14 +25,14 @@ import com.lab616.omnibus.event.annotation.Var;
  * @author david
  *
  */
-@Statement("select * from TWSEvent where source=?")
+@Statement("select * from TWSProto.Event where source=?")
 public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
 
   static Logger logger = Logger.getLogger(TWSEventCSVWriter.class);
 
   private PrintWriter print;
   private String clientSourceId;
-  private AbstractQueueWorker<TWSEvent> queueWorker;
+  private AbstractQueueWorker<TWSProto.Event> queueWorker;
   private DateTime lastDate;
   
   public TWSEventCSVWriter(String clientSourceId) {
@@ -44,9 +44,9 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
       throw new TWSClientException(e);
     }
     final String id = clientSourceId;
-    this.queueWorker = new AbstractQueueWorker<TWSEvent>(clientSourceId, false) {
+    this.queueWorker = new AbstractQueueWorker<TWSProto.Event>(clientSourceId, false) {
       @Override
-      protected void execute(TWSEvent event) throws Exception {
+      protected void execute(TWSProto.Event event) throws Exception {
         write(event);
       }
       @Override
@@ -114,7 +114,7 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
    * Receives the IBEvent from the event engine.
    * @param event The event.
    */
-  public void update(TWSEvent event) {
+  public void update(TWSProto.Event event) {
     if (event != null) {
       this.queueWorker.enqueue(event);
     }
@@ -144,9 +144,29 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
    * @param event The event.
    * @throws Exception Exception during writes.
    */
-  private void write(TWSEvent event) throws Exception {
+  private void write(TWSProto.Event event) throws Exception {
     PrintWriter p = getOutput();
-    p.println(event.toString());
+    p.println(toCSVString(event));
     p.flush();
+  }
+  
+  public static String toCSVString(TWSProto.Event event) {
+    StringBuffer b = new StringBuffer();
+    b.append(event.getTimestamp());
+    b.append(",");
+    b.append(event.getMethod().name());
+    for (TWSProto.Field f : event.getFieldsList()) {
+      b.append(",");
+      if (f.hasDoubleValue()) {
+        b.append(f.getDoubleValue());
+      } else if (f.hasIntValue()) {
+        b.append(f.getIntValue());
+      } else if (f.hasLongValue()) {
+        b.append(f.getLongValue());
+      } else if (f.hasStringValue()) {
+        b.append(f.getStringValue());
+      }
+    }
+    return b.toString();
   }
 }

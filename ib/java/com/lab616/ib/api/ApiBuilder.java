@@ -4,11 +4,16 @@ package com.lab616.ib.api;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.inject.internal.ImmutableMap;
 import com.ib.client.EWrapper;
+import com.lab616.common.Converter;
 import com.lab616.common.Pair;
 import com.lab616.ib.api.proto.TWSProto;
 
@@ -20,10 +25,10 @@ public class ApiBuilder {
   
   static Logger logger = Logger.getLogger(ApiBuilder.class);
   
-  private String method;
+  private TWSProto.Method method;
   private List<Column> columns = Lists.newArrayList();
   private int methodArgs = 0;
-  public ApiBuilder(String method) {
+  public ApiBuilder(TWSProto.Method method) {
     this.method = method;
   }
   
@@ -58,11 +63,11 @@ public class ApiBuilder {
   }
   
   public Method getApiMethod() throws NoSuchMethodException {
-    return EWrapper.class.getMethod(method, getMethodArgs());
+    return EWrapper.class.getMethod(method.name(), getMethodArgs());
   }
   
   public String getMethodName() {
-    return this.method;
+    return this.method.name();
   }
   
   public Class<?>[] getMethodArgs() {
@@ -84,27 +89,49 @@ public class ApiBuilder {
     return new Column(name, type).setApiArg(true);
   }
   
-  public TWSProto.Event buildProto(TWSEvent event) {
-    if (this.method.equals(event.getMethod())) {
-      return buildProto(event.getTimestamp(), event.getArgs());
-    }
-    return null;
-  }
-  
-  public TWSProto.Event buildProto(String[] col) {
+  /**
+   * For conversion of CSV data to proto format.
+   * @param source The source identifier.
+   * @param col Columns.
+   * @return The proto.
+   */
+  public TWSProto.Event buildProto(String source, String[] col) {
     TWSProto.Event.Builder eb = TWSProto.Event.newBuilder()
-    .setMethod(TWSProto.Method.valueOf(this.method))
+    .setSource(source)
+    .setMethod(this.method)
     .setTimestamp(Long.decode(col[0]));
     int i = 2;
     for (Column c: this.columns) {
-      
+      if (c.apiArg) {
+        TWSProto.Field.Builder fb = TWSProto.Field.newBuilder();
+        String value = col[i];
+        // convert from value string to typed value.
+        if (c.type == int.class) {
+          fb.setIntValue(Converter.TO_INTEGER.apply(value)); 
+        } else if (c.type == double.class) {
+          fb.setDoubleValue(Converter.TO_DOUBLE.apply(value));
+        } else if (c.type == long.class) {
+          fb.setLongValue(Converter.TO_LONG.apply(value));
+        } else if (c.type == String.class) {
+          fb.setStringValue(Converter.TO_STRING.apply(value));
+        } else if (c.type == boolean.class) {
+          fb.setBooleanValue(Converter.TO_BOOLEAN.apply(value));
+        }
+        eb.addFields(fb.build());
+        i++;
+      }
     }
-    return null;
+    return eb.build();
   }
   
-  public TWSProto.Event buildProto(long timestamp, Object[] args) {
+  private interface Apply {
+    public void apply(TWSProto.Field.Builder b, Object v);
+  }
+  
+  public TWSProto.Event buildProto(String source, long timestamp, Object[] args) {
     TWSProto.Event.Builder eb = TWSProto.Event.newBuilder()
-      .setMethod(TWSProto.Method.valueOf(this.method))
+      .setSource(source)
+      .setMethod(this.method)
       .setTimestamp(timestamp);
     int i = 0;
     for (Column c : this.columns) {
@@ -119,6 +146,8 @@ public class ApiBuilder {
           fb.setStringValue((String) value);
         } else if (value instanceof Long) {
           fb.setLongValue((Long) value);
+        } else if (value instanceof Boolean) {
+          fb.setBooleanValue((Boolean) value);
         }
         eb.addFields(fb.build());
       }
@@ -142,6 +171,9 @@ public class ApiBuilder {
       }
       if (f.hasLongValue()) {
         args[i] = f.getLongValue();
+      }
+      if (f.hasBooleanValue()) {
+        args[i] = f.getBooleanValue();
       }
     }
     return Pair.of(getApiMethod(), args);

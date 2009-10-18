@@ -28,7 +28,7 @@ public class ApiBuilderTest extends TestCase {
          new InvocationHandler() {
            public Object invoke(Object proxy, Method m, Object[] args) 
              throws Throwable {
-             TWSProto.Event e = builder.buildProto(Time.now(), args);
+             TWSProto.Event e = builder.buildProto("test", Time.now(), args);
              ref.set(e);
              assertTrue(e.isInitialized());
              return null;

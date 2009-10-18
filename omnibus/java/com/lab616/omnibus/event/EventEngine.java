@@ -78,7 +78,6 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 			Set<AbstractEventWatcher> eventWatchers,
 			@Named("event-engine-threads") int threads,
       @Named("event-engine-queue-capacity") int queueCapacity) {
-  	
   	this.eventDefinitions = eventDefinitions;
   	this.eventWatchers = eventWatchers;
   	this.threads = threads;

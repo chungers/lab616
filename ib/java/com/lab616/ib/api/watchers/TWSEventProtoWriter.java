@@ -8,8 +8,8 @@ import org.apache.log4j.Logger;
 
 import com.lab616.concurrent.AbstractQueueWorker;
 import com.lab616.ib.api.TWSClientException;
-import com.lab616.ib.api.TWSEvent;
 import com.lab616.ib.api.TWSClientManager.Managed;
+import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.ib.api.util.ProtoDataFile;
 import com.lab616.omnibus.event.AbstractEventWatcher;
 import com.lab616.omnibus.event.annotation.Statement;
@@ -22,14 +22,14 @@ import com.lab616.omnibus.event.annotation.Var;
  * @author david
  *
  */
-@Statement("select * from TWSEvent where source=?")
+@Statement("select * from TWSProto.Event where source=?")
 public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed {
 
   static Logger logger = Logger.getLogger(TWSEventProtoWriter.class);
 
   private ProtoDataFile protoFile;
   private String clientSourceId;
-  private AbstractQueueWorker<TWSEvent> queueWorker;
+  private AbstractQueueWorker<TWSProto.Event> queueWorker;
   
   public TWSEventProtoWriter(String dir, String rootName, String clientSourceId) {
     this.clientSourceId = clientSourceId;
@@ -40,9 +40,9 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
       throw new TWSClientException(e);
     }
     final String id = clientSourceId;
-    this.queueWorker = new AbstractQueueWorker<TWSEvent>(clientSourceId, false) {
+    this.queueWorker = new AbstractQueueWorker<TWSProto.Event>(clientSourceId, false) {
       @Override
-      protected void execute(TWSEvent event) throws Exception {
+      protected void execute(TWSProto.Event event) throws Exception {
         protoFile.getWriter().write(event);
       }
       @Override
@@ -80,7 +80,7 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
    * Receives the IBEvent from the event engine.
    * @param event The event.
    */
-  public void update(TWSEvent event) {
+  public void update(TWSProto.Event event) {
     if (event != null) {
       this.queueWorker.enqueue(event);
     }

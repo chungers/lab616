@@ -8,16 +8,13 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.google.common.base.Function;
+import junit.framework.TestCase;
+
 import com.ib.client.EWrapper;
-import com.lab616.common.Pair;
 import com.lab616.ib.api.ApiBuilder;
 import com.lab616.ib.api.ApiMethods;
-import com.lab616.ib.api.TWSEvent;
 import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.util.Time;
-
-import junit.framework.TestCase;
 
 /**
  *
@@ -37,7 +34,7 @@ public class ProtoDataFileTest extends TestCase {
          new InvocationHandler() {
            public Object invoke(Object proxy, Method m, Object[] args) 
              throws Throwable {
-             TWSProto.Event e = builder.buildProto(Time.now(), args);
+             TWSProto.Event e = builder.buildProto("test", Time.now(), args);
              ref.set(e);
              assertTrue(e.isInitialized());
              return null;
@@ -64,13 +61,8 @@ public class ProtoDataFileTest extends TestCase {
       // Call the wrapper
       w.tickPrice(100, 1, 20.0 + i, 1);
       TWSProto.Event proto = eventRef.get();
-      
-      Pair<Method, Object[]> methodArgs = builder.buildArgs(proto);
-      TWSEvent e = new TWSEvent();
-      e.setMethod(methodArgs.first.getName()).setArgs(methodArgs.second);
-      
       // send to writer
-      p.getWriter().write(e);
+      p.getWriter().write(proto);
     }
     assertEquals(NUM_RECORDS, p.getWriter().countWritten());
     p.getWriter().close();
@@ -79,27 +71,11 @@ public class ProtoDataFileTest extends TestCase {
   
   public void testReading() throws Exception {
     ProtoDataFile p = new ProtoDataFile("/tmp", "test");
-    final ApiBuilder builder = ApiMethods.TICK_PRICE;
-
-    Function<TWSProto.Event, TWSEvent> trans = 
-      new Function<TWSProto.Event, TWSEvent> () {
-      public TWSEvent apply(TWSProto.Event e) {
-        TWSEvent event = new TWSEvent();
-        try {
-          Pair<Method, Object[]> callArgs = builder.buildArgs(e);
-          return event
-            .setMethod(callArgs.first.getName())
-            .setArgs(callArgs.second);
-        } catch (NoSuchMethodException ex) {
-          throw new RuntimeException(ex);
-        }
-      }
-    };
    
     int count = 0;
-    for (TWSEvent e : p.getReader().readAll(trans)) {
-      assertEquals("tickPrice", e.getMethod());
-      assertEquals(100, e.getArgs()[0]);
+    for (TWSProto.Event e : p.getReader().readAll()) {
+      assertEquals("tickPrice", e.getMethod().name());
+      assertEquals(100, e.getFields(0).getIntValue());
       assertTrue(e.getTimestamp() > 0);
       count++;
     }
@@ -122,13 +98,8 @@ public class ProtoDataFileTest extends TestCase {
       // Call the wrapper
       w.tickPrice(100, 1, 20.0 + i, 1);
       TWSProto.Event proto = eventRef.get();
-      
-      Pair<Method, Object[]> methodArgs = builder.buildArgs(proto);
-      TWSEvent e = new TWSEvent();
-      e.setMethod(methodArgs.first.getName()).setArgs(methodArgs.second);
-      
       // send to writer
-      p.getWriter().write(e);
+      p.getWriter().write(proto);
       count++;
     }
     p.getWriter().close();

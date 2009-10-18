@@ -13,9 +13,11 @@ import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
+import com.lab616.util.Time;
 
 /**
  * API handler
@@ -60,8 +62,11 @@ public class TWSProxy implements InvocationHandler {
           handleConnectionClosed();
         }
       } else {
-        TWSEvent event = new TWSEvent(m.getName(), args);
-        event.setSource(clientSourceId);
+        ApiBuilder b = ApiMethods.get(m.getName());
+        TWSProto.Event event = null; 
+        if (b != null) {
+          event = b.buildProto(clientSourceId, Time.now(), args);
+        }
         if (synchronousIBEvents.contains(m.getName())) {
           // Call method directly.
           handleData(event);
@@ -81,7 +86,7 @@ public class TWSProxy implements InvocationHandler {
    * Override this to receive data directly instead of via the IBEvent stream.
    * @param event The event.
    */
-  protected void handleData(TWSEvent event) {
+  protected void handleData(TWSProto.Event event) {
     // Do nothing.
   }
   

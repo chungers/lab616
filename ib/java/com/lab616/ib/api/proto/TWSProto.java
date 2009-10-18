@@ -17,6 +17,8 @@ public final class TWSProto {
     realtimeBar(5, 5),
     updateMktDepth(6, 6),
     updateMktDepthL2(7, 7),
+    currentTime(8, 8),
+    historicalData(9, 9),
     ;
     
     
@@ -32,6 +34,8 @@ public final class TWSProto {
         case 5: return realtimeBar;
         case 6: return updateMktDepth;
         case 7: return updateMktDepthL2;
+        case 8: return currentTime;
+        case 9: return historicalData;
         default: return null;
       }
     }
@@ -62,7 +66,7 @@ public final class TWSProto {
     }
     
     private static final Method[] VALUES = {
-      tickGeneric, tickOptionComputation, tickPrice, tickSize, tickString, realtimeBar, updateMktDepth, updateMktDepthL2, 
+      tickGeneric, tickOptionComputation, tickPrice, tickSize, tickString, realtimeBar, updateMktDepth, updateMktDepthL2, currentTime, historicalData, 
     };
     public static Method valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
@@ -136,6 +140,13 @@ public final class TWSProto {
     public boolean hasLongValue() { return hasLongValue; }
     public long getLongValue() { return longValue_; }
     
+    // optional bool booleanValue = 5;
+    public static final int BOOLEANVALUE_FIELD_NUMBER = 5;
+    private boolean hasBooleanValue;
+    private boolean booleanValue_ = false;
+    public boolean hasBooleanValue() { return hasBooleanValue; }
+    public boolean getBooleanValue() { return booleanValue_; }
+    
     public final boolean isInitialized() {
       return true;
     }
@@ -153,6 +164,9 @@ public final class TWSProto {
       }
       if (hasLongValue()) {
         output.writeInt64(4, getLongValue());
+      }
+      if (hasBooleanValue()) {
+        output.writeBool(5, getBooleanValue());
       }
       getUnknownFields().writeTo(output);
     }
@@ -178,6 +192,10 @@ public final class TWSProto {
       if (hasLongValue()) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(4, getLongValue());
+      }
+      if (hasBooleanValue()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, getBooleanValue());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -340,6 +358,9 @@ public final class TWSProto {
         if (other.hasLongValue()) {
           setLongValue(other.getLongValue());
         }
+        if (other.hasBooleanValue()) {
+          setBooleanValue(other.getBooleanValue());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -379,6 +400,10 @@ public final class TWSProto {
             }
             case 32: {
               setLongValue(input.readInt64());
+              break;
+            }
+            case 40: {
+              setBooleanValue(input.readBool());
               break;
             }
           }
@@ -460,6 +485,24 @@ public final class TWSProto {
         result.longValue_ = 0L;
         return this;
       }
+      
+      // optional bool booleanValue = 5;
+      public boolean hasBooleanValue() {
+        return result.hasBooleanValue();
+      }
+      public boolean getBooleanValue() {
+        return result.getBooleanValue();
+      }
+      public Builder setBooleanValue(boolean value) {
+        result.hasBooleanValue = true;
+        result.booleanValue_ = value;
+        return this;
+      }
+      public Builder clearBooleanValue() {
+        result.hasBooleanValue = false;
+        result.booleanValue_ = false;
+        return this;
+      }
     }
     
     static {
@@ -521,9 +564,17 @@ public final class TWSProto {
       return fields_.get(index);
     }
     
+    // required string source = 4;
+    public static final int SOURCE_FIELD_NUMBER = 4;
+    private boolean hasSource;
+    private java.lang.String source_ = "";
+    public boolean hasSource() { return hasSource; }
+    public java.lang.String getSource() { return source_; }
+    
     public final boolean isInitialized() {
       if (!hasTimestamp) return false;
       if (!hasMethod) return false;
+      if (!hasSource) return false;
       return true;
     }
     
@@ -537,6 +588,9 @@ public final class TWSProto {
       }
       for (com.lab616.ib.api.proto.TWSProto.Field element : getFieldsList()) {
         output.writeMessage(3, element);
+      }
+      if (hasSource()) {
+        output.writeString(4, getSource());
       }
       getUnknownFields().writeTo(output);
     }
@@ -558,6 +612,10 @@ public final class TWSProto {
       for (com.lab616.ib.api.proto.TWSProto.Field element : getFieldsList()) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, element);
+      }
+      if (hasSource()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(4, getSource());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -724,6 +782,9 @@ public final class TWSProto {
           }
           result.fields_.addAll(other.fields_);
         }
+        if (other.hasSource()) {
+          setSource(other.getSource());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -767,6 +828,10 @@ public final class TWSProto {
               com.lab616.ib.api.proto.TWSProto.Field.Builder subBuilder = com.lab616.ib.api.proto.TWSProto.Field.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addFields(subBuilder.buildPartial());
+              break;
+            }
+            case 34: {
+              setSource(input.readString());
               break;
             }
           }
@@ -863,6 +928,27 @@ public final class TWSProto {
         result.fields_ = java.util.Collections.emptyList();
         return this;
       }
+      
+      // required string source = 4;
+      public boolean hasSource() {
+        return result.hasSource();
+      }
+      public java.lang.String getSource() {
+        return result.getSource();
+      }
+      public Builder setSource(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasSource = true;
+        result.source_ = value;
+        return this;
+      }
+      public Builder clearSource() {
+        result.hasSource = false;
+        result.source_ = getDefaultInstance().getSource();
+        return this;
+      }
     }
     
     static {
@@ -893,16 +979,18 @@ public final class TWSProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014domain.proto\022\002ib\"V\n\005Field\022\023\n\013doubleVal" +
+      "\n\014domain.proto\022\002ib\"l\n\005Field\022\023\n\013doubleVal" +
       "ue\030\001 \001(\001\022\020\n\010intValue\030\002 \001(\005\022\023\n\013stringValu" +
-      "e\030\003 \001(\t\022\021\n\tlongValue\030\004 \001(\003\"Q\n\005Event\022\021\n\tt" +
-      "imestamp\030\001 \002(\006\022\032\n\006method\030\002 \002(\0162\n.ib.Meth" +
-      "od\022\031\n\006fields\030\003 \003(\0132\t.ib.Field*\234\001\n\006Method" +
-      "\022\017\n\013tickGeneric\020\000\022\031\n\025tickOptionComputati" +
-      "on\020\001\022\r\n\ttickPrice\020\002\022\014\n\010tickSize\020\003\022\016\n\ntic" +
-      "kString\020\004\022\017\n\013realtimeBar\020\005\022\022\n\016updateMktD" +
-      "epth\020\006\022\024\n\020updateMktDepthL2\020\007B#\n\027com.lab6" +
-      "16.ib.api.protoB\010TWSProto"
+      "e\030\003 \001(\t\022\021\n\tlongValue\030\004 \001(\003\022\024\n\014booleanVal" +
+      "ue\030\005 \001(\010\"a\n\005Event\022\021\n\ttimestamp\030\001 \002(\006\022\032\n\006" +
+      "method\030\002 \002(\0162\n.ib.Method\022\031\n\006fields\030\003 \003(\013" +
+      "2\t.ib.Field\022\016\n\006source\030\004 \002(\t*\301\001\n\006Method\022\017" +
+      "\n\013tickGeneric\020\000\022\031\n\025tickOptionComputation" +
+      "\020\001\022\r\n\ttickPrice\020\002\022\014\n\010tickSize\020\003\022\016\n\ntickS" +
+      "tring\020\004\022\017\n\013realtimeBar\020\005\022\022\n\016updateMktDep" +
+      "th\020\006\022\024\n\020updateMktDepthL2\020\007\022\017\n\013currentTim",
+      "e\020\010\022\022\n\016historicalData\020\tB#\n\027com.lab616.ib" +
+      ".api.protoB\010TWSProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -914,7 +1002,7 @@ public final class TWSProto {
           internal_static_ib_Field_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ib_Field_descriptor,
-              new java.lang.String[] { "DoubleValue", "IntValue", "StringValue", "LongValue", },
+              new java.lang.String[] { "DoubleValue", "IntValue", "StringValue", "LongValue", "BooleanValue", },
               com.lab616.ib.api.proto.TWSProto.Field.class,
               com.lab616.ib.api.proto.TWSProto.Field.Builder.class);
           internal_static_ib_Event_descriptor =
@@ -922,7 +1010,7 @@ public final class TWSProto {
           internal_static_ib_Event_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ib_Event_descriptor,
-              new java.lang.String[] { "Timestamp", "Method", "Fields", },
+              new java.lang.String[] { "Timestamp", "Method", "Fields", "Source", },
               com.lab616.ib.api.proto.TWSProto.Event.class,
               com.lab616.ib.api.proto.TWSProto.Event.Builder.class);
           return null;

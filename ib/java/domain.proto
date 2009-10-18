@@ -12,6 +12,8 @@ enum Method {
     realtimeBar           = 5;
     updateMktDepth        = 6;
     updateMktDepthL2      = 7;
+    currentTime           = 8;
+    historicalData        = 9;
 }
 
 message Field {
@@ -19,10 +21,12 @@ message Field {
   optional int32 intValue       = 2;
   optional string stringValue   = 3;
   optional int64 longValue      = 4;
+  optional bool booleanValue    = 5;
 }
 
 message Event {
   required fixed64 timestamp = 1;
   required Method method     = 2;
   repeated Field fields      = 3;
+  required string source     = 4;
 }

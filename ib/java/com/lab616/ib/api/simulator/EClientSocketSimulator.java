@@ -20,9 +20,11 @@ import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
 import com.lab616.concurrent.AbstractQueueWorker;
+import com.lab616.ib.api.ApiBuilder;
+import com.lab616.ib.api.ApiMethods;
 import com.lab616.ib.api.ManagedEClientSocket;
-import com.lab616.ib.api.TWSEvent;
 import com.lab616.ib.api.TWSClientManager.Managed;
+import com.lab616.ib.api.proto.TWSProto;
 
 /**
  *
@@ -48,15 +50,15 @@ public class EClientSocketSimulator extends Thread implements Managed {
   private AtomicBoolean running = new AtomicBoolean(true);
   private AbstractQueueWorker<DataSource> dataSources;
 
-  // TWSEvents to be sent to the EWrapper.
-  private BlockingQueue<TWSEvent> eventQueue = 
-    new LinkedBlockingQueue<TWSEvent>(10);
+  // TWSProto.Events to be sent to the EWrapper.
+  private BlockingQueue<TWSProto.Event> eventQueue = 
+    new LinkedBlockingQueue<TWSProto.Event>(10);
   
   public static abstract class DataSource implements Runnable {
-    protected BlockingQueue<TWSEvent> sink;
+    protected BlockingQueue<TWSProto.Event> sink;
     private boolean finished;
     
-    public void setSink(BlockingQueue<TWSEvent> s) {
+    public void setSink(BlockingQueue<TWSProto.Event> s) {
       sink = s;
     }
 
@@ -72,23 +74,28 @@ public class EClientSocketSimulator extends Thread implements Managed {
       return finished;
     }
     
-    abstract void source(BlockingQueue<TWSEvent> sink) throws Exception;
+    abstract void source(BlockingQueue<TWSProto.Event> sink) throws Exception;
   }
   
   public static class CSVFileDataSource extends DataSource {
     LineNumberReader reader;
+    String source;
     public CSVFileDataSource(String filename) throws IOException {
+      source = filename;
       logger.info("Reading from " + filename);
       reader = new LineNumberReader(new FileReader(filename));
     }
-    protected void source(BlockingQueue<TWSEvent> sink) throws Exception {
+    protected void source(BlockingQueue<TWSProto.Event> sink) throws Exception {
       logger.info("Writing to sink: " + sink);
       String line;
       while ((line = reader.readLine()) != null) {
         if (!line.startsWith("#")) {
-          TWSEvent event = new TWSEvent();
-          event.copyFrom(line);
-          sink.add(event);
+          String[] cols = line.split(",");
+          ApiBuilder b = ApiMethods.get(cols[1]);
+          if (b != null) {
+            TWSProto.Event event = b.buildProto(source, cols);
+            sink.add(event); 
+          }
         }
       }
       reader.close();
@@ -224,7 +231,7 @@ public class EClientSocketSimulator extends Thread implements Managed {
       if (wrapper != null) {
         // send the event
         try {
-          TWSEvent event1, event2;
+          TWSProto.Event event1, event2;
           long t1;
           
           event1 = eventQueue.take();
@@ -255,7 +262,7 @@ public class EClientSocketSimulator extends Thread implements Managed {
     }
   }
   
-  private void send(TWSEvent event) {
+  private void send(TWSProto.Event event) {
     System.out.println("Sending event = " + event);
     System.out.flush();
   }

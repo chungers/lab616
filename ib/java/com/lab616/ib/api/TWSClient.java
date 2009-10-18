@@ -21,6 +21,7 @@ import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
 import com.lab616.ib.api.builders.MarketDataRequest;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
+import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
@@ -104,7 +105,7 @@ public class TWSClient {
             return blockingCalls.getSynchronousMethods();
           }
           @Override
-          protected void handleData(TWSEvent event) {
+          protected void handleData(TWSProto.Event event) {
             blockingCalls.handleData(event);
           }
         });
@@ -240,9 +241,9 @@ public class TWSClient {
     checkReady();
     return this.blockingCalls.blockingCall("currentTime", 
         timeout, unit, 
-        new Function<TWSEvent, DateTime>() {
-          public DateTime apply(TWSEvent event) {
-            return new DateTime((Long)event.getArgs()[0]);
+        new Function<TWSProto.Event, DateTime>() {
+          public DateTime apply(TWSProto.Event event) {
+            return new DateTime(event.getTimestamp());
           }
         },
         new Runnable() {
@@ -259,14 +260,14 @@ public class TWSClient {
     final int tickerId = req.getTickerId();
     
     return this.blockingCalls.blockingIterable(timeout, unit,
-        new Predicate<TWSEvent>() {
-          public boolean apply(TWSEvent event) {
+        new Predicate<TWSProto.Event>() {
+          public boolean apply(TWSProto.Event event) {
             return "historicalData".equals(event.getMethod()) &&
-              tickerId == (Integer) event.getArgs()[0];
+              tickerId == event.getFields(0).getIntValue();
           }
         },
-        new Function<TWSEvent, String>() {
-          public String apply(TWSEvent event) {
+        new Function<TWSProto.Event, String>() {
+          public String apply(TWSProto.Event event) {
             return event.toString();
           }
         },

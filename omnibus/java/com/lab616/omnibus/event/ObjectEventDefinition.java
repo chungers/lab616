@@ -2,7 +2,10 @@
 
 package com.lab616.omnibus.event;
 
+import java.util.Set;
+
 import com.espertech.esper.client.Configuration;
+import com.google.inject.internal.Sets;
 
 
 /**
@@ -12,6 +15,19 @@ import com.espertech.esper.client.Configuration;
  *
  */
 public class ObjectEventDefinition<E> extends EventDefinition<Class<E>> {
+
+	private String[] imports = new String[0];
+	private Class<?>[] importClasses = new Class<?>[0];
+	
+	public ObjectEventDefinition(String name, Class<E> eventType, String... imp) {
+		super(name, eventType);
+		this.imports = imp;
+	}
+	
+	public ObjectEventDefinition(String name, Class<E> eventType, Class<?>... imp) {
+		super(name, eventType);
+		this.importClasses = imp;
+	}
 
 	public ObjectEventDefinition(String name, Class<E> eventType) {
 		super(name, eventType);
@@ -23,6 +39,12 @@ public class ObjectEventDefinition<E> extends EventDefinition<Class<E>> {
 
 	void configure(Configuration configuration) {
 		configuration.addEventType(name(), type());
-		configuration.addImport(type().getPackage().getName());
-	}
+		configuration.addImport(type().getPackage().getName() + ".*");
+		for (String imp : imports) {
+			configuration.addImport(imp);
+		}
+		for (Class<?> imp : importClasses) {
+			configuration.addImport(imp);
+		}	
+	}	
 }

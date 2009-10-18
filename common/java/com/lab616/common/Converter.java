@@ -1,6 +1,6 @@
 // 2009 lab616.com, All Rights Reserved.
 
-package com.lab616.common.flags;
+package com.lab616.common;
 
 import java.util.List;
 import java.util.Set;
@@ -15,23 +15,23 @@ import com.google.common.collect.Sets;
  * @author david
  *
  */
-class Converter {
+public class Converter {
   
-  static Function<String, String> TO_STRING = 
+  public static Function<String, String> TO_STRING = 
     new Function<String, String>() {
     public String apply(String v) {
       return v;
     }
   };
   
-  static Function<String, Boolean> TO_BOOLEAN = 
+  public static Function<String, Boolean> TO_BOOLEAN = 
     new Function<String, Boolean>() {
     public Boolean apply(String v) {
       return Boolean.parseBoolean(v);
     }
   };
 
-  static Function<String, Integer> TO_INTEGER = 
+  public static Function<String, Integer> TO_INTEGER = 
     new Function<String, Integer>() {
     
     public Integer apply(String v) {
@@ -39,21 +39,21 @@ class Converter {
     }
   };
 
-  static Function<String, Long> TO_LONG = new Function<String, Long>() {
+  public static Function<String, Long> TO_LONG = new Function<String, Long>() {
     
     public Long apply(String v) {
       return Long.decode(v);
     }
   };
 
-  static Function<String, Float> TO_FLOAT = new Function<String, Float>() {
+  public static Function<String, Float> TO_FLOAT = new Function<String, Float>() {
     
     public Float apply(String v) {
       return Float.parseFloat(v);
     }
   };
 
-  static Function<String, Double> TO_DOUBLE = new Function<String, Double>() {
+  public static Function<String, Double> TO_DOUBLE = new Function<String, Double>() {
     
     public Double apply(String v) {
       return Double.parseDouble(v);
@@ -67,7 +67,7 @@ class Converter {
     return out;
   }
   
-  static Function<String[], String[]> TO_STRING_ARRAY = 
+  public static Function<String[], String[]> TO_STRING_ARRAY = 
     new Function<String[], String[]>() {
     
     public String[] apply(String[] v) {
@@ -75,7 +75,7 @@ class Converter {
     }
   };
 
-  static Function<String[], List<String>> TO_STRING_LIST = 
+  public static Function<String[], List<String>> TO_STRING_LIST = 
     new Function<String[], List<String>>() {
     
     public List<String> apply(String[] v) {
@@ -83,7 +83,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Set<String>> TO_STRING_SET = 
+  public static Function<String[], Set<String>> TO_STRING_SET = 
     new Function<String[], Set<String>>() {
     
     public Set<String> apply(String[] v) {
@@ -91,7 +91,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Boolean[]> TO_BOOLEAN_ARRAY = 
+  public static Function<String[], Boolean[]> TO_BOOLEAN_ARRAY = 
     new Function<String[], Boolean[]>() {
     
     public Boolean[] apply(String[] v) {
@@ -99,7 +99,7 @@ class Converter {
     }
   };
 
-  static Function<String[], boolean[]> TO_P_BOOLEAN_ARRAY = 
+  public static Function<String[], boolean[]> TO_P_BOOLEAN_ARRAY = 
     new Function<String[], boolean[]>() {
     
     public boolean[] apply(String[] v) {
@@ -111,7 +111,7 @@ class Converter {
     }
   };
 
-  static Function<String[], List<Boolean>> TO_BOOLEAN_LIST = 
+  public static Function<String[], List<Boolean>> TO_BOOLEAN_LIST = 
     new Function<String[], List<Boolean>>() {
     
     public List<Boolean> apply(String[] v) {
@@ -119,7 +119,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Set<Boolean>> TO_BOOLEAN_SET = 
+  public static Function<String[], Set<Boolean>> TO_BOOLEAN_SET = 
     new Function<String[], Set<Boolean>>() {
     
     public Set<Boolean> apply(String[] v) {
@@ -127,7 +127,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Integer[]> TO_INTEGER_ARRAY = 
+  public static Function<String[], Integer[]> TO_INTEGER_ARRAY = 
     new Function<String[], Integer[]>() {
     
     public Integer[] apply(String[] v) {
@@ -135,7 +135,7 @@ class Converter {
     }
   };
 
-  static Function<String[], List<Integer>> TO_INTEGER_LIST = 
+  public static Function<String[], List<Integer>> TO_INTEGER_LIST = 
     new Function<String[], List<Integer>>() {
     
     public List<Integer> apply(String[] v) {
@@ -143,7 +143,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Set<Integer>> TO_INTEGER_SET = 
+  public static Function<String[], Set<Integer>> TO_INTEGER_SET = 
     new Function<String[], Set<Integer>>() {
     
     public Set<Integer> apply(String[] v) {
@@ -151,7 +151,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Long[]> TO_LONG_ARRAY = 
+  public static Function<String[], Long[]> TO_LONG_ARRAY = 
     new Function<String[], Long[]>() {
     
     public Long[] apply(String[] v) {
@@ -159,7 +159,7 @@ class Converter {
     }
   };
 
-  static Function<String[], List<Long>> TO_LONG_LIST = 
+  public static Function<String[], List<Long>> TO_LONG_LIST = 
     new Function<String[], List<Long>>() {
     
     public List<Long> apply(String[] v) {
@@ -167,7 +167,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Set<Long>> TO_LONG_SET = 
+  public static Function<String[], Set<Long>> TO_LONG_SET = 
     new Function<String[], Set<Long>>() {
     
     public Set<Long> apply(String[] v) {
@@ -175,7 +175,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Float[]> TO_FLOAT_ARRAY = 
+  public static Function<String[], Float[]> TO_FLOAT_ARRAY = 
     new Function<String[], Float[]>() {
     
     public Float[] apply(String[] v) {
@@ -183,7 +183,7 @@ class Converter {
     }
   };
 
-  static Function<String[], List<Float>> TO_FLOAT_LIST = 
+  public static Function<String[], List<Float>> TO_FLOAT_LIST = 
     new Function<String[], List<Float>>() {
     
     public List<Float> apply(String[] v) {
@@ -191,7 +191,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Set<Float>> TO_FLOAT_SET = 
+  public static Function<String[], Set<Float>> TO_FLOAT_SET = 
     new Function<String[], Set<Float>>() {
     
     public Set<Float> apply(String[] v) {
@@ -199,7 +199,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Double[]> TO_DOUBLE_ARRAY = 
+  public static Function<String[], Double[]> TO_DOUBLE_ARRAY = 
     new Function<String[], Double[]>() {
     
     public Double[] apply(String[] v) {
@@ -207,7 +207,7 @@ class Converter {
     }
   };
 
-  static Function<String[], List<Double>> TO_DOUBLE_LIST = 
+  public static Function<String[], List<Double>> TO_DOUBLE_LIST = 
     new Function<String[], List<Double>>() {
     
     public List<Double> apply(String[] v) {
@@ -215,7 +215,7 @@ class Converter {
     }
   };
 
-  static Function<String[], Set<Double>> TO_DOUBLE_SET = 
+  public static Function<String[], Set<Double>> TO_DOUBLE_SET = 
     new Function<String[], Set<Double>>() {
     
     public Set<Double> apply(String[] v) {

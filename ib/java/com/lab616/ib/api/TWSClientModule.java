@@ -2,19 +2,23 @@
 
 package com.lab616.ib.api;
 
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
+import com.google.common.collect.Sets;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryProvider;
+import com.google.inject.internal.ImmutableSet;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
+import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.ib.api.simulator.EClientSocketSimulator;
 import com.lab616.omnibus.Main;
 import com.lab616.omnibus.event.AbstractEventModule;
@@ -62,8 +66,8 @@ public class TWSClientModule extends AbstractEventModule {
       .to(API_MAX_RETRIES);
     
     // Event definitions.
-    bindEventDefinition(new ObjectEventDefinition<TWSEvent>(
-        TWSEvent.EVENT_NAME, TWSEvent.class));
+    bindEventDefinition(new ObjectEventDefinition<TWSProto.Event>(
+        "TWSEvent", TWSProto.Event.class, TWSProto.Method.class));
     // Event watchers.
     bindEventWatcher(SystemEventProcessor.class);
 
