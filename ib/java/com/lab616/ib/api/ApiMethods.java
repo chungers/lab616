@@ -19,6 +19,19 @@ public class ApiMethods {
 
   static Logger logger = Logger.getLogger(ApiMethods.class);
   
+  public static ApiBuilder UPDATE_ACCT_VALUE = new ApiBuilder(TWSProto.Method.updateAccountValue)
+  .parse("timestamp", Long.class)
+  .parse("method", String.class)
+  .apiArg("key", String.class)
+  .apiArg("value", String.class)
+  .apiArg("currency", String.class)
+  .apiArg("accountName", String.class).done();
+
+  public static ApiBuilder NEXT_VALID_ID = new ApiBuilder(TWSProto.Method.nextValidId)
+  .parse("timestamp", Long.class)
+  .parse("method", String.class)
+  .apiArg("nextId", int.class).done();
+
   public static ApiBuilder HISTORICAL_DATA = new ApiBuilder(TWSProto.Method.historicalData)
   .parse("timestamp", Long.class)
   .parse("method", String.class)
@@ -29,6 +42,7 @@ public class ApiMethods {
   .apiArg("low", double.class)
   .apiArg("close", double.class)
   .apiArg("volume", int.class)
+  .apiArg("count", int.class)
   .apiArg("wap", double.class)
   .apiArg("hasGaps", boolean.class).done();
   
@@ -87,7 +101,10 @@ public class ApiMethods {
   static Map<String, Pair<Method, ApiBuilder>> methods = Maps.newHashMap();
   
   public static ApiBuilder get(String method) {
-    return methods.get(method).second;
+    if (methods.containsKey(method)) {
+      return methods.get(method).second;
+    }
+    return null;
   }
   
   static void register(ApiBuilder b) throws NoSuchMethodException {
@@ -97,7 +114,9 @@ public class ApiMethods {
 
   static {
     try {
-      register(REALTIME_BAR);
+      register(UPDATE_ACCT_VALUE);
+      register(NEXT_VALID_ID);
+      register(HISTORICAL_DATA);
       register(TICK_GENERIC);
       register(TICK_PRICE);
       register(TICK_SIZE);

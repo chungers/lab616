@@ -4,8 +4,12 @@ package com.lab616.ib.api;
 
 import java.lang.reflect.Proxy;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
@@ -51,6 +55,7 @@ public class TWSClient {
   public enum State {
     INITIALIZED,
     CONNECTED,
+    READY,
     NOT_CONNECTED;
   }
   
@@ -66,7 +71,8 @@ public class TWSClient {
   private State state;
   private EClientSocket client;
   private ExecutorService executor;
-  
+  private String sourceId;
+  private Integer nextValidId; // Next valid order id.
   private final TWSBlockingCallManager blockingCalls;
   
   @Inject
@@ -90,12 +96,13 @@ public class TWSClient {
     // For implementing blocking calls.
     this.blockingCalls = new TWSBlockingCallManager(this.executor,
         500L, TimeUnit.MILLISECONDS,
-        "currentTime", "historicalData");
+        "currentTime", "historicalData", "updateAccountValue",
+        "nextValidId");
 
     this.wrapper = (EWrapper)Proxy.newProxyInstance(
         EWrapper.class.getClassLoader(), 
         new Class[] { EWrapper.class }, 
-        new TWSProxy(getSourceId(), engine) {
+        new TWSProxy(this, engine) {
           @Override
           public void handleConnectionClosed() {
             onDisconnect();
@@ -106,6 +113,9 @@ public class TWSClient {
           }
           @Override
           protected void handleData(TWSProto.Event event) {
+            if ("nextValidId".equals(event.getMethod().name())) {
+              nextValidId = event.getFields(0).getIntValue();
+            }
             blockingCalls.handleData(event);
           }
         });
@@ -122,7 +132,7 @@ public class TWSClient {
    * @return True if connected and ready.
    */
   public final Boolean isReady() {
-    return this.client.isConnected() && this.state == State.CONNECTED;
+    return this.client.isConnected() && this.state == State.READY;
   }
 
   /**
@@ -142,8 +152,7 @@ public class TWSClient {
   }
 
   public final String getSourceId() {
-    return String.format("ibConnection@%s:%d{name=%s,id=%d}", 
-        host, port, name, clientId);
+    return sourceId;
   }
   
   public synchronized void onDisconnect() {
@@ -169,9 +178,9 @@ public class TWSClient {
    * the socket.
    */
   public synchronized boolean connect() {
-    if (state != State.CONNECTED) {
-      this.executor.submit(new Runnable() {
-        public void run() {
+    if (state != State.READY || state != State.CONNECTED) {
+      Future<Boolean> blocking = this.executor.submit(new Callable<Boolean>() {
+        public Boolean call() {
           client.eConnect(host, port, clientId);
           
           int tries = 0;
@@ -193,15 +202,36 @@ public class TWSClient {
           } 
           if (tries >= maxRetries) {
             logger.warn("Retries exceeded for connection " + getSourceId());
-            return;
+            return false;
           }
           logger.info(String.format(
                   "Established connection %s", getSourceId()));
           connects.incrementAndGet();
           state = State.CONNECTED;
+          
+          // Additional account information.
+          String account = requestAccountCode(1000L, TimeUnit.MILLISECONDS);
+          logger.info("Got account code = " + account);
+          TWSClient.this.sourceId = account + "-" + TWSClient.this.clientId;
+          
+          return true;
         }
       });
-      return true;
+      try {
+        blocking.get(5000L, TimeUnit.MILLISECONDS);
+        if (nextValidId != null) {
+          state = State.READY;
+        }
+        logger.info("Next valid order id = " + nextValidId + 
+            ", state =" + state);
+        return state == State.READY;
+      } catch (InterruptedException e) {
+        logger.warn("Interrupted: ", e);
+      } catch (ExecutionException e) {
+        logger.warn("Execution: ", e);
+      } catch (TimeoutException e) {
+        logger.warn("Timeout: ", e);
+      }
     }
     return false;
   }
@@ -231,6 +261,31 @@ public class TWSClient {
     }
   }
   
+  @SuppressWarnings("unchecked")
+  private String requestAccountCode(long timeout, TimeUnit unit) {
+    String value = this.blockingCalls.blockingCall("updateAccountValue", 
+        timeout, unit, 
+        new Function<TWSProto.Event, String>() {
+          public String apply(TWSProto.Event event) {
+            return event.getFields(1).getStringValue();
+          }
+        },
+        new Runnable() {
+          public void run() {
+            client.reqAccountUpdates(true, "");
+          }
+        },
+        new Predicate<TWSProto.Event> () {
+          public boolean apply(TWSProto.Event event) {
+            boolean matches = event.getFieldsCount() > 0 &&
+            event.getFields(0).hasStringValue() &&
+            event.getFields(0).getStringValue().equalsIgnoreCase("AccountCode");
+            return matches;
+          }
+        });
+    return value;
+  }
+
   /**
    * Pings the client directly.  Note that this is a blocking call, up to 
    * the given timeout.

@@ -22,7 +22,7 @@ import com.lab616.omnibus.event.annotation.Var;
  * @author david
  *
  */
-@Statement("select * from TWSProto.Event where source=?")
+@Statement("select * from TWSEvent where source=?")
 public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed {
 
   static Logger logger = Logger.getLogger(TWSEventProtoWriter.class);
@@ -34,7 +34,7 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
   public TWSEventProtoWriter(String dir, String rootName, String clientSourceId) {
     this.clientSourceId = clientSourceId;
     try {
-      this.protoFile = new ProtoDataFile(dir, rootName);
+      this.protoFile = new ProtoDataFile(dir, clientSourceId);
       this.protoFile.getWriter();
     } catch (IOException e) {
       throw new TWSClientException(e);

@@ -166,11 +166,15 @@ public final class TWSClientManager implements Shutdown<Boolean> {
   public synchronized boolean newConnection(String name, int id) {
     if (!apiClients.containsKey(name)) {
       TWSClient client = this.factory.create(name, id);
-      apiClients.put(name, client);
-      clients.incrementAndGet();
-      clientQueues.put(client, new IBClientQueue(client));
-      clientQueues.get(client).start();
-      return client.connect();
+      boolean connected = client.connect();  // Blocks.
+      if (connected) {
+        logger.info("Connected " + client.getSourceId());
+        apiClients.put(name, client);
+        clients.incrementAndGet();
+        clientQueues.put(client, new IBClientQueue(client));
+        clientQueues.get(client).start();
+      }
+      return connected;
     } else {
       logger.info(String.format("Connection(%s) exists in state = %s",
           name, apiClients.get(name).getState()));

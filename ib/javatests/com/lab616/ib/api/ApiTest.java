@@ -10,6 +10,8 @@ import static junit.framework.Assert.assertNotSame;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +24,7 @@ import com.google.inject.internal.Lists;
  * @author david
  *
  */
-public class ApiTest {
+public class ApiTest extends TestCase {
 
   /**
    * @throws java.lang.Exception

@@ -40,11 +40,11 @@ public class TWSProxy implements InvocationHandler {
   
   
   private final EventEngine engine;
-  private final String clientSourceId;
+  private TWSClient parent = null;
   private final Set<String> synchronousIBEvents;
   
-  public TWSProxy(String clientSourceId, EventEngine engine) {
-    this.clientSourceId = clientSourceId;
+  public TWSProxy(TWSClient parent, EventEngine engine) {
+    this.parent = parent;
     this.engine = engine;
     synchronousIBEvents = Sets.newHashSet(synchronousMethods());
   }
@@ -65,13 +65,13 @@ public class TWSProxy implements InvocationHandler {
         ApiBuilder b = ApiMethods.get(m.getName());
         TWSProto.Event event = null; 
         if (b != null) {
-          event = b.buildProto(clientSourceId, Time.now(), args);
-        }
-        if (synchronousIBEvents.contains(m.getName())) {
-          // Call method directly.
-          handleData(event);
-        } else {
-          engine.post(event);
+          event = b.buildProto(parent.getSourceId(), Time.now(), args);
+          if (synchronousIBEvents.contains(m.getName())) {
+            // Call method directly.
+            handleData(event);
+          } else {
+            engine.post(event);
+          }
         }
       }
       return null;

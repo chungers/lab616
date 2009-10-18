@@ -156,4 +156,19 @@ public class ApiBuilderTest extends TestCase {
    
     verify(builder, eventRef.get(), 1, 2L, 3., 4., 5., 6., 7L, 8., 9);
   }
+
+
+  public void testUpdateAccountValue() throws Exception {
+    final ApiBuilder builder = ApiMethods.UPDATE_ACCT_VALUE;
+
+    final AtomicReference<TWSProto.Event> eventRef = 
+      new AtomicReference<TWSProto.Event>();
+    
+    EWrapper w = getEWrapper(eventRef, builder);
+
+    // Call the wrapper
+    w.updateAccountValue("foo", "bar", "curr", "acct");
+   
+    verify(builder, eventRef.get(), "foo", "bar", "curr", "acct");
+  }
 }

@@ -14,6 +14,8 @@ enum Method {
     updateMktDepthL2      = 7;
     currentTime           = 8;
     historicalData        = 9;
+    nextValidId           = 10;
+    updateAccountValue    = 11;
 }
 
 message Field {
@@ -28,5 +30,5 @@ message Event {
   required fixed64 timestamp = 1;
   required Method method     = 2;
   repeated Field fields      = 3;
-  required string source     = 4;
+  optional string source     = 4;
 }

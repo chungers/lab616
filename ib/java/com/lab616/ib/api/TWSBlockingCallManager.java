@@ -8,6 +8,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
+
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Maps;
@@ -28,6 +30,8 @@ import com.lab616.ib.api.proto.TWSProto;
  */
 public class TWSBlockingCallManager {
 
+  static Logger logger = Logger.getLogger(TWSBlockingCallManager.class);
+  
   private ExecutorService executor;
   
   // Result of future data is keyed by the thread requesting it.  It's ok
@@ -96,7 +100,8 @@ public class TWSBlockingCallManager {
    * @return The value.
    */
   public <V> V blockingCall(final String method, long timeout, TimeUnit unit,
-      Function<TWSProto.Event, V> trans, Runnable call) {
+      Function<TWSProto.Event, V> trans, Runnable call, 
+      final Predicate<TWSProto.Event>... predicates) {
     if (!this.synchronousMethods.contains(method)) {
       // Not registered, and we will never get any response!
       throw new MisconfigurationException(
@@ -105,7 +110,15 @@ public class TWSBlockingCallManager {
     return blockingCall(timeout, unit,
         new Predicate<TWSProto.Event>() {
       public boolean apply(TWSProto.Event event) {
-        return method.equals(event.getMethod());
+        boolean matched = method.equals(event.getMethod().name());
+        if (matched) {
+          for (Predicate<TWSProto.Event> p : predicates) {
+            if (p.apply(event)) {
+              return true;
+            }
+          }
+        }
+        return false;
       }
     }, trans, call);
   }

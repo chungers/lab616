@@ -19,6 +19,8 @@ public final class TWSProto {
     updateMktDepthL2(7, 7),
     currentTime(8, 8),
     historicalData(9, 9),
+    nextValidId(10, 10),
+    updateAccountValue(11, 11),
     ;
     
     
@@ -36,6 +38,8 @@ public final class TWSProto {
         case 7: return updateMktDepthL2;
         case 8: return currentTime;
         case 9: return historicalData;
+        case 10: return nextValidId;
+        case 11: return updateAccountValue;
         default: return null;
       }
     }
@@ -66,7 +70,7 @@ public final class TWSProto {
     }
     
     private static final Method[] VALUES = {
-      tickGeneric, tickOptionComputation, tickPrice, tickSize, tickString, realtimeBar, updateMktDepth, updateMktDepthL2, currentTime, historicalData, 
+      tickGeneric, tickOptionComputation, tickPrice, tickSize, tickString, realtimeBar, updateMktDepth, updateMktDepthL2, currentTime, historicalData, nextValidId, updateAccountValue, 
     };
     public static Method valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
@@ -564,7 +568,7 @@ public final class TWSProto {
       return fields_.get(index);
     }
     
-    // required string source = 4;
+    // optional string source = 4;
     public static final int SOURCE_FIELD_NUMBER = 4;
     private boolean hasSource;
     private java.lang.String source_ = "";
@@ -574,7 +578,6 @@ public final class TWSProto {
     public final boolean isInitialized() {
       if (!hasTimestamp) return false;
       if (!hasMethod) return false;
-      if (!hasSource) return false;
       return true;
     }
     
@@ -929,7 +932,7 @@ public final class TWSProto {
         return this;
       }
       
-      // required string source = 4;
+      // optional string source = 4;
       public boolean hasSource() {
         return result.hasSource();
       }
@@ -984,13 +987,14 @@ public final class TWSProto {
       "e\030\003 \001(\t\022\021\n\tlongValue\030\004 \001(\003\022\024\n\014booleanVal" +
       "ue\030\005 \001(\010\"a\n\005Event\022\021\n\ttimestamp\030\001 \002(\006\022\032\n\006" +
       "method\030\002 \002(\0162\n.ib.Method\022\031\n\006fields\030\003 \003(\013" +
-      "2\t.ib.Field\022\016\n\006source\030\004 \002(\t*\301\001\n\006Method\022\017" +
+      "2\t.ib.Field\022\016\n\006source\030\004 \001(\t*\352\001\n\006Method\022\017" +
       "\n\013tickGeneric\020\000\022\031\n\025tickOptionComputation" +
       "\020\001\022\r\n\ttickPrice\020\002\022\014\n\010tickSize\020\003\022\016\n\ntickS" +
       "tring\020\004\022\017\n\013realtimeBar\020\005\022\022\n\016updateMktDep" +
       "th\020\006\022\024\n\020updateMktDepthL2\020\007\022\017\n\013currentTim",
-      "e\020\010\022\022\n\016historicalData\020\tB#\n\027com.lab616.ib" +
-      ".api.protoB\010TWSProto"
+      "e\020\010\022\022\n\016historicalData\020\t\022\017\n\013nextValidId\020\n" +
+      "\022\026\n\022updateAccountValue\020\013B#\n\027com.lab616.i" +
+      "b.api.protoB\010TWSProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

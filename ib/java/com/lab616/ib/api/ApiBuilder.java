@@ -4,14 +4,10 @@ package com.lab616.ib.api;
 
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
 
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.inject.internal.ImmutableMap;
 import com.ib.client.EWrapper;
 import com.lab616.common.Converter;
 import com.lab616.common.Pair;
@@ -97,9 +93,11 @@ public class ApiBuilder {
    */
   public TWSProto.Event buildProto(String source, String[] col) {
     TWSProto.Event.Builder eb = TWSProto.Event.newBuilder()
-    .setSource(source)
     .setMethod(this.method)
     .setTimestamp(Long.decode(col[0]));
+    if (source != null) {
+      eb.setSource(source);
+    }
     int i = 2;
     for (Column c: this.columns) {
       if (c.apiArg) {
@@ -124,15 +122,13 @@ public class ApiBuilder {
     return eb.build();
   }
   
-  private interface Apply {
-    public void apply(TWSProto.Field.Builder b, Object v);
-  }
-  
   public TWSProto.Event buildProto(String source, long timestamp, Object[] args) {
     TWSProto.Event.Builder eb = TWSProto.Event.newBuilder()
-      .setSource(source)
       .setMethod(this.method)
       .setTimestamp(timestamp);
+    if (source != null) {
+      eb.setSource(source);
+    }
     int i = 0;
     for (Column c : this.columns) {
       if (c.apiArg) {

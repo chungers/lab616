@@ -25,7 +25,7 @@ import com.lab616.omnibus.event.annotation.Var;
  * @author david
  *
  */
-@Statement("select * from TWSProto.Event where source=?")
+@Statement("select * from TWSEvent where source=?")
 public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
 
   static Logger logger = Logger.getLogger(TWSEventCSVWriter.class);
