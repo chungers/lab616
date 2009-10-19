@@ -2,14 +2,9 @@
 
 package com.lab616.omnibus.http.servlets;
 
-import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.lab616.common.flags.Flags;
 import com.lab616.common.flags.Flags.Printable;
@@ -23,7 +18,7 @@ import com.lab616.util.Time;
  * @author david
  *
  */
-public class FlagzServlet extends HttpServlet {
+public class FlagzServlet extends BasicServlet {
 
   @Varz(name = "flagz-invocations")
   public static AtomicInteger calls = new AtomicInteger(0);
@@ -41,19 +36,19 @@ public class FlagzServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    calls.incrementAndGet();
+  @Override
+  protected void processRequest(Map<String, String> params, 
+      ResponseBuilder b) {
+  	calls.incrementAndGet();
     long ctUSec = Time.now();
     lastSampleDTusec.set(ctUSec - lastSampleTSusec.get());
     lastSampleTSusec.set(Time.now());
-    resp.setContentType("text/plain");
-    resp.setStatus(HttpServletResponse.SC_OK);
     for (Printable flagz : Flags.listAll()) {
-      resp.getWriter().println(
+      b.println(
           String.format("%s(%s)=%s", flagz.getFlagName(), 
               flagz.getCodeLocation(),
               flagz.getCurrentValue()));
     }
   }
+
 }

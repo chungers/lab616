@@ -2,14 +2,8 @@
 
 package com.lab616.omnibus.http.servlets;
 
-import java.io.IOException;
-import java.util.Enumeration;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
@@ -30,16 +24,13 @@ import com.lab616.omnibus.event.EventEngine;
  * @author david
  *
  */
-public class SystemEventServlet extends HttpServlet {
+public class SystemEventServlet extends BasicServlet {
 
 	@Varz(name = "system-event-invocations")
 	public static AtomicInteger calls = new AtomicInteger(0);
 	
 	@Varz(name = "system-event-sent")
 	public static AtomicInteger sentEvents = new AtomicInteger(0);
-
-	@Varz(name = "system-event-sent-errors")
-	public static AtomicInteger errorSentEvents = new AtomicInteger(0);
 
 	static {
 		Varzs.export(SystemEventServlet.class);
@@ -53,22 +44,13 @@ public class SystemEventServlet extends HttpServlet {
 	private EventEngine eventEngine;
 	
 	@Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-	  doGet(req, resp);
-  }
-
-	@SuppressWarnings("unchecked")
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException, IOException {
+  protected void processRequest(Map<String, String> params, 
+      ResponseBuilder b) {
 		calls.incrementAndGet();
 		try {
 			SystemEvent event = new SystemEvent();
-
-			Enumeration<String> params = req.getParameterNames();
-			while (params.hasMoreElements()) {
-				String p = params.nextElement();
-				String v = req.getParameter(p);
+			for (String p : params.keySet()) {
+				String v = params.get(p);
 				if (p.equals("c")) {
 					event.setComponent(v);
 				} else if (p.equals("m")) {
@@ -79,16 +61,9 @@ public class SystemEventServlet extends HttpServlet {
 			}
 			eventEngine.post(event);
 			sentEvents.incrementAndGet();
-
-			resp.setContentType("text/plain");
-			resp.setStatus(HttpServletResponse.SC_OK);
-			resp.getWriter().println("OK");
+			b.println("OK");
 		} catch (Exception e) {
-			logger.warn("Could not send system event:", e);
-			errorSentEvents.incrementAndGet();
-			resp.setContentType("text/plain");
-			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			resp.getWriter().println("SYSTEM-EVENT-ERROR");
+			b.println("Exception: " + e);
 		}
-	}
+  }
 }

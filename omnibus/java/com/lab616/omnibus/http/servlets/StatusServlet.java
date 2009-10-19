@@ -2,14 +2,8 @@
 
 package com.lab616.omnibus.http.servlets;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.google.inject.Inject;
 import com.lab616.monitoring.Varz;
@@ -23,7 +17,7 @@ import com.lab616.omnibus.event.EventEngine;
  * @author david
  *
  */
-public class StatusServlet extends HttpServlet {
+public class StatusServlet extends BasicServlet {
 
 	@Varz(name = "statusz-invocations")
 	public static AtomicInteger statuszCalls = new AtomicInteger(0);
@@ -43,32 +37,26 @@ public class StatusServlet extends HttpServlet {
 	@Inject
 	private EventEngine eventEngine;
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException, IOException {
-		statuszCalls.incrementAndGet();
-		try {
-			SystemEvent event = new SystemEvent();
-			event.setComponent("system");
-			event.setMethod("ping");
-			
-			eventEngine.post(event);
+	@Override
+  protected void processRequest(Map<String, String> params, 
+      ResponseBuilder b) {
+  	statuszCalls.incrementAndGet();
+  	try {
+  		SystemEvent event = new SystemEvent();
+  		event.setComponent("system");
+  		event.setMethod("ping");
+  		
+  		eventEngine.post(event);
 
-			sentEvents.incrementAndGet();
-			resp.setContentType("text/plain");
-			resp.setStatus(HttpServletResponse.SC_OK);
-			for (Map.Entry<String, String> p : System.getenv().entrySet()) {
-			  resp.getWriter().println(
-			      String.format("%s=%s", p.getKey(), p.getValue()));
-			}
+  		sentEvents.incrementAndGet();
+  		for (Map.Entry<String, String> p : System.getenv().entrySet()) {
+  		  b.println(String.format("%s=%s", p.getKey(), p.getValue()));
+  		}
       for (Map.Entry<Object, Object> p : System.getProperties().entrySet()) {
-        resp.getWriter().println(
-            String.format("%s=%s", p.getKey(), p.getValue()));
+        b.println(String.format("%s=%s", p.getKey(), p.getValue()));
       }
-		} catch (Exception e) {
-			errorSentEvents.incrementAndGet();
-			resp.setContentType("text/plain");
-			resp.setStatus(HttpServletResponse.SC_OK);
-			resp.getWriter().println("SYSTEM-EVENT-ERROR");
-		}
-	}
+  	} catch (Exception e) {
+  		b.println("Exception: " + e);
+  	}
+  }
 }

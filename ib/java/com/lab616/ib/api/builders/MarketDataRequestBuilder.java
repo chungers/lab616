@@ -5,9 +5,7 @@ package com.lab616.ib.api.builders;
 import java.util.List;
 
 import com.google.inject.internal.Lists;
-import com.ib.client.Contract;
 import com.lab616.common.builder.AbstractBuilder;
-import com.lab616.common.builder.Builder;
 import com.lab616.ib.api.TickerId;
 
 /**

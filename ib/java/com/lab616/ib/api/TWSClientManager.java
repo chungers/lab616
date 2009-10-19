@@ -50,9 +50,9 @@ public final class TWSClientManager implements Shutdown<Boolean> {
   /**
    * Queue for work that depends on the client being properly connected.
    */
-  class IBClientQueue extends AbstractQueueWorker<Function<TWSClient, ?>> {
+  class ClientWorkQueue extends AbstractQueueWorker<Function<TWSClient, ?>> {
     TWSClient client;
-    IBClientQueue(TWSClient c) {
+    ClientWorkQueue(TWSClient c) {
       super(c.getSourceId(), false);
       client = c;
     }
@@ -80,7 +80,7 @@ public final class TWSClientManager implements Shutdown<Boolean> {
   private final ExecutorService executor;
   private final Map<String, TWSClient> apiClients = Maps.newHashMap();
   private final Map<TWSClient, List<Managed>> managed = Maps.newHashMap();
-  private final Map<TWSClient, IBClientQueue> clientQueues = Maps.newHashMap();
+  private final Map<TWSClient, ClientWorkQueue> clientQueues = Maps.newHashMap();
   
   @Inject
   public TWSClientManager(TWSClient.Factory factory, 
@@ -114,7 +114,7 @@ public final class TWSClientManager implements Shutdown<Boolean> {
   public Boolean call() throws Exception {
     for (TWSClient client : apiClients.values()) {
       // Stop the work queue.
-      IBClientQueue q = clientQueues.get(client);
+      ClientWorkQueue q = clientQueues.get(client);
       if (q != null) {
         q.setRunning(false);
       }
@@ -171,7 +171,7 @@ public final class TWSClientManager implements Shutdown<Boolean> {
         logger.info("Connected " + client.getSourceId());
         apiClients.put(name, client);
         clients.incrementAndGet();
-        clientQueues.put(client, new IBClientQueue(client));
+        clientQueues.put(client, new ClientWorkQueue(client));
         clientQueues.get(client).start();
       }
       return connected;
@@ -224,7 +224,7 @@ public final class TWSClientManager implements Shutdown<Boolean> {
     if (getClient(name) == null && startClientOnDemand) {
       newConnection(name);
     }
-    IBClientQueue q= clientQueues.get(getClient(name));
+    ClientWorkQueue q= clientQueues.get(getClient(name));
     q.enqueue(work);
   }
 }

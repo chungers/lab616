@@ -155,7 +155,7 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
     b.append(event.getTimestamp());
     b.append(",");
     b.append(event.getMethod().name());
-    for (TWSProto.Field f : event.getFieldsList()) {
+    for (TWSProto.Field f : event.getFieldList()) {
       b.append(",");
       if (f.hasDoubleValue()) {
         b.append(f.getDoubleValue());

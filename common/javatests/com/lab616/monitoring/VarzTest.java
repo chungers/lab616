@@ -43,7 +43,7 @@ public class VarzTest extends TestCase {
 		System.out.println("got = " + Lists.newArrayList(Varzs.getValues()));
 		
 		List<String> expected = Lists.newArrayList(
-				"varz1=" + varz3.get(0) + "," + varz3.get(1), 
+				"varz1=" + varz3.get(0) + "|" + varz3.get(1), 
 				"varz2=" + varz2.toString(), 
 				"varz3=" + varz1.toString());
 		

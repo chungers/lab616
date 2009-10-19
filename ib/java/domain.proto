@@ -2,6 +2,7 @@ package ib;
 
 option java_package = "com.lab616.ib.api.proto";
 option java_outer_classname = "TWSProto";
+option optimize_for = LITE_RUNTIME;
 
 enum Method {
     tickGeneric           = 0;
@@ -29,6 +30,6 @@ message Field {
 message Event {
   required fixed64 timestamp = 1;
   required Method method     = 2;
-  repeated Field fields      = 3;
+  repeated Field field       = 3;
   optional string source     = 4;
 }

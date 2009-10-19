@@ -2,16 +2,13 @@
 
 package com.lab616.ib.api;
 
-import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
-import com.google.common.collect.Sets;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryProvider;
-import com.google.inject.internal.ImmutableSet;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 import com.ib.client.EClientSocket;

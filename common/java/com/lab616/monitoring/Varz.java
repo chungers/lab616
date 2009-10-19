@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 public @interface Varz {
 	
   final static String EMPTY_VALUE = "";
-  final static Character LIST_SEPARATOR = ',';
+  final static Character LIST_SEPARATOR = '|';
 
   /**
 	 * Name of the flag.

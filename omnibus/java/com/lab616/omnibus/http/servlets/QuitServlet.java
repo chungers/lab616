@@ -2,25 +2,18 @@
 
 package com.lab616.omnibus.http.servlets;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author david
  *
  */
-public class QuitServlet extends HttpServlet {
+public class QuitServlet extends BasicServlet {
 
   private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException, IOException {
-		resp.setContentType("text/plain");
-		resp.setStatus(HttpServletResponse.SC_OK);
+  protected void processRequest(Map<String, String> params, 
+      ResponseBuilder b) {
 		Runtime.getRuntime().exit(0);
-	}
+  }
 }

@@ -38,13 +38,13 @@ public class ApiBuilderTest extends TestCase {
 
   private void verify(ApiBuilder b, TWSProto.Event event, Object... args)
     throws Exception {
-    assertEquals(event.getFieldsCount(), args.length);
+    assertEquals(event.getFieldCount(), args.length);
     assertTrue(event.hasTimestamp());
     assertTrue(event.hasMethod());
     assertEquals(b.getMethodName(), event.getMethod().toString());
     int i = 0;
     for (Object v : args) {
-      TWSProto.Field f = event.getFields(i++);
+      TWSProto.Field f = event.getField(i++);
       if (v instanceof Integer) {
         assertTrue(f.hasIntValue());
         assertEquals(v, f.getIntValue());
@@ -170,5 +170,20 @@ public class ApiBuilderTest extends TestCase {
     w.updateAccountValue("foo", "bar", "curr", "acct");
    
     verify(builder, eventRef.get(), "foo", "bar", "curr", "acct");
+  }
+
+
+  public void testHistoricalData() throws Exception {
+    final ApiBuilder builder = ApiMethods.HISTORICAL_DATA;
+
+    final AtomicReference<TWSProto.Event> eventRef = 
+      new AtomicReference<TWSProto.Event>();
+    
+    EWrapper w = getEWrapper(eventRef, builder);
+
+    // Call the wrapper
+    w.historicalData(1, "2009-10-19", 25., 34., 20., 27., 100000, 50, 28., true);
+    verify(builder, eventRef.get(), 
+        1, "2009-10-19", 25., 34., 20., 27., 100000, 50, 28., true);
   }
 }

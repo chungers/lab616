@@ -10,7 +10,6 @@ import java.lang.reflect.Type;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.google.inject.internal.Maps;
 
@@ -98,6 +97,29 @@ public class Varzs {
 		}
 	}
 
+	// For Maps
+	static class MapVarzExporter<K, V> extends VarzExporter<Map<K, V>> {
+		MapVarzExporter(Varz varz, Field f) {
+			super(varz, f);
+		}
+
+		@SuppressWarnings("unchecked")
+		public String getValue() throws Exception {
+			Map<K, V> map = ((Map<K, V>)(this.field.get(null)));
+			StringBuffer buff = new StringBuffer();
+			int i = 0;
+			for (K key : map.keySet()) {
+				buff.append(key);
+				buff.append(":");
+				buff.append(map.get(key));
+				if (++i < map.size()) {
+					buff.append(Varz.LIST_SEPARATOR);
+				}
+			}
+			return buff.toString();
+		}
+	}
+
 	/**
 	 * Samples the registered varz values in form of NAME=VALUE 
 	 * 
@@ -169,11 +191,11 @@ public class Varzs {
 						registered.put(desc.name(), desc);
 					}
 				} else if (gType instanceof ParameterizedType && 
-						((ParameterizedType)gType).getRawType().equals(Set.class)) {
-					// Container such as List<T>
+						((ParameterizedType)gType).getRawType().equals(Map.class)) {
+					// Container such as Map<K, V>
 					//Type eType = ((ParameterizedType)gType).getActualTypeArguments()[0];
 
-					desc = new IterableVarzExporter<Object>(varz, f);
+					desc = new MapVarzExporter<String, Object>(varz, f);
 
 					if (desc != null) {
 						registered.put(desc.name(), desc);

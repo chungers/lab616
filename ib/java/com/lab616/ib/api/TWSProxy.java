@@ -6,6 +6,7 @@ import java.io.EOFException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -15,6 +16,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.monitoring.Varz;
+import com.lab616.monitoring.VarzMap;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
 import com.lab616.util.Time;
@@ -26,18 +28,21 @@ import com.lab616.util.Time;
  */
 public class TWSProxy implements InvocationHandler {
 
-  @Varz(name = "ib-api-events")
+  @Varz(name = "tws-api-events")
   public static AtomicLong events = new AtomicLong(0L);
   
-  @Varz(name = "ib-api-events-exceptions")
+  @Varz(name = "tws-api-events-exceptions")
   public static AtomicLong exceptions = new AtomicLong(0L);
 
+  @Varz(name = "tws-api-client-events")
+  public static Map<String, AtomicLong> clientEvents = 
+    VarzMap.create(AtomicLong.class);
+  
   static {
     Varzs.export(TWSProxy.class);
   }
 
   static Logger logger = Logger.getLogger(TWSProxy.class);
-  
   
   private final EventEngine engine;
   private TWSClient parent = null;
@@ -72,6 +77,7 @@ public class TWSProxy implements InvocationHandler {
           } else {
             engine.post(event);
           }
+          clientEvents.get(parent.getSourceId()).incrementAndGet();
         }
       }
       return null;

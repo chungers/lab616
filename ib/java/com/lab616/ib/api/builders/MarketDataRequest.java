@@ -4,6 +4,9 @@ package com.lab616.ib.api.builders;
 
 import java.util.List;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import com.google.inject.internal.Lists;
 import com.ib.client.Contract;
 
@@ -16,6 +19,9 @@ import com.ib.client.Contract;
  */
 public class MarketDataRequest {
 
+  DateTimeFormatter dateTimeFormatter = 
+    DateTimeFormat.forPattern("yyyyMMdd HH:mm:ss");
+  
   private Contract contract;
   private int tickerId;
   private List<String> genericTickList = Lists.newArrayList();

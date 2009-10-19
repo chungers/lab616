@@ -5,10 +5,63 @@ package com.lab616.trading.domain;
 public final class DomainProtos {
   private DomainProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
+  public enum DurationMicros
+      implements com.google.protobuf.Internal.EnumLite {
+    MILLI_1(0, 1000),
+    MILLI_10(1, 10000),
+    MILLI_50(2, 50000),
+    MILLI_500(3, 500000),
+    SEC_1(4, 1000000),
+    SEC_5(5, 5000000),
+    SEC_10(6, 10000000),
+    SEC_30(7, 30000000),
+    MIN_1(8, 60000000),
+    MIN_5(9, 300000000),
+    ;
+    
+    
+    public final int getNumber() { return value; }
+    
+    public static DurationMicros valueOf(int value) {
+      switch (value) {
+        case 1000: return MILLI_1;
+        case 10000: return MILLI_10;
+        case 50000: return MILLI_50;
+        case 500000: return MILLI_500;
+        case 1000000: return SEC_1;
+        case 5000000: return SEC_5;
+        case 10000000: return SEC_10;
+        case 30000000: return SEC_30;
+        case 60000000: return MIN_1;
+        case 300000000: return MIN_5;
+        default: return null;
+      }
+    }
+    
+    public static com.google.protobuf.Internal.EnumLiteMap<DurationMicros>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<DurationMicros>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<DurationMicros>() {
+            public DurationMicros findValueByNumber(int number) {
+              return DurationMicros.valueOf(number)
+    ;        }
+          };
+    
+    private final int index;
+    private final int value;
+    private DurationMicros(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+  }
+  
   public enum Source
-      implements com.google.protobuf.ProtocolMessageEnum {
+      implements com.google.protobuf.Internal.EnumLite {
     TWS_API(0, 0),
     SIMULATED(1, 1),
     BACKTEST(2, 2),
@@ -38,64 +91,26 @@ public final class DomainProtos {
     ;        }
           };
     
-    public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
-      return getDescriptor().getValues().get(index);
-    }
-    public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
-      return getDescriptor();
-    }
-    public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return com.lab616.trading.domain.DomainProtos.getDescriptor().getEnumTypes().get(0);
-    }
-    
-    private static final Source[] VALUES = {
-      TWS_API, SIMULATED, BACKTEST, 
-    };
-    public static Source valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-      if (desc.getType() != getDescriptor()) {
-        throw new java.lang.IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
-      }
-      return VALUES[desc.getIndex()];
-    }
     private final int index;
     private final int value;
     private Source(int index, int value) {
       this.index = index;
       this.value = value;
     }
-    
-    static {
-      com.lab616.trading.domain.DomainProtos.getDescriptor();
-    }
   }
   
-  public static final class Range extends
-      com.google.protobuf.GeneratedMessage {
-    // Use Range.newBuilder() to construct.
-    private Range() {}
+  public static final class Interval extends
+      com.google.protobuf.GeneratedMessageLite {
+    // Use Interval.newBuilder() to construct.
+    private Interval() {}
     
-    private static final Range defaultInstance = new Range();
-    public static Range getDefaultInstance() {
+    private static final Interval defaultInstance = new Interval();
+    public static Interval getDefaultInstance() {
       return defaultInstance;
     }
     
-    public Range getDefaultInstanceForType() {
+    public Interval getDefaultInstanceForType() {
       return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lab616.trading.domain.DomainProtos.internal_static_trading_Range_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lab616.trading.domain.DomainProtos.internal_static_trading_Range_fieldAccessorTable;
     }
     
     // required fixed64 start = 1;
@@ -105,16 +120,16 @@ public final class DomainProtos {
     public boolean hasStart() { return hasStart; }
     public long getStart() { return start_; }
     
-    // required fixed64 end = 2;
-    public static final int END_FIELD_NUMBER = 2;
-    private boolean hasEnd;
-    private long end_ = 0L;
-    public boolean hasEnd() { return hasEnd; }
-    public long getEnd() { return end_; }
+    // required .trading.DurationMicros duration = 2;
+    public static final int DURATION_FIELD_NUMBER = 2;
+    private boolean hasDuration;
+    private com.lab616.trading.domain.DomainProtos.DurationMicros duration_ = com.lab616.trading.domain.DomainProtos.DurationMicros.MILLI_1;
+    public boolean hasDuration() { return hasDuration; }
+    public com.lab616.trading.domain.DomainProtos.DurationMicros getDuration() { return duration_; }
     
     public final boolean isInitialized() {
       if (!hasStart) return false;
-      if (!hasEnd) return false;
+      if (!hasDuration) return false;
       return true;
     }
     
@@ -123,10 +138,9 @@ public final class DomainProtos {
       if (hasStart()) {
         output.writeFixed64(1, getStart());
       }
-      if (hasEnd()) {
-        output.writeFixed64(2, getEnd());
+      if (hasDuration()) {
+        output.writeEnum(2, getDuration().getNumber());
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -139,66 +153,65 @@ public final class DomainProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeFixed64Size(1, getStart());
       }
-      if (hasEnd()) {
+      if (hasDuration()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFixed64Size(2, getEnd());
+          .computeEnumSize(2, getDuration().getNumber());
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    public static com.lab616.trading.domain.DomainProtos.Range parseFrom(
+    public static com.lab616.trading.domain.DomainProtos.Interval parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lab616.trading.domain.DomainProtos.Range parseFrom(
+    public static com.lab616.trading.domain.DomainProtos.Interval parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lab616.trading.domain.DomainProtos.Range parseFrom(byte[] data)
+    public static com.lab616.trading.domain.DomainProtos.Interval parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lab616.trading.domain.DomainProtos.Range parseFrom(
+    public static com.lab616.trading.domain.DomainProtos.Interval parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lab616.trading.domain.DomainProtos.Range parseFrom(java.io.InputStream input)
+    public static com.lab616.trading.domain.DomainProtos.Interval parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lab616.trading.domain.DomainProtos.Range parseFrom(
+    public static com.lab616.trading.domain.DomainProtos.Interval parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lab616.trading.domain.DomainProtos.Range parseDelimitedFrom(java.io.InputStream input)
+    public static com.lab616.trading.domain.DomainProtos.Interval parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeDelimitedFrom(input).buildParsed();
     }
-    public static com.lab616.trading.domain.DomainProtos.Range parseDelimitedFrom(
+    public static com.lab616.trading.domain.DomainProtos.Interval parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeDelimitedFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lab616.trading.domain.DomainProtos.Range parseFrom(
+    public static com.lab616.trading.domain.DomainProtos.Interval parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lab616.trading.domain.DomainProtos.Range parseFrom(
+    public static com.lab616.trading.domain.DomainProtos.Interval parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -208,25 +221,26 @@ public final class DomainProtos {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lab616.trading.domain.DomainProtos.Range prototype) {
+    public static Builder newBuilder(com.lab616.trading.domain.DomainProtos.Interval prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> {
-      private com.lab616.trading.domain.DomainProtos.Range result;
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.lab616.trading.domain.DomainProtos.Interval, Builder> {
+      private com.lab616.trading.domain.DomainProtos.Interval result;
       
-      // Construct using com.lab616.trading.domain.DomainProtos.Range.newBuilder()
+      // Construct using com.lab616.trading.domain.DomainProtos.Interval.newBuilder()
       private Builder() {}
       
       private static Builder create() {
         Builder builder = new Builder();
-        builder.result = new com.lab616.trading.domain.DomainProtos.Range();
+        builder.result = new com.lab616.trading.domain.DomainProtos.Interval();
         return builder;
       }
       
-      protected com.lab616.trading.domain.DomainProtos.Range internalGetResult() {
+      protected com.lab616.trading.domain.DomainProtos.Interval internalGetResult() {
         return result;
       }
       
@@ -235,7 +249,7 @@ public final class DomainProtos {
           throw new IllegalStateException(
             "Cannot call clear() after build().");
         }
-        result = new com.lab616.trading.domain.DomainProtos.Range();
+        result = new com.lab616.trading.domain.DomainProtos.Interval();
         return this;
       }
       
@@ -243,26 +257,21 @@ public final class DomainProtos {
         return create().mergeFrom(result);
       }
       
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.lab616.trading.domain.DomainProtos.Range.getDescriptor();
-      }
-      
-      public com.lab616.trading.domain.DomainProtos.Range getDefaultInstanceForType() {
-        return com.lab616.trading.domain.DomainProtos.Range.getDefaultInstance();
+      public com.lab616.trading.domain.DomainProtos.Interval getDefaultInstanceForType() {
+        return com.lab616.trading.domain.DomainProtos.Interval.getDefaultInstance();
       }
       
       public boolean isInitialized() {
         return result.isInitialized();
       }
-      public com.lab616.trading.domain.DomainProtos.Range build() {
+      public com.lab616.trading.domain.DomainProtos.Interval build() {
         if (result != null && !isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return buildPartial();
       }
       
-      private com.lab616.trading.domain.DomainProtos.Range buildParsed()
+      private com.lab616.trading.domain.DomainProtos.Interval buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
         if (!isInitialized()) {
           throw newUninitializedMessageException(
@@ -271,34 +280,24 @@ public final class DomainProtos {
         return buildPartial();
       }
       
-      public com.lab616.trading.domain.DomainProtos.Range buildPartial() {
+      public com.lab616.trading.domain.DomainProtos.Interval buildPartial() {
         if (result == null) {
           throw new IllegalStateException(
             "build() has already been called on this Builder.");
         }
-        com.lab616.trading.domain.DomainProtos.Range returnMe = result;
+        com.lab616.trading.domain.DomainProtos.Interval returnMe = result;
         result = null;
         return returnMe;
       }
       
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lab616.trading.domain.DomainProtos.Range) {
-          return mergeFrom((com.lab616.trading.domain.DomainProtos.Range)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.lab616.trading.domain.DomainProtos.Range other) {
-        if (other == com.lab616.trading.domain.DomainProtos.Range.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lab616.trading.domain.DomainProtos.Interval other) {
+        if (other == com.lab616.trading.domain.DomainProtos.Interval.getDefaultInstance()) return this;
         if (other.hasStart()) {
           setStart(other.getStart());
         }
-        if (other.hasEnd()) {
-          setEnd(other.getEnd());
+        if (other.hasDuration()) {
+          setDuration(other.getDuration());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -306,19 +305,13 @@ public final class DomainProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
                 return this;
               }
               break;
@@ -327,8 +320,12 @@ public final class DomainProtos {
               setStart(input.readFixed64());
               break;
             }
-            case 17: {
-              setEnd(input.readFixed64());
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lab616.trading.domain.DomainProtos.DurationMicros value = com.lab616.trading.domain.DomainProtos.DurationMicros.valueOf(rawValue);
+              if (value != null) {
+                setDuration(value);
+              }
               break;
             }
           }
@@ -354,27 +351,26 @@ public final class DomainProtos {
         return this;
       }
       
-      // required fixed64 end = 2;
-      public boolean hasEnd() {
-        return result.hasEnd();
+      // required .trading.DurationMicros duration = 2;
+      public boolean hasDuration() {
+        return result.hasDuration();
       }
-      public long getEnd() {
-        return result.getEnd();
+      public com.lab616.trading.domain.DomainProtos.DurationMicros getDuration() {
+        return result.getDuration();
       }
-      public Builder setEnd(long value) {
-        result.hasEnd = true;
-        result.end_ = value;
+      public Builder setDuration(com.lab616.trading.domain.DomainProtos.DurationMicros value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasDuration = true;
+        result.duration_ = value;
         return this;
       }
-      public Builder clearEnd() {
-        result.hasEnd = false;
-        result.end_ = 0L;
+      public Builder clearDuration() {
+        result.hasDuration = false;
+        result.duration_ = com.lab616.trading.domain.DomainProtos.DurationMicros.MILLI_1;
         return this;
       }
-    }
-    
-    static {
-      com.lab616.trading.domain.DomainProtos.getDescriptor();
     }
     
     static {
@@ -383,7 +379,7 @@ public final class DomainProtos {
   }
   
   public static final class Bar extends
-      com.google.protobuf.GeneratedMessage {
+      com.google.protobuf.GeneratedMessageLite {
     // Use Bar.newBuilder() to construct.
     private Bar() {}
     
@@ -396,130 +392,172 @@ public final class DomainProtos {
       return defaultInstance;
     }
     
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lab616.trading.domain.DomainProtos.internal_static_trading_Bar_descriptor;
+    public enum Type
+        implements com.google.protobuf.Internal.EnumLite {
+      TRADES(0, 0),
+      MID(1, 1),
+      BID(2, 2),
+      ASK(3, 3),
+      ;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static Type valueOf(int value) {
+        switch (value) {
+          case 0: return TRADES;
+          case 1: return MID;
+          case 2: return BID;
+          case 3: return ASK;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Type>() {
+              public Type findValueByNumber(int number) {
+                return Type.valueOf(number)
+      ;        }
+            };
+      
+      private final int index;
+      private final int value;
+      private Type(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
     }
     
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lab616.trading.domain.DomainProtos.internal_static_trading_Bar_fieldAccessorTable;
-    }
+    // required .trading.Interval interval = 1;
+    public static final int INTERVAL_FIELD_NUMBER = 1;
+    private boolean hasInterval;
+    private com.lab616.trading.domain.DomainProtos.Interval interval_ = com.lab616.trading.domain.DomainProtos.Interval.getDefaultInstance();
+    public boolean hasInterval() { return hasInterval; }
+    public com.lab616.trading.domain.DomainProtos.Interval getInterval() { return interval_; }
     
-    // required .trading.Range range = 1;
-    public static final int RANGE_FIELD_NUMBER = 1;
-    private boolean hasRange;
-    private com.lab616.trading.domain.DomainProtos.Range range_ = com.lab616.trading.domain.DomainProtos.Range.getDefaultInstance();
-    public boolean hasRange() { return hasRange; }
-    public com.lab616.trading.domain.DomainProtos.Range getRange() { return range_; }
+    // required .trading.Bar.Type type = 2;
+    public static final int TYPE_FIELD_NUMBER = 2;
+    private boolean hasType;
+    private com.lab616.trading.domain.DomainProtos.Bar.Type type_ = com.lab616.trading.domain.DomainProtos.Bar.Type.TRADES;
+    public boolean hasType() { return hasType; }
+    public com.lab616.trading.domain.DomainProtos.Bar.Type getType() { return type_; }
     
-    // required uint64 tickerId = 2;
-    public static final int TICKERID_FIELD_NUMBER = 2;
+    // required uint64 tickerId = 3;
+    public static final int TICKERID_FIELD_NUMBER = 3;
     private boolean hasTickerId;
     private long tickerId_ = 0L;
     public boolean hasTickerId() { return hasTickerId; }
     public long getTickerId() { return tickerId_; }
     
-    // required double first = 3;
-    public static final int FIRST_FIELD_NUMBER = 3;
+    // required double first = 4;
+    public static final int FIRST_FIELD_NUMBER = 4;
     private boolean hasFirst;
     private double first_ = 0D;
     public boolean hasFirst() { return hasFirst; }
     public double getFirst() { return first_; }
     
-    // required double last = 4;
-    public static final int LAST_FIELD_NUMBER = 4;
+    // required double last = 5;
+    public static final int LAST_FIELD_NUMBER = 5;
     private boolean hasLast;
     private double last_ = 0D;
     public boolean hasLast() { return hasLast; }
     public double getLast() { return last_; }
     
-    // required double min = 5;
-    public static final int MIN_FIELD_NUMBER = 5;
+    // required double min = 6;
+    public static final int MIN_FIELD_NUMBER = 6;
     private boolean hasMin;
     private double min_ = 0D;
     public boolean hasMin() { return hasMin; }
     public double getMin() { return min_; }
     
-    // required double max = 6;
-    public static final int MAX_FIELD_NUMBER = 6;
+    // required double max = 7;
+    public static final int MAX_FIELD_NUMBER = 7;
     private boolean hasMax;
     private double max_ = 0D;
     public boolean hasMax() { return hasMax; }
     public double getMax() { return max_; }
     
-    // optional uint32 volume = 7;
-    public static final int VOLUME_FIELD_NUMBER = 7;
-    private boolean hasVolume;
-    private int volume_ = 0;
-    public boolean hasVolume() { return hasVolume; }
-    public int getVolume() { return volume_; }
-    
-    // optional double wap = 8;
-    public static final int WAP_FIELD_NUMBER = 8;
-    private boolean hasWap;
-    private double wap_ = 0D;
-    public boolean hasWap() { return hasWap; }
-    public double getWap() { return wap_; }
-    
-    // optional uint32 count = 9;
-    public static final int COUNT_FIELD_NUMBER = 9;
-    private boolean hasCount;
-    private int count_ = 0;
-    public boolean hasCount() { return hasCount; }
-    public int getCount() { return count_; }
-    
-    // optional .trading.Source source = 10;
-    public static final int SOURCE_FIELD_NUMBER = 10;
+    // required .trading.Source source = 8;
+    public static final int SOURCE_FIELD_NUMBER = 8;
     private boolean hasSource;
     private com.lab616.trading.domain.DomainProtos.Source source_ = com.lab616.trading.domain.DomainProtos.Source.TWS_API;
     public boolean hasSource() { return hasSource; }
     public com.lab616.trading.domain.DomainProtos.Source getSource() { return source_; }
     
+    // optional uint32 volume = 9;
+    public static final int VOLUME_FIELD_NUMBER = 9;
+    private boolean hasVolume;
+    private int volume_ = 0;
+    public boolean hasVolume() { return hasVolume; }
+    public int getVolume() { return volume_; }
+    
+    // optional double wap = 10;
+    public static final int WAP_FIELD_NUMBER = 10;
+    private boolean hasWap;
+    private double wap_ = 0D;
+    public boolean hasWap() { return hasWap; }
+    public double getWap() { return wap_; }
+    
+    // optional uint32 count = 11;
+    public static final int COUNT_FIELD_NUMBER = 11;
+    private boolean hasCount;
+    private int count_ = 0;
+    public boolean hasCount() { return hasCount; }
+    public int getCount() { return count_; }
+    
     public final boolean isInitialized() {
-      if (!hasRange) return false;
+      if (!hasInterval) return false;
+      if (!hasType) return false;
       if (!hasTickerId) return false;
       if (!hasFirst) return false;
       if (!hasLast) return false;
       if (!hasMin) return false;
       if (!hasMax) return false;
-      if (!getRange().isInitialized()) return false;
+      if (!hasSource) return false;
+      if (!getInterval().isInitialized()) return false;
       return true;
     }
     
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (hasRange()) {
-        output.writeMessage(1, getRange());
+      if (hasInterval()) {
+        output.writeMessage(1, getInterval());
+      }
+      if (hasType()) {
+        output.writeEnum(2, getType().getNumber());
       }
       if (hasTickerId()) {
-        output.writeUInt64(2, getTickerId());
+        output.writeUInt64(3, getTickerId());
       }
       if (hasFirst()) {
-        output.writeDouble(3, getFirst());
+        output.writeDouble(4, getFirst());
       }
       if (hasLast()) {
-        output.writeDouble(4, getLast());
+        output.writeDouble(5, getLast());
       }
       if (hasMin()) {
-        output.writeDouble(5, getMin());
+        output.writeDouble(6, getMin());
       }
       if (hasMax()) {
-        output.writeDouble(6, getMax());
-      }
-      if (hasVolume()) {
-        output.writeUInt32(7, getVolume());
-      }
-      if (hasWap()) {
-        output.writeDouble(8, getWap());
-      }
-      if (hasCount()) {
-        output.writeUInt32(9, getCount());
+        output.writeDouble(7, getMax());
       }
       if (hasSource()) {
-        output.writeEnum(10, getSource().getNumber());
+        output.writeEnum(8, getSource().getNumber());
       }
-      getUnknownFields().writeTo(output);
+      if (hasVolume()) {
+        output.writeUInt32(9, getVolume());
+      }
+      if (hasWap()) {
+        output.writeDouble(10, getWap());
+      }
+      if (hasCount()) {
+        output.writeUInt32(11, getCount());
+      }
     }
     
     private int memoizedSerializedSize = -1;
@@ -528,47 +566,50 @@ public final class DomainProtos {
       if (size != -1) return size;
     
       size = 0;
-      if (hasRange()) {
+      if (hasInterval()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getRange());
+          .computeMessageSize(1, getInterval());
+      }
+      if (hasType()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, getType().getNumber());
       }
       if (hasTickerId()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, getTickerId());
+          .computeUInt64Size(3, getTickerId());
       }
       if (hasFirst()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, getFirst());
+          .computeDoubleSize(4, getFirst());
       }
       if (hasLast()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, getLast());
+          .computeDoubleSize(5, getLast());
       }
       if (hasMin()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, getMin());
+          .computeDoubleSize(6, getMin());
       }
       if (hasMax()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(6, getMax());
-      }
-      if (hasVolume()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(7, getVolume());
-      }
-      if (hasWap()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(8, getWap());
-      }
-      if (hasCount()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(9, getCount());
+          .computeDoubleSize(7, getMax());
       }
       if (hasSource()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(10, getSource().getNumber());
+          .computeEnumSize(8, getSource().getNumber());
       }
-      size += getUnknownFields().getSerializedSize();
+      if (hasVolume()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(9, getVolume());
+      }
+      if (hasWap()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(10, getWap());
+      }
+      if (hasCount()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(11, getCount());
+      }
       memoizedSerializedSize = size;
       return size;
     }
@@ -639,7 +680,8 @@ public final class DomainProtos {
     public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.lab616.trading.domain.DomainProtos.Bar, Builder> {
       private com.lab616.trading.domain.DomainProtos.Bar result;
       
       // Construct using com.lab616.trading.domain.DomainProtos.Bar.newBuilder()
@@ -666,11 +708,6 @@ public final class DomainProtos {
       
       public Builder clone() {
         return create().mergeFrom(result);
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.lab616.trading.domain.DomainProtos.Bar.getDescriptor();
       }
       
       public com.lab616.trading.domain.DomainProtos.Bar getDefaultInstanceForType() {
@@ -706,19 +743,13 @@ public final class DomainProtos {
         return returnMe;
       }
       
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lab616.trading.domain.DomainProtos.Bar) {
-          return mergeFrom((com.lab616.trading.domain.DomainProtos.Bar)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
       public Builder mergeFrom(com.lab616.trading.domain.DomainProtos.Bar other) {
         if (other == com.lab616.trading.domain.DomainProtos.Bar.getDefaultInstance()) return this;
-        if (other.hasRange()) {
-          mergeRange(other.getRange());
+        if (other.hasInterval()) {
+          mergeInterval(other.getInterval());
+        }
+        if (other.hasType()) {
+          setType(other.getType());
         }
         if (other.hasTickerId()) {
           setTickerId(other.getTickerId());
@@ -735,6 +766,9 @@ public final class DomainProtos {
         if (other.hasMax()) {
           setMax(other.getMax());
         }
+        if (other.hasSource()) {
+          setSource(other.getSource());
+        }
         if (other.hasVolume()) {
           setVolume(other.getVolume());
         }
@@ -744,10 +778,6 @@ public final class DomainProtos {
         if (other.hasCount()) {
           setCount(other.getCount());
         }
-        if (other.hasSource()) {
-          setSource(other.getSource());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -755,72 +785,72 @@ public final class DomainProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
                 return this;
               }
               break;
             }
             case 10: {
-              com.lab616.trading.domain.DomainProtos.Range.Builder subBuilder = com.lab616.trading.domain.DomainProtos.Range.newBuilder();
-              if (hasRange()) {
-                subBuilder.mergeFrom(getRange());
+              com.lab616.trading.domain.DomainProtos.Interval.Builder subBuilder = com.lab616.trading.domain.DomainProtos.Interval.newBuilder();
+              if (hasInterval()) {
+                subBuilder.mergeFrom(getInterval());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setRange(subBuilder.buildPartial());
+              setInterval(subBuilder.buildPartial());
               break;
             }
             case 16: {
+              int rawValue = input.readEnum();
+              com.lab616.trading.domain.DomainProtos.Bar.Type value = com.lab616.trading.domain.DomainProtos.Bar.Type.valueOf(rawValue);
+              if (value != null) {
+                setType(value);
+              }
+              break;
+            }
+            case 24: {
               setTickerId(input.readUInt64());
               break;
             }
-            case 25: {
+            case 33: {
               setFirst(input.readDouble());
               break;
             }
-            case 33: {
+            case 41: {
               setLast(input.readDouble());
               break;
             }
-            case 41: {
+            case 49: {
               setMin(input.readDouble());
               break;
             }
-            case 49: {
+            case 57: {
               setMax(input.readDouble());
               break;
             }
-            case 56: {
-              setVolume(input.readUInt32());
-              break;
-            }
-            case 65: {
-              setWap(input.readDouble());
+            case 64: {
+              int rawValue = input.readEnum();
+              com.lab616.trading.domain.DomainProtos.Source value = com.lab616.trading.domain.DomainProtos.Source.valueOf(rawValue);
+              if (value != null) {
+                setSource(value);
+              }
               break;
             }
             case 72: {
-              setCount(input.readUInt32());
+              setVolume(input.readUInt32());
               break;
             }
-            case 80: {
-              int rawValue = input.readEnum();
-              com.lab616.trading.domain.DomainProtos.Source value = com.lab616.trading.domain.DomainProtos.Source.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(10, rawValue);
-              } else {
-                setSource(value);
-              }
+            case 81: {
+              setWap(input.readDouble());
+              break;
+            }
+            case 88: {
+              setCount(input.readUInt32());
               break;
             }
           }
@@ -828,44 +858,65 @@ public final class DomainProtos {
       }
       
       
-      // required .trading.Range range = 1;
-      public boolean hasRange() {
-        return result.hasRange();
+      // required .trading.Interval interval = 1;
+      public boolean hasInterval() {
+        return result.hasInterval();
       }
-      public com.lab616.trading.domain.DomainProtos.Range getRange() {
-        return result.getRange();
+      public com.lab616.trading.domain.DomainProtos.Interval getInterval() {
+        return result.getInterval();
       }
-      public Builder setRange(com.lab616.trading.domain.DomainProtos.Range value) {
+      public Builder setInterval(com.lab616.trading.domain.DomainProtos.Interval value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        result.hasRange = true;
-        result.range_ = value;
+        result.hasInterval = true;
+        result.interval_ = value;
         return this;
       }
-      public Builder setRange(com.lab616.trading.domain.DomainProtos.Range.Builder builderForValue) {
-        result.hasRange = true;
-        result.range_ = builderForValue.build();
+      public Builder setInterval(com.lab616.trading.domain.DomainProtos.Interval.Builder builderForValue) {
+        result.hasInterval = true;
+        result.interval_ = builderForValue.build();
         return this;
       }
-      public Builder mergeRange(com.lab616.trading.domain.DomainProtos.Range value) {
-        if (result.hasRange() &&
-            result.range_ != com.lab616.trading.domain.DomainProtos.Range.getDefaultInstance()) {
-          result.range_ =
-            com.lab616.trading.domain.DomainProtos.Range.newBuilder(result.range_).mergeFrom(value).buildPartial();
+      public Builder mergeInterval(com.lab616.trading.domain.DomainProtos.Interval value) {
+        if (result.hasInterval() &&
+            result.interval_ != com.lab616.trading.domain.DomainProtos.Interval.getDefaultInstance()) {
+          result.interval_ =
+            com.lab616.trading.domain.DomainProtos.Interval.newBuilder(result.interval_).mergeFrom(value).buildPartial();
         } else {
-          result.range_ = value;
+          result.interval_ = value;
         }
-        result.hasRange = true;
+        result.hasInterval = true;
         return this;
       }
-      public Builder clearRange() {
-        result.hasRange = false;
-        result.range_ = com.lab616.trading.domain.DomainProtos.Range.getDefaultInstance();
+      public Builder clearInterval() {
+        result.hasInterval = false;
+        result.interval_ = com.lab616.trading.domain.DomainProtos.Interval.getDefaultInstance();
         return this;
       }
       
-      // required uint64 tickerId = 2;
+      // required .trading.Bar.Type type = 2;
+      public boolean hasType() {
+        return result.hasType();
+      }
+      public com.lab616.trading.domain.DomainProtos.Bar.Type getType() {
+        return result.getType();
+      }
+      public Builder setType(com.lab616.trading.domain.DomainProtos.Bar.Type value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasType = true;
+        result.type_ = value;
+        return this;
+      }
+      public Builder clearType() {
+        result.hasType = false;
+        result.type_ = com.lab616.trading.domain.DomainProtos.Bar.Type.TRADES;
+        return this;
+      }
+      
+      // required uint64 tickerId = 3;
       public boolean hasTickerId() {
         return result.hasTickerId();
       }
@@ -883,7 +934,7 @@ public final class DomainProtos {
         return this;
       }
       
-      // required double first = 3;
+      // required double first = 4;
       public boolean hasFirst() {
         return result.hasFirst();
       }
@@ -901,7 +952,7 @@ public final class DomainProtos {
         return this;
       }
       
-      // required double last = 4;
+      // required double last = 5;
       public boolean hasLast() {
         return result.hasLast();
       }
@@ -919,7 +970,7 @@ public final class DomainProtos {
         return this;
       }
       
-      // required double min = 5;
+      // required double min = 6;
       public boolean hasMin() {
         return result.hasMin();
       }
@@ -937,7 +988,7 @@ public final class DomainProtos {
         return this;
       }
       
-      // required double max = 6;
+      // required double max = 7;
       public boolean hasMax() {
         return result.hasMax();
       }
@@ -955,61 +1006,7 @@ public final class DomainProtos {
         return this;
       }
       
-      // optional uint32 volume = 7;
-      public boolean hasVolume() {
-        return result.hasVolume();
-      }
-      public int getVolume() {
-        return result.getVolume();
-      }
-      public Builder setVolume(int value) {
-        result.hasVolume = true;
-        result.volume_ = value;
-        return this;
-      }
-      public Builder clearVolume() {
-        result.hasVolume = false;
-        result.volume_ = 0;
-        return this;
-      }
-      
-      // optional double wap = 8;
-      public boolean hasWap() {
-        return result.hasWap();
-      }
-      public double getWap() {
-        return result.getWap();
-      }
-      public Builder setWap(double value) {
-        result.hasWap = true;
-        result.wap_ = value;
-        return this;
-      }
-      public Builder clearWap() {
-        result.hasWap = false;
-        result.wap_ = 0D;
-        return this;
-      }
-      
-      // optional uint32 count = 9;
-      public boolean hasCount() {
-        return result.hasCount();
-      }
-      public int getCount() {
-        return result.getCount();
-      }
-      public Builder setCount(int value) {
-        result.hasCount = true;
-        result.count_ = value;
-        return this;
-      }
-      public Builder clearCount() {
-        result.hasCount = false;
-        result.count_ = 0;
-        return this;
-      }
-      
-      // optional .trading.Source source = 10;
+      // required .trading.Source source = 8;
       public boolean hasSource() {
         return result.hasSource();
       }
@@ -1029,10 +1026,60 @@ public final class DomainProtos {
         result.source_ = com.lab616.trading.domain.DomainProtos.Source.TWS_API;
         return this;
       }
-    }
-    
-    static {
-      com.lab616.trading.domain.DomainProtos.getDescriptor();
+      
+      // optional uint32 volume = 9;
+      public boolean hasVolume() {
+        return result.hasVolume();
+      }
+      public int getVolume() {
+        return result.getVolume();
+      }
+      public Builder setVolume(int value) {
+        result.hasVolume = true;
+        result.volume_ = value;
+        return this;
+      }
+      public Builder clearVolume() {
+        result.hasVolume = false;
+        result.volume_ = 0;
+        return this;
+      }
+      
+      // optional double wap = 10;
+      public boolean hasWap() {
+        return result.hasWap();
+      }
+      public double getWap() {
+        return result.getWap();
+      }
+      public Builder setWap(double value) {
+        result.hasWap = true;
+        result.wap_ = value;
+        return this;
+      }
+      public Builder clearWap() {
+        result.hasWap = false;
+        result.wap_ = 0D;
+        return this;
+      }
+      
+      // optional uint32 count = 11;
+      public boolean hasCount() {
+        return result.hasCount();
+      }
+      public int getCount() {
+        return result.getCount();
+      }
+      public Builder setCount(int value) {
+        result.hasCount = true;
+        result.count_ = value;
+        return this;
+      }
+      public Builder clearCount() {
+        result.hasCount = false;
+        result.count_ = 0;
+        return this;
+      }
     }
     
     static {
@@ -1041,7 +1088,7 @@ public final class DomainProtos {
   }
   
   public static final class Tick extends
-      com.google.protobuf.GeneratedMessage {
+      com.google.protobuf.GeneratedMessageLite {
     // Use Tick.newBuilder() to construct.
     private Tick() {}
     
@@ -1054,18 +1101,8 @@ public final class DomainProtos {
       return defaultInstance;
     }
     
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lab616.trading.domain.DomainProtos.internal_static_trading_Tick_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lab616.trading.domain.DomainProtos.internal_static_trading_Tick_fieldAccessorTable;
-    }
-    
     public enum Type
-        implements com.google.protobuf.ProtocolMessageEnum {
+        implements com.google.protobuf.Internal.EnumLite {
       BID_SIZE(0, 0),
       BID(1, 1),
       ASK(2, 2),
@@ -1189,39 +1226,11 @@ public final class DomainProtos {
       ;        }
             };
       
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.lab616.trading.domain.DomainProtos.Tick.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final Type[] VALUES = {
-        BID_SIZE, BID, ASK, ASK_SIZE, LAST, LAST_SIZE, HIGH, LOW, VOLUME, CLOSE, BID_OPTION, ASK_OPTION, LAST_OPTION, MODEL_OPTION, OPEN, LOW_13_WEEK, HIGH_13_WEEK, LOW_26_WEEK, HIGH_26_WEEK, LOW_52_WEEK, HIGH_52_WEEK, AVG_VOLUME, OPEN_INTEREST, OPTION_HISTORICAL_VOL, OPTION_IMPLIED_VOL, OPTION_BID_EXCH, OPTION_ASK_EXCH, OPTION_CALL_OPEN_INTEREST, OPTION_PUT_OPEN_INTEREST, OPTION_CALL_VOLUME, OPTION_PUT_VOLUME, INDEX_FUTURE_PREMIUM, BID_EXCH, ASK_EXCH, AUCTION_VOLUME, AUCTION_PRICE, AUCTION_IMBALANCE, MARK_PRICE, BID_EFP_COMPUTATION, ASK_EFP_COMPUTATION, LAST_EFP_COMPUTATION, OPEN_EFP_COMPUTATION, HIGH_EFP_COMPUTATION, LOW_EFP_COMPUTATION, CLOSE_EFP_COMPUTATION, LAST_TIMESTAMP, SHORTABLE, FUNDAMENTAL_RATIOS, RT_VOLUME, HALTED, 
-      };
-      public static Type valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
       private final int index;
       private final int value;
       private Type(int index, int value) {
         this.index = index;
         this.value = value;
-      }
-      
-      static {
-        com.lab616.trading.domain.DomainProtos.getDescriptor();
       }
     }
     
@@ -1285,7 +1294,6 @@ public final class DomainProtos {
       if (hasSource()) {
         output.writeEnum(5, getSource().getNumber());
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -1314,7 +1322,6 @@ public final class DomainProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(5, getSource().getNumber());
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
@@ -1385,7 +1392,8 @@ public final class DomainProtos {
     public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.lab616.trading.domain.DomainProtos.Tick, Builder> {
       private com.lab616.trading.domain.DomainProtos.Tick result;
       
       // Construct using com.lab616.trading.domain.DomainProtos.Tick.newBuilder()
@@ -1412,11 +1420,6 @@ public final class DomainProtos {
       
       public Builder clone() {
         return create().mergeFrom(result);
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.lab616.trading.domain.DomainProtos.Tick.getDescriptor();
       }
       
       public com.lab616.trading.domain.DomainProtos.Tick getDefaultInstanceForType() {
@@ -1452,15 +1455,6 @@ public final class DomainProtos {
         return returnMe;
       }
       
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lab616.trading.domain.DomainProtos.Tick) {
-          return mergeFrom((com.lab616.trading.domain.DomainProtos.Tick)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
       public Builder mergeFrom(com.lab616.trading.domain.DomainProtos.Tick other) {
         if (other == com.lab616.trading.domain.DomainProtos.Tick.getDefaultInstance()) return this;
         if (other.hasTimestamp()) {
@@ -1478,7 +1472,6 @@ public final class DomainProtos {
         if (other.hasSource()) {
           setSource(other.getSource());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -1486,19 +1479,13 @@ public final class DomainProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
                 return this;
               }
               break;
@@ -1510,9 +1497,7 @@ public final class DomainProtos {
             case 16: {
               int rawValue = input.readEnum();
               com.lab616.trading.domain.DomainProtos.Tick.Type value = com.lab616.trading.domain.DomainProtos.Tick.Type.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(2, rawValue);
-              } else {
+              if (value != null) {
                 setType(value);
               }
               break;
@@ -1528,9 +1513,7 @@ public final class DomainProtos {
             case 40: {
               int rawValue = input.readEnum();
               com.lab616.trading.domain.DomainProtos.Source value = com.lab616.trading.domain.DomainProtos.Source.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(5, rawValue);
-              } else {
+              if (value != null) {
                 setSource(value);
               }
               break;
@@ -1638,111 +1621,12 @@ public final class DomainProtos {
     }
     
     static {
-      com.lab616.trading.domain.DomainProtos.getDescriptor();
-    }
-    
-    static {
       com.lab616.trading.domain.DomainProtos.internalForceInit();
     }
   }
   
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_trading_Range_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_trading_Range_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_trading_Bar_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_trading_Bar_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_trading_Tick_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_trading_Tick_fieldAccessorTable;
   
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
-    return descriptor;
-  }
-  private static com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
   static {
-    java.lang.String[] descriptorData = {
-      "\n\014domain.proto\022\007trading\"#\n\005Range\022\r\n\005star" +
-      "t\030\001 \002(\006\022\013\n\003end\030\002 \002(\006\"\272\001\n\003Bar\022\035\n\005range\030\001 " +
-      "\002(\0132\016.trading.Range\022\020\n\010tickerId\030\002 \002(\004\022\r\n" +
-      "\005first\030\003 \002(\001\022\014\n\004last\030\004 \002(\001\022\013\n\003min\030\005 \002(\001\022" +
-      "\013\n\003max\030\006 \002(\001\022\016\n\006volume\030\007 \001(\r\022\013\n\003wap\030\010 \001(" +
-      "\001\022\r\n\005count\030\t \001(\r\022\037\n\006source\030\n \001(\0162\017.tradi" +
-      "ng.Source\"\247\010\n\004Tick\022\021\n\ttimestamp\030\001 \002(\006\022 \n" +
-      "\004type\030\002 \002(\0162\022.trading.Tick.Type\022\020\n\010ticke" +
-      "rId\030\003 \002(\r\022\r\n\005value\030\004 \002(\001\022\037\n\006source\030\005 \001(\016" +
-      "2\017.trading.Source\"\247\007\n\004Type\022\014\n\010BID_SIZE\020\000",
-      "\022\007\n\003BID\020\001\022\007\n\003ASK\020\002\022\014\n\010ASK_SIZE\020\003\022\010\n\004LAST" +
-      "\020\004\022\r\n\tLAST_SIZE\020\005\022\010\n\004HIGH\020\006\022\007\n\003LOW\020\007\022\n\n\006" +
-      "VOLUME\020\010\022\t\n\005CLOSE\020\t\022\016\n\nBID_OPTION\020\n\022\016\n\nA" +
-      "SK_OPTION\020\013\022\017\n\013LAST_OPTION\020\014\022\020\n\014MODEL_OP" +
-      "TION\020\r\022\010\n\004OPEN\020\016\022\017\n\013LOW_13_WEEK\020\017\022\020\n\014HIG" +
-      "H_13_WEEK\020\020\022\017\n\013LOW_26_WEEK\020\021\022\020\n\014HIGH_26_" +
-      "WEEK\020\022\022\017\n\013LOW_52_WEEK\020\023\022\020\n\014HIGH_52_WEEK\020" +
-      "\024\022\016\n\nAVG_VOLUME\020\025\022\021\n\rOPEN_INTEREST\020\026\022\031\n\025" +
-      "OPTION_HISTORICAL_VOL\020\027\022\026\n\022OPTION_IMPLIE" +
-      "D_VOL\020\030\022\023\n\017OPTION_BID_EXCH\020\031\022\023\n\017OPTION_A",
-      "SK_EXCH\020\032\022\035\n\031OPTION_CALL_OPEN_INTEREST\020\033" +
-      "\022\034\n\030OPTION_PUT_OPEN_INTEREST\020\034\022\026\n\022OPTION" +
-      "_CALL_VOLUME\020\035\022\025\n\021OPTION_PUT_VOLUME\020\036\022\030\n" +
-      "\024INDEX_FUTURE_PREMIUM\020\037\022\014\n\010BID_EXCH\020 \022\014\n" +
-      "\010ASK_EXCH\020!\022\022\n\016AUCTION_VOLUME\020\"\022\021\n\rAUCTI" +
-      "ON_PRICE\020#\022\025\n\021AUCTION_IMBALANCE\020$\022\016\n\nMAR" +
-      "K_PRICE\020%\022\027\n\023BID_EFP_COMPUTATION\020&\022\027\n\023AS" +
-      "K_EFP_COMPUTATION\020\'\022\030\n\024LAST_EFP_COMPUTAT" +
-      "ION\020(\022\030\n\024OPEN_EFP_COMPUTATION\020)\022\030\n\024HIGH_" +
-      "EFP_COMPUTATION\020*\022\027\n\023LOW_EFP_COMPUTATION",
-      "\020+\022\031\n\025CLOSE_EFP_COMPUTATION\020,\022\022\n\016LAST_TI" +
-      "MESTAMP\020-\022\r\n\tSHORTABLE\020.\022\026\n\022FUNDAMENTAL_" +
-      "RATIOS\020/\022\r\n\tRT_VOLUME\0200\022\n\n\006HALTED\0201*2\n\006S" +
-      "ource\022\013\n\007TWS_API\020\000\022\r\n\tSIMULATED\020\001\022\014\n\010BAC" +
-      "KTEST\020\002B)\n\031com.lab616.trading.domainB\014Do" +
-      "mainProtos"
-    };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_trading_Range_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_trading_Range_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_trading_Range_descriptor,
-              new java.lang.String[] { "Start", "End", },
-              com.lab616.trading.domain.DomainProtos.Range.class,
-              com.lab616.trading.domain.DomainProtos.Range.Builder.class);
-          internal_static_trading_Bar_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_trading_Bar_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_trading_Bar_descriptor,
-              new java.lang.String[] { "Range", "TickerId", "First", "Last", "Min", "Max", "Volume", "Wap", "Count", "Source", },
-              com.lab616.trading.domain.DomainProtos.Bar.class,
-              com.lab616.trading.domain.DomainProtos.Bar.Builder.class);
-          internal_static_trading_Tick_descriptor =
-            getDescriptor().getMessageTypes().get(2);
-          internal_static_trading_Tick_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_trading_Tick_descriptor,
-              new java.lang.String[] { "Timestamp", "Type", "TickerId", "Value", "Source", },
-              com.lab616.trading.domain.DomainProtos.Tick.class,
-              com.lab616.trading.domain.DomainProtos.Tick.Builder.class);
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
   }
   
   public static void internalForceInit() {}

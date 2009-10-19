@@ -75,7 +75,7 @@ public class ProtoDataFileTest extends TestCase {
     int count = 0;
     for (TWSProto.Event e : p.getReader().readAll()) {
       assertEquals("tickPrice", e.getMethod().name());
-      assertEquals(100, e.getFields(0).getIntValue());
+      assertEquals(100, e.getField(0).getIntValue());
       assertTrue(e.getTimestamp() > 0);
       count++;
     }

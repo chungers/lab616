@@ -38,10 +38,10 @@ import com.lab616.omnibus.event.EventEngine;
  */
 public class TWSClient {
 
-  @Varz(name = "ib-api-client-connects")
+  @Varz(name = "tws-api-client-connects")
   public static AtomicInteger connects = new AtomicInteger(0);
 
-  @Varz(name = "ib-api-client-disconnects")
+  @Varz(name = "tws-api-client-disconnects")
   public static AtomicInteger disconnects = new AtomicInteger(0);
   
   static {
@@ -114,7 +114,7 @@ public class TWSClient {
           @Override
           protected void handleData(TWSProto.Event event) {
             if ("nextValidId".equals(event.getMethod().name())) {
-              nextValidId = event.getFields(0).getIntValue();
+              nextValidId = event.getField(0).getIntValue();
             }
             blockingCalls.handleData(event);
           }
@@ -153,6 +153,14 @@ public class TWSClient {
 
   public final String getSourceId() {
     return sourceId;
+  }
+
+  public final Integer getNextValidOrderId() {
+    return nextValidId;
+  }
+  
+  private void setSourceId(String accountName) {
+    this.sourceId = String.format("%s-%d", accountName, this.clientId);
   }
   
   public synchronized void onDisconnect() {
@@ -212,8 +220,7 @@ public class TWSClient {
           // Additional account information.
           String account = requestAccountCode(1000L, TimeUnit.MILLISECONDS);
           logger.info("Got account code = " + account);
-          TWSClient.this.sourceId = account + "-" + TWSClient.this.clientId;
-          
+          setSourceId(account);
           return true;
         }
       });
@@ -267,7 +274,7 @@ public class TWSClient {
         timeout, unit, 
         new Function<TWSProto.Event, String>() {
           public String apply(TWSProto.Event event) {
-            return event.getFields(1).getStringValue();
+            return event.getField(1).getStringValue();
           }
         },
         new Runnable() {
@@ -277,9 +284,9 @@ public class TWSClient {
         },
         new Predicate<TWSProto.Event> () {
           public boolean apply(TWSProto.Event event) {
-            boolean matches = event.getFieldsCount() > 0 &&
-            event.getFields(0).hasStringValue() &&
-            event.getFields(0).getStringValue().equalsIgnoreCase("AccountCode");
+            boolean matches = event.getFieldCount() > 0 &&
+            event.getField(0).hasStringValue() &&
+            event.getField(0).getStringValue().equalsIgnoreCase("AccountCode");
             return matches;
           }
         });
@@ -318,7 +325,7 @@ public class TWSClient {
         new Predicate<TWSProto.Event>() {
           public boolean apply(TWSProto.Event event) {
             return "historicalData".equals(event.getMethod()) &&
-              tickerId == event.getFields(0).getIntValue();
+              tickerId == event.getField(0).getIntValue();
           }
         },
         new Function<TWSProto.Event, String>() {
