@@ -65,6 +65,7 @@ public class TWSClient {
   private String host;
   private int port;
   private int clientId;
+  private String accountName;
   private int maxRetries;
   private EWrapper wrapper;
   private EventEngine eventEngine;
@@ -159,8 +160,15 @@ public class TWSClient {
     return nextValidId;
   }
   
+  public String getAccountName() {
+    return this.accountName;
+  }
+  
   private void setSourceId(String accountName) {
+    this.accountName = accountName;
     this.sourceId = String.format("%s-%d", accountName, this.clientId);
+    logger.info(String.format("Client %s connected to %s as %s.",
+        this.name, this.accountName, this.sourceId));
   }
   
   public synchronized void onDisconnect() {

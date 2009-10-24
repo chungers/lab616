@@ -44,9 +44,13 @@ public abstract class AbstractQueueWorker<T> extends Thread {
   protected AbstractQueueWorker(String name, boolean usePriorityQueue) {
     super.setName(name);
     if (usePriorityQueue) {
-      this.workQueue = new PriorityBlockingQueue<T>(getInitialCapacity());
+      this.workQueue = (getInitialCapacity() > 0) ? 
+          new PriorityBlockingQueue<T>(getInitialCapacity()) :
+            new PriorityBlockingQueue<T>();
     } else {
-      this.workQueue = new LinkedBlockingQueue<T>(getInitialCapacity());
+      this.workQueue = (getInitialCapacity() > 0) ? 
+          new LinkedBlockingQueue<T>(getInitialCapacity()) :
+            new LinkedBlockingQueue<T>();
     }
   }
   
@@ -55,7 +59,7 @@ public abstract class AbstractQueueWorker<T> extends Thread {
    * @return The capacity.
    */
   protected int getInitialCapacity() {
-    return 100;
+    return -1;
   }
 
   /**

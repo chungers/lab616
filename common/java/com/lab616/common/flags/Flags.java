@@ -32,6 +32,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
@@ -96,6 +97,12 @@ public class Flags {
       }
     }
     
+    void applyValue(String value) throws Exception {
+      if (value != null) {
+        this.field.set(null, value);
+      }
+    }
+
     public final String getCodeLocation() {
       return field.getDeclaringClass().getName() + "." + field.getName();
     }
@@ -162,6 +169,11 @@ public class Flags {
     }
 
     @Override
+    void applyValue(String value) throws Exception {
+      this.field.set(null, convert(value.split(",")));
+    }
+
+    @Override
     int getArgs() {
       return Integer.MAX_VALUE;
     }
@@ -175,6 +187,11 @@ public class Flags {
     @Override
     void apply(CommandLine cmd) throws Exception {
       this.field.set(null, convert(getOptionValue(cmd)));
+    }
+    
+    @Override
+    void applyValue(String value) throws Exception {
+      this.field.set(null, convert(value));
     }
     
     @Override
@@ -194,6 +211,11 @@ public class Flags {
     }
     
     @Override
+    void applyValue(String value) throws Exception {
+      this.field.set(null, convert(value.split(",")));
+    }
+
+    @Override
     int getArgs() {
       return Integer.MAX_VALUE;
     }
@@ -207,6 +229,11 @@ public class Flags {
     @Override
     void apply(CommandLine cmd) throws Exception {
       this.field.set(null, convert(getOptionValues(cmd)));
+    }
+
+    @Override
+    void applyValue(String value) throws Exception {
+      this.field.set(null, convert(value.split(",")));
     }
   }
 
@@ -354,4 +381,23 @@ public class Flags {
 	    }
 	  }
 	}
+  
+  /**
+   * Parses the settings in Properties and apply to the fields.
+   * 
+   * @param properties The properties.
+   * @throws Exception  Exception during parsing.
+   */
+  public static void parse(Properties properties) throws Exception {
+    // Go through all the registered parsers
+    for (FlagParser<?, ?> fp : registered) {
+      String value = properties.getProperty(fp.flag.name());
+      if (value != null) {
+        fp.applyValue(value);
+      } else if (!Flag.EMPTY_VALUE.equals(fp.flag.defaultValue())) {
+        fp.apply(null);
+      }
+    }
+  }
+  
 }

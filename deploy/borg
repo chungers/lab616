@@ -85,6 +85,7 @@ case "${OPTION}" in
     # Copy the files over from the template directory
     cp -r ${BINARY_FILES} ${TARGET_DIR}
     cp -r ${PROFILE_FILES} ${TARGET_DIR}
+    chmod 600 ${TARGET_DIR}/profiles/*
     cp -r ${SCRIPT_FILES} ${TARGET_DIR}
     cp -r ${LOCAL_FILES} ${TARGET_DIR}
     for n in ${NATIVE_FILES}; do
@@ -115,10 +116,10 @@ case "${OPTION}" in
    REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
    REMOTE_HOST=`dns $INSTANCE`
    echo "HOST = $REMOTE_HOST, ID = $REMOTE_ID_FILE"
-   ssh -i ${REMOTE_ID_FILE} ${REMOTE_USER}@${REMOTE_HOST} $@
+   ssh -i ${REMOTE_ID_FILE} ${REMOTE_USER}@${REMOTE_HOST}
 ;;
 --cp)
-   # Start a console at the instance name
+   # Copy
    INSTANCE=$1; shift;
    REMOTE_USER=lab616
    REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
@@ -158,7 +159,25 @@ case "${OPTION}" in
    REMOTE_USER=lab616
    REMOTE_PID=${PACKAGE}.${PROFILE}.pid
    REMOTE_LOG=${PACKAGE}.${PROFILE}.log
+   run_remote ${INSTANCE} ${REMOTE_USER} cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}
+;;
+--taillog)
+   # View the remote log file.
+   PROFILE=$1; shift;
+   INSTANCE=$1; shift;
+   REMOTE_USER=lab616
+   REMOTE_PID=${PACKAGE}.${PROFILE}.pid
+   REMOTE_LOG=${PACKAGE}.${PROFILE}.log
    run_remote ${INSTANCE} ${REMOTE_USER} tail -f /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}
+;;
+--exec)
+   # Exec remotely.
+   INSTANCE=$1; shift;
+   REMOTE_USER=lab616
+   REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
+   REMOTE_HOST=`dns $INSTANCE`
+   echo "HOST = $REMOTE_HOST, ID = $REMOTE_ID_FILE"
+   run_remote ${INSTANCE} ${REMOTE_USER} !@
 ;;
 --startlocal)
    # Start remotely.

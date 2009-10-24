@@ -5,6 +5,7 @@ package com.lab616.ib.api.watchers;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -14,9 +15,14 @@ import com.lab616.concurrent.AbstractQueueWorker;
 import com.lab616.ib.api.TWSClientException;
 import com.lab616.ib.api.TWSClientManager.Managed;
 import com.lab616.ib.api.proto.TWSProto;
+import com.lab616.monitoring.MinMaxAverage;
+import com.lab616.monitoring.Varz;
+import com.lab616.monitoring.VarzMap;
+import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.AbstractEventWatcher;
 import com.lab616.omnibus.event.annotation.Statement;
 import com.lab616.omnibus.event.annotation.Var;
+import com.lab616.util.Time;
 
 /**
  * Simple CSV writer that works off a queue and continuously appends to 
@@ -28,14 +34,26 @@ import com.lab616.omnibus.event.annotation.Var;
 @Statement("select * from TWSEvent where source=?")
 public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
 
+  @Varz(name = "tws-event-csv-writer-subscriber-elapsed")
+  public static final Map<String, MinMaxAverage> subscriberElapsed = 
+    VarzMap.create(MinMaxAverage.class);
+
+  static {
+    Varzs.export(TWSEventCSVWriter.class);
+  }
+
   static Logger logger = Logger.getLogger(TWSEventCSVWriter.class);
 
   private PrintWriter print;
   private String clientSourceId;
   private AbstractQueueWorker<TWSProto.Event> queueWorker;
   private DateTime lastDate;
+  private String dir;
+  private String rootName;
   
-  public TWSEventCSVWriter(String clientSourceId) {
+  public TWSEventCSVWriter(String dir, String rootName, String clientSourceId) {
+    this.dir = dir;
+    this.rootName = rootName;
     this.clientSourceId = clientSourceId;
     this.lastDate = new DateTime().withMillisOfDay(0).minusDays(1);
     try {
@@ -105,8 +123,8 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
   }
   
   private String getFileName(DateTime today) {
-    return String.format("./%s-%s.csv",
-        DateTimeFormat.forPattern("YYYY-MM-dd").print(today),
+    return String.format("%s/%s-%s.csv",
+        this.dir, DateTimeFormat.forPattern("YYYY-MM-dd").print(today), 
         this.clientSourceId);
   }
   
@@ -116,7 +134,9 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
    */
   public void update(TWSProto.Event event) {
     if (event != null) {
+      long start = Time.now();
       this.queueWorker.enqueue(event);
+      subscriberElapsed.get(getSourceId()).set(Time.now() - start);
     }
   }
 

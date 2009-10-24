@@ -1,1 +1,4 @@
-davdc255:Mhmu8241
+login=davdc255
+password=Mhmu8241
+tws_dir=runtime/tws/local
+http=8887

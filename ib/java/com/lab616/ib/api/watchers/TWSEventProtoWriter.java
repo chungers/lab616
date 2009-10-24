@@ -3,6 +3,8 @@
 package com.lab616.ib.api.watchers;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
 
@@ -11,9 +13,14 @@ import com.lab616.ib.api.TWSClientException;
 import com.lab616.ib.api.TWSClientManager.Managed;
 import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.ib.api.util.ProtoDataFile;
+import com.lab616.monitoring.MinMaxAverage;
+import com.lab616.monitoring.Varz;
+import com.lab616.monitoring.VarzMap;
+import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.AbstractEventWatcher;
 import com.lab616.omnibus.event.annotation.Statement;
 import com.lab616.omnibus.event.annotation.Var;
+import com.lab616.util.Time;
 
 /**
  * Simple CSV writer that works off a queue and continuously appends to 
@@ -25,6 +32,14 @@ import com.lab616.omnibus.event.annotation.Var;
 @Statement("select * from TWSEvent where source=?")
 public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed {
 
+  @Varz(name = "tws-event-proto-writer-subscriber-elapsed")
+  public static final Map<String, MinMaxAverage> subscriberElapsed = 
+    VarzMap.create(MinMaxAverage.class);
+
+  static {
+    Varzs.export(TWSEventProtoWriter.class);
+  }
+  
   static Logger logger = Logger.getLogger(TWSEventProtoWriter.class);
 
   private ProtoDataFile protoFile;
@@ -43,6 +58,7 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
     this.queueWorker = new AbstractQueueWorker<TWSProto.Event>(clientSourceId, false) {
       @Override
       protected void execute(TWSProto.Event event) throws Exception {
+        // Modify the source id to use only the account name.
         protoFile.getWriter().write(event);
       }
       @Override
@@ -82,7 +98,9 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
    */
   public void update(TWSProto.Event event) {
     if (event != null) {
+      long start = Time.now();
       this.queueWorker.enqueue(event);
+      subscriberElapsed.get(getSourceId()).set(Time.now() - start);
     }
   }
 

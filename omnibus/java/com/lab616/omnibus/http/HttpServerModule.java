@@ -23,8 +23,8 @@ public class HttpServerModule extends AbstractHttpServletModule {
 
   // The convention is to put Flags inside the Module and leave explicitly
   // named dependencies in the constructor of the injected class.
-  @Flag(name="http", defaultValue="8888")
-  public static Integer HTTP_PORT;
+  @Flag(name="http")
+  public static Integer HTTP_PORT = 8888;
   
   static {
     Flags.register(HttpServerModule.class);

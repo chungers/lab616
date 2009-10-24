@@ -2,7 +2,10 @@
 
 package com.lab616.omnibus;
 
+import java.io.File;
+import java.io.FileReader;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -39,8 +42,12 @@ public abstract class Main {
   @Flag(name = "log-level")
   public static String logLevel = "INFO";
 	
+  @Flag(name = "profile")
+  public static String profile = null;
+
   static {
   	Varzs.export(Main.class);
+  	Flags.register(Main.class);
   }
   
   /**
@@ -127,6 +134,17 @@ public abstract class Main {
     // By now all flags are registered as the module classes were loaded.
     // It's now safe to parse and set all the flags.
     Flags.parse(argv);
+    
+    // Check to see if profile is specified.
+    if (profile != null) {
+      Properties props = new Properties();
+      File pf = new File(profile);
+      if (pf.exists()) {
+        props.load(new FileReader(profile));
+        Flags.parse(props);
+      }
+    }
+
     Logging.init(logLevel);
     
     // Now the injector gets created and during this process, the flag values

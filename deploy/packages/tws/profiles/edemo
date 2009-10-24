@@ -1,1 +1,3 @@
-edemo:demouser
+login=edemo
+password=demouser
+tws_dir=runtime/tws/local

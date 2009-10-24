@@ -130,6 +130,7 @@ public class ApiMethods {
   static {
     try {
       register(CURRENT_TIME);
+      register(REALTIME_BAR);
       register(UPDATE_ACCT_VALUE);
       register(NEXT_VALID_ID);
       register(HISTORICAL_DATA);
@@ -138,6 +139,8 @@ public class ApiMethods {
       register(TICK_SIZE);
       register(TICK_STRING);
       register(MKT_DEPTH);
+      
+      logger.info("ApiMethods=" + methods);
     } catch (NoSuchMethodException e) {
       logger.fatal("No such method: ", e);
     }

@@ -59,7 +59,12 @@ public class ApiBuilder {
   }
   
   public Method getApiMethod() throws NoSuchMethodException {
-    return EWrapper.class.getMethod(method.name(), getMethodArgs());
+    Method m = EWrapper.class.getMethod(method.name(), getMethodArgs());
+    if (m.getName().equals(getMethodName())) {
+      return m;
+    }
+    throw new RuntimeException("Not matching method type: " + 
+        method + " for " + m);
   }
   
   public String getMethodName() {
@@ -115,7 +120,7 @@ public class ApiBuilder {
         } else if (c.type == boolean.class) {
           fb.setBooleanValue(Converter.TO_BOOLEAN.apply(value));
         }
-        eb.addFields(fb.build());
+        eb.addField(fb.build());
         i++;
       }
     }
@@ -145,7 +150,7 @@ public class ApiBuilder {
         } else if (value instanceof Boolean) {
           fb.setBooleanValue((Boolean) value);
         }
-        eb.addFields(fb.build());
+        eb.addField(fb.build());
       }
     }
     return eb.build();
@@ -153,9 +158,9 @@ public class ApiBuilder {
   
   public Pair<Method, Object[]> buildArgs(TWSProto.Event event) 
     throws NoSuchMethodException {
-    Object[] args = new Object[event.getFieldsCount()];
+    Object[] args = new Object[event.getFieldCount()];
     for (int i = 0; i < args.length; i++) {
-      TWSProto.Field f = event.getFields(i);
+      TWSProto.Field f = event.getField(i);
       if (f.hasDoubleValue()) {
         args[i] = f.getDoubleValue();
       }

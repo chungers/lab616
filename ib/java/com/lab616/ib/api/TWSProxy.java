@@ -28,16 +28,28 @@ import com.lab616.util.Time;
  */
 public class TWSProxy implements InvocationHandler {
 
-  @Varz(name = "tws-api-events")
+  @Varz(name = "tws-proxy-events")
   public static AtomicLong events = new AtomicLong(0L);
   
-  @Varz(name = "tws-api-events-exceptions")
+  @Varz(name = "tws-proxy-events-exceptions")
   public static AtomicLong exceptions = new AtomicLong(0L);
 
-  @Varz(name = "tws-api-client-events")
+  @Varz(name = "tws-proxy-client-events")
   public static Map<String, AtomicLong> clientEvents = 
     VarzMap.create(AtomicLong.class);
   
+  @Varz(name = "tws-proxy-client-methods")
+  public static Map<String, AtomicLong> clientMethods = 
+    VarzMap.create(AtomicLong.class);
+  
+  @Varz(name = "tws-proxy-matched-methods")
+  public static Map<String, AtomicLong> matchedMethods = 
+    VarzMap.create(AtomicLong.class);
+
+  @Varz(name = "tws-proxy-unmatched-methods")
+  public static Map<String, AtomicLong> unmatchedMethods = 
+    VarzMap.create(AtomicLong.class);
+
   static {
     Varzs.export(TWSProxy.class);
   }
@@ -68,17 +80,23 @@ public class TWSProxy implements InvocationHandler {
         }
       } else {
         ApiBuilder b = ApiMethods.get(m.getName());
-        TWSProto.Event event = null; 
         if (b != null) {
-          event = b.buildProto(parent.getSourceId(), Time.now(), args);
+          matchedMethods.get(m.getName()).incrementAndGet();
+          TWSProto.Event event = b.buildProto(
+              parent.getSourceId(), Time.now(), args);
           if (synchronousIBEvents.contains(m.getName())) {
             // Call method directly.
             handleData(event);
           } else {
             engine.post(event);
           }
-          clientEvents.get(parent.getSourceId()).incrementAndGet();
+          if (parent.getSourceId() != null) {
+            clientEvents.get(parent.getSourceId()).incrementAndGet();
+          }
+        } else {
+          unmatchedMethods.get(m.getName()).incrementAndGet();
         }
+        clientMethods.get(m.getName()).incrementAndGet();
       }
       return null;
     } catch (Throwable t) {

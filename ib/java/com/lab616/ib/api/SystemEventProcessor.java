@@ -127,6 +127,8 @@ public class SystemEventProcessor extends AbstractEventWatcher {
       // Start CSV file writer
       if ("csv".equals(event.getMethod())) {
         String name = event.getParam("client");
+        String dir = event.getParam("dir");
+        dir = (dir == null || dir.length() == 0) ? "." : dir;
         logger.debug("Starting csv writer for client=" + name);
         // Check to see if we already have a writer for this
         Managed managed = this.service.findAssociatedComponent(name,
@@ -135,10 +137,13 @@ public class SystemEventProcessor extends AbstractEventWatcher {
             return m instanceof TWSEventCSVWriter;
           }
         });
+        final String clientName = name;
+        final String directory = dir;
         if (managed == null || !managed.isReady()) {
           this.service.enqueue(name, true, new Function<TWSClient, Managed>() {
             public Managed apply(TWSClient client) {
-              TWSEventCSVWriter w = new TWSEventCSVWriter(client.getSourceId());
+              TWSEventCSVWriter w = new TWSEventCSVWriter(directory,
+                  clientName, client.getSourceId());
               client.getEventEngine().add(w);
               return w;
             }

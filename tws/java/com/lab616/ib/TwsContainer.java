@@ -34,13 +34,13 @@ public class TwsContainer {
   
   public static class GuiceModule implements Module {
 
-    @Flag(name = "login", required = true, privacy = true)
+    @Flag(name = "login", privacy = true)
     public static String LOGIN_USER;
     
-    @Flag(name = "password", required = true, privacy = true)
+    @Flag(name = "password", privacy = true)
     public static String PASSWORD;
 
-    @Flag(name = "tws_dir", required = true)
+    @Flag(name = "tws_dir")
     public static String TWS_DIR;
 
     static {
@@ -55,7 +55,7 @@ public class TwsContainer {
       binder.bindConstant().annotatedWith(Names.named("password"))
         .to(PASSWORD);
       binder.bindConstant().annotatedWith(Names.named("tws-dir"))
-      .to(TWS_DIR);
+      .to(System.getProperty("user.home") + "/" + TWS_DIR);
       binder.bindConstant().annotatedWith(Names.named("initial"))
       .to(STATE.START);
       binder.bind(TwsContainer.class).in(Scopes.SINGLETON);
