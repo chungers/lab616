@@ -4,6 +4,7 @@ package com.lab616.ib.api.watchers;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
@@ -119,7 +120,17 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
    * Stop this writer.
    */
   public void stopRunning() {
-    super.stop();
+    try {
+      super.stop();
+    } catch (Exception e) {
+      logger.warn("Problem while stopping:", e);
+    }
+    logger.info("Stopping work queue:" + getSourceId());
     this.queueWorker.setRunning(false);
+    try {
+      this.queueWorker.waitForStop(5L, TimeUnit.SECONDS);
+    } catch (InterruptedException e) {
+      logger.info("Interrupted while waiting for queue:" + getSourceId());
+    }
   }
 }

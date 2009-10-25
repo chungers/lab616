@@ -5,8 +5,10 @@ package com.lab616.concurrent;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -40,6 +42,7 @@ public abstract class AbstractQueueWorker<T> extends Thread {
   private BlockingQueue<T> workQueue;
   private Boolean running = true;
   private long processed = 0;
+  private CountDownLatch stoppingLatch = new CountDownLatch(1);
   
   protected AbstractQueueWorker(String name, boolean usePriorityQueue) {
     super.setName(name);
@@ -128,6 +131,11 @@ public abstract class AbstractQueueWorker<T> extends Thread {
     return this.running;
   }
   
+  public void waitForStop(long timeout, TimeUnit unit) 
+    throws InterruptedException {
+    getLogger().info(getClass().getSimpleName() + " waiting for queue shutdown.");
+    this.stoppingLatch.await(timeout, unit);
+  }
   /**
    * Returns a count of how many processed.
    * @return The count.
@@ -187,13 +195,16 @@ public abstract class AbstractQueueWorker<T> extends Thread {
     while (running) {
       execute();
     }
+    getLogger().info("Stopping " + getName() + " @ queueSize="+ this.workQueue.size());
     if (!running && flushQueueOnStop()) {
+      getLogger().info("Flushing queue " + this.workQueue.size());
       while (!this.workQueue.isEmpty()) {
         // flush out final work.
         execute();
       }
     }
     onStop(this.workQueue.size());
+    stoppingLatch.countDown(); // Stopped.
   }
   
   public final boolean enqueue(T work) {

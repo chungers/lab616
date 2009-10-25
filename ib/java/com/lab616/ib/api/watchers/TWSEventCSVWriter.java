@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -155,8 +156,18 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
    * Stop this writer.
    */
   public void stopRunning() {
-    super.stop();
+    try {
+      super.stop();
+    } catch (Exception e) {
+      logger.warn("Problem while stopping:", e);
+    }
+    logger.info("Stopping work queue:" + getSourceId());
     this.queueWorker.setRunning(false);
+    try {
+      this.queueWorker.waitForStop(5L, TimeUnit.SECONDS);
+    } catch (InterruptedException e) {
+      logger.info("Interrupted while waiting for queue:" + getSourceId());
+    }
   }
 
   /**

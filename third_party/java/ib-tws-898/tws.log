@@ -1,244 +1,1531 @@
-00:42:54:023 AWT-EventQueue-0: Build 898.3, Sep 23, 2009 5:03:56 PM
-00:43:18:012 AWT-EventQueue-0: Market rule file /Users/david/lab616/third_party/java/ib-tws-898/IBJts/dbuhtmvwt/Fri.rul does not exist or is removed
+00:23:12:443 AWT-EventQueue-0: Build 898.3, Sep 23, 2009 5:03:56 PM
+00:23:23:019 AWT-EventQueue-0: S3: CCP does not support S3
+00:23:24:168 AWT-EventQueue-0: Market rule file /Users/david/lab616/third_party/java/ib-tws-898/IBJts/darykq/Sun.rul does not exist or is removed
 Jolt logger configuration is done.
-00:43:26:343 JTS-SocketListener-27: API server listening on port 7496
-00:43:33:253 JTS-CCPDispatcher-20: MainWindowBatchProcessor: All rows have been created
-00:44:26:632 JTS-EServerSocket-96: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
-00:44:26:641 JTS-EServerSocket-94: [2:46:45:1:0:0:0:SYS] Client{2} terminated conversation.
-00:44:26:651 JTS-EServerSocket-98: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
-01:03:42:004 JTS-CCPPing-12: Warning: not received heartbeat at 1224000 elapsed:11000
-01:14:01:973 JTS-CCPPing-12: Warning: not received heartbeat at 1844000 elapsed:11000
-01:23:51:856 JTS-CCPPing-12: Warning: not received heartbeat at 2434000 elapsed:11000
-01:30:50:902 JTS-CCPPing-12: Warning: not received heartbeat at 2853000 elapsed:11000
-01:33:42:056 JTS-CCPPing-12: Warning: not received heartbeat at 3024000 elapsed:11000
-01:34:02:058 JTS-CCPPing-12: Warning: not received heartbeat at 3044000 elapsed:11000
-01:34:52:063 JTS-CCPPing-12: Warning: not received heartbeat at 3094000 elapsed:11000
-01:35:12:065 JTS-CCPPing-12: Warning: not received heartbeat at 3114000 elapsed:11000
-01:36:51:076 JTS-CCPPing-12: Warning: not received heartbeat at 3213000 elapsed:11000
-01:39:21:093 JTS-CCPPing-12: Warning: not received heartbeat at 3363000 elapsed:11000
-01:42:21:112 JTS-CCPPing-12: Warning: not received heartbeat at 3543000 elapsed:11000
-01:42:51:116 JTS-CCPPing-12: Warning: not received heartbeat at 3573000 elapsed:11000
-01:43:51:851 JTS-CCPPing-12: Warning: not received heartbeat at 3634000 elapsed:11000
-01:45:40:864 JTS-CCPPing-12: Warning: not received heartbeat at 3743000 elapsed:11000
-01:48:30:901 JTS-CCPPing-12: Warning: not received heartbeat at 3913000 elapsed:11000
-01:48:50:903 JTS-CCPPing-12: Warning: not received heartbeat at 3933000 elapsed:11000
-01:51:30:931 JTS-CCPPing-12: Warning: not received heartbeat at 4093000 elapsed:11000
-01:51:50:935 JTS-CCPPing-12: Warning: not received heartbeat at 4113000 elapsed:11000
-01:52:10:945 JTS-CCPPing-12: Warning: not received heartbeat at 4133000 elapsed:11000
-01:52:40:949 JTS-CCPPing-12: Warning: not received heartbeat at 4163000 elapsed:11000
-01:53:00:952 JTS-CCPPing-12: Warning: not received heartbeat at 4183000 elapsed:11000
-01:54:10:891 JTS-CCPPing-12: Warning: not received heartbeat at 4253000 elapsed:11000
-01:55:00:897 JTS-CCPPing-12: Warning: not received heartbeat at 4303000 elapsed:11000
-01:55:30:902 JTS-CCPPing-12: Warning: not received heartbeat at 4333000 elapsed:11000
-01:57:20:913 JTS-CCPPing-12: Warning: not received heartbeat at 4443000 elapsed:11000
-01:57:40:918 JTS-CCPPing-12: Warning: not received heartbeat at 4463000 elapsed:11000
-01:58:00:920 JTS-CCPPing-12: Warning: not received heartbeat at 4483000 elapsed:11000
-01:58:20:922 JTS-CCPPing-12: Warning: not received heartbeat at 4503000 elapsed:11000
-01:59:10:929 JTS-CCPPing-12: Warning: not received heartbeat at 4553000 elapsed:11000
-02:00:10:941 JTS-CCPPing-12: Warning: not received heartbeat at 4613000 elapsed:11000
-02:01:00:947 JTS-CCPPing-12: Warning: not received heartbeat at 4663000 elapsed:11000
-02:01:20:950 JTS-CCPPing-12: Warning: not received heartbeat at 4683000 elapsed:11000
-02:02:10:965 JTS-CCPPing-12: Warning: not received heartbeat at 4733000 elapsed:11000
-02:02:50:971 JTS-CCPPing-12: Warning: not received heartbeat at 4773000 elapsed:11000
-02:03:10:975 JTS-CCPPing-12: Warning: not received heartbeat at 4793000 elapsed:11000
-02:03:30:978 JTS-CCPPing-12: Warning: not received heartbeat at 4813000 elapsed:11000
-02:03:52:129 JTS-CCPPing-12: Warning: not received heartbeat at 4834000 elapsed:11000
-02:04:12:134 JTS-CCPPing-12: Warning: not received heartbeat at 4854000 elapsed:11000
-02:04:42:138 JTS-CCPPing-12: Warning: not received heartbeat at 4884000 elapsed:11000
-02:05:02:141 JTS-CCPPing-12: Warning: not received heartbeat at 4904000 elapsed:11000
-02:05:22:144 JTS-CCPPing-12: Warning: not received heartbeat at 4924000 elapsed:11000
-02:05:42:147 JTS-CCPPing-12: Warning: not received heartbeat at 4944000 elapsed:11000
-02:06:11:151 JTS-CCPPing-12: Warning: not received heartbeat at 4973000 elapsed:11000
-02:06:31:155 JTS-CCPPing-12: Warning: not received heartbeat at 4993000 elapsed:11000
-02:06:51:157 JTS-CCPPing-12: Warning: not received heartbeat at 5013000 elapsed:11000
-02:07:21:171 JTS-CCPPing-12: Warning: not received heartbeat at 5043000 elapsed:11000
-02:07:51:176 JTS-CCPPing-12: Warning: not received heartbeat at 5073000 elapsed:11000
-02:08:21:188 JTS-CCPPing-12: Warning: not received heartbeat at 5103000 elapsed:11000
-02:08:41:190 JTS-CCPPing-12: Warning: not received heartbeat at 5123000 elapsed:11000
-02:10:11:209 JTS-CCPPing-12: Warning: not received heartbeat at 5213000 elapsed:11000
-02:10:31:213 JTS-CCPPing-12: Warning: not received heartbeat at 5233000 elapsed:11000
-02:10:51:218 JTS-CCPPing-12: Warning: not received heartbeat at 5253000 elapsed:11000
-02:11:21:222 JTS-CCPPing-12: Warning: not received heartbeat at 5283000 elapsed:11000
-02:11:41:225 JTS-CCPPing-12: Warning: not received heartbeat at 5303000 elapsed:11000
-02:13:01:233 JTS-CCPPing-12: Warning: not received heartbeat at 5383000 elapsed:11000
-02:15:41:287 JTS-CCPPing-12: Warning: not received heartbeat at 5543000 elapsed:11000
-02:16:01:291 JTS-CCPPing-12: Warning: not received heartbeat at 5563000 elapsed:11000
-02:17:07:300 JTS-CCPPing-12: Warning: not received heartbeat at 5629000 elapsed:11000
-02:17:27:302 JTS-CCPPing-12: Warning: not received heartbeat at 5649000 elapsed:11000
-02:18:31:308 JTS-CCPPing-12: Warning: not received heartbeat at 5713000 elapsed:11000
-02:19:21:313 JTS-CCPPing-12: Warning: not received heartbeat at 5763000 elapsed:11000
-02:19:41:315 JTS-CCPPing-12: Warning: not received heartbeat at 5783000 elapsed:11000
-02:20:01:317 JTS-CCPPing-12: Warning: not received heartbeat at 5803000 elapsed:11000
-02:20:31:321 JTS-CCPPing-12: Warning: not received heartbeat at 5833000 elapsed:11000
-02:22:41:333 JTS-CCPPing-12: Warning: not received heartbeat at 5963000 elapsed:11000
-02:23:21:337 JTS-CCPPing-12: Warning: not received heartbeat at 6003000 elapsed:11000
-02:25:31:181 JTS-CCPPing-12: Warning: not received heartbeat at 6133000 elapsed:11000
-02:26:01:185 JTS-CCPPing-12: Warning: not received heartbeat at 6163000 elapsed:11000
-02:26:21:187 JTS-CCPPing-12: Warning: not received heartbeat at 6183000 elapsed:11000
-02:26:41:189 JTS-CCPPing-12: Warning: not received heartbeat at 6203000 elapsed:11000
-02:27:01:191 JTS-CCPPing-12: Warning: not received heartbeat at 6223000 elapsed:11000
-02:27:17:193 JTS-CCPPing-12: Warning: not received heartbeat at 6239000 elapsed:11000
-02:27:37:195 JTS-CCPPing-12: Warning: not received heartbeat at 6259000 elapsed:11000
-04:17:47:945 JTS-EServerSocket-117: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
-04:17:47:953 JTS-EServerSocket-115: [2:46:45:1:0:0:0:SYS] Client{2} terminated conversation.
-04:17:47:957 JTS-EServerSocket-119: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
-04:18:57:478 JTS-EServerSocket-780: [0:46:45:1:0:0:0:ERR] The application is now locked
-04:18:57:479 JTS-EServerSocket-780: Anticipated error
-jextend.b: The application is now locked
-	at jextend.wd.a(wd.java:815)
-	at jextend.wd.run(wd.java:755)
-	at java.lang.Thread.run(Thread.java:613)
-04:18:58:656 JTS-EServerSocket-784: [1:46:45:1:0:0:0:ERR] The application is now locked
-04:18:58:656 JTS-EServerSocket-784: Anticipated error
-jextend.b: The application is now locked
-	at jextend.wd.a(wd.java:815)
-	at jextend.wd.run(wd.java:755)
-	at java.lang.Thread.run(Thread.java:613)
-04:18:59:179 JTS-EServerSocket-788: [2:46:45:1:0:0:0:ERR] The application is now locked
-04:18:59:179 JTS-EServerSocket-788: Anticipated error
-jextend.b: The application is now locked
-	at jextend.wd.a(wd.java:815)
-	at jextend.wd.run(wd.java:755)
-	at java.lang.Thread.run(Thread.java:613)
-04:21:29:424 JTS-EServerSocket-794: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
-04:21:29:430 JTS-EServerSocket-792: [2:46:45:1:0:0:0:SYS] Client{2} terminated conversation.
-04:21:29:434 JTS-EServerSocket-796: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
-04:23:42:028 JTS-CCPPing-12: Warning: not received heartbeat at 13223000 elapsed:11000
-04:33:42:024 JTS-CCPPing-12: Warning: not received heartbeat at 13823000 elapsed:11000
-04:34:22:029 JTS-CCPPing-12: Warning: not received heartbeat at 13863000 elapsed:11000
-04:34:42:031 JTS-CCPPing-12: Warning: not received heartbeat at 13883000 elapsed:11000
-04:35:02:033 JTS-CCPPing-12: Warning: not received heartbeat at 13903000 elapsed:11000
-04:35:22:037 JTS-CCPPing-12: Warning: not received heartbeat at 13923000 elapsed:11000
-04:43:42:150 JTS-CCPPing-12: Warning: not received heartbeat at 14423000 elapsed:11000
-04:44:22:156 JTS-CCPPing-12: Warning: not received heartbeat at 14463000 elapsed:11000
-04:53:51:931 JTS-CCPPing-12: Warning: not received heartbeat at 15033000 elapsed:11000
-05:04:32:150 JTS-CCPPing-12: Warning: not received heartbeat at 15673000 elapsed:11000
-05:04:52:152 JTS-CCPPing-12: Warning: not received heartbeat at 15693000 elapsed:11000
-05:05:22:156 JTS-CCPPing-12: Warning: not received heartbeat at 15723000 elapsed:11000
-05:05:42:159 JTS-CCPPing-12: Warning: not received heartbeat at 15743000 elapsed:11000
-05:06:02:161 JTS-CCPPing-12: Warning: not received heartbeat at 15763000 elapsed:11000
-05:13:42:044 JTS-CCPPing-12: Warning: not received heartbeat at 16223000 elapsed:11000
-05:14:22:049 JTS-CCPPing-12: Warning: not received heartbeat at 16263000 elapsed:11000
-05:15:02:054 JTS-CCPPing-12: Warning: not received heartbeat at 16303000 elapsed:11000
-05:17:27:074 JTS-CCPPing-12: Warning: not received heartbeat at 16448000 elapsed:11000
-05:17:47:076 JTS-CCPPing-12: Warning: not received heartbeat at 16468000 elapsed:11000
-06:19:09:676 JTS-CCPPing-12: Warning: not received heartbeat at 20150000 elapsed:11000
-06:19:10:677 JTS-CCPPing-12: Warning: not received heartbeat at 20151000 elapsed:12000
-06:19:11:677 JTS-CCPPing-12: Warning: not received heartbeat at 20152000 elapsed:13000
-07:24:01:716 JTS-CCPPing-12: Warning: not received heartbeat at 24042000 elapsed:11000
-07:33:42:136 JTS-CCPPing-12: Warning: not received heartbeat at 24622000 elapsed:11000
-07:34:02:139 JTS-CCPPing-12: Warning: not received heartbeat at 24642000 elapsed:11000
-07:34:42:149 JTS-CCPPing-12: Warning: not received heartbeat at 24682000 elapsed:11000
-07:35:32:155 JTS-CCPPing-12: Warning: not received heartbeat at 24732000 elapsed:11000
-07:57:07:268 JTS-CCPPing-12: Warning: not received heartbeat at 26027000 elapsed:11000
-08:04:52:172 JTS-CCPPing-12: Warning: not received heartbeat at 26492000 elapsed:11000
-08:14:52:363 JTS-CCPPing-12: Warning: not received heartbeat at 27092000 elapsed:11000
-09:20:29:982 JTS-usfarmDispatcher-58: nosBits overflow detected. nosBits adjusted from 7000 to 72536 based on bodyLen = 9074
-09:43:52:201 JTS-CCPPing-12: Warning: not received heartbeat at 32431000 elapsed:11000
-09:44:12:204 JTS-CCPPing-12: Warning: not received heartbeat at 32451000 elapsed:11000
-09:44:42:207 JTS-CCPPing-12: Warning: not received heartbeat at 32481000 elapsed:11000
-09:59:30:555 JTS-CCPPing-12: Warning: not received heartbeat at 33369000 elapsed:11000
-10:01:10:613 JTS-CCPPing-12: Warning: not received heartbeat at 33469000 elapsed:11000
-10:01:40:615 JTS-CCPPing-12: Warning: not received heartbeat at 33499000 elapsed:11000
-10:02:20:661 JTS-CCPPing-12: Warning: not received heartbeat at 33539000 elapsed:11000
-10:14:53:213 JTS-CCPPing-12: Warning: not received heartbeat at 34290000 elapsed:11000
-10:19:21:512 JTS-CCPPing-12: Warning: not received heartbeat at 34558000 elapsed:11000
-10:20:31:591 JTS-CCPPing-12: Warning: not received heartbeat at 34628000 elapsed:11000
-10:20:51:592 JTS-CCPPing-12: Warning: not received heartbeat at 34648000 elapsed:11000
-10:33:43:195 JTS-CCPPing-12: Warning: not received heartbeat at 35419000 elapsed:11000
-10:38:01:553 JTS-CCPPing-12: Warning: not received heartbeat at 35677000 elapsed:11000
-10:40:21:562 JTS-CCPPing-12: Warning: not received heartbeat at 35817000 elapsed:11000
-10:42:21:459 JTS-CCPPing-12: Warning: not received heartbeat at 35936000 elapsed:11000
-10:45:51:629 JTS-CCPPing-12: Warning: not received heartbeat at 36146000 elapsed:11000
-10:50:01:868 JTS-CCPPing-12: Warning: not received heartbeat at 36396000 elapsed:11000
-11:01:21:513 JTS-CCPPing-12: Warning: not received heartbeat at 37075000 elapsed:11000
-11:02:31:597 JTS-CCPPing-12: Warning: not received heartbeat at 37145000 elapsed:11000
-11:24:41:561 JTS-CCPPing-12: Warning: not received heartbeat at 38473000 elapsed:11000
-11:25:21:566 JTS-CCPPing-12: Warning: not received heartbeat at 38513000 elapsed:11000
-11:25:41:569 JTS-CCPPing-12: Warning: not received heartbeat at 38533000 elapsed:11000
-11:26:21:874 JTS-CCPPing-12: Warning: not received heartbeat at 38573000 elapsed:11000
-11:43:43:012 JTS-CCPPing-12: Warning: not received heartbeat at 39613000 elapsed:11000
-11:52:41:645 JTS-CCPPing-12: Warning: not received heartbeat at 40151000 elapsed:11000
-11:58:50:143 JTS-CCPPing-12: Warning: not received heartbeat at 40519000 elapsed:11000
-12:08:21:889 JTS-CCPPing-12: Warning: not received heartbeat at 41090000 elapsed:11000
-12:09:21:915 JTS-CCPPing-12: Warning: not received heartbeat at 41150000 elapsed:11000
-12:10:51:923 JTS-CCPPing-12: Warning: not received heartbeat at 41240000 elapsed:11000
-12:11:11:924 JTS-CCPPing-12: Warning: not received heartbeat at 41260000 elapsed:11000
-12:11:51:928 JTS-CCPPing-12: Warning: not received heartbeat at 41300000 elapsed:11000
-12:13:11:934 JTS-CCPPing-12: Warning: not received heartbeat at 41380000 elapsed:11000
-12:15:42:091 JTS-CCPPing-12: Warning: not received heartbeat at 41530000 elapsed:11000
-12:28:21:807 JTS-CCPPing-12: Warning: not received heartbeat at 42288000 elapsed:11000
-12:28:51:905 JTS-CCPPing-12: Warning: not received heartbeat at 42318000 elapsed:11000
-12:29:11:906 JTS-CCPPing-12: Warning: not received heartbeat at 42338000 elapsed:11000
-12:30:01:911 JTS-CCPPing-12: Warning: not received heartbeat at 42388000 elapsed:11000
-12:30:31:914 JTS-CCPPing-12: Warning: not received heartbeat at 42418000 elapsed:11000
-12:31:21:930 JTS-CCPPing-12: Warning: not received heartbeat at 42468000 elapsed:11000
-12:31:51:933 JTS-CCPPing-12: Warning: not received heartbeat at 42498000 elapsed:11000
-12:32:31:936 JTS-CCPPing-12: Warning: not received heartbeat at 42538000 elapsed:11000
-12:33:11:974 JTS-CCPPing-12: Warning: not received heartbeat at 42578000 elapsed:11000
-12:33:31:976 JTS-CCPPing-12: Warning: not received heartbeat at 42598000 elapsed:11000
-12:36:32:009 JTS-CCPPing-12: Warning: not received heartbeat at 42778000 elapsed:11000
-12:42:51:912 JTS-CCPPing-12: Warning: not received heartbeat at 43157000 elapsed:11000
-12:43:43:028 JTS-CCPPing-12: Warning: not received heartbeat at 43208000 elapsed:11000
-12:44:23:033 JTS-CCPPing-12: Warning: not received heartbeat at 43248000 elapsed:11000
-12:46:52:054 JTS-CCPPing-12: Warning: not received heartbeat at 43396000 elapsed:11000
-12:47:12:055 JTS-CCPPing-12: Warning: not received heartbeat at 43416000 elapsed:11000
-12:54:21:985 JTS-CCPPing-12: Warning: not received heartbeat at 43845000 elapsed:11000
-12:56:57:847 JTS-CCPPing-12: Warning: not received heartbeat at 44000000 elapsed:11000
-12:58:02:099 JTS-CCPPing-12: Warning: not received heartbeat at 44064000 elapsed:11000
-12:58:52:200 JTS-CCPPing-12: Warning: not received heartbeat at 44114000 elapsed:11000
-12:59:12:201 JTS-CCPPing-12: Warning: not received heartbeat at 44134000 elapsed:11000
-13:04:43:171 JTS-CCPPing-12: Warning: not received heartbeat at 44464000 elapsed:11000
-13:05:03:231 JTS-CCPPing-12: Warning: not received heartbeat at 44484000 elapsed:11000
-13:13:02:161 JTS-CCPPing-12: Warning: not received heartbeat at 44961000 elapsed:11000
-13:15:42:485 JTS-CCPPing-12: Warning: not received heartbeat at 45121000 elapsed:11000
-13:19:52:309 JTS-CCPPing-12: Warning: not received heartbeat at 45370000 elapsed:11000
-13:20:42:420 JTS-CCPPing-12: Warning: not received heartbeat at 45420000 elapsed:11000
-13:26:12:341 JTS-CCPPing-12: Warning: not received heartbeat at 45749000 elapsed:11000
-13:32:52:406 JTS-CCPPing-12: Warning: not received heartbeat at 46148000 elapsed:11000
-13:50:32:430 JTS-CCPPing-12: Warning: not received heartbeat at 47205000 elapsed:11000
-13:55:02:575 JTS-CCPPing-12: Warning: not received heartbeat at 47474000 elapsed:11000
-14:04:23:206 JTS-CCPPing-12: Warning: not received heartbeat at 48033000 elapsed:11000
-14:12:52:553 JTS-CCPPing-12: Warning: not received heartbeat at 48540000 elapsed:11000
-14:13:22:558 JTS-CCPPing-12: Warning: not received heartbeat at 48570000 elapsed:11000
-14:19:22:642 JTS-CCPPing-12: Warning: not received heartbeat at 48929000 elapsed:11000
-14:19:42:643 JTS-CCPPing-12: Warning: not received heartbeat at 48949000 elapsed:11000
-14:20:12:645 JTS-CCPPing-12: Warning: not received heartbeat at 48979000 elapsed:11000
-14:25:42:536 JTS-CCPPing-12: Warning: not received heartbeat at 49308000 elapsed:11000
-14:33:16:223 JTS-CCPPing-12: Warning: not received heartbeat at 49760000 elapsed:11000
-14:43:53:093 JTS-CCPPing-12: Warning: not received heartbeat at 50395000 elapsed:11000
-14:58:37:740 JTS-CCPPing-12: Warning: not received heartbeat at 51276000 elapsed:11000
-15:00:23:222 JTS-CCPPing-12: Warning: not received heartbeat at 51381000 elapsed:11000
-15:07:56:491 JTS-CCPPing-12: Warning: not received heartbeat at 51832000 elapsed:11000
-15:13:43:008 JTS-CCPPing-12: Warning: not received heartbeat at 52177000 elapsed:11000
-15:14:36:506 JTS-CCPPing-12: Warning: not received heartbeat at 52230000 elapsed:11000
-15:36:56:393 JTS-CCPPing-12: Warning: not received heartbeat at 53562000 elapsed:11000
-15:41:23:783 JTS-CCPPing-12: Warning: not received heartbeat at 53827000 elapsed:11000
-15:42:13:792 JTS-CCPPing-12: Warning: not received heartbeat at 53877000 elapsed:11000
-16:04:13:228 JTS-CCPPing-12: Warning: not received heartbeat at 55186000 elapsed:11000
-16:04:43:231 JTS-CCPPing-12: Warning: not received heartbeat at 55216000 elapsed:11000
-16:05:23:235 JTS-CCPPing-12: Warning: not received heartbeat at 55256000 elapsed:11000
-16:05:43:253 JTS-CCPPing-12: Warning: not received heartbeat at 55276000 elapsed:11000
-16:09:10:606 JTS-CCPPing-12: Warning: not received heartbeat at 55483000 elapsed:11000
-16:09:40:609 JTS-CCPPing-12: Warning: not received heartbeat at 55513000 elapsed:11000
-16:10:20:613 JTS-CCPPing-12: Warning: not received heartbeat at 55553000 elapsed:11000
-16:12:10:623 JTS-CCPPing-12: Warning: not received heartbeat at 55663000 elapsed:11000
-16:12:50:627 JTS-CCPPing-12: Warning: not received heartbeat at 55703000 elapsed:11000
-16:13:53:029 JTS-CCPPing-12: Warning: not received heartbeat at 55765000 elapsed:11000
-16:14:23:163 JTS-CCPPing-12: Warning: not received heartbeat at 55795000 elapsed:11000
-16:14:43:173 JTS-CCPPing-12: Warning: not received heartbeat at 55815000 elapsed:11000
-16:15:43:178 JTS-CCPPing-12: Warning: not received heartbeat at 55875000 elapsed:11000
-16:16:03:179 JTS-CCPPing-12: Warning: not received heartbeat at 55895000 elapsed:11000
-16:24:50:735 JTS-CCPPing-12: Warning: not received heartbeat at 56421000 elapsed:11000
-16:25:30:745 JTS-CCPPing-12: Warning: not received heartbeat at 56461000 elapsed:11000
-16:29:10:687 JTS-CCPPing-12: Warning: not received heartbeat at 56680000 elapsed:11000
-16:34:03:100 JTS-CCPPing-12: Warning: not received heartbeat at 56972000 elapsed:11000
-16:45:20:638 JTS-CCPPing-12: Warning: not received heartbeat at 57649000 elapsed:11000
-16:45:40:769 JTS-CCPPing-12: Warning: not received heartbeat at 57669000 elapsed:11000
-16:52:10:693 JTS-CCPPing-12: Warning: not received heartbeat at 58058000 elapsed:11000
-16:53:43:064 JTS-CCPPing-12: Warning: not received heartbeat at 58150000 elapsed:11000
-17:00:00:093 AWT-EventQueue-0: Not using S3 to upload the config
-17:00:00:093 AWT-EventQueue-0: exitSession3
-17:00:00:405 JTS-EServerSocket-821: [0:46:45:1:0:0:0:ERR] Socket connection for client{0} has closed. 
-17:00:00:411 JTS-EServerSocket-819: [2:46:45:1:0:0:0:ERR] Socket connection for client{2} has closed. 
-17:00:00:420 JTS-EServerSocket-817: [1:46:45:1:0:0:0:ERR] Socket connection for client{1} has closed. 
+00:23:31:945 JTS-SocketListener-30: API server listening on port 7496
+00:23:37:480 AWT-EventQueue-0: MainWindowBatchProcessor: All rows have been created
+00:23:39:588 AWT-EventQueue-0: No private lable URL's
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+00:26:31:078 JTS-EServerSocket-97: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
+00:26:31:096 JTS-EServerSocket-99: [2:46:45:1:0:0:0:SYS] Client{2} terminated conversation.
+00:26:31:124 JTS-EServerSocket-95: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+00:35:11:341 JTS-CCPPing-12: Warning: not received heartbeat at 708000 elapsed:11000
+00:35:16:150 JTS-EServerSocket-136: [2:46:45:1:0:0:0:SYS] Client{2} terminated conversation.
+00:35:16:156 JTS-EServerSocket-134: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
+00:35:16:167 JTS-EServerSocket-132: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+00:41:41:423 JTS-EServerSocket-169: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
+00:41:41:423 JTS-EServerSocket-171: [2:46:45:1:0:0:0:SYS] Client{2} terminated conversation.
+00:41:41:453 JTS-EServerSocket-167: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+00:48:10:612 JTS-EServerSocket-198: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
+00:48:10:614 JTS-EServerSocket-200: [2:46:45:1:0:0:0:SYS] Client{2} terminated conversation.
+00:48:10:616 JTS-EServerSocket-196: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+00:49:09:437 JTS-CCPPing-12: Warning: not received heartbeat at 1546000 elapsed:11000
+01:05:27:498 JTS-CCPPing-12: Warning: not received heartbeat at 2524000 elapsed:11000
+02:05:40:871 JTS-CCPPing-12: Warning: not received heartbeat at 6137000 elapsed:11000
+02:08:40:886 JTS-CCPPing-12: Warning: not received heartbeat at 6317000 elapsed:11000
+02:11:40:902 JTS-CCPPing-12: Warning: not received heartbeat at 6497000 elapsed:11000
+02:17:01:663 JTS-CCPPing-12: Warning: not received heartbeat at 6818000 elapsed:11000
+02:20:50:683 JTS-CCPPing-12: Warning: not received heartbeat at 7047000 elapsed:11000
+02:26:50:744 JTS-CCPPing-12: Warning: not received heartbeat at 7407000 elapsed:11000
+02:30:10:767 JTS-CCPPing-12: Warning: not received heartbeat at 7607000 elapsed:11000
+02:32:50:792 JTS-CCPPing-12: Warning: not received heartbeat at 7767000 elapsed:11000
+02:33:10:793 JTS-CCPPing-12: Warning: not received heartbeat at 7787000 elapsed:11000
+02:35:40:945 JTS-CCPPing-12: Warning: not received heartbeat at 7937000 elapsed:11000
+02:36:00:947 JTS-CCPPing-12: Warning: not received heartbeat at 7957000 elapsed:11000
+02:36:20:948 JTS-CCPPing-12: Warning: not received heartbeat at 7977000 elapsed:11000
+02:39:20:963 JTS-CCPPing-12: Warning: not received heartbeat at 8157000 elapsed:11000
+02:42:10:983 JTS-CCPPing-12: Warning: not received heartbeat at 8327000 elapsed:11000
+02:42:40:986 JTS-CCPPing-12: Warning: not received heartbeat at 8357000 elapsed:11000
+02:43:57:048 JTS-CCPPing-12: Warning: not received heartbeat at 8433000 elapsed:11000
+02:44:27:051 JTS-CCPPing-12: Warning: not received heartbeat at 8463000 elapsed:11000
+02:45:01:055 JTS-CCPPing-12: Warning: not received heartbeat at 8497000 elapsed:11000
+02:45:51:058 JTS-CCPPing-12: Warning: not received heartbeat at 8547000 elapsed:11000
+02:48:11:072 JTS-CCPPing-12: Warning: not received heartbeat at 8687000 elapsed:11000
+02:48:31:074 JTS-CCPPing-12: Warning: not received heartbeat at 8707000 elapsed:11000
+02:49:01:076 JTS-CCPPing-12: Warning: not received heartbeat at 8737000 elapsed:11000
+02:50:51:086 JTS-CCPPing-12: Warning: not received heartbeat at 8847000 elapsed:11000
+02:51:51:091 JTS-CCPPing-12: Warning: not received heartbeat at 8907000 elapsed:11000
+02:53:47:100 JTS-CCPPing-12: Warning: not received heartbeat at 9023000 elapsed:11000
+02:54:57:105 JTS-CCPPing-12: Warning: not received heartbeat at 9093000 elapsed:11000
+02:55:17:107 JTS-CCPPing-12: Warning: not received heartbeat at 9113000 elapsed:11000
+02:56:41:113 JTS-CCPPing-12: Warning: not received heartbeat at 9197000 elapsed:11000
+02:57:52:120 JTS-CCPPing-12: Warning: not received heartbeat at 9268000 elapsed:11000
+03:00:11:132 JTS-CCPPing-12: Warning: not received heartbeat at 9407000 elapsed:11000
+03:00:31:137 JTS-CCPPing-12: Warning: not received heartbeat at 9427000 elapsed:11000
+03:00:51:139 JTS-CCPPing-12: Warning: not received heartbeat at 9447000 elapsed:11000
+03:01:21:141 JTS-CCPPing-12: Warning: not received heartbeat at 9477000 elapsed:11000
+03:02:51:149 JTS-CCPPing-12: Warning: not received heartbeat at 9567000 elapsed:11000
+03:03:47:113 JTS-CCPPing-12: Warning: not received heartbeat at 9623000 elapsed:11000
+03:04:57:120 JTS-CCPPing-12: Warning: not received heartbeat at 9693000 elapsed:11000
+03:06:11:128 JTS-CCPPing-12: Warning: not received heartbeat at 9767000 elapsed:11000
+03:06:41:130 JTS-CCPPing-12: Warning: not received heartbeat at 9797000 elapsed:11000
+03:07:21:134 JTS-CCPPing-12: Warning: not received heartbeat at 9837000 elapsed:11000
+03:08:51:141 JTS-CCPPing-12: Warning: not received heartbeat at 9927000 elapsed:11000
+03:10:01:148 JTS-CCPPing-12: Warning: not received heartbeat at 9997000 elapsed:11000
+03:11:51:156 JTS-CCPPing-12: Warning: not received heartbeat at 10107000 elapsed:11000
+03:12:41:161 JTS-CCPPing-12: Warning: not received heartbeat at 10157000 elapsed:11000
+03:13:11:164 JTS-CCPPing-12: Warning: not received heartbeat at 10187000 elapsed:11000
+03:14:07:003 JTS-CCPPing-12: Warning: not received heartbeat at 10243000 elapsed:11000
+03:14:41:010 JTS-CCPPing-12: Warning: not received heartbeat at 10277000 elapsed:11000
+03:15:01:012 JTS-CCPPing-12: Warning: not received heartbeat at 10297000 elapsed:11000
+03:15:21:014 JTS-CCPPing-12: Warning: not received heartbeat at 10317000 elapsed:11000
+03:15:51:018 JTS-CCPPing-12: Warning: not received heartbeat at 10347000 elapsed:11000
+03:16:11:020 JTS-CCPPing-12: Warning: not received heartbeat at 10367000 elapsed:11000
+03:18:31:033 JTS-CCPPing-12: Warning: not received heartbeat at 10507000 elapsed:11000
+03:18:51:035 JTS-CCPPing-12: Warning: not received heartbeat at 10527000 elapsed:11000
+03:19:21:041 JTS-CCPPing-12: Warning: not received heartbeat at 10557000 elapsed:11000
+03:19:51:043 JTS-CCPPing-12: Warning: not received heartbeat at 10587000 elapsed:11000
+03:21:01:049 JTS-CCPPing-12: Warning: not received heartbeat at 10657000 elapsed:11000
+03:22:11:056 JTS-CCPPing-12: Warning: not received heartbeat at 10727000 elapsed:11000
+03:22:31:058 JTS-CCPPing-12: Warning: not received heartbeat at 10747000 elapsed:11000
+03:22:51:060 JTS-CCPPing-12: Warning: not received heartbeat at 10767000 elapsed:11000
+03:23:11:062 JTS-CCPPing-12: Warning: not received heartbeat at 10787000 elapsed:11000
+03:25:47:213 JTS-CCPPing-12: Warning: not received heartbeat at 10943000 elapsed:11000
+03:26:07:215 JTS-CCPPing-12: Warning: not received heartbeat at 10963000 elapsed:11000
+03:27:21:221 JTS-CCPPing-12: Warning: not received heartbeat at 11037000 elapsed:11000
+03:27:51:224 JTS-CCPPing-12: Warning: not received heartbeat at 11067000 elapsed:11000
+03:28:21:228 JTS-CCPPing-12: Warning: not received heartbeat at 11097000 elapsed:11000
+03:28:51:230 JTS-CCPPing-12: Warning: not received heartbeat at 11127000 elapsed:11000
+03:29:21:233 JTS-CCPPing-12: Warning: not received heartbeat at 11157000 elapsed:11000
+03:30:51:240 JTS-CCPPing-12: Warning: not received heartbeat at 11247000 elapsed:11000
+03:31:21:308 JTS-CCPPing-12: Warning: not received heartbeat at 11277000 elapsed:11000
+03:37:01:071 JTS-CCPPing-12: Warning: not received heartbeat at 11617000 elapsed:11000
+03:37:51:075 JTS-CCPPing-12: Warning: not received heartbeat at 11667000 elapsed:11000
+03:38:31:079 JTS-CCPPing-12: Warning: not received heartbeat at 11707000 elapsed:11000
+03:38:51:081 JTS-CCPPing-12: Warning: not received heartbeat at 11727000 elapsed:11000
+03:40:01:086 JTS-CCPPing-12: Warning: not received heartbeat at 11797000 elapsed:11000
+03:40:51:093 JTS-CCPPing-12: Warning: not received heartbeat at 11847000 elapsed:11000
+03:41:11:095 JTS-CCPPing-12: Warning: not received heartbeat at 11867000 elapsed:11000
+03:42:11:100 JTS-CCPPing-12: Warning: not received heartbeat at 11927000 elapsed:11000
+03:42:31:102 JTS-CCPPing-12: Warning: not received heartbeat at 11947000 elapsed:11000
+03:43:01:105 JTS-CCPPing-12: Warning: not received heartbeat at 11977000 elapsed:11000
+03:43:21:107 JTS-CCPPing-12: Warning: not received heartbeat at 11997000 elapsed:11000
+03:45:01:399 JTS-CCPPing-12: Warning: not received heartbeat at 12097000 elapsed:11000
+03:46:31:408 JTS-CCPPing-12: Warning: not received heartbeat at 12187000 elapsed:11000
+03:49:31:429 JTS-CCPPing-12: Warning: not received heartbeat at 12367000 elapsed:11000
+03:50:11:432 JTS-CCPPing-12: Warning: not received heartbeat at 12407000 elapsed:11000
+03:51:21:438 JTS-CCPPing-12: Warning: not received heartbeat at 12477000 elapsed:11000
+03:52:01:444 JTS-CCPPing-12: Warning: not received heartbeat at 12517000 elapsed:11000
+03:52:31:446 JTS-CCPPing-12: Warning: not received heartbeat at 12547000 elapsed:11000
+03:53:11:449 JTS-CCPPing-12: Warning: not received heartbeat at 12587000 elapsed:11000
+03:53:31:451 JTS-CCPPing-12: Warning: not received heartbeat at 12607000 elapsed:11000
+03:56:17:457 JTS-CCPPing-12: Warning: not received heartbeat at 12773000 elapsed:11000
+04:00:51:486 JTS-CCPPing-12: Warning: not received heartbeat at 13047000 elapsed:11000
+04:01:11:488 JTS-CCPPing-12: Warning: not received heartbeat at 13067000 elapsed:11000
+04:02:01:493 JTS-CCPPing-12: Warning: not received heartbeat at 13117000 elapsed:11000
+04:06:31:505 JTS-CCPPing-12: Warning: not received heartbeat at 13387000 elapsed:11000
+04:07:51:512 JTS-CCPPing-12: Warning: not received heartbeat at 13467000 elapsed:11000
+04:08:11:513 JTS-CCPPing-12: Warning: not received heartbeat at 13487000 elapsed:11000
+04:10:21:524 JTS-CCPPing-12: Warning: not received heartbeat at 13617000 elapsed:11000
+04:12:01:533 JTS-CCPPing-12: Warning: not received heartbeat at 13717000 elapsed:11000
+04:12:21:535 JTS-CCPPing-12: Warning: not received heartbeat at 13737000 elapsed:11000
+04:16:11:545 JTS-CCPPing-12: Warning: not received heartbeat at 13967000 elapsed:11000
+04:19:31:566 JTS-CCPPing-12: Warning: not received heartbeat at 14167000 elapsed:11000
+04:19:51:568 JTS-CCPPing-12: Warning: not received heartbeat at 14187000 elapsed:11000
+04:23:21:589 JTS-CCPPing-12: Warning: not received heartbeat at 14397000 elapsed:11000
+04:28:41:616 JTS-CCPPing-12: Warning: not received heartbeat at 14717000 elapsed:11000
+04:30:51:632 JTS-CCPPing-12: Warning: not received heartbeat at 14847000 elapsed:11000
+04:31:31:641 JTS-CCPPing-12: Warning: not received heartbeat at 14887000 elapsed:11000
+04:38:21:671 JTS-CCPPing-12: Warning: not received heartbeat at 15297000 elapsed:11000
+04:46:51:705 JTS-CCPPing-12: Warning: not received heartbeat at 15807000 elapsed:11000
+04:53:21:741 JTS-CCPPing-12: Warning: not received heartbeat at 16197000 elapsed:11000
+05:01:41:777 JTS-CCPPing-12: Warning: not received heartbeat at 16697000 elapsed:11000
+05:17:21:839 JTS-CCPPing-12: Warning: not received heartbeat at 17637000 elapsed:11000
+05:22:11:865 JTS-CCPPing-12: Warning: not received heartbeat at 17927000 elapsed:11000
+05:24:47:193 JTS-CCPPing-12: Warning: not received heartbeat at 18082000 elapsed:11000
+05:25:57:199 JTS-CCPPing-12: Warning: not received heartbeat at 18152000 elapsed:11000
+05:35:27:095 JTS-CCPPing-12: Warning: not received heartbeat at 18722000 elapsed:11000
+05:39:02:113 JTS-CCPPing-12: Warning: not received heartbeat at 18937000 elapsed:11000
+05:39:32:115 JTS-CCPPing-12: Warning: not received heartbeat at 18967000 elapsed:11000
+05:40:22:120 JTS-CCPPing-12: Warning: not received heartbeat at 19017000 elapsed:11000
+05:55:47:341 JTS-CCPPing-12: Warning: not received heartbeat at 19942000 elapsed:11000
+06:04:57:172 JTS-CCPPing-12: Warning: not received heartbeat at 20492000 elapsed:11000
+06:44:17:542 JTS-CCPPing-12: Warning: not received heartbeat at 22852000 elapsed:11000
+07:17:21:718 JTS-CCPPing-12: Warning: not received heartbeat at 24836000 elapsed:11000
+07:32:51:782 JTS-CCPPing-12: Warning: not received heartbeat at 25766000 elapsed:11000
+07:35:51:794 JTS-CCPPing-12: Warning: not received heartbeat at 25946000 elapsed:11000
+07:39:01:812 JTS-CCPPing-12: Warning: not received heartbeat at 26136000 elapsed:11000
+07:42:01:828 JTS-CCPPing-12: Warning: not received heartbeat at 26316000 elapsed:11000
+07:43:12:173 JTS-CCPPing-12: Warning: not received heartbeat at 26386000 elapsed:11000
+07:43:47:087 JTS-CCPPing-12: Warning: not received heartbeat at 26421000 elapsed:11000
+07:44:07:089 JTS-CCPPing-12: Warning: not received heartbeat at 26441000 elapsed:11000
+07:52:42:139 JTS-CCPPing-12: Warning: not received heartbeat at 26956000 elapsed:11000
+07:54:07:211 JTS-CCPPing-12: Warning: not received heartbeat at 27041000 elapsed:11000
+07:54:47:215 JTS-CCPPing-12: Warning: not received heartbeat at 27081000 elapsed:11000
+07:55:17:218 JTS-CCPPing-12: Warning: not received heartbeat at 27111000 elapsed:11000
+07:55:57:221 JTS-CCPPing-12: Warning: not received heartbeat at 27151000 elapsed:11000
+08:02:02:251 JTS-CCPPing-12: Warning: not received heartbeat at 27516000 elapsed:11000
+08:58:11:714 JTS-CCPPing-12: Warning: not received heartbeat at 30885000 elapsed:11000
+08:59:11:719 JTS-CCPPing-12: Warning: not received heartbeat at 30945000 elapsed:11000
+09:17:31:858 JTS-CCPPing-12: Warning: not received heartbeat at 32045000 elapsed:11000
+09:54:17:949 JTS-CCPPing-12: Warning: not received heartbeat at 34250000 elapsed:11000
+09:57:42:982 JTS-CCPPing-12: Warning: not received heartbeat at 34455000 elapsed:11000
+10:04:17:851 JTS-CCPPing-12: Warning: not received heartbeat at 34850000 elapsed:11000
+10:04:47:854 JTS-CCPPing-12: Warning: not received heartbeat at 34880000 elapsed:11000
+10:05:17:856 JTS-CCPPing-12: Warning: not received heartbeat at 34910000 elapsed:11000
+10:13:58:155 JTS-CCPPing-12: Warning: not received heartbeat at 35430000 elapsed:11000
+10:24:58:144 JTS-CCPPing-12: Warning: not received heartbeat at 36090000 elapsed:11000
+10:25:18:146 JTS-CCPPing-12: Warning: not received heartbeat at 36110000 elapsed:11000
+10:25:38:148 JTS-CCPPing-12: Warning: not received heartbeat at 36130000 elapsed:11000
+10:29:43:174 JTS-CCPPing-12: Warning: not received heartbeat at 36375000 elapsed:11000
+10:32:43:189 JTS-CCPPing-12: Warning: not received heartbeat at 36555000 elapsed:11000
+10:35:43:247 JTS-CCPPing-12: Warning: not received heartbeat at 36735000 elapsed:11000
+10:36:03:257 JTS-CCPPing-12: Warning: not received heartbeat at 36755000 elapsed:11000
+10:38:53:275 JTS-CCPPing-12: Warning: not received heartbeat at 36925000 elapsed:11000
+10:39:13:276 JTS-CCPPing-12: Warning: not received heartbeat at 36945000 elapsed:11000
+10:42:23:304 JTS-CCPPing-12: Warning: not received heartbeat at 37135000 elapsed:11000
+10:42:43:374 JTS-CCPPing-12: Warning: not received heartbeat at 37155000 elapsed:11000
+10:43:13:376 JTS-CCPPing-12: Warning: not received heartbeat at 37185000 elapsed:11000
+10:43:33:378 JTS-CCPPing-12: Warning: not received heartbeat at 37205000 elapsed:11000
+10:45:43:124 JTS-CCPPing-12: Warning: not received heartbeat at 37335000 elapsed:11000
+10:46:53:135 JTS-CCPPing-12: Warning: not received heartbeat at 37405000 elapsed:11000
+10:47:43:140 JTS-CCPPing-12: Warning: not received heartbeat at 37455000 elapsed:11000
+10:48:03:141 JTS-CCPPing-12: Warning: not received heartbeat at 37475000 elapsed:11000
+10:48:33:144 JTS-CCPPing-12: Warning: not received heartbeat at 37505000 elapsed:11000
+10:49:43:152 JTS-CCPPing-12: Warning: not received heartbeat at 37575000 elapsed:11000
+10:51:03:159 JTS-CCPPing-12: Warning: not received heartbeat at 37655000 elapsed:11000
+10:51:53:163 JTS-CCPPing-12: Warning: not received heartbeat at 37705000 elapsed:11000
+10:52:13:164 JTS-CCPPing-12: Warning: not received heartbeat at 37725000 elapsed:11000
+10:52:43:170 JTS-CCPPing-12: Warning: not received heartbeat at 37755000 elapsed:11000
+10:53:13:172 JTS-CCPPing-12: Warning: not received heartbeat at 37785000 elapsed:11000
+10:59:53:443 JTS-CCPPing-12: Warning: not received heartbeat at 38185000 elapsed:11000
+11:00:23:446 JTS-CCPPing-12: Warning: not received heartbeat at 38215000 elapsed:11000
+11:01:13:449 JTS-CCPPing-12: Warning: not received heartbeat at 38265000 elapsed:11000
+11:02:13:454 JTS-CCPPing-12: Warning: not received heartbeat at 38325000 elapsed:11000
+11:02:53:458 JTS-CCPPing-12: Warning: not received heartbeat at 38365000 elapsed:11000
+11:03:13:462 JTS-CCPPing-12: Warning: not received heartbeat at 38385000 elapsed:11000
+11:05:53:396 JTS-CCPPing-12: Warning: not received heartbeat at 38545000 elapsed:11000
+11:06:23:402 JTS-CCPPing-12: Warning: not received heartbeat at 38575000 elapsed:11000
+11:06:43:404 JTS-CCPPing-12: Warning: not received heartbeat at 38595000 elapsed:11000
+11:07:13:406 JTS-CCPPing-12: Warning: not received heartbeat at 38625000 elapsed:11000
+11:07:53:409 JTS-CCPPing-12: Warning: not received heartbeat at 38665000 elapsed:11000
+11:08:23:411 JTS-CCPPing-12: Warning: not received heartbeat at 38695000 elapsed:11000
+11:08:53:414 JTS-CCPPing-12: Warning: not received heartbeat at 38725000 elapsed:11000
+11:10:13:422 JTS-CCPPing-12: Warning: not received heartbeat at 38805000 elapsed:11000
+11:10:43:424 JTS-CCPPing-12: Warning: not received heartbeat at 38835000 elapsed:11000
+11:12:53:447 JTS-CCPPing-12: Warning: not received heartbeat at 38965000 elapsed:11000
+11:13:13:449 JTS-CCPPing-12: Warning: not received heartbeat at 38985000 elapsed:11000
+11:16:13:525 JTS-CCPPing-12: Warning: not received heartbeat at 39165000 elapsed:11000
+11:17:43:534 JTS-CCPPing-12: Warning: not received heartbeat at 39255000 elapsed:11000
+11:20:23:545 JTS-CCPPing-12: Warning: not received heartbeat at 39415000 elapsed:11000
+11:20:53:548 JTS-CCPPing-12: Warning: not received heartbeat at 39445000 elapsed:11000
+11:23:13:559 JTS-CCPPing-12: Warning: not received heartbeat at 39585000 elapsed:11000
+11:28:13:592 JTS-CCPPing-12: Warning: not received heartbeat at 39885000 elapsed:11000
+11:28:43:595 JTS-CCPPing-12: Warning: not received heartbeat at 39915000 elapsed:11000
+11:31:53:617 JTS-CCPPing-12: Warning: not received heartbeat at 40105000 elapsed:11000
+11:33:23:624 JTS-CCPPing-12: Warning: not received heartbeat at 40195000 elapsed:11000
+11:36:23:625 JTS-CCPPing-12: Warning: not received heartbeat at 40375000 elapsed:11000
+11:37:13:629 JTS-CCPPing-12: Warning: not received heartbeat at 40425000 elapsed:11000
+11:40:13:642 JTS-CCPPing-12: Warning: not received heartbeat at 40605000 elapsed:11000
+11:46:13:663 JTS-CCPPing-12: Warning: not received heartbeat at 40965000 elapsed:11000
+11:49:53:678 JTS-CCPPing-12: Warning: not received heartbeat at 41185000 elapsed:11000
+11:50:23:681 JTS-CCPPing-12: Warning: not received heartbeat at 41215000 elapsed:11000
+11:52:23:691 JTS-CCPPing-12: Warning: not received heartbeat at 41335000 elapsed:11000
+11:59:53:682 JTS-CCPPing-12: Warning: not received heartbeat at 41785000 elapsed:11000
+12:08:23:751 JTS-CCPPing-12: Warning: not received heartbeat at 42295000 elapsed:11000
+12:15:23:771 JTS-CCPPing-12: Warning: not received heartbeat at 42715000 elapsed:11000
+12:18:13:790 JTS-CCPPing-12: Warning: not received heartbeat at 42885000 elapsed:11000
+12:22:43:813 JTS-CCPPing-12: Warning: not received heartbeat at 43155000 elapsed:11000
+12:31:43:852 JTS-CCPPing-12: Warning: not received heartbeat at 43695000 elapsed:11000
+12:37:53:899 JTS-CCPPing-12: Warning: not received heartbeat at 44065000 elapsed:11000
+13:14:17:855 JTS-CCPPing-12: Warning: not received heartbeat at 46249000 elapsed:11000
+13:24:47:868 JTS-CCPPing-12: Warning: not received heartbeat at 46879000 elapsed:11000
+13:25:07:870 JTS-CCPPing-12: Warning: not received heartbeat at 46899000 elapsed:11000
+13:34:38:137 JTS-CCPPing-12: Warning: not received heartbeat at 47469000 elapsed:11000
+13:39:44:175 JTS-CCPPing-12: Warning: not received heartbeat at 47775000 elapsed:11000
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at jextend.qe.a(qe.java:154)
+	at hmdscore.xml.f.run(f.java:231)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:190)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:176)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+14:03:08:714 JTS-EServerSocket-1055: [1:46:45:1:0:0:0:SYS] Client{1} terminated conversation.
+14:03:08:719 JTS-EServerSocket-1053: [0:46:45:1:0:0:0:SYS] Client{0} terminated conversation.
+14:03:08:735 JTS-EServerSocket-1057: [2:46:45:1:0:0:0:SYS] Client{2} terminated conversation.
+16:02:43:956 JTS-CCPPing-12: Warning: not received heartbeat at 56354000 elapsed:11000
+16:03:34:025 JTS-CCPPing-12: Warning: not received heartbeat at 56404000 elapsed:11000
+16:03:48:023 JTS-CCPPing-12: Warning: not received heartbeat at 56418000 elapsed:11000
+16:04:08:025 JTS-CCPPing-12: Warning: not received heartbeat at 56438000 elapsed:11000
+16:05:54:034 JTS-CCPPing-12: Warning: not received heartbeat at 56544000 elapsed:11000
+16:06:24:036 JTS-CCPPing-12: Warning: not received heartbeat at 56574000 elapsed:11000
+16:08:54:049 JTS-CCPPing-12: Warning: not received heartbeat at 56724000 elapsed:11000
+16:09:34:052 JTS-CCPPing-12: Warning: not received heartbeat at 56764000 elapsed:11000
+16:12:34:069 JTS-CCPPing-12: Warning: not received heartbeat at 56944000 elapsed:11000
+16:12:54:071 JTS-CCPPing-12: Warning: not received heartbeat at 56964000 elapsed:11000
+16:14:28:067 JTS-CCPPing-12: Warning: not received heartbeat at 57058000 elapsed:11000
+16:15:04:074 JTS-CCPPing-12: Warning: not received heartbeat at 57094000 elapsed:11000
+16:15:24:076 JTS-CCPPing-12: Warning: not received heartbeat at 57114000 elapsed:11000
+16:15:54:079 JTS-CCPPing-12: Warning: not received heartbeat at 57144000 elapsed:11000
+16:18:44:110 JTS-CCPPing-12: Warning: not received heartbeat at 57314000 elapsed:11000
+16:19:24:113 JTS-CCPPing-12: Warning: not received heartbeat at 57354000 elapsed:11000
+16:20:54:129 JTS-CCPPing-12: Warning: not received heartbeat at 57444000 elapsed:11000
+16:21:54:134 JTS-CCPPing-12: Warning: not received heartbeat at 57504000 elapsed:11000
+16:22:34:137 JTS-CCPPing-12: Warning: not received heartbeat at 57544000 elapsed:11000
+16:22:54:139 JTS-CCPPing-12: Warning: not received heartbeat at 57564000 elapsed:11000
+16:24:58:141 JTS-CCPPing-12: Warning: not received heartbeat at 57688000 elapsed:11000
+16:25:58:146 JTS-CCPPing-12: Warning: not received heartbeat at 57748000 elapsed:11000
+16:27:04:228 JTS-CCPPing-12: Warning: not received heartbeat at 57814000 elapsed:11000
+16:27:34:230 JTS-CCPPing-12: Warning: not received heartbeat at 57844000 elapsed:11000
+16:28:14:233 JTS-CCPPing-12: Warning: not received heartbeat at 57884000 elapsed:11000
+16:28:34:235 JTS-CCPPing-12: Warning: not received heartbeat at 57904000 elapsed:11000
+16:30:34:248 JTS-CCPPing-12: Warning: not received heartbeat at 58024000 elapsed:11000
+16:31:44:254 JTS-CCPPing-12: Warning: not received heartbeat at 58094000 elapsed:11000
+16:32:14:279 JTS-CCPPing-12: Warning: not received heartbeat at 58124000 elapsed:11000
+16:36:24:295 JTS-CCPPing-12: Warning: not received heartbeat at 58374000 elapsed:11000
+16:37:04:298 JTS-CCPPing-12: Warning: not received heartbeat at 58414000 elapsed:11000
+16:41:14:327 JTS-CCPPing-12: Warning: not received heartbeat at 58664000 elapsed:11000
+16:42:34:335 JTS-CCPPing-12: Warning: not received heartbeat at 58744000 elapsed:11000
+16:43:04:340 JTS-CCPPing-12: Warning: not received heartbeat at 58774000 elapsed:11000
+16:48:34:365 JTS-CCPPing-12: Warning: not received heartbeat at 59104000 elapsed:11000
+16:52:34:386 JTS-CCPPing-12: Warning: not received heartbeat at 59344000 elapsed:11000
+16:58:22:413 JTS-CCPPing-12: Warning: not received heartbeat at 59692000 elapsed:11000
+17:02:14:432 JTS-CCPPing-12: Warning: not received heartbeat at 59924000 elapsed:11000
+17:07:04:439 JTS-CCPPing-12: Warning: not received heartbeat at 60214000 elapsed:11000
+17:08:24:450 JTS-CCPPing-12: Warning: not received heartbeat at 60294000 elapsed:11000
+17:09:54:460 JTS-CCPPing-12: Warning: not received heartbeat at 60384000 elapsed:11000
+17:20:24:521 JTS-CCPPing-12: Warning: not received heartbeat at 61014000 elapsed:11000
+17:23:04:535 JTS-CCPPing-12: Warning: not received heartbeat at 61174000 elapsed:11000
+17:41:24:617 JTS-CCPPing-12: Warning: not received heartbeat at 62274000 elapsed:11000

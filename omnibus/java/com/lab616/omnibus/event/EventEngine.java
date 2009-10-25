@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import com.espertech.esper.client.Configuration;
 import com.espertech.esper.client.ConfigurationEngineDefaults;
 import com.espertech.esper.client.EPAdministrator;
+import com.espertech.esper.client.EPRuntime;
 import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
@@ -167,8 +168,13 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	 * @param eventObject The event object.
 	 */
 	public final void post(Object eventObject) {
-		this.epService.getEPRuntime().sendEvent(eventObject);
-		countEvents.incrementAndGet();
+	  EPRuntime runtime = this.epService.getEPRuntime();
+	  if (runtime != null){
+	    runtime.sendEvent(eventObject);
+	    countEvents.incrementAndGet();
+	  } else {
+	    logger.warn("No runtime. Engine stopped.");
+	  }
 	}
 	
   /**

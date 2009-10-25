@@ -9,9 +9,11 @@ import java.util.Map;
 import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPPreparedStatement;
 import com.espertech.esper.client.EPStatement;
+import com.espertech.esper.client.EPStatementState;
 import com.google.common.base.Function;
 import com.google.inject.internal.Maps;
 import com.google.inject.internal.Preconditions;
+import com.lab616.omnibus.event.EventEngine.State;
 import com.lab616.omnibus.event.annotation.Events;
 import com.lab616.omnibus.event.annotation.Pattern;
 import com.lab616.omnibus.event.annotation.Statement;
@@ -42,7 +44,15 @@ public abstract class AbstractEventWatcher {
 	}
 	
 	public void stop() {
-		this.statement.stop();
+	  if (this.engine.getState() == State.RUNNING) {
+	    synchronized (this.statement) {
+	      EPStatementState state = this.statement.getState();
+	      if (state != EPStatementState.DESTROYED || 
+	          state != EPStatementState.STOPPED) {
+	        this.statement.stop();
+	      }
+	    }
+	  }
 	}
 	
 	protected final EventEngine getEngine() {
