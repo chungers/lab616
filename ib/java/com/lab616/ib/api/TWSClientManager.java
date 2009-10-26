@@ -5,6 +5,7 @@ package com.lab616.ib.api;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
@@ -113,10 +114,15 @@ public final class TWSClientManager implements Shutdown<Boolean> {
    */
   public Boolean call() throws Exception {
     for (TWSClient client : apiClients.values()) {
+      // Shutdown the client connection.
+      client.disconnect();
+      client.shutdown();
+
       // Stop the work queue.
       ClientWorkQueue q = clientQueues.get(client);
       if (q != null) {
         q.setRunning(false);
+        q.waitForStop(10, TimeUnit.SECONDS);
       }
       // Stop the managed objects for this client.
       if (managed.get(client) != null) {
@@ -128,9 +134,6 @@ public final class TWSClientManager implements Shutdown<Boolean> {
           }
         }
       }
-      // Now shutdown the client connection.
-      client.disconnect();
-      client.shutdown();
     }
     this.executor.shutdown();
     return true;

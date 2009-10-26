@@ -23,9 +23,9 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
+import com.lab616.ib.api.TWSProxy.EWrapperMessage;
 import com.lab616.ib.api.builders.MarketDataRequest;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
-import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
@@ -113,9 +113,9 @@ public class TWSClient {
             return blockingCalls.getSynchronousMethods();
           }
           @Override
-          protected void handleData(TWSProto.Event event) {
-            if ("nextValidId".equals(event.getMethod().name())) {
-              nextValidId = event.getField(0).getIntValue();
+          protected void handleData(EWrapperMessage event) {
+            if ("nextValidId".equals(event.method)) {
+              nextValidId = (Integer) event.args[0];
             }
             blockingCalls.handleData(event);
           }
@@ -257,6 +257,7 @@ public class TWSClient {
   public synchronized boolean disconnect() {
     this.client.eDisconnect();
     state = State.NOT_CONNECTED;
+    logger.info(getSourceId() + " disconnected.");
     return true;
   }
 
@@ -265,6 +266,7 @@ public class TWSClient {
    */
   public synchronized boolean shutdown() {
     disconnect();
+    logger.info(getSourceId() + " shutdown.");
     return true;
   }
 
@@ -280,9 +282,9 @@ public class TWSClient {
   private String requestAccountCode(long timeout, TimeUnit unit) {
     String value = this.blockingCalls.blockingCall("updateAccountValue", 
         timeout, unit, 
-        new Function<TWSProto.Event, String>() {
-          public String apply(TWSProto.Event event) {
-            return event.getField(1).getStringValue();
+        new Function<EWrapperMessage, String>() {
+          public String apply(EWrapperMessage event) {
+            return (String) event.args[1];
           }
         },
         new Runnable() {
@@ -290,11 +292,11 @@ public class TWSClient {
             client.reqAccountUpdates(true, "");
           }
         },
-        new Predicate<TWSProto.Event> () {
-          public boolean apply(TWSProto.Event event) {
-            boolean matches = event.getFieldCount() > 0 &&
-            event.getField(0).hasStringValue() &&
-            event.getField(0).getStringValue().equalsIgnoreCase("AccountCode");
+        new Predicate<EWrapperMessage> () {
+          public boolean apply(EWrapperMessage event) {
+            boolean matches = event.args.length > 0 &&
+            event.args[0] instanceof String &&
+            event.args[0].toString().equalsIgnoreCase("AccountCode");
             return matches;
           }
         });
@@ -311,9 +313,9 @@ public class TWSClient {
     checkReady();
     return this.blockingCalls.blockingCall("currentTime", 
         timeout, unit, 
-        new Function<TWSProto.Event, DateTime>() {
-          public DateTime apply(TWSProto.Event event) {
-            return new DateTime(event.getTimestamp());
+        new Function<EWrapperMessage, DateTime>() {
+          public DateTime apply(EWrapperMessage event) {
+            return new DateTime((Long) event.args[0] * 1000L);
           }
         },
         new Runnable() {
@@ -330,14 +332,14 @@ public class TWSClient {
     final int tickerId = req.getTickerId();
     
     return this.blockingCalls.blockingIterable(timeout, unit,
-        new Predicate<TWSProto.Event>() {
-          public boolean apply(TWSProto.Event event) {
-            return "historicalData".equals(event.getMethod()) &&
-              tickerId == event.getField(0).getIntValue();
+        new Predicate<EWrapperMessage>() {
+          public boolean apply(EWrapperMessage event) {
+            return "historicalData".equals(event.method) &&
+              tickerId == (Integer) event.args[0];
           }
         },
-        new Function<TWSProto.Event, String>() {
-          public String apply(TWSProto.Event event) {
+        new Function<EWrapperMessage, String>() {
+          public String apply(EWrapperMessage event) {
             return event.toString();
           }
         },

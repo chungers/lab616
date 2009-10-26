@@ -15,7 +15,7 @@ import org.joda.time.format.DateTimeFormat;
 import com.lab616.concurrent.AbstractQueueWorker;
 import com.lab616.ib.api.TWSClientException;
 import com.lab616.ib.api.TWSClientManager.Managed;
-import com.lab616.ib.api.proto.TWSProto;
+import com.lab616.ib.api.TWSProxy.EWrapperMessage;
 import com.lab616.monitoring.MinMaxAverage;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.VarzMap;
@@ -32,7 +32,7 @@ import com.lab616.util.Time;
  * @author david
  *
  */
-@Statement("select * from TWSEvent where source=?")
+@Statement("select payload from EventMessage where source=?")
 public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
 
   @Varz(name = "tws-event-csv-writer-subscriber-elapsed")
@@ -47,7 +47,7 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
 
   private PrintWriter print;
   private String clientSourceId;
-  private AbstractQueueWorker<TWSProto.Event> queueWorker;
+  private AbstractQueueWorker<EWrapperMessage> queueWorker;
   private DateTime lastDate;
   private String dir;
   private String rootName;
@@ -63,9 +63,9 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
       throw new TWSClientException(e);
     }
     final String id = clientSourceId;
-    this.queueWorker = new AbstractQueueWorker<TWSProto.Event>(clientSourceId, false) {
+    this.queueWorker = new AbstractQueueWorker<EWrapperMessage>(clientSourceId, false) {
       @Override
-      protected void execute(TWSProto.Event event) throws Exception {
+      protected void execute(EWrapperMessage event) throws Exception {
         write(event);
       }
       @Override
@@ -133,10 +133,10 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
    * Receives the IBEvent from the event engine.
    * @param event The event.
    */
-  public void update(TWSProto.Event event) {
-    if (event != null) {
+  public void update(Object event) {
+    if (event != null && event instanceof EWrapperMessage) {
       long start = Time.now();
-      this.queueWorker.enqueue(event);
+      this.queueWorker.enqueue((EWrapperMessage) event);
       subscriberElapsed.get(getSourceId()).set(Time.now() - start);
     }
   }
@@ -175,29 +175,9 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
    * @param event The event.
    * @throws Exception Exception during writes.
    */
-  private void write(TWSProto.Event event) throws Exception {
+  private void write(EWrapperMessage event) throws Exception {
     PrintWriter p = getOutput();
-    p.println(toCSVString(event));
+    p.println(event.toString());
     p.flush();
-  }
-  
-  public static String toCSVString(TWSProto.Event event) {
-    StringBuffer b = new StringBuffer();
-    b.append(event.getTimestamp());
-    b.append(",");
-    b.append(event.getMethod().name());
-    for (TWSProto.Field f : event.getFieldList()) {
-      b.append(",");
-      if (f.hasDoubleValue()) {
-        b.append(f.getDoubleValue());
-      } else if (f.hasIntValue()) {
-        b.append(f.getIntValue());
-      } else if (f.hasLongValue()) {
-        b.append(f.getLongValue());
-      } else if (f.hasStringValue()) {
-        b.append(f.getStringValue());
-      }
-    }
-    return b.toString();
   }
 }

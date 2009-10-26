@@ -31,8 +31,8 @@ public class FlagTest extends TestCase {
 
 	public static class TestClass {
 		
-		@Flag(name="string", doc="Sets the value of string.", defaultValue="def")
-		public static String string;
+		@Flag(name="string", doc="Sets the value of string.")
+		public static String string = "def";
 	
     @Flag(name="string_array", doc="Sets the value of string array.")
     public static String[] string_array;

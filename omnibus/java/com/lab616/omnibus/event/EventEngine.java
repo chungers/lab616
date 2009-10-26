@@ -168,13 +168,13 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	 * @param eventObject The event object.
 	 */
 	public final void post(Object eventObject) {
-	  EPRuntime runtime = this.epService.getEPRuntime();
-	  if (runtime != null){
+		try {
+		  EPRuntime runtime = this.epService.getEPRuntime();
 	    runtime.sendEvent(eventObject);
 	    countEvents.incrementAndGet();
-	  } else {
+		} catch (NullPointerException e) {
 	    logger.warn("No runtime. Engine stopped.");
-	  }
+		}
 	}
 	
   /**

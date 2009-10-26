@@ -157,9 +157,13 @@ public abstract class Main {
     Runtime.getRuntime().addShutdownHook(shutdown);
 
     // Start all services.
-    getInstance(HttpServer.class).start();
-    getInstance(EventEngine.class).start();
-    
+    try {
+    	getInstance(HttpServer.class).start();
+    	getInstance(EventEngine.class).start();
+    } catch (Exception e) {
+    	logger.warn("Exception during startup of key components. Shutting down.", e);
+    	System.exit(-1);
+    }
     // Run the main.
     run();
   }

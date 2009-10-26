@@ -41,9 +41,6 @@ public class TWSClientModule extends AbstractEventModule {
   @Flag(name = "tws-max-retries")
   public static Integer API_MAX_RETRIES = 120;
   
-  @Flag(name = "tws-use-simulator")
-  public static Boolean USE_SIMULATOR = false;
-  
   static {
     Flags.register(TWSClientModule.class);
   }
@@ -76,22 +73,18 @@ public class TWSClientModule extends AbstractEventModule {
     
     bind(TWSClientManager.class).in(Scopes.SINGLETON);
   
-    if (USE_SIMULATOR) {
-      bind(EClientSocketFactory.class).toInstance(new EClientSocketFactory() {
-        public EClientSocket create(String name, EWrapper wrapper) {
+    bind(EClientSocketFactory.class).toInstance(new EClientSocketFactory() {
+      public EClientSocket create(String name, EWrapper wrapper,
+          boolean... simulate) {
+        if (simulate.length > 0 && simulate[0]) {
           EClientSocketSimulator sim = new EClientSocketSimulator(name);
           EClientSocket client = sim.create(wrapper);
           sim.start();
           return client;
         }
-      });
-    } else {
-      bind(EClientSocketFactory.class).toInstance(new EClientSocketFactory() {
-        public EClientSocket create(String name, EWrapper wrapper) {
-          return new ManagedEClientSocket(wrapper);
-        }
-      });
-    }
+        return new ManagedEClientSocket(wrapper);
+      }
+    });
     
     bind(Main.Shutdown.class).annotatedWith(Names.named("tws-shutdown"))
     .to(TWSClientManager.class).in(Scopes.SINGLETON);

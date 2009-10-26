@@ -74,8 +74,6 @@ public class Flags {
       String value = null;
       if (cmd != null) {
         value = cmd.getOptionValue(this.flag.name());
-      } else if (!Flag.EMPTY_VALUE.equals(this.flag.defaultValue())){
-        value = this.flag.defaultValue();
       }
       return value;
     }
@@ -84,8 +82,6 @@ public class Flags {
       String[] values = null;
       if (cmd != null) {
         values = cmd.getOptionValues(this.flag.name());
-      } else if (!Flag.EMPTY_VALUE.equals(this.flag.defaultValue())){
-        values = this.flag.defaultValue().split(Flag.LIST_SEPARATOR.toString());
       }
       return values;
     }
@@ -376,8 +372,6 @@ public class Flags {
 	  for (FlagParser<?, ?> fp : registered) {
 	    if (cmd.hasOption(fp.flag.name())) {
 	      fp.apply(cmd);
-	    } else if (!Flag.EMPTY_VALUE.equals(fp.flag.defaultValue())) {
-	      fp.apply(null);
 	    }
 	  }
 	}
@@ -392,10 +386,8 @@ public class Flags {
     // Go through all the registered parsers
     for (FlagParser<?, ?> fp : registered) {
       String value = properties.getProperty(fp.flag.name());
-      if (value != null) {
+      if (value != null && value.length() > 0) {
         fp.applyValue(value);
-      } else if (!Flag.EMPTY_VALUE.equals(fp.flag.defaultValue())) {
-        fp.apply(null);
       }
     }
   }

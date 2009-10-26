@@ -5,13 +5,15 @@ package com.lab616.ib.api.watchers;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
 
 import com.lab616.concurrent.AbstractQueueWorker;
+import com.lab616.ib.api.ApiBuilder;
+import com.lab616.ib.api.ApiMethods;
 import com.lab616.ib.api.TWSClientException;
 import com.lab616.ib.api.TWSClientManager.Managed;
+import com.lab616.ib.api.TWSProxy.EWrapperMessage;
 import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.ib.api.util.ProtoDataFile;
 import com.lab616.monitoring.MinMaxAverage;
@@ -30,7 +32,7 @@ import com.lab616.util.Time;
  * @author david
  *
  */
-@Statement("select * from TWSEvent where source=?")
+@Statement("select payload from EventMessage where source=?")
 public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed {
 
   @Varz(name = "tws-event-proto-writer-subscriber-elapsed")
@@ -45,7 +47,7 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
 
   private ProtoDataFile protoFile;
   private String clientSourceId;
-  private AbstractQueueWorker<TWSProto.Event> queueWorker;
+  private AbstractQueueWorker<EWrapperMessage> queueWorker;
   
   public TWSEventProtoWriter(String dir, String rootName, String clientSourceId) {
     this.clientSourceId = clientSourceId;
@@ -56,11 +58,16 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
       throw new TWSClientException(e);
     }
     final String id = clientSourceId;
-    this.queueWorker = new AbstractQueueWorker<TWSProto.Event>(clientSourceId, false) {
+    this.queueWorker = new AbstractQueueWorker<EWrapperMessage>(clientSourceId, false) {
       @Override
-      protected void execute(TWSProto.Event event) throws Exception {
+      protected void execute(EWrapperMessage event) throws Exception {
         // Modify the source id to use only the account name.
-        protoFile.getWriter().write(event);
+        ApiBuilder b = ApiMethods.get(event.method);
+        if (b != null) {
+          TWSProto.Event proto = b.buildProto(
+              event.source, event.timestamp, event.args);
+          protoFile.getWriter().write(proto);
+        }
       }
       @Override
       protected boolean handleException(Exception e) {
@@ -97,10 +104,10 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
    * Receives the IBEvent from the event engine.
    * @param event The event.
    */
-  public void update(TWSProto.Event event) {
-    if (event != null) {
+  public void update(Object event) {
+    if (event != null && event instanceof EWrapperMessage) {
       long start = Time.now();
-      this.queueWorker.enqueue(event);
+      this.queueWorker.enqueue((EWrapperMessage) event);
       subscriberElapsed.get(getSourceId()).set(Time.now() - start);
     }
   }
@@ -129,6 +136,7 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
     this.queueWorker.setRunning(false);
     try {
       this.queueWorker.waitForStop(5L, TimeUnit.SECONDS);
+      logger.info("Work queue stopped:" + getSourceId());
     } catch (InterruptedException e) {
       logger.info("Interrupted while waiting for queue:" + getSourceId());
     }

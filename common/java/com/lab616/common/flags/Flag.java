@@ -15,7 +15,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Flag {
 	
-  final static String EMPTY_VALUE = "";
   final static Character LIST_SEPARATOR = ',';
   
 	/**
@@ -23,12 +22,6 @@ public @interface Flag {
 	 * @return The name.
 	 */
 	String name();
-	
-	/**
-	 * Default string value.
-	 * @return The default value.
-	 */
-	String defaultValue() default EMPTY_VALUE;
 	
 	/**
 	 * Whether this flag is required or not.  Default is optional.

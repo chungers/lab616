@@ -66,6 +66,7 @@ public class EClientSocketSimulator extends Thread implements Managed {
       try {
         source(sink);
       } catch (Exception e) {
+        // Nothing.
       }
       finished = true;
     }

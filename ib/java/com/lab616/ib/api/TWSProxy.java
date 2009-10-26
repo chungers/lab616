@@ -14,11 +14,11 @@ import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.VarzMap;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
+import com.lab616.omnibus.event.EventMessage;
 import com.lab616.util.Time;
 
 /**
@@ -42,19 +42,41 @@ public class TWSProxy implements InvocationHandler {
   public static Map<String, AtomicLong> clientMethods = 
     VarzMap.create(AtomicLong.class);
   
-  @Varz(name = "tws-proxy-matched-methods")
-  public static Map<String, AtomicLong> matchedMethods = 
-    VarzMap.create(AtomicLong.class);
-
-  @Varz(name = "tws-proxy-unmatched-methods")
-  public static Map<String, AtomicLong> unmatchedMethods = 
-    VarzMap.create(AtomicLong.class);
-
   static {
     Varzs.export(TWSProxy.class);
   }
 
   static Logger logger = Logger.getLogger(TWSProxy.class);
+  
+  /**
+   * Event from TWS proxy method invocations.
+   */
+  public static final class EWrapperMessage {
+    public final String source;
+    public final String method;
+    public final Object[] args;
+    public final long timestamp;
+    
+    public EWrapperMessage(String method, Object[] args, String source) {
+      this.timestamp = Time.now();
+      this.method = method;
+      this.args = args;
+      this.source = source;
+    }
+    
+    public String toString() {
+      StringBuffer buf = new StringBuffer(method);
+      buf.append(",");
+      buf.append(timestamp);
+      buf.append(",");
+      buf.append(source);
+      for (Object o : args) {
+        buf.append(",");
+        buf.append(o.toString());
+      }
+      return buf.toString();
+    }
+  }
   
   private final EventEngine engine;
   private TWSClient parent = null;
@@ -79,22 +101,20 @@ public class TWSProxy implements InvocationHandler {
           handleConnectionClosed();
         }
       } else {
-        ApiBuilder b = ApiMethods.get(m.getName());
-        if (b != null) {
-          matchedMethods.get(m.getName()).incrementAndGet();
-          TWSProto.Event event = b.buildProto(
-              parent.getSourceId(), Time.now(), args);
-          if (synchronousIBEvents.contains(m.getName())) {
-            // Call method directly.
-            handleData(event);
-          } else {
-            engine.post(event);
-          }
-          if (parent.getSourceId() != null) {
-            clientEvents.get(parent.getSourceId()).incrementAndGet();
-          }
+        EWrapperMessage msg = new EWrapperMessage(
+            m.getName(), args, parent.getAccountName());
+        EventMessage<EWrapperMessage> event = new EventMessage<EWrapperMessage>(
+            parent.getSourceId(), null, msg);
+        
+        if (synchronousIBEvents.contains(m.getName())) {
+          // Call method directly.
+          handleData(msg);
         } else {
-          unmatchedMethods.get(m.getName()).incrementAndGet();
+          engine.post(event);
+        }
+        
+        if (parent.getSourceId() != null) {
+          clientEvents.get(parent.getSourceId()).incrementAndGet();
         }
         clientMethods.get(m.getName()).incrementAndGet();
       }
@@ -110,7 +130,7 @@ public class TWSProxy implements InvocationHandler {
    * Override this to receive data directly instead of via the IBEvent stream.
    * @param event The event.
    */
-  protected void handleData(TWSProto.Event event) {
+  protected void handleData(EWrapperMessage event) {
     // Do nothing.
   }
   

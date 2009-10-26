@@ -5,10 +5,10 @@ package com.lab616.omnibus.event.annotation;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 
-import com.lab616.omnibus.event.Event;
+import com.lab616.omnibus.event.EventMessage;
 
 /**
- * Utility for working with the {@code @} {@link Event} annotation.
+ * Utility for working with the {@code @} {@link EventMessage} annotation.
  *
  * @author david
  *

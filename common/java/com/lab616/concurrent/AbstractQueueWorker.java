@@ -9,6 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -40,7 +41,7 @@ public abstract class AbstractQueueWorker<T> extends Thread {
   }
 
   private BlockingQueue<T> workQueue;
-  private Boolean running = true;
+  private AtomicBoolean running = new AtomicBoolean(true);
   private long processed = 0;
   private CountDownLatch stoppingLatch = new CountDownLatch(1);
   
@@ -119,16 +120,16 @@ public abstract class AbstractQueueWorker<T> extends Thread {
    * Set true to stop the run loop, which then stops the thread.
    * @param b True to stop.
    */
-  public synchronized void setRunning(boolean b) {
-    this.running = b;
+  public void setRunning(boolean b) {
+    this.running.set(b);
   }
   
   /**
    * Returns if the worker is running.
    * @return True if running.
    */
-  public synchronized Boolean isRunning() {
-    return this.running;
+  public Boolean isRunning() {
+    return this.running.get();
   }
   
   public void waitForStop(long timeout, TimeUnit unit) 
@@ -161,7 +162,7 @@ public abstract class AbstractQueueWorker<T> extends Thread {
   }
   
   private void execute() {
-    if (!take()) return;
+    if (!take() || this.workQueue.isEmpty()) return;
     try {
       T work = this.workQueue.take();
       if (work instanceof Runnable) {
@@ -170,20 +171,20 @@ public abstract class AbstractQueueWorker<T> extends Thread {
         try {
           ((Callable<?>) work).call();
         } catch (Exception e) {
-          running = handleException(e);
+          running.set(handleException(e));
         }
       } else {
         try {
           execute(work);
         } catch (Exception e) {
-          running = handleException(e);
+          running.set(handleException(e));
         }
       }
       this.processed++;
       queueProcessed.get(getName()).incrementAndGet();
       queueDepths.get(getName()).set(getQueueDepth());
     } catch (InterruptedException e) {
-      running = handleException(e);
+      running.set(handleException(e));
     }
   }
   
@@ -191,12 +192,12 @@ public abstract class AbstractQueueWorker<T> extends Thread {
    * Thread's run body.
    */
   public void run() {
-    running = onStart();
-    while (running) {
+    running.set(onStart());
+    while (running.get()) {
       execute();
     }
     getLogger().info("Stopping " + getName() + " @ queueSize="+ this.workQueue.size());
-    if (!running && flushQueueOnStop()) {
+    if (flushQueueOnStop()) {
       getLogger().info("Flushing queue " + this.workQueue.size());
       while (!this.workQueue.isEmpty()) {
         // flush out final work.
@@ -208,12 +209,12 @@ public abstract class AbstractQueueWorker<T> extends Thread {
   }
   
   public final boolean enqueue(T work) {
-    if (!running) return false;
+    if (!running.get()) return false;
     try {
       this.workQueue.put(work);
       return true;
     } catch (InterruptedException e) {
-      running = handleInterruption(e);
+      running.set(handleInterruption(e));
       return false;
     }
   }

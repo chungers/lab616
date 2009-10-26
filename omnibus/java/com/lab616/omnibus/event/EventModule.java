@@ -32,7 +32,8 @@ public class EventModule extends AbstractEventModule {
     Flags.register(EventModule.class);
   }
 
-	public void configure() {
+	@SuppressWarnings("unchecked")
+  public void configure() {
 	  // Flags
 	  bindConstant().annotatedWith(Names.named("event-engine-threads"))
 	    .to(NUM_THREADS);
@@ -43,6 +44,8 @@ public class EventModule extends AbstractEventModule {
     // Event definitions.
 	  bindEventDefinition(new ObjectEventDefinition<SystemEvent>(
         SystemEvent.EVENT_NAME, SystemEvent.class));
+	  bindEventDefinition(new ObjectEventDefinition<EventMessage>(
+        EventMessage.EVENT_NAME, EventMessage.class));
 
     // Default system-wide watchers:
     bindEventWatcher(SystemEventWatcher.class);
