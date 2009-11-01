@@ -72,7 +72,7 @@ public class TWSProxy implements InvocationHandler {
       buf.append(source);
       for (Object o : args) {
         buf.append(",");
-        buf.append(o.toString());
+        buf.append(o);
       }
       return buf.toString();
     }

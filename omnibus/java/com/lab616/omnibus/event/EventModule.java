@@ -23,10 +23,10 @@ import com.lab616.omnibus.event.watchers.SystemEventWatcher;
 public class EventModule extends AbstractEventModule {
 
   @Flag(name = "event-engine-threads")
-  public static Integer NUM_THREADS = 20;
+  public static Integer NUM_THREADS = 50;
   
   @Flag(name = "event-engine-queue-capacity")
-  public static Integer QUEUE_CAPACITY = 20;
+  public static Integer QUEUE_CAPACITY = 50;
 
   static {
     Flags.register(EventModule.class);

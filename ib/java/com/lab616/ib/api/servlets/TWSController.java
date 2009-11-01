@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.log4j.Logger;
 
 import com.google.inject.Inject;
+import com.lab616.common.Pair;
 import com.lab616.ib.api.TWSClient;
 import com.lab616.ib.api.TWSClientManager;
 import com.lab616.ib.api.builders.ContractBuilder;
@@ -53,13 +54,21 @@ public class TWSController extends BasicServlet {
     calls.incrementAndGet();
     
     String cmd = params.get("m");
+    
+    if ("stats".equals(cmd)) {
+      for (Pair<String, TWSClient.State> stat : ibService.getStats()) {
+        b.println(stat.toString());
+      }
+      return;
+    }
+
     String name = params.get("client");
-    TWSClient client = ibService.getClient(name);
+    String id = params.get("id");
+    TWSClient client = ibService.getClient(name, Integer.parseInt(id));
     if (client == null) {
       b.setError().println("No client:" + name);
       return;
     }
-    
     if ("ping".equals(cmd)) {
       String timeout = params.get("timeout");
       Long tout = 5000L; 

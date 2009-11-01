@@ -3,6 +3,7 @@
 package com.lab616.omnibus;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.List;
 import java.util.Properties;
@@ -140,7 +141,7 @@ public abstract class Main {
       Properties props = new Properties();
       File pf = new File(profile);
       if (pf.exists()) {
-        props.load(new FileReader(profile));
+        props.load(new FileInputStream(profile));
         Flags.parse(props);
       }
     }

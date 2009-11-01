@@ -111,20 +111,19 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	}
 
 	protected void configureEngineDefaults(ConfigurationEngineDefaults defaults) {
-		defaults.getTimeSource().setTimeSourceType(
+	  defaults.getTimeSource().setTimeSourceType(
 		    ConfigurationEngineDefaults.TimeSourceType.NANO);
 	  
 	  Threading threading = defaults.getThreading();
 	  threading.setInternalTimerEnabled(true);
 
-	  /*
 	  threading.setListenerDispatchPreserveOrder(true);
 		threading.setInsertIntoDispatchPreserveOrder(true);
 
-		threading.setInsertIntoDispatchTimeout(200L);
-    threading.setListenerDispatchTimeout(200L);
-    */
-		threading.setThreadPoolInbound(true);
+		//threading.setInsertIntoDispatchTimeout(200L);
+    //threading.setListenerDispatchTimeout(200L);
+
+    threading.setThreadPoolInbound(true);
 		threading.setThreadPoolInboundNumThreads(threads);
 		threading.setThreadPoolInboundCapacity(capacity);
 		

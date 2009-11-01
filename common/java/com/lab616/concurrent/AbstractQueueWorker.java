@@ -2,6 +2,7 @@
 
 package com.lab616.concurrent;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
@@ -15,6 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
 
+import com.google.inject.internal.Lists;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.VarzMap;
 import com.lab616.monitoring.Varzs;
@@ -216,6 +218,18 @@ public abstract class AbstractQueueWorker<T> extends Thread {
     } catch (InterruptedException e) {
       running.set(handleInterruption(e));
       return false;
+    }
+  }
+  
+  /**
+   * Drains the content of this queue to the queue provided.
+   * @param qw The queue to drain to.
+   */
+  public final void drainTo(AbstractQueueWorker<T> qw) {
+    List<T> sink = Lists.newArrayList();
+    this.workQueue.drainTo(sink);
+    for (T w : sink) {
+      qw.workQueue.add(w);
     }
   }
   

@@ -58,7 +58,7 @@ public class TWSEventProtoWriter extends AbstractEventWatcher implements Managed
       throw new TWSClientException(e);
     }
     final String id = clientSourceId;
-    this.queueWorker = new AbstractQueueWorker<EWrapperMessage>(clientSourceId, false) {
+    this.queueWorker = new AbstractQueueWorker<EWrapperMessage>(id, false) {
       @Override
       protected void execute(EWrapperMessage event) throws Exception {
         // Modify the source id to use only the account name.

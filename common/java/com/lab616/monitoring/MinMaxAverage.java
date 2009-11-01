@@ -30,7 +30,9 @@ public class MinMaxAverage {
     buf.append('/');
     buf.append(max);
     buf.append('/');
-    buf.append((double) sum / (double) count);
+    buf.append(String.format("%.2f", (double) sum / (double) count));
+    buf.append('/');
+    buf.append(count);
     buf.append('/');
     buf.append(last);
     return buf.toString();

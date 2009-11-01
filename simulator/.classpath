@@ -13,6 +13,6 @@
 	<classpathentry kind="var" path="THIRD_PARTY/esper/esper/lib/cglib-nodep-2.2.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/esper/esper/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/esper/esper/lib/log4j-1.2.15.jar"/>
-	<classpathentry kind="var" path="THIRD_PARTY/esper/esper.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/esper/esper.jar" sourcepath="/THIRD_PARTY/esper/src"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

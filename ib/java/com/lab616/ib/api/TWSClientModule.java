@@ -29,17 +29,11 @@ import com.lab616.omnibus.event.ObjectEventDefinition;
  */
 public class TWSClientModule extends AbstractEventModule {
 
-  @Flag(name = "tws-host")
-  public static String API_HOST = "localhost";
-
-  @Flag(name = "tws-port")
-  public static Integer API_PORT = 7496;
-  
   @Flag(name = "tws-max-connections")
-  public static Integer API_MAX_CONNECTIONS = 10;
+  public static Integer API_MAX_CONNECTIONS = 20;
   
   @Flag(name = "tws-max-retries")
-  public static Integer API_MAX_RETRIES = 120;
+  public static Integer API_MAX_RETRIES = 1;
   
   static {
     Flags.register(TWSClientModule.class);
@@ -52,10 +46,6 @@ public class TWSClientModule extends AbstractEventModule {
   
   public void configure() {
     // Config constants.
-    bindConstant().annotatedWith(Names.named("tws-host"))
-      .to(API_HOST);
-    bindConstant().annotatedWith(Names.named("tws-port"))
-      .to(API_PORT);
     bindConstant().annotatedWith(Names.named("tws-max-retries"))
       .to(API_MAX_RETRIES);
     
@@ -72,6 +62,7 @@ public class TWSClientModule extends AbstractEventModule {
         .in(Scopes.SINGLETON);
     
     bind(TWSClientManager.class).in(Scopes.SINGLETON);
+    bind(TWSConnectionProfileManager.class).in(Scopes.SINGLETON);
   
     bind(EClientSocketFactory.class).toInstance(new EClientSocketFactory() {
       public EClientSocket create(String name, EWrapper wrapper,
@@ -87,6 +78,6 @@ public class TWSClientModule extends AbstractEventModule {
     });
     
     bind(Main.Shutdown.class).annotatedWith(Names.named("tws-shutdown"))
-    .to(TWSClientManager.class).in(Scopes.SINGLETON);
+    .to(TWSClientManager.ShutdownHandler.class).in(Scopes.SINGLETON);
   }
 }

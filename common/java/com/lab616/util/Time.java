@@ -6,6 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jni.Library;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
@@ -26,7 +28,13 @@ public class Time {
 	}
 	
   static Logger logger = Logger.getLogger(Time.class);
+
+  private final static DateTimeFormatter formatter = 
+    ISODateTimeFormat.dateHourMinuteSecondMillis();
   
+  private Time() {
+    // Do not instantiate.
+  }
   /**
    * Implementation class. Either native or in java.
    */
@@ -84,4 +92,40 @@ public class Time {
   public final static long now() {
     return timeSource.now();
   }
+  
+  public final static  DateTimeFormatter getDefaultFormatter() {
+    return formatter;
+  }
+  
+  /**
+   * Given a timestamp that may or may not be written in micros,
+   * determine the proper scale and return in milliseconds.
+   * 
+   * @param timestamp The timestamp.
+   * @return In milliseconds.
+   */
+  public final static long scaleToMillis(long timestamp) {
+    long now = Time.now();
+    TimeUnit recordUnit;
+    if (Time.getTimeUnit().equals(TimeUnit.MICROSECONDS)) {
+      // Check to see if we are not off by a factor of 1000
+      recordUnit = (now / timestamp >= 1000) ? 
+          TimeUnit.MILLISECONDS : TimeUnit.MICROSECONDS;
+    } else {
+      recordUnit = (timestamp / now >= 1000) ? 
+          TimeUnit.MICROSECONDS : TimeUnit.MILLISECONDS;
+    }
+    return (recordUnit == TimeUnit.MILLISECONDS) ? timestamp :
+      timestamp / 1000;
+  }
+  
+  /**
+   * Prints the timestamp in ISO format.
+   * @param timestamp The timestamp.
+   * @return String in ISO format.
+   */
+  public final static String printISO(long timestamp) {
+    return formatter.print(scaleToMillis(timestamp));
+  }
+  
 }

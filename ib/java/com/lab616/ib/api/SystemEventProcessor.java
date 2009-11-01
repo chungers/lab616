@@ -48,13 +48,14 @@ public class SystemEventProcessor extends AbstractEventWatcher {
     try {
       // Ping a connection:
       if ("ping".equals(event.getMethod())) {
-        String name = event.getParam("client");
+        String name = event.getParam("profile");
+        String id = event.getParam("id");
         Long timeout = 1000L; 
         try {
           timeout = Long.decode(event.getParam("timeout"));
         } catch (Exception e) {}
         
-        TWSClient client = this.service.getClient(name);
+        TWSClient client = this.service.getClient(name, Integer.parseInt(id));
         if (client == null) return;
         if (client.isReady()) {
           logger.info("Pinging connection " + name + " = " + client.isReady() +
@@ -65,26 +66,35 @@ public class SystemEventProcessor extends AbstractEventWatcher {
         }
         return;
       }
+      // Add a profile
+      if ("addp".equals(event.getMethod())) {
+        String name = event.getParam("profile");
+        String host = event.getParam("host");
+        String port = event.getParam("port");
+        this.service.addProfile(name, host, Integer.parseInt(port));
+        return;
+      }
       // Starting a connection:
       if ("start".equals(event.getMethod())) {
-        String name = event.getParam("client");
+        String name = event.getParam("profile");
         logger.info("Starting connection " + name + " = " + 
             this.service.newConnection(name));
         return;
       }
       // Stopping a connection:
       if ("stop".equals(event.getMethod())) {
-        String name = event.getParam("client");
+        String name = event.getParam("profile");
+        String id = event.getParam("id");
         logger.info("Stopping connection " + name + " = " +
-            this.service.stopConnection(name));
+            this.service.stopConnection(name, Integer.parseInt(id)));
         return;
       }
       // Request market data, including realtime bars.
       if ("mkt".equals(event.getMethod())) {
-        final String name = event.getParam("client");
+        final String name = event.getParam("profile");
         final String symbol = event.getParam("symbol");
         logger.debug("Requesting market data for " + symbol + " on " + name);
-        this.service.enqueue(name, true, new Function<TWSClient, Boolean>() {
+        this.service.enqueue(name, new Function<TWSClient, Boolean>() {
           public Boolean apply(TWSClient client) {
             client.requestMarketData(
                 new MarketDataRequestBuilder().withDefaultsForStocks()
@@ -96,10 +106,10 @@ public class SystemEventProcessor extends AbstractEventWatcher {
       }
       // Request market depth:
       if ("dom".equals(event.getMethod())) {
-        final String name = event.getParam("client");
+        final String name = event.getParam("profile");
         final String symbol = event.getParam("symbol");
         logger.debug("Requesting market depth for " + symbol + " on " + name);
-        this.service.enqueue(name, true, new Function<TWSClient, Boolean>() {
+        this.service.enqueue(name, new Function<TWSClient, Boolean>() {
           public Boolean apply(TWSClient client) {
             client.requestMarketDepth(
                 new MarketDataRequestBuilder().withDefaultsForStocks()
@@ -111,10 +121,10 @@ public class SystemEventProcessor extends AbstractEventWatcher {
       }
       // Request market depth:
       if ("cancel-dom".equals(event.getMethod())) {
-        final String name = event.getParam("client");
+        final String name = event.getParam("profile");
         final String symbol = event.getParam("symbol");
         logger.debug("Requesting market depth for " + symbol + " on " + name);
-        this.service.enqueue(name, true, new Function<TWSClient, Boolean>() {
+        this.service.enqueue(name, new Function<TWSClient, Boolean>() {
           public Boolean apply(TWSClient client) {
             client.cancelMarketDepth(
                 new MarketDataRequestBuilder().withDefaultsForStocks()
@@ -126,12 +136,14 @@ public class SystemEventProcessor extends AbstractEventWatcher {
       }
       // Start CSV file writer
       if ("csv".equals(event.getMethod())) {
-        String name = event.getParam("client");
+        String name = event.getParam("profile");
+        String id = event.getParam("id");
         String dir = event.getParam("dir");
         dir = (dir == null || dir.length() == 0) ? "." : dir;
         logger.debug("Starting csv writer for client=" + name);
         // Check to see if we already have a writer for this
         Managed managed = this.service.findAssociatedComponent(name,
+            Integer.parseInt(id),
             new Predicate<Managed>() {
           public boolean apply(Managed m) {
             return m instanceof TWSEventCSVWriter;
@@ -140,7 +152,8 @@ public class SystemEventProcessor extends AbstractEventWatcher {
         final String clientName = name;
         final String directory = dir;
         if (managed == null || !managed.isReady()) {
-          this.service.enqueue(name, true, new Function<TWSClient, Managed>() {
+          this.service.enqueue(name, Integer.parseInt(id),
+              new Function<TWSClient, Managed>() {
             public Managed apply(TWSClient client) {
               TWSEventCSVWriter w = new TWSEventCSVWriter(directory,
                   clientName, client.getSourceId());
@@ -153,12 +166,14 @@ public class SystemEventProcessor extends AbstractEventWatcher {
       }
       // Start proto file writer
       if ("proto".equals(event.getMethod())) {
-        String name = event.getParam("client");
+        String name = event.getParam("profile");
+        String id = event.getParam("id");
         String dir = event.getParam("dir");
         dir = (dir == null || dir.length() == 0) ? "." : dir;
         logger.debug("Starting proto writer for client=" + name);
         // Check to see if we already have a writer for this
         Managed managed = this.service.findAssociatedComponent(name,
+            Integer.parseInt(id),
             new Predicate<Managed>() {
           public boolean apply(Managed m) {
             return m instanceof TWSEventProtoWriter;
@@ -167,10 +182,12 @@ public class SystemEventProcessor extends AbstractEventWatcher {
         final String clientName = name;
         final String directory = dir;
         if (managed == null || !managed.isReady()) {
-          this.service.enqueue(name, true, new Function<TWSClient, Managed>() {
+          this.service.enqueue(name, Integer.parseInt(id),
+              new Function<TWSClient, Managed>() {
             public Managed apply(TWSClient client) {
               TWSEventProtoWriter w = 
-                new TWSEventProtoWriter(directory, clientName, client.getSourceId());
+                new TWSEventProtoWriter(directory,
+                    clientName, client.getSourceId());
               client.getEventEngine().add(w);
               return w;
             }
@@ -180,11 +197,13 @@ public class SystemEventProcessor extends AbstractEventWatcher {
       }
       // Start simulated data source
       if ("simulate".equals(event.getMethod())) {
-        final String name = event.getParam("client");
+        final String name = event.getParam("profile");
+        String id = event.getParam("id");
         final String fname = event.getParam("file");
         logger.debug("Simulating input for client=" + name + " from " + fname);
         // Check to see if we already have a writer for this
         Managed managed = this.service.findAssociatedComponent(name,
+            Integer.parseInt(id),
             new Predicate<Managed>() {
           public boolean apply(Managed m) {
             return m instanceof EClientSocketSimulator;
@@ -194,7 +213,7 @@ public class SystemEventProcessor extends AbstractEventWatcher {
           final EClientSocketSimulator sim = 
             EClientSocketSimulator.getSimulator(name);
           if (sim != null) {
-            this.service.enqueue(name, true, new Function<TWSClient, Managed>() {
+            this.service.enqueue(name, new Function<TWSClient, Managed>() {
               public Managed apply(TWSClient client) {
                 // Start the file loader
                 try {
