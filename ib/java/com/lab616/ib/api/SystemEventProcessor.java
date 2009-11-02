@@ -12,7 +12,9 @@ import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 import com.lab616.ib.api.TWSClientManager.Managed;
 import com.lab616.ib.api.builders.ContractBuilder;
+import com.lab616.ib.api.builders.IndexBuilder;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
+import com.lab616.ib.api.builders.IndexBuilder.Exchange;
 import com.lab616.ib.api.simulator.EClientSocketSimulator;
 import com.lab616.ib.api.simulator.EClientSocketSimulator.CSVFileDataSource;
 import com.lab616.ib.api.watchers.TWSEventCSVWriter;
@@ -87,6 +89,24 @@ public class SystemEventProcessor extends AbstractEventWatcher {
         String id = event.getParam("id");
         logger.info("Stopping connection " + name + " = " +
             this.service.stopConnection(name, Integer.parseInt(id)));
+        return;
+      }
+      // Request index data.
+      if ("ind".equals(event.getMethod())) {
+        final String name = event.getParam("profile");
+        final String symbol = event.getParam("index");
+        final String exchange = event.getParam("exchange");
+        logger.debug("Requesting index data for " + symbol + " from " + 
+            exchange + " on " + name);
+        this.service.enqueue(name, new Function<TWSClient, Boolean>() {
+          public Boolean apply(TWSClient client) {
+            client.requestMarketData(
+                new MarketDataRequestBuilder().withDefaultsForIndex()
+                .forIndex(new IndexBuilder(symbol).setExchange(
+                    Exchange.valueOf(exchange))));
+            return true;
+          }
+        });
         return;
       }
       // Request market data, including realtime bars.

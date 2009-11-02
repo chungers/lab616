@@ -5,7 +5,9 @@ package com.lab616.ib.api.builders;
 import java.util.List;
 
 import com.google.inject.internal.Lists;
+import com.ib.client.Contract;
 import com.lab616.common.builder.AbstractBuilder;
+import com.lab616.common.builder.Builder;
 import com.lab616.ib.api.TickerId;
 
 /**
@@ -18,7 +20,7 @@ public class MarketDataRequestBuilder
   extends AbstractBuilder<MarketDataRequest> {
 
   
-  private ContractBuilder contractBuilder = null;
+  private Builder<Contract> contractBuilder = null;
   private List<String> genericTickList = Lists.newArrayList();
   
   public MarketDataRequestBuilder() {
@@ -32,6 +34,12 @@ public class MarketDataRequestBuilder
   
   public Property<MarketDataRequest> setIsSnapShot() {
     return setProperty("snapShot", boolean.class);
+  }
+  
+  public MarketDataRequestBuilder forIndex(IndexBuilder builder, 
+      boolean... useDefaults) {
+    contractBuilder = builder;
+    return this;
   }
   
   public MarketDataRequestBuilder forStock(ContractBuilder builder, 
@@ -60,6 +68,12 @@ public class MarketDataRequestBuilder
     m.setTickerId(TickerId.toTickerId(m.getContract().m_symbol));
     m.setGenericTickList(this.genericTickList);
     return m;
+  }
+
+  public MarketDataRequestBuilder withDefaultsForIndex() {
+    getMarketPrice();
+    getRealTimeVolume();
+    return this;
   }
 
   public MarketDataRequestBuilder withDefaultsForStocks() {
