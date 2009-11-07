@@ -25,7 +25,7 @@ public class MarketDataRequest {
   private Contract contract;
   private int tickerId;
   private List<String> genericTickList = Lists.newArrayList();
-  private boolean isSnapShot;
+  private boolean isSnapShot = false;
   
   public boolean getSnapShot() {
     return isSnapShot;
