@@ -50,11 +50,9 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
   private AbstractQueueWorker<EWrapperMessage> queueWorker;
   private DateTime lastDate;
   private String dir;
-  private String rootName;
   
   public TWSEventCSVWriter(String dir, String rootName, String clientSourceId) {
     this.dir = dir;
-    this.rootName = rootName;
     this.clientSourceId = clientSourceId;
     this.lastDate = new DateTime().withMillisOfDay(0).minusDays(1);
     try {

@@ -1,0 +1,632 @@
+<?xml version="1.0"?>
+
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+
+<project name="Avro" default="compile"
+	 xmlns:ivy="antlib:org.apache.ivy.ant">
+ 
+  <!-- Load user's default properties. -->
+  <property file="${user.home}/build.properties" />
+
+  <property name="Org" value="Apache"/>
+  <property name="org" value="apache"/>
+  <property name="Name" value="Avro"/>
+  <property name="name" value="avro"/>
+  <property name="version" value="1.2.0-dev"/>
+  <property name="fullname" value="${name}-${version}"/>
+  <property name="year" value="2009"/>
+
+  <property name="src.dir" value="${basedir}/src"/>  	
+  <property name="build.dir" value="${basedir}/build"/>
+  <property name="java.src.dir" value="${src.dir}/java"/>
+  <property name="c.src.dir" value="${src.dir}/c"/>
+  <property name="c.build.dir" value="${build.dir}/c/obj"/>
+  <property name="lib.dir" value="${basedir}/lib"/>
+  <property name="install.c" value="${build.dir}/c/install"/>
+  <property name="dist.dir" value="${build.dir}/${fullname}"/>
+
+  <property name="build.classes" value="${build.dir}/classes"/>
+  <property name="build.doc" value="${build.dir}/doc"/>
+  <property name="build.javadoc" value="${build.doc}/api/java"/>
+  <property name="build.javadoc.log" value="${build.dir}/javadoc.log"/>
+  <property name="build.cdoc" value="${build.doc}/api/c"/>
+
+  <exec executable="sed" inputstring="${os.name}" outputproperty="nonspace.os">
+     <arg value="s/ /_/g"/>
+  </exec>
+  <property name="build.platform" 
+            value="${nonspace.os}-${os.arch}-${sun.arch.data.model}"/>
+
+  <property name="test.count" value="100"/>
+  <property name="test.junit.output.format" value="plain"/>
+  <property name="test.java.src.dir" value="${basedir}/src/test/java"/>
+  <property name="test.schemata.dir" value="${basedir}/src/test/schemata"/>
+  <property name="test.java.build.dir" value="${build.dir}/test"/>
+  <property name="test.java.generated.dir" value="${test.java.build.dir}/src"/>
+  <property name="test.java.classes" value="${test.java.build.dir}/classes"/>
+  <property name="test.java.include" value="Test*"/>
+
+  <property name="javadoc.link.java"
+	    value="http://java.sun.com/javase/6/docs/api/"/>
+  <property name="javadoc.link.jackson"
+	    value="http://jackson.codehaus.org/0.9.3/javadoc/"/>
+  <property name="javadoc.link.servlet"
+	    value="http://java.sun.com/products/servlet/2.3/javadoc/"/>
+  <property name="javadoc.packages" value="org.${org}.${name}.*"/>
+
+  <property name="javac.encoding" value="ISO-8859-1"/>
+  <property name="javac.debug" value="on"/>
+  <property name="javac.optimize" value="on"/>
+  <property name="javac.deprecation" value="off"/>
+  <property name="javac.version" value="1.6"/>
+  <property name="javac.args" value=""/>
+  <property name="javac.args.warnings" value="-Xlint:unchecked"/>
+
+  <property name="ivy.version" value="2.1.0-rc1"/>
+  <property name="ivy.url"
+	    value="http://repo2.maven.org/maven2/org/apache/ivy/ivy" />
+  <property name="ivy.home" value="${user.home}/.ant" />
+  <property name="ivy.lib" value="${build.dir}/lib"/>
+  <property name="ivy.test.lib" value="${build.dir}/test/lib"/>
+
+  <!-- the normal classpath -->
+  <path id="java.classpath">
+    <pathelement location="${build.classes}"/>
+    <fileset dir="${lib.dir}">
+      <include name="**/*.jar" />
+      <exclude name="**/excluded/" />
+    </fileset>
+    <fileset dir="${ant.home}/lib">
+      <include name="ant.jar" />
+    </fileset>
+    <fileset dir="${ivy.lib}">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+  <path id="test.java.classpath">
+    <pathelement location="${test.java.classes}" />
+    <fileset dir="${ivy.test.lib}">
+      <include name="**/*.jar" />
+    </fileset>
+    <path refid="java.classpath"/>
+  </path>
+
+  <target name="init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${build.classes}"/>
+ 
+    <mkdir dir="${test.java.build.dir}"/>
+    <mkdir dir="${test.java.classes}"/>
+
+    <mkdir dir="${ivy.lib}"/>
+    <mkdir dir="${ivy.test.lib}"/>
+    <condition property="ivy.jar.exists">
+      <available file="${lib.dir}/ivy-${ivy.version}.jar"/>
+    </condition>
+  </target>
+
+  <target name="compile" depends="compile-java,compile-c"/>
+
+  <target name="compile-java" depends="schemata,ivy-retrieve">
+    <java-compiler excludes="**/ipc/** **/*Requestor.java **/*Responder.java"/>
+    <java-avro-compiler/>
+    <java-compiler/>
+  </target>
+
+  <target name="ivy-download" unless="ivy.jar.exists" depends="init">
+    <delete dir="${lib.dir}"
+	    includes="ivy-*.jar" excludes="ivy-${ivy.version}.jar"/>
+    <get src="${ivy.url}/${ivy.version}/ivy-${ivy.version}.jar"
+         dest="${lib.dir}/ivy-${ivy.version}.jar" usetimestamp="true"/>
+  </target>
+
+  <target name="ivy-init" depends="ivy-download" unless="ivy.initialized">
+    <taskdef resource="org/apache/ivy/ant/antlib.xml"
+             uri="antlib:org.apache.ivy.ant" classpathref="java.classpath"/>
+    <!-- ensure that ivy taskdef is only run once, otw ant will error -->
+    <property name="ivy.initialized" value="true"/>
+  </target>
+
+  <target name="ivy-retrieve" depends="init,ivy-init">
+    <ivy:retrieve type="jar" conf="default"
+		  pattern="${ivy.lib}/[artifact]-[revision].[ext]"/>
+  </target>
+
+  <target name="ivy-retrieve-test" depends="init,ivy-init">
+    <ivy:retrieve type="jar" conf="test"
+		  pattern="${ivy.test.lib}/[artifact]-[revision].[ext]"/>
+  </target>
+
+  <macrodef name="java-compiler">
+    <attribute name="src" default="${java.src.dir}"/>
+    <attribute name="dest" default="${build.classes}"/>
+    <attribute name="includes" default="**/*.java"/>
+    <attribute name="excludes" default=""/>
+    <attribute name="classpath" default="java.classpath"/>
+    <sequential>
+      <javac 
+	 srcdir="@{src}"
+	 destdir="@{dest}"
+	 includes="@{includes}"
+	 excludes="@{excludes}"
+	 encoding="${javac.encoding}" 
+	 debug="${javac.debug}"
+	 optimize="${javac.optimize}"
+	 target="${javac.version}"
+	 source="${javac.version}"
+	 deprecation="${javac.deprecation}">
+	<compilerarg line="${javac.args} ${javac.args.warnings}" />
+	<classpath refid="@{classpath}"/>
+      </javac>
+    </sequential>
+  </macrodef>
+
+  <target name="schemata" depends="init">
+    <mkdir dir="${build.dir}/src/org/apache/avro/ipc"/>
+    <mapper id="m4toavsc" type="glob" from="*.m4" to="${build.dir}/src/*.avsc"/>
+    <apply executable="m4" dir="${src.dir}/schemata">
+      <fileset dir="${src.dir}/schemata" includes="**/*.m4"/>
+      <mapper refid="m4toavsc"/>
+      <redirector><outputmapper refid="m4toavsc"/></redirector>
+    </apply>
+  </target>
+
+  <target name="jar" depends="compile-java" description="Build jar file.">
+    <jar jarfile="${build.dir}/${fullname}.jar"
+         basedir="${build.classes}">
+      <manifest>
+        <section name="org/${org}/${name}">
+          <attribute name="Implementation-Title" value="${Name}"/>
+          <attribute name="Implementation-Version" value="${version}"/>
+          <attribute name="Implementation-Vendor" value="${Org}"/>
+        </section>
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="checkstyle-java" depends="compile-java">
+    <taskdef resource="checkstyletask.properties">
+      <classpath refid="test.java.classpath" />
+    </taskdef>
+    <checkstyle config="${java.src.dir}/checkstyle.xml"
+		classpathref="test.java.classpath">
+	<fileset dir="${java.src.dir}">
+        <include name="**/*.java"/>
+    </fileset>
+    </checkstyle>
+  </target>
+
+  <target name="compile-test-java" depends="ivy-retrieve-test,compile-java">
+    <java-avro-compiler src="${test.schemata.dir}"
+			generated="${test.java.generated.dir}"
+			dest="${test.java.classes}"
+			classpath="test.java.classpath"/>
+    <java-compiler src="${test.java.src.dir}"
+		   dest="${test.java.classes}"
+		   classpath="test.java.classpath"/>
+  </target>
+
+  <macrodef name="java-avro-compiler">
+    <attribute name="src" default="${build.dir}/src"/>
+    <attribute name="generated" default="${build.dir}/src"/>
+    <attribute name="dest" default="${build.classes}"/>
+    <attribute name="classpath" default="java.classpath"/>
+
+    <sequential>
+      <taskdef name="protocol"
+	       classname="org.apache.avro.specific.ProtocolTask">
+	<classpath refid="java.classpath" />
+      </taskdef>
+      <taskdef name="schema" classname="org.apache.avro.specific.SchemaTask">
+	<classpath refid="java.classpath" />
+      </taskdef>
+      <taskdef
+	 name="paranamer" 
+	 classname="com.thoughtworks.paranamer.ant.ParanamerGeneratorTask">
+	<classpath refid="java.classpath" />
+      </taskdef>
+
+      <mkdir dir="@{generated}"/>
+      
+      <protocol destdir="@{generated}">
+	<fileset dir="@{src}">
+	  <include name="**/*.avpr" />
+	</fileset>
+      </protocol>
+      
+      <schema destdir="@{generated}">
+	<fileset dir="@{src}">
+	  <include name="**/*.avsc" />
+	</fileset>
+      </schema>
+
+      <java-compiler src="@{generated}" dest="@{dest}"
+		     classpath="@{classpath}"/>
+      <paranamer sourceDirectory="@{generated}" outputDirectory="@{dest}"/>
+    </sequential>
+  </macrodef>
+
+  <target name="test" depends="test-java,test-py,test-c,test-interop"/>
+
+  <macrodef name="test-runner">
+    <attribute name="files.location" />
+    <attribute name="tests.pattern" />
+    <sequential>
+      <junit showoutput="yes"
+             printsummary="withOutAndErr"
+             haltonfailure="no"
+             errorProperty="tests.failed" failureProperty="tests.failed">
+        <sysproperty key="test.count" value="${test.count}"/>
+        <sysproperty key="test.dir" value="${test.java.build.dir}"/>
+        <sysproperty key="test.validate" value="${test.validate}"/>
+        <classpath refid="test.java.classpath"/>
+        <formatter type="${test.junit.output.format}"/>
+        <batchtest todir="${test.java.build.dir}" unless="testcase">
+          <fileset dir="@{files.location}"
+		   includes="@{tests.pattern}"
+		   excludes="**/${test.java.exclude}.java" />
+        </batchtest>
+        <batchtest todir="${test.java.build.dir}" if="testcase">
+          <fileset dir="@{files.location}" includes="**/${testcase}.java"/>
+        </batchtest>
+      </junit>
+      <fail if="tests.failed">Tests Failed!</fail>
+    </sequential>
+  </macrodef>
+
+  <target name="test-java" depends="unit-test-java,checkstyle-java,javadoc"
+ 	  description="Run java tests" />
+
+  <target name="unit-test-java" depends="compile-test-java"
+ 	  description="Run java unit tests">
+    <test-runner files.location="${test.java.src.dir}" tests.pattern="**/${test.java.include}.java"/>
+  </target>
+
+  <path id="test.py.path">
+    <pathelement location="${basedir}/src/py"/>
+    <pathelement location="${basedir}/src/test/py"/>
+    <pathelement location="${basedir}/lib/py"/>
+  </path>
+
+  <target name="init-py" depends="init, schemata">
+    <copy todir="${basedir}/src/py/avro">
+      <fileset dir="${build.dir}/src/org/apache/avro/ipc">
+      	<include name="**/*.avsc"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="generate-test-data" depends="compile-test-java, init-py">
+    <mkdir dir="${test.java.build.dir}/data-files"/>
+  	 <mkdir dir="${test.java.build.dir}/blocking-data-files"/>
+    <java classname="org.apache.avro.RandomData"
+      classpathref="test.java.classpath">
+      <arg value="${basedir}/src/test/schemata/interop.avsc"/>
+      <arg value="${test.java.build.dir}/data-files/test.java.avro"/>
+      <arg value="${test.count}"/>
+    </java>
+  	 <java classname="org.apache.avro.GenerateBlockingData"
+  	      classpathref="test.java.classpath">
+  	      <arg value="${basedir}/src/test/schemata/interop.avsc"/>
+  	      <arg value="${test.java.build.dir}/blocking-data-files/test.java.blocking.avro"/>
+  	      <arg value="${test.count}"/>
+  	 </java>
+
+    <taskdef name="py-run" classname="org.pyant.tasks.PythonRunTask">
+      <classpath refid="java.classpath" />
+    </taskdef>
+    <py-run script="${basedir}/src/test/py/testio.py" python="python"
+      pythonpathref="test.py.path">
+      <arg value="${basedir}/src/test/schemata/interop.avsc"/>
+      <arg value="${test.java.build.dir}/data-files/test.py.avro"/>
+      <arg value="100"/>
+    </py-run>
+  </target>
+
+  <target name="test-py" depends="init-py" description="Run python unit tests">
+    <taskdef name="py-test" classname="org.pyant.tasks.PythonTestTask">
+      <classpath refid="java.classpath" />
+    </taskdef>
+    <py-test python="python" pythonpathref="test.py.path" >
+      <fileset dir="${basedir}/src/test/py">
+        <include name="test*.py"/>
+      </fileset>
+    </py-test>
+  </target>
+
+  <target name="test-interop" depends="test-interop-java,test-interop-py"
+   description="Run multiple languages interoperability tests">
+  </target>
+
+  <target name="test-interop-java"
+    depends="test-interop-data-java,test-interop-rpc-java"
+   description="Run java interoperability tests">
+  </target>
+
+  <target name="test-interop-py" 
+    depends="test-interop-data-py,test-interop-rpc-py"
+   description="Run python interoperability tests">
+  </target>
+
+  <target name="test-interop-data-java" depends="generate-test-data"
+    description="Run java data file interoperability tests">
+    <test-runner files.location="${test.java.classes}" tests.pattern="**/TestDataFile$InteropTest.class" />
+  </target>
+
+  <target name="test-interop-data-py" depends="generate-test-data" 
+    description="Run python data file interoperability tests">
+    <taskdef name="py-test" classname="org.pyant.tasks.PythonTestTask">
+      <classpath refid="java.classpath" />
+    </taskdef>
+    <py-test python="python" pythonpathref="test.py.path" >
+      <fileset dir="${basedir}/src/test/py">
+        <include name="interop*.py"/>
+      </fileset>
+    </py-test>
+  </target>
+
+  <target name="start-rpc-daemons" depends="compile-test-java, init-py"
+    description="Start the daemons for rpc interoperability tests">
+    <delete dir="${test.java.build.dir}/server-ports"/>
+    <mkdir dir="${test.java.build.dir}/server-ports"/>
+    <taskdef name="py-run" classname="org.pyant.tasks.PythonRunTask">
+      <classpath refid="java.classpath" />
+    </taskdef>
+    <!-- Start the servers. As servers block the ant main thread, these need 
+    to be created in parallel threads--> 
+    <parallel>
+      <daemons>
+        <java classname="org.apache.avro.TestProtocolSpecific$InteropTest">
+          <classpath refid="test.java.classpath"/>
+          <sysproperty key="test.dir" value="${test.java.build.dir}"/>
+        </java>
+        <py-run script="${basedir}/src/test/py/interoptests.py" 
+          python="python" pythonpathref="test.py.path">
+          <arg value="server"/>
+        </py-run>
+      </daemons>
+
+      <!-- Give some time to start -->
+      <sequential>
+        <sleep seconds="2"/>
+      </sequential>
+    </parallel>
+  </target>
+
+  <target name="test-interop-rpc-java" depends="start-rpc-daemons"
+    description="Run java rpc interoperability tests">
+    <test-runner files.location="${test.java.classes}" tests.pattern="**/TestProtocolSpecific$InteropTest.class" />
+  </target>
+
+  <target name="test-interop-rpc-py" depends="start-rpc-daemons"
+    description="Run java rpc interoperability tests">
+        <py-run script="${basedir}/src/test/py/interoptests.py" 
+          python="python" pythonpathref="test.py.path">
+          <arg value="client"/>
+        </py-run>
+  </target>
+
+  <target name="pydoc" description="Generate python api docs">
+    <taskdef name="py-doc" classname="org.pyant.tasks.PythonDocTask">
+      <classpath refid="java.classpath" />
+    </taskdef>
+    <mkdir dir="${build.doc}/api/py"/>
+    <py-doc python="python" pythonpathref="test.py.path" defaultexcludes="true"
+       destdir="${build.doc}/api/py">
+      <fileset dir="${basedir}/src/py">
+        <include name="**/*"/>
+      </fileset>
+    </py-doc>
+  </target>
+
+  <target name="doc" depends="forrest.check,javadoc,pydoc,cdoc" description="Generate forrest-based documentation. To use, specify -Dforrest.home=&lt;base of Apache Forrest installation&gt; on the command line." if="forrest.home">
+    <echo  file="${build.dir}/avro.ent" append="false">
+      &lt;!ENTITY AvroVersion "${version}"&gt;
+    </echo>
+    <exec executable="${forrest.home}/bin/forrest" failonerror="true">
+      <env key="JAVA_HOME" value="${java5.home}"/>
+      <arg value="-Dproject.content-dir=src/doc"/>
+      <arg value="-Dproject.site=doc"/>
+    </exec>
+  </target>
+
+  <target name="forrest.check" unless="forrest.home" depends="java5.check">
+    <fail message="'forrest.home' is not defined. Please pass -Dforrest.home=&lt;base of Apache Forrest installation&gt; to Ant on the command-line." />
+  </target>
+
+  <target name="java5.check" unless="java5.home">
+    <fail message="'java5.home' is not defined.  Forrest requires Java 5.  Please pass -Djava5.home=&lt;base of Java 5 distribution&gt; to Ant on the command-line." />
+  </target>
+
+  <target name="javadoc" depends="compile-java" description="Generate javadoc">
+    <mkdir dir="${build.javadoc}"/>
+    <record name="${build.javadoc.log}" action="start"/>
+    <javadoc
+      overview="${java.src.dir}/overview.html"
+      packagenames="org.${org}.${name}.*"
+      destdir="${build.javadoc}"
+      author="true"
+      version="true"
+      use="true"
+      windowtitle="${Name} ${version} API"
+      doctitle="${Name} ${version} API"
+      bottom="Copyright &amp;copy; ${year} The ${Org} Software Foundation"
+      >
+        <packageset dir="${java.src.dir}"/>
+	
+        <link href="${javadoc.link.java}"/>
+        <link href="${javadoc.link.jackson}"/>
+        <link href="${javadoc.link.servlet}"/>
+
+        <classpath >
+          <path refid="java.classpath" />
+        </classpath>
+
+    </javadoc>
+    <record name="${build.javadoc.log}" action="stop"/>
+    <condition property="javadoc.warnings">
+      <isfileselected file="${build.javadoc.log}">
+	<contains text=": warning - "/>
+      </isfileselected>
+    </condition>
+    <fail if="javadoc.warnings">Javadoc warnings!</fail>
+  </target>
+
+  <target name="package" depends="jar, doc, package-c"
+	  description="Build distribution">
+    <mkdir dir="${dist.dir}"/>
+    <mkdir dir="${dist.dir}/lib"/>
+    <mkdir dir="${dist.dir}/doc"/>
+
+    <copy todir="${dist.dir}/lib" includeEmptyDirs="false">
+      <fileset dir="lib" excludes="ivy-*.jar"/>
+      <fileset dir="${ivy.lib}"/>
+    </copy>
+
+    <copy todir="${dist.dir}/c" includeEmptyDirs="false">
+      <fileset dir="${install.c}"/>
+    </copy>
+
+    <copy todir="${dist.dir}"> 
+      <fileset file="${build.dir}/${fullname}.jar"/>
+    </copy>
+
+    <checksum file="${dist.dir}/${fullname}.jar" algorithm="md5"/>
+    <checksum file="${dist.dir}/${fullname}.jar" algorithm="sha1"/>
+
+    <ivy:makepom ivyfile="${basedir}/ivy.xml"
+		 pomfile="${dist.dir}/${fullname}.pom">
+      <mapping conf="default" scope="compile"/>
+      <mapping conf="test" scope="test"/>
+    </ivy:makepom>
+
+    <checksum file="${dist.dir}/${fullname}.pom" algorithm="md5"/>
+    <checksum file="${dist.dir}/${fullname}.pom" algorithm="sha1"/>
+
+    <copy todir="${dist.dir}/doc">
+      <fileset dir="${build.doc}"/>
+    </copy>
+
+    <copy todir="${dist.dir}">
+      <fileset dir=".">
+        <include name="*.txt" />
+      </fileset>
+    </copy>
+
+    <copy todir="${dist.dir}/src" includeEmptyDirs="true">
+      <fileset dir="src"/>
+    </copy>
+
+    <copy todir="${dist.dir}/">
+      <fileset file="build.xml"/>
+      <fileset file="ivy.xml"/>
+    </copy>
+
+  </target>
+
+  <macrodef name="macro_tar" description="Worker Macro for tar">
+    <attribute name="param.destfile"/>
+    <element name="param.listofitems"/>
+    <sequential>
+      <tar compression="gzip" longfile="gnu"
+      destfile="@{param.destfile}">
+      <param.listofitems/>
+      </tar>
+    </sequential>
+  </macrodef>
+
+  <target name="tar" depends="package" description="Make release tarball">
+    <macro_tar param.destfile="${build.dir}/${fullname}.tar.gz">
+      <param.listofitems>
+        <tarfileset dir="${build.dir}" mode="664">
+          <include name="${fullname}/**" />
+        </tarfileset>
+      </param.listofitems>
+    </macro_tar>
+    <checksum file="${build.dir}/${fullname}.tar.gz" algorithm="md5"/>
+    <checksum file="${build.dir}/${fullname}.tar.gz" algorithm="sha1"/>
+  </target>
+
+  <target name="clean" description="Delete build files, and their directories">
+    <delete dir="${build.dir}"/>
+    <delete>
+      <fileset dir="src" includes="**/*.pyc" />
+      <fileset dir="${basedir}/src/py/avro" includes="**/*.avsc"/>
+    </delete>
+  </target>
+
+  <!-- C Targets -->
+  <target name="cdoc" depends="configure-c">
+    <mkdir dir="${build.cdoc}"/>
+    <exec dir="${c.build.dir}" executable="make" failonerror="true">
+      <env key="C_DOCS_OUTPUT" value="${build.cdoc}" />
+      <arg line="docs" />
+    </exec>
+  </target>
+
+  <target name="autoreconf-c-check">
+    <uptodate targetfile="${c.src.dir}/configure"
+	      srcfile="${c.src.dir}/configure.in"
+	      property="autoreconf-c-not-needed"/>
+  </target>
+
+  <target name="autoreconf-c" depends="autoreconf-c-check"
+	  unless="autoreconf-c-not-needed">
+    <exec dir="${c.src.dir}" executable="autoreconf" failonerror="true">
+      <arg line="-f -i"/>
+    </exec>
+  </target>
+
+  <target name="configure-c-check">
+    <uptodate targetfile="${c.build.dir}/Makefile"
+	      srcfile="${c.src.dir}/configure"
+	      property="configure-c-not-needed"/>
+  </target>
+
+  <target name="configure-c" depends="autoreconf-c, configure-c-check"
+	  unless="configure-c-not-needed">
+    <mkdir dir="${c.build.dir}" />
+    <exec dir="${c.build.dir}" executable="sh" failonerror="true">
+      <arg line="${c.src.dir}/configure --prefix=${install.c}/${build.platform}"/>
+    </exec>
+  </target>
+
+  <target name="compile-c" depends="init, configure-c">
+    <exec dir="${c.build.dir}" executable="make" failonerror="true"/>
+  </target>
+
+  <target name="test-c" depends="compile-c">
+    <exec dir="${c.build.dir}" executable="make" failonerror="true">
+      <arg value="check"/>
+    </exec>
+  </target>
+
+  <target name="package-c" depends="compile-c">
+    <chmod file="${c.src.dir}/config/install-sh" perm="ugo+x"/>
+    <exec dir="${c.build.dir}" executable="make" failonerror="true">
+      <arg value="install"/>
+    </exec>
+  </target>
+
+  <target name="c-makefile-check">
+    <available file="${c.build.dir}/Makefile" property="c-makefile-present"/>
+  </target>
+  <!-- End C Targets -->
+
+</project>

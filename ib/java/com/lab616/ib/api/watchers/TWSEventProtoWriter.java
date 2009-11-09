@@ -26,7 +26,7 @@ import com.lab616.omnibus.event.annotation.Var;
 import com.lab616.util.Time;
 
 /**
- * Simple CSV writer that works off a queue and continuously appends to 
+ * Simple protobuffer writer that works off a queue and continuously appends to 
  * a file whose name is computed based on the current date.
  *
  * @author david

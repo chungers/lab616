@@ -1,0 +1,360 @@
+Avro Change Log
+
+Avro 1.2.0 (14 October 2009)
+
+  INCOMPATIBLE CHANGES
+
+    AVRO-115. Remove RPC's session notion to facilliate the use of
+    stateless transports like UDP and HTTP.  Add a UDP transport.
+    (cutting)
+
+    AVRO-120. Improved package and namespace handling, including:
+
+     * Removed explicit package-name specification from specific and
+       reflect public APIs.  Package names are now determined either
+       by namespace declarations or by a Java classes, as appropriate.
+
+     * Changed the specific compiler to generate separate java files
+       per class, rather than nested classes.  This permits generated
+       classes to be in packages declared in their schema namespaces.
+
+     * Fix namespace defaulting.  The default namespace is declared in
+       the outermost schema or protocol.  Nested schemas can now
+       declare different namespaces than the default.
+
+     * Names may now be specified with a dotted notation, e.g.,
+       "foo.bar.Baz", to indicate the name "Baz" in namespace
+       "foo.bar".  This permits one to refer to schemas in a namespace
+       other than the default.
+
+  NEW FEATURES
+
+    AVRO-121.  Permit reflect and specific datum readers to read data
+    written with a different version of the schema than is current.
+    (cutting)
+
+    AVRO-129.  Add HTTP-based RPC client and server.  (cutting)
+
+    AVRO-24.  Add a simple bulk-data benchmark.  (cutting)
+
+    AVRO-139. Refactor HTTP servlet to separate, public class. (cutting)
+
+  IMPROVEMENTS
+
+    AVRO-99.  Use Boost framework for C++ unit tests.
+    (Scott Banachowski via cutting)
+
+    AVRO-116.  Make C++ compatible with Boost 1.32.
+    (Scott Banachowski via cutting)
+
+    AVRO-119.  Add Java GenericData.Array#toString() implementation,
+    to facillitate debugging. (cutting)
+
+    AVRO-118.  JSON encoder and decoder now permit one to write
+    multiple instances without flushing or explicitly resetting the
+    codec between each instance.  (Thiruvalluvan M. G. via cutting)
+
+    AVRO-133.  Update version number in specification document and
+    documentation tab automatically from build version. (cutting)
+
+    AVRO-131.  Permit specification of JUnit test output format.
+    (Giridharan Kesavan via cutting)
+
+    AVRO-134.  Update data file format specification to include
+    reserved metadata keys "codec" and "sync".  The only codec
+    currently defined is "null".  (Thiruvalluvan M. G. via cutting)
+
+    AVRO-138.  Add a "unit-test-java" Ant target that runs tests
+    without running checkstyle or javadoc.  (Thiruvalluvan M. G. via
+    cutting)
+
+    AVRO-140.  Add javadoc to public classes with none.  (cutting)
+
+  OPTIMIZATIONS
+
+  BUG FIXES
+
+    AVRO-132.  Fix multi-threading race condition when threads share schema objects.
+    (sbanacho)
+
+    AVRO-113.  Fix endian bug with C++ integer/long varint codec.
+    (Scott Banachowski via cutting)
+
+    AVRO-117.  Fix memory leak in C++ JSON parser.
+    (Scott Banachowski via cutting)
+
+    AVRO-122.  Fix so that, when multiple Ant targets are specified on
+    the command line that depend on ivy, ivy does not fail.  (phunt
+    via cutting)
+
+    AVRO-123.  Fix Java's specific protocol compiler so that
+    parameters and return types are unboxed. (cutting)
+
+    AVRO-125.  Fix sample protocol in specification document to use
+    the correct syntax.  (cutting)
+
+    AVRO-101.  Add Java reflect API test case using nested classes.
+    (Eelco Hillenius via cutting)
+
+    AVRO-124.  Remove Ivy's jar from distributions.  (cutting)
+
+    AVRO-137. Suppress warnings in generated java code. (cutting via sharad)
+
+Avro 1.1.0 (8 September 2009)
+
+  INCOMPATIBLE CHANGES
+
+    AVRO-110. GenericData and ReflectData have been converted to use a
+    singleton pattern.  Calls to static methods on these classes must
+    be replaced with calls on the singleton instance. (cutting)
+
+    AVRO-41. GenericArray's constructor now requires a Schema, so that
+    it may implement Comparable consistently with AVRO-108. (cutting)
+
+    AVRO-41. Several GenericDatumWriter methods (instanceOf(),
+    isRecord(), etc.) have been moved to GenericData, where they can
+    better be shared with comparators.  Applications which subclassed
+    GenericDatumWriter overriding these methods must now instead
+    subclass GenericData and pass their subclass to
+    GenericDatumWriter. (cutting)
+
+    AVRO-41. SpecificRecord's schema() method has been renamed
+    getSchema(), since it now implements the new GenericContainer
+    interface shared with GenericRecord. (cutting)
+
+  NEW FEATURES
+
+    AVRO-50. Implmenent JSON data codec in Java. (Thiruvalluvan
+    M. G. & cutting)
+
+    AVRO-76. Add Java RPC plugin framework.  (George Porter)
+
+    AVRO-104. Permit null fields in Java reflection.
+    (Eelco Hillenius via cutting)
+
+    AVRO-92. Describe JSON data encoding in specification
+    document. (cutting)
+
+    AVRO-108.  Add Java implementation of binary comparator.
+    (cutting)
+
+    AVRO-41. Java generic and specific data instances now implement
+    Comparable.  The implementation is consistent with the binary
+    comparator added in AVRO-108. (cutting)
+
+    AVRO-109.  Add Java support for controlling sort order via schema
+    annotations.  Record fields now support an "order" attribute whose
+    possible values are "increasing" (the default), "decreasing", and
+    "ignore".  (cutting)
+
+    AVRO-111.  Document sort ordering in the specification. (cutting)
+
+  IMPROVEMENTS
+
+    AVRO-71.  C++: make deserializer more generic.  (Scott Banachowski
+    via cutting)
+
+    AVRO-60. Fix C JSON parser to correctly handle escapes and
+    multi-byte characters.  Add tests.  (Matt Massie via cutting)
+
+    AVRO-54. Re-upgrade to testng 5.9 and re-enable listeners. (cutting)
+
+    AVRO-82. Add checkstyle to java compilation.  (Thiruvalluvan
+    M. G. via cutting)
+
+    AVRO-81. Switch back from TestNG to JUnit. (Konstantin Boudnik via
+    cutting)
+
+    AVRO-84, AVRO-85.  Clarify a few things in the specification
+    document.  (Thiruvalluvan M. G. and cutting)
+
+    AVRO-89. In fields of Java generated classes, use unboxed numeric
+    types.  (cutting)
+
+    AVRO-83. In generated Java code, elide unions with null. (cutting)
+
+    AVRO-98. Fix C++ schema parser to permit JSON attributes in any
+    order and to ignore extra attributes. (Scott Banachowski via cutting)
+
+  OPTIMIZATIONS
+
+  BUG FIXES
+
+    AVRO-78. Fix Java reflect to work on non-public fields. (cutting)
+
+    AVRO-79. Specify format for default fixed values, and implement
+    correctly in Java.  (Thiruvalluvan M. G. via cutting)
+
+    AVRO-87. Fix broken links in javadoc introduced by AVRO-82.  Also
+    change test-java build target to fail on javadoc warnings.
+    (Thiruvalluvan M. G. and cutting)
+
+    AVRO-90. Fix Java's JSON codec to correctly encode unions. (cutting)
+
+    AVRO-95. Fix writing of Java reflect-based unions.  Also extend
+    DataFileWriter to permit adding branches to a union schema while
+    writing.
+
+    AVRO-88. Fix Java's BlockingBinaryEncoder to correctly override
+    writeEnum().  (Ravi Gummadi via cutting)
+
+    AVRO-61. Add Python support for reading blocked data.
+    (Ravi Gummadi via cutting)
+
+    AVRO-97.  Fix various C++ bugs.  (Scott Banachowski via cutting)
+
+    AVRO-100.  In spec, remove warning about blocking being draft. (cutting)
+
+    AVRO-107.  Fix Protocol#equals() and Protocol#hashCode() to
+    consider the protocol's types, and also fix Schema#equals() to not
+    throw ClassCastException when a fixed schema is compared to
+    non-fixed. (cutting)
+
+    AVRO-112.  Turn off C++ debug output.  (Scott Banachowski via cutting)
+
+    AVRO-114.  Fix "cdoc" Ant target to correctly run doxygen.
+    (Matt Massie via cutting)
+
+Avro 1.0.0 -- 9 July 2009
+
+  INCOMPATIBLE CHANGES
+
+    AVRO-1. Record fields are now defined with JSON arrays, rather
+    than JSON objects, since fields are ordered.  (cutting & sharad)
+
+    AVRO-9. Restrict map keys to strings.  (cutting & sharad)
+
+    AVRO-2. Optimized RPC handshake protocol for Java.  (cutting)
+
+    AVRO-57. Make ValueWriter an abstract class named Encoder and make
+    ValueReader an abstract class named Decoder, and add concrete
+    implementations named BinaryEncoder and BinaryDecoder. (cutting)
+
+    AVRO-46. Optimized RPC handshake protocol for Python.  (sharad)
+
+    AVRO-66.  Add per-call RPC metadata to Java and Python. (George
+    Porter & cutting)
+
+  NEW FEATURES
+
+    AVRO-6. Permit easier implementation of alternate generic data
+    representations, especially records with integer-indexed fields.
+    (Hong Tang via cutting)
+
+    AVRO-8. Add Java support for default values. (cutting)
+
+    AVRO-33.  C support for primitive types.  (Matt Massie via cutting)
+
+    AVRO-18.  Add support for enum types.  (cutting & sharad)
+
+    AVRO-10.  Add Java support for fixed-sized types. (cutting)
+
+    AVRO-38.  Add Python support for fixed-sized types. (sharad)
+
+    AVRO-42.  Add partial C++ implementation. (Scott Banachowski via cutting)
+
+    AVRO-25.  Add blocking value writer that permits arbitrarily long
+    arrays and maps to be efficiently written as sequences of blocks.
+    (Thiruvalluvan M. G. via cutting)
+
+    AVRO-48.  Add JSON parser for C.  (Matt Massie via cutting)
+
+    AVRO-29.  Add to Java a validating encoder & decoder, and a
+    resolving decoder.  (Thiruvalluvan M. G. & Raymie Stata)
+
+    AVRO-67.  Add per-call RPC metadata to spec. (George Porter via cutting)
+
+    AVRO-28. Add Python support for default values. (sharad via cutting)
+
+  IMPROVEMENTS
+
+    AVRO-11.  Re-implement specific and reflect datum readers and
+    writers to leverage AVRO-6.  (cutting)
+
+    AVRO-13. Use dictionary instead of if-else in validate. (sharad)
+
+    AVRO-5. Add java versus python RPC interoperability tests. 
+    (sharad)
+
+    AVRO-16.  Minor documentation improvements.  (cutting)
+
+    AVRO-15. Override __eq__() and __hash__() in Schema classes.
+    (sharad)
+
+    AVRO-26. Switch tests from JUnit to TestNG.  (Konstantin Boudnik
+    via cutting)
+
+    AVRO-34. Upgrade to Jackson version 1.0.0.  (cutting)
+
+    AVRO-37. Add C api docs.  Also link to py docs.  (Matt Massie & cutting)
+
+    AVRO-32. Java specific generated record classes now implement
+    equals() and hashCode().  (cutting)
+
+    AVRO-48. Remove unused imports and annotations.
+    (Thiruvalluvan M. G. via cutting)
+
+    AVRO-53. Use Ivy to retrieve Java dependencies.  (cutting)
+
+    AVRO-56. Use Jackson to generate JSON from Java.  (cutting)
+
+    AVRO-36. Correctly encode and decode binary default values.
+    (cutting)
+
+    AVRO-59.  C++: make serializer more generic.  (Scott Banachowski
+    via cutting)
+
+    AVRO-68. Add license headers to C sources and improve C packaging.
+    (Matt Massie via cutting)
+
+  OPTIMIZATIONS
+
+  BUG FIXES
+
+    AVRO-3. Fix ValueReader to throw an exception at EOF.
+    (Pat Hunt via cutting)
+    
+    AVRO-4. Fix so that specific code generation works under Eclipse.
+    (Pat Hunt via cutting)
+
+    AVRO-14. Fix so that EOF is not thrown when one attempts to read
+    an empty buffer.  (sharad via cutting)
+
+    AVRO-31. Fix Java package imports in generated specific classes.
+    (sharad via cutting)
+
+    AVRO-21. Default Java namespace from containing definition. (cutting)
+
+    AVRO-12. Fix recursive schemas in Java so that equals() and
+    hashCode() do not cause a stack overflow.  (cutting)
+
+    AVRO-22. When parsing schemas in Java, do not permit anonymous.
+    (cutting)
+
+    AVRO-39. Fix bug in Java record schema toString().  (sharad)
+
+    AVRO-40. Fix typo in specfication, where 'unsigned' was used where
+    'signed' was intended.  (cutting)
+
+    AVRO-44. Fix so that 'ant clean' works even if C has not been
+    built.  (Matt Massie via cutting)
+
+    AVRO-45. Fix c++ compliation so that python script need not be
+    made executable.  (Scott Banachowski via cutting)
+
+    AVRO-51. Fix testio.py to exit correctly. (Philip Zeyliger 
+    via sharad)
+
+    AVRO-55. Fix two spec document typos.  (cutting)
+
+    AVRO-69. Make C's install-sh script executable.  (Matt Massie via cutting)
+
+    AVRO-70. Add license header to json_schema.y.  (Matt Massie via cutting)
+
+    AVRO-74. Add missing license headers in C++.  (cutting)
+
+    AVRO-73. Workaround in python to fix simplejson bug on Mac OS. (sharad)
+
+    AVRO-64. Fix socket and parser issue on Mac OS. (sharad)
+
+    AVRO-77. Fix C unit tests on Mac OS.  (Matt Massie via cutting)

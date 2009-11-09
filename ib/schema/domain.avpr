@@ -1,0 +1,53 @@
+{"namespace": "com.lab616.ib.api.avro",
+ "protocol" : "TWS",
+ "types": [
+     {"name": "TWSMethod",
+      "type": "enum",
+      "symbols": [ 
+        "tickGeneric",
+        "tickOptionComputation",
+        "tickPrice",
+        "tickSize", 
+        "tickString", 
+        "realtimeBar",
+        "updateMktDepth",
+        "updateMktDepthL2",
+        "currentTime",
+        "historicalData",
+        "nextValidId",
+        "updateAccountValue"
+      ]
+      },
+     {"name": "TWSFieldType",
+      "type": "enum",
+      "symbols": [ 
+        "BOOLEAN",
+        "STRING",
+        "INT",
+        "DOUBLE",
+        "LONG"
+      ]
+      },
+     {"name": "TWSField", 
+      "type": "record",
+      "fields": [
+          {"name": "type",          "type": "TWSFieldType"},
+          {"name": "stringValue",   "type": [ "string", "null" ]},
+          {"name": "longValue",     "type": [ "long", "null" ]},
+          {"name": "intValue",      "type": [ "int", "null" ]},
+          {"name": "doubleValue",   "type": [ "double", "null" ]},
+          {"name": "booleanValue",  "type": [ "boolean", "null" ]}
+      ]
+     },
+     {"name": "TWSEvent", 
+      "type": "record",
+      "fields": [
+          {"name": "timestamp", "type": "long"},
+          {"name": "method",    "type": "TWSMethod"},
+          {"name": "fields",    "type": { "type":"array", "items": "TWSField"} },
+          {"name": "source",    "type": "string"}
+      ]
+     }
+ ]
+}
+ 
