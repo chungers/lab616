@@ -305,7 +305,7 @@ public final class TWSClientManager {
    * @param work Unit of work to be enqueued.
    */
   public <V> void enqueue(String name, int id, Function<TWSClient, V> work) {
-    Pair<ClientWorkQueue, TWSClient> p = getManagedClient(id);
+    Pair<ClientWorkQueue, TWSClient> p = clients.get(makeKey(name, id));
     p.first.enqueue(work);
     logger.info(String.format(
         "Queueing work for %s in %s with queueSize=%d",
