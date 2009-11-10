@@ -1,0 +1,179 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>The Apache Tomcat Native - Documentation Index</title><meta value="Jean-Frederic Clere" name="author"><meta value="jfclere@apache.org" name="email"><link rel="stylesheet" type="text/css" href="./style.css"></head><body vlink="#525D76" alink="#525D76" link="#525D76" text="#000000" bgcolor="#ffffff"><table cellspacing="4" width="100%" border="0"><!--PAGE HEADER--><tr><td colspan="2"><!--TOMCAT LOGO--><a href="http://tomcat.apache.org/"><img border="0" alt="Apache Tomcat" align="left" src="./images/tomcat.gif"></a><!--APACHE LOGO--><a href="http://www.apache.org/"><img border="0" alt="Apache Logo" align="right" src="http://www.apache.org/images/asf-logo.gif"></a></td></tr><!--HEADER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><tr><!--LEFT SIDE NAVIGATION--><td nowrap="true" valign="top" width="20%"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li></ul><p><strong>Miscellaneous Documentation</strong></p><ul><li><a href="miscellaneous/changelog.html">Changelog</a></li></ul><p><strong>News</strong></p><ul><li><a href="news/2008.html">2008</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td align="left" valign="top" width="80%"><table cellspacing="4" width="100%" border="0"><tr><td valign="top" align="left"><h1>The Apache Tomcat Native</h1><h2>Documentation Index</h2></td><td nowrap="true" valign="top" align="right"><small><a href="printer/index.html"><img alt="Printer Friendly Version" border="0" src="./images/printer.gif"><br>print-friendly<br>version
+                    </a></small></td></tr></table><table width="100%" cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+<p>This is the top-level entry point of the documentation bundle for the
+<strong>Apache Tomcat Native</strong>
+
+</p>
+<p>Select one of the links from the navigation menu (to the left) to drill
+down to the more detailed documentation that is available. Each available
+manual is described in more detail below.</p>
+
+</blockquote></td></tr></table><table width="100%" cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Headlines"><strong>Headlines</strong></a></font></td></tr><tr><td><blockquote>
+<br>
+<ul>
+
+<li><a href="news/2008.html#20080910.1">10 September 2008 - <b>TC-Native-1.1.15 released</b></a>
+<p>The Apache Tomcat team is proud to announce the immediate availability of Tomcat Native 1.1.15 Stable.
+</p>
+<p>Download the <a href="http://www.apache.org/dist/tomcat/tomcat-connectors/native/tomcat-native-1.1.15-src.tar.gz">TC-native 1.1.15 release sources</a>
+ | <a href="http://www.apache.org/dist/tomcat/tomcat-connectors/native/tomcat-native-1.1.15-src.tar.gz.asc">PGP signature</a>
+</p>
+<p>Download the <a href="http://www.apache.org/dist/tomcat/tomcat-connectors/native/1.1.15/binaries/">binaries</a> for selected platforms.
+</p>
+</li>
+
+<li><a href="news/2008.html#20080704.1">04 July 2008 - <b>TC-Native-1.1.14 released</b></a>
+<p>The Apache Tomcat team is proud to announce the immediate availability
+of Tomcat Native 1.1.14 Stable.
+</p>
+<p>Download the <a href="http://www.apache.org/dist/tomcat/tomcat-connectors/native/tomcat-native-1.1.14-src.tar.gz">TC-native 1.1.14 release sources</a>
+ | <a href="http://www.apache.org/dist/tomcat/tomcat-connectors/native/tomcat-native-1.1.14-src.tar.gz.asc">PGP signature</a>
+</p>
+<p>Download the <a href="http://tomcat.heanet.ie/native/">binaries</a> for selected platforms.
+</p>
+</li>
+
+<li><a href="news/2008.html#20080215.1">15 February 2008 - <b>TC-Native-1.1.13 released</b></a>
+<p>The Apache Tomcat team is proud to announce the immediate availability
+of Tomcat Native 1.1.13 Stable.
+</p>
+<p>Download the <a href="http://www.apache.org/dist/tomcat/tomcat-connectors/native/tomcat-native-1.1.13-src.tar.gz">TC-native 1.1.13 release sources</a>
+ | <a href="http://www.apache.org/dist/tomcat/tomcat-connectors/native/tomcat-native-1.1.13-src.tar.gz.asc">PGP signature</a>
+</p>
+<p>Download the <a href="http://tomcat.heanet.ie/native/">binaries</a> for selected platforms.
+</p>
+</li>
+</ul>
+</blockquote></td></tr></table><table width="100%" cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Building"><strong>Building</strong></a></font></td></tr><tr><td><blockquote>
+<table width="100%" cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Requirements"><strong>Requirements</strong></a></font></td></tr><tr><td><blockquote>
+    <p>
+      Build tc-native requires three components to be installed:
+      <ul>
+        <li>APR library</li>
+        <li>OpenSSL libraries</li>
+        <li>Java SE Development Kit (JDK)</li>
+      </ul>
+    </p>
+    <p>
+     In debian based Linux those dependencies could be installed by something like:
+      <pre>
+        apt-get install libapr1.0-dev libssl-dev
+      </pre>
+     In rpm based Linux those dependencies could be installed by something like:
+      <pre>
+        yum install apr-devel openssl-devel
+      </pre>
+    </p>
+</blockquote></td></tr></table>
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="UNIX"><strong>UNIX</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+    On all the POSIX systems (Linux, Solaris, HP-UX, AIX etc...) a well-known
+    configure and make is used to build tc-native.<br>
+    In the jni/native runs:<br>
+    <pre>
+    ./configure --help
+    </pre>
+    to read the description of all the parameters.<br>
+    <pre>
+    ./configure --with-apr=$HOME/APR \
+                --with-java-home=$JAVA_HOME \
+                --with-ssl=$HOME/OPENSSL \
+                --prefix=$CATALINA_HOME
+    </pre>
+    to create the includes and makefiles to be able to build tc-native.<br>
+    Where:<br>
+    $HOME/APR is something like /usr/bin/apr-1-config or the path where apr is
+    installed.<br>
+    $JAVA_HOME is something /home/jfclere/JAVA/jdk1.5.0_09 path to a JDK
+    installation. Any JDK should work but it is advisable to use the same
+    JVM version the JVM you use with Tomcat.<br>
+    $HOME/OPENSSL is the path where OpenSSL is installed.<br>
+    $CATALINA_HOME is the path where the produced libraries will be installed. Something like $HOME/apache-tomcat-6.0.16/<br>
+    <br>
+    The configure is able to guess most of OpenSSL standard installations.
+    So most of the time the following will be enough:
+    <pre>
+    ./configure --with-apr=/usr/bin/apr-1-config \
+                --with-java-home=/home/jfclere/JAVA/jdk1.5.0_09/ \
+                --with-ssl=yes \
+                --prefix=$CATALINA_HOME
+    </pre>
+    <br>
+    To build the libraries and install them:<br>
+    <pre>
+    make &amp;&amp; make install
+    </pre>
+    The libraries will be found in $CATALINA_HOME/lib
+  </p>
+</blockquote></td></tr></table>
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Windows"><strong>Windows</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+   Download the windows sources of tc-native and extract them.
+  </p>
+  <p>
+    Download OpenSSL sources (See <a href="http://www.openssl.org/related/binaries.html"><b>Binary Distributions</b></a>)
+    OpenSSL is a crypto software so check if you are allowed to download it. If not you can still use tc-native without SSL.
+  </p>
+  <p>
+    Download APR sources for Windows. (See <a href="http://apr.apache.org/download.cgi"><b>Download</b></a>)
+    Extract them in jni and rename the apr-1.x.y directory to apr.
+  </p>
+  <p>
+    Use MS Visual Studio to open the workspace of the APR sources and build the library (libapr).
+  </p>
+  <p>
+    Use MS Visual Studio to open the workspace of the tc-native sources, adjust the OpenSSL includes and libraries location
+    change the name of the libraries libeay32 and libssleay to libeay32MT and libssleayMT and build the tcn-native library.
+    That should create a tcnative-1.dll.
+  </p>
+</blockquote></td></tr></table>
+   
+</blockquote></td></tr></table><table width="100%" cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#525D76"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Install and tests"><strong>Install and tests</strong></a></font></td></tr><tr><td><blockquote>
+<table width="100%" cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="UNIX"><strong>UNIX</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+   Edit the $CATALINA_HOME/bin/setenv.sh and add the path to the tc-native libraries to LD_LIBRARY_PATH.
+   Something like:
+   <pre>
+    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CATALINA_HOME/lib
+    export LD_LIBRARY_PATH
+   </pre>
+   Start tomcat and check for the messages like this ones:
+   <pre>
+    Feb 8, 2008 12:27:41 PM org.apache.catalina.core.AprLifecycleListener init
+    INFO: Loaded APR based Apache Tomcat Native library 1.x.y.
+    Feb 8, 2008 12:27:41 PM org.apache.catalina.core.AprLifecycleListener init
+    INFO: APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+    Feb 8, 2008 12:27:41 PM org.apache.coyote.http11.Http11AprProtocol init
+    INFO: Initializing Coyote HTTP/1.1 on http-8080
+   </pre>
+    Refer to the tomcat documentation to configure the connectors
+    (See <a href="http://tomcat.apache.org/tomcat-6.0-doc/apr.html">Tomcat6.0.x</a>
+    and  <a href="http://tomcat.apache.org/tomcat-5.5-doc/apr.html">Tomcat5.5.x</a>)
+  </p>
+</blockquote></td></tr></table>
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0"><tr><td bgcolor="#828DA6"><font face="arial,helvetica.sanserif" color="#ffffff"><a name="Windows"><strong>Windows</strong></a></font></td></tr><tr><td><blockquote>
+  <p>
+    Edit the $CATALINA_BASE\bin\setenv.bat and add the path to the tc-native libraries, apr and OpenSSL to PATH.
+    For example:
+  <pre>
+    set PATH=%PATH;C:\cygwin\home\support\tomcat-native-current-win32-src\jni\native\Debug;C:\cygwin\home\support\tomcat-native-current-win32-src\jni\apr\Debug;C:\OpenSSL\lib\VC
+  </pre>
+    Start tomcat and check for the messages like this ones:
+  <pre>
+    Feb 8, 2008 2:48:17 PM org.apache.catalina.core.AprLifecycleListener init
+    INFO: Loaded APR based Apache Tomcat Native library 1.x.y.
+    Feb 8, 2008 2:48:17 PM org.apache.catalina.core.AprLifecycleListener init
+    INFO: APR capabilities: IPv6 [false], sendfile [true], accept filters [false], random [true].
+    Feb 8, 2008 2:48:18 PM org.apache.coyote.http11.Http11AprProtocol init
+    INFO: Initializing Coyote HTTP/1.1 on http-8080
+  </pre>
+  </p>
+</blockquote></td></tr></table>
+
+</blockquote></td></tr></table></td></tr><!--FOOTER SEPARATOR--><tr><td colspan="2"><hr size="1" noshade></td></tr><!--PAGE FOOTER--><tr><td colspan="2"><div align="center"><font size="-1" color="#525D76"><em>
+        Copyright &copy; 2008-2009, Apache Software Foundation
+        </em></font></div></td></tr></table></body></html>

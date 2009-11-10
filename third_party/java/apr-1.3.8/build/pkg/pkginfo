@@ -6,6 +6,6 @@ CATEGORY="application"
 VENDOR="Apache Software Foundation"
 EMAIL="dev@apr.apache.org"
 PSTAMP="dev@apr.apache.org"
-BASEDIR="/Users/david/lab616/third_party/java/apr/platforms/macosx"
+BASEDIR="/Users/david/lab616/third_party/java/apr/platforms/macosx/"
 CLASSES="none"
 

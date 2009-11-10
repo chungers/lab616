@@ -53,7 +53,7 @@ DISTCLEAN_TARGETS = config.cache config.log config.status \
 EXTRACLEAN_TARGETS = configure aclocal.m4 include/arch/unix/apr_private.h.in \
 	build-outputs.mk build/ltcf-c.sh build/ltmain.sh build/libtool.m4
 
-prefix=/Users/david/lab616/third_party/java/apr/platforms/macosx
+prefix=/Users/david/lab616/third_party/java/apr/platforms/macosx/
 exec_prefix=${prefix}
 bindir=${exec_prefix}/bin
 libdir=${exec_prefix}/lib

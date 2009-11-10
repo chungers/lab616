@@ -6,10 +6,10 @@
 
 /* Define as function which can be used for conversion of strings to
    apr_int64_t */
-#define APR_INT64_STRFN strtoll
+#define APR_INT64_STRFN strtol
 
 /* Define as function used for conversion of strings to apr_off_t */
-#define APR_OFF_T_STRFN strtoll
+#define APR_OFF_T_STRFN strtol
 
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
@@ -87,7 +87,7 @@
 #define HAVE_ARPA_INET_H 1
 
 /* Define if compiler provides atomic builtins */
-/* #undef HAVE_ATOMIC_BUILTINS */
+#define HAVE_ATOMIC_BUILTINS 1
 
 /* Define if BONE_VERSION is defined in sys/socket.h */
 /* #undef HAVE_BONE_VERSION */
@@ -757,7 +757,7 @@
 #define SIZEOF_INT 4
 
 /* The size of `long', as computed by sizeof. */
-#define SIZEOF_LONG 4
+#define SIZEOF_LONG 8
 
 /* The size of `long long', as computed by sizeof. */
 #define SIZEOF_LONG_LONG 8
@@ -772,16 +772,16 @@
 #define SIZEOF_SHORT 2
 
 /* The size of size_t */
-#define SIZEOF_SIZE_T 4
+#define SIZEOF_SIZE_T 8
 
 /* The size of ssize_t */
-#define SIZEOF_SSIZE_T 4
+#define SIZEOF_SSIZE_T 8
 
 /* The size of struct iovec */
-#define SIZEOF_STRUCT_IOVEC 8
+#define SIZEOF_STRUCT_IOVEC 16
 
 /* The size of `void*', as computed by sizeof. */
-#define SIZEOF_VOIDP 4
+#define SIZEOF_VOIDP 8
 
 /* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be

@@ -1,0 +1,8 @@
+#! /bin/sh
+#
+# Created by configure
+
+"./configure" \
+"--with-apr=/Users/david/lab616/third_party/java/apr/platforms/macosx/" \
+"--with-ssl=/usr/local/ssl" \
+"$@"

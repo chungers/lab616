@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/Users/david/lab616/third_party/java/apr/platforms/macosx/lib'
+libdir='/Users/david/lab616/third_party/java/apr/platforms/macosx//lib'
