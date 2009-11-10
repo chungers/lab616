@@ -17,6 +17,7 @@ import com.lab616.ib.api.builders.MarketDataRequestBuilder;
 import com.lab616.ib.api.builders.IndexBuilder.Exchange;
 import com.lab616.ib.api.simulator.EClientSocketSimulator;
 import com.lab616.ib.api.simulator.EClientSocketSimulator.CSVFileDataSource;
+import com.lab616.ib.api.watchers.TWSEventAvroWriter;
 import com.lab616.ib.api.watchers.TWSEventCSVWriter;
 import com.lab616.ib.api.watchers.TWSEventProtoWriter;
 import com.lab616.omnibus.SystemEvent;
@@ -207,6 +208,37 @@ public class SystemEventProcessor extends AbstractEventWatcher {
             public Managed apply(TWSClient client) {
               TWSEventProtoWriter w = 
                 new TWSEventProtoWriter(directory,
+                    clientName, client.getSourceId());
+              client.getEventEngine().add(w);
+              return w;
+            }
+          });
+        }
+        return;
+      }
+      // Start avro file writer
+      if ("avro".equals(event.getMethod())) {
+        String name = event.getParam("profile");
+        String id = event.getParam("id");
+        String dir = event.getParam("dir");
+        dir = (dir == null || dir.length() == 0) ? "." : dir;
+        logger.debug("Starting avro writer for client=" + name);
+        // Check to see if we already have a writer for this
+        Managed managed = this.service.findAssociatedComponent(name,
+            Integer.parseInt(id),
+            new Predicate<Managed>() {
+          public boolean apply(Managed m) {
+            return m instanceof TWSEventAvroWriter;
+          }
+        });
+        final String clientName = name;
+        final String directory = dir;
+        if (managed == null || !managed.isReady()) {
+          this.service.enqueue(name, Integer.parseInt(id),
+              new Function<TWSClient, Managed>() {
+            public Managed apply(TWSClient client) {
+              TWSEventAvroWriter w = 
+                new TWSEventAvroWriter(directory,
                     clientName, client.getSourceId());
               client.getEventEngine().add(w);
               return w;

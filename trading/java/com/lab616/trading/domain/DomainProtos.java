@@ -395,7 +395,7 @@ public final class DomainProtos {
     public enum Type
         implements com.google.protobuf.Internal.EnumLite {
       TRADES(0, 0),
-      MID(1, 1),
+      MIDPOINT(1, 1),
       BID(2, 2),
       ASK(3, 3),
       ;
@@ -406,7 +406,7 @@ public final class DomainProtos {
       public static Type valueOf(int value) {
         switch (value) {
           case 0: return TRADES;
-          case 1: return MID;
+          case 1: return MIDPOINT;
           case 2: return BID;
           case 3: return ASK;
           default: return null;

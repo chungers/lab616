@@ -26,7 +26,7 @@ import com.lab616.ib.api.avro.TWSEvent;
 import com.lab616.omnibus.avro.test.Event;
 
 /**
- * Class that write TWSEvent in protobuffer form to a disk file.
+ * Class that write TWSEvent in avro form to a disk file.
  *
  * @author david
  *
@@ -90,8 +90,8 @@ public class AvroDataFile {
               tries);
       f = new File(fn);
       tries++;
-    } while (!f.exists());
-    return f.getName();
+    } while (f.exists());
+    return f.getPath();
   }
   
   /**
@@ -103,7 +103,7 @@ public class AvroDataFile {
     return new File(getFileName(today));
   }
   
-  public class Writer {
+  public static class Writer {
     
     private File file;
     DataFileWriter<Object> dataFileWriter;

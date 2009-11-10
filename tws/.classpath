@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="java"/>
 	<classpathentry kind="src" path="javatests"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
 	<classpathentry kind="var" path="THIRD_PARTY/ib-tws/IBJts/hsqldb.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/ib-tws/IBJts/jcommon-1.0.12.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/ib-tws/IBJts/jfreechart-1.0.9.jar"/>
