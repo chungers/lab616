@@ -200,19 +200,14 @@ public class ApiBuilder {
         TWSField field = new TWSField();
         Object value = args[i++];
         if (value instanceof Integer) {
-          field.type = TWSFieldType.INT;
           field.intValue = ((Integer) value);
         } else if (value instanceof Double) {
-          field.type = TWSFieldType.DOUBLE;
           field.doubleValue = ((Double) value);
         } else if (value instanceof String) {
-          field.type = TWSFieldType.STRING;
           field.stringValue = new Utf8((String) value);
         } else if (value instanceof Long) {
-          field.type = TWSFieldType.LONG;
           field.longValue = ((Long) value);
         } else if (value instanceof Boolean) {
-          field.type = TWSFieldType.BOOLEAN;
           field.booleanValue = ((Boolean) value);
         }
         event.fields.add(field);

@@ -26,6 +26,9 @@ public class MarketDataRequest {
   private int tickerId;
   private List<String> genericTickList = Lists.newArrayList();
   private boolean isSnapShot = false;
+  private int barSize = 5; // For realtime bars.
+  private String barType = "TRADES";  // TODO: change to enum later.
+  private boolean regularTradingHours = false;
   
   public boolean getSnapShot() {
     return isSnapShot;
@@ -44,6 +47,24 @@ public class MarketDataRequest {
   }
   public void setTickerId(int tickerId) {
     this.tickerId = tickerId;
+  }
+  public int getBarSize() {
+    return barSize;
+  }
+  public void setBarSize(int barSize) {
+    this.barSize = barSize;
+  }
+  public String getBarType() {
+    return this.barType;
+  }
+  public void setBarType(String b) {
+    this.barType = b;
+  }
+  public boolean getRegularTradingHours() {
+    return regularTradingHours;
+  }
+  public void setRegularTradingHours(boolean b) {
+    this.regularTradingHours = b;
   }
   
   public String getGenericTickList() {

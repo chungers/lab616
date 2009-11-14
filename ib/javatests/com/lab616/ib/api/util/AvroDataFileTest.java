@@ -17,7 +17,6 @@ import com.lab616.ib.api.ApiBuilder;
 import com.lab616.ib.api.ApiMethods;
 import com.lab616.ib.api.avro.TWSEvent;
 import com.lab616.ib.api.avro.TWSField;
-import com.lab616.ib.api.avro.TWSFieldType;
 import com.lab616.util.Time;
 
 /**
@@ -80,11 +79,6 @@ public class AvroDataFileTest extends TestCase {
       assertEquals("tickPrice", e.method.name());
       assertTrue(e.timestamp > 0);
       List<TWSField> fields = Lists.newArrayList(e.fields);
-      assertEquals(TWSFieldType.INT, fields.get(0).type);
-      assertEquals(TWSFieldType.INT, fields.get(1).type);
-      assertEquals(TWSFieldType.DOUBLE, fields.get(2).type);
-      assertEquals(TWSFieldType.INT, fields.get(3).type);
-
       assertEquals(new Integer(100), fields.get(0).intValue);
       assertEquals(new Integer(1), fields.get(1).intValue);
       assertEquals(new Double(20.0 + count), fields.get(2).doubleValue);

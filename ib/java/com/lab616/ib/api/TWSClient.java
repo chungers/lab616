@@ -385,10 +385,10 @@ public class TWSClient {
   }
   
   /**
-   * Requests market data: tick and realtime bars.
+   * Requests market data: tick data only.
    * @param builder The request builder.
    */
-  public void requestMarketData(MarketDataRequestBuilder builder) {
+  public void requestTickData(MarketDataRequestBuilder builder) {
     checkReady();
     MarketDataRequest req = builder.build();
     client.reqMktData(
@@ -399,14 +399,24 @@ public class TWSClient {
     logger.info(String.format(
         "[%s]: Requested market data for %s / id = %d", 
         getSourceId(), req.getContract().m_symbol, req.getTickerId()));
+  }
+  
+  /**
+   * Requests market data: tick data only.
+   * @param builder The request builder.
+   */
+  public void requestRealtimeBars(MarketDataRequestBuilder builder) {
+    checkReady();
+    MarketDataRequest req = builder.build();
     client.reqRealTimeBars(
         req.getTickerId(), 
         req.getContract(),
-        5, "TRADES", false);
+        req.getBarSize(), req.getBarType(), req.getRegularTradingHours());
     logger.info(String.format(
         "[%s]: Requested realtime bars for %s / id = %d", 
         getSourceId(), req.getContract().m_symbol, req.getTickerId()));
   }
+  
   
   /**
    * Requests market depth.

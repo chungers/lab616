@@ -101,7 +101,7 @@ public class SystemEventProcessor extends AbstractEventWatcher {
             exchange + " on " + name);
         this.service.enqueue(name, new Function<TWSClient, Boolean>() {
           public Boolean apply(TWSClient client) {
-            client.requestMarketData(
+            client.requestTickData(
                 new MarketDataRequestBuilder().withDefaultsForIndex()
                 .forIndex(new IndexBuilder(symbol).setExchange(
                     Exchange.valueOf(exchange))));
@@ -111,14 +111,36 @@ public class SystemEventProcessor extends AbstractEventWatcher {
         return;
       }
       // Request market data, including realtime bars.
-      if ("mkt".equals(event.getMethod())) {
+      if ("ticks".equals(event.getMethod())) {
         final String name = event.getParam("profile");
         final String symbol = event.getParam("symbol");
-        logger.debug("Requesting market data for " + symbol + " on " + name);
+        logger.debug("Requesting TICKS data for " + symbol + " on " + name);
         this.service.enqueue(name, new Function<TWSClient, Boolean>() {
           public Boolean apply(TWSClient client) {
-            client.requestMarketData(
+            client.requestTickData(
                 new MarketDataRequestBuilder().withDefaultsForStocks()
+                .forStock(new ContractBuilder(symbol)));
+            return true;
+          }
+        });
+        return;
+      }
+      // Request market data, including realtime bars.
+      if ("bars".equals(event.getMethod())) {
+        final String name = event.getParam("profile");
+        final String symbol = event.getParam("symbol");
+        final Integer barSize = Integer.parseInt(event.getParam("barSize"));
+        final String barType = event.getParam("barType");
+        final Boolean rth = Boolean.parseBoolean(event.getParam("rth"));
+        logger.debug("Requesting BARS data for " + symbol + " on " + name);
+        this.service.enqueue(name, new Function<TWSClient, Boolean>() {
+          public Boolean apply(TWSClient client) {
+            client.requestRealtimeBars(
+                new MarketDataRequestBuilder()
+                .setBarSize(barSize)
+                .setBarType(barType)
+                .setIsRegularTradingHours(rth)
+                .withDefaultsForStocks()
                 .forStock(new ContractBuilder(symbol)));
             return true;
           }

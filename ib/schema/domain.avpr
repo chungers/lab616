@@ -31,7 +31,7 @@
      {"name": "TWSField", 
       "type": "record",
       "fields": [
-          {"name": "type",          "type": "TWSFieldType"},
+//          {"name": "type",          "type": "TWSFieldType"},
           {"name": "stringValue",   "type": [ "string", "null" ]},
           {"name": "longValue",     "type": [ "long", "null" ]},
           {"name": "intValue",      "type": [ "int", "null" ]},

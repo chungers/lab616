@@ -25,15 +25,31 @@ public class MarketDataRequestBuilder
   
   public MarketDataRequestBuilder() {
     super(MarketDataRequest.class);
-    setIsSnapShot().to(false);
+    setIsSnapShot(false);
   }
   
   public Property<MarketDataRequest> setContract() {
     return setProperty("contract");
   }
   
-  public Property<MarketDataRequest> setIsSnapShot() {
-    return setProperty("snapShot", boolean.class);
+  public MarketDataRequestBuilder setBarSize(Integer size) {
+    setProperty("barSize", int.class).to(size);
+    return this;
+  }
+  
+  public MarketDataRequestBuilder setIsSnapShot(Boolean b) {
+    setProperty("snapShot", boolean.class).to(b);
+    return this;
+  }
+  
+  public MarketDataRequestBuilder setIsRegularTradingHours(Boolean b) {
+    setProperty("regularTradingHours", boolean.class).to(b);
+    return this;
+  }
+  
+  public MarketDataRequestBuilder setBarType(String bt) {
+    setProperty("barType", String.class).to(bt);
+    return this;
   }
   
   public MarketDataRequestBuilder forIndex(IndexBuilder builder, 
