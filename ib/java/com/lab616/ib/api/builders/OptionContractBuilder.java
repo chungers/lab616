@@ -32,17 +32,20 @@ public class OptionContractBuilder extends ContractBuilder {
     return setProperty("m_right").to("PUT");
   }
 
-  public final Builder<Contract> setStrike(BigDecimal strike) {
-    return setProperty("m_strike").to(strike.doubleValue());
+  public final OptionContractBuilder setStrike(double strike) {
+    setProperty("m_strike").to(strike);
+    return this;
   }
   
-  public final Property<Contract> setStrike() {
-    return setProperty("m_strike");
+  public final OptionContractBuilder setStrike(BigDecimal strike) {
+    setProperty("m_strike").to(strike.doubleValue());
+    return this;
   }
-  
-  public final Builder<Contract> setExpiration(int monthsFromToday) {
+
+  public final OptionContractBuilder setExpiration(int monthsFromToday) {
     DateTime exp = new DateTime().plusMonths(monthsFromToday);
-    return setExpiration(exp);
+    setExpiration(exp);
+    return this;
   }
   
   public final Builder<Contract> setExpiration(DateTime expiration) {

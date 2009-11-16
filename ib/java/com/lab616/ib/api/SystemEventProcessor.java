@@ -14,6 +14,7 @@ import com.lab616.ib.api.TWSClientManager.Managed;
 import com.lab616.ib.api.builders.ContractBuilder;
 import com.lab616.ib.api.builders.IndexBuilder;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
+import com.lab616.ib.api.builders.OptionContractBuilder;
 import com.lab616.ib.api.builders.IndexBuilder.Exchange;
 import com.lab616.ib.api.simulator.EClientSocketSimulator;
 import com.lab616.ib.api.simulator.EClientSocketSimulator.CSVFileDataSource;
@@ -114,15 +115,42 @@ public class SystemEventProcessor extends AbstractEventWatcher {
       if ("ticks".equals(event.getMethod())) {
         final String name = event.getParam("profile");
         final String symbol = event.getParam("symbol");
-        logger.debug("Requesting TICKS data for " + symbol + " on " + name);
-        this.service.enqueue(name, new Function<TWSClient, Boolean>() {
-          public Boolean apply(TWSClient client) {
-            client.requestTickData(
-                new MarketDataRequestBuilder().withDefaultsForStocks()
-                .forStock(new ContractBuilder(symbol)));
-            return true;
+        final String option = event.getParam("option");
+        if (option != null) {
+          // Option
+          final OptionContractBuilder ocb = new OptionContractBuilder(symbol);
+          if ("CALL".equalsIgnoreCase(option)) {
+            ocb.forCall();
+          } else {
+            ocb.forPut();
           }
-        });
+          Integer monthFromNow = Integer.parseInt(event.getParam("mfn"));
+          ocb.setExpiration(monthFromNow);
+          Double strike = Double.parseDouble(event.getParam("strike"));
+          ocb.setStrike(strike);
+          logger.debug("Requesting TICKS data for " + option + " option on " +
+              symbol + " on " + name + " strike = " + strike + " expiry = " + 
+              monthFromNow);
+          this.service.enqueue(name, new Function<TWSClient, Boolean>() {
+            public Boolean apply(TWSClient client) {
+              client.requestTickData(
+                  new MarketDataRequestBuilder().withDefaultsForOptions()
+                  .forOption(ocb, true));
+              return true;
+            }
+          });
+        } else {
+          // Equity
+          logger.debug("Requesting TICKS data for " + symbol + " on " + name);
+          this.service.enqueue(name, new Function<TWSClient, Boolean>() {
+            public Boolean apply(TWSClient client) {
+              client.requestTickData(
+                  new MarketDataRequestBuilder().withDefaultsForStocks()
+                  .forStock(new ContractBuilder(symbol)));
+              return true;
+            }
+          });
+        }
         return;
       }
       // Request market data, including realtime bars.
@@ -132,19 +160,45 @@ public class SystemEventProcessor extends AbstractEventWatcher {
         final Integer barSize = Integer.parseInt(event.getParam("barSize"));
         final String barType = event.getParam("barType");
         final Boolean rth = Boolean.parseBoolean(event.getParam("rth"));
-        logger.debug("Requesting BARS data for " + symbol + " on " + name);
-        this.service.enqueue(name, new Function<TWSClient, Boolean>() {
-          public Boolean apply(TWSClient client) {
-            client.requestRealtimeBars(
-                new MarketDataRequestBuilder()
-                .setBarSize(barSize)
-                .setBarType(barType)
-                .setIsRegularTradingHours(rth)
-                .withDefaultsForStocks()
-                .forStock(new ContractBuilder(symbol)));
-            return true;
+        final String option = event.getParam("option");
+        if (option != null) {
+          // Option
+          final OptionContractBuilder ocb = new OptionContractBuilder(symbol);
+          if ("CALL".equalsIgnoreCase(option)) {
+            ocb.forCall();
+          } else {
+            ocb.forPut();
           }
-        });
+          Integer monthFromNow = Integer.parseInt(event.getParam("mfn"));
+          ocb.setExpiration(monthFromNow);
+          Double strike = Double.parseDouble(event.getParam("strike"));
+          ocb.setStrike(strike);
+          logger.debug("Requesting BARS data for " + option + " option on " +
+              symbol + " on " + name + " strike = " + strike + " expiry = " + 
+              monthFromNow);
+          this.service.enqueue(name, new Function<TWSClient, Boolean>() {
+            public Boolean apply(TWSClient client) {
+              client.requestRealtimeBars(
+                  new MarketDataRequestBuilder().withDefaultsForOptions()
+                  .forOption(ocb, true));
+              return true;
+            }
+          });
+        } else {
+          logger.debug("Requesting BARS data for " + symbol + " on " + name);
+          this.service.enqueue(name, new Function<TWSClient, Boolean>() {
+            public Boolean apply(TWSClient client) {
+              client.requestRealtimeBars(
+                  new MarketDataRequestBuilder()
+                  .setBarSize(barSize)
+                  .setBarType(barType)
+                  .setIsRegularTradingHours(rth)
+                  .withDefaultsForStocks()
+                  .forStock(new ContractBuilder(symbol)));
+              return true;
+            }
+          });
+        }
         return;
       }
       // Request market depth:
