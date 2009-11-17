@@ -24,9 +24,6 @@ public class ContractBuilder extends AbstractBuilder<Contract> {
     set("m_secType", "STK");
     set("m_exchange", "SMART");
     setCurrency(Currency.getInstance("USD"));
-    
-    // This may not be necessary...
-    set("m_conId", getTickerId());
   }
   
   public final Property<Contract> setSymbol() {
@@ -37,7 +34,14 @@ public class ContractBuilder extends AbstractBuilder<Contract> {
     return setProperty("m_currency").to(cur.getCurrencyCode());
   }
 
-  public final int getTickerId() {
+  public int getTickerId() {
     return TickerId.toTickerId(getProperty("m_symbol").toString());
+  }
+
+  @Override
+  public Contract build() {
+    // This may not be necessary...
+    set("m_conId", getTickerId());
+    return super.build();
   }
 }

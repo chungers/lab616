@@ -9,6 +9,8 @@ import org.joda.time.format.DateTimeFormat;
 
 import com.ib.client.Contract;
 import com.lab616.common.builder.Builder;
+import com.lab616.ib.api.OptionSymbol;
+import com.lab616.ib.api.TickerId;
 
 /**
  *
@@ -18,9 +20,14 @@ import com.lab616.common.builder.Builder;
  */
 public class OptionContractBuilder extends ContractBuilder {
 
+  private String base;
+  private DateTime expiration;
+  private double strike;
+  private boolean call = true;
   
   public OptionContractBuilder(String symbol) {
     super(symbol);
+    base = symbol;
     set("m_secType", "OPT");
   }
 
@@ -29,17 +36,18 @@ public class OptionContractBuilder extends ContractBuilder {
   }
   
   public final Builder<Contract> forPut() {
+    call = false;
     return setProperty("m_right").to("PUT");
   }
 
   public final OptionContractBuilder setStrike(double strike) {
+    this.strike = strike;
     setProperty("m_strike").to(strike);
     return this;
   }
   
   public final OptionContractBuilder setStrike(BigDecimal strike) {
-    setProperty("m_strike").to(strike.doubleValue());
-    return this;
+    return setStrike(strike.doubleValue());
   }
 
   public final OptionContractBuilder setExpiration(int monthsFromToday) {
@@ -49,9 +57,22 @@ public class OptionContractBuilder extends ContractBuilder {
   }
   
   public final Builder<Contract> setExpiration(DateTime expiration) {
+    this.expiration = expiration;
     setProperty("m_expiry").to(
         DateTimeFormat.forPattern("YYYYMM").print(expiration));
     return this;
   }
+
+  public String getOptionSymbol() {
+    if (call) {
+      return OptionSymbol.getCallOptionSymbol(base, expiration, strike);
+    } else {
+      return OptionSymbol.getPutOptionSymbol(base, expiration, strike);
+    }
+  }
   
+  @Override
+  public int getTickerId() {
+    return TickerId.toTickerId(getOptionSymbol());
+  }
 }

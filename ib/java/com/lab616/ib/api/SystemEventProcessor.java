@@ -128,9 +128,9 @@ public class SystemEventProcessor extends AbstractEventWatcher {
           ocb.setExpiration(monthFromNow);
           Double strike = Double.parseDouble(event.getParam("strike"));
           ocb.setStrike(strike);
-          logger.debug("Requesting TICKS data for " + option + " option on " +
+          logger.info("Requesting TICKS data for " + option + " option on " +
               symbol + " on " + name + " strike = " + strike + " expiry = " + 
-              monthFromNow);
+              monthFromNow + " symbol = " + ocb.getOptionSymbol());
           this.service.enqueue(name, new Function<TWSClient, Boolean>() {
             public Boolean apply(TWSClient client) {
               client.requestTickData(
@@ -141,7 +141,7 @@ public class SystemEventProcessor extends AbstractEventWatcher {
           });
         } else {
           // Equity
-          logger.debug("Requesting TICKS data for " + symbol + " on " + name);
+          logger.info("Requesting TICKS data for " + symbol + " on " + name);
           this.service.enqueue(name, new Function<TWSClient, Boolean>() {
             public Boolean apply(TWSClient client) {
               client.requestTickData(
@@ -173,9 +173,9 @@ public class SystemEventProcessor extends AbstractEventWatcher {
           ocb.setExpiration(monthFromNow);
           Double strike = Double.parseDouble(event.getParam("strike"));
           ocb.setStrike(strike);
-          logger.debug("Requesting BARS data for " + option + " option on " +
+          logger.info("Requesting BARS data for " + option + " option on " +
               symbol + " on " + name + " strike = " + strike + " expiry = " + 
-              monthFromNow);
+              monthFromNow + " symbol = " + ocb.getOptionSymbol());
           this.service.enqueue(name, new Function<TWSClient, Boolean>() {
             public Boolean apply(TWSClient client) {
               client.requestRealtimeBars(
@@ -185,7 +185,7 @@ public class SystemEventProcessor extends AbstractEventWatcher {
             }
           });
         } else {
-          logger.debug("Requesting BARS data for " + symbol + " on " + name);
+          logger.info("Requesting BARS data for " + symbol + " on " + name);
           this.service.enqueue(name, new Function<TWSClient, Boolean>() {
             public Boolean apply(TWSClient client) {
               client.requestRealtimeBars(
@@ -205,7 +205,7 @@ public class SystemEventProcessor extends AbstractEventWatcher {
       if ("dom".equals(event.getMethod())) {
         final String name = event.getParam("profile");
         final String symbol = event.getParam("symbol");
-        logger.debug("Requesting market depth for " + symbol + " on " + name);
+        logger.info("Requesting market depth for " + symbol + " on " + name);
         this.service.enqueue(name, new Function<TWSClient, Boolean>() {
           public Boolean apply(TWSClient client) {
             client.requestMarketDepth(

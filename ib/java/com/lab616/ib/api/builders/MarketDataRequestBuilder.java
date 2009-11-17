@@ -5,10 +5,7 @@ package com.lab616.ib.api.builders;
 import java.util.List;
 
 import com.google.inject.internal.Lists;
-import com.ib.client.Contract;
 import com.lab616.common.builder.AbstractBuilder;
-import com.lab616.common.builder.Builder;
-import com.lab616.ib.api.TickerId;
 
 /**
  *
@@ -20,7 +17,7 @@ public class MarketDataRequestBuilder
   extends AbstractBuilder<MarketDataRequest> {
 
   
-  private Builder<Contract> contractBuilder = null;
+  private ContractBuilder contractBuilder = null;
   private List<String> genericTickList = Lists.newArrayList();
   
   public MarketDataRequestBuilder() {
@@ -81,7 +78,7 @@ public class MarketDataRequestBuilder
     if (m.getContract() == null && contractBuilder != null) {
       m.setContract(contractBuilder.build());
     }
-    m.setTickerId(TickerId.toTickerId(m.getContract().m_symbol));
+    m.setTickerId(contractBuilder.getTickerId());
     m.setGenericTickList(this.genericTickList);
     return m;
   }
