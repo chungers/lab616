@@ -2,14 +2,17 @@
 
 package com.lab616.ib.api;
 
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Module;
+import com.google.inject.internal.Lists;
 import com.lab616.ib.api.servlets.TWSControllerModule;
-import com.lab616.omnibus.Main;
+import com.lab616.omnibus.Kernel;
+import com.lab616.omnibus.Kernel.Shutdown;
 
 /**
  * Test main
@@ -17,7 +20,7 @@ import com.lab616.omnibus.Main;
  * @author david
  *
  */
-public class ApiClientMain extends Main {
+public class ApiClientMain extends Kernel {
 
   static Logger logger = Logger.getLogger(ApiClientMain.class);
 
@@ -29,8 +32,8 @@ public class ApiClientMain extends Main {
   }
 
   @Override
-  public Shutdown<?> getShutdown() {
-    return getInstance(Shutdown.class, "tws-shutdown");
+  public void addShutdown(List<Shutdown<?>> list) {
+    list.add(getInstance(Shutdown.class, TWSClientModule.SHUTDOWN_HOOK));
   }
 
   @Override

@@ -83,21 +83,6 @@ public class ApiTest extends TestCase {
   }
   
   @Test
-  public void testStockSymbol() throws Exception {
-    Stock goog = new Stock("GOOG");
-    Stock goog2 = new Stock(goog.getTickerId());
-    assertEquals(goog.getTickerId(), goog2.getTickerId());
-    assertEquals(goog.toString(), goog2.toString());
-    assertEquals(goog, goog2);
-    
-    Stock emini = new Stock("/ES");
-    Stock emini2 = new Stock(emini.getTickerId());
-    assertEquals(emini, emini2);
-    
-    assertNotSame(emini.getTickerId(), goog.getTickerId());
-  }
-  
-  @Test
   public void testGetTickerId() throws Exception {
     int t = getTickerId("AAP9");
     

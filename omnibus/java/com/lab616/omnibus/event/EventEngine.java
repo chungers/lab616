@@ -24,8 +24,8 @@ import com.google.inject.internal.Lists;
 import com.google.inject.name.Named;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
-import com.lab616.omnibus.Main;
-import com.lab616.omnibus.Main.Shutdown;
+import com.lab616.omnibus.Kernel;
+import com.lab616.omnibus.Kernel.Shutdown;
 
 /**
  * An event engine that supports addition of event-selecting filter expressions
@@ -34,7 +34,7 @@ import com.lab616.omnibus.Main.Shutdown;
  * @author david
  *
  */
-public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
+public class EventEngine implements Provider<Kernel.Shutdown<Boolean>> {
 
 	@Varz(name = "event-engine-event-definitions-count")
 	public static final AtomicInteger countEventDefinitions = new AtomicInteger();
@@ -139,6 +139,14 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	}
 	
 	/**
+	 * Adds a simple event watcher.
+	 * @param watcher The watcher.
+	 */
+	public final void add(EventWatcher watcher) {
+		add(watcher);
+	}
+	
+	/**
 	 * Adds a new event watcher during runtime.
 	 * @param watcher The new watcher.
 	 */
@@ -225,6 +233,10 @@ public class EventEngine implements Provider<Main.Shutdown<Boolean>> {
 	 */
 	public final State getState() {
 		return this.state;
+	}
+	
+	public boolean isRunning() {
+		return getState() == State.RUNNING;
 	}
 	
 	/**

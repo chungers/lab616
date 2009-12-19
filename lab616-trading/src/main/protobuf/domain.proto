@@ -1,0 +1,35 @@
+package ib;
+
+option java_package = "com.lab616.ib.api.proto";
+option java_outer_classname = "TWSProto";
+option optimize_for = LITE_RUNTIME;
+
+enum Method {
+    tickGeneric           = 0;
+    tickOptionComputation = 1;
+    tickPrice             = 2;
+    tickSize              = 3; 
+    tickString            = 4; 
+    realtimeBar           = 5;
+    updateMktDepth        = 6;
+    updateMktDepthL2      = 7;
+    currentTime           = 8;
+    historicalData        = 9;
+    nextValidId           = 10;
+    updateAccountValue    = 11;
+}
+
+message Field {
+  optional double doubleValue   = 1;
+  optional int32 intValue       = 2;
+  optional string stringValue   = 3;
+  optional int64 longValue      = 4;
+  optional bool booleanValue    = 5;
+}
+
+message Event {
+  required fixed64 timestamp = 1;
+  required Method method     = 2;
+  repeated Field field       = 3;
+  optional string source     = 4;
+}

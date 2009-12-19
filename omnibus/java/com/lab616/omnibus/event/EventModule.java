@@ -10,7 +10,7 @@ import com.google.inject.Scopes;
 import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
-import com.lab616.omnibus.Main;
+import com.lab616.omnibus.Kernel;
 import com.lab616.omnibus.SystemEvent;
 import com.lab616.omnibus.event.watchers.SystemEventStats;
 import com.lab616.omnibus.event.watchers.SystemEventWatcher;
@@ -22,7 +22,7 @@ import com.lab616.omnibus.event.watchers.SystemEventWatcher;
  */
 public class EventModule extends AbstractEventModule {
 
-  @Flag(name = "event-engine-threads")
+	@Flag(name = "event-engine-threads")
   public static Integer NUM_THREADS = 10;
   
   @Flag(name = "event-engine-queue-capacity")
@@ -32,6 +32,8 @@ public class EventModule extends AbstractEventModule {
     Flags.register(EventModule.class);
   }
 
+  public static final String SHUTDOWN_HOOK = "event-engine-shutdown";
+  
 	@SuppressWarnings("unchecked")
   public void configure() {
 	  // Flags
@@ -54,7 +56,7 @@ public class EventModule extends AbstractEventModule {
     bindEventWatcher(new SystemEventStats("system", 1000L));
 
     bind(EventEngine.class).in(Scopes.SINGLETON);
-    bind(Main.Shutdown.class).annotatedWith(Names.named("event-engine-shutdown"))
+    bind(Kernel.Shutdown.class).annotatedWith(Names.named(SHUTDOWN_HOOK))
     .toProvider(EventEngine.class).in(Scopes.SINGLETON);
 	}
 	

@@ -19,12 +19,14 @@
 # Java classes and generated source files
 classes/
 genfiles/
+target/
 
 # Runtime / testing
 mock*
 runtime/
 test/
 testing/
+
 
 # Development tools
 tools/

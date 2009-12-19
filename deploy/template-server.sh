@@ -38,7 +38,14 @@ echo `java -version`
 JAR=${BINARY_DIR}/${BIN_NAME}.jar
 JVM_ARGS="-Djava.library.path=${BINARY_DIR} -server -Xmx1024M -Duser.timezone=${TZ}"
 
-JAVA_COMMAND="nohup java ${JVM_ARGS} -jar ${JAR} --profile=${PROFILE_PROPERTIES}"
+# MAIN_CLASS = [ JAR | <class_name> ].  This is substituted by borg script for --newserver <class_name>
+MAIN_CLASS=@MAIN_CLASS
+
+if [[ "$MAIN_CLASS" == "JAR" ]]; then
+    JAVA_COMMAND="nohup java ${JVM_ARGS} -jar ${JAR} --profile=${PROFILE_PROPERTIES}"
+else
+    JAVA_COMMAND="nohup java ${JVM_ARGS} -classpath ${JAR} ${MAIN_CLASS} --profile=${PROFILE_PROPERTIES}"
+fi
 
 ###########################################################
 # Package-specific parameters:

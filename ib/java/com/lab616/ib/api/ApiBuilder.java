@@ -15,11 +15,13 @@ import com.lab616.common.Converter;
 import com.lab616.common.Pair;
 import com.lab616.ib.api.avro.TWSEvent;
 import com.lab616.ib.api.avro.TWSField;
-import com.lab616.ib.api.avro.TWSFieldType;
 import com.lab616.ib.api.avro.TWSMethod;
 import com.lab616.ib.api.proto.TWSProto;
 
 /**
+ * Generic mapping of an api method call to a set of columns (for a csv) or
+ * a protobuffer or an avro record.
+ * 
  * @author david
  *
  */

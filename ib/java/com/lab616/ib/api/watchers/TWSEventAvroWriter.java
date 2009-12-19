@@ -13,7 +13,6 @@ import com.lab616.ib.api.ApiBuilder;
 import com.lab616.ib.api.ApiMethods;
 import com.lab616.ib.api.TWSClientException;
 import com.lab616.ib.api.TWSClientManager.Managed;
-import com.lab616.ib.api.TWSProxy.EWrapperMessage;
 import com.lab616.ib.api.avro.TWSEvent;
 import com.lab616.ib.api.util.AvroDataFile;
 import com.lab616.monitoring.MinMaxAverage;
@@ -21,6 +20,7 @@ import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.VarzMap;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.AbstractEventWatcher;
+import com.lab616.omnibus.event.EventMessage;
 import com.lab616.omnibus.event.annotation.Statement;
 import com.lab616.omnibus.event.annotation.Var;
 import com.lab616.util.Time;
@@ -32,7 +32,7 @@ import com.lab616.util.Time;
  * @author david
  *
  */
-@Statement("select payload from EventMessage where source=?")
+@Statement("select * from EventMessage where source=?")
 public class TWSEventAvroWriter extends AbstractEventWatcher implements Managed {
 
   @Varz(name = "tws-event-avro-writer-subscriber-elapsed")
@@ -47,7 +47,7 @@ public class TWSEventAvroWriter extends AbstractEventWatcher implements Managed 
 
   private AvroDataFile avroFile;
   private String clientSourceId;
-  private AbstractQueueWorker<EWrapperMessage> queueWorker;
+  private AbstractQueueWorker<EventMessage> queueWorker;
   
   public TWSEventAvroWriter(String dir, String rootName, String clientSourceId) {
     this.clientSourceId = clientSourceId;
@@ -58,14 +58,14 @@ public class TWSEventAvroWriter extends AbstractEventWatcher implements Managed 
       throw new TWSClientException(e);
     }
     final String id = clientSourceId;
-    this.queueWorker = new AbstractQueueWorker<EWrapperMessage>(id, false) {
+    this.queueWorker = new AbstractQueueWorker<EventMessage>(id, false) {
       @Override
-      protected void execute(EWrapperMessage event) throws Exception {
+      protected void execute(EventMessage event) throws Exception {
         // Modify the source id to use only the account name.
         ApiBuilder b = ApiMethods.get(event.method);
         if (b != null) {
           TWSEvent avro = b.buildAvro(
-              event.source, event.timestamp, event.args);
+              event.instance, event.timestamp, event.args);
           avroFile.getWriter().write(avro);
         }
       }
@@ -105,9 +105,9 @@ public class TWSEventAvroWriter extends AbstractEventWatcher implements Managed 
    * @param event The event.
    */
   public void update(Object event) {
-    if (event != null && event instanceof EWrapperMessage) {
+    if (event != null && event instanceof EventMessage) {
       long start = Time.now();
-      this.queueWorker.enqueue((EWrapperMessage) event);
+      this.queueWorker.enqueue((EventMessage) event);
       subscriberElapsed.get(getSourceId()).set(Time.now() - start);
     }
   }

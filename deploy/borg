@@ -55,6 +55,8 @@ function run_local {
 }
 
 function build_package {
+    BinType=$1;
+    MainClass=$2;
     if [ ! -d ${SOURCE_DIR} ]; then
 	echo "Directory ${SOURCE_DIR} missing.  Creating."
 	mkdir -p ${SOURCE_DIR}
@@ -62,7 +64,13 @@ function build_package {
 	mkdir -p ${PROFILE_FILES}
 	mkdir -p ${TEMPLATES_DIR}
 	mkdir -p ${LOCAL_FILES}
-	cp ${DEPLOY_DIR}/template-${1}.sh ${SOURCE_DIR}/${PACKAGE}
+	echo "MainClass = ${MainClass}"
+	if [[ "$MainClass" == "" ]]; then
+	    sed 's/@MAIN_CLASS/JAR/g' ${DEPLOY_DIR}/template-${BinType}.sh > ${SOURCE_DIR}/${PACKAGE}	    
+	else
+	    eval sed 's/@MAIN_CLASS/${MainClass}/g' ${DEPLOY_DIR}/template-${BinType}.sh > ${SOURCE_DIR}/${PACKAGE}  
+	fi
+
 	chmod a+x ${SOURCE_DIR}/${PACKAGE}
     fi
 }
@@ -71,10 +79,10 @@ echo "PACKAGE=${PACKAGE}, TARGET=${TARGET_DIR}"
 
 case "${OPTION}" in 
 --newserver)
-    build_package server
+    build_package server $@
 ;;
 --newtool)
-    build_package tool
+    build_package tool $@
 ;;
 --stagelocal)
     if [ ! -d ${TARGET_DIR} ]; then

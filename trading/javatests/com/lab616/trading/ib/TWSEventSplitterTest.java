@@ -8,7 +8,6 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicReference;
 
 import junit.framework.TestCase;
 
@@ -25,6 +24,7 @@ import com.lab616.ib.api.ApiMethods;
 import com.lab616.ib.api.TWSClientModule;
 import com.lab616.ib.api.proto.TWSProto;
 import com.lab616.omnibus.event.EventEngine;
+import com.lab616.omnibus.event.EventMessage;
 import com.lab616.omnibus.event.EventModule;
 import com.lab616.omnibus.event.EventEngine.Subscriber;
 import com.lab616.omnibus.event.EventEngineTest.SystemEventWatcher;
@@ -44,8 +44,7 @@ public class TWSEventSplitterTest extends TestCase {
     Logging.init(Level.DEBUG);
   }
   
-  private EWrapper getEWrapper(final AtomicReference<TWSProto.Event> ref,
-      final ApiBuilder builder) {
+  private EWrapper getEWrapper(final ApiBuilder builder) {
     return (EWrapper)Proxy.newProxyInstance(
          EWrapper.class.getClassLoader(), 
          new Class[] { EWrapper.class }, 
@@ -53,8 +52,14 @@ public class TWSEventSplitterTest extends TestCase {
            public Object invoke(Object proxy, Method m, Object[] args) 
              throws Throwable {
              TWSProto.Event e = builder.buildProto("test", Time.now(), args);
-             ref.set(e);
+             
              assertTrue(e.isInitialized());
+             engine.post(e);
+             
+             EventMessage event = new EventMessage(
+                 "test0", null, "test-account", m.getName(), args, Time.now());
+             engine.post(event);
+             
              return null;
            }
          });
@@ -91,19 +96,13 @@ public class TWSEventSplitterTest extends TestCase {
   
     // Now we fire events
     int priceCount = 0;
-    final AtomicReference<TWSProto.Event> eventRef = 
-      new AtomicReference<TWSProto.Event>();
-    
-    EWrapper w = getEWrapper(eventRef, ApiMethods.TICK_PRICE);
+    EWrapper w = getEWrapper(ApiMethods.TICK_PRICE);
 
-    for (; priceCount < 10000; priceCount++) {
+    for (; priceCount < 100; priceCount++) {
       // Call the wrapper
       w.tickPrice(1001, 0, 26.0, 1);
-
-      engine.post(eventRef.get());
-      Thread.sleep(2L); // Won't need this if inbound/outbound thread pool =1
     }
-    engine.stop();
+    Thread.sleep(1L); // HAVE TO ADD THIS??
     
     for (TWSProto.Event e : prices) {
       assertEquals(TWSProto.Method.tickPrice, e.getMethod());
@@ -142,39 +141,94 @@ public class TWSEventSplitterTest extends TestCase {
     int priceCount = 0;
     int sizeCount = 0;
     int bogusCount = 0;
-    final AtomicReference<TWSProto.Event> eventRef = 
-      new AtomicReference<TWSProto.Event>();
 
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < 100; i++) {
       int pick = rng.nextInt(3);
       switch (pick) {
         case 0:
-        	getEWrapper(eventRef, ApiMethods.TICK_PRICE).tickPrice(
+        	getEWrapper(ApiMethods.TICK_PRICE).tickPrice(
         			1001, 3, 27.5, 1);
-        	engine.post(eventRef.get());
           priceCount++;
           break;
         case 1:
-        	getEWrapper(eventRef, ApiMethods.TICK_SIZE).tickSize(1001, 3, 100);
-        	engine.post(eventRef.get());
+        	getEWrapper(ApiMethods.TICK_SIZE).tickSize(1001, 3, 100);
           sizeCount++;
           break;
         case 2:
-        	getEWrapper(eventRef, ApiMethods.TICK_GENERIC).tickGeneric(1001, 2, 45.);
-        	engine.post(eventRef.get());
+        	getEWrapper(ApiMethods.TICK_GENERIC).tickGeneric(1001, 2, 45.);
           bogusCount++;
           break;
       }
       Thread.sleep(1L); // HAVE TO ADD THIS??
     }
-    engine.stop();
-    Thread.sleep(1000L);
     
     for (TWSProto.Event e : prices) {
       assertEquals(TWSProto.Method.tickPrice, e.getMethod());
     }
     for (TWSProto.Event e : sizes) {
       assertEquals(TWSProto.Method.tickSize, e.getMethod());
+    }
+    assertEquals(priceCount, prices.size());
+    assertEquals(sizeCount, sizes.size());
+  }
+
+
+  public void testSplitStream2() throws Exception {
+
+    final ConcurrentLinkedQueue<EventMessage> prices = 
+      new ConcurrentLinkedQueue<EventMessage>();
+    final ConcurrentLinkedQueue<EventMessage> sizes = 
+      new ConcurrentLinkedQueue<EventMessage>();
+    
+    engine.splitEventStream(EventMessage.class)
+    .into("TickData")
+    .where("method='tickPrice' or method='tickSize'")
+    .then()
+    .direct("select * from TickData(method='tickPrice')")
+    .to(new Subscriber<EventMessage>() {
+      public void update(EventMessage event) {
+        prices.add(event);
+      }
+    })
+    .then()
+    .direct("select * from TickData(method='tickSize')")
+    .to(new Subscriber<EventMessage>() {
+      public void update(EventMessage event) {
+        sizes.add(event);
+      }
+    }).build();
+  
+    // Now we fire events
+    Random rng = new Random();
+    int priceCount = 0;
+    int sizeCount = 0;
+    int bogusCount = 0;
+
+    for (int i = 0; i < 1000; i++) {
+      int pick = rng.nextInt(3);
+      switch (pick) {
+        case 0:
+        	getEWrapper(ApiMethods.TICK_PRICE).tickPrice(
+        			1001, 3, 27.5, 1);
+          priceCount++;
+          break;
+        case 1:
+        	getEWrapper(ApiMethods.TICK_SIZE).tickSize(1001, 3, 100);
+          sizeCount++;
+          break;
+        case 2:
+        	getEWrapper(ApiMethods.TICK_GENERIC).tickGeneric(1001, 2, 45.);
+          bogusCount++;
+          break;
+      }
+      Thread.sleep(1L); // HAVE TO ADD THIS??
+    }
+    
+    for (EventMessage e : prices) {
+      assertEquals("tickPrice", e.method);
+    }
+    for (EventMessage e : sizes) {
+      assertEquals("tickSize", e.method);
     }
     assertEquals(priceCount, prices.size());
     assertEquals(sizeCount, sizes.size());

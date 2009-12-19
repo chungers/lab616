@@ -142,7 +142,7 @@ public class EventEngineTest extends TestCase {
 		}
 	}
 
-	public static class ChildWatcher extends EventWatcher<Statement> {
+	public static class ChildWatcher extends EventWatcher {
 		static final AtomicInteger events = new AtomicInteger();
 		public ChildWatcher(String exp, Object... args) {
 			super(exp, args);

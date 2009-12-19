@@ -19,7 +19,7 @@
 	<classpathentry kind="var" path="THIRD_PARTY/jetty/lib/jetty-util-6.1.20.jar"/>
 	<classpathentry kind="var" path="THIRD_PARTY/jetty/lib/servlet-api-2.5-20081211.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="var" path="THIRD_PARTY/esper/esper.jar"/>
+	<classpathentry kind="var" path="THIRD_PARTY/esper/esper.jar" sourcepath="/THIRD_PARTY/esper/src"/>
 	<classpathentry kind="var" path="THIRD_PARTY/avro/avro-1.2.0.jar" sourcepath="/THIRD_PARTY/avro/src/java"/>
 	<classpathentry kind="lib" path="target/ivy/jackson-core-asl-1.0.1.jar"/>
 	<classpathentry kind="lib" path="target/ivy/jackson-mapper-asl-1.0.1.jar"/>
