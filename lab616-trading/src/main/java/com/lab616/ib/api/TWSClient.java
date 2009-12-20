@@ -47,7 +47,7 @@ public class TWSClient {
   }
   
   public interface Factory {
-    public TWSClient create(String name, int id, boolean simulate);
+    public TWSClient create(String profile, int id, boolean simulate);
   }
   
   public enum State {

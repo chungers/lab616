@@ -15,10 +15,10 @@ public interface EClientSocketFactory {
 
   /**
    * Creates an EClientSocket.
-   * @param name The name of this connection.
+   * @param profile The name of connection profile.
    * @param wrapper The warpper implementation.
    * @param simulate Optional.  True if simulating.
    * @return An EClientSocket.
    */
-  public EClientSocket create(String name, EWrapper wrapper, boolean... simulate);
+  public EClientSocket create(String profile, EWrapper wrapper, boolean... simulate);
 }

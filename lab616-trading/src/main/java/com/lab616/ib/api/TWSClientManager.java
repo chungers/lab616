@@ -176,22 +176,22 @@ public final class TWSClientManager {
 
   /**
    * Starts a new connection of given name and assigns a connection id.
-   * @param name The name of the connection.
+   * @param profile The name of the connection.
    * @return True if successful.
    */
-  public synchronized int newConnection(final String name, boolean... simulate) {
+  public synchronized int newConnection(final String profile, boolean... simulate) {
     final int id = clients.size(); 
     // Get the work queue for this client:
-    Pair<ClientWorkQueue, TWSClient> p = getManagedClient(name, id);
+    Pair<ClientWorkQueue, TWSClient> p = getManagedClient(profile, id);
     if (p == null) {
-      final ClientWorkQueue queue = new ClientWorkQueue(name, id);
+      final ClientWorkQueue queue = new ClientWorkQueue(profile, id);
       
       boolean sim = (simulate.length > 0) ? simulate[0] : false;
-      final TWSClient client = this.factory.create(name, id, sim);
+      final TWSClient client = this.factory.create(profile, id, sim);
       
       // Register this pair.
-      addManagedClient(name, id, Pair.of(queue, client));
-      logger.info("Created work queue and client for " + makeKey(name, id));
+      addManagedClient(profile, id, Pair.of(queue, client));
+      logger.info("Created work queue and client for " + makeKey(profile, id));
       
       // Now start work asynchronously.  This doesn't block as the work 
       // is done in the executor.
@@ -209,7 +209,7 @@ public final class TWSClientManager {
             // Here we must remove the queue and client from the
             // managed list.
             Pair<ClientWorkQueue, TWSClient> removed = removeManagedClient(
-                name, id);
+                profile, id);
             Pair<ClientWorkQueue, TWSClient> picked = null;
             do {
               // Drain the queue to another working queue OF THE SAME PROFILE.
@@ -218,7 +218,7 @@ public final class TWSClientManager {
                   .nextInt(clients.size());
                 picked = getManagedClient(r);
               }
-            } while (!picked.second.getProfile().equals(name)); // Same profile.
+            } while (!picked.second.getProfile().equals(profile)); // Same profile.
             
             if (picked != null) {
               logger.info(String.format("Draining %s to %s",

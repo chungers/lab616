@@ -24,8 +24,6 @@ target/
 # Runtime / testing
 mock*
 runtime/
-test/
-testing/
 
 
 # Development tools
