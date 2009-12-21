@@ -39,7 +39,7 @@ public class CSVFileDataSource extends DataSource {
         ApiBuilder b = ApiMethods.get(cols[1]);
         if (b != null) {
           TWSProto.Event event = b.buildProto(source, cols);
-          sink.add(event); 
+          sink.put(event); 
         }
       }
     }

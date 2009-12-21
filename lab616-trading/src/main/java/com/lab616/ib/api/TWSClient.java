@@ -253,6 +253,7 @@ public class TWSClient {
       
       // Connect, retry if necessary.
       client.eConnect(hostPort.host, hostPort.port, clientId);
+
       boolean connected = doRetriesIfNecessary();
       
       if (connected) {

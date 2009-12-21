@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
@@ -65,6 +66,8 @@ public abstract class Kernel {
   
   private Injector injector;
 
+  private boolean running = false;
+  
   public Set<? extends Module> getModules() {
     return Sets.newHashSet();
   }
@@ -102,6 +105,26 @@ public abstract class Kernel {
   }
   
   /**
+   * Programmatically shuts everything down.  Stops the kernel from running.
+   * 
+   * @throws Exception
+   */
+  public final boolean shutdown() {
+  	try {
+    	getShutdownHook().run();
+    	running = false;
+    	return !running;
+  	} catch (Throwable th) {
+  		logger.warn("Exception during programmatic shutdown:", th);
+  	}
+  	return running;
+  }
+  
+  public final boolean isRunning() {
+  	return this.running;
+  }
+  
+  /**
    * Subclass overrides this method to start running the application. 
    * The implementation can call methods such as {@link #getInstance} to
    * obtain injected objects and start the program sequence.
@@ -118,12 +141,21 @@ public abstract class Kernel {
    * @throws Exception Uncaught exception.
    */
   public final void run(String[] argv) throws Exception {
+  	if (this.running) throw new IllegalStateException("Currently running.");
+  	
+  	this.running = true;
+  	
     // Load all the modules.  This will also force any Flag registration
     // to occur so that the flag parsing will apply to all the module class
     // where the flag values are used for injection.
     List<Module> allModules = Lists.newArrayList();
     allModules.add(new HttpServerModule());
     allModules.add(new EventModule());
+    allModules.add(new Module() {
+    	public void configure(Binder binder) {
+    		binder.bind(Kernel.class).toInstance(Kernel.this);
+    	}
+    });
     allModules.addAll(Lists.newArrayList(getModules()));
 
     logger.info("Included modules: " + allModules);
@@ -147,7 +179,7 @@ public abstract class Kernel {
     // Now the injector gets created and during this process, the flag values
     // are read and used by the module bindings.
     injector = Guice.createInjector(allModules);
-    
+
     // Get any shutdown hooks for the server:
     Thread shutdown = new Thread(getShutdownHook());
     shutdown.setName(getClass().getName() + ":shutdown");

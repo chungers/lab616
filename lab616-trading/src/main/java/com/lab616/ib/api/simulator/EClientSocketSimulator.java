@@ -3,11 +3,13 @@
 package com.lab616.ib.api.simulator;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.Socket;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;
@@ -17,7 +19,10 @@ import com.google.inject.internal.Sets;
 import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import com.ib.client.EWrapper;
-import com.lab616.concurrent.AbstractQueueWorker;
+import com.lab616.common.Pair;
+import com.lab616.concurrent.QueueProcessor;
+import com.lab616.ib.api.ApiBuilder;
+import com.lab616.ib.api.ApiMethods;
 import com.lab616.ib.api.ManagedEClientSocket;
 import com.lab616.ib.api.TWSClientManager.Managed;
 import com.lab616.ib.api.proto.TWSProto;
@@ -44,11 +49,11 @@ public class EClientSocketSimulator extends Thread implements Managed {
   private Set<Integer> bars = Sets.newHashSet();
   private Set<Integer> dom = Sets.newHashSet();
   private AtomicBoolean running = new AtomicBoolean(true);
-  private AbstractQueueWorker<DataSource> dataSources;
+  private QueueProcessor<DataSource, Void> dataSources;
 
   // TWSProto.Events to be sent to the EWrapper.
   private BlockingQueue<TWSProto.Event> eventQueue = 
-    new LinkedBlockingQueue<TWSProto.Event>(10);
+    new LinkedBlockingQueue<TWSProto.Event>();
   
   
   // Executor for running the data source.
@@ -59,7 +64,7 @@ public class EClientSocketSimulator extends Thread implements Managed {
     clientName = name;
     super.setName(getClass().getSimpleName() + "-" + name);
     simulators.put(name, this);
-    this.dataSources = new AbstractQueueWorker<DataSource>(name, false) {
+    this.dataSources = new QueueProcessor<DataSource, Void>(name, false) {
       @Override
       protected boolean handleException(Exception e) {
         if (e instanceof IOException) {
@@ -118,7 +123,7 @@ public class EClientSocketSimulator extends Thread implements Managed {
     this.wrapper = wrapper;
     return new ManagedEClientSocket(wrapper) {
 
-      boolean isConnected = true;
+      boolean isConnected = false;
       
       @Override
       public boolean isConnected() {
@@ -129,11 +134,14 @@ public class EClientSocketSimulator extends Thread implements Managed {
       protected boolean pre_eConnect(Socket socket, int clientId)
           throws IOException {
         EClientSocketSimulator.this.clientId = clientId;
+        isConnected = true;
         return false;
       }
 
       @Override
       protected boolean pre_eConnect(String host, int port, int clientId) {
+        EClientSocketSimulator.this.clientId = clientId;
+        isConnected = true;
         return false;
       }
 
@@ -173,46 +181,25 @@ public class EClientSocketSimulator extends Thread implements Managed {
     };
   }
   
-  @Override
-  public void run() {
-    while (running.get()) {
-      if (wrapper != null) {
-        // send the event
-        try {
-          TWSProto.Event event1, event2;
-          long t1;
-          
-          event1 = eventQueue.take();
-          // put the first event
-          send(event1);
-          t1 = System.nanoTime();
-
-          while (running.get()) {
-            event2 = eventQueue.take();
-            
-            long expected = 
-              (event2.getTimestamp() - event1.getTimestamp()) * 1000L;
-
-            /*
-            long l = 0L;
-            while ((l = System.nanoTime() - t1) < expected) { 
-              logger.info("dt = " + expected + ", wait=" + l);
-            } */
-            
-            send(event2);
-            event1 = event2;
-            t1 = System.nanoTime();
-          }
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
-    }
+  public final boolean isEventQueueEmpty() {
+  	return eventQueue.isEmpty();
   }
   
-  private void send(TWSProto.Event event) {
-    System.out.println("Sending event = " + event);
-    System.out.flush();
+  @Override
+  public void run() {
+  	while (running.get() && wrapper != null) {
+  		// send the event
+  		try {
+  			TWSProto.Event event = eventQueue.poll(5L, TimeUnit.SECONDS);
+  	  	logger.info("Sending " + event);
+  	  	ApiBuilder builder = ApiMethods.get(event.getMethod().name());
+  	  	Pair<Method, Object[]> p = builder.buildArgs(event);
+  	  	p.first.invoke(wrapper, p.second);
+  		} catch (Exception e) {
+  			logger.warn("Exception while loading data.", e);
+  			running.set(false);
+  			return;
+  		}
+  	}
   }
-
 }

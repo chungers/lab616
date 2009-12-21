@@ -32,14 +32,14 @@ import com.lab616.omnibus.event.annotation.Statement;
  *
  */
 @Statement("select * from SystemEvent where component='tws'")
-public class SystemEventProcessor extends AbstractEventWatcher {
+public class TWSSystemEventWatcher extends AbstractEventWatcher {
 
-  static Logger logger = Logger.getLogger(SystemEventProcessor.class);
+  static Logger logger = Logger.getLogger(TWSSystemEventWatcher.class);
 
   private final TWSClientManager service;
   
   @Inject
-  public SystemEventProcessor(TWSClientManager service) {
+  public TWSSystemEventWatcher(TWSClientManager service) {
     this.service = service;
   }
   

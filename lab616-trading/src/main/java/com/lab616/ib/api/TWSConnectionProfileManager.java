@@ -25,8 +25,8 @@ public class TWSConnectionProfileManager {
   static Logger logger = Logger.getLogger(TWSConnectionProfileManager.class);
   
   public static class HostPort {
-    public String host;
-    public Integer port;
+    public String host = "";
+    public Integer port = -1;
     
     public HostPort() { // Default constructor.
     }
@@ -49,7 +49,11 @@ public class TWSConnectionProfileManager {
   }
   
   public HostPort getHostPort(String profile) {
-    return profiles.get(profile);
+    if (profiles.get(profile) != null) {
+    	return profiles.get(profile);
+    } else {
+    	return new HostPort();
+    }
   }
   
   public void addProfile(String profile, HostPort hostPort) {

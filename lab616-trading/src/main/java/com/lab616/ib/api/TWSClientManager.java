@@ -19,7 +19,7 @@ import com.google.inject.internal.Lists;
 import com.google.inject.internal.Maps;
 import com.google.inject.name.Named;
 import com.lab616.common.Pair;
-import com.lab616.concurrent.AbstractQueueWorker;
+import com.lab616.concurrent.QueueProcessor;
 import com.lab616.ib.api.TWSConnectionProfileManager.HostPort;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
@@ -78,7 +78,7 @@ public final class TWSClientManager {
   /**
    * Queue for work that depends on the client being properly connected.
    */
-  class ClientWorkQueue extends AbstractQueueWorker<Function<TWSClient, ?>> {
+  class ClientWorkQueue extends QueueProcessor<Function<TWSClient, ?>, Void> {
     TWSClient client;
     ClientWorkQueue(String name, int id) {
       super(makeKey(name, id), false);

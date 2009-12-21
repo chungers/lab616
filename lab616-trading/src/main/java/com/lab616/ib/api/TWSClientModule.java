@@ -56,7 +56,7 @@ public class TWSClientModule extends AbstractEventModule {
         "TWSEvent", TWSProto.Event.class, TWSProto.Method.class));
 
     // Event watchers.
-    bindEventWatcher(SystemEventProcessor.class);
+    bindEventWatcher(TWSSystemEventWatcher.class);
 
     // Client factory
     bind(TWSClient.Factory.class).toProvider(

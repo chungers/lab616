@@ -22,7 +22,7 @@ abstract class DataSource implements Runnable {
     try {
       source(sink);
     } catch (Exception e) {
-      // Nothing.
+    	throw new RuntimeException(e);
     }
     finished = true;
   }

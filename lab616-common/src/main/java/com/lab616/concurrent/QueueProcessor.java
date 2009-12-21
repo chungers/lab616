@@ -2,6 +2,7 @@
 
 package com.lab616.concurrent;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
@@ -16,6 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.base.Function;
 import com.google.inject.internal.Lists;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.VarzMap;
@@ -28,7 +30,7 @@ import com.lab616.monitoring.Varzs;
  *
  * @param <T>
  */
-public abstract class AbstractQueueWorker<T> extends Thread {
+public class QueueProcessor<T, V> extends Thread implements Iterable<V> {
 
   @Varz(name = "work-queue-depth")
   public static Map<String, AtomicInteger> queueDepths = 
@@ -39,15 +41,17 @@ public abstract class AbstractQueueWorker<T> extends Thread {
     VarzMap.create(AtomicLong.class);
   
   static {
-    Varzs.export(AbstractQueueWorker.class);
+    Varzs.export(QueueProcessor.class);
   }
 
   private BlockingQueue<T> workQueue;
   private AtomicBoolean running = new AtomicBoolean(true);
   private long processed = 0;
   private CountDownLatch stoppingLatch = new CountDownLatch(1);
+  private Function<T, V> workFunction = null;
+  private BlockingQueue<V> resultQueue = null;
   
-  protected AbstractQueueWorker(String name, boolean usePriorityQueue) {
+  protected QueueProcessor(String name, boolean usePriorityQueue) {
     super.setName(name);
     if (usePriorityQueue) {
       this.workQueue = (getInitialCapacity() > 0) ? 
@@ -61,6 +65,42 @@ public abstract class AbstractQueueWorker<T> extends Thread {
   }
   
   /**
+   * More functional programming friendly where by including a closure, there is
+   * no need to subclass this class.
+   * 
+   * @param name The name.
+   * @param usePriorityQueue If we use priority queue.
+   * @param work Work function.
+   */
+  public QueueProcessor(String name, boolean usePriorityQueue, Function<T, V> work) {
+  	this(name, usePriorityQueue);
+  	this.workFunction = work;
+  	this.resultQueue = new LinkedBlockingQueue<V>();
+  }
+  
+  @Override
+	public Iterator<V> iterator() {
+  	return new Iterator<V>() {
+  		private V nextValue = null;
+  		@Override
+			public boolean hasNext() {
+  			if (resultQueue == null) {
+  				return false;
+  			}
+  			nextValue = resultQueue.poll();
+				return nextValue != null;
+			}
+			@Override
+			public V next() {
+				return nextValue;
+			}
+			@Override
+			public void remove() {
+			}
+  	};
+	}
+
+	/**
    * Subclass override this to set the capacity.
    * @return The capacity.
    */
@@ -177,7 +217,14 @@ public abstract class AbstractQueueWorker<T> extends Thread {
         }
       } else {
         try {
-          execute(work);
+        	if (workFunction != null) {
+        		V v = workFunction.apply(work);
+        		if (resultQueue != null) {
+        			resultQueue.put(v);
+        		}
+        	} else {
+            execute(work);
+        	}
         } catch (Exception e) {
           running.set(handleException(e));
         }
@@ -225,7 +272,7 @@ public abstract class AbstractQueueWorker<T> extends Thread {
    * Drains the content of this queue to the queue provided.
    * @param qw The queue to drain to.
    */
-  public final void drainTo(AbstractQueueWorker<T> qw) {
+  public final void drainTo(QueueProcessor<T, V> qw) {
     List<T> sink = Lists.newArrayList();
     this.workQueue.drainTo(sink);
     for (T w : sink) {
@@ -233,6 +280,16 @@ public abstract class AbstractQueueWorker<T> extends Thread {
     }
   }
   
+  /**
+   * Subclass can override this method to provide the processing needed.  
+   * Otherwise, this class can be instantiated with a Function<T,V> where
+   * the processor instance becomes an iterable of type V.  In the subclass
+   * case, V is Void basically since no values are returned by the unit of work
+   * T from the queue.
+   * 
+   * @param work Some queued unit of work.
+   * @throws Exception
+   */
   protected void execute(T work) throws Exception {
     // Do nothing.
   }

@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
-import com.lab616.concurrent.AbstractQueueWorker;
+import com.lab616.concurrent.QueueProcessor;
 import com.lab616.ib.api.TWSClientException;
 import com.lab616.ib.api.TWSClientManager.Managed;
 import com.lab616.monitoring.MinMaxAverage;
@@ -47,7 +47,7 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
 
   private PrintWriter print;
   private String clientSourceId;
-  private AbstractQueueWorker<EventMessage> queueWorker;
+  private QueueProcessor<EventMessage, Void> queueWorker;
   private DateTime lastDate;
   private String dir;
   
@@ -61,7 +61,7 @@ public class TWSEventCSVWriter extends AbstractEventWatcher implements Managed {
       throw new TWSClientException(e);
     }
     final String id = clientSourceId;
-    this.queueWorker = new AbstractQueueWorker<EventMessage>(clientSourceId, false) {
+    this.queueWorker = new QueueProcessor<EventMessage, Void>(clientSourceId, false) {
       @Override
       protected void execute(EventMessage event) throws Exception {
         write(event);

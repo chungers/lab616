@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
-import com.lab616.concurrent.AbstractQueueWorker;
+import com.lab616.concurrent.QueueProcessor;
 import com.lab616.ib.api.ApiBuilder;
 import com.lab616.ib.api.ApiMethods;
 import com.lab616.ib.api.TWSClientException;
@@ -47,7 +47,7 @@ public class TWSEventAvroWriter extends AbstractEventWatcher implements Managed 
 
   private AvroDataFile avroFile;
   private String clientSourceId;
-  private AbstractQueueWorker<EventMessage> queueWorker;
+  private QueueProcessor<EventMessage, Void> queueWorker;
   
   public TWSEventAvroWriter(String dir, String rootName, String clientSourceId) {
     this.clientSourceId = clientSourceId;
@@ -58,7 +58,7 @@ public class TWSEventAvroWriter extends AbstractEventWatcher implements Managed 
       throw new TWSClientException(e);
     }
     final String id = clientSourceId;
-    this.queueWorker = new AbstractQueueWorker<EventMessage>(id, false) {
+    this.queueWorker = new QueueProcessor<EventMessage, Void>(id, false) {
       @Override
       protected void execute(EventMessage event) throws Exception {
         // Modify the source id to use only the account name.
