@@ -11,7 +11,7 @@ import com.lab616.omnibus.event.EventWatcher;
  * @author david
  *
  */
-public class SystemEventStats extends EventWatcher {
+public class SystemEventStats extends EventWatcher<Long> {
 
 	static Logger logger = Logger.getLogger(SystemEventStats.class);
 	
@@ -28,7 +28,8 @@ public class SystemEventStats extends EventWatcher {
 	 * Update method required to implement esper subscriber object.
 	 * @param event The event.
 	 */
-	public void update(long count) {
+	@Override
+	public void update(Long count) {
 		logger.info("Stat: " + component + "/" + count);
 	}
 }

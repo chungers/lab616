@@ -10,7 +10,8 @@ package com.lab616.omnibus.event;
  * @author david
  *
  */
-public abstract class EventWatcher extends AbstractEventWatcher {
+public abstract class EventWatcher<T> extends AbstractEventWatcher 
+	implements EventSubscriber<T> {
 
 	private final String statement;
 	private final Object[] parameters;

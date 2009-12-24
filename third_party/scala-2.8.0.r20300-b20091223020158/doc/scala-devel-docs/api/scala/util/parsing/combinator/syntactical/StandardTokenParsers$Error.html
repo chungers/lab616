@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../../../../package.html">scala</a>.<a href="../../../package.html">util</a>.<a href="../../package.html">parsing</a>.<a href="../package.html">combinator</a>.<a href="package.html">syntactical</a>.<a href="StandardTokenParsers.html">StandardTokenParsers</a></p>
+
+      <div id="definition">
+        <img src="../../../../../lib/class_big.png" />
+        <h1>Error</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">Error</span><span class="params">(<span name="msg">msg: <span class="extype" name="java.lang.String">String</span></span>, <span name="next">next: <a href="../../input/Reader.html" class="extype" name="scala.util.parsing.input.Reader">Reader</a>[Elem]</span>)</span><span class="result"> extends <a href="../Parsers$NoSuccess.html" class="extype" name="scala.util.parsing.combinator.Parsers.NoSuccess">NoSuccess</a> with <a href="../../../../Product.html" class="extype" name="scala.Product">Product</a></span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>The fatal failure case of ParseResult: contains an error-message and the remaining input.
+No back-tracking is done when a parser returns an <code>Error'
+</code></p></div>
+      <dl class="paramcmts block"><dt class="param">msg</dt><dd class="cmt"><p>An error message string describing the error.</p></dd><dt class="param">next</dt><dd class="cmt"><p>The parser's unconsumed input at the point where the error occurred.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../Parsers.html">Parsers</a>
+          </div>
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.Product">Product</li><li class="in" name="scala.Equals">Equals</li><li class="in" name="scala.util.parsing.combinator.Parsers.NoSuccess">NoSuccess</li><li class="in" name="scala.util.parsing.combinator.Parsers.ParseResult">ParseResult</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#append">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">append</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="a">a: ⇒ <a href="../Parsers$ParseResult.html" class="extype" name="scala.util.parsing.combinator.Parsers.ParseResult">ParseResult</a>[U]</span>)</span><span class="result">: <a href="../Parsers$ParseResult.html" class="extype" name="scala.util.parsing.combinator.Parsers.ParseResult">ParseResult</a>[U]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#canEqual">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">canEqual</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">A method that should be called from every well-designed equals method
+ that is open to be overridden in a subclass</p><div class="fullcomment">
+      <div class="comment cmt"><p>A method that should be called from every well-designed equals method
+ that is open to be overridden in a subclass. See Programming in Scala,
+ Chapter 28 for discussion and design.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The equality method defined in <code>AnyRef</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>The equality method defined in <code>AnyRef</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.util.parsing.combinator.Parsers.NoSuccess#flatMapWithNext">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">flatMapWithNext</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Nothing">Nothing</span>) ⇒ (<a href="../../input/Reader.html" class="extype" name="scala.util.parsing.input.Reader">Reader</a>[Elem]) ⇒ <a href="../Parsers$ParseResult.html" class="extype" name="scala.util.parsing.combinator.Parsers.ParseResult">ParseResult</a>[U]</span>)</span><span class="result">: <a href="../Parsers$ParseResult.html" class="extype" name="scala.util.parsing.combinator.Parsers.ParseResult">ParseResult</a>[U]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.parsing.combinator.Parsers.NoSuccess#get">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">get</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the embedded result</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the embedded result</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../Parsers$NoSuccess.html">NoSuccess</a> ⇐ <a href="../Parsers$ParseResult.html">ParseResult</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.parsing.combinator.Parsers.ParseResult#getOrElse">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getOrElse</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Nothing">Nothing</span></span>]</span><span class="params">(<span name="default">default: ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.util.parsing.combinator.Parsers.ParseResult#isEmpty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isEmpty</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.parsing.combinator.Parsers.NoSuccess#map">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Nothing">Nothing</span>) ⇒ U</span>)</span><span class="result">: <a href="../Parsers$NoSuccess.html" class="extype" name="scala.util.parsing.combinator.Parsers.NoSuccess">NoSuccess</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Functional composition of ParseResults
+</p><div class="fullcomment">
+      <div class="comment cmt"><p>Functional composition of ParseResults
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../Parsers$NoSuccess.html">NoSuccess</a> ⇐ <a href="../Parsers$ParseResult.html">ParseResult</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.parsing.combinator.Parsers.NoSuccess#mapPartial">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mapPartial</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: <a href="../../../../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Nothing">Nothing</span>, U]</span>, <span name="error">error: (<span class="extype" name="scala.Nothing">Nothing</span>) ⇒ <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="../Parsers$ParseResult.html" class="extype" name="scala.util.parsing.combinator.Parsers.ParseResult">ParseResult</a>[U]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Partial functional composition of ParseResults
+</p><div class="fullcomment">
+      <div class="comment cmt"><p>Partial functional composition of ParseResults
+</p></div>
+      <dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>a function that takes the same argument as <code>f' and produces an error message
+       to explain why </code>f' wasn't applicable (it is called when this is the case)</p></dd><dt>returns</dt><dd class="cmt"><p><i>if <code>f' f is defined at the result in this </code>ParseResult',</i>
+        <code>f' applied to the result of this </code>ParseResult', packaged up as a new <code>ParseResult'.
+        If </code>f' is not defined, <code>Failure'.</code></p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../Parsers$NoSuccess.html">NoSuccess</a> ⇐ <a href="../Parsers$ParseResult.html">ParseResult</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#msg">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">msg</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#next">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">next</span><span class="result">: <a href="../../input/Reader.html" class="extype" name="scala.util.parsing.input.Reader">Reader</a>[Elem]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#productArity">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productArity</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">return k for a product <code>A(x_1,</p><div class="fullcomment">
+      <div class="comment cmt"><p>return k for a product <code>A(x_1,...,x_k)</code></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#productElement">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productElement</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Any">Any</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">for a product <code>A(x_1,</p><div class="fullcomment">
+      <div class="comment cmt"><p>for a product <code>A(x_1,...,x_k)</code>, returns <code>x_(n+1)</code>
+ for <code>0 &lt;= n &lt; k</code>
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Product#productElements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productElements</span><span class="result">: <a href="../../../../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.Product#productIterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productIterator</span><span class="result">: <a href="../../../../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">An iterator that returns all fields of this product</p><div class="fullcomment">
+      <div class="comment cmt"><p>An iterator that returns all fields of this product</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../../../../Product.html">Product</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#productPrefix">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productPrefix</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> By default the empty string</p><div class="fullcomment">
+      <div class="comment cmt"><p> By default the empty string. Implementations may override this
+ method in order to prepend a string prefix to the result of the
+ toString methods.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.util.parsing.combinator.Parsers.NoSuccess#successful">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">successful</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The toString method of an Error yields an error message @return a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>The toString method of an Error yields an error message @return a string representation of the object.
+</p>*/</p></div>
+      
+      
+      
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="constructors">
+              <h3>Instance constructors</h3>
+              <ol><li name="scala.util.parsing.combinator.syntactical.StandardTokenParsers.Error#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">Error</span><span class="params">(<span name="msg">msg: <span class="extype" name="java.lang.String">String</span></span>, <span name="next">next: <a href="../../input/Reader.html" class="extype" name="scala.util.parsing.input.Reader">Reader</a>[Elem]</span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.parsing.combinator.Parsers.ParseResult#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">Error</span><span class="params">()</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+      </div>
+      
+    </body>
+      </html>

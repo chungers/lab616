@@ -2,6 +2,8 @@
 
 package com.lab616.omnibus.http;
 
+import java.util.Random;
+
 import com.google.inject.Scopes;
 import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
@@ -24,13 +26,19 @@ public class HttpServerModule extends AbstractHttpServletModule {
   // The convention is to put Flags inside the Module and leave explicitly
   // named dependencies in the constructor of the injected class.
   @Flag(name="http")
-  public static Integer HTTP_PORT = 8888;
+  public static Integer HTTP_PORT = generateHttpPortNumber();
   
   static {
     Flags.register(HttpServerModule.class);
   }
   
   public static final String SHUTDOWN_HOOK = "http-shutdown";
+
+  public static int generateHttpPortNumber() {
+  	Random rnd = new Random(System.currentTimeMillis());
+  	HTTP_PORT = rnd.nextInt(1000) + 4000;
+  	return HTTP_PORT;
+  }
   
   public void configure() {
     bindConstant().annotatedWith(Names.named("http"))

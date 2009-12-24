@@ -181,6 +181,7 @@ public class ProtoDataFile {
               }
               next = true;
             } catch (EOFException e) {
+              logger.error("Exception while reading " + name, e);
               next = false;
             } catch (IOException e) {
               logger.error("Exception while reading " + name, e);
@@ -206,6 +207,14 @@ public class ProtoDataFile {
       };
     }
     
+    /**
+     * Returns if the read has finished reading.
+     * @return
+     */
+    public boolean isFinished() {
+    	return state == State.CLOSED;
+    }
+
     public void close() {
       try {
         file.close();

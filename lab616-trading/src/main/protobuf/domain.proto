@@ -17,6 +17,7 @@ enum Method {
     historicalData        = 9;
     nextValidId           = 10;
     updateAccountValue    = 11;
+    error                 = 12;
 }
 
 message Field {

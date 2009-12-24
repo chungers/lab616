@@ -1,0 +1,342 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.xml.XML</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">xml</a></p>
+
+      <div id="definition">
+        <img src="../../lib/object_big.png" />
+        <h1>XML</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">XML</span><span class="result"> extends <a href="factory/XMLLoader.html" class="extype" name="scala.xml.factory.XMLLoader">XMLLoader</a>[<a href="Elem.html" class="extype" name="scala.xml.Elem">Elem</a>]</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>The object <code>XML</code> provides constants, and functions to load
+ and save XML elements. Use this when data binding is not desired, i.e.
+ when XML is handled using <code>Symbol</code> nodes.
+</p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.xml.factory.XMLLoader">XMLLoader</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.xml.factory.XMLLoader#adapter">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">adapter</span><span class="result">: <a href="parsing/FactoryAdapter.html" class="extype" name="scala.xml.parsing.FactoryAdapter">FactoryAdapter</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.XML#encoding">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">encoding</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.XML#lang">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">lang</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.factory.XMLLoader#load">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">load</span><span class="params">(<span name="source">source: <span class="extype" name="org.xml.sax.InputSource">InputSource</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.factory.XMLLoader#load">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">load</span><span class="params">(<span name="sysID">sysID: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.factory.XMLLoader#load">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">load</span><span class="params">(<span name="reader">reader: <span class="extype" name="java.io.Reader">Reader</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.factory.XMLLoader#load">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">load</span><span class="params">(<span name="is">is: <span class="extype" name="java.io.InputStream">InputStream</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">loads XML from given InputStream, Reader, sysID, or InputSource</p><div class="fullcomment">
+      <div class="comment cmt"><p>loads XML from given InputStream, Reader, sysID, or InputSource.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="factory/XMLLoader.html">XMLLoader</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.factory.XMLLoader#loadFile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">loadFile</span><span class="params">(<span name="name">name: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.factory.XMLLoader#loadFile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">loadFile</span><span class="params">(<span name="fd">fd: <span class="extype" name="java.io.FileDescriptor">FileDescriptor</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.factory.XMLLoader#loadFile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">loadFile</span><span class="params">(<span name="file">file: <span class="extype" name="java.io.File">File</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Loads XML from the given file, file descriptor, or filename</p><div class="fullcomment">
+      <div class="comment cmt"><p>Loads XML from the given file, file descriptor, or filename.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="factory/XMLLoader.html">XMLLoader</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.factory.XMLLoader#loadString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">loadString</span><span class="params">(<span name="string">string: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Loads XML from the given String</p><div class="fullcomment">
+      <div class="comment cmt"><p>Loads XML from the given String.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="factory/XMLLoader.html">XMLLoader</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.factory.XMLLoader#loadXML">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">loadXML</span><span class="params">(<span name="source">source: <span class="extype" name="org.xml.sax.InputSource">InputSource</span></span>, <span name="parser">parser: <span class="extype" name="javax.xml.parsers.SAXParser">SAXParser</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Loads XML from the given InputSource, using the supplied parser</p><div class="fullcomment">
+      <div class="comment cmt"><p>Loads XML from the given InputSource, using the supplied parser.
+ The methods available in scala.xml.XML use the XML parser in the JDK.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="factory/XMLLoader.html">XMLLoader</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.XML#namespace">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">namespace</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.factory.XMLLoader#parser">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">parser</span><span class="result">: <span class="extype" name="javax.xml.parsers.SAXParser">SAXParser</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.XML#preserve">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">preserve</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.XML#space">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">space</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.XML#withSAXParser">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">withSAXParser</span><span class="params">(<span name="p">p: <span class="extype" name="javax.xml.parsers.SAXParser">SAXParser</span></span>)</span><span class="result">: <a href="factory/XMLLoader.html" class="extype" name="scala.xml.factory.XMLLoader">XMLLoader</a>[<a href="Elem.html" class="extype" name="scala.xml.Elem">Elem</a>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns an XMLLoader whose load* methods will use the supplied SAXParser</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns an XMLLoader whose load* methods will use the supplied SAXParser.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.XML#xml">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">xml</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.XML#xmlns">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">xmlns</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

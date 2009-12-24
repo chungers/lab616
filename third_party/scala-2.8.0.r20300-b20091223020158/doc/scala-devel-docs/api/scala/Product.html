@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.Product</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="package.html">scala</a></p>
+
+      <div id="definition">
+        <img src="../lib/trait_big.png" />
+        <h1>Product</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">Product</span><span class="result"> extends <a href="Equals.html" class="extype" name="scala.Equals">Equals</a></span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>The trait <code>Product</code> defines access functions for instances
+ of products, in particular case classes.
+</p></div>
+      
+      
+      
+      <div class="block">
+                known subclasses: <a href="collection/script/Include.html">Include</a>, <a href="collection/script/End$.html">End</a>, <a href="collection/script/Remove.html">Remove</a>, <a href="collection/script/NoLo$.html">NoLo</a>, <a href="collection/script/Start$.html">Start</a>, <a href="collection/script/Index.html">Index</a>, <a href="collection/script/Update.html">Update</a>, <a href="collection/script/Reset.html">Reset</a>, <a href="collection/immutable/List.html">List</a>, <a href="Option.html">Option</a>, <a href="collection/immutable/$colon$colon.html">::</a>, <a href="collection/immutable/RedBlack$BlackTree.html">BlackTree</a>, <a href="collection/immutable/RedBlack$RedTree.html">RedTree</a>, <a href="collection/immutable/RedBlack$Empty$.html">Empty</a>, <a href="collection/immutable/TreeSet$BlackTree.html">BlackTree</a>, <a href="collection/immutable/TreeSet$RedTree.html">RedTree</a>, <a href="collection/immutable/TreeSet$Empty$.html">Empty</a>, <a href="collection/immutable/Nil$.html">Nil</a>, <a href="collection/immutable/TreeMap$BlackTree.html">BlackTree</a>, <a href="collection/immutable/TreeMap$RedTree.html">RedTree</a>, <a href="collection/immutable/TreeMap$Empty$.html">Empty</a>, <a href="io/BytePickle$$Def.html">Def</a>, <a href="io/BytePickle$$Ref.html">Ref</a>, <a href="util/control/TailRec$$Done.html">Done</a>, <a href="util/control/TailRec$$Call.html">Call</a>, <a href="util/regexp/Base$Eps$.html">Eps</a>, <a href="util/regexp/Base$Star.html">Star</a>, <a href="util/regexp/PointedHedgeExp$Point$.html">Point</a>, <a href="util/regexp/PointedHedgeExp$TopIter.html">TopIter</a>, <a href="util/regexp/PointedHedgeExp$Node.html">Node</a>, <a href="util/regexp/PointedHedgeExp$Eps$.html">Eps</a>, <a href="util/regexp/PointedHedgeExp$Star.html">Star</a>, <a href="util/regexp/WordExp$Wildcard.html">Wildcard</a>, <a href="util/regexp/WordExp$Letter.html">Letter</a>, <a href="util/regexp/WordExp$Eps$.html">Eps</a>, <a href="util/regexp/WordExp$Star.html">Star</a>, <a href="util/grammar/EmptyHedgeRHS$.html">EmptyHedgeRHS</a>, <a href="util/grammar/ConsRHS.html">ConsRHS</a>, <a href="util/grammar/LabelledRHS.html">LabelledRHS</a>, <a href="util/grammar/AnyHedgeRHS$.html">AnyHedgeRHS</a>, <a href="util/grammar/AnyTreeRHS$.html">AnyTreeRHS</a>, <a href="util/parsing/input/OffsetPosition.html">OffsetPosition</a>, <a href="util/parsing/combinator/Parsers$$tilde.html">~</a>, <a href="util/parsing/combinator/Parsers$Error.html">Error</a>, <a href="util/parsing/combinator/Parsers$Failure.html">Failure</a>, <a href="util/parsing/combinator/Parsers$Success.html">Success</a>, <a href="util/parsing/combinator/RegexParsers$$tilde.html">~</a>, <a href="util/parsing/combinator/RegexParsers$Error.html">Error</a>, <a href="util/parsing/combinator/RegexParsers$Failure.html">Failure</a>, <a href="util/parsing/combinator/RegexParsers$Success.html">Success</a>, <a href="util/parsing/combinator/testing/RegexTest$$$tilde.html">~</a>, <a href="util/parsing/combinator/testing/RegexTest$$Error.html">Error</a>, <a href="util/parsing/combinator/testing/RegexTest$$Failure.html">Failure</a>, <a href="util/parsing/combinator/testing/RegexTest$$Success.html">Success</a>, <a href="util/parsing/combinator/testing/Ident.html">Ident</a>, <a href="util/parsing/combinator/testing/Number.html">Number</a>, <a href="util/parsing/combinator/testing/Str.html">Str</a>, <a href="util/parsing/syntax/Tokens$EOF$.html">EOF</a>, <a href="util/parsing/syntax/Tokens$ErrorToken.html">ErrorToken</a>, <a href="util/parsing/syntax/StdTokens$Identifier.html">Identifier</a>, <a href="util/parsing/syntax/StdTokens$StringLit.html">StringLit</a>, <a href="util/parsing/syntax/StdTokens$NumericLit.html">NumericLit</a>, <a href="util/parsing/syntax/StdTokens$Keyword.html">Keyword</a>, <a href="util/parsing/syntax/StdTokens$EOF$.html">EOF</a>, <a href="util/parsing/syntax/StdTokens$ErrorToken.html">ErrorToken</a>, <a href="util/parsing/combinator/syntactical/TokenParsers$$tilde.html">~</a>, <a href="util/parsing/combinator/syntactical/TokenParsers$Error.html">Error</a>, <a href="util/parsing/combinator/syntactical/TokenParsers$Failure.html">Failure</a>, <a href="util/parsing/combinator/syntactical/TokenParsers$Success.html">Success</a>, <a href="util/parsing/combinator/syntactical/StdTokenParsers$$tilde.html">~</a>, <a href="util/parsing/combinator/syntactical/StdTokenParsers$Error.html">Error</a>, <a href="util/parsing/combinator/syntactical/StdTokenParsers$Failure.html">Failure</a>, <a href="util/parsing/combinator/syntactical/StdTokenParsers$Success.html">Success</a>, <a href="util/parsing/combinator/syntactical/StandardTokenParsers$$tilde.html">~</a>, <a href="util/parsing/combinator/syntactical/StandardTokenParsers$Error.html">Error</a>, <a href="util/parsing/combinator/syntactical/StandardTokenParsers$Failure.html">Failure</a>, <a href="util/parsing/combinator/syntactical/StandardTokenParsers$Success.html">Success</a>, <a href="util/parsing/combinator/lexical/Scanners$$tilde.html">~</a>, <a href="util/parsing/combinator/lexical/Scanners$Error.html">Error</a>, <a href="util/parsing/combinator/lexical/Scanners$Failure.html">Failure</a>, <a href="util/parsing/combinator/lexical/Scanners$Success.html">Success</a>, <a href="util/parsing/combinator/lexical/Lexical$EOF$.html">EOF</a>, <a href="util/parsing/combinator/lexical/Lexical$ErrorToken.html">ErrorToken</a>, <a href="util/parsing/combinator/lexical/Lexical$$tilde.html">~</a>, <a href="util/parsing/combinator/lexical/Lexical$Error.html">Error</a>, <a href="util/parsing/combinator/lexical/Lexical$Failure.html">Failure</a>, <a href="util/parsing/combinator/lexical/Lexical$Success.html">Success</a>, <a href="util/parsing/combinator/lexical/StdLexical$Identifier.html">Identifier</a>, <a href="util/parsing/combinator/lexical/StdLexical$StringLit.html">StringLit</a>, <a href="util/parsing/combinator/lexical/StdLexical$NumericLit.html">NumericLit</a>, <a href="util/parsing/combinator/lexical/StdLexical$Keyword.html">Keyword</a>, <a href="util/parsing/combinator/lexical/StdLexical$EOF$.html">EOF</a>, <a href="util/parsing/combinator/lexical/StdLexical$ErrorToken.html">ErrorToken</a>, <a href="util/parsing/combinator/lexical/StdLexical$$tilde.html">~</a>, <a href="util/parsing/combinator/lexical/StdLexical$Error.html">Error</a>, <a href="util/parsing/combinator/lexical/StdLexical$Failure.html">Failure</a>, <a href="util/parsing/combinator/lexical/StdLexical$Success.html">Success</a>, <a href="util/parsing/combinator/JavaTokenParsers$$tilde.html">~</a>, <a href="util/parsing/combinator/JavaTokenParsers$Error.html">Error</a>, <a href="util/parsing/combinator/JavaTokenParsers$Failure.html">Failure</a>, <a href="util/parsing/combinator/JavaTokenParsers$Success.html">Success</a>, <a href="util/parsing/combinator/PackratParsers$$tilde.html">~</a>, <a href="util/parsing/combinator/PackratParsers$Error.html">Error</a>, <a href="util/parsing/combinator/PackratParsers$Failure.html">Failure</a>, <a href="util/parsing/combinator/PackratParsers$Success.html">Success</a>, <a href="util/parsing/json/Lexer$Identifier.html">Identifier</a>, <a href="util/parsing/json/Lexer$StringLit.html">StringLit</a>, <a href="util/parsing/json/Lexer$NumericLit.html">NumericLit</a>, <a href="util/parsing/json/Lexer$Keyword.html">Keyword</a>, <a href="util/parsing/json/Lexer$EOF$.html">EOF</a>, <a href="util/parsing/json/Lexer$ErrorToken.html">ErrorToken</a>, <a href="util/parsing/json/Lexer$$tilde.html">~</a>, <a href="util/parsing/json/Lexer$Error.html">Error</a>, <a href="util/parsing/json/Lexer$Failure.html">Failure</a>, <a href="util/parsing/json/Lexer$Success.html">Success</a>, <a href="util/parsing/json/Parser$$tilde.html">~</a>, <a href="util/parsing/json/Parser$Error.html">Error</a>, <a href="util/parsing/json/Parser$Failure.html">Failure</a>, <a href="util/parsing/json/Parser$Success.html">Success</a>, <a href="util/parsing/json/JSON$$$tilde.html">~</a>, <a href="util/parsing/json/JSON$$Error.html">Error</a>, <a href="util/parsing/json/JSON$$Failure.html">Failure</a>, <a href="util/parsing/json/JSON$$Success.html">Success</a>, <a href="util/parsing/ast/Binders$BoundElement.html">BoundElement</a>, <a href="collection/JavaConversions$$JMapWrapper.html">JMapWrapper</a>, <a href="collection/JavaConversions$$MutableMapWrapper.html">MutableMapWrapper</a>, <a href="collection/JavaConversions$$JSetWrapper.html">JSetWrapper</a>, <a href="collection/JavaConversions$$MutableSetWrapper.html">MutableSetWrapper</a>, <a href="collection/JavaConversions$$JListWrapper.html">JListWrapper</a>, <a href="collection/JavaConversions$$MutableBufferWrapper.html">MutableBufferWrapper</a>, <a href="collection/JavaConversions$$JCollectionWrapper.html">JCollectionWrapper</a>, <a href="collection/JavaConversions$$JIterableWrapper.html">JIterableWrapper</a>, <a href="collection/JavaConversions$$IterableWrapper.html">IterableWrapper</a>, <a href="collection/JavaConversions$$JEnumerationWrapper.html">JEnumerationWrapper</a>, <a href="collection/JavaConversions$$JIteratorWrapper.html">JIteratorWrapper</a>, <a href="collection/JavaConversions$$IteratorWrapper.html">IteratorWrapper</a>, <a href="swing/Action$$NoAction$.html">NoAction</a>, <a href="swing/event/WindowOpened.html">WindowOpened</a>, <a href="swing/event/WindowIconified.html">WindowIconified</a>, <a href="swing/event/WindowDeiconified.html">WindowDeiconified</a>, <a href="swing/event/WindowDeactivated.html">WindowDeactivated</a>, <a href="swing/event/WindowClosing.html">WindowClosing</a>, <a href="swing/event/WindowClosed.html">WindowClosed</a>, <a href="swing/event/WindowActivated.html">WindowActivated</a>, <a href="swing/event/UIElementHidden.html">UIElementHidden</a>, <a href="swing/event/UIElementShown.html">UIElementShown</a>, <a href="swing/event/UIElementResized.html">UIElementResized</a>, <a href="swing/event/UIElementMoved.html">UIElementMoved</a>, <a href="swing/event/TableRowsSelected.html">TableRowsSelected</a>, <a href="swing/event/TableColumnsSelected.html">TableColumnsSelected</a>, <a href="swing/event/TableRowsRemoved.html">TableRowsRemoved</a>, <a href="swing/event/TableRowsAdded.html">TableRowsAdded</a>, <a href="swing/event/TableUpdated.html">TableUpdated</a>, <a href="swing/event/TableChanged.html">TableChanged</a>, <a href="swing/event/TableStructureChanged.html">TableStructureChanged</a>, <a href="swing/event/SelectionChanged.html">SelectionChanged</a>, <a href="swing/event/MouseWheelMoved.html">MouseWheelMoved</a>, <a href="swing/event/MouseExited.html">MouseExited</a>, <a href="swing/event/MouseEntered.html">MouseEntered</a>, <a href="swing/event/MouseDragged.html">MouseDragged</a>, <a href="swing/event/MouseMoved.html">MouseMoved</a>, <a href="swing/event/MouseReleased.html">MouseReleased</a>, <a href="swing/event/MousePressed.html">MousePressed</a>, <a href="swing/event/MouseClicked.html">MouseClicked</a>, <a href="swing/event/KeyReleased.html">KeyReleased</a>, <a href="swing/event/KeyPressed.html">KeyPressed</a>, <a href="swing/event/KeyTyped.html">KeyTyped</a>, <a href="swing/event/ForegroundChanged.html">ForegroundChanged</a>, <a href="swing/event/FontChanged.html">FontChanged</a>, <a href="swing/event/FocusLost.html">FocusLost</a>, <a href="swing/event/FocusGained.html">FocusGained</a>, <a href="swing/event/EditDone.html">EditDone</a>, <a href="swing/event/ComponentRemoved.html">ComponentRemoved</a>, <a href="swing/event/ComponentAdded.html">ComponentAdded</a>, <a href="swing/event/ComponentHidden.html">ComponentHidden</a>, <a href="swing/event/ComponentShown.html">ComponentShown</a>, <a href="swing/event/ComponentResized.html">ComponentResized</a>, <a href="swing/event/ComponentMoved.html">ComponentMoved</a>, <a href="swing/event/CaretUpdate.html">CaretUpdate</a>, <a href="swing/event/ButtonClicked.html">ButtonClicked</a>, <a href="swing/event/BackgroundChanged.html">BackgroundChanged</a>, <a href="concurrent/TIMEOUT$.html">TIMEOUT</a>, <a href="concurrent/pilib$$Sum.html">Sum</a>, <a href="concurrent/pilib$$UGP.html">UGP</a>, <a href="actors/remote/SendTo.html">SendTo</a>, <a href="actors/remote/RemoteApply0.html">RemoteApply0</a>, <a href="actors/remote/Locator.html">Locator</a>, <a href="actors/remote/Node.html">Node</a>, <a href="actors/remote/Terminate$.html">Terminate</a>, <a href="actors/remote/LocalApply0.html">LocalApply0</a>, <a href="actors/remote/NamedSend.html">NamedSend</a>, <a href="actors/TIMEOUT$.html">TIMEOUT</a>, <a href="actors/$bang.html">!</a>, <a href="actors/Exit.html">Exit</a>, <a href="swing/Swing$$Raised$.html">Raised</a>, <a href="swing/Swing$$Lowered$.html">Lowered</a>, <a href="swing/Swing$$EmptyIcon$.html">EmptyIcon</a>, <a href="swing/MenuBar$$NoMenuBar$.html">NoMenuBar</a>, <a href="testing/SUnit$$AssertFailed.html">AssertFailed</a>, <a href="text/DocNil$.html">DocNil</a>, <a href="text/DocText.html">DocText</a>, <a href="text/DocBreak$.html">DocBreak</a>, <a href="text/DocNest.html">DocNest</a>, <a href="text/DocCons.html">DocCons</a>, <a href="text/DocGroup.html">DocGroup</a>, <a href="xml/pull/EvElemEnd.html">EvElemEnd</a>, <a href="xml/pull/EvEntityRef.html">EvEntityRef</a>, <a href="xml/pull/EvProcInstr.html">EvProcInstr</a>, <a href="xml/pull/EvComment.html">EvComment</a>, <a href="xml/pull/EvElemStart.html">EvElemStart</a>, <a href="xml/NamespaceBinding.html">NamespaceBinding</a>, <a href="xml/pull/EvText.html">EvText</a>, <a href="xml/dtd/IMPLIED$.html">IMPLIED</a>, <a href="xml/dtd/AttrDecl.html">AttrDecl</a>, <a href="xml/parsing/FatalError.html">FatalError</a>, <a href="xml/dtd/SystemID.html">SystemID</a>, <a href="xml/dtd/ExtDef.html">ExtDef</a>, <a href="xml/dtd/ParsedEntityDecl.html">ParsedEntityDecl</a>, <a href="xml/dtd/PCDATA$.html">PCDATA</a>, <a href="xml/dtd/ANY$.html">ANY</a>, <a href="xml/dtd/MIXED.html">MIXED</a>, <a href="xml/dtd/EMPTY$.html">EMPTY</a>, <a href="xml/dtd/DEFAULT.html">DEFAULT</a>, <a href="xml/dtd/NotationDecl.html">NotationDecl</a>, <a href="xml/dtd/UnparsedEntityDecl.html">UnparsedEntityDecl</a>, <a href="xml/dtd/ContentModel$$ElemName.html">ElemName</a>, <a href="xml/dtd/ContentModel$$Wildcard.html">Wildcard</a>, <a href="xml/dtd/ContentModel$$Letter.html">Letter</a>, <a href="xml/dtd/ContentModel$$Eps$.html">Eps</a>, <a href="xml/dtd/ContentModel$$Star.html">Star</a>, <a href="xml/dtd/ParameterEntityDecl.html">ParameterEntityDecl</a>, <a href="xml/dtd/DocType.html">DocType</a>, <a href="xml/dtd/IntDef.html">IntDef</a>, <a href="xml/dtd/PublicID.html">PublicID</a>, <a href="xml/dtd/ElemDecl.html">ElemDecl</a>, <a href="xml/dtd/AttListDecl.html">AttListDecl</a>, <a href="xml/dtd/REQUIRED$.html">REQUIRED</a>, <a href="xml/dtd/ValidationException.html">ValidationException</a>, <a href="xml/dtd/ELEMENTS.html">ELEMENTS</a>, <a href="xml/dtd/PEReference.html">PEReference</a>, <a href="xml/PrettyPrinter$Para.html">Para</a>, <a href="xml/PrettyPrinter$Box.html">Box</a>, <a href="xml/PrettyPrinter$Break$.html">Break</a>, <a href="xml/Group.html">Group</a>, <a href="xml/EntityRef.html">EntityRef</a>, <a href="xml/Comment.html">Comment</a>, <a href="xml/ProcInstr.html">ProcInstr</a>, <a href="xml/PCData.html">PCData</a>, <a href="xml/Null$.html">Null</a>, <a href="xml/MalformedAttributeException.html">MalformedAttributeException</a>, <a href="Product5.html">Product5</a>, <a href="Tuple5.html">Tuple5</a>, <a href="Product14.html">Product14</a>, <a href="Some.html">Some</a>, <a href="Product10.html">Product10</a>, <a href="Product19.html">Product19</a>, <a href="Tuple19.html">Tuple19</a>, <a href="Product22.html">Product22</a>, <a href="Product7.html">Product7</a>, <a href="Product9.html">Product9</a>, <a href="Product8.html">Product8</a>, <a href="Tuple8.html">Tuple8</a>, <a href="Tuple9.html">Tuple9</a>, <a href="Product12.html">Product12</a>, <a href="Tuple12.html">Tuple12</a>, <a href="Left.html">Left</a>, <a href="Tuple10.html">Tuple10</a>, <a href="Product20.html">Product20</a>, <a href="Product11.html">Product11</a>, <a href="Tuple11.html">Tuple11</a>, <a href="None$.html">None</a>, <a href="Product16.html">Product16</a>, <a href="Tuple16.html">Tuple16</a>, <a href="Right.html">Right</a>, <a href="Product2.html">Product2</a>, <a href="Tuple2.html">Tuple2</a>, <a href="Either$$RightProjection.html">RightProjection</a>, <a href="Either$$LeftProjection.html">LeftProjection</a>, <a href="Product6.html">Product6</a>, <a href="Product13.html">Product13</a>, <a href="Product3.html">Product3</a>, <a href="UninitializedFieldError.html">UninitializedFieldError</a>, <a href="Product17.html">Product17</a>, <a href="Product21.html">Product21</a>, <a href="Tuple3.html">Tuple3</a>, <a href="Product1.html">Product1</a>, <a href="Tuple1.html">Tuple1</a>, <a href="Product15.html">Product15</a>, <a href="Tuple15.html">Tuple15</a>, <a href="Product4.html">Product4</a>, <a href="Tuple4.html">Tuple4</a>, <a href="Tuple22.html">Tuple22</a>, <a href="Tuple20.html">Tuple20</a>, <a href="Tuple6.html">Tuple6</a>, <a href="Tuple13.html">Tuple13</a>, <a href="Product18.html">Product18</a>, <a href="Tuple18.html">Tuple18</a>, <a href="Tuple17.html">Tuple17</a>, <a href="Tuple21.html">Tuple21</a>, <a href="Tuple14.html">Tuple14</a>, <a href="Cell.html">Cell</a>, <a href="Tuple7.html">Tuple7</a>
+              </div>
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.Equals">Equals</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.Equals#canEqual">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">canEqual</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">A method that should be called from every well-designed equals method
+ that is open to be overridden in a subclass</p><div class="fullcomment">
+      <div class="comment cmt"><p>A method that should be called from every well-designed equals method
+ that is open to be overridden in a subclass. See Programming in Scala,
+ Chapter 28 for discussion and design.</p></div>
+      
+      <div class="block">
+            attributes: abstract 
+          </div>
+      <div class="block">
+            definition classes: <a href="Equals.html">Equals</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.Product#productArity">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productArity</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">return k for a product <code>A(x_1,</p><div class="fullcomment">
+      <div class="comment cmt"><p>return k for a product <code>A(x_1,...,x_k)</code></p></div>
+      
+      <div class="block">
+            attributes: abstract 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.Product#productElement">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productElement</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Any">Any</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">for a product <code>A(x_1,</p><div class="fullcomment">
+      <div class="comment cmt"><p>for a product <code>A(x_1,...,x_k)</code>, returns <code>x_(n+1)</code>
+ for <code>0 &lt;= n &lt; k</code>
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the index of the element to return</p></dd><dt>returns</dt><dd class="cmt"><p>The element <code>n</code> elements after the first element</p></dd></dl>
+      <div class="block">
+            attributes: abstract 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.Product#productElements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productElements</span><span class="result">: <a href="collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.Product#productIterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productIterator</span><span class="result">: <a href="collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">An iterator that returns all fields of this product</p><div class="fullcomment">
+      <div class="comment cmt"><p>An iterator that returns all fields of this product</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Product#productPrefix">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productPrefix</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> By default the empty string</p><div class="fullcomment">
+      <div class="comment cmt"><p> By default the empty string. Implementations may override this
+ method in order to prepend a string prefix to the result of the
+ toString methods.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

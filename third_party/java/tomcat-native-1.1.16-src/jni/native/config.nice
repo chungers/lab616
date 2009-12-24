@@ -1,9 +1,0 @@
-#! /bin/sh
-#
-# Created by configure
-
-"./configure" \
-"--with-apr=/Users/david/lab616/third_party/java/apr" \
-"--with-ssl=yes" \
-"--prefix=/Users/david/lab616/third_party/java/tomcat-native/platforms/macosx/" \
-"$@"

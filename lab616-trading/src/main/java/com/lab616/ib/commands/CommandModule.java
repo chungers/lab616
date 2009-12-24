@@ -5,7 +5,7 @@ package com.lab616.ib.commands;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.google.inject.Scopes;
+import com.lab616.common.scripting.ScriptObjects;
 
 /**
  * @author david
@@ -14,6 +14,8 @@ import com.google.inject.Scopes;
 public class CommandModule implements Module {
 
 	public void configure(Binder binder) {
-		binder.bind(PlaybackData.class).in(Scopes.SINGLETON);
+		// Use the CommandObjects utility to bind the command consistently.
+		ScriptObjects.with(binder)
+			.bind(PlaybackData.class);
 	}
 }

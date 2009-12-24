@@ -74,6 +74,8 @@ public class TWSClient {
   private final TWSConnectionProfileManager profiles;
   private final HostPort hostPort;
   private CountDownLatch accountReady;
+  private final boolean simulate;
+  
   @Inject
   public TWSClient(
       TWSConnectionProfileManager profiles,
@@ -91,6 +93,7 @@ public class TWSClient {
     this.executor = executor;
     this.eventEngine = engine;
     this.hostPort = this.profiles.getHostPort(profile);
+    this.simulate = simulate;
     
     // For implementing blocking calls.
     this.blockingCalls = new TWSBlockingCallManager(this.executor,
@@ -122,7 +125,7 @@ public class TWSClient {
             blockingCalls.handleData(event);
           }
         });
-    this.client = clientFactory.create(profile, wrapper);
+    this.client = clientFactory.create(profile, this.clientId, wrapper, simulate);
     this.state = State.INITIALIZED;
   }
 
@@ -251,11 +254,24 @@ public class TWSClient {
         accountReady = new CountDownLatch(2);
       }
       
-      // Connect, retry if necessary.
+      // Connect
       client.eConnect(hostPort.host, hostPort.port, clientId);
 
-      boolean connected = doRetriesIfNecessary();
+      if (simulate) {
+      	// Fake up the events we need to initialization.
+      	onNextValidId(100000);
+      	onUpdateAccountValue(new Object[] {"AccountCode", "simulated"});
+      	state = State.READY;
+      	connects.incrementAndGet();
+        logger.info(String.format(
+            "**** SIMULATION %s: state=%s, sourceId=%s, accountName=%s, nextValidOrderId=%d",
+            getId(), this.state, 
+            getSourceId(), getAccountName(), getNextValidOrderId()));
+      	return true;
+      }
       
+      // Retry if necessary...
+      boolean connected = doRetriesIfNecessary();
       if (connected) {
         state = State.CONNECTED;
         connects.incrementAndGet();

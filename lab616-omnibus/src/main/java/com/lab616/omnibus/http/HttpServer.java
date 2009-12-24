@@ -2,6 +2,7 @@
 
 package com.lab616.omnibus.http;
 
+import java.net.BindException;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -24,15 +25,16 @@ import com.lab616.omnibus.Kernel;
  * @author david
  *
  */
-public class HttpServer implements Provider<Kernel.Shutdown<Void>>{
+public class HttpServer implements Kernel.Startable, Provider<Kernel.Shutdown<Void>>{
 
 	
   static Logger logger = Logger.getLogger(HttpServer.class);
   
-  final private int port;
+  private int port;
+  private Server server;
   
-  final private Server server;
   final private Map<String, HttpServlet> servletMap;
+  private boolean retryWithDifferentPort = false;
   
   @Inject
   public HttpServer(@Named("http")int port, Map<String, HttpServlet> mapping) 
@@ -60,9 +62,28 @@ public class HttpServer implements Provider<Kernel.Shutdown<Void>>{
     return port;
   }
 
+  public final HttpServer setRetryWithDifferentPort(boolean t) {
+  	this.retryWithDifferentPort = t;
+  	return this;
+  }
+  
   public void start() throws Exception {
     logger.info("Starting http server.");
-    server.start();
+    boolean started = false;
+    do {
+      try {
+        this.server.start();
+        started = true;
+      } catch (BindException e) {
+      	if (retryWithDifferentPort) {
+      		this.port = HttpServerModule.generateHttpPortNumber();
+      		this.server = new Server(this.port);
+      		logger.info("Retrying http server with port = " + this.port);
+      	} else {
+      		throw e;
+      	}
+      }
+    } while (!started);
   }
   
   public void stop() {

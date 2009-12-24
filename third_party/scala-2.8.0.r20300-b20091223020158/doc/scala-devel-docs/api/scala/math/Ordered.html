@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.math.Ordered</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">math</a></p>
+
+      <div id="definition">
+        <img src="../../lib/trait_big.png" />
+        <h1>Ordered</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">Ordered</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="java.lang.Comparable">Comparable</span>[A]</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>A trait for totally ordered data.</p><p>Note that since version 2006-07-24 this trait is no longer covariant in a.</p><p>It is important that the equals method for an instance of
+Ordered[A] be consistent with the compare method.  However,
+due to limitations inherent in the type erasure semantics,
+there is no reasonable way to provide a default implementation
+of equality for instances of Ordered[A].  Therefore, if you need
+to be able to use equality on an instance of Ordered[A] you must
+provide it yourself either when inheiriting or instantiating.</p><p>It is important that the hashCode method for an instance of
+Ordered[A] be consistent with the compare method. However,
+it is not possible to provide a sensible default implementation.
+Therefore, if you need to be able compute the hash of an
+instance of Ordered[A] you must provide it yourself either when
+inheiriting or instantiating.
+</p></div>
+      
+      
+      
+      <div class="block">
+                known subclasses: <a href="../Enumeration$Value.html">Value</a>, <a href="../collection/immutable/StringLike.html">StringLike</a>, <a href="BigDecimal$$RoundingMode$$Value.html">Value</a>, <a href="../swing/ListView$$IntervalMode$$Value.html">Value</a>, <a href="../swing/event/Key$$Value.html">Value</a>, <a href="../swing/Table$$ElementMode$$Value.html">Value</a>, <a href="../swing/Table$$IntervalMode$$Value.html">Value</a>, <a href="../swing/Table$$AutoResizeMode$$Value.html">Value</a>, <a href="../swing/TabbedPane$$Layout$$Value.html">Value</a>, <a href="../swing/Dialog$$Result$$Value.html">Value</a>, <a href="../swing/Dialog$$Options$$Value.html">Value</a>, <a href="../swing/Dialog$$Message$$Value.html">Value</a>, <a href="../swing/Orientation$$Value.html">Value</a>, <a href="../swing/GridBagPanel$$Anchor$$Value.html">Value</a>, <a href="../swing/GridBagPanel$$Fill$$Value.html">Value</a>, <a href="../swing/FormattedTextField$$FocusLostBehavior$$Value.html">Value</a>, <a href="../swing/FlowPanel$$Alignment$$Value.html">Value</a>, <a href="../swing/FileChooser$$SelectionMode$$Value.html">Value</a>, <a href="../swing/FileChooser$$Result$$Value.html">Value</a>, <a href="../swing/BorderPanel$$Position$$Value.html">Value</a>, <a href="../swing/Alignment$$Value.html">Value</a>, <a href="../runtime/RichByte.html">RichByte</a>, <a href="../runtime/RichFloat.html">RichFloat</a>, <a href="../runtime/RichBoolean.html">RichBoolean</a>, <a href="../runtime/RichChar.html">RichChar</a>, <a href="../runtime/RichShort.html">RichShort</a>, <a href="../runtime/RichLong.html">RichLong</a>, <a href="../runtime/RichInt.html">RichInt</a>, <a href="../runtime/RichDouble.html">RichDouble</a>
+              </div>
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="java.lang.Comparable">Comparable</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.math.Ordered#&lt;">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&lt;</span><span class="params">(<span name="that">that: A</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.math.Ordered#&lt;=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&lt;=</span><span class="params">(<span name="that">that: A</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.math.Ordered#&gt;">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&gt;</span><span class="params">(<span name="that">that: A</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.math.Ordered#&gt;=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&gt;=</span><span class="params">(<span name="that">that: A</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.math.Ordered#compare">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">compare</span><span class="params">(<span name="that">that: A</span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Result of comparing <code>this</code> with operand <code>that</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Result of comparing <code>this</code> with operand <code>that</code>.
+ returns <code>x</code> where
+ <code>x &lt; 0</code>    iff    <code>this &lt; that</code>
+ <code>x == 0</code>   iff    <code>this == that</code>
+ <code>x &gt; 0</code>    iff    <code>this &gt; that</code></p></div>
+      
+      <div class="block">
+            attributes: abstract 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.math.Ordered#compareTo">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">compareTo</span><span class="params">(<span name="that">that: A</span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

@@ -183,57 +183,60 @@ public final class TWSClientManager {
     final int id = clients.size(); 
     // Get the work queue for this client:
     Pair<ClientWorkQueue, TWSClient> p = getManagedClient(profile, id);
-    if (p == null) {
-      final ClientWorkQueue queue = new ClientWorkQueue(profile, id);
-      
-      boolean sim = (simulate.length > 0) ? simulate[0] : false;
-      final TWSClient client = this.factory.create(profile, id, sim);
-      
-      // Register this pair.
-      addManagedClient(profile, id, Pair.of(queue, client));
-      logger.info("Created work queue and client for " + makeKey(profile, id));
-      
-      // Now start work asynchronously.  This doesn't block as the work 
-      // is done in the executor.
-      this.executor.submit(new Callable<Boolean>() {
-        // Executes asynchronously.
-        public Boolean call() throws Exception {
-          boolean connected = client.connect();  // Blocking call.
-          if (connected) {
-            queue.set(client);
-            logger.info("Work queue attached to client " + client.getSourceId());
-          } else {
-            logger.fatal(String.format(
-                "Cannot connect: %s. Removing queue and client", 
-                client.getSourceId()));
-            // Here we must remove the queue and client from the
-            // managed list.
-            Pair<ClientWorkQueue, TWSClient> removed = removeManagedClient(
-                profile, id);
-            Pair<ClientWorkQueue, TWSClient> picked = null;
-            do {
-              // Drain the queue to another working queue OF THE SAME PROFILE.
-              synchronized (clients) {
-                int r = (new Random(System.currentTimeMillis()))
-                  .nextInt(clients.size());
-                picked = getManagedClient(r);
-              }
-            } while (!picked.second.getProfile().equals(profile)); // Same profile.
-            
-            if (picked != null) {
-              logger.info(String.format("Draining %s to %s",
-                  removed.second.getSourceId(), picked.second.getSourceId()));
-            }
-          }
-          return connected;
-        }
-      });
-
-      // Start the queue.  The queue takes the requests immediately, but
-      // the requests won't be processed until the queue is associated with
-      // a runnning client.
-      queue.start();
+    if (p != null) {
+    	return id;
     }
+   
+    // The queue processor thread for this client.
+    final ClientWorkQueue queue = new ClientWorkQueue(profile, id);
+
+    boolean sim = (simulate.length > 0) ? simulate[0] : false;
+    final TWSClient client = this.factory.create(profile, id, sim);
+
+    // Register this pair.
+    addManagedClient(profile, id, Pair.of(queue, client));
+    logger.info("Created work queue and client for " + makeKey(profile, id));
+
+    // Now start work asynchronously.  This doesn't block as the work 
+    // is done in the executor.
+    this.executor.submit(new Callable<Boolean>() {
+    	// Executes asynchronously.
+    	public Boolean call() throws Exception {
+    		boolean connected = client.connect();  // Blocking call.
+    		if (connected) {
+    			queue.set(client);
+    			logger.info("Work queue attached to client " + client.getSourceId());
+    		} else {
+    			logger.fatal(String.format(
+    					"Cannot connect: %s. Removing queue and client", 
+    					client.getSourceId()));
+    			// Here we must remove the queue and client from the
+    			// managed list.
+    			Pair<ClientWorkQueue, TWSClient> removed = removeManagedClient(
+    					profile, id);
+    			Pair<ClientWorkQueue, TWSClient> picked = null;
+    			do {
+    				// Drain the queue to another working queue OF THE SAME PROFILE.
+    				synchronized (clients) {
+    					int r = (new Random(System.currentTimeMillis()))
+    					.nextInt(clients.size());
+    					picked = getManagedClient(r);
+    				}
+    			} while (!picked.second.getProfile().equals(profile)); // Same profile.
+
+    			if (picked != null) {
+    				logger.info(String.format("Draining %s to %s",
+    						removed.second.getSourceId(), picked.second.getSourceId()));
+    			}
+    		}
+    		return connected;
+    	}
+    });
+
+    // Start the queue.  The queue takes the requests immediately, but
+    // the requests won't be processed until the queue is associated with
+    // a runnning client.
+    queue.start();
     return id;
   }
   

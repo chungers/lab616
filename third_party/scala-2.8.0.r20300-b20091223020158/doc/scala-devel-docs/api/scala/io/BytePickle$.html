@@ -1,0 +1,467 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.io.BytePickle</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">io</a></p>
+
+      <div id="definition">
+        <img src="../../lib/object_big.png" />
+        <h1>BytePickle</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">BytePickle</span><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>Pickler combinators.
+Based on a Haskell library by Andrew Kennedy,
+see <a href="http://research.microsoft.com/~akenn/fun/"
+target="_top">http://research.microsoft.com/~akenn/fun/</a>.
+</p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.io.BytePickle.Def">
+      <h4 class="signature"><a href="BytePickle$$Def.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">Def</span><span class="params">()</span><span class="result"> extends RefDef with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.io.BytePickle.PU">
+      <h4 class="signature"><a href="BytePickle$$PU.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">PU</span><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.io.BytePickle.PicklerEnv">
+      <h4 class="signature"><a href="BytePickle$$PicklerEnv.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">PicklerEnv</span><span class="result"> extends HashMap[Any, Int]</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.io.BytePickle.PicklerState">
+      <h4 class="signature"><a href="BytePickle$$PicklerState.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">PicklerState</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.io.BytePickle.Ref">
+      <h4 class="signature"><a href="BytePickle$$Ref.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">Ref</span><span class="params">()</span><span class="result"> extends RefDef with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.io.BytePickle.RefDef">
+      <h4 class="signature"><a href="BytePickle$$RefDef.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">RefDef</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.io.BytePickle.SPU">
+      <h4 class="signature"><a href="BytePickle$$SPU.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">SPU</span><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.io.BytePickle.UnPicklerEnv">
+      <h4 class="signature"><a href="BytePickle$$UnPicklerEnv.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">UnPicklerEnv</span><span class="result"> extends HashMap[Int, Any]</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.io.BytePickle.UnPicklerState">
+      <h4 class="signature"><a href="BytePickle$$UnPicklerState.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">UnPicklerState</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.io.BytePickle#DEF">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">DEF</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#REF">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">REF</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#appendByte">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">appendByte</span><span class="params">(<span name="a">a: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>, <span name="b">b: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#bool">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">bool</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#byte">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">byte</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#bytearray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">bytearray</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#data">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">data</span><span class="tparams">[<span name="a">a</span>]</span><span class="params">(<span name="tag">tag: (a) ⇒ <span class="extype" name="scala.Int">Int</span></span>, <span name="ps">ps: <a href="../collection/immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[() ⇒ <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[a]]</span>)</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[a]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.io.BytePickle#fixedList">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fixedList</span><span class="tparams">[<span name="a">a</span>]</span><span class="params">(<span name="pa">pa: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[a]</span>)</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[<a href="../collection/immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[a]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.io.BytePickle#lift">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">lift</span><span class="tparams">[<span name="t">t</span>]</span><span class="params">(<span name="x">x: t</span>)</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[t]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#list">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">list</span><span class="tparams">[<span name="a">a</span>]</span><span class="params">(<span name="pa">pa: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[a]</span>)</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[<a href="../collection/immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[a]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#nat">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nat</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#nat2Bytes">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nat2Bytes</span><span class="params">(<span name="x">x: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#pair">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">pair</span><span class="tparams">[<span name="a">a</span>, <span name="b">b</span>]</span><span class="params">(<span name="pa">pa: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[a]</span>, <span name="pb">pb: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[b]</span>)</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[(a, b)]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#pickle">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">pickle</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="p">p: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[T]</span>, <span name="a">a: T</span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#refDef">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">refDef</span><span class="result">: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[<a href="BytePickle$$RefDef.html" class="extype" name="scala.io.BytePickle.RefDef">RefDef</a>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#sequ">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sequ</span><span class="tparams">[<span name="t">t</span>, <span name="u">u</span>]</span><span class="params">(<span name="f">f: (u) ⇒ t</span>, <span name="pa">pa: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[t]</span>, <span name="k">k: (t) ⇒ <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[u]</span>)</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[u]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#share">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">share</span><span class="tparams">[<span name="a">a</span>]</span><span class="params">(<span name="pa">pa: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[a]</span>)</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[a]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#string">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">string</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[<span class="extype" name="java.lang.String">String</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.io.BytePickle#triple">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">triple</span><span class="tparams">[<span name="a">a</span>, <span name="b">b</span>, <span name="c">c</span>]</span><span class="params">(<span name="pa">pa: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[a]</span>, <span name="pb">pb: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[b]</span>, <span name="pc">pc: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[c]</span>)</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[(a, b, c)]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#ufixedList">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">ufixedList</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="pa">pa: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[A]</span>)</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[<a href="../collection/immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[A]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#ulift">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">ulift</span><span class="tparams">[<span name="t">t</span>]</span><span class="params">(<span name="x">x: t</span>)</span><span class="result">: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[t]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#ulist">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">ulist</span><span class="tparams">[<span name="a">a</span>]</span><span class="params">(<span name="pa">pa: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[a]</span>)</span><span class="result">: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[<a href="../collection/immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[a]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#unat">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">unat</span><span class="result">: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#unpickle">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">unpickle</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="p">p: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[T]</span>, <span name="stream">stream: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#upair">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">upair</span><span class="tparams">[<span name="a">a</span>, <span name="b">b</span>]</span><span class="params">(<span name="pa">pa: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[a]</span>, <span name="pb">pb: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[b]</span>)</span><span class="result">: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[(a, b)]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#upickle">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">upickle</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="p">p: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[T]</span>, <span name="a">a: T</span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#usequ">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">usequ</span><span class="tparams">[<span name="t">t</span>, <span name="u">u</span>]</span><span class="params">(<span name="f">f: (u) ⇒ t</span>, <span name="pa">pa: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[t]</span>, <span name="k">k: (t) ⇒ <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[u]</span>)</span><span class="result">: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[u]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#uunpickle">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">uunpickle</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="p">p: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[T]</span>, <span name="stream">stream: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#uwrap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">uwrap</span><span class="tparams">[<span name="a">a</span>, <span name="b">b</span>]</span><span class="params">(<span name="i">i: (a) ⇒ b</span>, <span name="j">j: (b) ⇒ a</span>, <span name="pa">pa: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[a]</span>)</span><span class="result">: <a href="BytePickle$$PU.html" class="extype" name="scala.io.BytePickle.PU">PU</a>[b]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.io.BytePickle#wrap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">wrap</span><span class="tparams">[<span name="a">a</span>, <span name="b">b</span>]</span><span class="params">(<span name="i">i: (a) ⇒ b</span>, <span name="j">j: (b) ⇒ a</span>, <span name="pa">pa: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[a]</span>)</span><span class="result">: <a href="BytePickle$$SPU.html" class="extype" name="scala.io.BytePickle.SPU">SPU</a>[b]</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

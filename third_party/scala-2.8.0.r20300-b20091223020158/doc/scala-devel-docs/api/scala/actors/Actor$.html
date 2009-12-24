@@ -1,0 +1,593 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.actors.Actor</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">actors</a></p>
+
+      <div id="definition">
+        <img src="../../lib/object_big.png" />
+        <h1>Actor</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">Actor</span><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>The <code>Actor</code> object provides functions for the definition of
+actors, as well as actor operations, such as
+<code>receive</code>, <code>react</code>, <code>reply</code>,
+etc.
+</p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.actors.Actor#?">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">?</span><span class="result">: <span class="extype" name="scala.Any">Any</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Receives the next message from the mailbox of the current actor
+<code>self</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Receives the next message from the mailbox of the current actor
+<code>self</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#actor">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">actor</span><span class="params">(<span name="body">body: ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: <a href="Actor.html" class="extype" name="scala.actors.Actor">Actor</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This is a factory method for creating actors</p><div class="fullcomment">
+      <div class="comment cmt"><p><p>This is a factory method for creating actors.</p></p><p><p>The following example demonstrates its usage:</p></p><p><pre>
+import scala.actors.Actor._
+...
+val a = actor {
+  ...
+}
+</pre>
+</p></div>
+      <dl class="paramcmts block"><dt class="param">body</dt><dd class="cmt"><p>the code block to be executed by the newly created actor</p></dd><dt>returns</dt><dd class="cmt"><p>the newly created actor. Note that it is automatically started.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#clearSelf">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">clearSelf</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes any reference to an <code>Actor</code> instance
+currently stored in thread-local storage</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes any reference to an <code>Actor</code> instance
+currently stored in thread-local storage.</p><p>This allows to release references from threads that are
+potentially long-running or being re-used (e.g. inside
+a thread pool). Permanent references in thread-local storage
+are a potential memory leak.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#continue">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">continue</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.actors.Actor#eventloop">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">eventloop</span><span class="params">(<span name="f">f: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Unit">Unit</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.Actor#exit">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">exit</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">
+  Terminates execution of <code>self</code> with the following
+  effect on linked actors:
+</p><div class="fullcomment">
+      <div class="comment cmt"><p><p>
+  Terminates execution of <code>self</code> with the following
+  effect on linked actors:
+</p>
+<p>
+  For each linked actor <code>a</code> with
+  <code>trapExit</code> set to <code>true</code>, send message
+  <code>Exit(self, 'normal)</code> to <code>a</code>.
+</p></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#exit">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">exit</span><span class="params">(<span name="reason">reason: AnyRef</span>)</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">
+  Terminates execution of <code>self</code> with the following
+  effect on linked actors:
+</p><div class="fullcomment">
+      <div class="comment cmt"><p><p>
+  Terminates execution of <code>self</code> with the following
+  effect on linked actors:
+</p>
+<p>
+  For each linked actor <code>a</code> with
+  <code>trapExit</code> set to <code>true</code>, send message
+  <code>Exit(self, reason)</code> to <code>a</code>.
+</p>
+<p>
+  For each linked actor <code>a</code> with
+  <code>trapExit</code> set to <code>false</code> (default),
+  call <code>a.exit(reason)</code> if
+  <code>reason != 'normal</code>.
+</p></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.actors.Actor#link">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">link</span><span class="params">(<span name="body">body: ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: <a href="Actor.html" class="extype" name="scala.actors.Actor">Actor</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Links <code>self</code> to the actor defined by <code>body</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Links <code>self</code> to the actor defined by <code>body</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">body</dt><dd class="cmt"><p>the body of the actor to link to</p></dd><dt>returns</dt><dd class="cmt"><p>the parameter actor</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#link">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">link</span><span class="params">(<span name="to">to: <a href="AbstractActor.html" class="extype" name="scala.actors.AbstractActor">AbstractActor</a></span>)</span><span class="result">: <a href="AbstractActor.html" class="extype" name="scala.actors.AbstractActor">AbstractActor</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Links <code>self</code> to actor <code>to</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Links <code>self</code> to actor <code>to</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">to</dt><dd class="cmt"><p>the actor to link to</p></dd><dt>returns</dt><dd class="cmt"><p>the parameter actor</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#loop">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">loop</span><span class="params">(<span name="body">body: ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Causes <code>self</code> to repeatedly execute
+<code>body</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Causes <code>self</code> to repeatedly execute
+<code>body</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">body</dt><dd class="cmt"><p>the code block to be executed</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#loopWhile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">loopWhile</span><span class="params">(<span name="cond">cond: ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span name="body">body: ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Causes <code>self</code> to repeatedly execute
+<code>body</code> while the condition
+<code>cond</code> is <code>true</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Causes <code>self</code> to repeatedly execute
+<code>body</code> while the condition
+<code>cond</code> is <code>true</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">cond</dt><dd class="cmt"><p>the condition to test</p></dd><dt class="param">body</dt><dd class="cmt"><p>the code block to be executed</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#mailboxSize">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mailboxSize</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the number of messages in <code>self</code>'s mailbox
+</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the number of messages in <code>self</code>'s mailbox
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#mkBody">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkBody</span><span class="tparams">[<span name="a">a</span>]</span><span class="params">(<span name="body">body: ⇒ a</span>)</span><span class="result">: <span class="extype" name="scala.actors.Actor.Body">Body</span>[a]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.Actor#react">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">react</span><span class="params">(<span name="f">f: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Unit">Unit</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Lightweight variant of <code>receive</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Lightweight variant of <code>receive</code>.</p><p>Actions in <code>f</code> have to contain the rest of the
+computation of <code>self</code>, as this method will never
+return.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>a partial function specifying patterns and actions</p></dd><dt>returns</dt><dd class="cmt"><p>this function never returns</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#reactWithin">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reactWithin</span><span class="params">(<span name="msec">msec: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="params">(<span name="f">f: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Unit">Unit</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Lightweight variant of <code>receiveWithin</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Lightweight variant of <code>receiveWithin</code>.</p><p>Actions in <code>f</code> have to contain the rest of the
+computation of <code>self</code>, as this method will never
+return.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">msec</dt><dd class="cmt"><p>the time span before timeout</p></dd><dt class="param">f</dt><dd class="cmt"><p>a partial function specifying patterns and actions</p></dd><dt>returns</dt><dd class="cmt"><p>this function never returns</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#reactor">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reactor</span><span class="params">(<span name="body">body: ⇒ <a href="../Responder.html" class="extype" name="scala.Responder">Responder</a>[<span class="extype" name="scala.Unit">Unit</span>]</span>)</span><span class="result">: <a href="Actor.html" class="extype" name="scala.actors.Actor">Actor</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">
+This is a factory method for creating actors whose
+body is defined using a <code>Responder</code></p><div class="fullcomment">
+      <div class="comment cmt"><p><p>
+This is a factory method for creating actors whose
+body is defined using a <code>Responder</code>.
+</p></p><p><p>The following example demonstrates its usage:</p></p><p><pre>
+import scala.actors.Actor._
+import Responder.exec
+...
+val a = reactor {
+  for {
+    res <- b !! MyRequest;
+    if exec(println("result: "+res))
+  } yield {}
+}
+</pre>
+</p></div>
+      <dl class="paramcmts block"><dt class="param">body</dt><dd class="cmt"><p>the <code>Responder</code> to be executed by the newly created actor</p></dd><dt>returns</dt><dd class="cmt"><p>the newly created actor. Note that it is automatically started.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#receive">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">receive</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Any">Any</span>, A]</span>)</span><span class="result">: A</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Receives a message from the mailbox of
+<code>self</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Receives a message from the mailbox of
+<code>self</code>. Blocks if no message matching any of the
+cases of <code>f</code> can be received.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>a partial function specifying patterns and actions</p></dd><dt>returns</dt><dd class="cmt"><p>the result of processing the received message</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#receiveWithin">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">receiveWithin</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="msec">msec: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="params">(<span name="f">f: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Any">Any</span>, R]</span>)</span><span class="result">: R</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Receives a message from the mailbox of
+<code>self</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Receives a message from the mailbox of
+<code>self</code>. Blocks at most <code>msec</code>
+milliseconds if no message matching any of the cases of
+<code>f</code> can be received. If no message could be
+received the <code>TIMEOUT</code> action is executed if
+specified.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">msec</dt><dd class="cmt"><p>the time span before timeout</p></dd><dt class="param">f</dt><dd class="cmt"><p>a partial function specifying patterns and actions</p></dd><dt>returns</dt><dd class="cmt"><p>the result of processing the received message</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#reply">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reply</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Send <code>()</code> to the actor waiting in a call to
+<code>!?</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Send <code>()</code> to the actor waiting in a call to
+<code>!?</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#reply">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reply</span><span class="params">(<span name="msg">msg: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Send <code>msg</code> to the actor waiting in a call to
+<code>!?</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Send <code>msg</code> to the actor waiting in a call to
+<code>!?</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#resetProxy">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">resetProxy</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Resets an actor proxy associated with the current thread</p><div class="fullcomment">
+      <div class="comment cmt"><p>Resets an actor proxy associated with the current thread.
+It replaces the implicit <code>ActorProxy</code> instance
+of the current thread (if any) with a new instance.</p><p>This permits to re-use the current thread as an actor
+even if its <code>ActorProxy</code> has died for some reason.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#respondOn">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">respondOn</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="fun">fun: (<a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[A, <span class="extype" name="scala.Unit">Unit</span>]) ⇒ <span class="extype" name="scala.Nothing">Nothing</span></span>)</span><span class="result">: (<a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[A, B]) ⇒ <a href="../Responder.html" class="extype" name="scala.Responder">Responder</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">
+Converts a synchronous event-based operation into
+an asynchronous <code>Responder</code></p><div class="fullcomment">
+      <div class="comment cmt"><p><p>
+Converts a synchronous event-based operation into
+an asynchronous <code>Responder</code>.
+</p></p><p><p>The following example demonstrates its usage:</p></p><p><pre>
+val adder = reactor {
+  for {
+    _ <- respondOn(react) { case Add(a, b) => reply(a+b) }
+  } yield {}
+}
+</pre></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#self">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">self</span><span class="result">: <a href="Actor.html" class="extype" name="scala.actors.Actor">Actor</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the currently executing actor</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the currently executing actor. Should be used instead
+of <code>this</code> in all blocks of code executed by
+actors.
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Actor#sender">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sender</span><span class="result">: <a href="OutputChannel.html" class="extype" name="scala.actors.OutputChannel">OutputChannel</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the actor which sent the last received message</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the actor which sent the last received message.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.actors.Actor#unlink">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">unlink</span><span class="params">(<span name="from">from: <a href="Actor.html" class="extype" name="scala.actors.Actor">Actor</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Unlinks <code>self</code> from actor <code>from</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Unlinks <code>self</code> from actor <code>from</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">from</dt><dd class="cmt"><p>the actor to unlink from</p></dd></dl>
+      
+      
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

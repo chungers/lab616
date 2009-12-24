@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.reflect.ClassManifest</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">reflect</a></p>
+
+      <div id="definition">
+        <img src="../../lib/trait_big.png" />
+        <h1>ClassManifest</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">ClassManifest</span><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="OptManifest.html" class="extype" name="scala.reflect.OptManifest">OptManifest</a>[T]</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p><p>
+  A <code>ClassManifest[T]</code> is an opaque descriptor for type <code>T</code>.
+  Currently, its only use is to give access to the erasure of the type as a
+  <code>Class</code> instance.
+</p>
+<p>
+  <b>BE AWARE</b>: The different type-relation operators are all forwarded
+  to the erased type as an approximation of the final semantics where
+  these operators should be on the unerased type.
+</p></p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.reflect.OptManifest">OptManifest</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.reflect.ClassManifest#&lt;:&lt;">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&lt;:&lt;</span><span class="params">(<span name="that">that: scala.reflect.ClassManifest[_]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether the type represented by this manifest is a subtype of
+the type represented by <code>that' manifest</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether the type represented by this manifest is a subtype of
+the type represented by <code>that' manifest. BE AWARE: the current
+implementation is an approximation, as the test is done on the
+erasure of the type.</code></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.reflect.ClassManifest#&gt;:&gt;">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&gt;:&gt;</span><span class="params">(<span name="that">that: scala.reflect.ClassManifest[_]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether the type represented by this manifest is a supertype
+of the type represented by <code>that' manifest</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether the type represented by this manifest is a supertype
+of the type represented by <code>that' manifest. BE AWARE: the current
+implementation is an approximation, as the test is done on the
+erasure of the type.</code></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.reflect.ClassManifest#arrayManifest">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">arrayManifest</span><span class="result">: <a href="" class="extype" name="scala.reflect.ClassManifest">ClassManifest</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[T]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.reflect.ClassManifest#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether the type represented by this manifest is equal to the
+type represented by <code>that' manifest</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether the type represented by this manifest is equal to the
+type represented by <code>that' manifest. BE AWARE: the current
+implementation is an approximation, as the test is done on the
+erasure of the type. @return <code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p> */</code></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.reflect.ClassManifest#erasure">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">erasure</span><span class="result">: java.lang.Class[_]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">A class representing the type U to which T would be erased</p><div class="fullcomment">
+      <div class="comment cmt"><p>A class representing the type U to which T would be erased. Note
+that there is no subtyping relationship between T and U.</p></div>
+      
+      <div class="block">
+            attributes: abstract 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.reflect.ClassManifest#newArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">newArray</span><span class="params">(<span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[T]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.reflect.ClassManifest#newArray2">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">newArray2</span><span class="params">(<span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[T]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.reflect.ClassManifest#newArray3">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">newArray3</span><span class="params">(<span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[T]]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.reflect.ClassManifest#newArray4">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">newArray4</span><span class="params">(<span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[T]]]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.reflect.ClassManifest#newArray5">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">newArray5</span><span class="params">(<span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[<a href="../Array.html" class="extype" name="scala.Array">Array</a>[T]]]]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.reflect.ClassManifest#newArrayBuilder">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">newArrayBuilder</span><span class="params">()</span><span class="result">: <a href="../collection/mutable/ArrayBuilder.html" class="extype" name="scala.collection.mutable.ArrayBuilder">ArrayBuilder</a>[T]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.reflect.ClassManifest#newWrappedArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">newWrappedArray</span><span class="params">(<span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../collection/mutable/WrappedArray.html" class="extype" name="scala.collection.mutable.WrappedArray">WrappedArray</a>[T]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.reflect.ClassManifest#typeArguments">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">typeArguments</span><span class="result">: <a href="../collection/immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[scala.reflect.OptManifest[_]]</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

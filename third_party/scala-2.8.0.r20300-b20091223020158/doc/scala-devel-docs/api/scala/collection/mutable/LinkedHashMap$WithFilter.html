@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.collection.mutable.LinkedHashMap.WithFilter</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../../package.html">scala</a>.<a href="../package.html">collection</a>.<a href="package.html">mutable</a>.<a href="LinkedHashMap.html">LinkedHashMap</a></p>
+
+      <div id="definition">
+        <img src="../../../lib/class_big.png" />
+        <h1>WithFilter</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">WithFilter</span><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>A class supporting filtered operations. Instances of this class are returned by
+ method <code>withFilter</code>.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.LinkedHashMap.WithFilter#flatMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">flatMap</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="f">f: (A) ⇒ <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[Repr, B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a function to all elements of the
+ outer traversable collection containing this <code>WithFilter</code> instance that satisfy predicate <code>p</code> and concatenating the results</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a function to all elements of the
+ outer traversable collection containing this <code>WithFilter</code> instance that satisfy predicate <code>p</code> and concatenating the results.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function to apply to each element.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the given collection-valued function
+               <code>f</code> to each element of the outer traversable collection that satisfies predicate <code>p</code> and concatenating the results.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.mutable.LinkedHashMap.WithFilter#foreach">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foreach</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (A) ⇒ U</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a function <code>f</code> to all elements of the outer traversable collection containing this <code>WithFilter</code> instance
+ that satisfy predicate <code>p</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a function <code>f</code> to all elements of the outer traversable collection containing this <code>WithFilter</code> instance
+ that satisfy predicate <code>p</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">U</dt><dd class="cmt"><p>the type parameter describing the result of function <code>f</code>.
+             This result will always be ignored. Typically <code>U</code> is <code>Unit</code>,
+             but this is not necessary.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function that is applied for its side-effect to every element.
+             The result of function <code>f</code> is discarded.
+</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.LinkedHashMap.WithFilter#map">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="f">f: (A) ⇒ B</span>)</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[Repr, B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a function to all elements of the
+ outer traversable collection containing this <code>WithFilter</code> instance that satisfy predicate <code>p</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a function to all elements of the
+ outer traversable collection containing this <code>WithFilter</code> instance that satisfy predicate <code>p</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function to apply to each element.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the given function
+               <code>f</code> to each element of the outer traversable collection that satisfies predicate <code>p</code>               and collecting the results.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.LinkedHashMap.WithFilter#withFilter">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">withFilter</span><span class="params">(<span name="q">q: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../TraversableLike$WithFilter.html" class="extype" name="scala.collection.TraversableLike.WithFilter">WithFilter</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Further refines the filter for this traversable collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Further refines the filter for this traversable collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">q</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>an object of class <code>WithFilter</code>, which supports
+            <code>map</code>, <code>flatMap</code>, <code>foreach</code>, and <code>withFilter</code> operations.
+            All these operations apply to those elements of this traversable collection which
+            satify the predicate <code>q</code> in addition to the predicate <code>p</code>.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="constructors">
+              <h3>Instance constructors</h3>
+              <ol><li name="scala.collection.mutable.LinkedHashMap.WithFilter#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">WithFilter</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">WithFilter</span><span class="params">()</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+      </div>
+      
+    </body>
+      </html>

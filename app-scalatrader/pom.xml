@@ -8,7 +8,6 @@
   <properties>
     <scala.version>2.7.2</scala.version>
   </properties>
-
   <repositories>
     <repository>
       <id>scala-tools.org</id>

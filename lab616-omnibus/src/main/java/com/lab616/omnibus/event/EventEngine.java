@@ -22,6 +22,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.internal.Lists;
 import com.google.inject.name.Named;
+import com.lab616.common.flags.Flag;
+import com.lab616.common.flags.Flags;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.Kernel;
@@ -34,7 +36,7 @@ import com.lab616.omnibus.Kernel.Shutdown;
  * @author david
  *
  */
-public class EventEngine implements Provider<Kernel.Shutdown<Boolean>> {
+public class EventEngine implements Kernel.Startable, Provider<Kernel.Shutdown<Boolean>> {
 
 	@Varz(name = "event-engine-event-definitions-count")
 	public static final AtomicInteger countEventDefinitions = new AtomicInteger();
@@ -45,8 +47,12 @@ public class EventEngine implements Provider<Kernel.Shutdown<Boolean>> {
 	@Varz(name = "event-engine-event-count")
 	public static final AtomicLong countEvents = new AtomicLong();
 
+  @Flag(name = "event-engine-dispatch-timeout")
+  public static Long DISPATCH_TIMEOUT = 100L;
+
 	static {
 		Varzs.export(EventEngine.class);
+    Flags.register(EventEngine.class);
 	}
 	
 	public enum State {
@@ -120,8 +126,8 @@ public class EventEngine implements Provider<Kernel.Shutdown<Boolean>> {
 	  threading.setListenerDispatchPreserveOrder(true);
 		threading.setInsertIntoDispatchPreserveOrder(true);
 
-		//threading.setInsertIntoDispatchTimeout(200L);
-    //threading.setListenerDispatchTimeout(200L);
+		threading.setInsertIntoDispatchTimeout(DISPATCH_TIMEOUT);
+    threading.setListenerDispatchTimeout(DISPATCH_TIMEOUT);
 
     threading.setThreadPoolInbound(true);
 		threading.setThreadPoolInboundNumThreads(threads);
@@ -142,15 +148,46 @@ public class EventEngine implements Provider<Kernel.Shutdown<Boolean>> {
 	 * Adds a simple event watcher.
 	 * @param watcher The watcher.
 	 */
-	public final void add(EventWatcher watcher) {
-		add(watcher);
+	public final <E> EventEngine add(EventWatcher<E> watcher) {
+		return add((AbstractEventWatcher)watcher);
 	}
 	
+	/**
+	 * Given the statement and args, and implementation of a subscriber, add
+	 * an event watcher.
+	 * @param <E> The event object type.
+	 * @param statement The statement.
+	 * @param args The args, nullable.
+	 * @param sub The subscriber interface.
+	 * @return The engine instance.
+	 */
+	public final <E> EventEngine add(final String statement, Object[] args, 
+			final EventSubscriber<E> sub) {
+		final Object[] argv = (args != null) ? args : new Object[] {};
+		return add(new EventWatcher<E>(statement, argv) {
+			@Override
+			public void update(E event) {
+				sub.update(event);
+			}
+		});
+	}
+	
+	/**
+	 * Convenient method for adding static statement and subscriber to events of E.
+	 * @param <E> Event 
+	 * @param statement The statement with no ? variables.
+	 * @param sub The subscriber.
+	 * @return The engine instance.
+	 */
+	public final <E> EventEngine add(String statement, EventSubscriber<E> sub) {
+		return add(statement, null, sub);
+	}
+
 	/**
 	 * Adds a new event watcher during runtime.
 	 * @param watcher The new watcher.
 	 */
-	public final void add(AbstractEventWatcher watcher) {
+	public final EventEngine add(AbstractEventWatcher watcher) {
 		EPAdministrator admin = this.epService.getEPAdministrator();
 		watcher.setEngine(this);
 		EPStatement statement = watcher.createStatement(admin);
@@ -162,6 +199,7 @@ public class EventEngine implements Provider<Kernel.Shutdown<Boolean>> {
 		watcher.start();
 		countEventWatchers.incrementAndGet();
 		logger.info("Watcher added: " + watcher);
+		return this;
 	}
 
 	
@@ -235,21 +273,28 @@ public class EventEngine implements Provider<Kernel.Shutdown<Boolean>> {
 		return this.state;
 	}
 	
-	public boolean running() {
+	/**
+	 * Returns if this engine is in the RUNNING state.
+	 * @return True if in RUNNING.
+	 */
+	public final boolean running() {
 		return getState() == State.RUNNING;
 	}
 	
-	
 	/**
 	 * Starts the engine.
+	 * @return This engine.
 	 */
-	public final boolean start() {
+	public final void start() {
 		// Not interesting.  Just send another time event
 		this.epService.getEPAdministrator().startAllStatements();
 		this.state = State.RUNNING;
-		return true;
 	}
 	
+	/**
+	 * Stops the engine.
+	 * @return This engine.
+	 */
 	public final boolean stop() {
 		this.epService.getEPAdministrator().stopAllStatements();
 		this.epService.destroy();
@@ -257,6 +302,10 @@ public class EventEngine implements Provider<Kernel.Shutdown<Boolean>> {
 		return true;
 	}
 
+	/**
+	 * Guice provider method for shutdown
+	 * @return The shutdown hook.
+	 */
 	public Shutdown<Boolean> get() {
 	  return new Shutdown<Boolean>() {
 			public Boolean call() throws Exception {

@@ -1,0 +1,367 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.util.Random</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">util</a></p>
+
+      <div id="definition">
+        <img src="../../lib/object_big.png" />
+        <h1>Random</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">Random</span><span class="result"> extends <a href="Random.html" class="extype" name="scala.util.Random">Random</a></span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>The object <code>Random</code> offers a default implementation
+ of scala.util.Random and random-related convenience methods.
+</p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.util.Random">Random</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextASCIIString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextASCIIString</span><span class="params">(<span name="length">length: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a pseudorandomly generated String drawing upon
+ only ASCII characters between 33 and 126</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a pseudorandomly generated String drawing upon
+ only ASCII characters between 33 and 126.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextBoolean">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextBoolean</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the next pseudorandom, uniformly distributed boolean value
+ from this random number generator's sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the next pseudorandom, uniformly distributed boolean value
+ from this random number generator's sequence.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextBytes">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextBytes</span><span class="params">(<span name="bytes">bytes: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Generates random bytes and places them into a user-supplied byte
+ array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Generates random bytes and places them into a user-supplied byte
+ array.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextDouble">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextDouble</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the next pseudorandom, uniformly distributed double value
+ between 0</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the next pseudorandom, uniformly distributed double value
+ between 0.0 and 1.0 from this random number generator's sequence.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextFloat">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextFloat</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Float">Float</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the next pseudorandom, uniformly distributed float value
+ between 0</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the next pseudorandom, uniformly distributed float value
+ between 0.0 and 1.0 from this random number generator's sequence.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextGaussian">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextGaussian</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the next pseudorandom, Gaussian ("normally") distributed
+ double value with mean 0</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the next pseudorandom, Gaussian ("normally") distributed
+ double value with mean 0.0 and standard deviation 1.0 from this
+ random number generator's sequence.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextInt">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextInt</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a pseudorandom, uniformly distributed int value between 0
+ (inclusive) and the specified value (exclusive), drawn from this
+ random number generator's sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a pseudorandom, uniformly distributed int value between 0
+ (inclusive) and the specified value (exclusive), drawn from this
+ random number generator's sequence.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextInt">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextInt</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the next pseudorandom, uniformly distributed int value
+ from this random number generator's sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the next pseudorandom, uniformly distributed int value
+ from this random number generator's sequence.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextLong">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextLong</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Long">Long</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the next pseudorandom, uniformly distributed long value
+ from this random number generator's sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the next pseudorandom, uniformly distributed long value
+ from this random number generator's sequence.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#nextString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextString</span><span class="params">(<span name="length">length: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a pseudorandomly generated String</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a pseudorandomly generated String.  This routine does
+ not take any measures to preserve the randomness of the distribution
+ in the face of factors like unicode's variable-length encoding,
+ so please don't use this for anything important.  It's primarily
+ intended for generating test data.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">length</dt><dd class="cmt"><p>the desired length of the String</p></dd><dt>returns</dt><dd class="cmt"><p>the String</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="Random.html">Random</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.util.Random#self">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">self</span><span class="result">: <span class="extype" name="java.util.Random">Random</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.Random#setSeed">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">setSeed</span><span class="params">(<span name="seed">seed: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.Random#shuffle">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">shuffle</span><span class="tparams">[<span name="T">T</span>, <span name="CC">CC</span>]</span><span class="params">(<span name="coll">coll: CC[T]</span>)</span><span class="params">(<span name="bf">bf: <a href="../collection/generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[CC[T], T, CC[T]]</span>)</span><span class="result">: CC[T]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a new collection of the same type in a randomly chosen order</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a new collection of the same type in a randomly chosen order.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">coll</dt><dd class="cmt"><p>the Traversable to shuffle</p></dd><dt>returns</dt><dd class="cmt"><p>the shuffled Traversable</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

@@ -113,6 +113,14 @@ public class ApiMethods {
   .apiArg("price", double.class)
   .apiArg("size", int.class).done();
 
+  public static ApiBuilder ERROR = new ApiBuilder(
+      TWSProto.Method.error)
+  .parse("timestamp", Long.class)
+  .parse("method", String.class)
+  .apiArg("id", int.class)
+  .apiArg("errorCode", int.class)
+  .apiArg("errorString", String.class).done();
+
   static Map<String, Pair<Method, ApiBuilder>> methods = Maps.newHashMap();
 
   public static ApiBuilder get(String method) {
@@ -139,6 +147,7 @@ public class ApiMethods {
       register(TICK_SIZE);
       register(TICK_STRING);
       register(MKT_DEPTH);
+      register(ERROR);
       
       logger.info("ApiMethods=" + methods);
     } catch (NoSuchMethodException e) {

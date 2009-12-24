@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.actors.scheduler</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../../package.html">scala</a>.<a href="../package.html">actors</a></p>
+
+      <div id="definition">
+        <img src="../../../lib/package_big.png" />
+        <h1>scheduler</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol">
+        <span class="name">scheduler</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.actors.scheduler.ForkJoinScheduler">
+      <h4 class="signature"><a href="ForkJoinScheduler.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">ForkJoinScheduler</span><span class="result"> extends Runnable with IScheduler with TerminationMonitor</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">The <code>ForkJoinScheduler</code> is backed by a lightweight
+ fork-join task execution framework</p>
+    </li><li name="scala.actors.scheduler.ResizableThreadPoolScheduler">
+      <h4 class="signature"><a href="ResizableThreadPoolScheduler.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">ResizableThreadPoolScheduler</span><span class="result"> extends Thread with IScheduler with TerminationMonitor</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">This scheduler class uses a <code>ThreadPoolExecutor</code>
+to execute <code>Actor</code>s</p>
+    </li><li name="scala.actors.scheduler.SchedulerService">
+      <h4 class="signature"><a href="SchedulerService.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">SchedulerService</span><span class="result"> extends Thread with IScheduler with ActorGC</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">The abstract <code>SchedulerService</code> class allows subclasses
+to implement a custom <code>onShutdown</code> method, which is
+invoked when the runtime system has detected that all actors have
+been terminated</p>
+    </li><li name="scala.actors.scheduler.SimpleExecutorScheduler">
+      <h4 class="signature"><a href="SimpleExecutorScheduler.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">SimpleExecutorScheduler</span><span class="result"> extends TerminationService with ExecutorScheduler</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">The <code>SimpleExecutorScheduler</code> class uses an
+<code>ExecutorService</code> to execute <code>Actor</code>s</p>
+    </li><li name="scala.actors.scheduler.SingleThreadedScheduler">
+      <h4 class="signature"><a href="SingleThreadedScheduler.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">SingleThreadedScheduler</span><span class="result"> extends IScheduler</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">This scheduler executes actor tasks on the current thread</p>
+    </li><li name="scala.actors.scheduler.TerminationMonitor">
+      <h4 class="signature"><a href="TerminationMonitor.html">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">TerminationMonitor</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.actors.scheduler.TerminationService">
+      <h4 class="signature"><a href="TerminationService.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">TerminationService</span><span class="result"> extends Thread with IScheduler with TerminationMonitor</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">The <code>TerminationService</code> class starts a new thread
+that is used to check regularly if the scheduler can be
+shut down, because all started actors are known to
+have terminated</p>
+    </li><li name="scala.actors.scheduler.ThreadPoolScheduler">
+      <h4 class="signature"><a href="ThreadPoolScheduler.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">ThreadPoolScheduler</span><span class="result"> extends Thread with ExecutorScheduler with TerminationMonitor</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">The <code>ThreadPoolScheduler</code> class uses a
+<code>ThreadPoolExecutor</code> to execute <code>Actor</code>s</p>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.actors.scheduler.DaemonScheduler">
+      <h4 class="signature"><a href="DaemonScheduler$.html">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">DaemonScheduler</span><span class="result"> extends DelegatingScheduler</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">Default scheduler for actors with daemon semantics, such as those backing futures</p>
+    </li><li name="scala.actors.scheduler.ThreadPoolConfig">
+      <h4 class="signature"><a href="ThreadPoolConfig$.html">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">ThreadPoolConfig</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt"></p>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

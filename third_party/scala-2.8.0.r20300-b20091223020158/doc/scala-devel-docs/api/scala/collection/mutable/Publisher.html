@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.collection.mutable.Publisher</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../../package.html">scala</a>.<a href="../package.html">collection</a>.<a href="package.html">mutable</a></p>
+
+      <div id="definition">
+        <img src="../../../lib/trait_big.png" />
+        <h1>Publisher</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">Publisher</span><span class="tparams">[<span name="Evt">Evt</span>]</span><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p><code>Publisher[A,This]</code> objects publish events of type <code>A</code>
+ to all registered subscribers. When subscribing, a subscriber may specify
+ a filter which can be used to constrain the number of events sent to the
+ subscriber. Subscribers may suspend their subscription, or reactivate a
+ suspended subscription. Class <code>Publisher</code> is typically used
+ as a mixin. The abstract type <code>Pub</code> models the type of the publisher itself.
+</p></div>
+      
+      
+      
+      <div class="block">
+                known subclasses: <a href="ObservableSet.html">ObservableSet</a>, <a href="ObservableBuffer.html">ObservableBuffer</a>, <a href="ObservableMap.html">ObservableMap</a>
+              </div>
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.collection.mutable.Publisher#Filter">
+      <h4 class="signature">
+      <span class="kind">type</span>
+      <span class="symbol">
+        <span class="name">Filter</span><span class="result"> = (Evt) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.Publisher#Pub">
+      <h4 class="signature">
+      <span class="kind">type</span>
+      <span class="symbol">
+        <span class="name">Pub</span><span class="result"> &lt;: <a href="" class="extype" name="scala.collection.mutable.Publisher">Publisher</a>[Evt]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.Publisher#Sub">
+      <h4 class="signature">
+      <span class="kind">type</span>
+      <span class="symbol">
+        <span class="name">Sub</span><span class="result"> = <a href="Subscriber.html" class="extype" name="scala.collection.mutable.Subscriber">Subscriber</a>[Evt, Pub]</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.collection.mutable.Publisher#activateSubscription">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">activateSubscription</span><span class="params">(<span name="sub">sub: <a href="Subscriber.html" class="extype" name="scala.collection.mutable.Subscriber">Subscriber</a>[Evt, Pub]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.Publisher#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="obj">obj: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Checks if two publishers are structurally identical</p><div class="fullcomment">
+      <div class="comment cmt"><p>Checks if two publishers are structurally identical.
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.Publisher#removeSubscription">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">removeSubscription</span><span class="params">(<span name="sub">sub: <a href="Subscriber.html" class="extype" name="scala.collection.mutable.Subscriber">Subscriber</a>[Evt, Pub]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.Publisher#removeSubscriptions">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">removeSubscriptions</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.Publisher#subscribe">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">subscribe</span><span class="params">(<span name="sub">sub: <a href="Subscriber.html" class="extype" name="scala.collection.mutable.Subscriber">Subscriber</a>[Evt, Pub]</span>, <span name="filter">filter: (Evt) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.Publisher#subscribe">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">subscribe</span><span class="params">(<span name="sub">sub: <a href="Subscriber.html" class="extype" name="scala.collection.mutable.Subscriber">Subscriber</a>[Evt, Pub]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.Publisher#suspendSubscription">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">suspendSubscription</span><span class="params">(<span name="sub">sub: <a href="Subscriber.html" class="extype" name="scala.collection.mutable.Subscriber">Subscriber</a>[Evt, Pub]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

@@ -41,7 +41,7 @@ public class TWSEventSplitterTest extends TestCase {
   protected EventEngine engine;
 
   static {
-    Logging.init(Level.DEBUG);
+    Logging.init(Level.WARN);
   }
   
   private EWrapper getEWrapper(final ApiBuilder builder) {

@@ -1,0 +1,1988 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.collection.BitSetLike</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">collection</a></p>
+
+      <div id="definition">
+        <img src="../../lib/trait_big.png" />
+        <h1>BitSetLike</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">BitSetLike</span><span class="tparams">[<span name="This">+This &lt;: <a href="" class="extype" name="scala.collection.BitSetLike">BitSetLike</a>[This] with <a href="Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Int">Int</span>]</span>]</span><span class="result"> extends <a href="SetLike.html" class="extype" name="scala.collection.SetLike">SetLike</a>[<span class="extype" name="scala.Int">Int</span>, This]</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>A template trait for bitsets.
+ $bitsetinfo</p><p>This trait provides most of the operations of a <code>BitSet</code> independently of its representation.
+It is inherited by all concrete implementations of bitsets.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">This</dt><dd class="cmt"><p>the type of the bitset itself.
+</p></dd></dl>
+      
+      
+      <div class="block">
+                known subclasses: <a href="BitSet.html">BitSet</a>, <a href="immutable/BitSet.html">BitSet</a>, <a href="mutable/BitSet.html">BitSet</a>
+              </div>
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.collection.SetLike">SetLike</li><li class="in" name="scala.collection.generic.Subtractable">Subtractable</li><li class="in" name="scala.collection.generic.Addable">Addable</li><li class="in" name="scala.collection.IterableLike">IterableLike</li><li class="in" name="scala.collection.TraversableLike">TraversableLike</li><li class="in" name="scala.collection.generic.HasNewBuilder">HasNewBuilder</li><li class="in" name="scala.Equals">Equals</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.collection.TraversableLike.WithFilter">
+      <h4 class="signature"><a href="BitSetLike$WithFilter.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">WithFilter</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">A class supporting filtered operations</p>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.collection.BitSetLike#&amp;">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&amp;</span><span class="params">(<span name="other">other: <a href="BitSet.html" class="extype" name="scala.collection.BitSet">BitSet</a></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the intersection between this bitset and another bitset by performing
+ a bitwise "and"</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the intersection between this bitset and another bitset by performing
+ a bitwise "and".</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.SetLike#&amp;">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&amp;</span><span class="params">(<span name="that">that: <a href="Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the intersection between this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the intersection between this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to intersect with.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set consisting of all elements that are both in this
+ set and in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#&amp;~">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&amp;~</span><span class="params">(<span name="other">other: <a href="BitSet.html" class="extype" name="scala.collection.BitSet">BitSet</a></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the difference of this bitset and another bitset by performing
+ a bitwise "and-not"</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the difference of this bitset and another bitset by performing
+ a bitwise "and-not".
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.SetLike#&amp;~">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&amp;~</span><span class="params">(<span name="that">that: <a href="Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The difference of this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>The difference of this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set of elements to exclude.</p></dd><dt>returns</dt><dd class="cmt"><p>a set containing those elements of this
+             set that are not also contained in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#**">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">**</span><span class="params">(<span name="that">that: <a href="Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> This method is an alias for <code>intersect</code></p><div class="fullcomment">
+      <div class="comment cmt"><p> This method is an alias for <code>intersect</code>.
+ It computes an intersection with set <code>that</code>.
+ It removes all the elements that are not present in <code>that</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to intersect with</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Addable#+">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+</span><span class="params">(<span name="elem1">elem1: <span class="extype" name="scala.Int">Int</span></span>, <span name="elem2">elem2: <span class="extype" name="scala.Int">Int</span></span>, <span name="elems">elems: <span class="extype" name="scala.Int">Int</span>*</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new bitset with additional elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new bitset with additional elements.</p><p> This method takes two or more elements to be added. Another overloaded
+ variant of this method handles the case where a single element is
+ added.</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to add.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to add.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to add.</p></dd><dt>returns</dt><dd class="cmt"><p>a new bitset with the given elements added.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="generic/Addable.html">Addable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#+">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+</span><span class="params">(<span name="elem">elem: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new set with an additional element, unless the element is
+ already present</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new set with an additional element, unless the element is
+ already present.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to be added</p></dd><dt>returns</dt><dd class="cmt"><p>a new set that contains all elements of this set and that also
+         contains <code>elem</code>.</p></dd></dl>
+      <div class="block">
+            attributes: abstract 
+          </div>
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="generic/Addable.html">Addable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Addable#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="params">(<span name="iter">iter: <a href="Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new bitset by adding all elements produced by an iterator to this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new bitset by adding all elements produced by an iterator to this bitset.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator producing the added elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new bitset with the given elements added.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="generic/Addable.html">Addable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Addable#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="params">(<span name="elems">elems: <a href="Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new bitset by adding all elements contained in another collection to this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new bitset by adding all elements contained in another collection to this bitset.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elems</dt><dd class="cmt"><p>the collection containing the added elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new bitset with the given elements added.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="generic/Addable.html">Addable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[This, B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Concatenates this bitset with the elements of an iterator</p><div class="fullcomment">
+      <div class="comment cmt"><p>Concatenates this bitset with the elements of an iterator.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">that</dt><dd class="cmt"><p>the iterator to append.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> which contains all elements of this bitset
+               followed by all elements of <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[This, B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Concatenates this bitset with the elements of a traversable collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Concatenates this bitset with the elements of a traversable collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">that</dt><dd class="cmt"><p>the traversable to append.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> which contains all elements of this bitset
+               followed by all elements of <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Subtractable#-">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-</span><span class="params">(<span name="elem1">elem1: <span class="extype" name="scala.Int">Int</span></span>, <span name="elem2">elem2: <span class="extype" name="scala.Int">Int</span></span>, <span name="elems">elems: <span class="extype" name="scala.Int">Int</span>*</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new bitset from this bitset with some elements removed</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new bitset from this bitset with some elements removed.</p><p> This method takes two or more elements to be removed. Another overloaded
+ variant of this method handles the case where a single element is
+ removed.</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to remove.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to remove.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>a new bitset that contains all elements of the current bitset
+ except one less occurrence of each of the given elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#-">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-</span><span class="params">(<span name="elem">elem: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new set with a given element removed from this set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new set with a given element removed from this set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to be removed</p></dd><dt>returns</dt><dd class="cmt"><p>a new set that contains all elements of this set but that does not
+         contain <code>elem</code>.</p></dd></dl>
+      <div class="block">
+            attributes: abstract 
+          </div>
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Subtractable#--">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--</span><span class="params">(<span name="iter">iter: <a href="Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new bitset from this bitset by removing all elements produced
+ by an iterator</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new bitset from this bitset by removing all elements produced
+ by an iterator.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator producing the removed elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new bitset that contains all elements of the current bitset
+ except one less occurrence of each of the elements produced by <code>iter</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Subtractable#--">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--</span><span class="params">(<span name="elems">elems: <a href="Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new bitset from this bitset by removing all elements of another
+ collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new bitset from this bitset by removing all elements of another
+ collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elems</dt><dd class="cmt"><p>the collection containing the removed elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new bitset that contains all elements of the current bitset
+ except one less occurrence of each of the elements of <code>elems</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#/:">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">/:</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (B, <span class="extype" name="scala.Int">Int</span>) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to a start value and all elements of this bitset, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to a start value and all elements of this bitset, going left to right.</p><p> Note: <code>/:</code> is alternate syntax for <code>foldLeft</code>; <code>z /: xs</code> is the same as <code>xs foldLeft z</code>.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this bitset$,
+          going left to right with the start value <code>z</code> on the left:
+          {{{
+            op(...op(op(z, x<sub>1</sub>), x<sub>2</sub>), ..., x<sub>n</sub>)
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#:\">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">:\</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (<span class="extype" name="scala.Int">Int</span>, B) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this bitset and a start value, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this bitset and a start value, going right to left.</p><p> Note: <code>:\</code> is alternate syntax for <code>foldRight</code>; <code>xs :\ z</code> is the same as <code>xs foldRight z</code>.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this bitset$,
+          going right to left with the start value <code>z</code> on the right:
+          {{{
+            op(x<sub>1</sub>, op(x<sub>2</sub>, ... op(x<sub>n</sub>, z)...))
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#^">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">^</span><span class="params">(<span name="other">other: <a href="BitSet.html" class="extype" name="scala.collection.BitSet">BitSet</a></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the symmetric difference of this bitset and another bitset by performing
+ a bitwise "exclusive-or"</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the symmetric difference of this bitset and another bitset by performing
+ a bitwise "exclusive-or".
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#addString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">addString</span><span class="params">(<span name="sb">sb: <a href="mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>, <span name="start">start: <span class="extype" name="java.lang.String">String</span></span>, <span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>, <span name="end">end: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Appends all elements of this bitset to a string builder using start, end, and separator strings</p><div class="fullcomment">
+      <div class="comment cmt"><p>Appends all elements of this bitset to a string builder using start, end, and separator strings.
+ The written text begins with the string <code>start</code> and ends with the string
+ <code>end</code>. Inside, the string representations (w.r.t. the method <code>toString</code>)
+ of all elements of this bitset are separated by the string <code>sep</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>the starting string.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt class="param">end</dt><dd class="cmt"><p>the ending string.</p></dd><dt>returns</dt><dd class="cmt"><p>the string builder <code>b</code> to which elements were appended.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#addString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">addString</span><span class="params">(<span name="b">b: <a href="mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>)</span><span class="result">: <a href="mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Appends all elements of this bitset to a string builder</p><div class="fullcomment">
+      <div class="comment cmt"><p>Appends all elements of this bitset to a string builder.
+ The written text consists of the string representations (w.r.t. the method <code>toString</code>)
+ of all elements of this bitset without any separator string.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the string builder to which elements are appended.</p></dd><dt>returns</dt><dd class="cmt"><p>the string builder <code>b</code> to which elements were appended.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#addString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">addString</span><span class="params">(<span name="b">b: <a href="mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>, <span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Appends all elements of this bitset to a string builder using a separator string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Appends all elements of this bitset to a string builder using a separator string.
+ The written text consists of the string representations (w.r.t. the method <code>toString</code>)
+ of all elements of this bitset, separated by the string <code>sep</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the string builder to which elements are appended.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt>returns</dt><dd class="cmt"><p>the string builder <code>b</code> to which elements were appended.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#apply">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="elem">elem: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests if some element is contained in this set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests if some element is contained in this set.</p><p> This method is equivalent to <code>contains</code>. It allows sets to be interpreted as predicates.</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to test for membership.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if <code>elem</code> is contained in this set, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#canEqual">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">canEqual</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Method called from equality methods, so that user-defined subclasses can
+ refuse to be equal to other collections of the same kind</p><div class="fullcomment">
+      <div class="comment cmt"><p>Method called from equality methods, so that user-defined subclasses can
+ refuse to be equal to other collections of the same kind.</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The object with which this bitset should be compared</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code>, if this bitset can possibly equal <code>that</code>, <code>false</code> otherwise. The test
+          takes into consideration only the run-time types of objects but ignores their elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="../Equals.html">Equals</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#contains">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">contains</span><span class="params">(<span name="elem">elem: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests if some element is contained in this set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests if some element is contained in this set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to test for membership.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if <code>elem</code> is contained in this set, <code>false</code> otherwise.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#copyToArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="xs">xs: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>, <span name="start">start: <span class="extype" name="scala.Int">Int</span></span>, <span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies elements of this bitset to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies elements of this bitset to an array.
+ Fills the given array <code>xs</code> with at most <code>len</code> elements of
+ this bitset, starting at position <code>start</code>.
+ Copying will stop once either the end of the current bitset is reached,
+ or the end of the array is reached, or <code>len</code> elements have been copied.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array.</p></dd><dt class="param">xs</dt><dd class="cmt"><p>the array to fill.</p></dd><dt class="param">start</dt><dd class="cmt"><p>the starting index.</p></dd><dt class="param">len</dt><dd class="cmt"><p>the maximal number of elements to copy.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#copyToArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="xs">xs: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies elements of this bitset to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies elements of this bitset to an array.
+ Fills the given array <code>xs</code> with all elements of
+ this bitset, starting at position <code>0</code>.
+ Copying will stop once either the end of the current bitset is reached,
+ or the end of the array is reached.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array.</p></dd><dt class="param">xs</dt><dd class="cmt"><p>the array to fill.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#copyToArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="xs">xs: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>, <span name="start">start: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies elements of this bitset to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies elements of this bitset to an array.
+ Fills the given array <code>xs</code> with all elements of
+ this bitset, starting at position <code>start</code>.
+ Copying will stop once either the end of the current bitset is reached,
+ or the end of the array is reached.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array.</p></dd><dt class="param">xs</dt><dd class="cmt"><p>the array to fill.</p></dd><dt class="param">start</dt><dd class="cmt"><p>the starting index.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#copyToBuffer">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToBuffer</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="dest">dest: <a href="mutable/Buffer.html" class="extype" name="scala.collection.mutable.Buffer">Buffer</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies all elements of this bitset to a buffer</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies all elements of this bitset to a buffer.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">dest</dt><dd class="cmt"><p>The buffer to which elements are copied.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#count">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">count</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Counts the number of elements in the bitset which satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Counts the number of elements in the bitset which satisfy a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate  used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the number of elements satisfying the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#diff">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">diff</span><span class="params">(<span name="that">that: <a href="Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the difference of this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the difference of this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set of elements to exclude.</p></dd><dt>returns</dt><dd class="cmt"><p>a set containing those elements of this
+             set that are not also contained in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#drop">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">drop</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except first <i>n</i> ones</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except first <i>n</i> ones.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the number of elements to drop from this bitset.</p></dd><dt>returns</dt><dd class="cmt"><p>a bitset consisting of all elements of this bitset except the first <code>n</code> ones, or else the
+         empty bitset, if this bitset has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#dropRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">dropRight</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except first <i>n</i> ones</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except first <i>n</i> ones.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>The number of elements to take</p></dd><dt>returns</dt><dd class="cmt"><p>a bitset consisting of all elements of this bitset except the first <code>n</code> ones, or else the
+         empty bitset, if this bitset has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#dropWhile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">dropWhile</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Drops longest prefix of elements that satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Drops longest prefix of elements that satisfy a predicate.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the longest suffix of this bitset whose first element
+          does not satisfy the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#elements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">elements</span><span class="result">: <a href="Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.BitSetLike#empty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">empty</span><span class="result">: This</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.SetLike#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Compares this set with another object for equality</p><div class="fullcomment">
+      <div class="comment cmt"><p>Compares this set with another object for equality.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the other object</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if <code>that</code> is a set which contains the same elements
+             as this set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="../Equals.html">Equals</a> ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#exists">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">exists</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether a predicate holds for some of the elements of this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether a predicate holds for some of the elements of this bitset.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the given predicate <code>p</code> holds for some of the elements
+                of this bitset, otherwise <code>false</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#filter">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">filter</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements of this bitset which satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements of this bitset which satisfy a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new bitset consisting of all elements of this bitset that satisfy the given
+              predicate <code>p</code>. The order of the elements is preserved.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#filterNot">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">filterNot</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements of this bitset which do not satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements of this bitset which do not satisfy a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new bitset consisting of all elements of this bitset that do not satisfy the given
+              predicate <code>p</code>. The order of the elements is preserved.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#find">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">find</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Finds the first element of the bitset satisfying a predicate, if any</p><div class="fullcomment">
+      <div class="comment cmt"><p>Finds the first element of the bitset satisfying a predicate, if any.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the first element in the bitset
+             that satisfies <code>p</code>, or <code>None</code> if none exists.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#first">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">first</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.IterableLike#firstOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">firstOption</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"><code>None</code> if iterable is empty</p><div class="fullcomment">
+      <div class="comment cmt"><p><code>None</code> if iterable is empty.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#flatMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">flatMap</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>) ⇒ <a href="Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[This, B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a function to all elements of this bitset
+ and concatenating the results</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a function to all elements of this bitset
+ and concatenating the results.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function to apply to each element.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the given collection-valued function
+               <code>f</code> to each element of this bitset and concatenating the results.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#foldLeft">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foldLeft</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (B, <span class="extype" name="scala.Int">Int</span>) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to a start value and all elements of this bitset, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to a start value and all elements of this bitset, going left to right.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this bitset$,
+          going left to right with the start value <code>z</code> on the left:
+          {{{
+            op(...op(z, x<sub>1</sub>), x<sub>2</sub>, ..., x<sub>n</sub>)
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#foldRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foldRight</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (<span class="extype" name="scala.Int">Int</span>, B) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this bitset and a start value, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this bitset and a start value, going right to left.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this bitset$,
+          going right to left with the start value <code>z</code> on the right:
+          {{{
+            op(x<sub>1</sub>, op(x<sub>2</sub>, ... op(x<sub>n</sub>, z)...))
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#forall">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">forall</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether a predicate holds for all elements of this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether a predicate holds for all elements of this bitset.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the given predicate <code>p</code> holds for all elements
+                of this bitset, otherwise <code>false</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#foreach">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foreach</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>) ⇒ B</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a function <code>f</code> to all elements of this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a function <code>f</code> to all elements of this bitset.</p><p>   Note: this method underlies the implementation of most other bulk operations.
+   Subclasses should re-implement this method if a more efficient implementation exists.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>the function that is applied for its side-effect to every element.
+             The result of function <code>f</code> is discarded.
+</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#groupBy">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">groupBy</span><span class="tparams">[<span name="K">K</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>) ⇒ K</span>)</span><span class="result">: <a href="Map.html" class="extype" name="scala.collection.Map">Map</a>[K, This]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Partitions this bitset into a map of bitsets according to some discriminator function</p><div class="fullcomment">
+      <div class="comment cmt"><p>Partitions this bitset into a map of bitsets according to some discriminator function.</p><p> Note: this method is not re-implemented by views. This means
+       when applied to a view it will always force the view and
+       return a new bitset.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">K</dt><dd class="cmt"><p>the type of keys returned by the discriminator function.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the discriminator function.</p></dd><dt>returns</dt><dd class="cmt"><p>A map from keys to bitsets such that the following invariant holds:
+              {{{
+                (xs partition f)(k) = xs filter (x => f(x) == k)
+              }}}
+              That is, every key <code>k</code> is bound to a bitset of those elements <code>x</code>              for which <code>f(x)</code> equals <code>k</code>.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#hasDefiniteSize">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hasDefiniteSize</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this bitset is known to have a finite size</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this bitset is known to have a finite size.
+ All strict collections are known to have finite size. For a non-strict collection
+ such as <code>Stream</code>, the predicate returns <code>true</code> if all elements have been computed.
+ It returns <code>false</code> if the stream is not yet evaluated to the end.</p><p> Note: many collection methods will not work on collections of infinite sizes.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#head">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">head</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects the first element of this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects the first element of this bitset.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#headOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">headOption</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally selects the first element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally selects the first element.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#init">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">init</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except the last</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except the last.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#intersect">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">intersect</span><span class="params">(<span name="that">that: <a href="Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the intersection between this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the intersection between this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to intersect with.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set consisting of all elements that are both in this
+ set and in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#isEmpty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isEmpty</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests if this set is empty</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests if this set is empty.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#iterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">iterator</span><span class="result">: <a href="Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new iterator over all elements contained in this
+ iterable object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new iterator over all elements contained in this
+ iterable object.
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#last">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">last</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects the last element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects the last element.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#lastOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">lastOption</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally selects the last element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally selects the last element.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#map">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>) ⇒ B</span>)</span><span class="params">(<span name="bf">bf: <a href="generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[This, B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a function to all elements of this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a function to all elements of this bitset.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function to apply to each element.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the given function
+               <code>f</code> to each element of this bitset and collecting the results.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#max">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">max</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="cmp">cmp: <a href="../math/Ordering.html" class="extype" name="scala.math.Ordering">Ordering</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Finds the largest element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Finds the largest element.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>The type over which the ordering is defined.</p></dd><dt class="param">cmp</dt><dd class="cmt"><p>An ordering to be used for comparing elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the largest element of this bitset with respect to the ordering <code>cmp</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#min">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">min</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="cmp">cmp: <a href="../math/Ordering.html" class="extype" name="scala.math.Ordering">Ordering</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Finds the smallest element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Finds the smallest element.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>The type over which the ordering is defined.</p></dd><dt class="param">cmp</dt><dd class="cmt"><p>An ordering to be used for comparing elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the smallest element of this bitset with respect to the ordering <code>cmp</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#mkString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkString</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Displays all elements of this bitset in a string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Displays all elements of this bitset in a string.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#mkString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkString</span><span class="params">(<span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Displays all elements of this bitset in a string using a separator string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Displays all elements of this bitset in a string using a separator string.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt>returns</dt><dd class="cmt"><p>a string representation of this bitset. In the resulting string
+              the string representations (w.r.t. the method <code>toString</code>)
+              of all elements of this bitset are separated by the string <code>sep</code>.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#mkString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkString</span><span class="params">(<span name="start">start: <span class="extype" name="java.lang.String">String</span></span>, <span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>, <span name="end">end: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Displays all elements of this bitset in a string using start, end, and separator strings</p><div class="fullcomment">
+      <div class="comment cmt"><p>Displays all elements of this bitset in a string using start, end, and separator strings.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>the starting string.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt class="param">end</dt><dd class="cmt"><p>the ending string.</p></dd><dt>returns</dt><dd class="cmt"><p>a string representation of this bitset. The resulting string
+              begins with the string <code>start</code> and ends with the string
+              <code>end</code>. Inside, the string representations (w.r.t. the method <code>toString</code>)
+              of all elements of this bitset are separated by the string <code>sep</code>.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#nonEmpty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nonEmpty</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether the bitset is not empty</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether the bitset is not empty.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#partialMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">partialMap</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="pf">pf: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Int">Int</span>, B]</span>)</span><span class="params">(<span name="bf">bf: <a href="generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[This, B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a partial function to all elements of this bitset
+ on which the function is defined</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a partial function to all elements of this bitset
+ on which the function is defined.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">pf</dt><dd class="cmt"><p>the partial function which filters and maps the bitset.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the partial function
+               <code>pf</code> to each element on which it is defined and collecting the results.
+               The order of the elements is preserved.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#partition">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">partition</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: (This, This)</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Partitions this bitset in two bitsets according to a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Partitions this bitset in two bitsets according to a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate on which to partition.</p></dd><dt>returns</dt><dd class="cmt"><p>a pair of bitsets: the first bitset consists of all elements that
+          satisfy the predicate <code>p</code> and the second bitset consists of all elements
+          that don't. The relative order of the elements in the resulting bitsets
+          is the same as in the original bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#product">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">product</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="num">num: <a href="../math/Numeric.html" class="extype" name="scala.math.Numeric">Numeric</a>[B]</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Multiplies up the elements of this collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Multiplies up the elements of this collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the <code>*</code> operator.</p></dd><dt class="param">num</dt><dd class="cmt"><p>an implicit parameter defining a set of numeric operations
+                which includes the <code>*</code> operator to be used in forming the product.</p></dd><dt>returns</dt><dd class="cmt"><p>the product of all elements of this bitset with respect to the <code>*</code> operator in <code>num</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#projection">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">projection</span><span class="result">: <a href="IterableView.html" class="extype" name="scala.collection.IterableView">IterableView</a>[<span class="extype" name="scala.Int">Int</span>, This]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">returns a projection that can be used to call non-strict <code>filter</code>,<code>map</code>, and <code>flatMap</code> methods that build projections
+of the collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>returns a projection that can be used to call non-strict <code>filter</code>,<code>map</code>, and <code>flatMap</code> methods that build projections
+of the collection.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#reduceLeft">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceLeft</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="op">op: (B, <span class="extype" name="scala.Int">Int</span>) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this bitset, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this bitset, going left to right.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this bitset$,
+          going left to right:
+          {{{
+            op(...(op(x<sub>1</sub>, x<sub>2</sub>), ... ) , x<sub>n</sub>)
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#reduceLeftOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceLeftOption</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="op">op: (B, <span class="extype" name="scala.Int">Int</span>) ⇒ B</span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally applies a binary operator to all elements of this bitset, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally applies a binary operator to all elements of this bitset, going left to right.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the result of <code>reduceLeft(op)</code> is this bitset is nonempty,
+          <code>None</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#reduceRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceRight</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="op">op: (<span class="extype" name="scala.Int">Int</span>, B) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this bitset, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this bitset, going right to left.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this bitset$,
+          going right to left:
+          {{{
+            op(x<sub>1</sub>, op(x<sub>2</sub>, ..., op(x<sub>n-1</sub>, x<sub>n</sub>)...))
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#reduceRightOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceRightOption</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="op">op: (<span class="extype" name="scala.Int">Int</span>, B) ⇒ B</span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally applies a binary operator to all elements of this bitset, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally applies a binary operator to all elements of this bitset, going right to left.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the result of <code>reduceRight(op)</code> is this bitset is nonempty,
+          <code>None</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#repr">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">repr</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The collection of type bitset underlying this <code>TraversableLike</code> object</p><div class="fullcomment">
+      <div class="comment cmt"><p>The collection of type bitset underlying this <code>TraversableLike</code> object.
+ By default this is implemented as the <code>TraversableLike</code> object itself, but this can be overridden.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#sameElements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sameElements</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="that">that: <a href="Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Checks if the other iterable collection contains the same elements in the same order as this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Checks if the other iterable collection contains the same elements in the same order as this bitset.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of collection <code>that</code>.</p></dd><dt class="param">that</dt><dd class="cmt"><p>the collection to compare with.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code>, if both collections contain the same elements in the same order, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#size">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">size</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The size of this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>The size of this bitset.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#slice">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">slice</span><span class="params">(<span name="from">from: <span class="extype" name="scala.Int">Int</span></span>, <span name="until">until: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects an interval of elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects an interval of elements.</p><p> Note: <code>c.slice(from, to)</code>  is equivalent to (but possibly more efficient than)
+ <code>c.drop(from).take(to - from)</code></p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">from</dt><dd class="cmt"><p>the index of the first returned element in this bitset.</p></dd><dt class="param">until</dt><dd class="cmt"><p>the index one past the last returned element in this bitset.</p></dd><dt>returns</dt><dd class="cmt"><p>a bitset containing the elements starting at index <code>from</code>          and extending up to (but not including) index <code>until</code> of this bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#span">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">span</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: (This, This)</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Spits this bitset into a prefix/suffix pair according to a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Spits this bitset into a prefix/suffix pair according to a predicate.</p><p> Note: <code>c span p</code>  is equivalent to (but possibly more efficient than)
+ <code>(c takeWhile p, c dropWhile p)</code>, provided the evaluation of the predicate <code>p</code> does not cause any side-effects.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the test predicate</p></dd><dt>returns</dt><dd class="cmt"><p>a pair consisting of the longest prefix of this bitset whose
+          elements all satisfy <code>p</code>, and the rest of this bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#splitAt">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">splitAt</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: (This, This)</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Splits this bitset into two at a given position</p><div class="fullcomment">
+      <div class="comment cmt"><p>Splits this bitset into two at a given position.
+ Note: <code>c splitAt n</code> is equivalent to (but possibly more efficient than)
+        <code>(c take n, c drop n)</code>.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the position at which to split.</p></dd><dt>returns</dt><dd class="cmt"><p>a pair of bitsets consisting of the first <code>n</code>          elements of this bitset, and the other elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#stringPrefix">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">stringPrefix</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Defines the prefix of this object's <code>toString</code> representation</p><div class="fullcomment">
+      <div class="comment cmt"><p>Defines the prefix of this object's <code>toString</code> representation.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#subsetOf">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">subsetOf</span><span class="params">(<span name="other">other: <a href="BitSet.html" class="extype" name="scala.collection.BitSet">BitSet</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this bitset is a subset of another bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this bitset is a subset of another bitset.
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.SetLike#subsetOf">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">subsetOf</span><span class="params">(<span name="that">that: <a href="Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this set is a subset of another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this set is a subset of another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to test.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if this set is a subset of <code>that</code>, i.e. if
+             every element of this set is also an element of <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#sum">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sum</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="num">num: <a href="../math/Numeric.html" class="extype" name="scala.math.Numeric">Numeric</a>[B]</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Sums up the elements of this collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Sums up the elements of this collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the <code>+</code> operator.</p></dd><dt class="param">num</dt><dd class="cmt"><p>an implicit parameter defining a set of numeric operations
+                which includes the <code>+</code> operator to be used in forming the sum.</p></dd><dt>returns</dt><dd class="cmt"><p>the sum of all elements of this bitset with respect to the <code>+</code> operator in <code>num</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#tail">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">tail</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except the first</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except the first.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#take">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">take</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects first <i>n</i> elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects first <i>n</i> elements.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>Tt number of elements to take from this bitset.</p></dd><dt>returns</dt><dd class="cmt"><p>a bitset consisting only of the first <code>n</code> elements of this bitset, or else the
+         whole bitset, if it has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#takeRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">takeRight</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects last <i>n</i> elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects last <i>n</i> elements.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the number of elements to take</p></dd><dt>returns</dt><dd class="cmt"><p>a bitset consisting only of the last <code>n</code> elements of this bitset, or else the
+         whole bitset, if it has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#takeWhile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">takeWhile</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Takes longest prefix of elements that satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Takes longest prefix of elements that satisfy a predicate.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the longest prefix of this bitset whose elements all satisfy
+          the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toArray</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="arg0">arg0: <a href="../reflect/ClassManifest.html" class="extype" name="scala.reflect.ClassManifest">ClassManifest</a>[B]</span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this bitset to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this bitset to an array.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array. A <code>ClassManifest</code> for this type must
+              be available.</p></dd><dt>returns</dt><dd class="cmt"><p>an array containing all elements of this bitset.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toIndexedSeq">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toIndexedSeq</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="result">: <a href="mutable/IndexedSeq.html" class="extype" name="scala.collection.mutable.IndexedSeq">IndexedSeq</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this bitset to an indexed sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this bitset to an indexed sequence.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#toIterable">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toIterable</span><span class="result">: <a href="Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this bitset to an iterable collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this bitset to an iterable collection.</p><p> Note:  Will not terminate for infinite-sized collections.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toList">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toList</span><span class="result">: <a href="immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this bitset to a list</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this bitset to a list.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toSeq">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toSeq</span><span class="result">: <a href="Seq.html" class="extype" name="scala.collection.Seq">Seq</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this bitset to a sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this bitset to a sequence.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toSet">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toSet</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="result">: <a href="immutable/Set.html" class="extype" name="scala.collection.immutable.Set">Set</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this bitset to a set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this bitset to a set.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#toStream">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toStream</span><span class="result">: <a href="immutable/Stream.html" class="extype" name="scala.collection.immutable.Stream">Stream</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this bitset to a stream</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this bitset to a stream.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this bitset to a string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this bitset to a string</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a> ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#union">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">union</span><span class="params">(<span name="that">that: <a href="Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the union between of set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the union between of set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to form the union with.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set consisting of all elements that are in this
+ set or in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#view">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">view</span><span class="params">(<span name="from">from: <span class="extype" name="scala.Int">Int</span></span>, <span name="until">until: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="IterableView.html" class="extype" name="scala.collection.IterableView">IterableView</a>[<span class="extype" name="scala.Int">Int</span>, This]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a non-strict view of a slice of this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a non-strict view of a slice of this bitset.</p><p> Note: the difference between <code>view</code> and <code>slice</code> is that <code>view</code> produces
+       a view of the current bitset, whereas <code>slice</code> produces a new bitset.</p><p> Note: <code>view(from, to)</code> is equivalent to <code>view.slice(from, to)</code></p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">from</dt><dd class="cmt"><p>the index of the first element of the view</p></dd><dt class="param">until</dt><dd class="cmt"><p>the index of the element following the view</p></dd><dt>returns</dt><dd class="cmt"><p>a non-strict view of a slice of this bitset, starting at index <code>from</code> and extending up to (but not including) index <code>until</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#view">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">view</span><span class="result">: <a href="IterableView.html" class="extype" name="scala.collection.IterableView">IterableView</a>[<span class="extype" name="scala.Int">Int</span>, This]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a non-strict view of this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a non-strict view of this bitset.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a> ⇐ <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#withFilter">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">withFilter</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="TraversableLike$WithFilter.html" class="extype" name="scala.collection.TraversableLike.WithFilter">WithFilter</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a non-strict filter of this bitset</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a non-strict filter of this bitset.</p><p> Note: the difference between <code>c filter p</code> and <code>c withFilter p</code> is that
+       the former creates a new collection, whereas the latter only restricts
+       the domain of subsequent <code>map</code>, <code>flatMap</code>, <code>foreach</code>, and <code>withFilter</code> operations.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>an object of class <code>WithFilter</code>, which supports
+            <code>map</code>, <code>flatMap</code>, <code>foreach</code>, and <code>withFilter</code> operations.
+            All these operations apply to those elements of this bitset which
+            satify the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#zip">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">zip</span><span class="tparams">[<span name="A1">A1 &gt;: <span class="extype" name="scala.Int">Int</span></span>, <span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[This, (A1, B), That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a bitset formed from this bitset and another iterable collection
+ by combining corresponding elements in pairs</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a bitset formed from this bitset and another iterable collection
+ by combining corresponding elements in pairs.
+ If one of the two collections is longer than the other, its remaining elements are ignored.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">A1</dt><dd class="cmt"><p>the type of the first half of the returned pairs (this is always a supertype
+                of the collection's element type <code>A</code>).</p></dd><dt class="tparam">B</dt><dd class="cmt"><p>the type of the second half of the returned pairs</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>(A1, B)</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, (A1, B), That]</code>.
+   is found.</p></dd><dt class="param">that</dt><dd class="cmt"><p>The iterable providing the second half of each result pair</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code>   and the new element type <code>(A1, B)</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> containing pairs consisting of
+                corresponding elements of this bitset and <code>that</code>. The length
+                of the returned collection is the minimum of the lengths of this bitset$ and <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#zipAll">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">zipAll</span><span class="tparams">[<span name="B">B</span>, <span name="A1">A1 &gt;: <span class="extype" name="scala.Int">Int</span></span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[B]</span>, <span name="thisElem">thisElem: A1</span>, <span name="thatElem">thatElem: B</span>)</span><span class="params">(<span name="bf">bf: <a href="generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[This, (A1, B), That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a bitset formed from this bitset and another iterable collection
+ by combining corresponding elements in pairs</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a bitset formed from this bitset and another iterable collection
+ by combining corresponding elements in pairs.
+ If one of the two collections is shorter than the other,
+ placeholder elements are used to extend the shorter collection to the length of the longer.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the iterable providing the second half of each result pair</p></dd><dt class="param">thisElem</dt><dd class="cmt"><p>the element to be used to fill up the result if this bitset is shorter than <code>that</code>.</p></dd><dt class="param">thatElem</dt><dd class="cmt"><p>the element to be used to fill up the result if <code>that</code> is shorter than this bitset.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> containing pairs consisting of
+                corresponding elements of this bitset and <code>that</code>. The length
+                of the returned collection is the maximum of the lengths of this bitset$ and <code>that</code>.
+                If this bitset is shorter than <code>that</code>, <code>thisElem</code> values are used to pad the result.
+                If <code>that</code> is shorter than this bitset, <code>thatElem</code> values are used to pad the result.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#zipWithIndex">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">zipWithIndex</span><span class="tparams">[<span name="A1">A1 &gt;: <span class="extype" name="scala.Int">Int</span></span>, <span name="That">That</span>]</span><span class="params">(<span name="bf">bf: <a href="generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[This, (A1, <span class="extype" name="scala.Int">Int</span>), That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Zips this bitset with its indices</p><div class="fullcomment">
+      <div class="comment cmt"><p>Zips this bitset with its indices.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">A1</dt><dd class="cmt"><p>the type of the first half of the returned pairs (this is always a supertype
+                of the collection's element type <code>A</code>).</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>(A1, Int)</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, (A1, Int), That]</code>.
+   is found.</p></dd><dt>returns</dt><dd class="cmt"><p>A new collection of type <code>That</code> containing pairs consisting of all elements of this
+                bitset paired with their index. Indices start at <code>0</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.BitSetLike#|">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">|</span><span class="params">(<span name="other">other: <a href="BitSet.html" class="extype" name="scala.collection.BitSet">BitSet</a></span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the union between this bitset and another bitset by performing
+ a bitwise "or"</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the union between this bitset and another bitset by performing
+ a bitwise "or".
+</p></div>
+      <dl class="paramcmts block"><dt class="param">other</dt><dd class="cmt"><p>the bitset to form the union with.</p></dd><dt>returns</dt><dd class="cmt"><p>a new bitset consisting of all bits that are in this
+          bitset or in the given bitset <code>other</code>.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.SetLike#|">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">|</span><span class="params">(<span name="that">that: <a href="Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span><span class="result">: This</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the union between this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the union between this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to form the union with.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set consisting of all elements that are in this
+ set or in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

@@ -12,10 +12,10 @@ object ProtoTrader {
     platform.run(args)
     
     // Get the event engine
-    val engine = platform.getInstance(classOf[EventEngine])
-    println("Got engine = " + engine + " in state = " + engine.isRunning)
+    val engine = platform.getInstance(classOf[EventEngine], 1000)
+    println("Got engine = " + engine + " in state = " + engine.running)
     
-    println("Got client manager = " + platform.getInstance(classOf[TWSClientManager]))
+    println("Got client manager = " + platform.getInstance(classOf[TWSClientManager], 1000))
     
     
   }

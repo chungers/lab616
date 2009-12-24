@@ -15,6 +15,7 @@
 .archive
 .tmp
 .settings
+.manager
 
 # Java classes and generated source files
 classes/
@@ -24,7 +25,3 @@ target/
 # Runtime / testing
 mock*
 runtime/
-
-
-# Development tools
-tools/

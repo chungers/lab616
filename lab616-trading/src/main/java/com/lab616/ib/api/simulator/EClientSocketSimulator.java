@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;
@@ -40,8 +39,8 @@ public class EClientSocketSimulator extends Thread implements Managed {
   private static Map<String, EClientSocketSimulator> simulators =
     Maps.newHashMap();
   
-  public static EClientSocketSimulator getSimulator(String name) {
-    return simulators.get(name);
+  public static EClientSocketSimulator getSimulator(String name, int id) {
+    return simulators.get(makeKey(name, id));
   }
     
   private int clientId;
@@ -49,7 +48,11 @@ public class EClientSocketSimulator extends Thread implements Managed {
   private Set<Integer> bars = Sets.newHashSet();
   private Set<Integer> dom = Sets.newHashSet();
   private AtomicBoolean running = new AtomicBoolean(true);
-  private QueueProcessor<DataSource, Void> dataSources;
+  
+  // Work queue for this simulator.  It is basically a work queue where
+  // each data source on the queue is executed.  So more than one data source
+  // can sequentially drive the simulated client.
+  private QueueProcessor<DataSource, Void> queuedDataSources;
 
   // TWSProto.Events to be sent to the EWrapper.
   private BlockingQueue<TWSProto.Event> eventQueue = 
@@ -59,12 +62,13 @@ public class EClientSocketSimulator extends Thread implements Managed {
   // Executor for running the data source.
   private EWrapper wrapper;
   private String clientName;
+  private int eWrapperInvocations = 0;
   
-  public EClientSocketSimulator(String name) {
+  public EClientSocketSimulator(String name, int id) {
     clientName = name;
     super.setName(getClass().getSimpleName() + "-" + name);
-    simulators.put(name, this);
-    this.dataSources = new QueueProcessor<DataSource, Void>(name, false) {
+    simulators.put(makeKey(name, id), this);
+    this.queuedDataSources = new QueueProcessor<DataSource, Void>(name, false) {
       @Override
       protected boolean handleException(Exception e) {
         if (e instanceof IOException) {
@@ -83,7 +87,12 @@ public class EClientSocketSimulator extends Thread implements Managed {
         logger.info("Stopped simulator @" + clientName + ", depth=" + queueSize);
       }
     };
-    this.dataSources.start();
+    logger.info("Starting queue " + this.queuedDataSources);
+    this.queuedDataSources.start();
+  }
+  
+  public static String makeKey(String profile, int id) {
+  	return String.format("%s-%s", profile, id);
   }
   
   public boolean isReady() {
@@ -92,7 +101,7 @@ public class EClientSocketSimulator extends Thread implements Managed {
   
   public void addDataSource(DataSource ds) {
     ds.setSink(this.eventQueue);
-    this.dataSources.enqueue(ds);
+    this.queuedDataSources.enqueue(ds);
   }
   
   public void stopRunning() {
@@ -184,17 +193,31 @@ public class EClientSocketSimulator extends Thread implements Managed {
   public final boolean isEventQueueEmpty() {
   	return eventQueue.isEmpty();
   }
+
+  public final int getEWrapperInvokes() {
+  	return this.eWrapperInvocations;
+  }
   
   @Override
   public void run() {
-  	while (running.get() && wrapper != null) {
+  	if (wrapper == null) {
+  		throw new IllegalStateException("Missing EWrapper.");
+  	}
+  	
+  	while (running.get()) {
   		// send the event
+			TWSProto.Event event = null;
   		try {
-  			TWSProto.Event event = eventQueue.poll(5L, TimeUnit.SECONDS);
-  	  	logger.info("Sending " + event);
+  			event = eventQueue.take();
+  	  	logger.debug("Sending " + event);
   	  	ApiBuilder builder = ApiMethods.get(event.getMethod().name());
   	  	Pair<Method, Object[]> p = builder.buildArgs(event);
+  	  	this.eWrapperInvocations++;
   	  	p.first.invoke(wrapper, p.second);
+  		} catch (NullPointerException e) {
+  			logger.warn("NullPointerException: event = " + event);
+  			running.set(false);
+  			return;
   		} catch (Exception e) {
   			logger.warn("Exception while loading data.", e);
   			running.set(false);

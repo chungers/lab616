@@ -1,0 +1,423 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.actors.remote.TcpService</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../../package.html">scala</a>.<a href="../package.html">actors</a>.<a href="package.html">remote</a></p>
+
+      <div id="definition">
+        <img src="../../../lib/class_big.png" />
+        <h1>TcpService</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="result"> extends <span class="extype" name="java.lang.Thread">Thread</span> with <a href="Service.html" class="extype" name="scala.actors.remote.Service">Service</a></span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.actors.remote.Service">Service</li><li class="in" name="java.lang.Thread">Thread</li><li class="in" name="java.lang.Runnable">Runnable</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.actors.remote.TcpService#connect">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">connect</span><span class="params">(<span name="n">n: <a href="Node.html" class="extype" name="scala.actors.remote.Node">Node</a></span>)</span><span class="result">: <span class="extype" name="scala.actors.remote.TcpServiceWorker">TcpServiceWorker</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#countStackFrames">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">countStackFrames</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#destroy">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">destroy</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.remote.TcpService#disconnectNode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">disconnectNode</span><span class="params">(<span name="n">n: <a href="Node.html" class="extype" name="scala.actors.remote.Node">Node</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.actors.remote.TcpService#getConnection">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getConnection</span><span class="params">(<span name="n">n: <a href="Node.html" class="extype" name="scala.actors.remote.Node">Node</a></span>)</span><span class="result">: <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.actors.remote.TcpServiceWorker">TcpServiceWorker</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#getContextClassLoader">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getContextClassLoader</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.ClassLoader">ClassLoader</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#getId">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getId</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Long">Long</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#getStackTrace">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getStackTrace</span><span class="params">()</span><span class="result">: <a href="../../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="java.lang.StackTraceElement">StackTraceElement</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#getState">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getState</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Thread.State">State</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#getUncaughtExceptionHandler">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getUncaughtExceptionHandler</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Thread.UncaughtExceptionHandler">UncaughtExceptionHandler</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="java.lang.Thread#interrupt">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">interrupt</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.remote.TcpService#isConnected">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isConnected</span><span class="params">(<span name="n">n: <a href="Node.html" class="extype" name="scala.actors.remote.Node">Node</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#isInterrupted">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isInterrupted</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.remote.TcpService#isReachable">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isReachable</span><span class="params">(<span name="node">node: <a href="Node.html" class="extype" name="scala.actors.remote.Node">Node</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.remote.Service#kernel">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">kernel</span><span class="result">: <span class="extype" name="scala.actors.remote.NetKernel">NetKernel</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.remote.TcpService#node">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">node</span><span class="result">: <a href="Node.html" class="extype" name="scala.actors.remote.Node">Node</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.remote.TcpService#nodeDown">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nodeDown</span><span class="params">(<span name="mnode">mnode: <a href="Node.html" class="extype" name="scala.actors.remote.Node">Node</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.remote.TcpService#run">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">run</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.remote.TcpService#send">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">send</span><span class="params">(<span name="node">node: <a href="Node.html" class="extype" name="scala.actors.remote.Node">Node</a></span>, <span name="data">data: <a href="../../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Sends a byte array to another node on the network</p><div class="fullcomment">
+      <div class="comment cmt"><p>Sends a byte array to another node on the network.
+If the node is not yet up, up to <code>TcpService.BufSize</code>
+messages are buffered.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.remote.TcpService#serializer">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">serializer</span><span class="result">: <a href="JavaSerializer.html" class="extype" name="scala.actors.remote.JavaSerializer">JavaSerializer</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#setContextClassLoader">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">setContextClassLoader</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.ClassLoader">ClassLoader</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#setUncaughtExceptionHandler">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">setUncaughtExceptionHandler</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.Thread.UncaughtExceptionHandler">UncaughtExceptionHandler</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#start">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">start</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.actors.remote.TcpService#terminate">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">terminate</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: Thread ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="constructors">
+              <h3>Instance constructors</h3>
+              <ol><li name="scala.actors.remote.TcpService#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="params">(<span name="port">port: <span class="extype" name="scala.Int">Int</span></span>, <span name="cl">cl: <span class="extype" name="java.lang.ClassLoader">ClassLoader</span></span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.ThreadGroup">ThreadGroup</span></span>, <span name="arg1">arg1: <span class="extype" name="java.lang.Runnable">Runnable</span></span>, <span name="arg2">arg2: <span class="extype" name="java.lang.String">String</span></span>, <span name="arg3">arg3: <span class="extype" name="scala.Long">Long</span></span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.ThreadGroup">ThreadGroup</span></span>, <span name="arg1">arg1: <span class="extype" name="java.lang.Runnable">Runnable</span></span>, <span name="arg2">arg2: <span class="extype" name="java.lang.String">String</span></span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.Runnable">Runnable</span></span>, <span name="arg1">arg1: <span class="extype" name="java.lang.String">String</span></span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.ThreadGroup">ThreadGroup</span></span>, <span name="arg1">arg1: <span class="extype" name="java.lang.String">String</span></span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.String">String</span></span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.ThreadGroup">ThreadGroup</span></span>, <span name="arg1">arg1: <span class="extype" name="java.lang.Runnable">Runnable</span></span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="java.lang.Runnable">Runnable</span></span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="java.lang.Thread#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">TcpService</span><span class="params">()</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+      </div>
+      
+    </body>
+      </html>

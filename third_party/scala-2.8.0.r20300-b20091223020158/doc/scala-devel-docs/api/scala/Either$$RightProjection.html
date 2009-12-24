@@ -1,0 +1,391 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.Either.RightProjection</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="package.html">scala</a>.<a href="Either$.html">Either</a></p>
+
+      <div id="definition">
+        <img src="../lib/class_big.png" />
+        <h1>RightProjection</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">RightProjection</span><span class="tparams">[<span name="A">+A</span>, <span name="B">+B</span>]</span><span class="params">(<span name="e">e: <a href="Either.html" class="extype" name="scala.Either">Either</a>[A, B]</span>)</span><span class="result"> extends <a href="Product.html" class="extype" name="scala.Product">Product</a></span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>Projects an <code>Either</code> into a <code>Right</code>.
+</p></div>
+      
+      <div class="block">
+            attributes: final 
+          </div>
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.Product">Product</li><li class="in" name="scala.Equals">Equals</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.Either.RightProjection#canEqual">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">canEqual</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">A method that should be called from every well-designed equals method
+ that is open to be overridden in a subclass</p><div class="fullcomment">
+      <div class="comment cmt"><p>A method that should be called from every well-designed equals method
+ that is open to be overridden in a subclass. See Programming in Scala,
+ Chapter 28 for discussion and design.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#e">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">e</span><span class="result">: <a href="Either.html" class="extype" name="scala.Either">Either</a>[A, B]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.Either.RightProjection#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The equality method defined in <code>AnyRef</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>The equality method defined in <code>AnyRef</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#exists">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">exists</span><span class="params">(<span name="f">f: (B) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns <code>false</code> if <code>Left</code> or returns the result of the application of
+the given function to the <code>Right</code> value</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns <code>false</code> if <code>Left</code> or returns the result of the application of
+the given function to the <code>Right</code> value.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#filter">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">filter</span><span class="tparams">[<span name="X">X</span>]</span><span class="params">(<span name="p">p: (B) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="Option.html" class="extype" name="scala.Option">Option</a>[<a href="Either.html" class="extype" name="scala.Either">Either</a>[X, B]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns <code>None</code> if this is a <code>Left</code> or if the
+ given predicate <code>p</code> does not hold for the right value,
+ otherwise, returns a <code>Right</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns <code>None</code> if this is a <code>Left</code> or if the
+ given predicate <code>p</code> does not hold for the right value,
+ otherwise, returns a <code>Right</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#flatMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">flatMap</span><span class="tparams">[<span name="AA">AA &gt;: A</span>, <span name="Y">Y</span>]</span><span class="params">(<span name="f">f: (B) ⇒ <a href="Either.html" class="extype" name="scala.Either">Either</a>[AA, Y]</span>)</span><span class="result">: <a href="Either.html" class="extype" name="scala.Either">Either</a>[AA, Y]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Binds the given function across <code>Right</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Binds the given function across <code>Right</code>.
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#forall">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">forall</span><span class="params">(<span name="f">f: (B) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns <code>true</code> if <code>Left</code> or returns the result of the application of
+the given function to the <code>Right</code> value</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns <code>true</code> if <code>Left</code> or returns the result of the application of
+the given function to the <code>Right</code> value.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#foreach">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foreach</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (B) ⇒ U</span>)</span><span class="result">: <span class="extype" name="scala.Any">Any</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Executes the given side-effect if this is a <code>Right</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Executes the given side-effect if this is a <code>Right</code>.
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#get">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">get</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the value from this <code>Right</code> or throws
+<code>Predef</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the value from this <code>Right</code> or throws
+<code>Predef.NoSuchElementException</code> if this is a <code>Left</code>.
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#getOrElse">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getOrElse</span><span class="tparams">[<span name="BB">BB &gt;: B</span>]</span><span class="params">(<span name="or">or: ⇒ BB</span>)</span><span class="result">: BB</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns the value from this <code>Right</code> or the given argument if this is a
+<code>Left</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns the value from this <code>Right</code> or the given argument if this is a
+<code>Left</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#map">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="Y">Y</span>]</span><span class="params">(<span name="f">f: (B) ⇒ Y</span>)</span><span class="result">: <a href="Product.html" class="extype" name="scala.Product">Product</a> with <a href="Either.html" class="extype" name="scala.Either">Either</a>[A, Y]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Maps the function argument through <code>Right</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Maps the function argument through <code>Right</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#productArity">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productArity</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">return k for a product <code>A(x_1,</p><div class="fullcomment">
+      <div class="comment cmt"><p>return k for a product <code>A(x_1,...,x_k)</code></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#productElement">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productElement</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Any">Any</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">for a product <code>A(x_1,</p><div class="fullcomment">
+      <div class="comment cmt"><p>for a product <code>A(x_1,...,x_k)</code>, returns <code>x_(n+1)</code>
+ for <code>0 &lt;= n &lt; k</code>
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Product#productElements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productElements</span><span class="result">: <a href="collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.Product#productIterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productIterator</span><span class="result">: <a href="collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">An iterator that returns all fields of this product</p><div class="fullcomment">
+      <div class="comment cmt"><p>An iterator that returns all fields of this product</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Product.html">Product</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#productPrefix">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">productPrefix</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> By default the empty string</p><div class="fullcomment">
+      <div class="comment cmt"><p> By default the empty string. Implementations may override this
+ method in order to prepend a string prefix to the result of the
+ toString methods.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#toOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toOption</span><span class="result">: <a href="Option.html" class="extype" name="scala.Option">Option</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a <code>Some</code> containing the <code>Right</code> value
+ if it exists or a <code>None</code> if this is a <code>Left</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a <code>Some</code> containing the <code>Right</code> value
+ if it exists or a <code>None</code> if this is a <code>Left</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#toSeq">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toSeq</span><span class="result">: <a href="collection/Seq.html" class="extype" name="scala.collection.Seq">Seq</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a <code>Seq</code> containing the <code>Right</code> value if
+ it exists or an empty <code>Seq</code> if this is a <code>Left</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a <code>Seq</code> containing the <code>Right</code> value if
+ it exists or an empty <code>Seq</code> if this is a <code>Left</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.Either.RightProjection#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="constructors">
+              <h3>Instance constructors</h3>
+              <ol><li name="scala.Either.RightProjection#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">RightProjection</span><span class="params">(<span name="e">e: <a href="Either.html" class="extype" name="scala.Either">Either</a>[A, B]</span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">RightProjection</span><span class="params">()</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+      </div>
+      
+    </body>
+      </html>

@@ -1,0 +1,1013 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.xml.parsing.MarkupParser</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../../package.html">scala</a>.<a href="../package.html">xml</a>.<a href="package.html">parsing</a></p>
+
+      <div id="definition">
+        <img src="../../../lib/trait_big.png" />
+        <h1>MarkupParser</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">MarkupParser</span><span class="result"> extends <span class="extype" name="scala.xml.parsing.MarkupParserCommon">MarkupParserCommon</span> with <a href="TokenTests.html" class="extype" name="scala.xml.parsing.TokenTests">TokenTests</a></span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>An XML parser.</p><p>Parses XML 1.0, invokes callback methods of a MarkupHandler
+and returns whatever the markup handler returns. Use
+<code>ConstructingParser</code> if you just want to parse XML to
+construct instances of <code>scala.xml.Node</code>.</p><p>While XML elements are returned, DTD declarations - if handled - are
+collected using side-effects.
+</p></div>
+      
+      
+      
+      <div class="block">
+                known subclasses: <a href="XhtmlParser.html">XhtmlParser</a>, <a href="ConstructingParser.html">ConstructingParser</a>
+              </div>
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.xml.parsing.MarkupParserCommon">MarkupParserCommon</li><li class="in" name="scala.xml.parsing.TokenTests">TokenTests</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.xml.parsing.MarkupParser#PositionType">
+      <h4 class="signature">
+      <span class="kind">type</span>
+      <span class="symbol">
+        <span class="name">PositionType</span><span class="result"> = <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.xml.parsing.MarkupParser#appendText">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">appendText</span><span class="params">(<span name="pos">pos: <span class="extype" name="scala.Int">Int</span></span>, <span name="ts">ts: <a href="../NodeBuffer.html" class="extype" name="scala.xml.NodeBuffer">NodeBuffer</a></span>, <span name="txt">txt: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#attrDecl">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">attrDecl</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">&lt;! attlist := ATTLIST</p><div class="fullcomment">
+      <div class="comment cmt"><p>&lt;! attlist := ATTLIST</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#ch">
+      <h4 class="signature">
+      <span class="kind">var</span>
+      <span class="symbol">
+        <span class="name">ch</span><span class="result">: <span class="extype" name="scala.Char">Char</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">holds the next character</p><div class="fullcomment">
+      <div class="comment cmt"><p>holds the next character</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.TokenTests#checkPubID">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">checkPubID</span><span class="params">(<span name="s">s: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.TokenTests#checkSysID">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">checkSysID</span><span class="params">(<span name="s">s: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#content">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">content</span><span class="params">(<span name="pscope">pscope: <a href="../NamespaceBinding.html" class="extype" name="scala.xml.NamespaceBinding">NamespaceBinding</a></span>)</span><span class="result">: <a href="../NodeSeq.html" class="extype" name="scala.xml.NodeSeq">NodeSeq</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">content1 ::=  '&lt;' content1 | '&amp;' charref </p><div class="fullcomment">
+      <div class="comment cmt"><p>content1 ::=  '&lt;' content1 | '&amp;' charref ...</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#content1">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">content1</span><span class="params">(<span name="pscope">pscope: <a href="../NamespaceBinding.html" class="extype" name="scala.xml.NamespaceBinding">NamespaceBinding</a></span>, <span name="ts">ts: <a href="../NodeBuffer.html" class="extype" name="scala.xml.NodeBuffer">NodeBuffer</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">'&lt;' content1 ::=  </p><div class="fullcomment">
+      <div class="comment cmt"><p>'&lt;' content1 ::=  ...</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#curInput">
+      <h4 class="signature">
+      <span class="kind">var</span>
+      <span class="symbol">
+        <span class="name">curInput</span><span class="result">: <a href="../../io/Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#document">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">document</span><span class="params">()</span><span class="result">: <a href="../Document.html" class="extype" name="scala.xml.Document">Document</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">[22]        prolog     ::=          XMLDecl? Misc* (doctypedecl Misc*)?
+[23]        XMLDecl    ::=          '&lt;?xml' VersionInfo EncodingDecl? SDDecl? S? '?>'
+[24]        VersionInfo        ::=          S 'version' Eq ("'" VersionNum "'" | '"' VersionNum '"')
+[25]        Eq         ::=          S? '=' S?
+[26]        VersionNum         ::=          '1</p><div class="fullcomment">
+      <div class="comment cmt"><p>[22]        prolog     ::=          XMLDecl? Misc* (doctypedecl Misc*)?
+[23]        XMLDecl    ::=          '&lt;?xml' VersionInfo EncodingDecl? SDDecl? S? '?>'
+[24]        VersionInfo        ::=          S 'version' Eq ("'" VersionNum "'" | '"' VersionNum '"')
+[25]        Eq         ::=          S? '=' S?
+[26]        VersionNum         ::=          '1.0'
+[27]        Misc       ::=          Comment | PI | S</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#dtd">
+      <h4 class="signature">
+      <span class="kind">var</span>
+      <span class="symbol">
+        <span class="name">dtd</span><span class="result">: <a href="../dtd/DTD.html" class="extype" name="scala.xml.dtd.DTD">DTD</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#element">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">element</span><span class="params">(<span name="pscope">pscope: <a href="../NamespaceBinding.html" class="extype" name="scala.xml.NamespaceBinding">NamespaceBinding</a></span>)</span><span class="result">: <a href="../NodeSeq.html" class="extype" name="scala.xml.NodeSeq">NodeSeq</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#element1">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">element1</span><span class="params">(<span name="pscope">pscope: <a href="../NamespaceBinding.html" class="extype" name="scala.xml.NamespaceBinding">NamespaceBinding</a></span>)</span><span class="result">: <a href="../NodeSeq.html" class="extype" name="scala.xml.NodeSeq">NodeSeq</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">'&lt;' element ::= xmlTag1 '&gt;'  { xmlExpr | '{' simpleExpr '}' } ETag
+              | xmlTag1 '/' '&gt;'</p><div class="fullcomment">
+      <div class="comment cmt"><p>'&lt;' element ::= xmlTag1 '&gt;'  { xmlExpr | '{' simpleExpr '}' } ETag
+              | xmlTag1 '/' '&gt;'</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#elementDecl">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">elementDecl</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">&lt;! element := ELEMENT</p><div class="fullcomment">
+      <div class="comment cmt"><p>&lt;! element := ELEMENT</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#entityDecl">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">entityDecl</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">&lt;! element := ELEMENT</p><div class="fullcomment">
+      <div class="comment cmt"><p>&lt;! element := ELEMENT</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#eof">
+      <h4 class="signature">
+      <span class="kind">var</span>
+      <span class="symbol">
+        <span class="name">eof</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#extIndex">
+      <h4 class="signature">
+      <span class="kind">var</span>
+      <span class="symbol">
+        <span class="name">extIndex</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#extSubset">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">extSubset</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#externalID">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">externalID</span><span class="params">()</span><span class="result">: <a href="../dtd/ExternalID.html" class="extype" name="scala.xml.dtd.ExternalID">ExternalID</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">externalID ::= SYSTEM S syslit
+                PUBLIC S pubid S syslit</p><div class="fullcomment">
+      <div class="comment cmt"><p>externalID ::= SYSTEM S syslit
+                PUBLIC S pubid S syslit</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#externalSource">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">externalSource</span><span class="params">(<span name="systemLiteral">systemLiteral: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="../../io/Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#initialize">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">initialize</span><span class="result">: <a href="" class="extype" name="scala.xml.parsing.MarkupParser">MarkupParser</a> with <a href="MarkupHandler.html" class="extype" name="scala.xml.parsing.MarkupHandler">MarkupHandler</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">As the current code requires you to call nextch once manually
+ after construction, this method formalizes that suboptimal reality</p><div class="fullcomment">
+      <div class="comment cmt"><p>As the current code requires you to call nextch once manually
+ after construction, this method formalizes that suboptimal reality.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#inpStack">
+      <h4 class="signature">
+      <span class="kind">var</span>
+      <span class="symbol">
+        <span class="name">inpStack</span><span class="result">: <a href="../../collection/immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[<a href="../../io/Source.html" class="extype" name="scala.io.Source">Source</a>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">stack of inputs</p><div class="fullcomment">
+      <div class="comment cmt"><p>stack of inputs</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#input">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">input</span><span class="result">: <a href="../../io/Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#intSubset">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">intSubset</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> "rec-xml/#ExtSubset" pe references may not occur within markup
+declarations</p><div class="fullcomment">
+      <div class="comment cmt"><p> "rec-xml/#ExtSubset" pe references may not occur within markup
+declarations</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.TokenTests#isAlpha">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isAlpha</span><span class="params">(<span name="c">c: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">These are 99% sure to be redundant but refactoring on the safe side</p><div class="fullcomment">
+      <div class="comment cmt"><p>These are 99% sure to be redundant but refactoring on the safe side.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TokenTests.html">TokenTests</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.TokenTests#isAlphaDigit">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isAlphaDigit</span><span class="params">(<span name="c">c: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.TokenTests#isName">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isName</span><span class="params">(<span name="s">s: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Name ::= ( Letter | '_' ) (NameChar)*</p><div class="fullcomment">
+      <div class="comment cmt"><p>Name ::= ( Letter | '_' ) (NameChar)*</p><p> see  [5] of XML 1.0 specification</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TokenTests.html">TokenTests</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.TokenTests#isNameChar">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isNameChar</span><span class="params">(<span name="ch">ch: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">NameChar ::= Letter | Digit | '</p><div class="fullcomment">
+      <div class="comment cmt"><p>NameChar ::= Letter | Digit | '.' | '-' | '_' | ':'
+            | CombiningChar | Extender</p><p>see [4] and Appendix B of XML 1.0 specification</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TokenTests.html">TokenTests</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.TokenTests#isNameStart">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isNameStart</span><span class="params">(<span name="ch">ch: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">NameStart ::= ( Letter | '_' )
+ where Letter means in one of the Unicode general
+ categories { Ll, Lu, Lo, Lt, Nl }</p><div class="fullcomment">
+      <div class="comment cmt"><p>NameStart ::= ( Letter | '_' )
+ where Letter means in one of the Unicode general
+ categories { Ll, Lu, Lo, Lt, Nl }</p><p> We do not allow a name to start with ':'.
+ see [3] and Appendix B of XML 1.0 specification</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="TokenTests.html">TokenTests</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.TokenTests#isPubIDChar">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isPubIDChar</span><span class="params">(<span name="ch">ch: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.TokenTests#isValidIANAEncoding">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isValidIANAEncoding</span><span class="params">(<span name="ianaEncoding">ianaEncoding: <a href="../../collection/Seq.html" class="extype" name="scala.collection.Seq">Seq</a>[<span class="extype" name="scala.Char">Char</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns true if the encoding name is a valid IANA encoding</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns true if the encoding name is a valid IANA encoding.
+This method does not verify that there is a decoder available
+for this encoding, only that the characters are valid for an
+IANA encoding name.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">ianaEncoding</dt><dd class="cmt"><p>The IANA encoding name.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="TokenTests.html">TokenTests</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#markupDecl">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">markupDecl</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#markupDecl1">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">markupDecl1</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Any">Any</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#nextch">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextch</span><span class="result">: <span class="extype" name="scala.Char">Char</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">this method assign the next character to ch and advances in input</p><div class="fullcomment">
+      <div class="comment cmt"><p>this method assign the next character to ch and advances in input</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#normalizeAttributeValue">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">normalizeAttributeValue</span><span class="params">(<span name="attval">attval: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">for the moment, replace only character references
+ see spec 3</p><div class="fullcomment">
+      <div class="comment cmt"><p>for the moment, replace only character references
+ see spec 3.3.3
+ precond: cbuf empty</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#notationDecl">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">notationDecl</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">'N' notationDecl ::= "OTATION"</p><div class="fullcomment">
+      <div class="comment cmt"><p>'N' notationDecl ::= "OTATION"</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#parseDTD">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">parseDTD</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">parses document type declaration and assigns it to instance variable
+ dtd</p><div class="fullcomment">
+      <div class="comment cmt"><p>parses document type declaration and assigns it to instance variable
+ dtd.</p><p> &lt;! parseDTD ::= DOCTYPE name ... ></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#pop">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">pop</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#pos">
+      <h4 class="signature">
+      <span class="kind">var</span>
+      <span class="symbol">
+        <span class="name">pos</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">holds the position in the source file</p><div class="fullcomment">
+      <div class="comment cmt"><p>holds the position in the source file</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#preserveWS">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">preserveWS</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">if true, does not remove surplus whitespace</p><div class="fullcomment">
+      <div class="comment cmt"><p>if true, does not remove surplus whitespace</p></div>
+      
+      <div class="block">
+            attributes: abstract 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#prolog">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">prolog</span><span class="params">()</span><span class="result">: (<a href="../../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="java.lang.String">String</span>], <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="java.lang.String">String</span>], <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Boolean">Boolean</span>])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">&lt;? prolog ::= xml S?
+ // this is a bit more lenient than necessary</p><div class="fullcomment">
+      <div class="comment cmt"><p>&lt;? prolog ::= xml S?
+ // this is a bit more lenient than necessary...</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#pubidLiteral">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">pubidLiteral</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#push">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">push</span><span class="params">(<span name="entityName">entityName: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#pushExternal">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">pushExternal</span><span class="params">(<span name="systemId">systemId: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#reportSyntaxError">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reportSyntaxError</span><span class="params">(<span name="str">str: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#reportSyntaxError">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reportSyntaxError</span><span class="params">(<span name="pos">pos: <span class="extype" name="scala.Int">Int</span></span>, <span name="str">str: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">PublicID (without system, only used in NOTATION)</p><div class="fullcomment">
+      <div class="comment cmt"><p>PublicID (without system, only used in NOTATION)</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#reportValidationError">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reportValidationError</span><span class="params">(<span name="pos">pos: <span class="extype" name="scala.Int">Int</span></span>, <span name="str">str: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParserCommon#returning">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">returning</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="x">x: T</span>)</span><span class="params">(<span name="f">f: (T) ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: T</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#systemLiteral">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">systemLiteral</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">attribute value, terminated by either ' or "</p><div class="fullcomment">
+      <div class="comment cmt"><p>attribute value, terminated by either ' or ". value may not contain &lt;.
+      AttValue     ::= <code>'</code> { _ } <code>'</code>                     | <code>"</code> { _ } <code>"</code></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#textDecl">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">textDecl</span><span class="params">()</span><span class="result">: (<a href="../../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="java.lang.String">String</span>], <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="java.lang.String">String</span>])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">prolog, but without standalone</p><div class="fullcomment">
+      <div class="comment cmt"><p>prolog, but without standalone</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#tmppos">
+      <h4 class="signature">
+      <span class="kind">var</span>
+      <span class="symbol">
+        <span class="name">tmppos</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">holds temporary values of pos</p><div class="fullcomment">
+      <div class="comment cmt"><p>holds temporary values of pos</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xAttributeValue">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xAttributeValue</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">attribute value, terminated by either ' or "</p><div class="fullcomment">
+      <div class="comment cmt"><p>attribute value, terminated by either ' or ". value may not contain &lt;.
+      AttValue     ::= <code>'</code> { _  } <code>'</code>                     | <code>"</code> { _ } <code>"</code></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xAttributes">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xAttributes</span><span class="params">(<span name="pscope">pscope: <a href="../NamespaceBinding.html" class="extype" name="scala.xml.NamespaceBinding">NamespaceBinding</a></span>)</span><span class="result">: (<a href="../MetaData.html" class="extype" name="scala.xml.MetaData">MetaData</a>, <a href="../NamespaceBinding.html" class="extype" name="scala.xml.NamespaceBinding">NamespaceBinding</a>)</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">parse attribute and create namespace scope, metadata
+ [41] Attributes    ::= { S Name Eq AttValue }</p><div class="fullcomment">
+      <div class="comment cmt"><p>parse attribute and create namespace scope, metadata
+ [41] Attributes    ::= { S Name Eq AttValue }</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xCharData">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xCharData</span><span class="result">: <a href="../NodeSeq.html" class="extype" name="scala.xml.NodeSeq">NodeSeq</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">'&lt;! CharData ::= [CDATA[ ( {char} - {char}"]]&gt;"{char} ) ']]&gt;'</p><div class="fullcomment">
+      <div class="comment cmt"><p>'&lt;! CharData ::= [CDATA[ ( {char} - {char}"]]&gt;"{char} ) ']]&gt;'</p><p>see [15]</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xCharRef">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xCharRef</span><span class="params">(<span name="ch">ch: () ⇒ <span class="extype" name="scala.Char">Char</span></span>, <span name="nextch">nextch: () ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">CharRef ::= "&amp;#" '0'</p><div class="fullcomment">
+      <div class="comment cmt"><p>CharRef ::= "&amp;#" '0'..'9' {'0'..'9'} ";"
+           | "&amp;#x" '0'..'9'|'A'..'F'|'a'..'f' { hexdigit } ";"</p><p>see [66]</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xComment">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xComment</span><span class="result">: <a href="../NodeSeq.html" class="extype" name="scala.xml.NodeSeq">NodeSeq</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Comment ::= '&lt;!--' ((Char - '-') | ('-' (Char - '-')))* '--&gt;'</p><div class="fullcomment">
+      <div class="comment cmt"><p>Comment ::= '&lt;!--' ((Char - '-') | ('-' (Char - '-')))* '--&gt;'</p><p>see [15]</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParserCommon#xEQ">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xEQ</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">scan [S] '=' [S]</p><div class="fullcomment">
+      <div class="comment cmt"><p>scan [S] '=' [S]</p></div>
+      
+      
+      <div class="block">
+            definition classes: MarkupParserCommon
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xEndTag">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xEndTag</span><span class="params">(<span name="n">n: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">[42]  '&lt;' xmlEndTag ::=  '&lt;' '/' Name S? '&gt;'</p><div class="fullcomment">
+      <div class="comment cmt"><p>[42]  '&lt;' xmlEndTag ::=  '&lt;' '/' Name S? '&gt;'</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xEntityValue">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xEntityValue</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">entity value, terminated by either ' or "</p><div class="fullcomment">
+      <div class="comment cmt"><p>entity value, terminated by either ' or ". value may not contain &lt;.
+      AttValue     ::= <code>'</code> { _  } <code>'</code>                     | <code>"</code> { _ } <code>"</code></p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xHandleError">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xHandleError</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Char">Char</span></span>, <span name="msg">msg: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#xName">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xName</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Name ::= (Letter | '_' | ':') (NameChar)*</p><div class="fullcomment">
+      <div class="comment cmt"><p>Name ::= (Letter | '_' | ':') (NameChar)*</p><p> see  [5] of XML 1.0 specification</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xProcInstr">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xProcInstr</span><span class="result">: <a href="../NodeSeq.html" class="extype" name="scala.xml.NodeSeq">NodeSeq</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">'&lt;?' ProcInstr ::= Name [S ({Char} - ({Char}'&gt;?' {Char})]'?&gt;'</p><div class="fullcomment">
+      <div class="comment cmt"><p>'&lt;?' ProcInstr ::= Name [S ({Char} - ({Char}'&gt;?' {Char})]'?&gt;'</p><p>see [15]</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParserCommon#xSpace">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xSpace</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">scan [3] S ::= (#x20 | #x9 | #xD | #xA)+</p><div class="fullcomment">
+      <div class="comment cmt"><p>scan [3] S ::= (#x20 | #x9 | #xD | #xA)+</p></div>
+      
+      
+      <div class="block">
+            definition classes: MarkupParserCommon
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParserCommon#xSpaceOpt">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xSpaceOpt</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">skip optional space S?</p><div class="fullcomment">
+      <div class="comment cmt"><p>skip optional space S?</p></div>
+      
+      
+      <div class="block">
+            definition classes: MarkupParserCommon
+          </div>
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParser#xText">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xText</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">parse character data</p><div class="fullcomment">
+      <div class="comment cmt"><p>parse character data.
+  precondition: xEmbeddedBlock == false (we are not in a scala block)</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.xml.parsing.MarkupParserCommon#xToken">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xToken</span><span class="params">(<span name="that">that: <a href="../../collection/Seq.html" class="extype" name="scala.collection.Seq">Seq</a>[<span class="extype" name="scala.Char">Char</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParserCommon#xToken">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xToken</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.xml.parsing.MarkupParser#xmlProcInstr">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">xmlProcInstr</span><span class="params">()</span><span class="result">: <a href="../MetaData.html" class="extype" name="scala.xml.MetaData">MetaData</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">&lt;? prolog ::= xml S </p><div class="fullcomment">
+      <div class="comment cmt"><p>&lt;? prolog ::= xml S ... ?&gt;</p></div>
+      
+      
+      
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

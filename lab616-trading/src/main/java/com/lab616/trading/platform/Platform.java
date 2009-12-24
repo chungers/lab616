@@ -2,13 +2,8 @@
 
 package com.lab616.trading.platform;
 
-import java.util.List;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 
-import com.google.common.collect.Sets;
-import com.google.inject.Module;
 import com.lab616.ib.api.TWSClientModule;
 import com.lab616.ib.api.servlets.TWSControllerModule;
 import com.lab616.ib.commands.CommandModule;
@@ -16,44 +11,21 @@ import com.lab616.omnibus.Kernel;
 import com.lab616.omnibus.event.EventEngine;
 
 /**
+ * Trivial platform class by extending the Kernel to include additional
+ * modules.
+ * 
  * @author david
  *
  */
 public class Platform extends Kernel {
 
-
 	static Logger logger = Logger.getLogger(Platform.class);
-
-	private final Set<Module> modules = Sets.newHashSet();
-	private final Set<Shutdown<?>> shutdownHooks = Sets.newHashSet();
 
 	public Platform() {
 		// Default constructor with default modules:
-		add(new TWSClientModule());
-		add(new TWSControllerModule());
-		add(new CommandModule());
-	}
-
-	public Platform add(Module module) {
-		modules.add(module);
-		return this;
-	}
-
-	public Platform add(Shutdown<?> shutdown) {
-		shutdownHooks.add(shutdown);
-		return this;
-	}
-
-	@Override
-	protected void addShutdown(List<Shutdown<?>> list) {
-		for (Shutdown<?> s : shutdownHooks) {
-			list.add(s);
-		}
-	}
-
-	@Override
-	public Set<? extends Module> getModules() {
-		return modules;
+		include(new TWSClientModule());
+		include(new TWSControllerModule());
+		include(new CommandModule());
 	}
 
 	@Override

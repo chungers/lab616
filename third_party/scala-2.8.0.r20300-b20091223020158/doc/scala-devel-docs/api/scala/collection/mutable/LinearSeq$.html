@@ -1,0 +1,478 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.collection.mutable.LinearSeq</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../../package.html">scala</a>.<a href="../package.html">collection</a>.<a href="package.html">mutable</a></p>
+
+      <div id="definition">
+        <img src="../../../lib/object_big.png" />
+        <h1>LinearSeq</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">LinearSeq</span><span class="result"> extends <a href="../generic/SeqFactory.html" class="extype" name="scala.collection.generic.SeqFactory">SeqFactory</a>[<a href="LinearSeq.html" class="extype" name="scala.collection.mutable.LinearSeq">LinearSeq</a>[A][A]]</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.collection.generic.SeqFactory">SeqFactory</li><li class="in" name="scala.collection.generic.TraversableFactory">TraversableFactory</li><li class="in" name="scala.collection.generic.GenericCompanion">GenericCompanion</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.collection.generic.GenericCompanion#Coll">
+      <h4 class="signature">
+      <span class="kind">type</span>
+      <span class="symbol">
+        <span class="name">Coll</span><span class="result"> = CC[_]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The underlying collection type with unknown element type</p><div class="fullcomment">
+      <div class="comment cmt"><p>The underlying collection type with unknown element type</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../generic/GenericCompanion.html">GenericCompanion</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory.GenericCanBuildFrom">
+      <h4 class="signature"><a href="LinearSeq$$GenericCanBuildFrom.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">GenericCanBuildFrom</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends CanBuildFrom[CC[_], A, CC[A]]</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">A generic implementation of the <code>CanBuildFrom</code> trait, which forwards
+ all calls to <code>apply(from)</code> to the <code>genericBuilder</code> methof of
+  collection <code>from</code>, and which forwards all calls of <code>apply()</code> to the
+ <code>newBuilder</code> method of this factory</p>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.collection.generic.GenericCompanion#apply">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="elems">elems: A*</span>)</span><span class="result">: CC[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a  collection with the specified elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a  collection with the specified elements.</p></div>
+      <dl class="paramcmts block"><dt class="param">elems</dt><dd class="cmt"><p>the elements of the created  collection</p></dd><dt>returns</dt><dd class="cmt"><p>a new  collection with elements <code>elems</code></p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/GenericCompanion.html">GenericCompanion</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.LinearSeq#canBuildFrom">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">canBuildFrom</span><span class="tparams">[<span name="A">A</span>]</span><span class="result">: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[scala.collection.mutable.LinearSeq[_], A, <a href="LinearSeq.html" class="extype" name="scala.collection.mutable.LinearSeq">LinearSeq</a>[A]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.generic.TraversableFactory#concat">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">concat</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="xss">xss: <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[A]*</span>)</span><span class="result">: CC[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Concatenates all argument collections into a single  collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Concatenates all argument collections into a single  collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">xss</dt><dd class="cmt"><p>the collections that are to be concatenated.</p></dd><dt>returns</dt><dd class="cmt"><p>the concatenation of all the collections.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericCompanion#empty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">empty</span><span class="tparams">[<span name="A">A</span>]</span><span class="result">: CC[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The empty collection of type  CC[A]</p><div class="fullcomment">
+      <div class="comment cmt"><p>The empty collection of type  CC[A]</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../generic/GenericCompanion.html">GenericCompanion</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#fill">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fill</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n1">n1: <span class="extype" name="scala.Int">Int</span></span>, <span name="n2">n2: <span class="extype" name="scala.Int">Int</span></span>, <span name="n3">n3: <span class="extype" name="scala.Int">Int</span></span>, <span name="n4">n4: <span class="extype" name="scala.Int">Int</span></span>, <span name="n5">n5: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="elem">elem: ⇒ A</span>)</span><span class="result">: CC[CC[CC[CC[CC[A]]]]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a five-dimensional  collection containing the results of some element computation a number of times</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a five-dimensional  collection containing the results of some element computation a number of times.</p></div>
+      <dl class="paramcmts block"><dt class="param">n1</dt><dd class="cmt"><p>the number of elements in the 1st dimension</p></dd><dt class="param">n2</dt><dd class="cmt"><p>the number of elements in the 2nd dimension</p></dd><dt class="param">n3</dt><dd class="cmt"><p>the number of elements in the 3nd dimension</p></dd><dt class="param">n4</dt><dd class="cmt"><p>the number of elements in the 4th dimension</p></dd><dt class="param">n5</dt><dd class="cmt"><p>the number of elements in the 5th dimension</p></dd><dt class="param">elem</dt><dd class="cmt"><p>the element computation</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection that contains the results of <code>n1 x n2 x n3 x n4 x n5</code> evaluations of <code>elem</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#fill">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fill</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n1">n1: <span class="extype" name="scala.Int">Int</span></span>, <span name="n2">n2: <span class="extype" name="scala.Int">Int</span></span>, <span name="n3">n3: <span class="extype" name="scala.Int">Int</span></span>, <span name="n4">n4: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="elem">elem: ⇒ A</span>)</span><span class="result">: CC[CC[CC[CC[A]]]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a four-dimensional  collection containing the results of some element computation a number of times</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a four-dimensional  collection containing the results of some element computation a number of times.</p></div>
+      <dl class="paramcmts block"><dt class="param">n1</dt><dd class="cmt"><p>the number of elements in the 1st dimension</p></dd><dt class="param">n2</dt><dd class="cmt"><p>the number of elements in the 2nd dimension</p></dd><dt class="param">n3</dt><dd class="cmt"><p>the number of elements in the 3nd dimension</p></dd><dt class="param">n4</dt><dd class="cmt"><p>the number of elements in the 4th dimension</p></dd><dt class="param">elem</dt><dd class="cmt"><p>the element computation</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection that contains the results of <code>n1 x n2 x n3 x n4</code> evaluations of <code>elem</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#fill">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fill</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n1">n1: <span class="extype" name="scala.Int">Int</span></span>, <span name="n2">n2: <span class="extype" name="scala.Int">Int</span></span>, <span name="n3">n3: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="elem">elem: ⇒ A</span>)</span><span class="result">: CC[CC[CC[A]]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a three-dimensional  collection containing the results of some element computation a number of times</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a three-dimensional  collection containing the results of some element computation a number of times.</p></div>
+      <dl class="paramcmts block"><dt class="param">n1</dt><dd class="cmt"><p>the number of elements in the 1st dimension</p></dd><dt class="param">n2</dt><dd class="cmt"><p>the number of elements in the 2nd dimension</p></dd><dt class="param">n3</dt><dd class="cmt"><p>the number of elements in the 3nd dimension</p></dd><dt class="param">elem</dt><dd class="cmt"><p>the element computation</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection that contains the results of <code>n1 x n2 x n3</code> evaluations of <code>elem</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#fill">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fill</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n1">n1: <span class="extype" name="scala.Int">Int</span></span>, <span name="n2">n2: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="elem">elem: ⇒ A</span>)</span><span class="result">: CC[CC[A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a two-dimensional  collection containing the results of some element computation a number of times</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a two-dimensional  collection containing the results of some element computation a number of times.</p></div>
+      <dl class="paramcmts block"><dt class="param">n1</dt><dd class="cmt"><p>the number of elements in the 1st dimension</p></dd><dt class="param">n2</dt><dd class="cmt"><p>the number of elements in the 2nd dimension</p></dd><dt class="param">elem</dt><dd class="cmt"><p>the element computation</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection that contains the results of <code>n1 x n2</code> evaluations of <code>elem</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#fill">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fill</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="elem">elem: ⇒ A</span>)</span><span class="result">: CC[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a  collection containing the results of some element computation a number of times</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a  collection containing the results of some element computation a number of times.</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the number of elements contained in the  collection.</p></dd><dt class="param">elem</dt><dd class="cmt"><p>the element computation</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection that contains the results of <code>n</code> evaluations of <code>elem</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#iterate">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">iterate</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="start">start: A</span>, <span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="f">f: (A) ⇒ A</span>)</span><span class="result">: CC[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a  collection containing repeated applications of a function to a start value</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a  collection containing repeated applications of a function to a start value.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>the start value of the  collection</p></dd><dt class="param">len</dt><dd class="cmt"><p>the number of elements contained inthe  collection</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function that's repeatedly applied</p></dd><dt>returns</dt><dd class="cmt"><p>a  collection with <code>len</code> values in the sequence <code>start, f(start), f(f(start)), ...</code></p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.LinearSeq#newBuilder">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">newBuilder</span><span class="tparams">[<span name="A">A</span>]</span><span class="result">: <a href="Builder.html" class="extype" name="scala.collection.mutable.Builder">Builder</a>[A, <a href="LinearSeq.html" class="extype" name="scala.collection.mutable.LinearSeq">LinearSeq</a>[A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The default builder for  CC objects</p><div class="fullcomment">
+      <div class="comment cmt"><p>The default builder for  CC objects.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="">LinearSeq</a> ⇐ <a href="../generic/GenericCompanion.html">GenericCompanion</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#range">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">range</span><span class="params">(<span name="start">start: <span class="extype" name="scala.Int">Int</span></span>, <span name="end">end: <span class="extype" name="scala.Int">Int</span></span>, <span name="step">step: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: CC[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a  collection containing equally spaced values in some integer interval</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a  collection containing equally spaced values in some integer interval.</p></div>
+      <dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>the start value of the  collection</p></dd><dt class="param">end</dt><dd class="cmt"><p>the end value of the  collection (the first value NOT contained)</p></dd><dt class="param">step</dt><dd class="cmt"><p>the difference between successive elements of the  collection (must be positive or negative)</p></dd><dt>returns</dt><dd class="cmt"><p>a  collection with values <code>start, start + step, ...</code> up to, but excluding <code>end</code></p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#range">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">range</span><span class="params">(<span name="start">start: <span class="extype" name="scala.Int">Int</span></span>, <span name="end">end: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: CC[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a  collection containing a sequence of increasing of integers</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a  collection containing a sequence of increasing of integers.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">end</dt><dd class="cmt"><p>the end value of the  collection (the first value NOT contained)</p></dd><dt>returns</dt><dd class="cmt"><p>a  collection with values <code>start, start + 1, ..., end - 1</code></p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#tabulate">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">tabulate</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n1">n1: <span class="extype" name="scala.Int">Int</span></span>, <span name="n2">n2: <span class="extype" name="scala.Int">Int</span></span>, <span name="n3">n3: <span class="extype" name="scala.Int">Int</span></span>, <span name="n4">n4: <span class="extype" name="scala.Int">Int</span></span>, <span name="n5">n5: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>) ⇒ A</span>)</span><span class="result">: CC[CC[CC[CC[CC[A]]]]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a five-dimensional  collection containing values of a given function over ranges of integer values starting from 0</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a five-dimensional  collection containing values of a given function over ranges of integer values starting from 0.</p></div>
+      <dl class="paramcmts block"><dt class="param">n1</dt><dd class="cmt"><p>the number of elements in the 1st dimension</p></dd><dt class="param">n2</dt><dd class="cmt"><p>the number of elements in the 2nd dimension</p></dd><dt class="param">n3</dt><dd class="cmt"><p>the number of elements in the 3nd dimension</p></dd><dt class="param">n4</dt><dd class="cmt"><p>the number of elements in the 4th dimension</p></dd><dt class="param">n5</dt><dd class="cmt"><p>the number of elements in the 5th dimension</p></dd><dt class="param">f</dt><dd class="cmt"><p>The function computing element values</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection consisting of elements <code>f(i1, i2, i3, i4, i5)</code>         for <code>0 <= i1 < n1</code>, <code>0 <= i2 < n2</code>, <code>0 <= i3 < n3</code>, <code>0 <= i4 < n4</code>, and <code>0 <= i5 < n5</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#tabulate">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">tabulate</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n1">n1: <span class="extype" name="scala.Int">Int</span></span>, <span name="n2">n2: <span class="extype" name="scala.Int">Int</span></span>, <span name="n3">n3: <span class="extype" name="scala.Int">Int</span></span>, <span name="n4">n4: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>) ⇒ A</span>)</span><span class="result">: CC[CC[CC[CC[A]]]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a four-dimensional  collection containing values of a given function over ranges of integer values starting from 0</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a four-dimensional  collection containing values of a given function over ranges of integer values starting from 0.</p></div>
+      <dl class="paramcmts block"><dt class="param">n1</dt><dd class="cmt"><p>the number of elements in the 1st dimension</p></dd><dt class="param">n2</dt><dd class="cmt"><p>the number of elements in the 2nd dimension</p></dd><dt class="param">n3</dt><dd class="cmt"><p>the number of elements in the 3nd dimension</p></dd><dt class="param">n4</dt><dd class="cmt"><p>the number of elements in the 4th dimension</p></dd><dt class="param">f</dt><dd class="cmt"><p>The function computing element values</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection consisting of elements <code>f(i1, i2, i3, i4)</code>         for <code>0 <= i1 < n1</code>, <code>0 <= i2 < n2</code>, <code>0 <= i3 < n3</code>, and <code>0 <= i4 < n4</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#tabulate">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">tabulate</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n1">n1: <span class="extype" name="scala.Int">Int</span></span>, <span name="n2">n2: <span class="extype" name="scala.Int">Int</span></span>, <span name="n3">n3: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>) ⇒ A</span>)</span><span class="result">: CC[CC[CC[A]]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a three-dimensional  collection containing values of a given function over ranges of integer values starting from 0</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a three-dimensional  collection containing values of a given function over ranges of integer values starting from 0.</p></div>
+      <dl class="paramcmts block"><dt class="param">n1</dt><dd class="cmt"><p>the number of elements in the 1st dimension</p></dd><dt class="param">n2</dt><dd class="cmt"><p>the number of elements in the 2nd dimension</p></dd><dt class="param">n3</dt><dd class="cmt"><p>the number of elements in the 3nd dimension</p></dd><dt class="param">f</dt><dd class="cmt"><p>The function computing element values</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection consisting of elements <code>f(i1, i2, i3)</code>         for <code>0 <= i1 < n1</code>, <code>0 <= i2 < n2</code>, and <code>0 <= i3 < n3</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#tabulate">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">tabulate</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n1">n1: <span class="extype" name="scala.Int">Int</span></span>, <span name="n2">n2: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>) ⇒ A</span>)</span><span class="result">: CC[CC[A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a two-dimensional  collection containing values of a given function over ranges of integer values starting from 0</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a two-dimensional  collection containing values of a given function over ranges of integer values starting from 0.</p></div>
+      <dl class="paramcmts block"><dt class="param">n1</dt><dd class="cmt"><p>the number of elements in the 1st dimension</p></dd><dt class="param">n2</dt><dd class="cmt"><p>the number of elements in the 2nd dimension</p></dd><dt class="param">f</dt><dd class="cmt"><p>The function computing element values</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection consisting of elements <code>f(i1, i2)</code>         for <code>0 <= i1 < n1</code> and <code>0 <= i2 < n2</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.TraversableFactory#tabulate">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">tabulate</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>) ⇒ A</span>)</span><span class="result">: CC[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Produces a  collection containing values of a given function over a range of integer values starting from 0</p><div class="fullcomment">
+      <div class="comment cmt"><p>Produces a  collection containing values of a given function over a range of integer values starting from 0.</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>The number of elements in the  collection</p></dd><dt class="param">f</dt><dd class="cmt"><p>The function computing element values</p></dd><dt>returns</dt><dd class="cmt"><p>A  collection consisting of elements <code>f(0), ..., f(n -1)</code></p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/TraversableFactory.html">TraversableFactory</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.SeqFactory#unapplySeq">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">unapplySeq</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="x">x: CC[A]</span>)</span><span class="result">: <a href="../../Some.html" class="extype" name="scala.Some">Some</a>[CC[A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is called in a pattern match { case Seq(</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is called in a pattern match { case Seq(...) => }.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">x</dt><dd class="cmt"><p>the selector value</p></dd><dt>returns</dt><dd class="cmt"><p>sequence wrapped in an option, if this is a Seq, otherwise none</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/SeqFactory.html">SeqFactory</a>
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

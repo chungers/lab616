@@ -1,0 +1,349 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.util.control.Exception</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../../package.html">scala</a>.<a href="../package.html">util</a>.<a href="package.html">control</a></p>
+
+      <div id="definition">
+        <img src="../../../lib/object_big.png" />
+        <h1>Exception</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">Exception</span><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>Classes representing the components of exception handling.
+ Each class is independently composable.  Some common uses:</p><p> <pre>
+ <b>import</b> scala.util.control.Exception._
+ <b>import</b> java.net._</p><p> <b>val</b> s = "http://www.scala-lang.org/"
+ <b>val</b> x1 = catching(classOf[MalformedURLException]) opt new URL(s)
+ <b>val</b> x2 = catching(classOf[MalformedURLException], classOf[NullPointerException]) either new URL(s)
+ </pre></p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.util.control.Exception.By">
+      <h4 class="signature"><a href="Exception$$By.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">By</span><span class="tparams">[<span name="T">T</span>, <span name="R">R</span>]</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">Returns a partially constructed Catch object, which you must give
+an exception handler function as an argument to "by"</p>
+    </li><li name="scala.util.control.Exception.Catch">
+      <h4 class="signature"><a href="Exception$$Catch.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">Catch</span><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends Described</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">A container class for catch/finally logic</p>
+    </li><li name="scala.util.control.Exception#Catcher">
+      <h4 class="signature">
+      <span class="kind">type</span>
+      <span class="symbol">
+        <span class="name">Catcher</span><span class="result"> = <a href="../../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="java.lang.Throwable">Throwable</span>, T]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.control.Exception.Described">
+      <h4 class="signature"><a href="Exception$$Described.html">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">Described</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.util.control.Exception#ExceptionCatcher">
+      <h4 class="signature">
+      <span class="kind">type</span>
+      <span class="symbol">
+        <span class="name">ExceptionCatcher</span><span class="result"> = <a href="../../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="java.lang.Exception">Exception</span>, T]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.control.Exception.Finally">
+      <h4 class="signature"><a href="Exception$$Finally.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">Finally</span><span class="result"> extends Described</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">A container class for finally code</p>
+    </li><li name="scala.util.control.Exception.Try">
+      <h4 class="signature"><a href="Exception$$Try.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">Try</span><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">A container class for Try logic</p>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.util.control.Exception#catching">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">catching</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="c">c: <a href="../../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="java.lang.Throwable">Throwable</span>, T]</span>)</span><span class="result">: <a href="Exception$$Catch.html" class="extype" name="scala.util.control.Exception.Catch">Catch</a>[T]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.control.Exception#catching">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">catching</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="exceptions">exceptions: java.lang.Class[_]*</span>)</span><span class="result">: <a href="Exception$$Catch.html" class="extype" name="scala.util.control.Exception.Catch">Catch</a>[T]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a Catch object which will catch any of the supplied exceptions</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a Catch object which will catch any of the supplied exceptions.
+Since the returned Catch object has no specific logic defined and will simply
+rethrow the exceptions it catches, you will typically want to call "opt" or
+"either" on the return value, or assign custom logic by calling "withApply".</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.util.control.Exception#failing">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">failing</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="exceptions">exceptions: java.lang.Class[_]*</span>)</span><span class="result">: <a href="Exception$$Catch.html" class="extype" name="scala.util.control.Exception.Catch">Catch</a>[<a href="../../Option.html" class="extype" name="scala.Option">Option</a>[T]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a Catch object which maps all the supplied exceptions to 'None'</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a Catch object which maps all the supplied exceptions to 'None'.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.util.control.Exception#fromExceptionCatcher">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromExceptionCatcher</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="pf">pf: <a href="../../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="java.lang.Exception">Exception</span>, T]</span>)</span><span class="result">: <a href="../../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="java.lang.Throwable">Throwable</span>, T]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.control.Exception#handling">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">handling</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="exceptions">exceptions: java.lang.Class[_]*</span>)</span><span class="result">: <a href="Exception$$By.html" class="extype" name="scala.util.control.Exception.By">By</a>[(<span class="extype" name="java.lang.Throwable">Throwable</span>) ⇒ T, <a href="Exception$$Catch.html" class="extype" name="scala.util.control.Exception.Catch">Catch</a>[T]]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.util.control.Exception#ignoring">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">ignoring</span><span class="params">(<span name="exceptions">exceptions: java.lang.Class[_]*</span>)</span><span class="result">: <a href="Exception$$Catch.html" class="extype" name="scala.util.control.Exception.Catch">Catch</a>[<span class="extype" name="scala.Unit">Unit</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a Catch object which catches and ignores any of the supplied exceptions</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a Catch object which catches and ignores any of the supplied exceptions.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.util.control.Exception#noCatch">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">noCatch</span><span class="result">: <a href="Exception$$Catch.html" class="extype" name="scala.util.control.Exception.Catch">Catch</a>[<span class="extype" name="scala.Nothing">Nothing</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The empty Catch object</p><div class="fullcomment">
+      <div class="comment cmt"><p>The empty Catch object.</p></div>
+      
+      <div class="block">
+            attributes: final 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.util.control.Exception#nothingCatcher">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">nothingCatcher</span><span class="result">: <a href="../../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="java.lang.Throwable">Throwable</span>, <span class="extype" name="scala.Nothing">Nothing</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.util.control.Exception#saving">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">saving</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="oldVal">oldVal: A</span>, <span name="newVal">newVal: A</span>, <span name="setter">setter: (A) ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: <a href="Exception$$Catch.html" class="extype" name="scala.util.control.Exception.Catch">Catch</a>[<span class="extype" name="scala.Nothing">Nothing</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Experimental</p><div class="fullcomment">
+      <div class="comment cmt"><p>Experimental</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.util.control.Exception#ultimately">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">ultimately</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="body">body: ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: <a href="Exception$$Catch.html" class="extype" name="scala.util.control.Exception.Catch">Catch</a>[T]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a Catch object with no catch logic and the argument as Finally</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a Catch object with no catch logic and the argument as Finally.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.util.control.Exception#unwrapping">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">unwrapping</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="exceptions">exceptions: java.lang.Class[_]*</span>)</span><span class="result">: <a href="Exception$$Catch.html" class="extype" name="scala.util.control.Exception.Catch">Catch</a>[T]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a Catch object which unwraps any of the supplied exceptions</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a Catch object which unwraps any of the supplied exceptions.</p></div>
+      
+      
+      
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

@@ -67,10 +67,10 @@ public class TWSClientModule extends AbstractEventModule {
     bind(TWSConnectionProfileManager.class).in(Scopes.SINGLETON);
   
     bind(EClientSocketFactory.class).toInstance(new EClientSocketFactory() {
-      public EClientSocket create(String profile, EWrapper wrapper,
+      public EClientSocket create(String profile, int id, EWrapper wrapper,
           boolean... simulate) {
         if (simulate.length > 0 && simulate[0]) {
-          EClientSocketSimulator sim = new EClientSocketSimulator(profile);
+        	EClientSocketSimulator sim = new EClientSocketSimulator(profile, id);
           EClientSocket client = sim.create(wrapper);
           sim.start();
           return client;

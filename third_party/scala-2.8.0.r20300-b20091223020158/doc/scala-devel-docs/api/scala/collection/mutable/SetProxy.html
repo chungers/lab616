@@ -1,0 +1,2383 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.collection.mutable.SetProxy</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../../package.html">scala</a>.<a href="../package.html">collection</a>.<a href="package.html">mutable</a></p>
+
+      <div id="definition">
+        <img src="../../../lib/trait_big.png" />
+        <h1>SetProxy</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">SetProxy</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A] with <a href="../SetProxyLike.html" class="extype" name="scala.collection.SetProxyLike">SetProxyLike</a>[A, <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]]</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>This is a simple wrapper class for <a href="Set.html"
+ target="contentFrame"><code>scala.collection.mutable.Set</code></a>.
+ It is most useful for assembling customized set abstractions
+ dynamically using object composition and forwarding.
+</p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.collection.SetProxyLike">SetProxyLike</li><li class="in" name="scala.collection.IterableProxyLike">IterableProxyLike</li><li class="in" name="scala.collection.TraversableProxyLike">TraversableProxyLike</li><li class="in" name="scala.Proxy">Proxy</li><li class="in" name="scala.collection.mutable.Set">Set</li><li class="in" name="scala.collection.mutable.SetLike">SetLike</li><li class="in" name="scala.collection.mutable.Cloneable">Cloneable</li><li class="in" name="scala.collection.generic.Shrinkable">Shrinkable</li><li class="in" name="scala.collection.mutable.Builder">Builder</li><li class="in" name="scala.collection.generic.Growable">Growable</li><li class="in" name="scala.collection.script.Scriptable">Scriptable</li><li class="in" name="scala.collection.Set">Set</li><li class="in" name="scala.collection.SetLike">SetLike</li><li class="in" name="scala.collection.generic.Subtractable">Subtractable</li><li class="in" name="scala.collection.generic.Addable">Addable</li><li class="in" name="scala.collection.generic.GenericSetTemplate">GenericSetTemplate</li><li class="in" name="scala.Function1">Function1</li><li class="in" name="scala.collection.mutable.Iterable">Iterable</li><li class="in" name="scala.collection.Iterable">Iterable</li><li class="in" name="scala.collection.IterableLike">IterableLike</li><li class="in" name="scala.Equals">Equals</li><li class="in" name="scala.collection.mutable.Traversable">Traversable</li><li class="in" name="scala.Mutable">Mutable</li><li class="in" name="scala.collection.Traversable">Traversable</li><li class="in" name="scala.collection.generic.GenericTraversableTemplate">GenericTraversableTemplate</li><li class="in" name="scala.collection.TraversableLike">TraversableLike</li><li class="in" name="scala.collection.generic.HasNewBuilder">HasNewBuilder</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.collection.TraversableLike.WithFilter">
+      <h4 class="signature"><a href="SetProxy$WithFilter.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">WithFilter</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">A class supporting filtered operations</p>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.collection.SetProxyLike#&amp;">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&amp;</span><span class="params">(<span name="that">that: <a href="../Set.html" class="extype" name="scala.collection.Set">Set</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the intersection between this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the intersection between this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to intersect with.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set consisting of all elements that are both in this
+ set and in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetProxyLike#&amp;~">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&amp;~</span><span class="params">(<span name="that">that: <a href="../Set.html" class="extype" name="scala.collection.Set">Set</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The difference of this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>The difference of this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set of elements to exclude.</p></dd><dt>returns</dt><dd class="cmt"><p>a set containing those elements of this
+             set that are not also contained in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetLike#**">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">**</span><span class="params">(<span name="that">that: <a href="../Set.html" class="extype" name="scala.collection.Set">Set</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> This method is an alias for <code>intersect</code></p><div class="fullcomment">
+      <div class="comment cmt"><p> This method is an alias for <code>intersect</code>.
+ It computes an intersection with set <code>that</code>.
+ It removes all the elements that are not present in <code>that</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to intersect with</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetProxy#+">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+</span><span class="params">(<span name="elem">elem: A</span>)</span><span class="result">: <a href="" class="extype" name="scala.collection.mutable.SetProxy">SetProxy</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a single element to this collection and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a single element to this collection and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to add.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set that contains all elements of this set and that also
+         contains <code>elem</code>.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#+">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+</span><span class="params">(<span name="elem1">elem1: A</span>, <span name="elem2">elem2: A</span>, <span name="elems">elems: A*</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds two or more elements to this collection and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds two or more elements to this collection and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to add.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to add.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to add.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable set with the given elements added.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="../generic/Addable.html">Addable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="tparams">[<span name="B">B &gt;: A</span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="../Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Concatenates this mutable set with the elements of an iterator</p><div class="fullcomment">
+      <div class="comment cmt"><p>Concatenates this mutable set with the elements of an iterator.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">that</dt><dd class="cmt"><p>the iterator to append.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> which contains all elements of this mutable set
+               followed by all elements of <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="tparams">[<span name="B">B &gt;: A</span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Concatenates this mutable set with the elements of a traversable collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Concatenates this mutable set with the elements of a traversable collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">that</dt><dd class="cmt"><p>the traversable to append.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> which contains all elements of this mutable set
+               followed by all elements of <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="params">(<span name="iter">iter: <a href="../Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a number of elements provided by an iterator and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a number of elements provided by an iterator and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable set with the given elements added.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="../generic/Addable.html">Addable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="params">(<span name="iter">iter: <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a number of elements provided by a traversable object and returns
+ either the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a number of elements provided by a traversable object and returns
+ either the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterable object.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable set with the given elements added.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="../generic/Addable.html">Addable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Growable#++=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++=</span><span class="params">(<span name="elems">elems: <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[A]</span>)</span><span class="result">: <a href="../generic/Growable.html" class="extype" name="scala.collection.generic.Growable">Growable</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> adds all elements contained in a traversable collection to this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p> adds all elements contained in a traversable collection to this mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elems</dt><dd class="cmt"><p>the collection containing the elements to  add.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable set itself.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/Growable.html">Growable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Growable#++=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++=</span><span class="params">(<span name="iter">iter: <a href="../Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>)</span><span class="result">: <a href="../generic/Growable.html" class="extype" name="scala.collection.generic.Growable">Growable</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> adds all elements produced by an iterator to this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p> adds all elements produced by an iterator to this mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator producing the elements to  add.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable set itself.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/Growable.html">Growable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetProxy#+=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+=</span><span class="params">(<span name="elem">elem: A</span>)</span><span class="result">: <a href="" class="extype" name="scala.collection.mutable.SetProxy">SetProxy</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a single element to the builder</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a single element to the builder.</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to be added.</p></dd><dt>returns</dt><dd class="cmt"><p>the builder itself.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.generic.Growable#+=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+=</span><span class="params">(<span name="elem1">elem1: A</span>, <span name="elem2">elem2: A</span>, <span name="elems">elems: A*</span>)</span><span class="result">: <a href="../generic/Growable.html" class="extype" name="scala.collection.generic.Growable">Growable</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> adds two or more elements to this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p> adds two or more elements to this mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to  add.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to  add.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to  add.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable set itself</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/Growable.html">Growable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetProxy#-">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-</span><span class="params">(<span name="elem">elem: A</span>)</span><span class="result">: <a href="" class="extype" name="scala.collection.mutable.SetProxy">SetProxy</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes a single element from this collection and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes a single element from this collection and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set that contains all elements of this set but that does not
+         contain <code>elem</code>.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#-">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-</span><span class="params">(<span name="elem1">elem1: A</span>, <span name="elem2">elem2: A</span>, <span name="elems">elems: A*</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes two or more elements from this collection and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes two or more elements from this collection and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to remove.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to remove.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable set that contains all elements of the current mutable set
+ except one less occurrence of each of the given elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="../generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#--">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--</span><span class="params">(<span name="iter">iter: <a href="../Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes a number of elements provided by an iterator and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes a number of elements provided by an iterator and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable set that contains all elements of the current mutable set
+ except one less occurrence of each of the elements produced by <code>iter</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="../generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#--">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--</span><span class="params">(<span name="iter">iter: <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes a number of elements provided by a Traversable object and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes a number of elements provided by a Traversable object and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the Traversable object.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable set that contains all elements of the current mutable set
+ except one less occurrence of each of the elements of <code>elems</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="../generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Shrinkable#--=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--=</span><span class="params">(<span name="iter">iter: <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[A]</span>)</span><span class="result">: <a href="../generic/Shrinkable.html" class="extype" name="scala.collection.generic.Shrinkable">Shrinkable</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes all elements contained in a traversable collection from this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes all elements contained in a traversable collection from this mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the collection containing the elements to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable set itself</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/Shrinkable.html">Shrinkable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Shrinkable#--=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--=</span><span class="params">(<span name="iter">iter: <a href="../Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>)</span><span class="result">: <a href="../generic/Shrinkable.html" class="extype" name="scala.collection.generic.Shrinkable">Shrinkable</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes all elements produced by an iterator from this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes all elements produced by an iterator from this mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator producing the elements to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable set itself</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/Shrinkable.html">Shrinkable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetProxy#-=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-=</span><span class="params">(<span name="elem">elem: A</span>)</span><span class="result">: <a href="" class="extype" name="scala.collection.mutable.SetProxy">SetProxy</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes a single element from this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes a single element from this mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable set itself</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.generic.Shrinkable#-=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-=</span><span class="params">(<span name="elem1">elem1: A</span>, <span name="elem2">elem2: A</span>, <span name="elems">elems: A*</span>)</span><span class="result">: <a href="../generic/Shrinkable.html" class="extype" name="scala.collection.generic.Shrinkable">Shrinkable</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes two or more elements from this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes two or more elements from this mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to remove.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to remove.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable set itself</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/Shrinkable.html">Shrinkable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#/:">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">/:</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (B, A) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to a start value and all elements of this mutable set, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to a start value and all elements of this mutable set, going left to right.</p><p> Note: <code>/:</code> is alternate syntax for <code>foldLeft</code>; <code>z /: xs</code> is the same as <code>xs foldLeft z</code>.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable set$,
+          going left to right with the start value <code>z</code> on the left:
+          {{{
+            op(...op(op(z, x<sub>1</sub>), x<sub>2</sub>), ..., x<sub>n</sub>)
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#:\">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">:\</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (A, B) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this mutable set and a start value, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this mutable set and a start value, going right to left.</p><p> Note: <code>:\</code> is alternate syntax for <code>foldRight</code>; <code>xs :\ z</code> is the same as <code>xs foldRight z</code>.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable set$,
+          going right to left with the start value <code>z</code> on the right:
+          {{{
+            op(x<sub>1</sub>, op(x<sub>2</sub>, ... op(x<sub>n</sub>, z)...))
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#&lt;&lt;">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">&lt;&lt;</span><span class="params">(<span name="cmd">cmd: <a href="../script/Message.html" class="extype" name="scala.collection.script.Message">Message</a>[A]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Send a message to this scriptable object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Send a message to this scriptable object.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">cmd</dt><dd class="cmt"><p>the message to send.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="../script/Scriptable.html">Scriptable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#add">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">add</span><span class="params">(<span name="elem">elem: A</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds an element to this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds an element to this mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to be added</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the element was not yet present in the set, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#addString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">addString</span><span class="params">(<span name="b">b: <a href="StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>)</span><span class="result">: <a href="StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Appends all elements of this mutable set to a string builder</p><div class="fullcomment">
+      <div class="comment cmt"><p>Appends all elements of this mutable set to a string builder.
+ The written text consists of the string representations (w.r.t. the method <code>toString</code>)
+ of all elements of this mutable set without any separator string.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the string builder to which elements are appended.</p></dd><dt>returns</dt><dd class="cmt"><p>the string builder <code>b</code> to which elements were appended.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#addString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">addString</span><span class="params">(<span name="b">b: <a href="StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>, <span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Appends all elements of this mutable set to a string builder using a separator string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Appends all elements of this mutable set to a string builder using a separator string.
+ The written text consists of the string representations (w.r.t. the method <code>toString</code>)
+ of all elements of this mutable set, separated by the string <code>sep</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the string builder to which elements are appended.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt>returns</dt><dd class="cmt"><p>the string builder <code>b</code> to which elements were appended.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#addString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">addString</span><span class="params">(<span name="b">b: <a href="StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>, <span name="start">start: <span class="extype" name="java.lang.String">String</span></span>, <span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>, <span name="end">end: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Appends all elements of this mutable set to a string builder using start, end, and separator strings</p><div class="fullcomment">
+      <div class="comment cmt"><p>Appends all elements of this mutable set to a string builder using start, end, and separator strings.
+ The written text begins with the string <code>start</code> and ends with the string
+ <code>end</code>. Inside, the string representations (w.r.t. the method <code>toString</code>)
+ of all elements of this mutable set are separated by the string <code>sep</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the string builder to which elements are appended.</p></dd><dt class="param">start</dt><dd class="cmt"><p>the starting string.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt class="param">end</dt><dd class="cmt"><p>the ending string.</p></dd><dt>returns</dt><dd class="cmt"><p>the string builder <code>b</code> to which elements were appended.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.Function1#andThen">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">andThen</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="g">g: (<span class="extype" name="scala.Boolean">Boolean</span>) ⇒ A</span>)</span><span class="result">: (A) ⇒ A</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">(f andThen g)(x) ==  g(f(x))</p><div class="fullcomment">
+      <div class="comment cmt"><p>(f andThen g)(x) ==  g(f(x))</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../../Function1.html">Function1</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetProxyLike#apply">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="elem">elem: A</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests if some element is contained in this set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests if some element is contained in this set.</p><p> This method is equivalent to <code>contains</code>. It allows sets to be interpreted as predicates.</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to test for membership.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if <code>elem</code> is contained in this set, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#canEqual">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">canEqual</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Method called from equality methods, so that user-defined subclasses can
+ refuse to be equal to other collections of the same kind</p><div class="fullcomment">
+      <div class="comment cmt"><p>Method called from equality methods, so that user-defined subclasses can
+ refuse to be equal to other collections of the same kind.</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The object with which this mutable set should be compared</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code>, if this mutable set can possibly equal <code>that</code>, <code>false</code> otherwise. The test
+          takes into consideration only the run-time types of objects but ignores their elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../../Equals.html">Equals</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#clear">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">clear</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes all elements from the set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes all elements from the set. After this operation is completed,
+ the set will be empty.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="Builder.html">Builder</a> ⇐ <a href="../generic/Growable.html">Growable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#clone">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method creates and returns a copy of the receiver object</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method creates and returns a copy of the receiver object.</p><p><p>
+The default implementation of the <code>clone</code> method is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="Cloneable.html">Cloneable</a> ⇐ AnyRef
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.Set#companion">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">companion</span><span class="result">: <a href="../generic/GenericCompanion.html" class="extype" name="scala.collection.generic.GenericCompanion">GenericCompanion</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A][A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The factory companion object that builds instances of class mutable</p><div class="fullcomment">
+      <div class="comment cmt"><p>The factory companion object that builds instances of class mutable.Set.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Set.html">Set</a> ⇐ <a href="../Set.html">Set</a> ⇐ <a href="Iterable.html">Iterable</a> ⇐ <a href="../Iterable.html">Iterable</a> ⇐ <a href="Traversable.html">Traversable</a> ⇐ <a href="../Traversable.html">Traversable</a> ⇐ <a href="../generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.Function1#compose">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">compose</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="g">g: (A) ⇒ A</span>)</span><span class="result">: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">(f compose g)(x) ==  f(g(x))</p><div class="fullcomment">
+      <div class="comment cmt"><p>(f compose g)(x) ==  f(g(x))</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../../Function1.html">Function1</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetProxyLike#contains">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">contains</span><span class="params">(<span name="elem">elem: A</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests if some element is contained in this set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests if some element is contained in this set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to test for membership.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if <code>elem</code> is contained in this set, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#copyToArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="xs">xs: <a href="../../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>, <span name="start">start: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies elements of this mutable set to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies elements of this mutable set to an array.
+ Fills the given array <code>xs</code> with all elements of
+ this mutable set, starting at position <code>start</code>.
+ Copying will stop once either the end of the current mutable set is reached,
+ or the end of the array is reached.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array.</p></dd><dt class="param">xs</dt><dd class="cmt"><p>the array to fill.</p></dd><dt class="param">start</dt><dd class="cmt"><p>the starting index.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#copyToArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="xs">xs: <a href="../../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>, <span name="start">start: <span class="extype" name="scala.Int">Int</span></span>, <span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies elements of this mutable set to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies elements of this mutable set to an array.
+ Fills the given array <code>xs</code> with at most <code>len</code> elements of
+ this mutable set, starting at position <code>start</code>.
+ Copying will stop once either the end of the current mutable set is reached,
+ or the end of the array is reached, or <code>len</code> elements have been copied.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array.</p></dd><dt class="param">xs</dt><dd class="cmt"><p>the array to fill.</p></dd><dt class="param">start</dt><dd class="cmt"><p>the starting index.</p></dd><dt class="param">len</dt><dd class="cmt"><p>the maximal number of elements to copy.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#copyToArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="xs">xs: <a href="../../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies elements of this mutable set to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies elements of this mutable set to an array.
+ Fills the given array <code>xs</code> with all elements of
+ this mutable set, starting at position <code>0</code>.
+ Copying will stop once either the end of the current mutable set is reached,
+ or the end of the array is reached.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array.</p></dd><dt class="param">xs</dt><dd class="cmt"><p>the array to fill.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#copyToBuffer">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToBuffer</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="dest">dest: <a href="Buffer.html" class="extype" name="scala.collection.mutable.Buffer">Buffer</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies all elements of this mutable set to a buffer</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies all elements of this mutable set to a buffer.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">dest</dt><dd class="cmt"><p>The buffer to which elements are copied.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#count">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">count</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Counts the number of elements in the mutable set which satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Counts the number of elements in the mutable set which satisfy a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate  used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the number of elements satisfying the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetProxyLike#diff">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">diff</span><span class="params">(<span name="that">that: <a href="../Set.html" class="extype" name="scala.collection.Set">Set</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the difference of this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the difference of this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set of elements to exclude.</p></dd><dt>returns</dt><dd class="cmt"><p>a set containing those elements of this
+             set that are not also contained in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#drop">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">drop</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except first <i>n</i> ones</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except first <i>n</i> ones.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the number of elements to drop from this mutable set.</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable set consisting of all elements of this mutable set except the first <code>n</code> ones, or else the
+         empty mutable set, if this mutable set has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#dropRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">dropRight</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except first <i>n</i> ones</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except first <i>n</i> ones.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>The number of elements to take</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable set consisting of all elements of this mutable set except the first <code>n</code> ones, or else the
+         empty mutable set, if this mutable set has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#dropWhile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">dropWhile</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Drops longest prefix of elements that satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Drops longest prefix of elements that satisfy a predicate.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the longest suffix of this mutable set whose first element
+          does not satisfy the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#elements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">elements</span><span class="result">: <a href="../Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.SetProxy#empty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">empty</span><span class="result">: <a href="" class="extype" name="scala.collection.mutable.SetProxy">SetProxy</a>[A]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.Proxy#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../../Proxy.html">Proxy</a> ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#exists">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">exists</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether a predicate holds for some of the elements of this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether a predicate holds for some of the elements of this mutable set.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the given predicate <code>p</code> holds for some of the elements
+                of this mutable set, otherwise <code>false</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#filter">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">filter</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements of this mutable set which satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements of this mutable set which satisfy a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable set consisting of all elements of this mutable set that satisfy the given
+              predicate <code>p</code>. The order of the elements is preserved.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#filterNot">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">filterNot</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements of this mutable set which do not satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements of this mutable set which do not satisfy a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable set consisting of all elements of this mutable set that do not satisfy the given
+              predicate <code>p</code>. The order of the elements is preserved.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#find">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">find</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Finds the first element of the mutable set satisfying a predicate, if any</p><div class="fullcomment">
+      <div class="comment cmt"><p>Finds the first element of the mutable set satisfying a predicate, if any.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the first element in the mutable set
+             that satisfies <code>p</code>, or <code>None</code> if none exists.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#first">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">first</span><span class="result">: A</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.IterableLike#firstOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">firstOption</span><span class="result">: <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"><code>None</code> if iterable is empty</p><div class="fullcomment">
+      <div class="comment cmt"><p><code>None</code> if iterable is empty.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#flatMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">flatMap</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="f">f: (A) ⇒ <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a function to all elements of this mutable set
+ and concatenating the results</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a function to all elements of this mutable set
+ and concatenating the results.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function to apply to each element.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the given collection-valued function
+               <code>f</code> to each element of this mutable set and concatenating the results.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#flatten">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">flatten</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="asTraversable">asTraversable: (A) ⇒ <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable set of traversable collections into
+ a mutable set in which all element collections are concatenated</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable set of traversable collections into
+ a mutable set in which all element collections are concatenated.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of each traversable collection.</p></dd><dt class="param">asTraversable</dt><dd class="cmt"><p>an implicit conversion which asserts that the element type of this
+        mutable set is a <code>Traversable</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable set resulting from concatenating all element mutable sets.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#foldLeft">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foldLeft</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (B, A) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to a start value and all elements of this mutable set, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to a start value and all elements of this mutable set, going left to right.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable set$,
+          going left to right with the start value <code>z</code> on the left:
+          {{{
+            op(...op(z, x<sub>1</sub>), x<sub>2</sub>, ..., x<sub>n</sub>)
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#foldRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foldRight</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (A, B) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this mutable set and a start value, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this mutable set and a start value, going right to left.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable set$,
+          going right to left with the start value <code>z</code> on the right:
+          {{{
+            op(x<sub>1</sub>, op(x<sub>2</sub>, ... op(x<sub>n</sub>, z)...))
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#forall">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">forall</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether a predicate holds for all elements of this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether a predicate holds for all elements of this mutable set.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the given predicate <code>p</code> holds for all elements
+                of this mutable set, otherwise <code>false</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#foreach">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foreach</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (A) ⇒ U</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a function <code>f</code> to all elements of this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a function <code>f</code> to all elements of this mutable set.</p><p>   Note: this method underlies the implementation of most other bulk operations.
+   It's important to implement this method in an efficient way.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">U</dt><dd class="cmt"><p>the type parameter describing the result of function <code>f</code>.
+             This result will always be ignored. Typically <code>U</code> is <code>Unit</code>,
+             but this is not necessary.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function that is applied for its side-effect to every element.
+             The result of function <code>f</code> is discarded.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#genericBuilder">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">genericBuilder</span><span class="tparams">[<span name="B">B</span>]</span><span class="result">: <a href="Builder.html" class="extype" name="scala.collection.mutable.Builder">Builder</a>[B, <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[B]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The generic builder that builds instances of mutable</p><div class="fullcomment">
+      <div class="comment cmt"><p>The generic builder that builds instances of mutable.Set
+ at arbitrary element types.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#groupBy">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">groupBy</span><span class="tparams">[<span name="K">K</span>]</span><span class="params">(<span name="f">f: (A) ⇒ K</span>)</span><span class="result">: <a href="../Map.html" class="extype" name="scala.collection.Map">Map</a>[K, <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Partitions this mutable set into a map of mutable sets according to some discriminator function</p><div class="fullcomment">
+      <div class="comment cmt"><p>Partitions this mutable set into a map of mutable sets according to some discriminator function.</p><p> Note: this method is not re-implemented by views. This means
+       when applied to a view it will always force the view and
+       return a new mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">K</dt><dd class="cmt"><p>the type of keys returned by the discriminator function.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the discriminator function.</p></dd><dt>returns</dt><dd class="cmt"><p>A map from keys to mutable sets such that the following invariant holds:
+              {{{
+                (xs partition f)(k) = xs filter (x => f(x) == k)
+              }}}
+              That is, every key <code>k</code> is bound to a mutable set of those elements <code>x</code>              for which <code>f(x)</code> equals <code>k</code>.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#hasDefiniteSize">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hasDefiniteSize</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this mutable set is known to have a finite size</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this mutable set is known to have a finite size.
+ All strict collections are known to have finite size. For a non-strict collection
+ such as <code>Stream</code>, the predicate returns <code>true</code> if all elements have been computed.
+ It returns <code>false</code> if the stream is not yet evaluated to the end.</p><p> Note: many collection methods will not work on collections of infinite sizes.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.Proxy#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../../Proxy.html">Proxy</a> ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#head">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">head</span><span class="result">: A</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects the first element of this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects the first element of this mutable set.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#headOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">headOption</span><span class="result">: <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally selects the first element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally selects the first element.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#init">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">init</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except the last</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except the last.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetProxyLike#intersect">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">intersect</span><span class="params">(<span name="that">that: <a href="../Set.html" class="extype" name="scala.collection.Set">Set</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the intersection between this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the intersection between this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to intersect with.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set consisting of all elements that are both in this
+ set and in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetProxyLike#isEmpty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isEmpty</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this mutable set is empty</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this mutable set is empty.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#iterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">iterator</span><span class="result">: <a href="../Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new iterator over all elements contained in this
+ iterable object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new iterator over all elements contained in this
+ iterable object.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#last">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">last</span><span class="result">: A</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects the last element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects the last element.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#lastOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">lastOption</span><span class="result">: <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally selects the last element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally selects the last element.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#map">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="f">f: (A) ⇒ B</span>)</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a function to all elements of this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a function to all elements of this mutable set.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function to apply to each element.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the given function
+               <code>f</code> to each element of this mutable set and collecting the results.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.Builder#mapResult">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mapResult</span><span class="tparams">[<span name="NewTo">NewTo</span>]</span><span class="params">(<span name="f">f: (<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]) ⇒ NewTo</span>)</span><span class="result">: <a href="Builder.html" class="extype" name="scala.collection.mutable.Builder">Builder</a>[A, NewTo]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new builder by applying a transformation function to
+ the results of this builder</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new builder by applying a transformation function to
+ the results of this builder.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">NewTo</dt><dd class="cmt"><p>the type of collection returned by <code>f</code>.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the transformation function.</p></dd><dt>returns</dt><dd class="cmt"><p>a new builder which is the same as the current builder except
+         that a transformation function is applied to this builder's result.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="Builder.html">Builder</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#max">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">max</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="cmp">cmp: <a href="../../math/Ordering.html" class="extype" name="scala.math.Ordering">Ordering</a>[B]</span>)</span><span class="result">: A</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Finds the largest element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Finds the largest element.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>The type over which the ordering is defined.</p></dd><dt class="param">cmp</dt><dd class="cmt"><p>An ordering to be used for comparing elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the largest element of this mutable set with respect to the ordering <code>cmp</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#min">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">min</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="cmp">cmp: <a href="../../math/Ordering.html" class="extype" name="scala.math.Ordering">Ordering</a>[B]</span>)</span><span class="result">: A</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Finds the smallest element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Finds the smallest element.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>The type over which the ordering is defined.</p></dd><dt class="param">cmp</dt><dd class="cmt"><p>An ordering to be used for comparing elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the smallest element of this mutable set with respect to the ordering <code>cmp</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#mkString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkString</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Displays all elements of this mutable set in a string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Displays all elements of this mutable set in a string.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#mkString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkString</span><span class="params">(<span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Displays all elements of this mutable set in a string using a separator string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Displays all elements of this mutable set in a string using a separator string.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt>returns</dt><dd class="cmt"><p>a string representation of this mutable set. In the resulting string
+              the string representations (w.r.t. the method <code>toString</code>)
+              of all elements of this mutable set are separated by the string <code>sep</code>.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#mkString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkString</span><span class="params">(<span name="start">start: <span class="extype" name="java.lang.String">String</span></span>, <span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>, <span name="end">end: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Displays all elements of this mutable set in a string using start, end, and separator strings</p><div class="fullcomment">
+      <div class="comment cmt"><p>Displays all elements of this mutable set in a string using start, end, and separator strings.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>the starting string.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt class="param">end</dt><dd class="cmt"><p>the ending string.</p></dd><dt>returns</dt><dd class="cmt"><p>a string representation of this mutable set. The resulting string
+              begins with the string <code>start</code> and ends with the string
+              <code>end</code>. Inside, the string representations (w.r.t. the method <code>toString</code>)
+              of all elements of this mutable set are separated by the string <code>sep</code>.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#nonEmpty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nonEmpty</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether the mutable set is not empty</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether the mutable set is not empty.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#partialMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">partialMap</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="pf">pf: <a href="../../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[A, B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a partial function to all elements of this mutable set
+ on which the function is defined</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a partial function to all elements of this mutable set
+ on which the function is defined.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">pf</dt><dd class="cmt"><p>the partial function which filters and maps the mutable set.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the partial function
+               <code>pf</code> to each element on which it is defined and collecting the results.
+               The order of the elements is preserved.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#partition">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">partition</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: (<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Partitions this mutable set in two mutable sets according to a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Partitions this mutable set in two mutable sets according to a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate on which to partition.</p></dd><dt>returns</dt><dd class="cmt"><p>a pair of mutable sets: the first mutable set consists of all elements that
+          satisfy the predicate <code>p</code> and the second mutable set consists of all elements
+          that don't. The relative order of the elements in the resulting mutable sets
+          is the same as in the original mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#product">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">product</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="num">num: <a href="../../math/Numeric.html" class="extype" name="scala.math.Numeric">Numeric</a>[B]</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Multiplies up the elements of this collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Multiplies up the elements of this collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the <code>*</code> operator.</p></dd><dt class="param">num</dt><dd class="cmt"><p>an implicit parameter defining a set of numeric operations
+                which includes the <code>*</code> operator to be used in forming the product.</p></dd><dt>returns</dt><dd class="cmt"><p>the product of all elements of this mutable set with respect to the <code>*</code> operator in <code>num</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#projection">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">projection</span><span class="result">: <a href="../IterableView.html" class="extype" name="scala.collection.IterableView">IterableView</a>[A, <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">returns a projection that can be used to call non-strict <code>filter</code>,<code>map</code>, and <code>flatMap</code> methods that build projections
+of the collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>returns a projection that can be used to call non-strict <code>filter</code>,<code>map</code>, and <code>flatMap</code> methods that build projections
+of the collection.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#reduceLeft">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceLeft</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="op">op: (B, A) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this mutable set, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this mutable set, going left to right.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable set$,
+          going left to right:
+          {{{
+            op(...(op(x<sub>1</sub>, x<sub>2</sub>), ... ) , x<sub>n</sub>)
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#reduceLeftOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceLeftOption</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="op">op: (B, A) ⇒ B</span>)</span><span class="result">: <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally applies a binary operator to all elements of this mutable set, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally applies a binary operator to all elements of this mutable set, going left to right.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the result of <code>reduceLeft(op)</code> is this mutable set is nonempty,
+          <code>None</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#reduceRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceRight</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="op">op: (A, B) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this mutable set, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this mutable set, going right to left.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable set$,
+          going right to left:
+          {{{
+            op(x<sub>1</sub>, op(x<sub>2</sub>, ..., op(x<sub>n-1</sub>, x<sub>n</sub>)...))
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#reduceRightOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceRightOption</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="op">op: (A, B) ⇒ B</span>)</span><span class="result">: <a href="../../Option.html" class="extype" name="scala.Option">Option</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally applies a binary operator to all elements of this mutable set, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally applies a binary operator to all elements of this mutable set, going right to left.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the result of <code>reduceRight(op)</code> is this mutable set is nonempty,
+          <code>None</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#remove">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">remove</span><span class="params">(<span name="elem">elem: A</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes an element from this set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes an element from this set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>The element to be removed.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the element was previously present in the set, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetProxy#repr">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">repr</span><span class="result">: <a href="" class="extype" name="scala.collection.mutable.SetProxy">SetProxy</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The representation object of type <code>Repr</code> which contains the collection's elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>The representation object of type <code>Repr</code> which contains the collection's elements</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#result">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">result</span><span class="params">()</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The result when this set is used as a builder</p><div class="fullcomment">
+      <div class="comment cmt"><p>The result when this set is used as a builder</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a> ⇐ <a href="Builder.html">Builder</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#retain">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">retain</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes all elements from the set for which do not satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes all elements from the set for which do not satisfy a predicate.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements. Only elements for
+            while <code>p</code> returns <code>true</code> are retained in the set; all others
+            are removed.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#sameElements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sameElements</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="that">that: <a href="../Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Checks if the other iterable collection contains the same elements in the same order as this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Checks if the other iterable collection contains the same elements in the same order as this mutable set.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of collection <code>that</code>.</p></dd><dt class="param">that</dt><dd class="cmt"><p>the collection to compare with.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code>, if both collections contain the same elements in the same order, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#self">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">self</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.TraversableProxyLike#size">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">size</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The size of this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>The size of this mutable set.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.Builder#sizeHint">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sizeHint</span><span class="params">(<span name="size">size: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gives a hint how many elements are expected to be added
+ when the next <code>result</code> is called</p><div class="fullcomment">
+      <div class="comment cmt"><p>Gives a hint how many elements are expected to be added
+ when the next <code>result</code> is called. Some builder classes
+ will optimize their representation based on the hint. However,
+ builder implementations are still required to work correctly even if the hint is
+ wrong, i.e. a different number of elements is added.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="Builder.html">Builder</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#slice">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">slice</span><span class="params">(<span name="from">from: <span class="extype" name="scala.Int">Int</span></span>, <span name="until">until: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects an interval of elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects an interval of elements.</p><p> Note: <code>c.slice(from, to)</code>  is equivalent to (but possibly more efficient than)
+ <code>c.drop(from).take(to - from)</code></p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">from</dt><dd class="cmt"><p>the index of the first returned element in this mutable set.</p></dd><dt class="param">until</dt><dd class="cmt"><p>the index one past the last returned element in this mutable set.</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable set containing the elements starting at index <code>from</code>          and extending up to (but not including) index <code>until</code> of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#span">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">span</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: (<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Spits this mutable set into a prefix/suffix pair according to a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Spits this mutable set into a prefix/suffix pair according to a predicate.</p><p> Note: <code>c span p</code>  is equivalent to (but possibly more efficient than)
+ <code>(c takeWhile p, c dropWhile p)</code>, provided the evaluation of the predicate <code>p</code> does not cause any side-effects.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the test predicate</p></dd><dt>returns</dt><dd class="cmt"><p>a pair consisting of the longest prefix of this mutable set whose
+          elements all satisfy <code>p</code>, and the rest of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#splitAt">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">splitAt</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: (<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Splits this mutable set into two at a given position</p><div class="fullcomment">
+      <div class="comment cmt"><p>Splits this mutable set into two at a given position.
+ Note: <code>c splitAt n</code> is equivalent to (but possibly more efficient than)
+        <code>(c take n, c drop n)</code>.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the position at which to split.</p></dd><dt>returns</dt><dd class="cmt"><p>a pair of mutable sets consisting of the first <code>n</code>          elements of this mutable set, and the other elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#stringPrefix">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">stringPrefix</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Defines the prefix of this object's <code>toString</code> representation</p><div class="fullcomment">
+      <div class="comment cmt"><p>Defines the prefix of this object's <code>toString</code> representation.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetProxyLike#subsetOf">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">subsetOf</span><span class="params">(<span name="that">that: <a href="../Set.html" class="extype" name="scala.collection.Set">Set</a>[A]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this set is a subset of another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this set is a subset of another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to test.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if this set is a subset of <code>that</code>, i.e. if
+             every element of this set is also an element of <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#sum">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sum</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="num">num: <a href="../../math/Numeric.html" class="extype" name="scala.math.Numeric">Numeric</a>[B]</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Sums up the elements of this collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Sums up the elements of this collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the <code>+</code> operator.</p></dd><dt class="param">num</dt><dd class="cmt"><p>an implicit parameter defining a set of numeric operations
+                which includes the <code>+</code> operator to be used in forming the sum.</p></dd><dt>returns</dt><dd class="cmt"><p>the sum of all elements of this mutable set with respect to the <code>+</code> operator in <code>num</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#tail">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">tail</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except the first</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except the first.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#take">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">take</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects first <i>n</i> elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects first <i>n</i> elements.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>Tt number of elements to take from this mutable set.</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable set consisting only of the first <code>n</code> elements of this mutable set, or else the
+         whole mutable set, if it has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#takeRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">takeRight</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects last <i>n</i> elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects last <i>n</i> elements.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the number of elements to take</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable set consisting only of the last <code>n</code> elements of this mutable set, or else the
+         whole mutable set, if it has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#takeWhile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">takeWhile</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Takes longest prefix of elements that satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Takes longest prefix of elements that satisfy a predicate.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the longest prefix of this mutable set whose elements all satisfy
+          the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#toArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toArray</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="params">(<span name="arg0">arg0: <a href="../../reflect/ClassManifest.html" class="extype" name="scala.reflect.ClassManifest">ClassManifest</a>[B]</span>)</span><span class="result">: <a href="../../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable set to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable set to an array.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array. A <code>ClassManifest</code> for this type must
+              be available.</p></dd><dt>returns</dt><dd class="cmt"><p>an array containing all elements of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toIndexedSeq">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toIndexedSeq</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="result">: <a href="IndexedSeq.html" class="extype" name="scala.collection.mutable.IndexedSeq">IndexedSeq</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable set to an indexed sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable set to an indexed sequence.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#toIterable">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toIterable</span><span class="result">: <a href="../Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable set to an iterable collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable set to an iterable collection.</p><p> Note:  Will not terminate for infinite-sized collections.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#toList">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toList</span><span class="result">: <a href="../immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable set to a list</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable set to a list.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#toSeq">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toSeq</span><span class="result">: <a href="../Seq.html" class="extype" name="scala.collection.Seq">Seq</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable set to a sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable set to a sequence.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableProxyLike#toSet">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toSet</span><span class="tparams">[<span name="B">B &gt;: A</span>]</span><span class="result">: <a href="../immutable/Set.html" class="extype" name="scala.collection.immutable.Set">Set</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable set to a set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable set to a set.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#toStream">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toStream</span><span class="result">: <a href="../immutable/Stream.html" class="extype" name="scala.collection.immutable.Stream">Stream</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable set to a stream</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable set to a stream.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.Proxy#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../../Proxy.html">Proxy</a> ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#transpose">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">transpose</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="asTraversable">asTraversable: (A) ⇒ <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[B]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Transposes this mutable set of traversable collections into</p><div class="fullcomment">
+      <div class="comment cmt"><p>Transposes this mutable set of traversable collections into</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetProxyLike#union">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">union</span><span class="params">(<span name="that">that: <a href="../Set.html" class="extype" name="scala.collection.Set">Set</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the union between of set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the union between of set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to form the union with.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set consisting of all elements that are in this
+ set or in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#unzip">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">unzip</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>]</span><span class="params">(<span name="asPair">asPair: (A) ⇒ (A1, A2)</span>)</span><span class="result">: (<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A1], <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A2])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable set of pairs into two collections of the first and second
+ halfs of each pair</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable set of pairs into two collections of the first and second
+ halfs of each pair.</p></div>
+      <dl class="paramcmts block"><dt class="param">asPair</dt><dd class="cmt"><p>an implicit conversion which asserts that the element type of this
+         mutable set is a pair.</p></dd><dt>returns</dt><dd class="cmt"><p>a pair mutable sets, containing the first, respectively second half
+         of each element pair of this mutable set.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.SetLike#update">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">update</span><span class="params">(<span name="elem">elem: A</span>, <span name="included">included: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Updates the presence of a single element in this set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Updates the presence of a single element in this set.</p><p>This method allows one to add or remove an element <code>elem</code> from this set depending on the value of parameter <code>included</code>.
+ Typically, one would use the following syntax:
+ {{{
+    set(elem) = true  // adds element
+    set(elem) = false // removes element
+ }}}
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem</dt><dd class="cmt"><p>the element to be added or removed</p></dd><dt class="param">included</dt><dd class="cmt"><p>a flag indicating whether element should be included or excluded.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#view">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">view</span><span class="params">(<span name="from">from: <span class="extype" name="scala.Int">Int</span></span>, <span name="until">until: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../IterableView.html" class="extype" name="scala.collection.IterableView">IterableView</a>[A, <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a non-strict view of a slice of this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a non-strict view of a slice of this mutable set.</p><p> Note: the difference between <code>view</code> and <code>slice</code> is that <code>view</code> produces
+       a view of the current mutable set, whereas <code>slice</code> produces a new mutable set.</p><p> Note: <code>view(from, to)</code> is equivalent to <code>view.slice(from, to)</code></p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">from</dt><dd class="cmt"><p>the index of the first element of the view</p></dd><dt class="param">until</dt><dd class="cmt"><p>the index of the element following the view</p></dd><dt>returns</dt><dd class="cmt"><p>a non-strict view of a slice of this mutable set, starting at index <code>from</code> and extending up to (but not including) index <code>until</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#view">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">view</span><span class="result">: <a href="../IterableView.html" class="extype" name="scala.collection.IterableView">IterableView</a>[A, <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a non-strict view of this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a non-strict view of this mutable set.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../TraversableProxyLike.html">TraversableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a> ⇐ <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#withFilter">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">withFilter</span><span class="params">(<span name="p">p: (A) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../TraversableLike$WithFilter.html" class="extype" name="scala.collection.TraversableLike.WithFilter">WithFilter</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a non-strict filter of this mutable set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a non-strict filter of this mutable set.</p><p> Note: the difference between <code>c filter p</code> and <code>c withFilter p</code> is that
+       the former creates a new collection, whereas the latter only restricts
+       the domain of subsequent <code>map</code>, <code>flatMap</code>, <code>foreach</code>, and <code>withFilter</code> operations.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>an object of class <code>WithFilter</code>, which supports
+            <code>map</code>, <code>flatMap</code>, <code>foreach</code>, and <code>withFilter</code> operations.
+            All these operations apply to those elements of this mutable set which
+            satify the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#zip">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">zip</span><span class="tparams">[<span name="A1">A1 &gt;: A</span>, <span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="../Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], (A1, B), That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a mutable set formed from this mutable set and another iterable collection
+ by combining corresponding elements in pairs</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a mutable set formed from this mutable set and another iterable collection
+ by combining corresponding elements in pairs.
+ If one of the two collections is longer than the other, its remaining elements are ignored.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">A1</dt><dd class="cmt"><p>the type of the first half of the returned pairs (this is always a supertype
+                of the collection's element type <code>A</code>).</p></dd><dt class="tparam">B</dt><dd class="cmt"><p>the type of the second half of the returned pairs</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>(A1, B)</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, (A1, B), That]</code>.
+   is found.</p></dd><dt class="param">that</dt><dd class="cmt"><p>The iterable providing the second half of each result pair</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code>   and the new element type <code>(A1, B)</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> containing pairs consisting of
+                corresponding elements of this mutable set and <code>that</code>. The length
+                of the returned collection is the minimum of the lengths of this mutable set$ and <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#zipAll">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">zipAll</span><span class="tparams">[<span name="B">B</span>, <span name="A1">A1 &gt;: A</span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="../Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[B]</span>, <span name="thisElem">thisElem: A1</span>, <span name="thatElem">thatElem: B</span>)</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], (A1, B), That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a mutable set formed from this mutable set and another iterable collection
+ by combining corresponding elements in pairs</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a mutable set formed from this mutable set and another iterable collection
+ by combining corresponding elements in pairs.
+ If one of the two collections is shorter than the other,
+ placeholder elements are used to extend the shorter collection to the length of the longer.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the iterable providing the second half of each result pair</p></dd><dt class="param">thisElem</dt><dd class="cmt"><p>the element to be used to fill up the result if this mutable set is shorter than <code>that</code>.</p></dd><dt class="param">thatElem</dt><dd class="cmt"><p>the element to be used to fill up the result if <code>that</code> is shorter than this mutable set.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> containing pairs consisting of
+                corresponding elements of this mutable set and <code>that</code>. The length
+                of the returned collection is the maximum of the lengths of this mutable set$ and <code>that</code>.
+                If this mutable set is shorter than <code>that</code>, <code>thisElem</code> values are used to pad the result.
+                If <code>that</code> is shorter than this mutable set, <code>thatElem</code> values are used to pad the result.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableProxyLike#zipWithIndex">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">zipWithIndex</span><span class="tparams">[<span name="A1">A1 &gt;: A</span>, <span name="That">That</span>]</span><span class="params">(<span name="bf">bf: <a href="../generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A], (A1, <span class="extype" name="scala.Int">Int</span>), That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Zips this mutable set with its indices</p><div class="fullcomment">
+      <div class="comment cmt"><p>Zips this mutable set with its indices.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">A1</dt><dd class="cmt"><p>the type of the first half of the returned pairs (this is always a supertype
+                of the collection's element type <code>A</code>).</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>(A1, Int)</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, (A1, Int), That]</code>.
+   is found.</p></dd><dt>returns</dt><dd class="cmt"><p>A new collection of type <code>That</code> containing pairs consisting of all elements of this
+                mutable set paired with their index. Indices start at <code>0</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../IterableProxyLike.html">IterableProxyLike</a> ⇐ <a href="../IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.SetProxyLike#|">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">|</span><span class="params">(<span name="that">that: <a href="../Set.html" class="extype" name="scala.collection.Set">Set</a>[A]</span>)</span><span class="result">: <a href="Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Computes the union between this set and another set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Computes the union between this set and another set.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the set to form the union with.</p></dd><dt>returns</dt><dd class="cmt"><p>a new set consisting of all elements that are in this
+ set or in the given set <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../SetProxyLike.html">SetProxyLike</a> ⇐ <a href="../SetLike.html">SetLike</a>
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.actors.Futures</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">actors</a></p>
+
+      <div id="definition">
+        <img src="../../lib/object_big.png" />
+        <h1>Futures</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">Futures</span><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>The <code>Futures</code> object contains methods that operate on futures.
+</p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.actors.Futures#alarm">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">alarm</span><span class="params">(<span name="timespan">timespan: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <a href="Future.html" class="extype" name="scala.actors.Future">Future</a>[<span class="extype" name="scala.Nothing">Nothing</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a future that resolves after a given time span</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a future that resolves after a given time span.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">timespan</dt><dd class="cmt"><p>the time span in ms after which the future resolves</p></dd><dt>returns</dt><dd class="cmt"><p>the future</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Futures#awaitAll">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">awaitAll</span><span class="params">(<span name="timeout">timeout: <span class="extype" name="scala.Long">Long</span></span>, <span name="fts">fts: <a href="Future.html" class="extype" name="scala.actors.Future">Future</a>[<span class="extype" name="scala.Any">Any</span>]*</span>)</span><span class="result">: <a href="../collection/immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[<a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Any">Any</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Waits until either all futures are resolved or a given
+ time span has passed</p><div class="fullcomment">
+      <div class="comment cmt"><p>Waits until either all futures are resolved or a given
+ time span has passed. Results are collected in a list of
+ options. The result of a future that resolved during the
+ time span is its value wrapped in <code>Some</code>. The result of a
+ future that did not resolve during the time span is <code>None</code>.</p><p> Note that some of the futures might already have been awaited,
+ in which case their value is returned wrapped in <code>Some</code>.
+ Passing a timeout of 0 causes <code>awaitAll</code> to return immediately.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">timeout</dt><dd class="cmt"><p>the time span in ms after which waiting is
+                 aborted</p></dd><dt class="param">fts</dt><dd class="cmt"><p>the futures to be awaited</p></dd><dt>returns</dt><dd class="cmt"><p>the list of optional future values</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.actors.Futures#awaitEither">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">awaitEither</span><span class="tparams">[<span name="A">A</span>, <span name="B">B &gt;: A</span>]</span><span class="params">(<span name="ft1">ft1: <a href="Future.html" class="extype" name="scala.actors.Future">Future</a>[A]</span>, <span name="ft2">ft2: <a href="Future.html" class="extype" name="scala.actors.Future">Future</a>[B]</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Waits for the first result returned by one of two
+ given futures</p><div class="fullcomment">
+      <div class="comment cmt"><p>Waits for the first result returned by one of two
+ given futures.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">ft1</dt><dd class="cmt"><p>the first future</p></dd><dt class="param">ft2</dt><dd class="cmt"><p>the second future</p></dd><dt>returns</dt><dd class="cmt"><p>the result of the future that resolves first</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.actors.Futures#future">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">future</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="body">body: ⇒ T</span>)</span><span class="result">: <a href="Future.html" class="extype" name="scala.actors.Future">Future</a>[T]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Arranges for the asynchronous execution of <code>body</code>,
+ returning a future representing the result</p><div class="fullcomment">
+      <div class="comment cmt"><p>Arranges for the asynchronous execution of <code>body</code>,
+ returning a future representing the result.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">body</dt><dd class="cmt"><p>the computation to be carried out asynchronously</p></dd><dt>returns</dt><dd class="cmt"><p>the future representing the result of the
+              computation</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

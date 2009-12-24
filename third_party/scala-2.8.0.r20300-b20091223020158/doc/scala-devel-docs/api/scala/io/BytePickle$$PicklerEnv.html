@@ -1,0 +1,2636 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.io.BytePickle.PicklerEnv</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">io</a>.<a href="BytePickle$.html">BytePickle</a></p>
+
+      <div id="definition">
+        <img src="../../lib/class_big.png" />
+        <h1>PicklerEnv</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">PicklerEnv</span><span class="result"> extends <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.collection.mutable.HashMap">HashMap</li><li class="in" name="scala.collection.mutable.HashTable">HashTable</li><li class="in" name="scala.collection.mutable.Map">Map</li><li class="in" name="scala.collection.mutable.MapLike">MapLike</li><li class="in" name="scala.collection.generic.Shrinkable">Shrinkable</li><li class="in" name="scala.collection.mutable.Builder">Builder</li><li class="in" name="scala.collection.generic.Growable">Growable</li><li class="in" name="scala.collection.mutable.MapLikeBase">MapLikeBase</li><li class="in" name="scala.collection.mutable.Cloneable">Cloneable</li><li class="in" name="scala.collection.Map">Map</li><li class="in" name="scala.collection.MapLike">MapLike</li><li class="in" name="scala.collection.generic.Subtractable">Subtractable</li><li class="in" name="scala.PartialFunction">PartialFunction</li><li class="in" name="scala.Function1">Function1</li><li class="in" name="scala.collection.mutable.Iterable">Iterable</li><li class="in" name="scala.collection.Iterable">Iterable</li><li class="in" name="scala.collection.IterableLike">IterableLike</li><li class="in" name="scala.Equals">Equals</li><li class="in" name="scala.collection.mutable.Traversable">Traversable</li><li class="in" name="scala.Mutable">Mutable</li><li class="in" name="scala.collection.Traversable">Traversable</li><li class="in" name="scala.collection.generic.GenericTraversableTemplate">GenericTraversableTemplate</li><li class="in" name="scala.collection.TraversableLike">TraversableLike</li><li class="in" name="scala.collection.generic.HasNewBuilder">HasNewBuilder</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.collection.mutable.HashMap#Entry">
+      <h4 class="signature">
+      <span class="kind">type</span>
+      <span class="symbol">
+        <span class="name">Entry</span><span class="result"> = <a href="../collection/mutable/DefaultEntry.html" class="extype" name="scala.collection.mutable.DefaultEntry">DefaultEntry</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.TraversableLike.WithFilter">
+      <h4 class="signature"><a href="BytePickle$$PicklerEnv$WithFilter.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">WithFilter</span><span class="result"> extends AnyRef</span>
+      </span>
+      </a></h4>
+      <p class="comment cmt">A class supporting filtered operations</p>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.collection.mutable.MapLike#+">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+</span><span class="params">(<span name="elem1">elem1: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>, <span name="elem2">elem2: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>, <span name="elems">elems: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)*</span>)</span><span class="result">: <a href="../collection/mutable/MapLike.html" class="extype" name="scala.collection.mutable.MapLike">MapLike</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>, <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds two or more key/value mappings and return the map itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds two or more key/value mappings and return the map itself.
+ with the added elements.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to add.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to add.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to add.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#+">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+</span><span class="params">(<span name="kv">kv: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>)</span><span class="result">: <a href="../collection/mutable/MapLike.html" class="extype" name="scala.collection.mutable.MapLike">MapLike</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>, <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Add a new key/value mapping and return the map itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Add a new key/value mapping and return the map itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">kv</dt><dd class="cmt"><p>the key/value mapping to be added</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLikeBase#+">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+</span><span class="tparams">[<span name="B1">B1 &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="kv">kv: (<span class="extype" name="scala.Any">Any</span>, B1)</span>)</span><span class="result">: <a href="../collection/mutable/Map.html" class="extype" name="scala.collection.mutable.Map">Map</a>[<span class="extype" name="scala.Any">Any</span>, B1]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a key/value pair to this map, returning a new map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a key/value pair to this map, returning a new map.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B1</dt><dd class="cmt"><p>the type of the value in the key/value pair.</p></dd><dt class="param">kv</dt><dd class="cmt"><p>the key/value pair</p></dd><dt>returns</dt><dd class="cmt"><p>a new map with the new binding added to this map
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLikeBase.html">MapLikeBase</a> ⇐ <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#+">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+</span><span class="tparams">[<span name="B1">B1 &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="kv1">kv1: (<span class="extype" name="scala.Any">Any</span>, B1)</span>, <span name="kv2">kv2: (<span class="extype" name="scala.Any">Any</span>, B1)</span>, <span name="kvs">kvs: (<span class="extype" name="scala.Any">Any</span>, B1)*</span>)</span><span class="result">: <a href="../collection/Map.html" class="extype" name="scala.collection.Map">Map</a>[<span class="extype" name="scala.Any">Any</span>, B1]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds key/value pairs to this map, returning a new map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds key/value pairs to this map, returning a new map.</p><p> This method takes two or more key/value pairs. Another overloaded
+ variant of this method handles the case where a single key/value pair is
+ added.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B1</dt><dd class="cmt"><p>the type of the added values</p></dd><dt class="param">kv1</dt><dd class="cmt"><p>the first key/value pair</p></dd><dt class="param">kv2</dt><dd class="cmt"><p>the second key/value pair</p></dd><dt class="param">kvs</dt><dd class="cmt"><p>the remaining key/value pairs</p></dd><dt>returns</dt><dd class="cmt"><p>a new map with the given bindings added to this map
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="params">(<span name="iter">iter: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>)</span><span class="result">: <a href="../collection/mutable/MapLike.html" class="extype" name="scala.collection.mutable.MapLike">MapLike</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>, <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a number of elements provided by an iterator
+ via its <code>iterator</code> method and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a number of elements provided by an iterator
+ via its <code>iterator</code> method and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="params">(<span name="iter">iter: <a href="../collection/Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>)</span><span class="result">: <a href="../collection/mutable/MapLike.html" class="extype" name="scala.collection.mutable.MapLike">MapLike</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>, <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a number of elements provided by a traversable object
+ via its <code>iterator</code> method and returns
+ either the collection itself (if it is mutable), or a new collection
+ with the added elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a number of elements provided by a traversable object
+ via its <code>iterator</code> method and returns
+ either the collection itself (if it is mutable), or a new collection
+ with the added elements.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the traversable object.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="tparams">[<span name="B1">B1 &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="iter">iter: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[(<span class="extype" name="scala.Any">Any</span>, B1)]</span>)</span><span class="result">: <a href="../collection/Map.html" class="extype" name="scala.collection.Map">Map</a>[<span class="extype" name="scala.Any">Any</span>, B1]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds all key/value pairs produced by an iterator to this map, returning a new map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds all key/value pairs produced by an iterator to this map, returning a new map.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B1</dt><dd class="cmt"><p>the type of the added values</p></dd><dt class="param">iter</dt><dd class="cmt"><p>the iterator producing key/value pairs</p></dd><dt>returns</dt><dd class="cmt"><p>a new map with the given bindings added to this map
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="tparams">[<span name="B1">B1 &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="kvs">kvs: <a href="../collection/Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[(<span class="extype" name="scala.Any">Any</span>, B1)]</span>)</span><span class="result">: <a href="../collection/Map.html" class="extype" name="scala.collection.Map">Map</a>[<span class="extype" name="scala.Any">Any</span>, B1]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds all key/value pairs in a traversable collection to this map, returning a new map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds all key/value pairs in a traversable collection to this map, returning a new map.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B1</dt><dd class="cmt"><p>the type of the added values</p></dd><dt class="param">kvs</dt><dd class="cmt"><p>the collection containing the added key/value pairs</p></dd><dt>returns</dt><dd class="cmt"><p>a new map with the given bindings added to this map
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../collection/generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Concatenates this mutable map with the elements of an iterator</p><div class="fullcomment">
+      <div class="comment cmt"><p>Concatenates this mutable map with the elements of an iterator.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">that</dt><dd class="cmt"><p>the iterator to append.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> which contains all elements of this mutable map
+               followed by all elements of <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#++">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="../collection/Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../collection/generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Concatenates this mutable map with the elements of a traversable collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Concatenates this mutable map with the elements of a traversable collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">that</dt><dd class="cmt"><p>the traversable to append.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> which contains all elements of this mutable map
+               followed by all elements of <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Growable#++=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++=</span><span class="params">(<span name="elems">elems: <a href="../collection/Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>)</span><span class="result">: <a href="../collection/generic/Growable.html" class="extype" name="scala.collection.generic.Growable">Growable</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> adds all elements contained in a traversable collection to this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p> adds all elements contained in a traversable collection to this mutable map.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elems</dt><dd class="cmt"><p>the collection containing the elements to  add.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable map itself.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/Growable.html">Growable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Growable#++=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">++=</span><span class="params">(<span name="iter">iter: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>)</span><span class="result">: <a href="../collection/generic/Growable.html" class="extype" name="scala.collection.generic.Growable">Growable</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> adds all elements produced by an iterator to this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p> adds all elements produced by an iterator to this mutable map.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator producing the elements to  add.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable map itself.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/Growable.html">Growable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#+=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+=</span><span class="params">(<span name="kv">kv: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a new key/value pair to this map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a new key/value pair to this map.
+ If the map already contains a
+ mapping for the key, it will be overridden by the new value.</p></div>
+      <dl class="paramcmts block"><dt class="param">kv</dt><dd class="cmt"><p>the key/value pair.</p></dd><dt>returns</dt><dd class="cmt"><p>the map itself</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/mutable/Builder.html">Builder</a> ⇐ <a href="../collection/generic/Growable.html">Growable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Growable#+=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">+=</span><span class="params">(<span name="elem1">elem1: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>, <span name="elem2">elem2: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>, <span name="elems">elems: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)*</span>)</span><span class="result">: <a href="../collection/generic/Growable.html" class="extype" name="scala.collection.generic.Growable">Growable</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> adds two or more elements to this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p> adds two or more elements to this mutable map.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to  add.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to  add.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to  add.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable map itself</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/Growable.html">Growable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#-">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-</span><span class="params">(<span name="elem1">elem1: <span class="extype" name="scala.Any">Any</span></span>, <span name="elem2">elem2: <span class="extype" name="scala.Any">Any</span></span>, <span name="elems">elems: <span class="extype" name="scala.Any">Any</span>*</span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes two or more elements from this collection and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes two or more elements from this collection and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to remove.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to remove.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable map that contains all elements of the current mutable map
+ except one less occurrence of each of the given elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#-">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Delete a key from this map if it is present and return the map itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Delete a key from this map if it is present and return the map itself.</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>the key to be removed</p></dd><dt>returns</dt><dd class="cmt"><p>a new map without a binding for <code>key</code></p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/MapLike.html">MapLike</a> ⇐ <a href="../collection/generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#--">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--</span><span class="params">(<span name="iter">iter: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes a number of elements provided by an iterator and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes a number of elements provided by an iterator and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable map that contains all elements of the current mutable map
+ except one less occurrence of each of the elements produced by <code>iter</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#--">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--</span><span class="params">(<span name="iter">iter: <a href="../collection/Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[<span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes a number of elements provided by a Traversable object and returns
+ the collection itself</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes a number of elements provided by a Traversable object and returns
+ the collection itself.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the Traversable object.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable map that contains all elements of the current mutable map
+ except one less occurrence of each of the elements of <code>elems</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/generic/Subtractable.html">Subtractable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Shrinkable#--=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--=</span><span class="params">(<span name="iter">iter: <a href="../collection/Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[<span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <a href="../collection/generic/Shrinkable.html" class="extype" name="scala.collection.generic.Shrinkable">Shrinkable</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes all elements contained in a traversable collection from this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes all elements contained in a traversable collection from this mutable map.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the collection containing the elements to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable map itself</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/Shrinkable.html">Shrinkable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Shrinkable#--=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">--=</span><span class="params">(<span name="iter">iter: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <a href="../collection/generic/Shrinkable.html" class="extype" name="scala.collection.generic.Shrinkable">Shrinkable</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes all elements produced by an iterator from this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes all elements produced by an iterator from this mutable map.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>the iterator producing the elements to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable map itself</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/Shrinkable.html">Shrinkable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#-=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-=</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes a key from this map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes a key from this map.</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>the key to be removed</p></dd><dt>returns</dt><dd class="cmt"><p>the map itself.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/generic/Shrinkable.html">Shrinkable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.Shrinkable#-=">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">-=</span><span class="params">(<span name="elem1">elem1: <span class="extype" name="scala.Any">Any</span></span>, <span name="elem2">elem2: <span class="extype" name="scala.Any">Any</span></span>, <span name="elems">elems: <span class="extype" name="scala.Any">Any</span>*</span>)</span><span class="result">: <a href="../collection/generic/Shrinkable.html" class="extype" name="scala.collection.generic.Shrinkable">Shrinkable</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes two or more elements from this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes two or more elements from this mutable map.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">elem1</dt><dd class="cmt"><p>the first element to remove.</p></dd><dt class="param">elem2</dt><dd class="cmt"><p>the second element to remove.</p></dd><dt class="param">elems</dt><dd class="cmt"><p>the remaining elements to remove.</p></dd><dt>returns</dt><dd class="cmt"><p>the mutable map itself</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/Shrinkable.html">Shrinkable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#/:">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">/:</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (B, (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to a start value and all elements of this mutable map, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to a start value and all elements of this mutable map, going left to right.</p><p> Note: <code>/:</code> is alternate syntax for <code>foldLeft</code>; <code>z /: xs</code> is the same as <code>xs foldLeft z</code>.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable map$,
+          going left to right with the start value <code>z</code> on the left:
+          {{{
+            op(...op(op(z, x<sub>1</sub>), x<sub>2</sub>), ..., x<sub>n</sub>)
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#:\">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">:\</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>), B) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this mutable map and a start value, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this mutable map and a start value, going right to left.</p><p> Note: <code>:\</code> is alternate syntax for <code>foldRight</code>; <code>xs :\ z</code> is the same as <code>xs foldRight z</code>.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable map$,
+          going right to left with the start value <code>z</code> on the right:
+          {{{
+            op(x<sub>1</sub>, op(x<sub>2</sub>, ... op(x<sub>n</sub>, z)...))
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#addString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">addString</span><span class="params">(<span name="b">b: <a href="../collection/mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>, <span name="start">start: <span class="extype" name="java.lang.String">String</span></span>, <span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>, <span name="end">end: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="../collection/mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Appends all bindings of this map to a string builder using start, end, and separator strings</p><div class="fullcomment">
+      <div class="comment cmt"><p>Appends all bindings of this map to a string builder using start, end, and separator strings.
+ The written text begins with the string <code>start</code> and ends with the string
+ <code>end</code>. Inside, the string representations of all bindings of this map
+ in the form of <code>key -> value</code> are separated by the string <code>sep</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the builder to which strings are appended.</p></dd><dt class="param">start</dt><dd class="cmt"><p>the starting string.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt class="param">end</dt><dd class="cmt"><p>the ending string.</p></dd><dt>returns</dt><dd class="cmt"><p>the string builder <code>b</code> to which elements were appended.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#addString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">addString</span><span class="params">(<span name="b">b: <a href="../collection/mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>)</span><span class="result">: <a href="../collection/mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Appends all elements of this mutable map to a string builder</p><div class="fullcomment">
+      <div class="comment cmt"><p>Appends all elements of this mutable map to a string builder.
+ The written text consists of the string representations (w.r.t. the method <code>toString</code>)
+ of all elements of this mutable map without any separator string.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the string builder to which elements are appended.</p></dd><dt>returns</dt><dd class="cmt"><p>the string builder <code>b</code> to which elements were appended.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#addString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">addString</span><span class="params">(<span name="b">b: <a href="../collection/mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>, <span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="../collection/mutable/StringBuilder.html" class="extype" name="scala.collection.mutable.StringBuilder">StringBuilder</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Appends all elements of this mutable map to a string builder using a separator string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Appends all elements of this mutable map to a string builder using a separator string.
+ The written text consists of the string representations (w.r.t. the method <code>toString</code>)
+ of all elements of this mutable map, separated by the string <code>sep</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the string builder to which elements are appended.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt>returns</dt><dd class="cmt"><p>the string builder <code>b</code> to which elements were appended.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.PartialFunction#andThen">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">andThen</span><span class="tparams">[<span name="C">C</span>]</span><span class="params">(<span name="k">k: (<span class="extype" name="scala.Int">Int</span>) ⇒ C</span>)</span><span class="result">: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Any">Any</span>, C]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> Composes this partial function with a transformation function that gets applied
+  to results of this partial function</p><div class="fullcomment">
+      <div class="comment cmt"><p> Composes this partial function with a transformation function that gets applied
+  to results of this partial function.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">C</dt><dd class="cmt"><p>the result type of the transformation function.</p></dd><dt class="param">k</dt><dd class="cmt"><p>the transformation function</p></dd><dt>returns</dt><dd class="cmt"><p>a partial function with the same domain as this partial function, which maps
+          arguments <code>x</code> to <code>k(this(x))</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../PartialFunction.html">PartialFunction</a> ⇐ <a href="../Function1.html">Function1</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#apply">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Retrieves the value which is associated with the given key</p><div class="fullcomment">
+      <div class="comment cmt"><p>Retrieves the value which is associated with the given key. This
+ method invokes the <code>default</code> method of the map if there is no mapping
+ from the given key to a value. Unless overridden, the <code>default</code> method throws a
+ <code>NoSuchElementException</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>the key</p></dd><dt>returns</dt><dd class="cmt"><p>the value associated with the given key, or the result of the
+             map's <code>default</code> method, if none exists.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a> ⇐ <a href="../Function1.html">Function1</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#canEqual">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">canEqual</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Method called from equality methods, so that user-defined subclasses can
+ refuse to be equal to other collections of the same kind</p><div class="fullcomment">
+      <div class="comment cmt"><p>Method called from equality methods, so that user-defined subclasses can
+ refuse to be equal to other collections of the same kind.</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The object with which this mutable map should be compared</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code>, if this mutable map can possibly equal <code>that</code>, <code>false</code> otherwise. The test
+          takes into consideration only the run-time types of objects but ignores their elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../Equals.html">Equals</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#clear">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">clear</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes all bindings from the map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes all bindings from the map. After this operation has completed,
+ the map will be empty.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/mutable/Builder.html">Builder</a> ⇐ <a href="../collection/generic/Growable.html">Growable</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#clone">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method creates and returns a copy of the receiver object</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method creates and returns a copy of the receiver object.</p><p><p>
+The default implementation of the <code>clone</code> method is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/mutable/Cloneable.html">Cloneable</a> ⇐ AnyRef
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.Iterable#companion">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">companion</span><span class="result">: <a href="../collection/generic/GenericCompanion.html" class="extype" name="scala.collection.generic.GenericCompanion">GenericCompanion</a>[<a href="../collection/mutable/Iterable.html" class="extype" name="scala.collection.mutable.Iterable">Iterable</a>[A][A]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The factory companion object that builds instances of class mutable</p><div class="fullcomment">
+      <div class="comment cmt"><p>The factory companion object that builds instances of class mutable.Map.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/Iterable.html">Iterable</a> ⇐ <a href="../collection/Iterable.html">Iterable</a> ⇐ <a href="../collection/mutable/Traversable.html">Traversable</a> ⇐ <a href="../collection/Traversable.html">Traversable</a> ⇐ <a href="../collection/generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.Function1#compose">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">compose</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="g">g: (A) ⇒ <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: (A) ⇒ <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">(f compose g)(x) ==  f(g(x))</p><div class="fullcomment">
+      <div class="comment cmt"><p>(f compose g)(x) ==  f(g(x))</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../Function1.html">Function1</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#contains">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">contains</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this map contains a binding for a key</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this map contains a binding for a key.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>the key</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if there is a binding for <code>key</code> in this map, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#copyToArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="xs">xs: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>, <span name="start">start: <span class="extype" name="scala.Int">Int</span></span>, <span name="len">len: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies elements of this mutable map to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies elements of this mutable map to an array.
+ Fills the given array <code>xs</code> with at most <code>len</code> elements of
+ this mutable map, starting at position <code>start</code>.
+ Copying will stop once either the end of the current mutable map is reached,
+ or the end of the array is reached, or <code>len</code> elements have been copied.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array.</p></dd><dt class="param">xs</dt><dd class="cmt"><p>the array to fill.</p></dd><dt class="param">start</dt><dd class="cmt"><p>the starting index.</p></dd><dt class="param">len</dt><dd class="cmt"><p>the maximal number of elements to copy.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#copyToArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="xs">xs: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies elements of this mutable map to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies elements of this mutable map to an array.
+ Fills the given array <code>xs</code> with all elements of
+ this mutable map, starting at position <code>0</code>.
+ Copying will stop once either the end of the current mutable map is reached,
+ or the end of the array is reached.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array.</p></dd><dt class="param">xs</dt><dd class="cmt"><p>the array to fill.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#copyToArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToArray</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="xs">xs: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>, <span name="start">start: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies elements of this mutable map to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies elements of this mutable map to an array.
+ Fills the given array <code>xs</code> with all elements of
+ this mutable map, starting at position <code>start</code>.
+ Copying will stop once either the end of the current mutable map is reached,
+ or the end of the array is reached.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array.</p></dd><dt class="param">xs</dt><dd class="cmt"><p>the array to fill.</p></dd><dt class="param">start</dt><dd class="cmt"><p>the starting index.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#copyToBuffer">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">copyToBuffer</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="dest">dest: <a href="../collection/mutable/Buffer.html" class="extype" name="scala.collection.mutable.Buffer">Buffer</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Copies all elements of this mutable map to a buffer</p><div class="fullcomment">
+      <div class="comment cmt"><p>Copies all elements of this mutable map to a buffer.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">dest</dt><dd class="cmt"><p>The buffer to which elements are copied.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#count">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">count</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Counts the number of elements in the mutable map which satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Counts the number of elements in the mutable map which satisfy a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate  used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the number of elements satisfying the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#default">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">default</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Defines the default value computation for the map,
+ returned when a key is not found
+ The method implemented here throws an exception,
+ but it might be overridden in subclasses</p><div class="fullcomment">
+      <div class="comment cmt"><p>Defines the default value computation for the map,
+ returned when a key is not found
+ The method implemented here throws an exception,
+ but it might be overridden in subclasses.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>the given key value for which a binding is missing.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#drop">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">drop</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except first <i>n</i> ones</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except first <i>n</i> ones.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the number of elements to drop from this mutable map.</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable map consisting of all elements of this mutable map except the first <code>n</code> ones, or else the
+         empty mutable map, if this mutable map has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#dropRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">dropRight</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except first <i>n</i> ones</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except first <i>n</i> ones.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>The number of elements to take</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable map consisting of all elements of this mutable map except the first <code>n</code> ones, or else the
+         empty mutable map, if this mutable map has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#dropWhile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">dropWhile</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Drops longest prefix of elements that satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Drops longest prefix of elements that satisfy a predicate.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the longest suffix of this mutable map whose first element
+          does not satisfy the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#elements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">elements</span><span class="result">: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.HashMap#empty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">empty</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.MapLike#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Compares two maps structurally; i</p><div class="fullcomment">
+      <div class="comment cmt"><p>Compares two maps structurally; i.e. checks if all mappings
+ contained in this map are also contained in the other map,
+ and vice versa.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the other map</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if both maps contain exactly the
+             same mappings, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a> ⇐ <a href="../Equals.html">Equals</a> ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#exists">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">exists</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether a predicate holds for some of the elements of this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether a predicate holds for some of the elements of this mutable map.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the given predicate <code>p</code> holds for some of the elements
+                of this mutable map, otherwise <code>false</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#filter">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">filter</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements of this mutable map which satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements of this mutable map which satisfy a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable map consisting of all elements of this mutable map that satisfy the given
+              predicate <code>p</code>. The order of the elements is preserved.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#filterKeys">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">filterKeys</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Any">Any</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../collection/DefaultMap.html" class="extype" name="scala.collection.DefaultMap">DefaultMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Filters this map by retaining only keys satisfying a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Filters this map by retaining only keys satisfying a predicate.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test keys</p></dd><dt>returns</dt><dd class="cmt"><p>an immutable map consisting only of those key value pairs of this map where the key satisfies
+         the predicate <code>p</code>. The resulting map wraps the original map without copying any elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#filterNot">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">filterNot</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements of this mutable map which do not satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements of this mutable map which do not satisfy a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable map consisting of all elements of this mutable map that do not satisfy the given
+              predicate <code>p</code>. The order of the elements is preserved.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#find">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">find</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Finds the first element of the mutable map satisfying a predicate, if any</p><div class="fullcomment">
+      <div class="comment cmt"><p>Finds the first element of the mutable map satisfying a predicate, if any.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the first element in the mutable map
+             that satisfies <code>p</code>, or <code>None</code> if none exists.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#first">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">first</span><span class="result">: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.IterableLike#firstOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">firstOption</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"><code>None</code> if iterable is empty</p><div class="fullcomment">
+      <div class="comment cmt"><p><code>None</code> if iterable is empty.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#flatMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">flatMap</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="f">f: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <a href="../collection/Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../collection/generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a function to all elements of this mutable map
+ and concatenating the results</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a function to all elements of this mutable map
+ and concatenating the results.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function to apply to each element.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the given collection-valued function
+               <code>f</code> to each element of this mutable map and concatenating the results.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#flatten">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">flatten</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="asTraversable">asTraversable: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <a href="../collection/Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="result">: <a href="../collection/mutable/Iterable.html" class="extype" name="scala.collection.mutable.Iterable">Iterable</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map of traversable collections into
+ a mutable map in which all element collections are concatenated</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map of traversable collections into
+ a mutable map in which all element collections are concatenated.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of each traversable collection.</p></dd><dt class="param">asTraversable</dt><dd class="cmt"><p>an implicit conversion which asserts that the element type of this
+        mutable map is a <code>Traversable</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new mutable map resulting from concatenating all element mutable maps.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#foldLeft">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foldLeft</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: (B, (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to a start value and all elements of this mutable map, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to a start value and all elements of this mutable map, going left to right.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable map$,
+          going left to right with the start value <code>z</code> on the left:
+          {{{
+            op(...op(z, x<sub>1</sub>), x<sub>2</sub>, ..., x<sub>n</sub>)
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#foldRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foldRight</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="z">z: B</span>)</span><span class="params">(<span name="op">op: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>), B) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this mutable map and a start value, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this mutable map and a start value, going right to left.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">z</dt><dd class="cmt"><p>the start value.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable map$,
+          going right to left with the start value <code>z</code> on the right:
+          {{{
+            op(x<sub>1</sub>, op(x<sub>2</sub>, ... op(x<sub>n</sub>, z)...))
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#forall">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">forall</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether a predicate holds for all elements of this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether a predicate holds for all elements of this mutable map.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the given predicate <code>p</code> holds for all elements
+                of this mutable map, otherwise <code>false</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#foreach">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foreach</span><span class="tparams">[<span name="C">C</span>]</span><span class="params">(<span name="f">f: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ C</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a function <code>f</code> to all elements of this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a function <code>f</code> to all elements of this mutable map.</p><p>   Note: this method underlies the implementation of most other bulk operations.
+   Subclasses should re-implement this method if a more efficient implementation exists.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>the function that is applied for its side-effect to every element.
+             The result of function <code>f</code> is discarded.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#genericBuilder">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">genericBuilder</span><span class="tparams">[<span name="B">B</span>]</span><span class="result">: <a href="../collection/mutable/Builder.html" class="extype" name="scala.collection.mutable.Builder">Builder</a>[B, <a href="../collection/mutable/Iterable.html" class="extype" name="scala.collection.mutable.Iterable">Iterable</a>[B]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The generic builder that builds instances of mutable</p><div class="fullcomment">
+      <div class="comment cmt"><p>The generic builder that builds instances of mutable.Map
+ at arbitrary element types.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#get">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">get</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally returns the value associated with a key</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally returns the value associated with a key.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#getOrElse">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getOrElse</span><span class="tparams">[<span name="B1">B1 &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>, <span name="default">default: ⇒ B1</span>)</span><span class="result">: B1</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"> Returns the value associated with a key, or a default value if the key is not contained in the map</p><div class="fullcomment">
+      <div class="comment cmt"><p> Returns the value associated with a key, or a default value if the key is not contained in the map.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B1</dt><dd class="cmt"><p>the result type of the default computation.</p></dd><dt class="param">key</dt><dd class="cmt"><p>the key.</p></dd><dt class="param">default</dt><dd class="cmt"><p>a computation that yields a default value in case no binding for <code>key</code> is
+                    found in the map.</p></dd><dt>returns</dt><dd class="cmt"><p>the value assocuated with <code>key</code> if it exists,
+           otherwise the result of the <code>default</code> computation.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#getOrElseUpdate">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">getOrElseUpdate</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>, <span name="op">op: ⇒ <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">If given key is already in this map, returns associated value
+ Otherwise, computes value from given expression <code>op</code>, stores with key
+ in map and returns that value</p><div class="fullcomment">
+      <div class="comment cmt"><p>If given key is already in this map, returns associated value
+ Otherwise, computes value from given expression <code>op</code>, stores with key
+ in map and returns that value.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#groupBy">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">groupBy</span><span class="tparams">[<span name="K">K</span>]</span><span class="params">(<span name="f">f: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ K</span>)</span><span class="result">: <a href="../collection/Map.html" class="extype" name="scala.collection.Map">Map</a>[K, <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Partitions this mutable map into a map of mutable maps according to some discriminator function</p><div class="fullcomment">
+      <div class="comment cmt"><p>Partitions this mutable map into a map of mutable maps according to some discriminator function.</p><p> Note: this method is not re-implemented by views. This means
+       when applied to a view it will always force the view and
+       return a new mutable map.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">K</dt><dd class="cmt"><p>the type of keys returned by the discriminator function.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the discriminator function.</p></dd><dt>returns</dt><dd class="cmt"><p>A map from keys to mutable maps such that the following invariant holds:
+              {{{
+                (xs partition f)(k) = xs filter (x => f(x) == k)
+              }}}
+              That is, every key <code>k</code> is bound to a mutable map of those elements <code>x</code>              for which <code>f(x)</code> equals <code>k</code>.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#hasDefiniteSize">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hasDefiniteSize</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this mutable map is known to have a finite size</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this mutable map is known to have a finite size.
+ All strict collections are known to have finite size. For a non-strict collection
+ such as <code>Stream</code>, the predicate returns <code>true</code> if all elements have been computed.
+ It returns <code>false</code> if the stream is not yet evaluated to the end.</p><p> Note: many collection methods will not work on collections of infinite sizes.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a> ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#head">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">head</span><span class="result">: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects the first element of this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects the first element of this mutable map.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#headOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">headOption</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally selects the first element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally selects the first element.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#init">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">init</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except the last</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except the last.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#isDefinedAt">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isDefinedAt</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this map contains a binding for a key</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this map contains a binding for a key. This method,
+ which implements an abstract method of trait <code>PartialFunction</code>,
+ is equivalent to <code>contains</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>the key</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if there is a binding for <code>key</code> in this map, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a> ⇐ <a href="../PartialFunction.html">PartialFunction</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#isEmpty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isEmpty</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether the map is empty</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether the map is empty.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a> ⇐ <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#iterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">iterator</span><span class="result">: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new iterator over all key/value pairs of this map
+</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new iterator over all key/value pairs of this map
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/MapLike.html">MapLike</a> ⇐ <a href="../collection/IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#keySet">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">keySet</span><span class="result">: <a href="../collection/Set.html" class="extype" name="scala.collection.Set">Set</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Collects all keys of this map in a set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Collects all keys of this map in a set.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#keys">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">keys</span><span class="result">: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates an iterator for all keys</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates an iterator for all keys.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#keysIterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">keysIterator</span><span class="result">: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Any">Any</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates an iterator for all keys</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates an iterator for all keys.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#last">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">last</span><span class="result">: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects the last element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects the last element.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#lastOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">lastOption</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally selects the last element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally selects the last element.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.PartialFunction#lift">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">lift</span><span class="result">: (<span class="extype" name="scala.Any">Any</span>) ⇒ <a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Turns this partial function into an plain function returning an <code>Option</code> result</p><div class="fullcomment">
+      <div class="comment cmt"><p>Turns this partial function into an plain function returning an <code>Option</code> result.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../PartialFunction.html">PartialFunction</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#map">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="f">f: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ B</span>)</span><span class="params">(<span name="bf">bf: <a href="../collection/generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a function to all elements of this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a function to all elements of this mutable map.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function to apply to each element.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the given function
+               <code>f</code> to each element of this mutable map and collecting the results.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#mapElements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mapElements</span><span class="tparams">[<span name="C">C</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>) ⇒ C</span>)</span><span class="result">: <a href="../collection/DefaultMap.html" class="extype" name="scala.collection.DefaultMap">DefaultMap</a>[<span class="extype" name="scala.Any">Any</span>, C]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.mutable.Builder#mapResult">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mapResult</span><span class="tparams">[<span name="NewTo">NewTo</span>]</span><span class="params">(<span name="f">f: (<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]) ⇒ NewTo</span>)</span><span class="result">: <a href="../collection/mutable/Builder.html" class="extype" name="scala.collection.mutable.Builder">Builder</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>), NewTo]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new builder by applying a transformation function to
+ the results of this builder</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new builder by applying a transformation function to
+ the results of this builder.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">NewTo</dt><dd class="cmt"><p>the type of collection returned by <code>f</code>.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the transformation function.</p></dd><dt>returns</dt><dd class="cmt"><p>a new builder which is the same as the current builder except
+         that a transformation function is applied to this builder's result.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/Builder.html">Builder</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#mapValues">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mapValues</span><span class="tparams">[<span name="C">C</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Int">Int</span>) ⇒ C</span>)</span><span class="result">: <a href="../collection/DefaultMap.html" class="extype" name="scala.collection.DefaultMap">DefaultMap</a>[<span class="extype" name="scala.Any">Any</span>, C]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">A map view resulting from applying a given function <code>f</code> to each value
+ associated with a key in this map</p><div class="fullcomment">
+      <div class="comment cmt"><p>A map view resulting from applying a given function <code>f</code> to each value
+ associated with a key in this map.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#max">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">max</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="cmp">cmp: <a href="../math/Ordering.html" class="extype" name="scala.math.Ordering">Ordering</a>[B]</span>)</span><span class="result">: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Finds the largest element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Finds the largest element.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>The type over which the ordering is defined.</p></dd><dt class="param">cmp</dt><dd class="cmt"><p>An ordering to be used for comparing elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the largest element of this mutable map with respect to the ordering <code>cmp</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#min">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">min</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="cmp">cmp: <a href="../math/Ordering.html" class="extype" name="scala.math.Ordering">Ordering</a>[B]</span>)</span><span class="result">: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Finds the smallest element</p><div class="fullcomment">
+      <div class="comment cmt"><p>Finds the smallest element.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>The type over which the ordering is defined.</p></dd><dt class="param">cmp</dt><dd class="cmt"><p>An ordering to be used for comparing elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the smallest element of this mutable map with respect to the ordering <code>cmp</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#mkString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkString</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Displays all elements of this mutable map in a string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Displays all elements of this mutable map in a string.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#mkString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkString</span><span class="params">(<span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Displays all elements of this mutable map in a string using a separator string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Displays all elements of this mutable map in a string using a separator string.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt>returns</dt><dd class="cmt"><p>a string representation of this mutable map. In the resulting string
+              the string representations (w.r.t. the method <code>toString</code>)
+              of all elements of this mutable map are separated by the string <code>sep</code>.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#mkString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">mkString</span><span class="params">(<span name="start">start: <span class="extype" name="java.lang.String">String</span></span>, <span name="sep">sep: <span class="extype" name="java.lang.String">String</span></span>, <span name="end">end: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Displays all elements of this mutable map in a string using start, end, and separator strings</p><div class="fullcomment">
+      <div class="comment cmt"><p>Displays all elements of this mutable map in a string using start, end, and separator strings.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>the starting string.</p></dd><dt class="param">sep</dt><dd class="cmt"><p>the separator string.</p></dd><dt class="param">end</dt><dd class="cmt"><p>the ending string.</p></dd><dt>returns</dt><dd class="cmt"><p>a string representation of this mutable map. The resulting string
+              begins with the string <code>start</code> and ends with the string
+              <code>end</code>. Inside, the string representations (w.r.t. the method <code>toString</code>)
+              of all elements of this mutable map are separated by the string <code>sep</code>.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.io.BytePickle.PicklerEnv#nextLoc">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nextLoc</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.collection.TraversableLike#nonEmpty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">nonEmpty</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether the mutable map is not empty</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether the mutable map is not empty.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.PartialFunction#orElse">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">orElse</span><span class="tparams">[<span name="A1">A1 &lt;: <span class="extype" name="scala.Any">Any</span></span>, <span name="B1">B1 &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="that">that: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[A1, B1]</span>)</span><span class="result">: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[A1, B1]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Composes this partial function with a fallback partial function which gets applied where this partial function
+ is not defined</p><div class="fullcomment">
+      <div class="comment cmt"><p>Composes this partial function with a fallback partial function which gets applied where this partial function
+ is not defined.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">A1</dt><dd class="cmt"><p>the argument type of the fallback function</p></dd><dt class="tparam">B1</dt><dd class="cmt"><p>the result type of the fallback function</p></dd><dt class="param">that</dt><dd class="cmt"><p>the fallback function</p></dd><dt>returns</dt><dd class="cmt"><p>a partial function which has as domain the union of the domains
+          of this partial function and <code>that</code>. The resulting partial function
+          takes <code>x</code> to <code>this(x)</code> where <code>this</code> is defined, and to <code>that(x)</code> where it is not.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../PartialFunction.html">PartialFunction</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#partialMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">partialMap</span><span class="tparams">[<span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="pf">pf: <a href="../PartialFunction.html" class="extype" name="scala.PartialFunction">PartialFunction</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>), B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../collection/generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], B, That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Builds a new collection by applying a partial function to all elements of this mutable map
+ on which the function is defined</p><div class="fullcomment">
+      <div class="comment cmt"><p>Builds a new collection by applying a partial function to all elements of this mutable map
+ on which the function is defined.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the element type of the returned collection.</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>B</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, B, That]</code>   is found.</p></dd><dt class="param">pf</dt><dd class="cmt"><p>the partial function which filters and maps the mutable map.</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code> and
+   and the new element type <code>B</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> resulting from applying the partial function
+               <code>pf</code> to each element on which it is defined and collecting the results.
+               The order of the elements is preserved.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#partition">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">partition</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: (<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Partitions this mutable map in two mutable maps according to a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Partitions this mutable map in two mutable maps according to a predicate.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate on which to partition.</p></dd><dt>returns</dt><dd class="cmt"><p>a pair of mutable maps: the first mutable map consists of all elements that
+          satisfy the predicate <code>p</code> and the second mutable map consists of all elements
+          that don't. The relative order of the elements in the resulting mutable maps
+          is the same as in the original mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#product">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">product</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="num">num: <a href="../math/Numeric.html" class="extype" name="scala.math.Numeric">Numeric</a>[B]</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Multiplies up the elements of this collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Multiplies up the elements of this collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the <code>*</code> operator.</p></dd><dt class="param">num</dt><dd class="cmt"><p>an implicit parameter defining a set of numeric operations
+                which includes the <code>*</code> operator to be used in forming the product.</p></dd><dt>returns</dt><dd class="cmt"><p>the product of all elements of this mutable map with respect to the <code>*</code> operator in <code>num</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#projection">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">projection</span><span class="result">: <a href="../collection/IterableView.html" class="extype" name="scala.collection.IterableView">IterableView</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>), <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">returns a projection that can be used to call non-strict <code>filter</code>,<code>map</code>, and <code>flatMap</code> methods that build projections
+of the collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>returns a projection that can be used to call non-strict <code>filter</code>,<code>map</code>, and <code>flatMap</code> methods that build projections
+of the collection.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#put">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">put</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>, <span name="value">value: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a new key/value pair to this map and optionally returns previously bound value</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a new key/value pair to this map and optionally returns previously bound value.
+ If the map already contains a
+ mapping for the key, it will be overridden by the new value.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>the key to update</p></dd><dt class="param">value</dt><dd class="cmt"><p>the new value</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the value associated with the key
+        before the <code>put</code> operation was executed, or <code>None</code> if <code>key</code>        was not defined in the map before.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#reduceLeft">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceLeft</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="op">op: (B, (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this mutable map, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this mutable map, going left to right.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable map$,
+          going left to right:
+          {{{
+            op(...(op(x<sub>1</sub>, x<sub>2</sub>), ... ) , x<sub>n</sub>)
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#reduceLeftOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceLeftOption</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="op">op: (B, (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ B</span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally applies a binary operator to all elements of this mutable map, going left to right</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally applies a binary operator to all elements of this mutable map, going left to right.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the result of <code>reduceLeft(op)</code> is this mutable map is nonempty,
+          <code>None</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#reduceRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceRight</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="op">op: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>), B) ⇒ B</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a binary operator to all elements of this mutable map, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a binary operator to all elements of this mutable map, going right to left.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>the result of inserting <code>op</code> between consecutive elements of this mutable map$,
+          going right to left:
+          {{{
+            op(x<sub>1</sub>, op(x<sub>2</sub>, ..., op(x<sub>n-1</sub>, x<sub>n</sub>)...))
+          }}}
+          where <code>x,,1,,, ..., x,,n,,</code> are the elements of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#reduceRightOption">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">reduceRightOption</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="op">op: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>), B) ⇒ B</span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Optionally applies a binary operator to all elements of this mutable map, going right to left</p><div class="fullcomment">
+      <div class="comment cmt"><p>Optionally applies a binary operator to all elements of this mutable map, going right to left.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+   or the operator is associative and commutative.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the binary operator.</p></dd><dt class="param">op</dt><dd class="cmt"><p>the binary operator.</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the result of <code>reduceRight(op)</code> is this mutable map is nonempty,
+          <code>None</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#remove">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">remove</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Removes a key from this map, returning the value associated previously
+ with that key as an option</p><div class="fullcomment">
+      <div class="comment cmt"><p>Removes a key from this map, returning the value associated previously
+ with that key as an option.</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>the key to be removed</p></dd><dt>returns</dt><dd class="cmt"><p>an option value containing the value associated previously with <code>key</code>,
+           or <code>None</code> if <code>key</code> was not defined in the map before.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#removeKey">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">removeKey</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="../Option.html" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">If given key is defined in this map, remove it and return associated value as an Option</p><div class="fullcomment">
+      <div class="comment cmt"><p>If given key is defined in this map, remove it and return associated value as an Option.
+ If key is not present return None.</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>the key to be removed</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#repr">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">repr</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The collection of type mutable map underlying this <code>TraversableLike</code> object</p><div class="fullcomment">
+      <div class="comment cmt"><p>The collection of type mutable map underlying this <code>TraversableLike</code> object.
+ By default this is implemented as the <code>TraversableLike</code> object itself, but this can be overridden.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#result">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">result</span><span class="params">()</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The result when this map is used as a builder</p><div class="fullcomment">
+      <div class="comment cmt"><p>The result when this map is used as a builder</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/mutable/Builder.html">Builder</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#retain">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">retain</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../collection/mutable/MapLike.html" class="extype" name="scala.collection.mutable.MapLike">MapLike</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>, <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Retains only those mappings for which the predicate
+ <code>p</code> returns <code>true</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Retains only those mappings for which the predicate
+ <code>p</code> returns <code>true</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The test predicate</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#sameElements">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sameElements</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="that">that: <a href="../collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[B]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Checks if the other iterable collection contains the same elements in the same order as this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Checks if the other iterable collection contains the same elements in the same order as this mutable map.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of collection <code>that</code>.</p></dd><dt class="param">that</dt><dd class="cmt"><p>the collection to compare with.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code>, if both collections contain the same elements in the same order, <code>false</code> otherwise.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#size">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">size</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The size of this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>The size of this mutable map.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.Builder#sizeHint">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sizeHint</span><span class="params">(<span name="size">size: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gives a hint how many elements are expected to be added
+ when the next <code>result</code> is called</p><div class="fullcomment">
+      <div class="comment cmt"><p>Gives a hint how many elements are expected to be added
+ when the next <code>result</code> is called. Some builder classes
+ will optimize their representation based on the hint. However,
+ builder implementations are still required to work correctly even if the hint is
+ wrong, i.e. a different number of elements is added.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/Builder.html">Builder</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#slice">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">slice</span><span class="params">(<span name="from">from: <span class="extype" name="scala.Int">Int</span></span>, <span name="until">until: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects an interval of elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects an interval of elements.</p><p> Note: <code>c.slice(from, to)</code>  is equivalent to (but possibly more efficient than)
+ <code>c.drop(from).take(to - from)</code></p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">from</dt><dd class="cmt"><p>the index of the first returned element in this mutable map.</p></dd><dt class="param">until</dt><dd class="cmt"><p>the index one past the last returned element in this mutable map.</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable map containing the elements starting at index <code>from</code>          and extending up to (but not including) index <code>until</code> of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#span">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">span</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: (<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Spits this mutable map into a prefix/suffix pair according to a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Spits this mutable map into a prefix/suffix pair according to a predicate.</p><p> Note: <code>c span p</code>  is equivalent to (but possibly more efficient than)
+ <code>(c takeWhile p, c dropWhile p)</code>, provided the evaluation of the predicate <code>p</code> does not cause any side-effects.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the test predicate</p></dd><dt>returns</dt><dd class="cmt"><p>a pair consisting of the longest prefix of this mutable map whose
+          elements all satisfy <code>p</code>, and the rest of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#splitAt">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">splitAt</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: (<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Splits this mutable map into two at a given position</p><div class="fullcomment">
+      <div class="comment cmt"><p>Splits this mutable map into two at a given position.
+ Note: <code>c splitAt n</code> is equivalent to (but possibly more efficient than)
+        <code>(c take n, c drop n)</code>.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the position at which to split.</p></dd><dt>returns</dt><dd class="cmt"><p>a pair of mutable maps consisting of the first <code>n</code>          elements of this mutable map, and the other elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#stringPrefix">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">stringPrefix</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Defines the prefix of this object's <code>toString</code> representation</p><div class="fullcomment">
+      <div class="comment cmt"><p>Defines the prefix of this object's <code>toString</code> representation.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#sum">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">sum</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="num">num: <a href="../math/Numeric.html" class="extype" name="scala.math.Numeric">Numeric</a>[B]</span>)</span><span class="result">: B</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Sums up the elements of this collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Sums up the elements of this collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the result type of the <code>+</code> operator.</p></dd><dt class="param">num</dt><dd class="cmt"><p>an implicit parameter defining a set of numeric operations
+                which includes the <code>+</code> operator to be used in forming the sum.</p></dd><dt>returns</dt><dd class="cmt"><p>the sum of all elements of this mutable map with respect to the <code>+</code> operator in <code>num</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#tail">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">tail</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects all elements except the first</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects all elements except the first.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#take">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">take</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects first <i>n</i> elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects first <i>n</i> elements.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>Tt number of elements to take from this mutable map.</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable map consisting only of the first <code>n</code> elements of this mutable map, or else the
+         whole mutable map, if it has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#takeRight">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">takeRight</span><span class="params">(<span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects last <i>n</i> elements</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects last <i>n</i> elements.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>the number of elements to take</p></dd><dt>returns</dt><dd class="cmt"><p>a mutable map consisting only of the last <code>n</code> elements of this mutable map, or else the
+         whole mutable map, if it has less than <code>n</code> elements.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#takeWhile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">takeWhile</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Takes longest prefix of elements that satisfy a predicate</p><div class="fullcomment">
+      <div class="comment cmt"><p>Takes longest prefix of elements that satisfy a predicate.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>the longest prefix of this mutable map whose elements all satisfy
+          the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toArray">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toArray</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="params">(<span name="arg0">arg0: <a href="../reflect/ClassManifest.html" class="extype" name="scala.reflect.ClassManifest">ClassManifest</a>[B]</span>)</span><span class="result">: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map to an array</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map to an array.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of the array. A <code>ClassManifest</code> for this type must
+              be available.</p></dd><dt>returns</dt><dd class="cmt"><p>an array containing all elements of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toIndexedSeq">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toIndexedSeq</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="result">: <a href="../collection/mutable/IndexedSeq.html" class="extype" name="scala.collection.mutable.IndexedSeq">IndexedSeq</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map to an indexed sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map to an indexed sequence.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#toIterable">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toIterable</span><span class="result">: <a href="../collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map to an iterable collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map to an iterable collection.</p><p> Note:  Will not terminate for infinite-sized collections.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toList">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toList</span><span class="result">: <a href="../collection/immutable/List.html" class="extype" name="scala.collection.immutable.List">List</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map to a list</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map to a list.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toSeq">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toSeq</span><span class="result">: <a href="../collection/Seq.html" class="extype" name="scala.collection.Seq">Seq</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map to a sequence</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map to a sequence.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#toSet">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toSet</span><span class="tparams">[<span name="B">B &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>]</span><span class="result">: <a href="../collection/immutable/Set.html" class="extype" name="scala.collection.immutable.Set">Set</a>[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map to a set</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map to a set.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#toStream">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toStream</span><span class="result">: <a href="../collection/immutable/Stream.html" class="extype" name="scala.collection.immutable.Stream">Stream</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map to a stream</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map to a stream.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map to a string</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map to a string</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a> ⇐ <a href="../Function1.html">Function1</a> ⇐ AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#transform">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">transform</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../collection/mutable/MapLike.html" class="extype" name="scala.collection.mutable.MapLike">MapLike</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>, <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a transformation function to all values contained in this map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a transformation function to all values contained in this map.
+ The transformation function produces new values from existing keys
+ asssociated values.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>the transformation to apply</p></dd><dt>returns</dt><dd class="cmt"><p>the map itself.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#transpose">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">transpose</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="asTraversable">asTraversable: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <a href="../collection/Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="result">: <a href="../collection/mutable/Iterable.html" class="extype" name="scala.collection.mutable.Iterable">Iterable</a>[<a href="../collection/mutable/Iterable.html" class="extype" name="scala.collection.mutable.Iterable">Iterable</a>[B]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Transposes this mutable map of traversable collections into</p><div class="fullcomment">
+      <div class="comment cmt"><p>Transposes this mutable map of traversable collections into</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#unzip">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">unzip</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>]</span><span class="params">(<span name="asPair">asPair: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ (A1, A2)</span>)</span><span class="result">: (<a href="../collection/mutable/Iterable.html" class="extype" name="scala.collection.mutable.Iterable">Iterable</a>[A1], <a href="../collection/mutable/Iterable.html" class="extype" name="scala.collection.mutable.Iterable">Iterable</a>[A2])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this mutable map of pairs into two collections of the first and second
+ halfs of each pair</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this mutable map of pairs into two collections of the first and second
+ halfs of each pair.</p></div>
+      <dl class="paramcmts block"><dt class="param">asPair</dt><dd class="cmt"><p>an implicit conversion which asserts that the element type of this
+         mutable map is a pair.</p></dd><dt>returns</dt><dd class="cmt"><p>a pair mutable maps, containing the first, respectively second half
+         of each element pair of this mutable map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/generic/GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#update">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">update</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>, <span name="value">value: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds a new key/value pair to this map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Adds a new key/value pair to this map.
+ If the map already contains a
+ mapping for the key, it will be overridden by the new value.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>The key to update</p></dd><dt class="param">value</dt><dd class="cmt"><p>The new value</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/mutable/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.MapLike#updated">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">updated</span><span class="tparams">[<span name="B1">B1 &gt;: <span class="extype" name="scala.Int">Int</span></span>]</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Any">Any</span></span>, <span name="value">value: B1</span>)</span><span class="result">: <a href="../collection/mutable/Map.html" class="extype" name="scala.collection.mutable.Map">Map</a>[<span class="extype" name="scala.Any">Any</span>, B1]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a new map consisting of all key/value pairs of the current map
+ plus a new pair of a guven key and value</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a new map consisting of all key/value pairs of the current map
+ plus a new pair of a guven key and value.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B1</dt><dd class="cmt"><p>the type of the added value</p></dd><dt class="param">key</dt><dd class="cmt"><p>The key to add</p></dd><dt class="param">value</dt><dd class="cmt"><p>The new value</p></dd><dt>returns</dt><dd class="cmt"><p>A fresh immutable map with the binding from <code>key</code> to
+               <code>value</code> added to this map.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/MapLike.html">MapLike</a> ⇐ <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.MapLike#values">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">values</span><span class="result">: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates an iterator for all contained values</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates an iterator for all contained values.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#valuesIterable">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">valuesIterable</span><span class="result">: <a href="../collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Collects all values of this map in an iterable collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Collects all values of this map in an iterable collection.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.mutable.HashMap#valuesIterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">valuesIterator</span><span class="result">: <a href="../collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates an iterator for all values in this map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates an iterator for all values in this map.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/mutable/HashMap.html">HashMap</a> ⇐ <a href="../collection/MapLike.html">MapLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#view">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">view</span><span class="params">(<span name="from">from: <span class="extype" name="scala.Int">Int</span></span>, <span name="until">until: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="../collection/IterableView.html" class="extype" name="scala.collection.IterableView">IterableView</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>), <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a non-strict view of a slice of this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a non-strict view of a slice of this mutable map.</p><p> Note: the difference between <code>view</code> and <code>slice</code> is that <code>view</code> produces
+       a view of the current mutable map, whereas <code>slice</code> produces a new mutable map.</p><p> Note: <code>view(from, to)</code> is equivalent to <code>view.slice(from, to)</code></p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">from</dt><dd class="cmt"><p>the index of the first element of the view</p></dd><dt class="param">until</dt><dd class="cmt"><p>the index of the element following the view</p></dd><dt>returns</dt><dd class="cmt"><p>a non-strict view of a slice of this mutable map, starting at index <code>from</code> and extending up to (but not including) index <code>until</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#view">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">view</span><span class="result">: <a href="../collection/IterableView.html" class="extype" name="scala.collection.IterableView">IterableView</a>[(<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>), <a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a non-strict view of this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a non-strict view of this mutable map.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a> ⇐ <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.TraversableLike#withFilter">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">withFilter</span><span class="params">(<span name="p">p: ((<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="../collection/TraversableLike$WithFilter.html" class="extype" name="scala.collection.TraversableLike.WithFilter">WithFilter</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a non-strict filter of this mutable map</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a non-strict filter of this mutable map.</p><p> Note: the difference between <code>c filter p</code> and <code>c withFilter p</code> is that
+       the former creates a new collection, whereas the latter only restricts
+       the domain of subsequent <code>map</code>, <code>flatMap</code>, <code>foreach</code>, and <code>withFilter</code> operations.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>the predicate used to test elements.</p></dd><dt>returns</dt><dd class="cmt"><p>an object of class <code>WithFilter</code>, which supports
+            <code>map</code>, <code>flatMap</code>, <code>foreach</code>, and <code>withFilter</code> operations.
+            All these operations apply to those elements of this mutable map which
+            satify the predicate <code>p</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/TraversableLike.html">TraversableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#zip">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">zip</span><span class="tparams">[<span name="A1">A1 &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>, <span name="B">B</span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="../collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[B]</span>)</span><span class="params">(<span name="bf">bf: <a href="../collection/generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], (A1, B), That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a mutable map formed from this mutable map and another iterable collection
+ by combining corresponding elements in pairs</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a mutable map formed from this mutable map and another iterable collection
+ by combining corresponding elements in pairs.
+ If one of the two collections is longer than the other, its remaining elements are ignored.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">A1</dt><dd class="cmt"><p>the type of the first half of the returned pairs (this is always a supertype
+                of the collection's element type <code>A</code>).</p></dd><dt class="tparam">B</dt><dd class="cmt"><p>the type of the second half of the returned pairs</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>(A1, B)</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, (A1, B), That]</code>.
+   is found.</p></dd><dt class="param">that</dt><dd class="cmt"><p>The iterable providing the second half of each result pair</p></dd><dt class="param">bf</dt><dd class="cmt"><p>an implicit value of class <code>CanBuildFrom</code> which determines the
+   result class <code>That</code> from the current representation type <code>Repr</code>   and the new element type <code>(A1, B)</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> containing pairs consisting of
+                corresponding elements of this mutable map and <code>that</code>. The length
+                of the returned collection is the minimum of the lengths of this mutable map$ and <code>that</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#zipAll">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">zipAll</span><span class="tparams">[<span name="B">B</span>, <span name="A1">A1 &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>, <span name="That">That</span>]</span><span class="params">(<span name="that">that: <a href="../collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[B]</span>, <span name="thisElem">thisElem: A1</span>, <span name="thatElem">thatElem: B</span>)</span><span class="params">(<span name="bf">bf: <a href="../collection/generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], (A1, B), That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a mutable map formed from this mutable map and another iterable collection
+ by combining corresponding elements in pairs</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a mutable map formed from this mutable map and another iterable collection
+ by combining corresponding elements in pairs.
+ If one of the two collections is shorter than the other,
+ placeholder elements are used to extend the shorter collection to the length of the longer.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>the iterable providing the second half of each result pair</p></dd><dt class="param">thisElem</dt><dd class="cmt"><p>the element to be used to fill up the result if this mutable map is shorter than <code>that</code>.</p></dd><dt class="param">thatElem</dt><dd class="cmt"><p>the element to be used to fill up the result if <code>that</code> is shorter than this mutable map.</p></dd><dt>returns</dt><dd class="cmt"><p>a new collection of type <code>That</code> containing pairs consisting of
+                corresponding elements of this mutable map and <code>that</code>. The length
+                of the returned collection is the maximum of the lengths of this mutable map$ and <code>that</code>.
+                If this mutable map is shorter than <code>that</code>, <code>thisElem</code> values are used to pad the result.
+                If <code>that</code> is shorter than this mutable map, <code>thatElem</code> values are used to pad the result.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.IterableLike#zipWithIndex">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">zipWithIndex</span><span class="tparams">[<span name="A1">A1 &gt;: (<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>)</span>, <span name="That">That</span>]</span><span class="params">(<span name="bf">bf: <a href="../collection/generic/CanBuildFrom.html" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<a href="../collection/mutable/HashMap.html" class="extype" name="scala.collection.mutable.HashMap">HashMap</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Int">Int</span>], (A1, <span class="extype" name="scala.Int">Int</span>), That]</span>)</span><span class="result">: That</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Zips this mutable map with its indices</p><div class="fullcomment">
+      <div class="comment cmt"><p>Zips this mutable map with its indices.</p><p>   Note: might return different results for different runs, unless the underlying collection type is ordered.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">A1</dt><dd class="cmt"><p>the type of the first half of the returned pairs (this is always a supertype
+                of the collection's element type <code>A</code>).</p></dd><dt class="tparam">That</dt><dd class="cmt"><p>the class of the returned collection. Where possible, <code>That</code> is
+   the same class as the current collection class <code>Repr</code>, but this
+   depends on the element type <code>(A1, Int)</code> being admissible for that class,
+   which means that an implicit instance of type <code>CanBuildFrom[Repr, (A1, Int), That]</code>.
+   is found.</p></dd><dt>returns</dt><dd class="cmt"><p>A new collection of type <code>That</code> containing pairs consisting of all elements of this
+                mutable map paired with their index. Indices start at <code>0</code>.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="../collection/IterableLike.html">IterableLike</a>
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        <div class="members" id="constructors">
+              <h3>Instance constructors</h3>
+              <ol><li name="scala.io.BytePickle.PicklerEnv#this">
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol">
+        <span class="name">PicklerEnv</span><span class="params">()</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+      </div>
+      
+    </body>
+      </html>

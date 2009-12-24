@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.collection.generic.GenericSetTemplate</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../../lib/template.js"></script>
+    
+        </head>
+        <body class="type">
+      
+      <p id="owner"><a href="../../package.html">scala</a>.<a href="../package.html">collection</a>.<a href="package.html">generic</a></p>
+
+      <div id="definition">
+        <img src="../../../lib/trait_big.png" />
+        <h1>GenericSetTemplate</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol">
+        <span class="name">GenericSetTemplate</span><span class="tparams">[<span name="A">A</span>, <span name="CC">+CC</span>]</span><span class="result"> extends <a href="GenericTraversableTemplate.html" class="extype" name="scala.collection.generic.GenericTraversableTemplate">GenericTraversableTemplate</a>[A, CC[X][X]]</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"></div>
+      
+      
+      
+      <div class="block">
+                known subclasses: <a href="../Set.html">Set</a>, <a href="../immutable/Set.html">Set</a>, <a href="../immutable/HashSet.html">HashSet</a>, <a href="../immutable/ListSet.html">ListSet</a>, <a href="../mutable/Set.html">Set</a>, <a href="../mutable/HashSet.html">HashSet</a>, <a href="../mutable/LinkedHashSet.html">LinkedHashSet</a>
+              </div>
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.collection.generic.GenericTraversableTemplate">GenericTraversableTemplate</li><li class="in" name="scala.collection.generic.HasNewBuilder">HasNewBuilder</li><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.collection.generic.GenericTraversableTemplate#companion">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">companion</span><span class="result">: <a href="GenericCompanion.html" class="extype" name="scala.collection.generic.GenericCompanion">GenericCompanion</a>[CC[X][X]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The factory companion object that builds instances of class  CC</p><div class="fullcomment">
+      <div class="comment cmt"><p>The factory companion object that builds instances of class  CC.</p></div>
+      
+      <div class="block">
+            attributes: abstract 
+          </div>
+      <div class="block">
+            definition classes: <a href="GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericSetTemplate#empty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">empty</span><span class="result">: CC[A]</span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#flatten">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">flatten</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="asTraversable">asTraversable: (A) ⇒ <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="result">: CC[B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this  collection of traversable collections into
+ a  collection in which all element collections are concatenated</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this  collection of traversable collections into
+ a  collection in which all element collections are concatenated.</p></div>
+      <dl class="paramcmts block"><dt class="tparam">B</dt><dd class="cmt"><p>the type of the elements of each traversable collection.</p></dd><dt class="param">asTraversable</dt><dd class="cmt"><p>an implicit conversion which asserts that the element type of this
+         collection is a <code>Traversable</code>.</p></dd><dt>returns</dt><dd class="cmt"><p>a new  collection resulting from concatenating all element  collections.
+</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#foreach">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">foreach</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (A) ⇒ U</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Applies a function <code>f</code> to all elements of this  collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Applies a function <code>f</code> to all elements of this  collection.
+</p></div>
+      <dl class="paramcmts block"><dt class="tparam">U</dt><dd class="cmt"><p>the type parameter describing the result of function <code>f</code>.
+             This result will always be ignored. Typically <code>U</code> is <code>Unit</code>,
+             but this is not necessary.</p></dd><dt class="param">f</dt><dd class="cmt"><p>the function that is applied for its side-effect to every element.
+             The result of function <code>f</code> is discarded.
+</p></dd></dl>
+      <div class="block">
+            attributes: abstract 
+          </div>
+      <div class="block">
+            definition classes: <a href="GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#genericBuilder">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">genericBuilder</span><span class="tparams">[<span name="B">B</span>]</span><span class="result">: <a href="../mutable/Builder.html" class="extype" name="scala.collection.mutable.Builder">Builder</a>[B, CC[B]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The generic builder that builds instances of  CC
+ at arbitrary element types</p><div class="fullcomment">
+      <div class="comment cmt"><p>The generic builder that builds instances of  CC
+ at arbitrary element types.</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#head">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">head</span><span class="result">: A</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Selects the first element of this  collection</p><div class="fullcomment">
+      <div class="comment cmt"><p>Selects the first element of this  collection.</p></div>
+      
+      <div class="block">
+            attributes: abstract 
+          </div>
+      <div class="block">
+            definition classes: <a href="GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#isEmpty">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">isEmpty</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Tests whether this  collection is empty</p><div class="fullcomment">
+      <div class="comment cmt"><p>Tests whether this  collection is empty.
+</p></div>
+      
+      <div class="block">
+            attributes: abstract 
+          </div>
+      <div class="block">
+            definition classes: <a href="GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#transpose">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">transpose</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="asTraversable">asTraversable: (A) ⇒ <a href="../Traversable.html" class="extype" name="scala.collection.Traversable">Traversable</a>[B]</span>)</span><span class="result">: CC[CC[B]]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Transposes this  collection of traversable collections into</p><div class="fullcomment">
+      <div class="comment cmt"><p>Transposes this  collection of traversable collections into</p></div>
+      
+      
+      <div class="block">
+            definition classes: <a href="GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li><li name="scala.collection.generic.GenericTraversableTemplate#unzip">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">unzip</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>]</span><span class="params">(<span name="asPair">asPair: (A) ⇒ (A1, A2)</span>)</span><span class="result">: (CC[A1], CC[A2])</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Converts this  collection of pairs into two collections of the first and second
+ halfs of each pair</p><div class="fullcomment">
+      <div class="comment cmt"><p>Converts this  collection of pairs into two collections of the first and second
+ halfs of each pair.</p></div>
+      <dl class="paramcmts block"><dt class="param">asPair</dt><dd class="cmt"><p>an implicit conversion which asserts that the element type of this
+          collection is a pair.</p></dd><dt>returns</dt><dd class="cmt"><p>a pair  collections, containing the first, respectively second half
+         of each element pair of this  collection.</p></dd></dl>
+      
+      <div class="block">
+            definition classes: <a href="GenericTraversableTemplate.html">GenericTraversableTemplate</a>
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

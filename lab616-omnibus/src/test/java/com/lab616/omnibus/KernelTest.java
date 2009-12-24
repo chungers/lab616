@@ -1,14 +1,7 @@
-/**
- * 
- */
 package com.lab616.omnibus;
-
-import java.util.Set;
 
 import junit.framework.TestCase;
 
-import com.google.common.collect.Sets;
-import com.google.inject.Module;
 import com.lab616.omnibus.event.EventEngine;
 
 /**
@@ -18,10 +11,6 @@ import com.lab616.omnibus.event.EventEngine;
 public class KernelTest extends TestCase {
 
 	static class Platform extends Kernel {
-		@Override
-		public Set<? extends Module> getModules() {
-			return Sets.newHashSet();
-		}
 		
 		private boolean initialized = false;
 		@Override
@@ -48,7 +37,4 @@ public class KernelTest extends TestCase {
 		
 		assertFalse(p.isRunning());
 	}
-	
-	
-
 }

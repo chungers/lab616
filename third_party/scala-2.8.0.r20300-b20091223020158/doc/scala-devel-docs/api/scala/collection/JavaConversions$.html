@@ -1,0 +1,613 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.collection.JavaConversions</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">collection</a></p>
+
+      <div id="definition">
+        <img src="../../lib/object_big.png" />
+        <h1>JavaConversions</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">JavaConversions</span><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p><p>
+   A collection of implicit conversions supporting interoperability between
+   Scala and Java collections.
+ </p>
+ <p>
+   The following conversions are supported:
+ </p>
+ <ul>
+   <li><code>scala.collection.Iterable</code> <=> <code>java.lang.Iterable</code></li>
+   <li><code>scala.collection.Iterable</code> <=> <code>java.util.Collection</code></li>
+   <li><code>scala.collection.Iterator</code> <=> <code>java.util.{ Iterator, Enumeration }</code></li>
+   <li><code>scala.collection.mutable.Buffer</code> <=> <code>java.util.List</code></li>
+   <li><code>scala.collection.mutable.Set</code> <=> <code>java.util.Set</code></li>
+   <li><code>scala.collection.mutable.Map</code> <=> <code>java.util.Map</code></li>
+ </ul>
+ <p>
+   In all cases, converting from a source type to a target type and back
+   again will return the original source object, eg.
+ </p>
+ <pre>
+   <b>import</b> scala.collection.JavaConversions._</p><p>   <b>val</b> sl = <b>new</b> scala.collection.mutable.ListBuffer[Int]
+   <b>val</b> jl : java.util.List[Int] = sl
+   <b>val</b> sl2 : scala.collection.mutable.Buffer[Int] = jl
+   assert(sl eq sl2)g</pre>
+ <p>
+   Note that no conversion is provided from <code>scala.collection.immutable.List</code>
+   to <code>java.util.List</code>. Instead it is convertible to an immutable
+   <code>java.util.Collection</code> which provides size and interation
+   capabilities, but not access by index as would be provided by
+   <code>java.util.List</code>.<br/>
+   This is intentional: in combination the implementation of
+   <code>scala.collection.immutable.List</code> and the typical usage
+   patterns of <code>java.util.List</code> would perform extremely poorly.
+ </p>
+</p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        <div class="members" id="types">
+              <h3>Type Members</h3>
+              <ol><li name="scala.collection.JavaConversions.IterableWrapper">
+      <h4 class="signature"><a href="JavaConversions$$IterableWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">IterableWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: Iterable[A]</span>)</span><span class="result"> extends AbstractCollection[A] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.IteratorWrapper">
+      <h4 class="signature"><a href="JavaConversions$$IteratorWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">IteratorWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: Iterator[A]</span>)</span><span class="result"> extends Iterator[A] with Enumeration[A] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.JCollectionWrapper">
+      <h4 class="signature"><a href="JavaConversions$$JCollectionWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">JCollectionWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: Collection[A]</span>)</span><span class="result"> extends Iterable[A] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.JEnumerationWrapper">
+      <h4 class="signature"><a href="JavaConversions$$JEnumerationWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">JEnumerationWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: Enumeration[A]</span>)</span><span class="result"> extends Iterator[A] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.JIterableWrapper">
+      <h4 class="signature"><a href="JavaConversions$$JIterableWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">JIterableWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: Iterable[A]</span>)</span><span class="result"> extends Iterable[A] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.JIteratorWrapper">
+      <h4 class="signature"><a href="JavaConversions$$JIteratorWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">JIteratorWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: Iterator[A]</span>)</span><span class="result"> extends Iterator[A] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.JListWrapper">
+      <h4 class="signature"><a href="JavaConversions$$JListWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">JListWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: List[A]</span>)</span><span class="result"> extends Buffer[A] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.JMapWrapper">
+      <h4 class="signature"><a href="JavaConversions$$JMapWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">JMapWrapper</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="underlying">underlying: Map[A, B]</span>)</span><span class="result"> extends Map[A, B] with MapLike[A, B, JMapWrapper[A, B]] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.JSetWrapper">
+      <h4 class="signature"><a href="JavaConversions$$JSetWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">JSetWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: Set[A]</span>)</span><span class="result"> extends Set[A] with SetLike[A, JSetWrapper[A]] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.MutableBufferWrapper">
+      <h4 class="signature"><a href="JavaConversions$$MutableBufferWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">MutableBufferWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: Buffer[A]</span>)</span><span class="result"> extends AbstractList[A] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.MutableMapWrapper">
+      <h4 class="signature"><a href="JavaConversions$$MutableMapWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">MutableMapWrapper</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="underlying">underlying: Map[A, B]</span>)</span><span class="params">(<span name="m">m: ClassManifest[A]</span>)</span><span class="result"> extends AbstractMap[A, B] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li><li name="scala.collection.JavaConversions.MutableSetWrapper">
+      <h4 class="signature"><a href="JavaConversions$$MutableSetWrapper.html">
+      <span class="kind">class</span>
+      <span class="symbol">
+        <span class="name">MutableSetWrapper</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="underlying">underlying: Set[A]</span>)</span><span class="params">(<span name="m">m: ClassManifest[A]</span>)</span><span class="result"> extends AbstractSet[A] with Product</span>
+      </span>
+      </a></h4>
+      
+    </li></ol>
+            </div>
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.collection.JavaConversions#asBuffer">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asBuffer</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="l">l: <span class="extype" name="java.util.List">List</span>[A]</span>)</span><span class="result">: <a href="mutable/Buffer.html" class="extype" name="scala.collection.mutable.Buffer">Buffer</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Java <code>List</code> to a Scala mutable <code>Buffer</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Java <code>List</code> to a Scala mutable <code>Buffer</code>.
+The returned Scala <code>Buffer</code> is backed by the provided Java
+<code>List</code> and any side-effects of using it via the Scala interface will
+be visible via the Java interface and vice versa.
+<p>
+If the Java <code>List</code> was previously obtained from an implicit or
+explicit call of <code>asList(scala.collection.mutable.Buffer)</code> then the original
+Scala <code>Buffer</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">l</dt><dd class="cmt"><p>The <code>List</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Scala mutable <code>Buffer</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asCollection">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asCollection</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="i">i: <a href="Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[A]</span>)</span><span class="result">: <span class="extype" name="java.util.Collection">Collection</span>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Scala <code>Iterable</code> to an immutable Java
+<code>Collection</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Scala <code>Iterable</code> to an immutable Java
+<code>Collection</code>.
+<p>
+If the Scala <code>Iterable</code> was previously obtained from an implicit or
+explicit call of <code>asSizedIterable(java.util.Collection)</code> then the original
+Java <code>Collection</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The <code>SizedIterable</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Java <code>Collection</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asEnumeration">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asEnumeration</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="i">i: <a href="Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>)</span><span class="result">: <span class="extype" name="java.util.Enumeration">Enumeration</span>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Scala <code>Iterator</code> to a Java <code>Enumeration</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Scala <code>Iterator</code> to a Java <code>Enumeration</code>.
+The returned Java <code>Enumeration</code> is backed by the provided Scala
+<code>Iterator</code> and any side-effects of using it via the Java interface will
+be visible via the Scala interface and vice versa.
+<p>
+If the Scala <code>Iterator</code> was previously obtained from an implicit or
+explicit call of <code>asIterator(java.util.Enumeration)</code> then the
+original Java <code>Enumeration</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The <code>Iterator</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Java <code>Enumeration</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asIterable">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asIterable</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="i">i: <span class="extype" name="java.util.Collection">Collection</span>[A]</span>)</span><span class="result">: <a href="Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Java <code>Collection</code> to an Scala <code>Iterable</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Java <code>Collection</code> to an Scala <code>Iterable</code>.
+<p>
+If the Java <code>Collection</code> was previously obtained from an implicit or
+explicit call of <code>asCollection(scala.collection.SizedIterable)</code> then
+the original Scala <code>SizedIterable</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The <code>Collection</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Scala <code>SizedIterable</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asIterable">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asIterable</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="i">i: <span class="extype" name="java.lang.Iterable">Iterable</span>[A]</span>)</span><span class="result">: <a href="Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Java <code>Iterable</code> to a Scala <code>Iterable</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Java <code>Iterable</code> to a Scala <code>Iterable</code>.
+The returned Scala <code>Iterable</code> is backed by the provided Java
+<code>Iterable</code> and any side-effects of using it via the Scala interface will
+be visible via the Java interface and vice versa.
+<p>
+If the Java <code>Iterable</code> was previously obtained from an implicit or
+explicit call of <code>asIterable(scala.collection.Iterable)</code> then the original
+Scala <code>Iterable</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The <code>Iterable</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Scala <code>Iterable</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asIterable">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asIterable</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="i">i: <a href="Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[A]</span>)</span><span class="result">: <span class="extype" name="java.lang.Iterable">Iterable</span>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Scala <code>Iterable</code> to a Java <code>Iterable</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Scala <code>Iterable</code> to a Java <code>Iterable</code>.
+The returned Java <code>Iterable</code> is backed by the provided Scala
+<code>Iterable</code> and any side-effects of using it via the Java interface will
+be visible via the Scala interface and vice versa.
+<p>
+If the Scala <code>Iterable</code> was previously obtained from an implicit or
+explicit call of <code>asIterable(java.lang.Iterable)</code> then the original
+Java <code>Iterable</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The <code>Iterable</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Java <code>Iterable</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asIterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asIterator</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="i">i: <span class="extype" name="java.util.Enumeration">Enumeration</span>[A]</span>)</span><span class="result">: <a href="Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Java <code>Enumeration</code> to a Scala <code>Iterator</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Java <code>Enumeration</code> to a Scala <code>Iterator</code>.
+The returned Scala <code>Iterator</code> is backed by the provided Java
+<code>Enumeration</code> and any side-effects of using it via the Scala interface will
+be visible via the Java interface and vice versa.
+<p>
+If the Java <code>Enumeration</code> was previously obtained from an implicit or
+explicit call of <code>asEnumeration(scala.collection.Iterator)</code> then the
+original Scala <code>Iterator</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The <code>Enumeration</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Scala <code>Iterator</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asIterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asIterator</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="i">i: <span class="extype" name="java.util.Iterator">Iterator</span>[A]</span>)</span><span class="result">: <a href="Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Java <code>Iterator</code> to a Scala <code>Iterator</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Java <code>Iterator</code> to a Scala <code>Iterator</code>.
+The returned Scala <code>Iterator</code> is backed by the provided Java
+<code>Iterator</code> and any side-effects of using it via the Scala interface will
+be visible via the Java interface and vice versa.
+<p>
+If the Java <code>Iterator</code> was previously obtained from an implicit or
+explicit call of <code>asIterator(scala.collection.Iterator)</code> then the original
+Scala <code>Iterator</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The <code>Iterator</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Scala <code>Iterator</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asIterator">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asIterator</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="i">i: <a href="Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>[A]</span>)</span><span class="result">: <span class="extype" name="java.util.Iterator">Iterator</span>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Scala <code>Iterator</code> to a Java <code>Iterator</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Scala <code>Iterator</code> to a Java <code>Iterator</code>.
+The returned Java <code>Iterator</code> is backed by the provided Scala
+<code>Iterator</code> and any side-effects of using it via the Java interface will
+be visible via the Scala interface and vice versa.
+<p>
+If the Scala <code>Iterator</code> was previously obtained from an implicit or
+explicit call of <code>asIterator(java.util.Iterator)</code> then the original
+Java <code>Iterator</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The <code>Iterator</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Java <code>Iterator</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asList">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asList</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="b">b: <a href="mutable/Buffer.html" class="extype" name="scala.collection.mutable.Buffer">Buffer</a>[A]</span>)</span><span class="result">: <span class="extype" name="java.util.List">List</span>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Scala mutable <code>Buffer</code> to a Java <code>List</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Scala mutable <code>Buffer</code> to a Java <code>List</code>.
+The returned Java <code>List</code> is backed by the provided Scala
+<code>Buffer</code> and any side-effects of using it via the Java interface will
+be visible via the Scala interface and vice versa.
+<p>
+If the Scala <code>Buffer</code> was previously obtained from an implicit or
+explicit call of <code>asBuffer(java.util.List)</code> then the original
+Java <code>List</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>The <code>Buffer</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Java <code>List</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asMap</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="m">m: <span class="extype" name="java.util.Map">Map</span>[A, B]</span>)</span><span class="result">: <a href="mutable/Map.html" class="extype" name="scala.collection.mutable.Map">Map</a>[A, B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Java <code>Map</code> to a Scala mutable <code>Map</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Java <code>Map</code> to a Scala mutable <code>Map</code>.
+The returned Scala <code>Map</code> is backed by the provided Java
+<code>Map</code> and any side-effects of using it via the Scala interface will
+be visible via the Java interface and vice versa.
+<p>
+If the Java <code>Map</code> was previously obtained from an implicit or
+explicit call of <code>asMap(scala.collection.mutable.Map)</code> then the original
+Scala <code>Map</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">m</dt><dd class="cmt"><p>The <code>Map</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Scala mutable <code>Map</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asMap">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asMap</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="m">m: <a href="mutable/Map.html" class="extype" name="scala.collection.mutable.Map">Map</a>[A, B]</span>)</span><span class="params">(<span name="ma">ma: <a href="../reflect/ClassManifest.html" class="extype" name="scala.reflect.ClassManifest">ClassManifest</a>[A]</span>)</span><span class="result">: <span class="extype" name="java.util.Map">Map</span>[A, B]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Scala mutable <code>Map</code> to a Java <code>Map</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Scala mutable <code>Map</code> to a Java <code>Map</code>.
+The returned Java <code>Map</code> is backed by the provided Scala
+<code>Map</code> and any side-effects of using it via the Java interface will
+be visible via the Scala interface and vice versa.
+<p>
+If the Scala <code>Map</code> was previously obtained from an implicit or
+explicit call of <code>asMap(java.util.Map)</code> then the original
+Java <code>Map</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">m</dt><dd class="cmt"><p>The <code>Map</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Java <code>Map</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asSet">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asSet</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="s">s: <span class="extype" name="java.util.Set">Set</span>[A]</span>)</span><span class="result">: <a href="mutable/Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Java <code>Set</code> to a Scala mutable <code>Set</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Java <code>Set</code> to a Scala mutable <code>Set</code>.
+The returned Scala <code>Set</code> is backed by the provided Java
+<code>Set</code> and any side-effects of using it via the Scala interface will
+be visible via the Java interface and vice versa.
+<p>
+If the Java <code>Set</code> was previously obtained from an implicit or
+explicit call of <code>asSet(scala.collection.mutable.Set)</code> then the original
+Scala <code>Set</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>The <code>Set</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Scala mutable <code>Set</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.collection.JavaConversions#asSet">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">asSet</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="s">s: <a href="mutable/Set.html" class="extype" name="scala.collection.mutable.Set">Set</a>[A]</span>)</span><span class="params">(<span name="m">m: <a href="../reflect/ClassManifest.html" class="extype" name="scala.reflect.ClassManifest">ClassManifest</a>[A]</span>)</span><span class="result">: <span class="extype" name="java.util.Set">Set</span>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicitly converts a Scala mutable <code>Set</code> to a Java <code>Set</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Implicitly converts a Scala mutable <code>Set</code> to a Java <code>Set</code>.
+The returned Java <code>Set</code> is backed by the provided Scala
+<code>Set</code> and any side-effects of using it via the Java interface will
+be visible via the Scala interface and vice versa.
+<p>
+If the Scala <code>Set</code> was previously obtained from an implicit or
+explicit call of <code>asSet(java.util.Set)</code> then the original
+Java <code>Set</code> will be returned.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>The <code>Set</code> to be converted.</p></dd><dt>returns</dt><dd class="cmt"><p>A Java <code>Set</code> view of the argument.</p></dd></dl>
+      <div class="block">
+            attributes: implicit 
+          </div>
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

@@ -142,11 +142,12 @@ public class EventEngineTest extends TestCase {
 		}
 	}
 
-	public static class ChildWatcher extends EventWatcher {
+	public static class ChildWatcher extends EventWatcher<SystemEvent> {
 		static final AtomicInteger events = new AtomicInteger();
 		public ChildWatcher(String exp, Object... args) {
 			super(exp, args);
 		}
+		@Override
 		public void update(SystemEvent event) {
 			logger.info(this + " got " + event);
 			events.incrementAndGet();

@@ -7,9 +7,11 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.ImmutableList;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -21,6 +23,7 @@ import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.common.logging.Logging;
+import com.lab616.common.scripting.ScriptingModule;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
@@ -35,7 +38,7 @@ import com.lab616.omnibus.http.HttpServerModule;
  * @author david
  *
  */
-public abstract class Kernel {
+public class Kernel {
 	
   @Flag(name = "server-id")
   @Varz(name = "server-id")
@@ -53,6 +56,13 @@ public abstract class Kernel {
   }
   
   /**
+   * Interface for startable component.
+   */
+  public interface Startable {
+  	public void start() throws Exception;
+  }
+  
+  /**
    * Interface for shutdown handler.
    *
    * @param <V> The return value.
@@ -65,41 +75,134 @@ public abstract class Kernel {
   static Logger logger = Logger.getLogger(Kernel.class);
   
   private Injector injector;
-
-  private boolean running = false;
+  private AtomicBoolean running = new AtomicBoolean(false);
+  private Throwable kernelException = null;
   
-  public Set<? extends Module> getModules() {
-    return Sets.newHashSet();
+	private final Set<Module> modules = Sets.newHashSet();
+	private final Set<Shutdown<?>> shutdownHooks = Sets.newHashSet();
+	private final Set<String> shutdownHooksLoadLater = Sets.newHashSet();
+	private final Set<Class<? extends Throwable>> startUpExceptionsToIgnore = Sets.newHashSet();
+  private Runnable runnable = null;
+  
+  protected Kernel() {
+  	// Subclass only.
+  }
+  
+  public Kernel(Runnable runnable, Module... modules) {
+  	this.runnable = runnable;
+  	for (Module m : modules) {
+  		include(m);
+  	}
+  }
+  
+  /**
+   * Useful for testing, ignore the following list of exception types during
+   * start up.
+   * @param clz First exception type.
+   * @param more Additional exception types.
+   * @return This kernel.
+   */
+  public final Kernel ignoreStartupExceptions(Class<? extends Throwable> clz,
+  		Class<? extends Throwable>... more) {
+  	startUpExceptionsToIgnore.add(clz);
+  	startUpExceptionsToIgnore.addAll(Lists.newArrayList(more));
+  	return this;
+  }
+  
+  /**
+   * Include this Guice module in the kernel.  Must be called before
+   * the {@link #run(String[])} method.
+   * 
+   * @param module The module to include.
+   * @param more Additional optional modules.
+   * @return The kernel instance.
+   */
+  public final Kernel include(Module module, Module... more) {
+  	modules.add(module);
+  	for (Module m : more) {
+  		modules.add(m);
+  	}
+  	return this;
   }
 
-  // TODO(david):  Implement priority based shutdown sequence.
+  /**
+   * Include a shutdown hook or additional hooks (in sequence of execution)
+   * to this kernel.  Must be called before the {@link #run(String[])} method
+   * is called.
+   * 
+   * @param shutdown The shutdown hook.
+   * @param more Additional hooks.
+   * @return The kernel instance.
+   */
+  public final Kernel include(Shutdown<?> shutdown, Shutdown<?>... more) {
+  	shutdownHooks.add(shutdown);
+  	for (Shutdown<?> s : more) {
+  		shutdownHooks.add(s);
+  	}
+  	return this;
+  }
+  
+  /**
+   * Includes a Named shutdown hook that is already bound in one of the included
+   * modules.
+   * 
+   * @param named The name bound.
+   * @return The kernel instance.
+   */
+  public final Kernel includeShutdownNamed(String named) {
+  	shutdownHooksLoadLater.add(named);
+  	return this;
+  }
+
+  
+  /**
+   * Returns the set of modules loaded.
+   * 
+   * @return The set.
+   */
+  public final Set<? extends Module> getModules() {
+    return modules;
+  }
+
+  /**
+   * List in order of shutdown sequence.
+   * 
+   * @return The list.
+   */
   public final List<Shutdown<?>> getShutdownRoutines() {
   	// System-wide services.
   	List<Shutdown<?>> list = Lists.newArrayList();
+    for (Shutdown<?> s : shutdownHooks) {
+    	list.add(s);
+    }
+    for (String named : shutdownHooksLoadLater) {
+    	list.add(getInstance(Shutdown.class, named));
+    }
     list.add(getInstance(Shutdown.class, EventModule.SHUTDOWN_HOOK));
-    addShutdown(list);
     list.add(getInstance(Shutdown.class, HttpServerModule.SHUTDOWN_HOOK));
     return list;
   }
 
-  protected void addShutdown(List<Shutdown<?>> list) {
-  	// No-op.
-  }
-  
   private Runnable getShutdownHook() {
     return new Runnable() {
       public void run() {
-        logger.info("Starting shutdown sequence:");
-        for (Shutdown<?> callable : getShutdownRoutines()) {
-          try {
-            logger.info("Completed shutdown step (" + 
-                callable.getName() + ") => " + callable.call());
-          } catch (Exception e) {
-            logger.error("Failure during shutdown (" + callable.getName() + 
-                "):", e);
+      	// Check to see if the kernel is running at all.  The only time running
+      	// can be set to false is when the shutdown() method is called 
+      	// programmatically.  If that's the case, we don't want to run the
+      	// shutdown again during the actual jvm shutdown.
+      	if (running.get()) {
+          logger.info("Starting shutdown sequence:");
+          for (Shutdown<?> callable : getShutdownRoutines()) {
+            try {
+              logger.info("Completed shutdown step (" + 
+                  callable.getName() + ") => " + callable.call());
+            } catch (Exception e) {
+              logger.error("Failure during shutdown (" + callable.getName() + 
+                  "):", e);
+            }
           }
-        }
-        logger.info("Shutdown sequence completed.");
+          logger.info("Shutdown sequence completed.");
+      	}
       }
     };
   }
@@ -112,16 +215,47 @@ public abstract class Kernel {
   public final boolean shutdown() {
   	try {
     	getShutdownHook().run();
-    	running = false;
-    	return !running;
+    	running.set(false);
+    	return !running.get();
   	} catch (Throwable th) {
   		logger.warn("Exception during programmatic shutdown:", th);
   	}
-  	return running;
+  	return running.get();
   }
   
-  public final boolean isRunning() {
-  	return this.running;
+  /**
+   * Returns whether the kernel is running or not, up to the optional wait
+   * time specified.  After that, it returns whatever state the kernel is in.
+   * 
+   * @param wait Wait time in millis.
+   * @return True if running properly.
+   */
+  public final boolean isRunning(long... wait) {
+  	if (wait.length > 0 && wait[0] > 0) {
+  		long waited = 0;
+  		long waitIncrement = 1;
+  		boolean loop = !running.get();
+  		while (loop) {
+  			try {
+  				Thread.sleep(waitIncrement);
+  				waited += waitIncrement;
+  				loop = (waited >= wait[0]) ? false : running.get();
+  			} catch (Exception e) {
+  				return running.get();
+  			}
+  		}
+  	}
+  	return running.get();
+  }
+  
+  /**
+   * Returns whether there are any exceptions thrown during the startup or
+   * running of the kernel.
+   * 
+   * @return True if there are exceptions.
+   */
+  public final boolean hasExceptions() {
+  	return kernelException != null;
   }
   
   /**
@@ -131,24 +265,54 @@ public abstract class Kernel {
    * 
    * @throws Exception
    */
-  protected abstract void run() throws Exception;
+  protected void run() throws Exception {
+  	// Do nothing. Just hang out.
+  	do {
+  		Thread.sleep(100L);
+  	} while (this.running.get());
+  }
+  
+  /**
+   * Runs the kernel in a dedicated thread.
+   * @param args The args.
+   * @throws Exception Exception when starting the thread, if any.
+   */
+  public final Kernel runInThread(final String... args) throws Exception {
+  	Thread th = new Thread(new Runnable(){
+  		@Override
+  		public void run() {
+  			try {
+    			Kernel.this.run(args);
+  			} catch (Exception e) {
+  				throw new RuntimeException(e);
+  			}
+  		}
+  	}, "Kernel-" + serverId);
+  	th.start();
+  	return this;
+  }
   
   /**
    * Starts the program with command line arguments.  This method is called
-   * in the main method of an application which instantiates a derived class.
+   * in the main method of an application.  This runs in the main thread of the
+   * application.  The services will be in other threads.  If the {@link #run()}
+   * method isn't overriden, the default behavior is to enter a run loop in a 
+   * dedicated thread (which loops) until {@link #shutdown()} is invoked on a
+   * reference of the kernel from the main application thread.
    * 
    * @param argv Command line arguments.
    * @throws Exception Uncaught exception.
    */
   public final void run(String[] argv) throws Exception {
-  	if (this.running) throw new IllegalStateException("Currently running.");
+  	if (this.running.get()) throw new IllegalStateException("Currently running.");
   	
-  	this.running = true;
+  	this.running.set(true);
   	
     // Load all the modules.  This will also force any Flag registration
     // to occur so that the flag parsing will apply to all the module class
     // where the flag values are used for injection.
     List<Module> allModules = Lists.newArrayList();
+    allModules.add(new ScriptingModule());
     allModules.add(new HttpServerModule());
     allModules.add(new EventModule());
     allModules.add(new Module() {
@@ -186,27 +350,112 @@ public abstract class Kernel {
     Runtime.getRuntime().addShutdownHook(shutdown);
 
     // Start all services.
-    try {
-    	getInstance(HttpServer.class).start();
-    	getInstance(EventEngine.class).start();
-    } catch (Exception e) {
-    	logger.warn("Exception during startup of key components. Shutting down.", e);
-    	System.exit(-1);
+    Exception ex = null;
+    Set<Class<? extends Startable>> comps = Sets.newHashSet();
+    comps.add(HttpServer.class);
+    comps.add(EventEngine.class);
+    
+    for (Class<? extends Startable> comp : comps) {
+  		ex = startComponent(comp);
+  		if (ex != null) {
+  			shutdown();
+  			return;
+  		}
     }
-    // Run the main.
-    run();
+    
+    if (this.running.get()) {
+    	try {
+        // Run the main.
+        if (this.runnable != null) {
+        	this.runnable.run();
+        } else {
+          run();
+        }
+    	} catch (Exception e) {
+    		logger.warn("Exception during kernel run().", e);
+    		kernelException = e;
+    	}
+    }
+  }
+
+  private Exception startComponent(Class<? extends Startable> clz) {
+    try {
+  		getInstance(clz).start();
+  		return null;
+    } catch (Exception e) {
+    	if (this.startUpExceptionsToIgnore.contains(e.getClass())) {
+    		logger.info("Ignoring exception " + e);
+    		return null;
+    	} else {
+      	logger.warn("Exception during startup of key components. Shutting down.", e);
+      	kernelException = e;
+      	return e;
+    	}
+    }
+  }
+
+  /**
+   * It's possible that {@link #getInstance(Class)} methods are called from a
+   * separate thread from the kernel's wait loop.  This means that the injector
+   * can be uninitialized.  So this is a convenient method to wait until the
+   * injector is ready.
+   * 
+   * @param wait Wait time in milliseconds.
+   * @return The injector.
+   */
+  protected Injector getInjector(long... wait) {
+  	if (wait.length > 0 && wait[0] > 0) {
+  		while (injector == null) {
+  			try {
+  				Thread.sleep(wait[0] / 10 + 1);
+  			} catch (Exception e) {
+  				return injector;
+  			}
+  		}
+  	}
+  	return injector;
   }
   
-  public final <T> T getInstance(Class<T> clz, String name) {
-    return getInstance(Key.get(clz, Names.named(name)));
+  /**
+   * Retrieves a reference to an object from the injector, waiting if the
+   * injection framework isn't ready.
+   * 
+   * @param <T>  Type of object to get.
+   * @param clz The class.
+   * @param name Reference name in guice modules.
+   * @param wait Optional wait time in millis.
+   * @return The object reference.
+   */
+  public final <T> T getInstance(Class<T> clz, String name, long... wait) {
+    return getInstance(Key.get(clz, Names.named(name)), wait);
+  }
+
+  /**
+   * Retrieves a reference to an object from the injector, waiting if the
+   * injection framework isn't ready.
+   * 
+   * @param <T>  Type of object to get.
+   * @param clz The class.
+   * @param wait Optional wait time in millis.
+   * @return The object reference.
+   */
+  public final <T> T getInstance(Class<T> clz, long... wait) {
+  	Injector i = getInjector(wait);
+  	return (i != null) ? i.getInstance(clz) : null;
   }
   
-  public final <T> T getInstance(Class<T> clz) {
-    return injector.getInstance(clz);
-  }
-  
-  public final <T> T getInstance(Key<T> key) {
-    return injector.getInstance(key);
+  /**
+   * Retrieves a reference to an object from the injector, waiting if the
+   * injection framework isn't ready.
+   * 
+   * @param <T>  Type of object to get.
+   * @param key The Guicke key.
+   * @param wait Optional wait time in millis.
+   * @return The object reference.
+   */
+  public final <T> T getInstance(Key<T> key, long... wait) {
+  	Injector i = getInjector(wait);
+    return (i != null) ? i.getInstance(key) : null;
   }
 
   /**
@@ -216,12 +465,8 @@ public abstract class Kernel {
    * @throws Exception
    */
 	public static void main(String[] argv) throws Exception {
-  	Kernel main = new Kernel() {
-			@Override
-      public void run() throws Exception {
-				logger.info("Running.");
-			}
-  	};
-  	main.run(argv);
+		// Trivial example of running a bare kernel in a separate thread.
+  	Kernel main = new Kernel().runInThread(argv);
+  	System.out.println(">>>> Kernel is running now: " + main.isRunning());
   }
 }

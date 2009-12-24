@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>Scaladoc for scala.io.Source</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		      <script type="text/javascript" src="../../lib/jquery.js"></script>
+          
+		  <style type="text/css">
+		    @import url(../../lib/template.css) screen;
+		  </style>
+		  <script type="text/javascript" src="../../lib/template.js"></script>
+    
+        </head>
+        <body class="value">
+      
+      <p id="owner"><a href="../package.html">scala</a>.<a href="package.html">io</a></p>
+
+      <div id="definition">
+        <img src="../../lib/object_big.png" />
+        <h1>Source</h1>
+      </div>
+
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol">
+        <span class="name">Source</span><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment" id="comment">
+      <div class="comment cmt"><p>This object provides convenience methods to create an iterable
+ representation of a source file.
+</p></div>
+      
+      
+      
+      
+    </div>
+      
+      <div id="template">
+      
+        <div id="mbrsel">
+              <div id="ancestors">
+                <h3>Inherits</h3>
+                <ol><li class="in" name="scala.AnyRef">AnyRef</li><li class="in" name="scala.Any">Any</li></ol>
+              </div>
+            </div>
+        
+        
+        
+        <div class="members" id="values">
+              <h3>Value Members</h3>
+              <ol><li name="scala.io.Source#DefaultBufSize">
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol">
+        <span class="name">DefaultBufSize</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scala.AnyRef#equals">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence</p><div class="fullcomment">
+      <div class="comment cmt"><p>This method is used to compare the receiver object (<code>this</code>)
+with the argument object (<code>arg0</code>) for equivalence.</p><p><p>
+The default implementations of this method is an <a
+href="http://en.wikipedia.org/wiki/Equivalence_relation">equivalence
+relation</a>:
+  <ul>
+ <li>It is reflexive: for any instance <code>x</code> of type <code>Any</code>,
+ <code>x.equals(x)</code> should return <code>true</code>.</li>
+ <li>It is symmetric: for any instances <code>x</code> and <code>y</code> of type
+ <code>Any</code>, <code>x.equals(y)</code> should return <code>true</code> if and only
+ if <code>y.equals(x)</code> returns <code>true</code>.</li>
+ <li>It is transitive: for any instances
+ <code>x</code>, <code>y</code>, and <code>z</code> of type <code>AnyRef</code>
+ if <code>x.equals(y)</code> returns <code>true</code> and
+ <code>y.equals(z)</code> returns
+ <code>true</code>, then <code>x.equals(z)</code> should return <code>true</code>.</li>
+</ul>
+</p></p><p><p>
+If you override this method, you should verify that
+your implementation remains an equivalence relation.
+Additionally, when overriding this method it is often necessary to
+override <code>hashCode</code> to ensure that objects that are
+"equal" (<code>o1.equals(o2)</code> returns <code>true</code>)
+hash to the same <a href="Int.html"><code>Int</code></a>
+(<code>o1.hashCode.equals(o2.hashCode)</code>).
+</p></div>
+      <dl class="paramcmts block"><dt class="param">arg0</dt><dd class="cmt"><p>the object to compare against this object for equality.</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the receiver object is equivalent to the argument; <code>false</code> otherwise.
+</p></p></dd></dl>
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.io.Source#fromBytes">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromBytes</span><span class="params">(<span name="bytes">bytes: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>)</span><span class="params">(<span name="codec">codec: <a href="Codec.html" class="extype" name="scala.io.Codec">Codec</a></span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Create a <code>Source</code> from array of bytes, decoding
+ the bytes according to codec</p><div class="fullcomment">
+      <div class="comment cmt"><p>Create a <code>Source</code> from array of bytes, decoding
+ the bytes according to codec.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">bytes</dt><dd class="cmt"><p>...</p></dd><dt>returns</dt><dd class="cmt"><p>the created <code>Source</code> instance.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromChar">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromChar</span><span class="params">(<span name="c">c: <span class="extype" name="scala.Char">Char</span></span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a <code>Source</code> instance from a single character</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a <code>Source</code> instance from a single character.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">c</dt><dd class="cmt"><p>...</p></dd><dt>returns</dt><dd class="cmt"><p>the create <code>Source</code> instance.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromChars">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromChars</span><span class="params">(<span name="chars">chars: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Char">Char</span>]</span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">creates Source from array of characters, with empty description</p><div class="fullcomment">
+      <div class="comment cmt"><p>creates Source from array of characters, with empty description.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">chars</dt><dd class="cmt"><p>...</p></dd><dt>returns</dt><dd class="cmt"><p>...</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromFile">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromFile</span><span class="params">(<span name="file">file: <span class="extype" name="java.io.File">File</span></span>, <span name="bufferSize">bufferSize: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span name="codec">codec: <a href="Codec.html" class="extype" name="scala.io.Codec">Codec</a></span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates Source from <code>file</code>, using given character encoding,
+ setting its description to filename</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates Source from <code>file</code>, using given character encoding,
+ setting its description to filename. Input is buffered in a buffer of
+ size <code>bufferSize</code>.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromInputStream">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromInputStream</span><span class="params">(<span name="inputStream">inputStream: <span class="extype" name="java.io.InputStream">InputStream</span></span>, <span name="bufferSize">bufferSize: <span class="extype" name="scala.Int">Int</span></span>, <span name="reset">reset: () ⇒ <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>, <span name="close">close: () ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="params">(<span name="codec">codec: <a href="Codec.html" class="extype" name="scala.io.Codec">Codec</a></span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Reads data from <code>inputStream</code> with a buffered reader,
+ using encoding in implicit parameter <code>codec</code></p><div class="fullcomment">
+      <div class="comment cmt"><p>Reads data from <code>inputStream</code> with a buffered reader,
+ using encoding in implicit parameter <code>codec</code>.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">inputStream</dt><dd class="cmt"><p>the input stream from which to read</p></dd><dt class="param">bufferSize</dt><dd class="cmt"><p>buffer size (defaults to Source.DefaultBufSize)</p></dd><dt class="param">reset</dt><dd class="cmt"><p>a () => Source which resets the stream (if unset, reset() will throw an Exception)</p></dd><dt class="param">codec</dt><dd class="cmt"><p>(implicit) a scala.io.Codec specifying behavior (defaults to Codec.default)</p></dd><dt>returns</dt><dd class="cmt"><p>the buffered source</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromIterable">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromIterable</span><span class="params">(<span name="iterable">iterable: <a href="../collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>[<span class="extype" name="scala.Char">Char</span>]</span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a <code>Source</code> from an Iterable</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a <code>Source</code> from an Iterable.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">iterable</dt><dd class="cmt"><p>the Iterable</p></dd><dt>returns</dt><dd class="cmt"><p>the <code>Source</code> instance.</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromPath">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromPath</span><span class="params">(<span name="name">name: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="params">(<span name="codec">codec: <a href="Codec.html" class="extype" name="scala.io.Codec">Codec</a></span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">creates Source from file with given name, setting
+ its description to filename</p><div class="fullcomment">
+      <div class="comment cmt"><p>creates Source from file with given name, setting
+ its description to filename.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromRawBytes">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromRawBytes</span><span class="params">(<span name="bytes">bytes: <a href="../Array.html" class="extype" name="scala.Array">Array</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Create a <code>Source</code> from array of bytes, assuming
+ one byte per character (ISO-8859-1 encoding</p><div class="fullcomment">
+      <div class="comment cmt"><p>Create a <code>Source</code> from array of bytes, assuming
+ one byte per character (ISO-8859-1 encoding.)</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromString</span><span class="params">(<span name="s">s: <span class="extype" name="java.lang.String">String</span></span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">creates Source from string, with empty description</p><div class="fullcomment">
+      <div class="comment cmt"><p>creates Source from string, with empty description.
+</p></div>
+      <dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>...</p></dd><dt>returns</dt><dd class="cmt"><p>...</p></dd></dl>
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromURI">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromURI</span><span class="params">(<span name="uri">uri: <span class="extype" name="java.net.URI">URI</span></span>)</span><span class="params">(<span name="codec">codec: <a href="Codec.html" class="extype" name="scala.io.Codec">Codec</a></span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">creates <code>Source</code> from file with given file: URI</p><div class="fullcomment">
+      <div class="comment cmt"><p>creates <code>Source</code> from file with given file: URI</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.io.Source#fromURL">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">fromURL</span><span class="params">(<span name="url">url: <span class="extype" name="java.net.URL">URL</span></span>)</span><span class="params">(<span name="codec">codec: <a href="Codec.html" class="extype" name="scala.io.Codec">Codec</a></span>)</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">same as fromInputStream(url</p><div class="fullcomment">
+      <div class="comment cmt"><p>same as fromInputStream(url.openStream())(codec)</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#hashCode">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a hash code value for the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a hash code value for the object.</p><p><p>
+The default hashing algorithm is platform dependent.</p><p>Note that it is allowed for two objects to have identical hash
+codes (<code>o1.hashCode.equals(o2.hashCode)</code>) yet not be
+equal (<code>o1.equals(o2)</code> returns <code>false</code>).  A
+degenerate implementation could always return <code>0</code>.
+However, it is required that if two objects are equal
+(<code>o1.equals(o2)</code> returns <code>true</code>) that they
+have identical hash codes
+(<code>o1.hashCode.equals(o2.hashCode)</code>).  Therefore, when
+overriding this method, be sure to verify that the behavior is
+consistent with the <code>equals</code> method.
+</p></p><p><p></p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li><li name="scala.io.Source#stdin">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">stdin</span><span class="result">: <a href="Source.html" class="extype" name="scala.io.Source">Source</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates a <code>Source</code> from System</p><div class="fullcomment">
+      <div class="comment cmt"><p>Creates a <code>Source</code> from System.in.</p></div>
+      
+      
+      
+      
+    </div>
+    </li><li name="scala.AnyRef#toString">
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a string representation of the object</p><div class="fullcomment">
+      <div class="comment cmt"><p>Returns a string representation of the object.
+<p>
+The default representation is platform dependent.
+</p></div>
+      
+      
+      <div class="block">
+            definition classes: AnyRef ⇐ Any
+          </div>
+      
+    </div>
+    </li></ol>
+            </div>
+        
+        
+        
+      </div>
+      
+    </body>
+      </html>

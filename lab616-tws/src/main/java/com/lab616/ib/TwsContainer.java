@@ -2,12 +2,10 @@
 
 package com.lab616.ib;
 
-import java.util.List;
-import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.inject.Binder;
 import com.google.inject.Inject;
 import com.google.inject.Module;
@@ -78,38 +76,31 @@ public class TwsContainer {
 
   
   public static void main(String[] argv) throws Exception {
-    (new Kernel() {
+		final AtomicLong startCt = new AtomicLong();
+  	
+		Kernel kernel = new Kernel() {
+			@Override
+			public void run() throws Exception {
+				startCt.set(Time.now());
+				// Starts the main awt app.
+				getInstance(TwsContainer.class);
+			}
+		};
 
-      long startCt;
-      
-      @Override
-      public Set<? extends Module> getModules() {
-        return ImmutableSet.of(
-            new GuiceModule(),
-            new TwsModule());
-      }
-
-      @Override
-      public void run() throws Exception {
-        startCt = Time.now();
-        logger.info("CurrentTime in microsecond = " + startCt);
-        getInstance(TwsContainer.class);
-      }
-
-      @Override
-      public void addShutdown(List<Shutdown<?>> list) {
-        list.add(new Shutdown<String>() {
-
-          public String call() throws Exception {
-            return String.format("Elapsed %d microseconds.", 
-                Time.now() - startCt);
-          }
-          public String getName() {
-            return "TwsContainer/main";
-          }
-        });
-      }
-      
-    }).run(argv);
+		Kernel.Shutdown<String> shutdown = 
+			new Kernel.Shutdown<String>() {
+			public String call() throws Exception {
+				return String.format("Elapsed %d microseconds.", 
+						Time.now() - startCt.get());
+			}
+			public String getName() {
+				return "TwsContainer/main";
+			}
+		};
+		
+		kernel
+			.include(new GuiceModule(), new TwsModule())
+			.include(shutdown)
+			.run(argv);
   }
 }

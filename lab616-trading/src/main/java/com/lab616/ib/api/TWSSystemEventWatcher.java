@@ -328,12 +328,11 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
       // Start simulated data source
       if ("simulate".equals(event.getMethod())) {
         final String name = event.getParam("profile");
-        String id = event.getParam("id");
+        int id = Integer.parseInt(event.getParam("id"));
         final String fname = event.getParam("file");
         logger.debug("Simulating input for client=" + name + " from " + fname);
         // Check to see if we already have a writer for this
-        Managed managed = this.service.findAssociatedComponent(name,
-            Integer.parseInt(id),
+        Managed managed = this.service.findAssociatedComponent(name, id,
             new Predicate<Managed>() {
           public boolean apply(Managed m) {
             return m instanceof EClientSocketSimulator;
@@ -341,7 +340,7 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
         });
         if (managed == null) {
           final EClientSocketSimulator sim = 
-            EClientSocketSimulator.getSimulator(name);
+            EClientSocketSimulator.getSimulator(name, id);
           if (sim != null) {
             this.service.enqueue(name, new Function<TWSClient, Managed>() {
               public Managed apply(TWSClient client) {
