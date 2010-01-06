@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.lab616.ib.api.TWSClientModule;
 import com.lab616.ib.api.servlets.TWSControllerModule;
-import com.lab616.ib.commands.CommandModule;
+import com.lab616.ib.scripting.ScriptingModule;
 import com.lab616.omnibus.Kernel;
 import com.lab616.omnibus.event.EventEngine;
 
@@ -25,7 +25,7 @@ public class Platform extends Kernel {
 		// Default constructor with default modules:
 		include(new TWSClientModule());
 		include(new TWSControllerModule());
-		include(new CommandModule());
+		include(new ScriptingModule());
 	}
 
 	@Override

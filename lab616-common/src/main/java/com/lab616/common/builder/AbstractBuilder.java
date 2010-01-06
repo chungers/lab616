@@ -5,9 +5,7 @@ package com.lab616.common.builder;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
-import com.google.common.base.Function;
 import com.google.inject.internal.Maps;
 
 /**
@@ -36,6 +34,7 @@ public class AbstractBuilder<T> implements Builder<T> {
 
   private PropertySetter getPropertySetter(final Field f) {
     return new PropertySetter() {
+      @Override
       void apply(Object object, String prop) throws Exception {
         f.set(object, getValue(prop));
       }
@@ -44,6 +43,7 @@ public class AbstractBuilder<T> implements Builder<T> {
 
   private PropertySetter getPropertySetter(final Method m) {
     return new PropertySetter() {
+      @Override
       void apply(Object object, String prop) throws Exception {
         m.invoke(object, getValue(prop));
       }
@@ -62,6 +62,7 @@ public class AbstractBuilder<T> implements Builder<T> {
   /**
    * Simple setter.
    */
+  @Override
   public final Builder<T> set(String name, Object v) {
     return setProperty(name, new Class<?>[] { v.getClass() }).to(v);
   }
@@ -71,6 +72,7 @@ public class AbstractBuilder<T> implements Builder<T> {
    * @param prop Property name, matches to the field name in the IB class.
    * @return
    */
+  @Override
   public final Property<T> setProperty(final String prop, Class<?>... types) {
     try {
       if (!properties.containsKey(prop)) {
@@ -90,6 +92,7 @@ public class AbstractBuilder<T> implements Builder<T> {
         }
       }
       return new Property<T>() {
+        @Override
         public Builder<T> to(Object o) {
           values.put(prop, o);
           return AbstractBuilder.this;
@@ -100,6 +103,7 @@ public class AbstractBuilder<T> implements Builder<T> {
     }
   }
   
+  @Override
   public T build() {
     try {
       T object = clz.newInstance();

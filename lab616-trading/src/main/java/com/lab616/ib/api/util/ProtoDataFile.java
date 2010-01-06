@@ -45,7 +45,9 @@ public class ProtoDataFile {
   }
   
   
-  public Writer getWriter() throws IOException {
+  public Writer getWriter(boolean... appendFile) throws IOException {
+    boolean append = (appendFile.length > 0) ? appendFile[0] : true;
+
     DateTime today = new DateTime().withMillisOfDay(0);
     if (today.isAfter(lastDate) || 
         (currentWriter != null && currentWriter.state == State.CLOSED)) {
@@ -54,17 +56,21 @@ public class ProtoDataFile {
         logger.info(root + ": New day. Flushing old file.");
         currentWriter.close();
       }
-      currentWriter = new Writer(getFileName(today));
+      currentWriter = new Writer(getFileName(today), append);
       logger.info(root + ": Writing to file: " + currentWriter.name);
       lastDate = today;
     }
     return currentWriter;
   }
 
-  public static Reader getReader(String fname) throws IOException {
+  public final static Reader getReader(String fname) throws IOException {
     return new Reader(fname);
   }
   
+  public final static Reader getReader(File file) throws IOException {
+    return getReader(file.getAbsolutePath());
+  }
+
   public Reader getReader() throws IOException {
     DateTime today = new DateTime().withMillisOfDay(0);
     return new Reader(getFileName(today));
@@ -85,7 +91,7 @@ public class ProtoDataFile {
   }
   
   public class Writer {
-    
+
     private RandomAccessFile file;
     private State state = null;
     private int written = 0;
@@ -168,6 +174,7 @@ public class ProtoDataFile {
       return new Iterator<V>() {
         TWSProto.Event record = null;
         int size = 0;
+        int count = 0;
         public boolean hasNext() {
           boolean next = false;
           if (state == State.READY) {
@@ -179,15 +186,17 @@ public class ProtoDataFile {
               if (!record.isInitialized()) {
                 logger.warn("Record not initialized: " + record);
               }
+              count++;
               next = true;
             } catch (EOFException e) {
-              logger.error("Exception while reading " + name, e);
               next = false;
             } catch (IOException e) {
-              logger.error("Exception while reading " + name, e);
+              logger.error("Exception while reading " + name + " (" +
+                count + ")", e);
               next = false;
             } catch (Exception e) {
-              logger.error("Exception while reading " + name, e);
+              logger.error("Exception while reading " + name + " (" +
+                count + ")", e);
               next = true; // Just chug along.
             } finally {
               if (!next) {
@@ -221,6 +230,7 @@ public class ProtoDataFile {
       } catch (IOException e) {
         // Nothing.
       } finally {
+        logger.info("Closed " + this.name);
         state = State.CLOSED;
       }
     }

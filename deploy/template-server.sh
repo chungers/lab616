@@ -22,7 +22,7 @@ Linux)
 	export DISPLAY=localhost:1
 ;;
 Darwin)
-	export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.5/Home
+	export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home
 ;;
 *)
 	echo "JAVA_HOME must be set."
@@ -56,4 +56,4 @@ ${JAVA_COMMAND} ${ARGS} $@ &>${LOGFILE} &
 # Send the pid to a file (last process captured in $!)
 echo $! > ${PID}
 
-tail -f ${LOGFILE}
+#tail -f ${LOGFILE}

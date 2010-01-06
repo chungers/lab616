@@ -143,12 +143,20 @@ public class EventEngine implements Kernel.Startable, Provider<Kernel.Shutdown<B
 			add(watcher);
 		}
 	}
-	
+
+  /**
+   * Stoppable statement reference.
+   */
+  public interface Stoppable {
+    public void halt();
+  }
+
 	/**
 	 * Adds a simple event watcher.
 	 * @param watcher The watcher.
+   * @return Stoppable statement.
 	 */
-	public final <E> EventEngine add(EventWatcher<E> watcher) {
+	public final <E> Stoppable add(EventWatcher<E> watcher) {
 		return add((AbstractEventWatcher)watcher);
 	}
 	
@@ -159,9 +167,9 @@ public class EventEngine implements Kernel.Startable, Provider<Kernel.Shutdown<B
 	 * @param statement The statement.
 	 * @param args The args, nullable.
 	 * @param sub The subscriber interface.
-	 * @return The engine instance.
+	 * @return The stoppable statement.
 	 */
-	public final <E> EventEngine add(final String statement, Object[] args, 
+	public final <E> Stoppable add(final String statement, Object[] args,
 			final EventSubscriber<E> sub) {
 		final Object[] argv = (args != null) ? args : new Object[] {};
 		return add(new EventWatcher<E>(statement, argv) {
@@ -177,17 +185,18 @@ public class EventEngine implements Kernel.Startable, Provider<Kernel.Shutdown<B
 	 * @param <E> Event 
 	 * @param statement The statement with no ? variables.
 	 * @param sub The subscriber.
-	 * @return The engine instance.
+	 * @return Statement that can be stopped.
 	 */
-	public final <E> EventEngine add(String statement, EventSubscriber<E> sub) {
+	public final <E> Stoppable add(String statement, EventSubscriber<E> sub) {
 		return add(statement, null, sub);
 	}
 
 	/**
 	 * Adds a new event watcher during runtime.
 	 * @param watcher The new watcher.
+   * @return The stoppable statement instance.
 	 */
-	public final EventEngine add(AbstractEventWatcher watcher) {
+	public final Stoppable add(final AbstractEventWatcher watcher) {
 		EPAdministrator admin = this.epService.getEPAdministrator();
 		watcher.setEngine(this);
 		EPStatement statement = watcher.createStatement(admin);
@@ -197,9 +206,15 @@ public class EventEngine implements Kernel.Startable, Provider<Kernel.Shutdown<B
 		watcher.setStatement(statement);
 		watchers.add(watcher);
 		watcher.start();
+    watcher.addedToEngine();
 		countEventWatchers.incrementAndGet();
 		logger.info("Watcher added: " + watcher);
-		return this;
+		return new Stoppable() {
+      @Override
+      public void halt() {
+        watcher.stop();
+      }
+    };
 	}
 
 	

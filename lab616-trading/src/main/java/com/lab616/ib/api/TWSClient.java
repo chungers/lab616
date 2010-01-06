@@ -27,6 +27,7 @@ import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
 import com.lab616.omnibus.event.EventMessage;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Interactive Brokers API Client.
@@ -75,7 +76,8 @@ public class TWSClient {
   private final HostPort hostPort;
   private CountDownLatch accountReady;
   private final boolean simulate;
-  
+  private final AtomicBoolean connectionError = new AtomicBoolean(false);
+
   @Inject
   public TWSClient(
       TWSConnectionProfileManager profiles,
@@ -105,6 +107,15 @@ public class TWSClient {
         EWrapper.class.getClassLoader(), 
         new Class[] { EWrapper.class }, 
         new TWSProxy(this, engine) {
+          @Override
+          public void handleError(Object[] args) {
+            super.handleError(args);
+            if (args.length > 2 && args[1].equals(new Integer(502))) {
+              // Connection error.
+              logger.error("CONNECTION ERROR: " + getId());
+              connectionError.set(true);
+            }
+          }
           @Override
           public void handleConnectionClosed() {
             onDisconnect();
@@ -151,6 +162,7 @@ public class TWSClient {
           if (this.state == State.CONNECTED) {
             accountReady.countDown();
           }
+          this.state = State.READY;
         }
       }
     }
@@ -166,7 +178,9 @@ public class TWSClient {
    * @return True if connected and ready.
    */
   public final Boolean isReady() {
-    return this.client.isConnected() && this.state == State.READY;
+    return this.client.isConnected() &&
+      this.state == State.READY &&
+      !this.connectionError.get();
   }
 
   /**
@@ -242,7 +256,22 @@ public class TWSClient {
     }
     return client.isConnected();
   }
-  
+
+  /**
+   * Waits until the account setup is ready.
+   * @param timeout
+   * @return
+   */
+  public final boolean waitUntilReady(long timeout) {
+    if (timeout > 0) {
+      try {
+        accountReady.await(timeout, TimeUnit.MILLISECONDS);
+      } catch (Exception e) {
+      // Nothing.
+      }
+    }
+    return isReady();
+  }
   /**
    * Connects to the IB TWS.  The Api starts a separate thread to read from
    * the socket.
@@ -282,13 +311,17 @@ public class TWSClient {
         // Without this information, the connection may as well be bad.
         try {
           logger.info("Waiting for account data: " + getId());
+
+          // Here we block. Potentially this can be interrupted and
+          // we don't know what state the account / connection setup is.
           accountReady.await();
-          state = State.READY;
           logger.info(String.format(
               "%s: state=%s, sourceId=%s, accountName=%s, nextValidOrderId=%d",
               getId(), this.state, 
               getSourceId(), getAccountName(), getNextValidOrderId()));
-          return true;
+
+          // Return whatever state we are in.
+          return isReady();
         } catch (InterruptedException e) {
           logger.fatal("Interrupted while getting account data: " + getId());
           return false;

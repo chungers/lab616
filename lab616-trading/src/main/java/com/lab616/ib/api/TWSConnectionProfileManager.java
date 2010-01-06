@@ -60,4 +60,8 @@ public class TWSConnectionProfileManager {
     profiles.get(profile).set(hostPort);
     logger.info("Added " + hostPort + ", allProfiles = " + profiles);
   }
+
+  public boolean exists(String profile) {
+    return profiles.get(profile).port == -1;
+  }
 }

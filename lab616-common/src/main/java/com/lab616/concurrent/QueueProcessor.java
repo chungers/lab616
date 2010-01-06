@@ -211,7 +211,6 @@ public class QueueProcessor<T, V> extends Thread implements Iterable<V> {
     if (!take() || this.workQueue.isEmpty()) return;
     try {
       T work = this.workQueue.take();
-      getLogger().info(this + " starting to run work " + work);
       if (work instanceof Runnable) {
         ((Runnable) work).run();
       } else if (work instanceof Callable<?>) {

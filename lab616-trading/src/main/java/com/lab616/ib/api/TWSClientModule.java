@@ -33,7 +33,7 @@ public class TWSClientModule extends AbstractEventModule {
   public static Integer API_MAX_CONNECTIONS = 20;
   
   @Flag(name = "tws-max-retries")
-  public static Integer API_MAX_RETRIES = 1;
+  public static Integer API_MAX_RETRIES = 3;
 
   public static final String SHUTDOWN_HOOK = "tws-shutdown";
   

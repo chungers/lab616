@@ -18,9 +18,9 @@ import com.lab616.ib.api.builders.OptionContractBuilder;
 import com.lab616.ib.api.builders.IndexBuilder.Exchange;
 import com.lab616.ib.api.simulator.CSVFileDataSource;
 import com.lab616.ib.api.simulator.EClientSocketSimulator;
-import com.lab616.ib.api.watchers.TWSEventAvroWriter;
-import com.lab616.ib.api.watchers.TWSEventCSVWriter;
-import com.lab616.ib.api.watchers.TWSEventProtoWriter;
+import com.lab616.ib.api.loggers.TWSEventAvroLogger;
+import com.lab616.ib.api.loggers.TWSEventCSVLogger;
+import com.lab616.ib.api.loggers.TWSEventProtoLogger;
 import com.lab616.omnibus.SystemEvent;
 import com.lab616.omnibus.event.AbstractEventWatcher;
 import com.lab616.omnibus.event.annotation.Statement;
@@ -81,10 +81,8 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
       // Starting a connection:
       if ("start".equals(event.getMethod())) {
         String name = event.getParam("profile");
-        boolean simulate = event.getParam("simulate") != null && 
-        "true".equals(event.getParam("simulate"));
         logger.info("Starting connection " + name + " = " + 
-            this.service.newConnection(name, simulate));
+            this.service.newConnection(name, false));
         return;
       }
       // Stopping a connection:
@@ -103,6 +101,7 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
         logger.debug("Requesting index data for " + symbol + " from " + 
             exchange + " on " + name);
         this.service.enqueue(name, new Function<TWSClient, Boolean>() {
+          @Override
           public Boolean apply(TWSClient client) {
             client.requestTickData(
                 new MarketDataRequestBuilder().withDefaultsForIndex()
@@ -245,7 +244,7 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
             Integer.parseInt(id),
             new Predicate<Managed>() {
           public boolean apply(Managed m) {
-            return m instanceof TWSEventCSVWriter;
+            return m instanceof TWSEventCSVLogger;
           }
         });
         final String clientName = name;
@@ -254,7 +253,7 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
           this.service.enqueue(name, Integer.parseInt(id),
               new Function<TWSClient, Managed>() {
             public Managed apply(TWSClient client) {
-              TWSEventCSVWriter w = new TWSEventCSVWriter(directory,
+              TWSEventCSVLogger w = new TWSEventCSVLogger(directory,
                   clientName, client.getSourceId());
               client.getEventEngine().add(w);
               return w;
@@ -275,7 +274,7 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
             Integer.parseInt(id),
             new Predicate<Managed>() {
           public boolean apply(Managed m) {
-            return m instanceof TWSEventProtoWriter;
+            return m instanceof TWSEventProtoLogger;
           }
         });
         final String clientName = name;
@@ -284,8 +283,8 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
           this.service.enqueue(name, Integer.parseInt(id),
               new Function<TWSClient, Managed>() {
             public Managed apply(TWSClient client) {
-              TWSEventProtoWriter w = 
-                new TWSEventProtoWriter(directory,
+              TWSEventProtoLogger w =
+                new TWSEventProtoLogger(directory,
                     clientName, client.getSourceId());
               client.getEventEngine().add(w);
               return w;
@@ -306,7 +305,7 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
             Integer.parseInt(id),
             new Predicate<Managed>() {
           public boolean apply(Managed m) {
-            return m instanceof TWSEventAvroWriter;
+            return m instanceof TWSEventAvroLogger;
           }
         });
         final String clientName = name;
@@ -315,8 +314,8 @@ public class TWSSystemEventWatcher extends AbstractEventWatcher {
           this.service.enqueue(name, Integer.parseInt(id),
               new Function<TWSClient, Managed>() {
             public Managed apply(TWSClient client) {
-              TWSEventAvroWriter w = 
-                new TWSEventAvroWriter(directory,
+              TWSEventAvroLogger w =
+                new TWSEventAvroLogger(directory,
                     clientName, client.getSourceId());
               client.getEventEngine().add(w);
               return w;

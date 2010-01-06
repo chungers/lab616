@@ -11,7 +11,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;
 
-import com.google.common.collect.ImmutableList;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -23,6 +22,8 @@ import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.common.logging.Logging;
+import com.lab616.common.scripting.ScriptObject;
+import com.lab616.common.scripting.ScriptObjects;
 import com.lab616.common.scripting.ScriptingModule;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
@@ -456,6 +457,27 @@ public class Kernel {
   public final <T> T getInstance(Key<T> key, long... wait) {
   	Injector i = getInjector(wait);
     return (i != null) ? i.getInstance(key) : null;
+  }
+
+  /**
+   * Loads a script object.
+   * @param name The name of the script or the module name.
+   * @param wait Optional wait.
+   * @return The script object.
+   */
+  public final ScriptObject getScript(String name, long... wait) {
+    return getInstance(ScriptObjects.class, wait).load(name);
+  }
+
+  /**
+   * Loads a script object and casts to the appropriate type.
+   * @param <T> The type
+   * @param name Script name or module name.
+   * @param t The type of the script.
+   * @return The instance.
+   */
+  public final <T extends ScriptObject> T getScript(String name, Class<T> t) {
+    return getScript(name).asInstanceOf(t);
   }
 
   /**

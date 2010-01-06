@@ -1,5 +1,4 @@
 // 2009 lab616.com, All Rights Reserved.
-
 package com.lab616.ib.api;
 
 import java.util.List;
@@ -24,7 +23,10 @@ import com.lab616.ib.api.TWSConnectionProfileManager.HostPort;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.Kernel.Shutdown;
+import com.lab616.omnibus.event.EventEngine.Stoppable;
 import com.lab616.omnibus.http.servlets.StatusServlet;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 /**
  * A SystemEvent listener that can control the Api clients.  This provides
@@ -37,19 +39,17 @@ public final class TWSClientManager {
 
   @Varz(name = "tws-started-clients")
   public static AtomicInteger managedClients = new AtomicInteger(0);
-  
+
   static {
     Varzs.export(StatusServlet.class);
   }
-
   static Logger logger = Logger.getLogger(TWSClientManager.class);
 
   /**
    * Objects to be managed by the service. 
    */
-  public interface Managed {
-    public boolean isReady();
-    public void stopRunning();
+  public interface Managed extends Stoppable {
+    public boolean isReady(long... timeout);
   }
   
   private final TWSClient.Factory factory;
@@ -58,41 +58,52 @@ public final class TWSClientManager {
   private final AtomicInteger roundRobbin;
   private final Map<String, Pair<ClientWorkQueue, TWSClient>> clients;
   private final Map<TWSClient, List<Managed>> managed;
-  
+
+  // Tracks profile and number of clients for that profile.
+  private final Map<String, Integer> profileInstanceCount;
+
   @Inject
-  public TWSClientManager(TWSClient.Factory factory, 
-      @Named("tws-executor") ExecutorService executor,
-      TWSConnectionProfileManager profiles) {
+  public TWSClientManager(TWSClient.Factory factory,
+    @Named("tws-executor") ExecutorService executor,
+    TWSConnectionProfileManager profiles) {
     this.factory = factory;
     this.executor = executor;
     this.profiles = profiles;
     this.clients = Maps.newHashMap();
     this.managed = Maps.newHashMap();
+    this.profileInstanceCount = Maps.newHashMap();
     this.roundRobbin = new AtomicInteger(0);
   }
-  
+
   public void addProfile(String name, String host, Integer port) {
     this.profiles.addProfile(name, new HostPort(host, port));
   }
-  
+
+  public boolean profileExists(String name) {
+    return this.profiles.exists(name);
+  }
+
   /**
    * Queue for work that depends on the client being properly connected.
    */
   class ClientWorkQueue extends QueueProcessor<Function<TWSClient, ?>, Void> {
+
     TWSClient client;
+
     ClientWorkQueue(String name, int id) {
       super(makeKey(name, id), false);
     }
-    
+
     public void set(TWSClient c) {
       client = c;
     }
+
     @Override
     protected boolean take() {
       // Do not take until the client is not null and is ready.
       return client != null && client.isReady();
     }
-    
+
     @Override
     protected void execute(Function<TWSClient, ?> work) throws Exception {
       Object result = work.apply(client);
@@ -111,22 +122,22 @@ public final class TWSClientManager {
   private static String makeKey(String name, int id) {
     return String.format("%s-%d", name, id);
   }
-  
+
   private Pair<ClientWorkQueue, TWSClient> getManagedClient(
-      String name, int id) {
+    String name, int id) {
     return clients.get(makeKey(name, id));
   }
-  
+
   private Pair<ClientWorkQueue, TWSClient> getManagedClient(int i) {
     synchronized (clients) {
       List<Pair<ClientWorkQueue, TWSClient>> from = Lists.newArrayList(
-          clients.values());
+        clients.values());
       return from.get(i);
     }
   }
 
-  private void addManagedClient(String name, int id, 
-      Pair<ClientWorkQueue, TWSClient> pair) {
+  private void addManagedClient(String name, int id,
+    Pair<ClientWorkQueue, TWSClient> pair) {
     synchronized (clients) {
       managedClients.incrementAndGet();
       clients.put(makeKey(name, id), pair);
@@ -140,9 +151,9 @@ public final class TWSClientManager {
     }
     return results;
   }
-  
+
   private Pair<ClientWorkQueue, TWSClient> removeManagedClient(
-      String name, int id) {
+    String name, int id) {
     synchronized (clients) {
       managedClients.decrementAndGet();
       return clients.remove(makeKey(name, id));
@@ -157,8 +168,8 @@ public final class TWSClientManager {
    * @param cond The filter condition.
    * @return The first match.
    */
-  public Managed findAssociatedComponent(String name, int id, 
-      Predicate<Managed> cond) {
+  public Managed findAssociatedComponent(String name, int id,
+    Predicate<Managed> cond) {
     Pair<ClientWorkQueue, TWSClient> p = getManagedClient(name, id);
     if (p != null && managed.get(p.second) != null) {
       for (Managed comp : managed.get(p.second)) {
@@ -169,7 +180,7 @@ public final class TWSClientManager {
     }
     return null;
   }
-    
+
   public int getConnectionCount() {
     return clients.size();
   }
@@ -177,16 +188,23 @@ public final class TWSClientManager {
   /**
    * Starts a new connection of given name and assigns a connection id.
    * @param profile The name of the connection.
-   * @return True if successful.
+   * @return True if this is a blocking call.
    */
-  public synchronized int newConnection(final String profile, boolean... simulate) {
-    final int id = clients.size(); 
+  public synchronized int newConnection(final String profile,
+    boolean... simulate) {
+    final int id;
+    if (this.profileInstanceCount.containsKey(profile)) {
+      id = this.profileInstanceCount.get(profile);
+    } else {
+      id = 0;
+      this.profileInstanceCount.put(profile, id + 1);
+    }
     // Get the work queue for this client:
     Pair<ClientWorkQueue, TWSClient> p = getManagedClient(profile, id);
     if (p != null) {
-    	return id;
+      return id;
     }
-   
+
     // The queue processor thread for this client.
     final ClientWorkQueue queue = new ClientWorkQueue(profile, id);
 
@@ -197,49 +215,55 @@ public final class TWSClientManager {
     addManagedClient(profile, id, Pair.of(queue, client));
     logger.info("Created work queue and client for " + makeKey(profile, id));
 
-    // Now start work asynchronously.  This doesn't block as the work 
-    // is done in the executor.
-    this.executor.submit(new Callable<Boolean>() {
-    	// Executes asynchronously.
-    	public Boolean call() throws Exception {
-    		boolean connected = client.connect();  // Blocking call.
-    		if (connected) {
-    			queue.set(client);
-    			logger.info("Work queue attached to client " + client.getSourceId());
-    		} else {
-    			logger.fatal(String.format(
-    					"Cannot connect: %s. Removing queue and client", 
-    					client.getSourceId()));
-    			// Here we must remove the queue and client from the
-    			// managed list.
-    			Pair<ClientWorkQueue, TWSClient> removed = removeManagedClient(
-    					profile, id);
-    			Pair<ClientWorkQueue, TWSClient> picked = null;
-    			do {
-    				// Drain the queue to another working queue OF THE SAME PROFILE.
-    				synchronized (clients) {
-    					int r = (new Random(System.currentTimeMillis()))
-    					.nextInt(clients.size());
-    					picked = getManagedClient(r);
-    				}
-    			} while (!picked.second.getProfile().equals(profile)); // Same profile.
-
-    			if (picked != null) {
-    				logger.info(String.format("Draining %s to %s",
-    						removed.second.getSourceId(), picked.second.getSourceId()));
-    			}
-    		}
-    		return connected;
-    	}
-    });
 
     // Start the queue.  The queue takes the requests immediately, but
     // the requests won't be processed until the queue is associated with
     // a runnning client.
     queue.start();
+
+    Callable<Boolean> doConnect =
+      new Callable<Boolean>() {
+        // Executes asynchronously.
+
+        public Boolean call() throws Exception {
+          boolean connected = client.connect();  // Blocking call.
+          if (connected) {
+            queue.set(client);
+            logger.info("Work queue attached to client " + client.getSourceId());
+          } else {
+            logger.fatal(String.format(
+              "Cannot connect: %s. Removing queue and client",
+              client.getSourceId()));
+            // Here we must remove the queue and client from the
+            // managed list.
+            Pair<ClientWorkQueue, TWSClient> removed = removeManagedClient(
+              profile, id);
+            Pair<ClientWorkQueue, TWSClient> picked = null;
+            int attempts = clients.size();
+            for (int i = 0; i < attempts; i++) {
+              synchronized (clients) {
+                int r = (new Random(System.currentTimeMillis())).nextInt(clients.size());
+                picked = getManagedClient(r);
+              }
+              if (picked != null && !picked.second.getProfile().equals(profile)) {
+                break;  // Found one with the SAME profile.
+              }
+            }
+
+            if (picked != null) {
+              logger.info(String.format("Draining %s to %s",
+                removed.second.getSourceId(), picked.second.getSourceId()));
+            }
+          }
+          return connected;
+        }
+      };
+    // Now start work asynchronously.  This doesn't block as the work
+    // is done in the executor.
+    this.executor.submit(doConnect);
     return id;
   }
-  
+
   /**
    * Stops the connection of the given name.
    * @param name The connection name.
@@ -248,18 +272,19 @@ public final class TWSClientManager {
   public synchronized boolean stopConnection(String name, int id) {
     if (getManagedClient(name, id) != null) {
       logger.info("Stopping connection " + makeKey(name, id));
-
-      Pair<ClientWorkQueue, TWSClient> p = removeManagedClient(name, id);
-      p.first.setRunning(false);
-      p.second.disconnect();
-      return true;
+      if (clients.containsKey(makeKey(name, id))) {
+        Pair<ClientWorkQueue, TWSClient> p = removeManagedClient(name, id);
+        p.first.setRunning(false);
+        p.second.disconnect();
+        return true;
+      }
     } else {
       logger.info(String.format("Connection(%s) does not exist.",
-          name));
+        name));
     }
     return false;
   }
-  
+
   /**
    * Returns a reference to a client. Based on round robbin.
    * @param name The name of the client.
@@ -288,15 +313,15 @@ public final class TWSClientManager {
       Pair<ClientWorkQueue, TWSClient> p = getManagedClient(pick);
       if (p.second.isReady()) {
         logger.info(String.format(
-            "Queueing work for %s with queueSize=%d",
-            p.second.getId(), p.first.getQueueDepth()));
+          "Queueing work for %s with queueSize=%d",
+          p.second.getId(), p.first.getQueueDepth()));
         p.first.enqueue(work);
         return;
       }
       logger.info(p.second.getId() + " is not ready.  Try again.");
     } while (clientNotReady);
   }
-    
+
   /**
    * Enqueue a request for the named client connection.  Starts the connection
    * on demand if client is not already running.
@@ -306,12 +331,12 @@ public final class TWSClientManager {
    * @param id The id.
    * @param work Unit of work to be enqueued.
    */
-  public <V> void enqueue(String name, int id, Function<TWSClient, V> work) {
-    Pair<ClientWorkQueue, TWSClient> p = clients.get(makeKey(name, id));
+  public <V> void enqueue(String profile, int id, Function<TWSClient, V> work) {
+    Pair<ClientWorkQueue, TWSClient> p = clients.get(makeKey(profile, id));
     p.first.enqueue(work);
     logger.info(String.format(
-        "Queueing work for %s in %s with queueSize=%d",
-        p.second.getId(), p.second.getState(), p.first.getQueueDepth()));
+      "Queueing work for %s in %s with queueSize=%d",
+      p.second.getId(), p.second.getState(), p.first.getQueueDepth()));
   }
 
   /**
@@ -322,14 +347,15 @@ public final class TWSClientManager {
    * 3. Stops the executor for the manager.
    */
   public static class ShutdownHandler implements Shutdown<Boolean> {
+
     @Inject
     TWSClientManager manager;
-    
+
     public Boolean call() throws Exception {
       for (Pair<ClientWorkQueue, TWSClient> p : manager.clients.values()) {
         // Shutdown the client connection.
         TWSClient client = p.second;
-        
+
         if (client != null) {
           client.disconnect();
           client.shutdown();
@@ -345,7 +371,7 @@ public final class TWSClientManager {
         if (manager.managed.get(client) != null) {
           for (Managed m : manager.managed.get(client)) {
             try {
-              m.stopRunning();
+              m.halt();
             } catch (Exception e) {
               logger.warn("Exception while trying to stop: ", e);
             }

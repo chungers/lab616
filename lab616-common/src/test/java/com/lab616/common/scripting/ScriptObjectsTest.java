@@ -3,11 +3,11 @@
  */
 package com.lab616.common.scripting;
 
+import com.lab616.common.scripting.ScriptObject.Script;
 import junit.framework.TestCase;
 
-import com.google.inject.Binder;
 import com.google.inject.Guice;
-import com.google.inject.Module;
+import com.lab616.common.scripting.ScriptObject.ScriptModule;
 
 /**
  * @author david
@@ -15,77 +15,78 @@ import com.google.inject.Module;
  */
 public class ScriptObjectsTest extends TestCase {
 
-	@ScriptObject(name = "Test", doc = "test command")
-	static class TestCommand {
-		
+  @ScriptModule(name = "TestCommand", doc = "test command")
+	static class TestCommand extends ScriptObject {
+  	@Script(name = "Command1", doc = "test command")
 		public String command1(String message) {
 			return "Hello " + message;
 		}
-
+  	@Script(name = "Command2", doc = "test command")
 		public String command2(String message, int count) {
 			return "Hello again: " + message + " with count = " + count;
 		}
 	}
 	
-	@ScriptObject(name = "Test", doc = "duplicate name for test command")
-	static class TestCommand2 {
-		
+  @ScriptModule(name = "TestCommand", doc = "test command")
+	static class TestCommand2 extends ScriptObject {
+  	@Script(name = "TestCommand1", doc = "duplicate name for test command")
 		public String command1(String message) {
 			return "Hello " + message;
 		}
 	}
 
-	@ScriptObject(name = "Test3", doc = "another command script object.")
-	static class TestCommand3 {
-		
+  @ScriptModule(name = "TestCommand3", doc = "test command")
+	static class TestCommand3 extends ScriptObject {
+  	@Script(name = "TestCommand3", doc = "another command script object.")
 		public String command3(String message) {
 			return "Hello " + message;
 		}
 	}
+  
 	/**
 	 * Normal use case.
 	 * @throws Exception
 	 */
 	public void testBinding() throws Exception {
 		// Bind the command in Guice.
-		Guice.createInjector(
-				new ScriptingModule(),
-				new Module() {
-			public void configure(Binder binder) {
-				ScriptObjects.with(binder)
-					.bind(TestCommand.class);
-			}
-		});
-		
-		assertTrue(ScriptObjects.exists("Test"));
-		
-		System.out.println(ScriptObjects.list());
-		
-		TestCommand tc = (TestCommand)ScriptObjects.load("Test");
-		assertNotNull(tc);
+    ScriptObjects scripts = Guice.createInjector(
+      new ScriptingModule() {
+        @Override
+        public void configure() {
+          bind(TestCommand.class);
+        }
+      }).getInstance(ScriptObjects.class);
+
+    ScriptObject tc1 = scripts.load("TestCommand");
+		assertNotNull(tc1);
+    ScriptObject tc2 = scripts.load("TestCommand.Command1");
+		assertNotNull(tc2);
+    ScriptObject tc3 = scripts.load("TestCommand.Command2");
+		assertNotNull(tc3);
 	}
 
 	/**
 	 * Expects exception to be thrown because of duplicate names.
 	 * @throws Exception
 	 */
-	public void testDuplicateCommands() throws Exception {
-		// Bind the command in Guice.
-		Exception ex = null;
-		try {
-			Guice.createInjector(
-					new ScriptingModule(),
-					new Module() {
-				public void configure(Binder binder) {
-					ScriptObjects.with(binder)
-						.bind(TestCommand.class)
-						.bind(TestCommand2.class);
-				}
-			});
-			
-		} catch (Exception e) {
-			ex = e;
-		}
-		assertNotNull(ex);
-	}
+	 public void testDuplicateCommands() throws Exception {
+    // Bind the command in Guice.
+    Exception ex = null;
+    try {
+      Guice.createInjector(
+        new ScriptingModule() {
+
+          @Override
+          public void configure() {
+            bind(TestCommand.class);
+            bind(TestCommand2.class);
+          }
+        });
+
+    } catch (Exception e) {
+      ex = e;
+    }
+    assertNotNull(ex);
+
+  }
 }

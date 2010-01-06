@@ -5,7 +5,7 @@
 	<artifactId>lab616-omnibus</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>lab616-common</name>
+	<name>lab616-omnibus</name>
 	<url>http://maven.apache.org</url>
 	<repositories>
 		<repository>
@@ -96,7 +96,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<forkMode>pertest</forkMode>
+					<forkMode>always</forkMode>
+					<useFile>false</useFile>
 					<systemProperties>
 						<property>
 							<name>dataFilesDir</name>
@@ -135,7 +136,7 @@
 		<dependency>
 			<groupId>com.espertech</groupId>
 			<artifactId>esper</artifactId>
-			<version>3.2.0</version>
+			<version>3.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mortbay.jetty</groupId>

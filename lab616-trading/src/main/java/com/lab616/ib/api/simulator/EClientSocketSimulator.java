@@ -32,7 +32,8 @@ import com.lab616.ib.api.proto.TWSProto;
  * @author david
  *
  */
-public class EClientSocketSimulator extends Thread implements Managed {
+public class EClientSocketSimulator extends Thread 
+  implements Managed {
 
   static Logger logger = Logger.getLogger(EClientSocketSimulator.class);
   
@@ -63,10 +64,12 @@ public class EClientSocketSimulator extends Thread implements Managed {
   private EWrapper wrapper;
   private String clientName;
   private int eWrapperInvocations = 0;
-  
+  private String source = null;
+
   public EClientSocketSimulator(String name, int id) {
     clientName = name;
-    super.setName(getClass().getSimpleName() + "-" + name);
+    source = makeKey(name, id);
+    super.setName(getClass().getSimpleName() + "-" + makeKey(name, id));
     simulators.put(makeKey(name, id), this);
     this.queuedDataSources = new QueueProcessor<DataSource, Void>(name, false) {
       @Override
@@ -94,20 +97,22 @@ public class EClientSocketSimulator extends Thread implements Managed {
   public static String makeKey(String profile, int id) {
   	return String.format("%s-%s", profile, id);
   }
-  
-  public boolean isReady() {
-    return this.wrapper != null;
-  }
-  
+
   public void addDataSource(DataSource ds) {
     ds.setSink(this.eventQueue);
     this.queuedDataSources.enqueue(ds);
   }
-  
-  public void stopRunning() {
+
+  @Override
+  public void halt() {
     running.set(false);
   }
   
+  @Override
+  public boolean isReady(long... timeout) {
+    return this.wrapper != null;
+  }
+
   public String getClientName() {
     return clientName;
   }
@@ -189,13 +194,29 @@ public class EClientSocketSimulator extends Thread implements Managed {
       }
     };
   }
-  
+
+  /**
+   * Returns true if the queue is empty.
+   * @return True if empty.
+   */
   public final boolean isEventQueueEmpty() {
   	return eventQueue.isEmpty();
   }
 
+  /**
+   * Returns the depth of the event queue.
+   * @return The queue depth.
+   */
+  public final int getQueueDepth() {
+    return eventQueue.size();
+  }
+
   public final int getEWrapperInvokes() {
   	return this.eWrapperInvocations;
+  }
+
+  public final String getSourceId() {
+    return source;
   }
   
   @Override
