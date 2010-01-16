@@ -3,6 +3,7 @@
 # Created by configure
 
 "./configure" \
-"--with-apr=/Users/david/lab616/third_party/java/apr/platforms/macosx/" \
+"--with-apr=/home/git/lab616/third_party/java/apr/platforms/karmic-32" \
 "--with-ssl=/usr/local/ssl" \
+"--with-java-home=/usr/lib/jvm/java-6-sun" \
 "$@"

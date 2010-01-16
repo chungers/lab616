@@ -31,12 +31,12 @@ srcdir = .
 
 
 # this sucks, but it's the only way to add extra flags to the LT_COMPILE
-INCLUDES = -g -O2 -DHAVE_OPENSSL   -I/Users/david/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native/include -I/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/include -I/usr/local/ssl/include  -I/Users/david/lab616/third_party/java/apr/platforms/macosx//include/apr-1 
-TCNATIVE_LDFLAGS = -L/usr/local/ssl/lib -lssl -lcrypto
-TCNATIVE_LIBS =  /Users/david/lab616/third_party/java/apr/platforms/macosx//lib/libapr-1.la -lpthread
+INCLUDES = -g -O2 -DHAVE_OPENSSL   -I/home/git/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native/include -I/usr/lib/jvm/java-6-sun/include -I/usr/lib/jvm/java-6-sun/include/linux -I/usr/local/ssl/include  -I/home/git/lab616/third_party/java/apr/platforms/karmic-32/include/apr-1 
+TCNATIVE_LDFLAGS = -L/usr/local/ssl/lib -Wl,-rpath,/usr/local/ssl/lib -lssl -lcrypto
+TCNATIVE_LIBS =  /home/git/lab616/third_party/java/apr/platforms/karmic-32/lib/libapr-1.la -lrt -lcrypt  -lpthread -ldl
 
 TARGET_LIB = libtcnative-${TCNATIVE_MAJOR_VERSION}.la
-EXTRA_OS_LINK=$(TCNATIVE_LDFLAGS) $(TCNATIVE_LIBS)
+EXTRA_OS_LINK=
 TCNATIVE_PCFILE = tcnative-$(TCNATIVE_MAJOR_VERSION).pc
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
@@ -44,8 +44,8 @@ INSTALL_DATA = ${INSTALL} -m 644
 TARGETS = $(TARGET_LIB)
 
 # bring in rules.mk for standard functionality
-include /Users/david/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native/build/rules.mk
-include /Users/david/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native/build-outputs.mk
+include /home/git/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native/build/rules.mk
+include /home/git/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native/build-outputs.mk
 
 LINK          = $(LIBTOOL) $(LTFLAGS) --mode=link $(LT_LDFLAGS) $(COMPILE) -version-info $(TCNATIVE_LIBTOOL_VERSION) $(ALL_LDFLAGS) -o $@
 CLEAN_SUBDIRS = test
@@ -62,8 +62,8 @@ exec_prefix=${prefix}
 bindir=${exec_prefix}/bin
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include/apr-${TCNATIVE_MAJOR_VERSION}
-top_srcdir=/Users/david/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native
-top_blddir=/Users/david/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native
+top_srcdir=/home/git/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native
+top_blddir=/home/git/lab616/third_party/java/tomcat-native-1.1.17-src/jni/native
 
 
 install: $(TARGET_LIB)
@@ -76,7 +76,7 @@ install: $(TARGET_LIB)
 	$(LIBTOOL) --mode=install $(INSTALL) -m 755 $(TARGET_LIB) $(DESTDIR)$(libdir)
 
 $(TARGET_LIB): $(OBJECTS)
-	$(LINK) -rpath $(libdir) $(OBJECTS) -L/usr/local/ssl/lib -lssl -lcrypto  /Users/david/lab616/third_party/java/apr/platforms/macosx//lib/libapr-1.la -lpthread
+	$(LINK) -rpath $(libdir) $(OBJECTS) -L/usr/local/ssl/lib -Wl,-rpath,/usr/local/ssl/lib -lssl -lcrypto  /home/git/lab616/third_party/java/apr/platforms/karmic-32/lib/libapr-1.la -lrt -lcrypt  -lpthread -ldl
 
 check: $(TARGET_LIB)
 	(cd test && $(MAKE) check)

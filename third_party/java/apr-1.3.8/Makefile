@@ -1,8 +1,8 @@
 
 srcdir=.
 
-top_srcdir=/Users/david/lab616/third_party/java/apr
-top_blddir=/Users/david/lab616/third_party/java/apr
+top_srcdir=/home/git/lab616/third_party/java/apr-1.3.8
+top_blddir=/home/git/lab616/third_party/java/apr-1.3.8
 
 #
 # APR (Apache Portable Runtime) library Makefile.
@@ -41,8 +41,8 @@ TARGETS = $(TARGET_LIB) apr.exp apr-config.out build/apr_rules.out
 LT_VERSION = -version-info 3:8:3
 
 # bring in rules.mk for standard functionality
-include /Users/david/lab616/third_party/java/apr/build/apr_rules.mk
-include /Users/david/lab616/third_party/java/apr/build-outputs.mk
+include /home/git/lab616/third_party/java/apr-1.3.8/build/apr_rules.mk
+include /home/git/lab616/third_party/java/apr-1.3.8/build-outputs.mk
 
 CLEAN_TARGETS = apr-config.out apr.exp exports.c export_vars.c .make.dirs \
 	build/apr_rules.out
@@ -53,7 +53,7 @@ DISTCLEAN_TARGETS = config.cache config.log config.status \
 EXTRACLEAN_TARGETS = configure aclocal.m4 include/arch/unix/apr_private.h.in \
 	build-outputs.mk build/ltcf-c.sh build/ltmain.sh build/libtool.m4
 
-prefix=/Users/david/lab616/third_party/java/apr/platforms/macosx/
+prefix=/home/git/lab616/third_party/java/apr/platforms/karmic-32
 exec_prefix=${prefix}
 bindir=${exec_prefix}/bin
 libdir=${exec_prefix}/lib

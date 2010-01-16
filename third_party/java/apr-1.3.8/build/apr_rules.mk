@@ -24,8 +24,8 @@
 #
 # Configuration variables
 #
-apr_builddir=/Users/david/lab616/third_party/java/apr
-apr_builders=/Users/david/lab616/third_party/java/apr/build
+apr_builddir=/home/git/lab616/third_party/java/apr-1.3.8
+apr_builders=/home/git/lab616/third_party/java/apr-1.3.8/build
 
 # Some layouts require knowing what version we are at.
 APR_MAJOR_VERSION=1
@@ -33,8 +33,8 @@ APR_DOTTED_VERSION=1.3.8
 
 CC=gcc
 RM=rm
-AWK=awk
-SHELL=/bin/sh
+AWK=mawk
+SHELL=/bin/bash
 LIBTOOL=$(SHELL) $(apr_builddir)/libtool
 
 # compilation and linking flags that are supposed to be set only by the user.
@@ -49,10 +49,10 @@ DEFS=-DHAVE_CONFIG_H
 # anything added to the standard flags by configure is moved to EXTRA_*
 # at the end of the process.
 #
-EXTRA_CFLAGS=-g -O2
-EXTRA_CPPFLAGS=-DDARWIN -DSIGPROCMASK_SETS_THREAD_MASK -no-cpp-precomp
+EXTRA_CFLAGS=-g -O2 -pthread
+EXTRA_CPPFLAGS=-DLINUX=2 -D_REENTRANT -D_GNU_SOURCE -D_LARGEFILE64_SOURCE
 EXTRA_LDFLAGS=
-EXTRA_LIBS=-lpthread
+EXTRA_LIBS=-lrt -lcrypt  -lpthread -ldl
 EXTRA_INCLUDES=
 
 # NOTEST_* are flags and libraries that can be added by the user without
