@@ -32,7 +32,7 @@ echo `java -version`
 
 JAR=${BINARY_DIR}/`basename $0 | awk -F. '{print $1}'`.jar
 PLATFORM_BIN="`uname`-`arch`"
-JVM_ARGS="-Djava.library.path=${BINARY_DIR}/${PLATFORM_BIN} -Duser.timezone=${TZ}"
+JVM_ARGS="-Djava.library.path=${BINARY_DIR}/${PLATFORM_BIN}/lib -Duser.timezone=${TZ}"
 
 JAVA_COMMAND="java ${JVM_ARGS} -jar ${JAR}"
 

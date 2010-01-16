@@ -37,7 +37,7 @@ echo `java -version`
 
 JAR=${BINARY_DIR}/${BIN_NAME}.jar
 PLATFORM_BIN="`uname`-`arch`"
-JVM_ARGS="-Djava.library.path=${BINARY_DIR}/${PLATFORM_BIN} -server -Xmx1024M -Duser.timezone=${TZ}"
+JVM_ARGS="-Djava.library.path=${BINARY_DIR}/${PLATFORM_BIN}/lib -server -Xmx1024M -Duser.timezone=${TZ}"
 
 # MAIN_CLASS = [ JAR | <class_name> ].  This is substituted by borg script for --newserver <class_name>
 MAIN_CLASS=com.lab616.ib.TwsContainer
