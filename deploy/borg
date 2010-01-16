@@ -19,8 +19,10 @@ LOCAL_FILES=${TEMPLATES_DIR}/local
 
 APR_NATIVE=${LAB616_DIR}/third_party/java/apr/platforms/
 TOMCAT_NATIVE=${LAB616_DIR}/third_party/java/tomcat-native/platforms/
-NATIVE_FILES="${TOMCAT_NATIVE}/linux/lib/libtcnative*.so ${TOMCAT_NATIVE}/macosx/lib/libtcnative*.jnilib"
-NATIVE_FILES="${APR_NATIVE}/linux/lib/libapr-*.so ${APR_NATIVE}/macosx/lib/libapr-*.jnilib "${NATIVE_FILES}
+#NATIVE_FILES="${TOMCAT_NATIVE}/linux/lib/libtcnative*.so ${TOMCAT_NATIVE}/macosx/lib/libtcnative*.jnilib"
+#NATIVE_FILES="${APR_NATIVE}/linux/lib/libapr-*.so ${APR_NATIVE}/macosx/lib/libapr-*.jnilib "${NATIVE_FILES}
+
+NATIVE_FILES="${APR_NATIVE} ${TOMCAT_NATIVE}"
 
 REMOTE_SCRIPT=${PACKAGE}
 
@@ -109,14 +111,14 @@ case "${OPTION}" in
     cp -r ${SCRIPT_FILES} ${TARGET_DIR}
     cp -r ${LOCAL_FILES} ${TARGET_DIR}
     for n in ${NATIVE_FILES}; do
-	cp $n ${TARGET_DIR}/bin
+	cp -r $n/* ${TARGET_DIR}/bin
     done
 ;;
 --rsync)
    # Simple case of just copy from local source to remote machine.
    # This deployment simply uses rsync.
    INSTANCE=$1; shift;
-   REMOTE_USER=lab616
+   REMOTE_USER=$1; shift;
    REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
    REMOTE_HOST=`dns $INSTANCE`
    echo "HOST = $REMOTE_HOST, ID = $REMOTE_ID_FILE"
@@ -150,7 +152,7 @@ case "${OPTION}" in
 --setupssh)
    # Sets up ssh password-less login at the remote host
    INSTANCE=$1; shift;
-   REMOTE_USER=lab616
+   REMOTE_USER=$1; shift;
    REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
    REMOTE_HOST=`dns $INSTANCE`
    echo "HOST = $REMOTE_HOST, ID = $REMOTE_ID_FILE"
@@ -160,14 +162,14 @@ case "${OPTION}" in
    # Start remotely.
    PROFILE=$1; shift;
    INSTANCE=$1; shift;
-   REMOTE_USER=lab616
+   REMOTE_USER=$1; shift;
    run_remote ${INSTANCE} ${REMOTE_USER} /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_SCRIPT} ${PROFILE} $@
 ;;
 --stop)
    # Stop remote server.
    PROFILE=$1; shift;
    INSTANCE=$1; shift;
-   REMOTE_USER=lab616
+   REMOTE_USER=$1; shift;
    REMOTE_PID=${PACKAGE}.${PROFILE}.pid
    PID=`run_remote ${INSTANCE} ${REMOTE_USER} cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_PID}`
    run_remote ${INSTANCE} ${REMOTE_USER} kill -s TERM ${PID}
@@ -176,7 +178,7 @@ case "${OPTION}" in
    # View the remote log file.
    PROFILE=$1; shift;
    INSTANCE=$1; shift;
-   REMOTE_USER=lab616
+   REMOTE_USER=$1; shift;
    REMOTE_PID=${PACKAGE}.${PROFILE}.pid
    REMOTE_LOG=${PACKAGE}.${PROFILE}.log
    run_remote ${INSTANCE} ${REMOTE_USER} cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}
@@ -193,7 +195,7 @@ case "${OPTION}" in
 --exec)
    # Exec remotely.
    INSTANCE=$1; shift;
-   REMOTE_USER=lab616
+   REMOTE_USER=$1; shift;
    REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
    REMOTE_HOST=`dns $INSTANCE`
    echo "HOST = $REMOTE_HOST, ID = $REMOTE_ID_FILE"
@@ -202,13 +204,13 @@ case "${OPTION}" in
 --startlocal)
    # Start remotely.
    PROFILE=$1; shift;
-   REMOTE_USER=lab616
+   REMOTE_USER=$1; shift;
    run_local /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_SCRIPT} ${PROFILE} $@
 ;;
 --stoplocal)
    # Stop remote server.
    PROFILE=$1; shift;
-   REMOTE_USER=lab616
+   REMOTE_USER=$1; shift;
    REMOTE_PID=${PACKAGE}.${PROFILE}.pid
    PID=`cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_PID}`
    run_local kill -s TERM ${PID}
@@ -218,7 +220,7 @@ case "${OPTION}" in
    INSTANCE=$1;
    REMOTE_PORT=$2
    LOCAL_PORT=$3
-   REMOTE_USER=lab616
+   REMOTE_USER=$4
    REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
    ssh -i ${REMOTE_ID_FILE} -L ${LOCAL_PORT}:localhost:${REMOTE_PORT} ${REMOTE_USER}@`dns ${INSTANCE}`
 ;;

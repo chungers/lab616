@@ -15,11 +15,11 @@ TZ="US/Eastern"
 echo "DIR = $PACKAGE_DIR"
 case `uname` in
 Linux)
-	export JAVA_HOME=/opt/jdk1.6
+	export JAVA_HOME=/usr/lib/jvm/java-6-sun
 	# export JAVA_HOME=/home/lab616/jrrt-3.1.0-1.6.0
 	# Start vncserver
-	vncserver :1
-	export DISPLAY=localhost:1
+	vncserver :0
+	export DISPLAY=localhost:0.0
 ;;
 Darwin)
 	export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home
@@ -36,7 +36,8 @@ echo `which java`
 echo `java -version`
 
 JAR=${BINARY_DIR}/${BIN_NAME}.jar
-JVM_ARGS="-Djava.library.path=${BINARY_DIR} -server -Xmx1024M -Duser.timezone=${TZ}"
+PLATFORM_BIN="`uname`-`arch`"
+JVM_ARGS="-Djava.library.path=${BINARY_DIR}/${PLATFORM_BIN} -server -Xmx1024M -Duser.timezone=${TZ}"
 
 # MAIN_CLASS = [ JAR | <class_name> ].  This is substituted by borg script for --newserver <class_name>
 MAIN_CLASS=@MAIN_CLASS
