@@ -50,6 +50,7 @@ scp -i ${KEY_DIR}/dev.pem ${ACCOUNT_CREDENTIALS}/{cert,pk}-*.pem ${REMOTE_USER}@
 # Determine the architecture of the remote instance.
 ARCH=`ssh -i ${KEY_DIR}/dev.pem ${REMOTE_USER}@${REMOTE_HOST} arch`
 #ARCH="i386"
+echo "ARCH=${ARCH}"
 
 # Build a script to run on the remote instance:
 cat | ssh -i ${KEY_DIR}/dev.pem ${REMOTE_USER}@${REMOTE_HOST} <<EOF1
@@ -58,7 +59,7 @@ cat > ${PACKAGE_SCRIPT} <<EOF
 
 # Bundle AMI
 sudo rm -f /mnt/${PREFIX}*
-sudo -E ec2-bundle-vol -r ${ARCH} -d /mnt -p ${PREFIX} -u ${AWS_USER_ID} -k /tmp/pk-*.pem -c /tmp/cert-*.pem -s 10240 -e /mnt,/tmp,/root/.ssh,/data,/git
+sudo -E ec2-bundle-vol -r ${ARCH} -d /mnt -p ${PREFIX} -u ${AWS_USER_ID} -k /tmp/pk-*.pem -c /tmp/cert-*.pem -s 10240 -e /mnt,/tmp,/root/.ssh,/data,/var/git
 
 # Upload AMI to S3
 ec2-upload-bundle -b ${BUCKET} -m /mnt/${PREFIX}.manifest.xml -a ${AWS_ACCESS_KEY_ID} -s ${AWS_SECRET_ACCESS_KEY}
