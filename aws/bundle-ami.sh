@@ -49,7 +49,7 @@ scp -i ${KEY_DIR}/dev.pem ${ACCOUNT_CREDENTIALS}/{cert,pk}-*.pem ${REMOTE_USER}@
 
 # Determine the architecture of the remote instance.
 ARCH=`ssh -i ${KEY_DIR}/dev.pem ${REMOTE_USER}@${REMOTE_HOST} arch`
-#ARCH="i386"
+ARCH="i386"
 echo "ARCH=${ARCH}"
 
 # Build a script to run on the remote instance:
@@ -70,11 +70,14 @@ ec2-upload-bundle -b ${BUCKET} -m /mnt/${PREFIX}.manifest.xml -a ${AWS_ACCESS_KE
 EOF
 EOF1
 
+echo "Uploaded package script: ${PACKAGE_SCRIPT}"
 # Change the permission of the bundle script
-ssh -i ${KEY_DIR}/dev.pem ${REMOTE_USER}@${REMOTE_HOST} chmod a+x ${PACKAGE_SCRIPT}
+ssh -i ${KEY_DIR}/dev.pem ${REMOTE_USER}@${REMOTE_HOST} sudo chmod a+x ${PACKAGE_SCRIPT}
 
+echo "Running package script."
 # Run the bundle script
 ssh -i ${KEY_DIR}/dev.pem ${REMOTE_USER}@${REMOTE_HOST} ${PACKAGE_SCRIPT}
 
+echo "Registering AMI"
 # Register the ami, from local client:
 ec2-register ${BUCKET}/${PREFIX}.manifest.xml
