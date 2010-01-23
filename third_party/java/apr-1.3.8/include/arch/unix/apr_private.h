@@ -6,10 +6,10 @@
 
 /* Define as function which can be used for conversion of strings to
    apr_int64_t */
-#define APR_INT64_STRFN strtol
+#define APR_INT64_STRFN strtoll
 
 /* Define as function used for conversion of strings to apr_off_t */
-#define APR_OFF_T_STRFN strtol
+#define APR_OFF_T_STRFN strtoll
 
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
@@ -56,7 +56,7 @@
 /* #undef GETHOSTBYNAME_IS_THREAD_SAFE */
 
 /* Define if gethostbyname_r has the glibc style */
-/* #undef GETHOSTBYNAME_R_GLIBC2 */
+#define GETHOSTBYNAME_R_GLIBC2 1
 
 /* Define if gethostbyname_r has the hostent_data for the third argument */
 /* #undef GETHOSTBYNAME_R_HOSTENT_DATA */
@@ -65,7 +65,7 @@
 /* #undef GETSERVBYNAME_IS_THREAD_SAFE */
 
 /* Define if getservbyname_r has the glibc style */
-/* #undef GETSERVBYNAME_R_GLIBC2 */
+#define GETSERVBYNAME_R_GLIBC2 1
 
 /* Define if getservbyname_r has the OSF/1 style */
 /* #undef GETSERVBYNAME_R_OSF1 */
@@ -74,7 +74,7 @@
 /* #undef GETSERVBYNAME_R_SOLARIS */
 
 /* Define if accept4 function is supported */
-/* #undef HAVE_ACCEPT4 */
+#define HAVE_ACCEPT4 1
 
 /* Define to 1 if you have `alloca', as a function or macro. */
 #define HAVE_ALLOCA 1
@@ -108,7 +108,7 @@
 /* #undef HAVE_CREATE_SEM */
 
 /* Define to 1 if you have the <crypt.h> header file. */
-/* #undef HAVE_CRYPT_H */
+#define HAVE_CRYPT_H 1
 
 /* Define to 1 if you have the <ctype.h> header file. */
 #define HAVE_CTYPE_H 1
@@ -130,16 +130,16 @@
 /* #undef HAVE_DL_H */
 
 /* Define if dup3 function is supported */
-/* #undef HAVE_DUP3 */
+#define HAVE_DUP3 1
 
 /* Define if EGD is supported */
 /* #undef HAVE_EGD */
 
 /* Define if the epoll interface is supported */
-/* #undef HAVE_EPOLL */
+#define HAVE_EPOLL 1
 
 /* Define if epoll_create1 function is supported */
-/* #undef HAVE_EPOLL_CREATE1 */
+#define HAVE_EPOLL_CREATE1 1
 
 /* Define to 1 if you have the <errno.h> header file. */
 #define HAVE_ERRNO_H 1
@@ -175,10 +175,10 @@
 #define HAVE_GETGRNAM_R 1
 
 /* Define to 1 if you have the `gethostbyaddr_r' function. */
-/* #undef HAVE_GETHOSTBYADDR_R */
+#define HAVE_GETHOSTBYADDR_R 1
 
 /* Define to 1 if you have the `gethostbyname_r' function. */
-/* #undef HAVE_GETHOSTBYNAME_R */
+#define HAVE_GETHOSTBYNAME_R 1
 
 /* Define to 1 if you have the `getifaddrs' function. */
 #define HAVE_GETIFADDRS 1
@@ -202,7 +202,7 @@
 #define HAVE_GETRLIMIT 1
 
 /* Define to 1 if you have the `getservbyname_r' function. */
-/* #undef HAVE_GETSERVBYNAME_R */
+#define HAVE_GETSERVBYNAME_R 1
 
 /* Define to 1 if you have the `gmtime_r' function. */
 #define HAVE_GMTIME_R 1
@@ -271,10 +271,10 @@
 #define HAVE_LOCK_EX 1
 
 /* Define to 1 if you have the <mach-o/dyld.h> header file. */
-#define HAVE_MACH_O_DYLD_H 1
+/* #undef HAVE_MACH_O_DYLD_H */
 
 /* Define to 1 if you have the <malloc.h> header file. */
-/* #undef HAVE_MALLOC_H */
+#define HAVE_MALLOC_H 1
 
 /* Define if MAP_ANON is defined in sys/mman.h */
 #define HAVE_MAP_ANON 1
@@ -292,13 +292,13 @@
 #define HAVE_MKSTEMP 1
 
 /* Define to 1 if you have the `mkstemp64' function. */
-/* #undef HAVE_MKSTEMP64 */
+#define HAVE_MKSTEMP64 1
 
 /* Define to 1 if you have the `mmap' function. */
 #define HAVE_MMAP 1
 
 /* Define to 1 if you have the `mmap64' function. */
-/* #undef HAVE_MMAP64 */
+#define HAVE_MMAP64 1
 
 /* Define to 1 if you have the `munmap' function. */
 #define HAVE_MUNMAP 1
@@ -334,7 +334,7 @@
 /* #undef HAVE_OS_H */
 
 /* Define to 1 if you have the `poll' function. */
-/* #undef HAVE_POLL */
+#define HAVE_POLL 1
 
 /* Define if POLLIN is defined */
 #define HAVE_POLLIN 1
@@ -364,7 +364,7 @@
 #define HAVE_PTHREAD_MUTEX_RECURSIVE 1
 
 /* Define if cross-process robust mutexes are available */
-/* #undef HAVE_PTHREAD_MUTEX_ROBUST */
+#define HAVE_PTHREAD_MUTEX_ROBUST 1
 
 /* Define if PTHREAD_PROCESS_SHARED is defined in pthread.h */
 #define HAVE_PTHREAD_PROCESS_SHARED 1
@@ -376,7 +376,7 @@
 #define HAVE_PTHREAD_RWLOCK_INIT 1
 
 /* Define to 1 if you have the `pthread_yield' function. */
-/* #undef HAVE_PTHREAD_YIELD */
+#define HAVE_PTHREAD_YIELD 1
 
 /* Define to 1 if you have the `putenv' function. */
 #define HAVE_PUTENV 1
@@ -385,13 +385,13 @@
 #define HAVE_PWD_H 1
 
 /* Define to 1 if you have the `readdir64_r' function. */
-/* #undef HAVE_READDIR64_R */
+#define HAVE_READDIR64_R 1
 
 /* Define to 1 if you have the <sched.h> header file. */
-#define HAVE_SCHED_H 1
+/* #undef HAVE_SCHED_H */
 
 /* Define to 1 if you have the `sched_yield' function. */
-#define HAVE_SCHED_YIELD 1
+/* #undef HAVE_SCHED_YIELD */
 
 /* Define to 1 if you have the <semaphore.h> header file. */
 #define HAVE_SEMAPHORE_H 1
@@ -421,7 +421,7 @@
 #define HAVE_SENDFILE 1
 
 /* Define to 1 if you have the `sendfile64' function. */
-/* #undef HAVE_SENDFILE64 */
+#define HAVE_SENDFILE64 1
 
 /* Define to 1 if you have the `sendfilev' function. */
 /* #undef HAVE_SENDFILEV */
@@ -478,7 +478,7 @@
 #define HAVE_SOCKLEN_T 1
 
 /* Define if the SOCK_CLOEXEC flag is supported */
-/* #undef HAVE_SOCK_CLOEXEC */
+#define HAVE_SOCK_CLOEXEC 1
 
 /* Define if SO_ACCEPTFILTER is defined in sys/socket.h */
 /* #undef HAVE_SO_ACCEPTFILTER */
@@ -535,7 +535,7 @@
 /* #undef HAVE_STRUCT_STAT_ST_ATIME_N */
 
 /* Define to 1 if `st_atim.tv_nsec' is member of `struct stat'. */
-/* #undef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC */
+#define HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC 1
 
 /* Define to 1 if `st_blocks' is member of `struct stat'. */
 #define HAVE_STRUCT_STAT_ST_BLOCKS 1
@@ -547,7 +547,7 @@
 /* #undef HAVE_STRUCT_STAT_ST_CTIME_N */
 
 /* Define to 1 if `st_ctim.tv_nsec' is member of `struct stat'. */
-/* #undef HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC */
+#define HAVE_STRUCT_STAT_ST_CTIM_TV_NSEC 1
 
 /* Define to 1 if `st_mtimensec' is member of `struct stat'. */
 /* #undef HAVE_STRUCT_STAT_ST_MTIMENSEC */
@@ -556,7 +556,7 @@
 /* #undef HAVE_STRUCT_STAT_ST_MTIME_N */
 
 /* Define to 1 if `st_mtim.tv_nsec' is member of `struct stat'. */
-/* #undef HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC */
+#define HAVE_STRUCT_STAT_ST_MTIM_TV_NSEC 1
 
 /* Define to 1 if `tm_gmtoff' is member of `struct tm'. */
 #define HAVE_STRUCT_TM_TM_GMTOFF 1
@@ -601,7 +601,7 @@
 #define HAVE_SYS_SEM_H 1
 
 /* Define to 1 if you have the <sys/sendfile.h> header file. */
-/* #undef HAVE_SYS_SENDFILE_H */
+#define HAVE_SYS_SENDFILE_H 1
 
 /* Define to 1 if you have the <sys/shm.h> header file. */
 #define HAVE_SYS_SHM_H 1
@@ -613,7 +613,7 @@
 #define HAVE_SYS_SOCKET_H 1
 
 /* Define to 1 if you have the <sys/sockio.h> header file. */
-#define HAVE_SYS_SOCKIO_H 1
+/* #undef HAVE_SYS_SOCKIO_H */
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
@@ -622,7 +622,7 @@
 #define HAVE_SYS_SYSCTL_H 1
 
 /* Define to 1 if you have the <sys/syslimits.h> header file. */
-#define HAVE_SYS_SYSLIMITS_H 1
+/* #undef HAVE_SYS_SYSLIMITS_H */
 
 /* Define to 1 if you have the <sys/time.h> header file. */
 #define HAVE_SYS_TIME_H 1
@@ -643,13 +643,13 @@
 #define HAVE_SYS_WAIT_H 1
 
 /* Define if TCP_CORK is defined in netinet/tcp.h */
-/* #undef HAVE_TCP_CORK */
+#define HAVE_TCP_CORK 1
 
 /* Define if TCP_NODELAY and TCP_CORK can be enabled at the same time */
-/* #undef HAVE_TCP_NODELAY_WITH_CORK */
+#define HAVE_TCP_NODELAY_WITH_CORK 1
 
 /* Define if TCP_NOPUSH is defined in netinet/tcp.h */
-#define HAVE_TCP_NOPUSH 1
+/* #undef HAVE_TCP_NOPUSH */
 
 /* Define to 1 if you have the <termios.h> header file. */
 #define HAVE_TERMIOS_H 1
@@ -685,13 +685,13 @@
 /* #undef HAVE_UUID_CREATE */
 
 /* Define to 1 if you have the `uuid_generate' function. */
-#define HAVE_UUID_GENERATE 1
+/* #undef HAVE_UUID_GENERATE */
 
 /* Define to 1 if you have the <uuid.h> header file. */
 /* #undef HAVE_UUID_H */
 
 /* Define to 1 if you have the <uuid/uuid.h> header file. */
-#define HAVE_UUID_UUID_H 1
+/* #undef HAVE_UUID_UUID_H */
 
 /* Define if C compiler supports VLA */
 #define HAVE_VLA 1
@@ -712,7 +712,7 @@
 /* #undef HAVE_ZOS_PTHREADS */
 
 /* Define if EAI_ error codes from getaddrinfo are negative */
-/* #undef NEGATIVE_EAI */
+#define NEGATIVE_EAI 1
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
@@ -730,7 +730,7 @@
 #define PACKAGE_VERSION ""
 
 /* Define if POSIX semaphores affect threads within the process */
-#define POSIXSEM_IS_GLOBAL 1
+/* #undef POSIXSEM_IS_GLOBAL */
 
 /* Define on PowerPC 405 where errata 77 applies */
 /* #undef PPC405_ERRATA */
@@ -757,13 +757,13 @@
 #define SIZEOF_INT 4
 
 /* The size of `long', as computed by sizeof. */
-#define SIZEOF_LONG 8
+#define SIZEOF_LONG 4
 
 /* The size of `long long', as computed by sizeof. */
 #define SIZEOF_LONG_LONG 8
 
 /* The size of off_t */
-#define SIZEOF_OFF_T 8
+#define SIZEOF_OFF_T 4
 
 /* The size of pid_t */
 #define SIZEOF_PID_T 4
@@ -772,16 +772,16 @@
 #define SIZEOF_SHORT 2
 
 /* The size of size_t */
-#define SIZEOF_SIZE_T 8
+#define SIZEOF_SIZE_T 4
 
 /* The size of ssize_t */
-#define SIZEOF_SSIZE_T 8
+#define SIZEOF_SSIZE_T 4
 
 /* The size of struct iovec */
-#define SIZEOF_STRUCT_IOVEC 16
+#define SIZEOF_STRUCT_IOVEC 8
 
 /* The size of `void*', as computed by sizeof. */
-#define SIZEOF_VOIDP 8
+#define SIZEOF_VOIDP 4
 
 /* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be
@@ -795,13 +795,13 @@
 #define STDC_HEADERS 1
 
 /* Define if strerror returns int */
-#define STRERROR_R_RC_INT 1
+/* #undef STRERROR_R_RC_INT */
 
 /* Define if SysV semaphores affect threads within the process */
 /* #undef SYSVSEM_IS_GLOBAL */
 
 /* Define if use of generic atomics is requested */
-/* #undef USE_ATOMICS_GENERIC */
+#define USE_ATOMICS_GENERIC 1
 
 /* Define if BeOS Semaphores will be used */
 /* #undef USE_BEOSSEM */
@@ -874,7 +874,7 @@
 #define USE_SYSVSEM_SERIALIZE 1
 
 /* Define if apr_wait_for_io_or_timeout() uses poll(2) */
-/* #undef WAITIO_USES_POLL */
+#define WAITIO_USES_POLL 1
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */

@@ -9,7 +9,7 @@ PROGRAMS = \
 TARGETS = $(PROGRAMS) $(NONPORTABLE)
 
 # bring in rules.mk for standard functionality
-include /Users/david/lab616/third_party/java/apr/build/apr_rules.mk
+include /home/git/lab616/third_party/java/apr-1.3.8/build/apr_rules.mk
 
 LOCAL_LIBS=../../libapr-${APR_MAJOR_VERSION}.la
 

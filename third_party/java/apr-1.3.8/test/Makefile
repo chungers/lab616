@@ -53,7 +53,7 @@ PROGRAMS = $(TESTALL_COMPONENTS) $(STDTEST_PORTABLE) $(STDTEST_NONPORTABLE) \
 TARGETS = $(PROGRAMS)
 
 # bring in rules.mk for standard functionality
-include /Users/david/lab616/third_party/java/apr/build/apr_rules.mk
+include /home/git/lab616/third_party/java/apr-1.3.8/build/apr_rules.mk
 
 LOCAL_LIBS=../libapr-${APR_MAJOR_VERSION}.la
 
@@ -68,7 +68,7 @@ INCLUDES=-I$(INCDIR) -I$(srcdir)/../include
 # link programs using -no-install to get real executables not
 # libtool wrapper scripts which link an executable when first run.
 LINK_PROG = $(LIBTOOL) $(LTFLAGS) --mode=link $(LT_LDFLAGS) $(COMPILE) \
-	     $(ALL_LDFLAGS) -o $@
+	    -no-install $(ALL_LDFLAGS) -o $@
 
 # STDTEST_PORTABLE;
 
