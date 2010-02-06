@@ -32,8 +32,10 @@ public class MarketData extends ScriptObject {
 
   @Script(name = "requestIndexTicks",
   doc = "Requests index tick data.")
-  public void requestIndexTicks(String profile, final String index,
-    final String exchange) {
+  public void requestIndexTicks(
+    @Parameter(name="p") final String profile,
+    @Parameter(name="idx", doc="The symbol of the Index.") final String index,
+    @Parameter(name="ex", doc="Name of exchange.") final String exchange) {
     logger.info(String.format(
       "START: requestIndexData profile=%s, index=%s, exchange=%s",
       profile, index, exchange));
@@ -55,7 +57,9 @@ public class MarketData extends ScriptObject {
 
   @Script(name = "requestEquityTicks",
   doc = "Requests equity tick data.")
-  public void requestEquityTicks(String profile, final String symbol) {
+  public void requestEquityTicks(
+    @Parameter(name="p") final String profile,
+    @Parameter(name="s") final String symbol) {
     // Equity
     logger.info("Requesting TICKS data for " + symbol + " on " + profile);
     this.clientManager.enqueue(profile, new Function<TWSClient, Boolean>() {
@@ -71,14 +75,18 @@ public class MarketData extends ScriptObject {
 
   @Script(name = "requestCallOptionTicks",
   doc = "Requests call option tick data.")
-  public void requestCallOptionTicks(String profile, final String symbol,
+  public void requestCallOptionTicks(
+    @Parameter(name="p") final String profile,
+    @Parameter(name="s") final String symbol,
     double strike, int monthsFromNow) {
     requestOptionTicks(Option.CALL, profile, symbol, strike, monthsFromNow);
   }
 
   @Script(name = "requestPutOptionTicks",
   doc = "Requests put option tick data.")
-  public void requestPutOptionTicks(String profile, final String symbol,
+  public void requestPutOptionTicks(
+    @Parameter(name="p") final String profile,
+    @Parameter(name="s") final String symbol,
     double strike, int monthsFromNow) {
     requestOptionTicks(Option.PUT, profile, symbol, strike, monthsFromNow);
   }

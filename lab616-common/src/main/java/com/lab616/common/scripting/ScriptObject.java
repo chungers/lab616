@@ -19,13 +19,38 @@ public abstract class ScriptObject {
     String doc();
   }
 
-
   @Retention(RUNTIME)
   @Target({ ElementType.METHOD})
   public @interface Script {
 
     String name();
     String doc();
+  }
+
+  @Retention(RUNTIME)
+  @Target({ ElementType.PARAMETER})
+  public @interface Parameter {
+    /**
+     * Name of the parameter, as accessible by mappings of key/value pair.
+     * @return The name of the parameter.
+     */
+    String name();
+
+    /**
+     * Default value if non supplied.  Type conversion is required to take
+     * the default value string and convert it to the proper type required
+     * by the script.  For complex types, this is not required because the value
+     * of this parameter will be a session-scoped variable name/reference that is
+     * automatically resolved prior to script invocation.
+     * @return The string value of the parameter.
+     */
+    String defaultValue() default "";
+
+    /**
+     * The doc string.
+     * @return The document string.
+     */
+    String doc() default "";
   }
 
   protected ScriptObject() {

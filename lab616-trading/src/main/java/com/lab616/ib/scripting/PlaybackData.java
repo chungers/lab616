@@ -89,16 +89,19 @@ public class PlaybackData extends ScriptObject {
     }
   }
 	
-  @Script(name = "getSession", doc = "")
-	public final Playback getSession(String profile, int id) throws Exception {
+  @Script(name = "getSession", doc = "Returns a playback session handle.")
+	public final Playback getSession(
+    @Parameter(name="p") final String profile,
+    @Parameter(name="cid") final int id) throws Exception {
     return (EClientSocketSimulator.getSimulator(profile, id) != null) ?
     new Playback(EClientSocketSimulator.getSimulator(profile, id), id) :
       newSession(profile);
   }
 
   
-  @Script(name = "newSession", doc = "")
-	public final Playback newSession(String profile) throws Exception {
+  @Script(name = "newSession", doc = "Creates a new playback session.")
+	public final Playback newSession(
+    @Parameter(name="p") String profile) throws Exception {
     final Pair<EClientSocketSimulator, Integer> sim = startSimulator(profile);
     return new Playback(sim.first, sim.second);
 	}

@@ -10,6 +10,7 @@ import com.lab616.common.scripting.ScriptObject.ScriptModule;
 import java.lang.reflect.Method;
 
 /**
+ * Guice module for the scripting framework.
  * @author david
  *
  */

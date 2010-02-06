@@ -14,8 +14,6 @@ import com.lab616.ib.api.loggers.ManagedLogger;
 import com.lab616.ib.api.loggers.TWSEventAvroLogger;
 import com.lab616.ib.api.loggers.TWSEventCSVLogger;
 import com.lab616.ib.api.loggers.TWSEventProtoLogger;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 
 /**
@@ -42,7 +40,12 @@ public class EventLogManagement extends ScriptObject {
    */
   @Script(name = "logCSV",
   doc = "Log events from the client of profile,clientId to CSV file.")
-  public ManagedLogger logCSV(final String profile, final int clientId,
+  public ManagedLogger logCSV(
+    @Parameter(name="p", doc="Name of the client profile.")
+    final String profile,
+    @Parameter(name="cid", doc="The client id.")
+    final int clientId,
+    @Parameter(name="dir", doc="The directory where the data file will be written")
     final String directory) {
     return log(Format.CSV, profile, clientId, directory);
   }
@@ -55,7 +58,12 @@ public class EventLogManagement extends ScriptObject {
    */
   @Script(name = "logProto",
   doc = "Logs the events from profile, clientId to proto file.")
-  public ManagedLogger logProto(final String profile, final int clientId,
+  public ManagedLogger logProto(
+    @Parameter(name="p", doc="Name of the client profile.")
+    final String profile,
+    @Parameter(name="cid", doc="The client id.")
+    final int clientId,
+    @Parameter(name="dir", doc="The directory where the data file will be written")
     final String directory) {
     return log(Format.PROTO, profile, clientId, directory);
   }
@@ -68,7 +76,12 @@ public class EventLogManagement extends ScriptObject {
    */
   @Script(name = "logAvro",
   doc = "Logs the events from profile, clientId to Hadoop avro file.")
-  public ManagedLogger logAvro(final String profile, final int clientId,
+  public ManagedLogger logAvro(
+    @Parameter(name="p", doc="Name of the client profile.")
+    final String profile,
+    @Parameter(name="cid", doc="The client id.")
+    final int clientId,
+    @Parameter(name="dir", doc="The directory where the data file will be written")
     final String directory) {
     return log(Format.AVRO, profile, clientId, directory);
   }
