@@ -48,7 +48,7 @@ public class ScriptingModule extends AbstractModule {
    * Binds a script object.
    * @param clz The script object class.
    */
-	public void bindScript(Class<? extends ScriptObject> clz) {
+	protected void bindScript(Class<? extends ScriptObject> clz) {
     // Ge the name of the script module:
     ScriptModule sm = clz.getAnnotation(ScriptModule.class);
     if (sm == null) {
