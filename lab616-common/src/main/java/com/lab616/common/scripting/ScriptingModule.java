@@ -4,6 +4,7 @@
 package com.lab616.common.scripting;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.binder.AnnotatedBindingBuilder;
 import com.google.inject.multibindings.MapBinder;
 import com.lab616.common.scripting.ScriptObject.Script;
 import com.lab616.common.scripting.ScriptObject.ScriptModule;
@@ -33,7 +34,21 @@ public class ScriptingModule extends AbstractModule {
     return MapBinder.newMapBinder(binder(), String.class, ScriptObject.class);
   }
 
-  public void bind(Class<? extends ScriptObject> clz) {
+  
+  @SuppressWarnings("unchecked")
+	@Override
+  protected <T> AnnotatedBindingBuilder<T> bind(Class<T> clazz) {
+  	if (ScriptObject.class.isAssignableFrom(clazz)) {
+  		bindScript((Class<ScriptObject>)clazz);
+  	}
+  	return super.bind(clazz);
+  }
+
+  /**
+   * Binds a script object.
+   * @param clz The script object class.
+   */
+	public void bindScript(Class<? extends ScriptObject> clz) {
     // Ge the name of the script module:
     ScriptModule sm = clz.getAnnotation(ScriptModule.class);
     if (sm == null) {

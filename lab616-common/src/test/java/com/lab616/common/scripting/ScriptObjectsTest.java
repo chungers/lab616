@@ -18,11 +18,17 @@ public class ScriptObjectsTest extends TestCase {
   @ScriptModule(name = "TestCommand", doc = "test command")
 	static class TestCommand extends ScriptObject {
   	@Script(name = "Command1", doc = "test command")
-		public String command1(String message) {
+		public String command1(
+				@Parameter(name="message", defaultValue="default", doc="The message.") 
+				String message) {
 			return "Hello " + message;
 		}
   	@Script(name = "Command2", doc = "test command")
-		public String command2(String message, int count) {
+		public String command2(
+				@Parameter(name="message", defaultValue="default", doc="The message.") 
+				String message, 
+				@Parameter(name="count", defaultValue="0", doc="The count.") 
+				int count) {
 			return "Hello again: " + message + " with count = " + count;
 		}
 	}
@@ -87,6 +93,5 @@ public class ScriptObjectsTest extends TestCase {
       ex = e;
     }
     assertNotNull(ex);
-
   }
 }
