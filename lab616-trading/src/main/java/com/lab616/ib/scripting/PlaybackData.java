@@ -125,7 +125,7 @@ public class PlaybackData extends ScriptObject {
 	 * @throws Exception
 	 */
   Pair<EClientSocketSimulator , Integer> startSimulator(String profile) throws Exception {
-		int clientId = clientManager.newConnection(profile, true);
+		int clientId = clientManager.newConnection(profile, true).getClientId();
 		
 		TWSClient client = clientManager.getClient(profile, clientId);
 		client.connect();

@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
@@ -182,15 +184,51 @@ public final class TWSClientManager {
   }
 
   public int getConnectionCount() {
+  	logger.info(">>> clients = " + clients);
     return clients.size();
   }
 
+  public static class ConnectionStatus {
+  	private boolean connected;
+  	private int clientId;
+  	private Future<Boolean> connectedFuture;
+  	
+  	ConnectionStatus(int clientId, boolean connected) {
+  		this.clientId = clientId;
+  		this.connected = connected;
+  	}
+  	
+  	ConnectionStatus(int clientId, Future<Boolean> connected) {
+  		this.clientId = clientId;
+  		this.connectedFuture = connected;
+  	}
+
+  	public Integer getClientId() {
+  		return clientId;
+  	}
+  	
+  	public boolean isConnected() {
+  		try {
+    		return isConnected(5, TimeUnit.SECONDS);
+  		} catch (Exception e) {
+  			return false;
+  		}
+  	}
+  	
+  	public boolean isConnected(long timeout, TimeUnit unit) 
+  		throws ExecutionException, TimeoutException, InterruptedException {
+  		if (connectedFuture == null) {
+  			return connected;
+  		}
+  		return connectedFuture.get(timeout, unit);
+  	}
+  }
   /**
    * Starts a new connection of given name and assigns a connection id.
    * @param profile The name of the connection.
    * @return True if this is a blocking call.
    */
-  public synchronized int newConnection(final String profile,
+  public synchronized ConnectionStatus newConnection(final String profile,
     boolean... simulate) {
     final int id;
     if (this.profileInstanceCount.containsKey(profile)) {
@@ -202,7 +240,7 @@ public final class TWSClientManager {
     // Get the work queue for this client:
     Pair<ClientWorkQueue, TWSClient> p = getManagedClient(profile, id);
     if (p != null) {
-      return id;
+      return new ConnectionStatus(id, p.second.isReady());
     }
 
     // The queue processor thread for this client.
@@ -260,8 +298,8 @@ public final class TWSClientManager {
       };
     // Now start work asynchronously.  This doesn't block as the work
     // is done in the executor.
-    this.executor.submit(doConnect);
-    return id;
+    Future<Boolean> future = this.executor.submit(doConnect);
+    return new ConnectionStatus(id, future);
   }
 
   /**

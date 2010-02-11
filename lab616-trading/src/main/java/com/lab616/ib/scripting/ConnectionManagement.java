@@ -4,6 +4,8 @@
  */
 package com.lab616.ib.scripting;
 
+import java.util.concurrent.TimeUnit;
+
 import com.google.inject.Inject;
 import com.lab616.common.scripting.ScriptException;
 import com.lab616.common.scripting.ScriptObject;
@@ -11,6 +13,8 @@ import com.lab616.common.scripting.ScriptObject.Script;
 import com.lab616.common.scripting.ScriptObject.ScriptModule;
 import com.lab616.ib.api.TWSClient;
 import com.lab616.ib.api.TWSClientManager;
+import com.lab616.ib.api.TWSClientManager.ConnectionStatus;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -70,39 +74,27 @@ public class ConnectionManagement extends ScriptObject {
     long timeout = (timeoutMillis > 0) ? timeoutMillis : 100L; // Min 100 msec.
     long sleep = 50L;
     long waits = timeout / sleep; // Number of waits.
-    TWSClient client = null;
     int clientId = -1;
     logger.info(String.format(
       "START: newConnection with profile=%s, timeoutMillis=%d, waits=%d",
       profile, timeout, waits));
+    ConnectionStatus status = null;
     try {
-      clientId = this.clientManager.newConnection(profile, false);
-      do {
-        client = this.clientManager.getClient(profile, clientId);
-        if (client != null && client.isReady()) {
-          break;
-        }
-        Thread.sleep(sleep);
-      } while (waits-- > 0);
-      // Now block for the account ready
-      client.waitUntilReady(++waits * sleep);
+    	status = this.clientManager.newConnection(profile, false);
+    	status.isConnected(timeoutMillis, TimeUnit.MILLISECONDS);
+      
+    	logger.info(String.format(
+          "OK: newConnection with profile=%s, timeoutMillis=%d, waits=%d",
+          profile, timeout, waits));
+
+      return clientId = status.getClientId();
     } catch (Exception e) {
       throw new ScriptException(this, e,
         "Exception while starting up client (%s@%d): %s",
         profile, clientId, e);
+    } finally {
+    	clientManager.stopConnection(profile, status.getClientId());
     }
-    // On connection failure, the connection client will be removed
-    // by the manager.
-    client = this.clientManager.getClient(profile, clientId);
-    if (waits == 0 && (client == null || !client.isReady())) {
-      throw new ScriptException(this,
-        "newConnection for (%s@%d) timed out after %s msec.",
-        profile, clientId, timeout);
-    }
-    logger.info(String.format(
-      "OK: newConnection with profile=%s, timeoutMillis=%d, waits=%d",
-      profile, timeout, waits));
-    return clientId;
   }
 
   /**

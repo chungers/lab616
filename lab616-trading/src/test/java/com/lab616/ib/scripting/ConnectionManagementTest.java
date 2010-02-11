@@ -5,6 +5,7 @@
 package com.lab616.ib.scripting;
 
 import com.lab616.common.scripting.ScriptException;
+import com.lab616.ib.api.TWSClientManager;
 import com.lab616.ib.api.TWSClientModule;
 import com.lab616.ib.api.servlets.TWSControllerModule;
 import com.lab616.omnibus.Kernel;
@@ -32,10 +33,25 @@ public class ConnectionManagementTest extends TestCase {
       }
     }
   }
+  
+  
+  public void testAddProfile() throws Exception {
+    ConnectionManagement cm = k.getScript("ConnectionManagement", 10000)
+    .asInstanceOf(ConnectionManagement.class);
 
-  public void testStartConnections() throws Exception {
-    ConnectionManagement cm = k.getScript("ConnectionManagement")
+    cm.newProfile("test", "myhost", 3333);
+
+    TWSClientManager clientManager = k.getInstance(TWSClientManager.class);
+    assertTrue(clientManager.profileExists("test"));
+  }
+  
+  
+  public void testStartConnectionsFailure() throws Exception {
+    ConnectionManagement cm = k.getScript("ConnectionManagement", 10000)
       .asInstanceOf(ConnectionManagement.class);
+
+    TWSClientManager clientManager = k.getInstance(TWSClientManager.class);
+    assertEquals(0, clientManager.getConnectionCount());
 
     // First start a new profile
     String profile = "test";
@@ -55,11 +71,12 @@ public class ConnectionManagementTest extends TestCase {
     // Now start the connection using the known profile
     int clientId = -1;
     try {
-      clientId = cm.newConnection(profile, 1000L);
+      clientId = cm.newConnection(profile, 5000L);
     } catch (ScriptException e) {
       // We expect a timeout.
       ex = e;
     }
     assertNotNull("Expects a timeout exception.", ex);
+    assertEquals(0, clientManager.getConnectionCount());
   }
 }
