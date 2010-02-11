@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export MAVEN_OPTS="-Xmx512m"
 # Builds a set of projects with maven.
 config=$1
 shift;
