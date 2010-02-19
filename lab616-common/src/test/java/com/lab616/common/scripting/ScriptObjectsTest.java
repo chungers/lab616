@@ -17,12 +17,14 @@ public class ScriptObjectsTest extends TestCase {
 
   @ScriptModule(name = "TestCommand", doc = "test command")
 	static class TestCommand extends ScriptObject {
-  	@Script(name = "Command1", doc = "test command")
+  	
+    @Script(name = "Command1", doc = "test command")
 		public String command1(
 				@Parameter(name="message", defaultValue="default", doc="The message.") 
 				String message) {
 			return "Hello " + message;
 		}
+  	
   	@Script(name = "Command2", doc = "test command")
 		public String command2(
 				@Parameter(name="message", defaultValue="default", doc="The message.") 
@@ -35,6 +37,7 @@ public class ScriptObjectsTest extends TestCase {
 	
   @ScriptModule(name = "TestCommand", doc = "test command")
 	static class TestCommand2 extends ScriptObject {
+    
   	@Script(name = "TestCommand1", doc = "duplicate name for test command")
 		public String command1(String message) {
 			return "Hello " + message;
@@ -56,7 +59,7 @@ public class ScriptObjectsTest extends TestCase {
 	public void testBinding() throws Exception {
 		// Bind the command in Guice.
     ScriptObjects scripts = Guice.createInjector(
-      new ScriptingModule() {
+      new AbstractScriptingModule() {
         @Override
         public void configure() {
           bind(TestCommand.class);
@@ -80,7 +83,7 @@ public class ScriptObjectsTest extends TestCase {
     Exception ex = null;
     try {
       Guice.createInjector(
-        new ScriptingModule() {
+        new AbstractScriptingModule() {
 
           @Override
           public void configure() {
@@ -94,4 +97,29 @@ public class ScriptObjectsTest extends TestCase {
     }
     assertNotNull(ex);
   }
+
+
+   /**
+    * Expects exception to be thrown because of duplicate names.
+    * @throws Exception
+    */
+    public void testBadScriptObject() throws Exception {
+   // Bind the command in Guice.
+   Throwable ex = null;
+   try {
+     Guice.createInjector(
+       new AbstractScriptingModule() {
+
+         @Override
+         public void configure() {
+           bind(TestCommand2.class);
+         }
+       });
+
+   } catch (Exception e) {
+     ex = e.getCause();
+   }
+   assertNotNull(ex);
+   assertTrue(ex instanceof IllegalStateException);
+ }
 }

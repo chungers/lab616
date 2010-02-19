@@ -12,6 +12,7 @@ import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.SystemEvent;
 import com.lab616.omnibus.event.EventEngine;
+import com.lab616.omnibus.http.BasicServlet;
 
 /**
  * Sends a SystemEvent to the event engine, which then routes to interested

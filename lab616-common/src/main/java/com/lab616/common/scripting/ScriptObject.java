@@ -11,6 +11,9 @@ import java.lang.annotation.Target;
 
 public abstract class ScriptObject {
 
+  public static final Integer STATUS_OK = 0;
+  public static final Integer STATUS_ERROR = -1;
+  
   @Retention(RUNTIME)
   @Target({ ElementType.TYPE })
   public @interface ScriptModule {

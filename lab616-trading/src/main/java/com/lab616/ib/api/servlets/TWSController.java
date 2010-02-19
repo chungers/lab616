@@ -16,7 +16,7 @@ import com.lab616.ib.api.builders.ContractBuilder;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
-import com.lab616.omnibus.http.servlets.BasicServlet;
+import com.lab616.omnibus.http.BasicServlet;
 
 /**
  *

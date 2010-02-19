@@ -164,13 +164,13 @@ public class EventEngine implements Kernel.Startable, Provider<Kernel.Shutdown<B
 	 * Given the statement and args, and implementation of a subscriber, add
 	 * an event watcher.
 	 * @param <E> The event object type.
+	 * @param sub The subscriber interface.
 	 * @param statement The statement.
 	 * @param args The args, nullable.
-	 * @param sub The subscriber interface.
 	 * @return The stoppable statement.
 	 */
-	public final <E> Stoppable add(final String statement, Object[] args,
-			final EventSubscriber<E> sub) {
+	public final <E> Stoppable add(final EventSubscriber<E> sub,
+			final String statement, Object... args) {
 		final Object[] argv = (args != null) ? args : new Object[] {};
 		return add(new EventWatcher<E>(statement, argv) {
 			@Override
@@ -188,7 +188,7 @@ public class EventEngine implements Kernel.Startable, Provider<Kernel.Shutdown<B
 	 * @return Statement that can be stopped.
 	 */
 	public final <E> Stoppable add(String statement, EventSubscriber<E> sub) {
-		return add(statement, null, sub);
+		return add(sub, statement);
 	}
 
 	/**

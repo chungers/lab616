@@ -4,6 +4,8 @@ package com.lab616.omnibus.http.servlets;
 
 import java.util.Map;
 
+import com.lab616.omnibus.http.BasicServlet;
+
 /**
  * @author david
  *

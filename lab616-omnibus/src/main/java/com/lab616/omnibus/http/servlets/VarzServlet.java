@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
-import com.lab616.omnibus.http.servlets.BasicServlet.ResponseBuilder;
+import com.lab616.omnibus.http.BasicServlet;
+import com.lab616.omnibus.http.BasicServlet.ResponseBuilder;
 import com.lab616.util.Time;
 
 /**

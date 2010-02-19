@@ -6,6 +6,10 @@ import static com.lab616.common.Converter.TO_BOOLEAN;
 import static com.lab616.common.Converter.TO_BOOLEAN_ARRAY;
 import static com.lab616.common.Converter.TO_BOOLEAN_LIST;
 import static com.lab616.common.Converter.TO_BOOLEAN_SET;
+import static com.lab616.common.Converter.TO_DATETIME;
+import static com.lab616.common.Converter.TO_DATETIME_ARRAY;
+import static com.lab616.common.Converter.TO_DATETIME_LIST;
+import static com.lab616.common.Converter.TO_DATETIME_SET;
 import static com.lab616.common.Converter.TO_DOUBLE;
 import static com.lab616.common.Converter.TO_DOUBLE_ARRAY;
 import static com.lab616.common.Converter.TO_DOUBLE_LIST;
@@ -41,9 +45,11 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
+import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import com.lab616.common.Converter;
 
 /**
  * Flags management.
@@ -277,6 +283,8 @@ public class Flags {
             desc = new ArrayFlagParser<Float>(flag, f, TO_FLOAT_ARRAY);
           } else if (ct.equals(Double.class)) {
             desc = new ArrayFlagParser<Double>(flag, f, TO_DOUBLE_ARRAY);
+          } else if (ct.equals(DateTime.class)) {
+            desc = new ArrayFlagParser<DateTime>(flag, f, TO_DATETIME_ARRAY);
           }
 
           if (desc != null) {
@@ -300,6 +308,8 @@ public class Flags {
             desc = new ListFlagParser<Boolean>(flag, f, TO_BOOLEAN_LIST);
           } else if (eType.equals(Double.class)) {
             desc = new ListFlagParser<Double>(flag, f, TO_DOUBLE_LIST);
+          } else if (eType.equals(DateTime.class)) {
+            desc = new ListFlagParser<DateTime>(flag, f, TO_DATETIME_LIST);
           }
           
           if (desc != null) {
@@ -323,6 +333,8 @@ public class Flags {
             desc = new SetFlagParser<Boolean>(flag, f, TO_BOOLEAN_SET);
           } else if (eType.equals(Double.class)) {
             desc = new SetFlagParser<Double>(flag, f, TO_DOUBLE_SET);
+          } else if (eType.equals(DateTime.class)) {
+            desc = new SetFlagParser<DateTime>(flag, f, TO_DATETIME_SET);
           }
           
           if (desc != null) {
@@ -342,6 +354,8 @@ public class Flags {
             desc = new SingleFlagParser<Boolean>(flag, f, TO_BOOLEAN);
           } else if (gType.equals(Double.class)) {
             desc = new SingleFlagParser<Double>(flag, f, TO_DOUBLE);
+          } else if (gType.equals(DateTime.class)) {
+            desc = new SingleFlagParser<DateTime>(flag, f, TO_DATETIME);
           }
           
           if (desc != null) {

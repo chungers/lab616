@@ -6,16 +6,14 @@ package com.lab616.ib.scripting;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
+
 import com.google.inject.Inject;
 import com.lab616.common.scripting.ScriptException;
 import com.lab616.common.scripting.ScriptObject;
-import com.lab616.common.scripting.ScriptObject.Script;
 import com.lab616.common.scripting.ScriptObject.ScriptModule;
-import com.lab616.ib.api.TWSClient;
 import com.lab616.ib.api.TWSClientManager;
 import com.lab616.ib.api.TWSClientManager.ConnectionStatus;
-
-import org.apache.log4j.Logger;
 
 /**
  *

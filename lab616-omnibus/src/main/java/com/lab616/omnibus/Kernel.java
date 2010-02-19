@@ -22,15 +22,19 @@ import com.google.inject.name.Names;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;
 import com.lab616.common.logging.Logging;
+import com.lab616.common.scripting.AbstractScriptingModule;
 import com.lab616.common.scripting.ScriptObject;
 import com.lab616.common.scripting.ScriptObjects;
-import com.lab616.common.scripting.ScriptingModule;
+import com.lab616.common.scripting.ScriptObject.Parameter;
+import com.lab616.common.scripting.ScriptObject.Script;
+import com.lab616.common.scripting.ScriptObject.ScriptModule;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.Varzs;
 import com.lab616.omnibus.event.EventEngine;
 import com.lab616.omnibus.event.EventModule;
 import com.lab616.omnibus.http.HttpServer;
 import com.lab616.omnibus.http.HttpServerModule;
+import com.lab616.omnibus.http.ServletScript;
 
 /**
  * Core class for an Omnibus container/ application.  It contains a set of
@@ -293,6 +297,18 @@ public class Kernel {
   	return this;
   }
   
+  @ServletScript(path = "/log")
+  @ScriptModule(name = "KernelLog", doc = "Kernel logger.")
+  public static class KernelLog extends ScriptObject {
+    @ServletScript(path = "info")
+    @Script(name = "info", doc = "log one line.")
+    public void info(
+            @Parameter(name="message", doc="Writes one line to info.") 
+            String message) {
+        logger.info(message);
+    }
+  }
+  
   /**
    * Starts the program with command line arguments.  This method is called
    * in the main method of an application.  This runs in the main thread of the
@@ -313,7 +329,9 @@ public class Kernel {
     // to occur so that the flag parsing will apply to all the module class
     // where the flag values are used for injection.
     List<Module> allModules = Lists.newArrayList();
-    allModules.add(new ScriptingModule());
+    allModules.add(new AbstractScriptingModule() { @Override public void configure() {
+      bind(KernelLog.class);
+    }});
     allModules.add(new HttpServerModule());
     allModules.add(new EventModule());
     allModules.add(new Module() {

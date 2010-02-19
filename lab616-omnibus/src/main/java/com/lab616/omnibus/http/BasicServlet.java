@@ -1,6 +1,6 @@
 // 2009 lab616.com, All Rights Reserved.
 
-package com.lab616.omnibus.http.servlets;
+package com.lab616.omnibus.http;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -35,12 +35,6 @@ public class BasicServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    doGet(req, resp);
-  }
-
   public static class ResponseBuilder {
     HttpServletResponse response;
     boolean error = false;
@@ -54,10 +48,25 @@ public class BasicServlet extends HttpServlet {
       error = true;
       return this;
     }
-    
-    public ResponseBuilder println(String line) {
+
+    public ResponseBuilder exception(Throwable th, String format, Object... args) {
       try {
-        response.getWriter().println(line);
+        response.getWriter().format(format, args);
+        response.getWriter().println();
+        th.printStackTrace(response.getWriter());
+        response.getWriter().println();
+        response.getWriter().flush();
+        return this;
+      } catch (IOException e) {
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        throw new RuntimeException(e);
+      }
+    }
+    
+    public ResponseBuilder println(String format, Object... args) {
+      try {
+        response.getWriter().format(format, args);
+        response.getWriter().println();
         response.getWriter().flush();
         return this;
       } catch (IOException e) {
@@ -80,6 +89,12 @@ public class BasicServlet extends HttpServlet {
     }
   }
   
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    doGet(req, resp);
+  }
+
   @SuppressWarnings("unchecked")
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
   throws ServletException, IOException {

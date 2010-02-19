@@ -2,7 +2,9 @@
 
 package com.lab616.omnibus.http;
 
+import java.lang.reflect.Method;
 import java.net.BindException;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -14,9 +16,20 @@ import org.mortbay.jetty.handler.ContextHandlerCollection;
 import org.mortbay.jetty.servlet.Context;
 import org.mortbay.jetty.servlet.ServletHolder;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import com.lab616.common.Converter;
+import com.lab616.common.Converters;
+import com.lab616.common.Pair;
+import com.lab616.common.scripting.ScriptObject;
+import com.lab616.common.scripting.ScriptObjects;
+import com.lab616.common.scripting.ScriptObject.Parameter;
+import com.lab616.common.scripting.ScriptObject.Script;
+import com.lab616.common.scripting.ScriptObject.ScriptModule;
+import com.lab616.common.scripting.ScriptObjects.Descriptor;
 import com.lab616.omnibus.Kernel;
 
 /**
@@ -25,8 +38,10 @@ import com.lab616.omnibus.Kernel;
  * @author david
  *
  */
+@Singleton
 public class HttpServer implements Kernel.Startable, Provider<Kernel.Shutdown<Void>>{
 
+	public static final String HELP_PARAM = ".help";
 	
   static Logger logger = Logger.getLogger(HttpServer.class);
   
@@ -34,26 +49,116 @@ public class HttpServer implements Kernel.Startable, Provider<Kernel.Shutdown<Vo
   private Server server;
   
   final private Map<String, HttpServlet> servletMap;
+  final private ScriptObjects scriptObjects;
+  
   private boolean retryWithDifferentPort = false;
   
   @Inject
-  public HttpServer(@Named("http")int port, Map<String, HttpServlet> mapping) 
+  public HttpServer(@Named("http")int port, Map<String, HttpServlet> mapping,
+      Map<String, ScriptObject> scriptObjectMap, ScriptObjects scriptObjects) 
   	throws Exception {
     logger.info("Servlet bindings: " + mapping);
     this.port = port;
     this.servletMap = mapping;
+    this.scriptObjects = scriptObjects;
+    
     logger.info("HttpServer @ port = " + this.port);
     this.server = new Server(this.port);
 
     ContextHandlerCollection contexts = new ContextHandlerCollection();
     server.setHandler(contexts);
-    
     Context root = new Context(contexts, "/", Context.SESSIONS);
-    for (Entry<String, HttpServlet> map : mapping.entrySet()) {
-    	root.addServlet(new ServletHolder(map.getValue()), map.getKey());
-    }
+
+    addServlets(root, this.servletMap);
+    addScriptObjects(root, this.scriptObjects.getScriptObjects());
   }
 
+  protected void addServlets(Context root, Map<String, HttpServlet> mapping) {
+    for (Entry<String, HttpServlet> map : mapping.entrySet()) {
+      root.addServlet(new ServletHolder(map.getValue()), map.getKey());
+    }
+  }
+  
+  @SuppressWarnings("serial")
+  protected void addScriptObjects(Context root, Iterable<ScriptObject> sobjects) {
+    for (ScriptObject s : sobjects) {
+      final ScriptModule moduleAnnotation = s.getClass().getAnnotation(ScriptModule.class);
+      final ServletScript servletAnnotation = s.getClass().getAnnotation(ServletScript.class);
+      if (!(moduleAnnotation != null && servletAnnotation != null)) continue;
+      
+      final List<Pair<String, Descriptor>> moduleSpec = Lists.newArrayList();
+      // Look for any Scripts that also have ServletScript annotation
+      for (Method m : s.getClass().getMethods()) {
+        if (m.getAnnotation(Script.class) != null &&
+            m.getAnnotation(ServletScript.class) != null) {
+          final ScriptObject target = s;
+          // Get the path + parameters
+          final String path = servletAnnotation.path() + "/" + 
+            m.getAnnotation(ServletScript.class).path();
+          final Descriptor desc = ScriptObjects.getDescriptor(m);
+          moduleSpec.add(Pair.of(path, desc));
+          logger.info("Adding script servlet: " + path + " for " + desc.annotation.name());
+          root.addServlet(new ServletHolder(new BasicServlet() {
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void processRequest(Map<String, String> params, 
+                ResponseBuilder b) {
+              if (params.containsKey(HELP_PARAM)) {
+                // Print help
+                b.println(path);
+                b.println("%s", desc.params);
+                b.println(desc.annotation.doc());
+                b.build();
+              } else {
+                try {
+                  Object[] args = new Object[desc.params.size()];
+                  int i = 0;
+                  for (Pair<Parameter, Class> p : desc.params) {
+                    String key = p.first.name();
+                    String defaultValue = p.first.defaultValue();
+                    String value = params.get(key);
+                    if (value == null && defaultValue != null && defaultValue.length() > 0) {
+                      value = defaultValue;
+                    }
+                    // Peform type conversion.
+                    args[i++] = Converters.fromString(value, p.second);
+                  }
+                  Object result = desc.method.invoke(target, args);
+                  b.println("%s", result);
+                } catch (Throwable e) {
+                  b.setError().exception(e, "Exception: %s", e);
+                }
+                b.build();
+              }
+            }            
+          }), path);
+        }
+      }
+      
+      logger.info("Adding script module: " + servletAnnotation.path() + 
+          " for " + moduleAnnotation.name());
+      // Add a special servlet for the top level module
+      root.addServlet(new ServletHolder(new BasicServlet() {
+        @Override
+        protected void processRequest(Map<String, String> params, 
+            ResponseBuilder b) {
+          // Dump out list of scripts in this module when there are no parameters.
+          if (params.containsKey(HELP_PARAM)) {
+            b.println(moduleAnnotation.name());
+            b.println(servletAnnotation.path());
+            b.println(moduleAnnotation.doc());
+            b.println("");
+            for (Pair<String, Descriptor> ms : moduleSpec) {
+              b.println("%s\t%s", ms.first, ms.second.annotation.doc());
+            }
+            b.build();
+          }
+        }
+      }), servletAnnotation.path());
+    }
+    
+  }
+  
   protected final Map<String, HttpServlet> getServletMap() {
   	return this.servletMap;
   }
