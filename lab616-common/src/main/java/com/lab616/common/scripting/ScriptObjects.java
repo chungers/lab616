@@ -67,12 +67,10 @@ public class ScriptObjects {
     final Class<? extends ScriptObject> clz;
     public final Method method;
     public final Script annotation;
-    @SuppressWarnings("unchecked")
-    public final List<Pair<Parameter, Class>> params;
+    public final List<Pair<Parameter, Type>> params;
 
-    @SuppressWarnings("unchecked")
     Descriptor(Class<? extends ScriptObject> clz,
-        Method method, List<Pair<Parameter, Class>> params) {
+        Method method, List<Pair<Parameter, Type>> params) {
       this.clz = clz;
       this.method = method;
       this.annotation = method.getAnnotation(Script.class);
@@ -83,17 +81,16 @@ public class ScriptObjects {
   private static Map<Method, Descriptor> scriptMethods = 
     Maps.newHashMap();
 
-  @SuppressWarnings("unchecked")
   static void register(String name, Class<? extends ScriptObject> clz, Method m) {
     if (m.getAnnotation(Script.class) == null) {
       return; // Do nothing.
     }
     Annotation[][] annotations = m.getParameterAnnotations();
-    Class[] paramTypes = m.getParameterTypes();
+    Type[] paramTypes = m.getParameterTypes();
     if (annotations.length != paramTypes.length) {
       throw new IllegalStateException("Missing parameter annotation for " + m);
     }
-    List<Pair<Parameter, Class>> paramAnnotations = Lists.newArrayList();
+    List<Pair<Parameter, Type>> paramAnnotations = Lists.newArrayList();
     for (int i = 0; i < paramTypes.length; i++) {
       // Search for Parameter in each array for parameter i:
       for (Annotation a : annotations[i]) {

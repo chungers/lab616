@@ -3,7 +3,6 @@
  */
 package com.lab616.common.scripting;
 
-import com.lab616.common.scripting.ScriptObject.Script;
 import junit.framework.TestCase;
 
 import com.google.inject.Guice;

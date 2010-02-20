@@ -58,7 +58,7 @@ public class ServletScriptTest extends TestCase {
         String message, 
         @Parameter(name="count", defaultValue=DEFAULT_COUNT, doc="The count.") 
         int count,
-        @Parameter(name="flag", defaultValue="false", doc="The flag.") 
+        @Parameter(name="flag", defaultValue="FALSE", doc="The flag.") 
         boolean flag) {
       return "Command2=" + message + "," + count + "," + flag;
     }
@@ -135,5 +135,11 @@ public class ServletScriptTest extends TestCase {
     String result = new String(get.fetch());
     String expected = (new TestModule1()).command3(DEFAULT_STRING, count, false);
     assertEquals(expected.trim(), result.trim());
+  }
+  
+  public void testHang() throws Exception {
+    while (k.isRunning(1000L)) {
+      Thread.sleep(60000L);
+    }
   }
 }

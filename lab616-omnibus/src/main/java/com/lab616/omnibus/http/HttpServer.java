@@ -3,6 +3,7 @@
 package com.lab616.omnibus.http;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.net.BindException;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,24 @@ public class HttpServer implements Kernel.Startable, Provider<Kernel.Shutdown<Vo
     }
   }
   
+  static String paramList(List<Pair<Parameter, Type>> list) {
+    StringBuffer buff = new StringBuffer();
+    StringBuffer help = new StringBuffer();
+    int i = 0;
+    for (Pair<Parameter, Type> p : list) {
+      buff.append(p.first.name());
+      help.append("#\t" + p.first.name() + ",\t" + p.second + ",\t" + p.first.doc());
+      if (p.first.defaultValue().length() > 0) {
+        buff.append("=" + p.first.defaultValue());
+      }
+      if (++i < list.size()) {
+        buff.append(", ");
+        help.append("\n");
+      }
+    }
+    return String.format("%s\n%s\n", buff, help);
+  }
+  
   @SuppressWarnings("serial")
   protected void addScriptObjects(Context root, Iterable<ScriptObject> sobjects) {
     for (ScriptObject s : sobjects) {
@@ -99,21 +118,20 @@ public class HttpServer implements Kernel.Startable, Provider<Kernel.Shutdown<Vo
           moduleSpec.add(Pair.of(path, desc));
           logger.info("Adding script servlet: " + path + " for " + desc.annotation.name());
           root.addServlet(new ServletHolder(new BasicServlet() {
-            @SuppressWarnings("unchecked")
             @Override
             protected void processRequest(Map<String, String> params, 
                 ResponseBuilder b) {
               if (params.containsKey(HELP_PARAM)) {
                 // Print help
                 b.println(path);
-                b.println("%s", desc.params);
+                b.println(paramList(desc.params));
                 b.println(desc.annotation.doc());
                 b.build();
               } else {
                 try {
                   Object[] args = new Object[desc.params.size()];
                   int i = 0;
-                  for (Pair<Parameter, Class> p : desc.params) {
+                  for (Pair<Parameter, Type> p : desc.params) {
                     String key = p.first.name();
                     String defaultValue = p.first.defaultValue();
                     String value = params.get(key);
@@ -138,25 +156,9 @@ public class HttpServer implements Kernel.Startable, Provider<Kernel.Shutdown<Vo
       logger.info("Adding script module: " + servletAnnotation.path() + 
           " for " + moduleAnnotation.name());
       // Add a special servlet for the top level module
-      root.addServlet(new ServletHolder(new BasicServlet() {
-        @Override
-        protected void processRequest(Map<String, String> params, 
-            ResponseBuilder b) {
-          // Dump out list of scripts in this module when there are no parameters.
-          if (params.containsKey(HELP_PARAM)) {
-            b.println(moduleAnnotation.name());
-            b.println(servletAnnotation.path());
-            b.println(moduleAnnotation.doc());
-            b.println("");
-            for (Pair<String, Descriptor> ms : moduleSpec) {
-              b.println("%s\t%s", ms.first, ms.second.annotation.doc());
-            }
-            b.build();
-          }
-        }
-      }), servletAnnotation.path());
+      root.addServlet(new ServletHolder(
+          new RScriptServlet(moduleAnnotation, servletAnnotation, moduleSpec)), servletAnnotation.path());
     }
-    
   }
   
   protected final Map<String, HttpServlet> getServletMap() {
