@@ -137,7 +137,7 @@ public class ServletScriptTest extends TestCase {
     assertEquals(expected.trim(), result.trim());
   }
   
-  public void testHang() throws Exception {
+  public void NO_testHang() throws Exception {
     while (k.isRunning(1000L)) {
       Thread.sleep(60000L);
     }

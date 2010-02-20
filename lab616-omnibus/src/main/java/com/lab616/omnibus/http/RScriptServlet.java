@@ -2,6 +2,8 @@
 package com.lab616.omnibus.http;
 
 import java.lang.reflect.Type;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +43,11 @@ public class RScriptServlet extends BasicServlet {
   }
 
   String getHostName() {
+    try {
+      return InetAddress.getLocalHost().getHostAddress();
+    } catch (UnknownHostException e) {
+     // Nothing. 
+    }
     return "localhost";
   }
   
