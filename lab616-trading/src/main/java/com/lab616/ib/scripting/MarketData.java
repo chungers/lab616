@@ -1,23 +1,25 @@
 package com.lab616.ib.scripting;
 
+import org.apache.log4j.Logger;
+
 import com.google.common.base.Function;
 import com.google.inject.Inject;
 import com.lab616.common.scripting.ScriptObject;
-import com.lab616.common.scripting.ScriptObject.Script;
 import com.lab616.common.scripting.ScriptObject.ScriptModule;
 import com.lab616.ib.api.TWSClient;
 import com.lab616.ib.api.TWSClientManager;
 import com.lab616.ib.api.builders.ContractBuilder;
 import com.lab616.ib.api.builders.IndexBuilder;
-import com.lab616.ib.api.builders.IndexBuilder.Exchange;
 import com.lab616.ib.api.builders.MarketDataRequestBuilder;
 import com.lab616.ib.api.builders.OptionContractBuilder;
-import org.apache.log4j.Logger;
+import com.lab616.ib.api.builders.IndexBuilder.Exchange;
+import com.lab616.omnibus.http.ServletScript;
 
 /**
  *
  * @author dchung
  */
+@ServletScript(path = "/tws/md")
 @ScriptModule(name = "MarketData",
 doc = "Basic scripts for market data.  These are only tick data.")
 public class MarketData extends ScriptObject {
@@ -30,12 +32,16 @@ public class MarketData extends ScriptObject {
     this.clientManager = clientManager;
   }
 
+  @ServletScript(path = "reqIndexTicks")
   @Script(name = "requestIndexTicks",
   doc = "Requests index tick data.")
   public void requestIndexTicks(
-    @Parameter(name="p") final String profile,
-    @Parameter(name="idx", doc="The symbol of the Index.") final String index,
-    @Parameter(name="ex", doc="Name of exchange.") final String exchange) {
+    @Parameter(name="profile", doc = "The client profile.") 
+    final String profile,
+    @Parameter(name="index", doc="The symbol of the Index.") 
+    final String index,
+    @Parameter(name="exchange", doc="Name of exchange.") 
+    final String exchange) {
     logger.info(String.format(
       "START: requestIndexData profile=%s, index=%s, exchange=%s",
       profile, index, exchange));
@@ -55,11 +61,14 @@ public class MarketData extends ScriptObject {
       profile, index, exchange));
   }
 
+  @ServletScript(path = "reqEquityTicks")
   @Script(name = "requestEquityTicks",
   doc = "Requests equity tick data.")
   public void requestEquityTicks(
-    @Parameter(name="p") final String profile,
-    @Parameter(name="s") final String symbol) {
+    @Parameter(name="profile", doc = "The client profile.") 
+    final String profile,
+    @Parameter(name="symbol", doc = "The ticker symbol.") 
+    final String symbol) {
     // Equity
     logger.info("Requesting TICKS data for " + symbol + " on " + profile);
     this.clientManager.enqueue(profile, new Function<TWSClient, Boolean>() {
@@ -73,21 +82,33 @@ public class MarketData extends ScriptObject {
     });
   }
 
+  @ServletScript(path = "reqCallOptionTicks")
   @Script(name = "requestCallOptionTicks",
   doc = "Requests call option tick data.")
   public void requestCallOptionTicks(
-    @Parameter(name="p") final String profile,
-    @Parameter(name="s") final String symbol,
-    double strike, int monthsFromNow) {
+    @Parameter(name="profile", doc = "The client profile.") 
+    final String profile,
+    @Parameter(name="symbol", doc = "The underlying symbol.") 
+    final String symbol,
+    @Parameter(name="strike", doc = "The call strike price.")
+    double strike, 
+    @Parameter(name="months", defaultValue = "0", doc = "Months from this date.")
+    int monthsFromNow) {
     requestOptionTicks(Option.CALL, profile, symbol, strike, monthsFromNow);
   }
 
+  @ServletScript(path = "reqPutOptionTicks")
   @Script(name = "requestPutOptionTicks",
   doc = "Requests put option tick data.")
   public void requestPutOptionTicks(
-    @Parameter(name="p") final String profile,
-    @Parameter(name="s") final String symbol,
-    double strike, int monthsFromNow) {
+      @Parameter(name="profile", doc = "The client profile.") 
+      final String profile,
+      @Parameter(name="symbol", doc = "The underlying symbol.") 
+      final String symbol,
+      @Parameter(name="strike", doc = "The put strike price.")
+      double strike, 
+      @Parameter(name="months", defaultValue = "0", doc = "Months from this date.")
+      int monthsFromNow) {
     requestOptionTicks(Option.PUT, profile, symbol, strike, monthsFromNow);
   }
 

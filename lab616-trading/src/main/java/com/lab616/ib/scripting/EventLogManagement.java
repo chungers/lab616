@@ -1,11 +1,12 @@
 package com.lab616.ib.scripting;
 
+import org.apache.log4j.Logger;
+
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 import com.lab616.common.scripting.ScriptException;
 import com.lab616.common.scripting.ScriptObject;
-import com.lab616.common.scripting.ScriptObject.Script;
 import com.lab616.common.scripting.ScriptObject.ScriptModule;
 import com.lab616.ib.api.TWSClient;
 import com.lab616.ib.api.TWSClientManager;
@@ -14,12 +15,13 @@ import com.lab616.ib.api.loggers.ManagedLogger;
 import com.lab616.ib.api.loggers.TWSEventAvroLogger;
 import com.lab616.ib.api.loggers.TWSEventCSVLogger;
 import com.lab616.ib.api.loggers.TWSEventProtoLogger;
-import org.apache.log4j.Logger;
+import com.lab616.omnibus.http.ServletScript;
 
 /**
  * Module for managing event logs in various formats.
  * @author dchung
  */
+@ServletScript(path = "/tws/lm")
 @ScriptModule(name = "EventLogManagement",
 doc = "Basic scripts for managing TWS client event logging.")
 public class EventLogManagement extends ScriptObject {
@@ -38,12 +40,13 @@ public class EventLogManagement extends ScriptObject {
    * @param clientId The client id.
    * @param directory The directory.
    */
+  @ServletScript(path = "logcsv")
   @Script(name = "logCSV",
   doc = "Log events from the client of profile,clientId to CSV file.")
   public ManagedLogger logCSV(
-    @Parameter(name="p", doc="Name of the client profile.")
+    @Parameter(name="profile", doc="Name of the client profile.")
     final String profile,
-    @Parameter(name="cid", doc="The client id.")
+    @Parameter(name="clientId", doc="The client id.")
     final int clientId,
     @Parameter(name="dir", doc="The directory where the data file will be written")
     final String directory) {
@@ -56,12 +59,13 @@ public class EventLogManagement extends ScriptObject {
    * @param clientId The client id.
    * @param directory The directory.
    */
+  @ServletScript(path = "logproto")
   @Script(name = "logProto",
   doc = "Logs the events from profile, clientId to proto file.")
   public ManagedLogger logProto(
-    @Parameter(name="p", doc="Name of the client profile.")
+    @Parameter(name="profile", doc="Name of the client profile.")
     final String profile,
-    @Parameter(name="cid", doc="The client id.")
+    @Parameter(name="clientId", doc="The client id.")
     final int clientId,
     @Parameter(name="dir", doc="The directory where the data file will be written")
     final String directory) {
@@ -74,12 +78,13 @@ public class EventLogManagement extends ScriptObject {
    * @param clientId The client id.
    * @param directory The directory.
    */
+  @ServletScript(path = "logavro")
   @Script(name = "logAvro",
   doc = "Logs the events from profile, clientId to Hadoop avro file.")
   public ManagedLogger logAvro(
-    @Parameter(name="p", doc="Name of the client profile.")
+    @Parameter(name="profile", doc="Name of the client profile.")
     final String profile,
-    @Parameter(name="cid", doc="The client id.")
+    @Parameter(name="clientId", doc="The client id.")
     final int clientId,
     @Parameter(name="dir", doc="The directory where the data file will be written")
     final String directory) {

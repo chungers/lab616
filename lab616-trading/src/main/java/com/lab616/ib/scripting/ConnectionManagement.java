@@ -14,11 +14,13 @@ import com.lab616.common.scripting.ScriptObject;
 import com.lab616.common.scripting.ScriptObject.ScriptModule;
 import com.lab616.ib.api.TWSClientManager;
 import com.lab616.ib.api.TWSClientManager.ConnectionStatus;
+import com.lab616.omnibus.http.ServletScript;
 
 /**
  *
  * @author dchung
  */
+@ServletScript(path = "/tws/cm")
 @ScriptModule(name = "ConnectionManagement",
 doc = "Basic scripts for managing TWS client connections.")
 public class ConnectionManagement extends ScriptObject {
@@ -37,9 +39,16 @@ public class ConnectionManagement extends ScriptObject {
    * @param hostName Hostname.
    * @param port Port number.
    */
+  @ServletScript(path = "np")
   @Script(name = "newProfile",
   doc = "Adds a new profile which maps a host:port to a profile name.")
-  public void newProfile(String profile, String hostName, int port) {
+  public void newProfile(
+  		@Parameter(name = "profile", doc = "The connection profile.")
+  		String profile, 
+  		@Parameter(name = "host", defaultValue = "localhost", doc = "TWS host.")
+  		String hostName, 
+  		@Parameter(name = "port", defaultValue = "7496",  doc = "TWS port.")
+  		int port) {
     logger.info(String.format(
       "START: newProfile with profile=%s, hostName=%s, port=%d",
       profile, hostName, port));
@@ -62,9 +71,14 @@ public class ConnectionManagement extends ScriptObject {
    * @param timeoutMillis Timeout in milliseconds for the client to be ready.
    * @return The client id.
    */
+  @ServletScript(path = "nc")
   @Script(name = "newConnection",
   doc = "Adds a new connection with the given profile, returns the client id.")
-  public int newConnection(String profile, long timeoutMillis) {
+  public int newConnection(
+  		@Parameter(name = "profile", doc = "The connection profile.")
+  		String profile, 
+  		@Parameter(name = "timeout", defaultValue = "10000", doc = "The timeout in millis.")
+  		long timeoutMillis) {
     if (!this.clientManager.profileExists(profile)) {
       throw new ScriptException(this, "Unkown profile: %s", profile);
     }
@@ -100,9 +114,14 @@ public class ConnectionManagement extends ScriptObject {
    * @param profile The profile.
    * @param clientId The client id.
    */
+  @ServletScript(path = "dc")
   @Script(name = "destroyConnection",
   doc = "Destroys the client connection of given profile and client id.")
-  public void destroyConnection(String profile, int clientId) {
+  public void destroyConnection(
+  		@Parameter(name = "profile", doc = "The connection profile.")
+  		String profile, 
+  		@Parameter(name = "clientId", doc = "The client id.")
+  		int clientId) {
     if (this.clientManager.getClient(profile, clientId) == null) {
       throw new ScriptException(this, 
         "No such client %s@%d", profile, clientId);
