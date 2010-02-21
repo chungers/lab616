@@ -367,6 +367,7 @@ public class Kernel {
     Thread shutdown = new Thread(getShutdownHook());
     shutdown.setName(getClass().getName() + ":shutdown");
     Runtime.getRuntime().addShutdownHook(shutdown);
+    logger.info("Registered shutdown hook.");
 
     // Start all services.
     Exception ex = null;

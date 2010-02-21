@@ -20,7 +20,7 @@ import com.lab616.omnibus.http.ServletScript;
  *
  * @author dchung
  */
-@ServletScript(path = "/tws/cm")
+@ServletScript(path = "/tws/connection")
 @ScriptModule(name = "ConnectionManagement",
 doc = "Basic scripts for managing TWS client connections.")
 public class ConnectionManagement extends ScriptObject {

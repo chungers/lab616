@@ -23,9 +23,10 @@ public class Platform extends Kernel {
 
 	public Platform() {
 		// Default constructor with default modules:
-		include(new TWSClientModule());
-		include(new TWSControllerModule());
-		include(new ScriptingModule());
+		include(
+		    new TWSClientModule(), 
+		    new TWSControllerModule(), 
+		    new ScriptingModule());
 	}
 
 	@Override
@@ -40,6 +41,8 @@ public class Platform extends Kernel {
 		// Add shutdown hooks and modules and start the basic services running:
 		//k.add(shutdown).add(module).run(args);
 
+		k.run(args);
+		
 		// Get instance of services
 		EventEngine engine = k.getInstance(EventEngine.class);
 

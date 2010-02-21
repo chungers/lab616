@@ -19,7 +19,7 @@ import com.lab616.omnibus.http.ServletScript;
  * @author david
  *
  */
-@ServletScript(path = "/tws/bt")
+@ServletScript(path = "/tws/playbackdata")
 @ScriptModule(name = "PlaybackData", doc = "Data playback, for back testing.")
 public class PlaybackData extends ScriptObject {
 

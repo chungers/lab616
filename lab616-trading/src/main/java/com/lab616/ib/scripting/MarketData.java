@@ -19,7 +19,7 @@ import com.lab616.omnibus.http.ServletScript;
  *
  * @author dchung
  */
-@ServletScript(path = "/tws/md")
+@ServletScript(path = "/tws/marketdata")
 @ScriptModule(name = "MarketData",
 doc = "Basic scripts for market data.  These are only tick data.")
 public class MarketData extends ScriptObject {

@@ -21,7 +21,7 @@ import com.lab616.omnibus.http.ServletScript;
  * Module for managing event logs in various formats.
  * @author dchung
  */
-@ServletScript(path = "/tws/lm")
+@ServletScript(path = "/tws/eventlogging")
 @ScriptModule(name = "EventLogManagement",
 doc = "Basic scripts for managing TWS client event logging.")
 public class EventLogManagement extends ScriptObject {
