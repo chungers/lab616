@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.net.BindException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServlet;
@@ -18,11 +19,11 @@ import org.mortbay.jetty.servlet.Context;
 import org.mortbay.jetty.servlet.ServletHolder;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.lab616.common.Converter;
 import com.lab616.common.Converters;
 import com.lab616.common.Pair;
 import com.lab616.common.scripting.ScriptObject;
@@ -100,16 +101,24 @@ public class HttpServer implements Kernel.Startable, Provider<Kernel.Shutdown<Vo
   
   @SuppressWarnings("serial")
   protected void addScriptObjects(Context root, Iterable<ScriptObject> sobjects) {
+    Set<String> registered = Sets.newHashSet();
+
     for (ScriptObject s : sobjects) {
       final ScriptModule moduleAnnotation = s.getClass().getAnnotation(ScriptModule.class);
       final ServletScript servletAnnotation = s.getClass().getAnnotation(ServletScript.class);
       if (!(moduleAnnotation != null && servletAnnotation != null)) continue;
+      if (registered.contains(servletAnnotation.path())) {
+        continue;
+      }
+      
+      registered.add(servletAnnotation.path());
       
       final List<Pair<String, Descriptor>> moduleSpec = Lists.newArrayList();
       // Look for any Scripts that also have ServletScript annotation
       for (Method m : s.getClass().getMethods()) {
         if (m.getAnnotation(Script.class) != null &&
             m.getAnnotation(ServletScript.class) != null) {
+          
           final ScriptObject target = s;
           // Get the path + parameters
           final String path = servletAnnotation.path() + "/" + 

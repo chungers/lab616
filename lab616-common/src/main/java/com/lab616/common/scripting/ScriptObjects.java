@@ -9,6 +9,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
@@ -29,6 +31,8 @@ import com.lab616.common.scripting.ScriptObject.Script;
 public class ScriptObjects {
 
   private final Map<String, ScriptObject> scriptObjects;
+
+  static final Logger logger = Logger.getLogger(ScriptObjects.class);
 
   @Inject
   public ScriptObjects(Map<String, ScriptObject> scriptObjects) {
@@ -60,6 +64,7 @@ public class ScriptObjects {
   }
 
   public Iterable<ScriptObject> getScriptObjects() {
+    logger.info("Loading script objects: size = " + scriptObjects.size());
     return scriptObjects.values();
   }
     

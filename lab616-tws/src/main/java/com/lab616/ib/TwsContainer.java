@@ -2,6 +2,7 @@
 
 package com.lab616.ib;
 
+import java.io.File;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
@@ -40,7 +41,7 @@ public class TwsContainer {
     public static String PASSWORD;
 
     @Flag(name = "tws_dir")
-    public static String TWS_DIR;
+    public static String TWS_DIR = "tws";
 
     static {
       Flags.register(GuiceModule.class);
@@ -70,6 +71,11 @@ public class TwsContainer {
     this.eventReceiver = eventReceiver;
     this.eventReceiver.setState(initial);
 
+    // Create the directory if it doesn't exist.
+    File dir = new File(twsDir);
+    if (!dir.exists()) {
+      dir.mkdir();
+    }
     // Start IB TWS application in a separate thread.
     jclient.LoginFrame.main(new String[] { twsDir });
   }

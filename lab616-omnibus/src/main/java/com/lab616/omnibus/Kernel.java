@@ -350,6 +350,7 @@ public class Kernel {
       Properties props = new Properties();
       File pf = new File(profile);
       if (pf.exists()) {
+        logger.info("Loading profile " + pf);
         props.load(new FileInputStream(profile));
         Flags.parse(props);
       }

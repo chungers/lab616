@@ -71,30 +71,9 @@ public class EventLogManagement extends ScriptObject {
     return log(Format.PROTO, profile, clientId, directory);
   }
 
-  /**
-   * Logs the events in a Hadoop avro file, for the client @ (profile, id).
-   * @param profile The profile.
-   * @param clientId The client id.
-   * @param directory The directory.
-   */
-  @ServletScript(path = "logavro")
-  @Script(name = "logAvro",
-  doc = "Logs the events from profile, clientId to Hadoop avro file.")
-  public ManagedLogger logAvro(
-    @Parameter(name="profile", doc="Name of the client profile.")
-    final String profile,
-    @Parameter(name="clientId", doc="The client id.")
-    final int clientId,
-    @Parameter(name="dir", doc="The directory where the data file will be written")
-    final String directory) {
-    return log(Format.AVRO, profile, clientId, directory);
-  }
-
   private enum Format {
-
     CSV,
-    PROTO,
-    AVRO;
+    PROTO;
   }
 
   ManagedLogger log(final Format format, final String profile, final int clientId,

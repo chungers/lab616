@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuditTrail>
+<Entry type="ExecutionReport" msgId="283251035">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000016"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20100222-10:08:59"/>
+	<field tag="6556" val="today13"/>
+	<field tag="17" val="99445.1266833339.0"/>
+	<field tag="32" val="*"/>
+</Entry>
+<Entry type="Acknowledged" msgId="522419849">
+	<field tag="35" val="8"/>
+	<field tag="34" val="000018"/>
+	<field tag="43" val="N"/>
+	<field tag="52" val="20100222-10:09:02"/>
+	<field tag="37" val="*"/>
+	<field tag="11" val="*"/>
+	<field tag="17" val="99445.1266833342.0"/>
+	<field tag="150" val="0"/>
+	<field tag="20" val="3"/>
+	<field tag="39" val="0"/>
+	<field tag="55" val="*"/>
+	<field tag="54" val="1"/>
+	<field tag="38" val="0"/>
+	<field tag="44" val="nan"/>
+	<field tag="32" val="0"/>
+	<field tag="31" val="0.00"/>
+	<field tag="14" val="0"/>
+	<field tag="151" val="0"/>
+	<field tag="6" val="0"/>
+	<field tag="60" val="20100222-10:09:02"/>
+	<field tag="40" val="2"/>
+	<field tag="59" val="0"/>
+	<field tag="6674" val="0"/>
+</Entry>
+</AuditTrail>
