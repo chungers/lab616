@@ -51,41 +51,6 @@
 							<goal>run</goal>
 						</goals>
 					</execution>
-					<execution>
-						<id>generate-avro</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<!-- Running avro -->
-							<tasks>
-								<taskdef name="protocol" classname="org.apache.avro.specific.ProtocolTask">
-									<classpath refid="maven.compile.classpath" />
-								</taskdef>
-								<taskdef name="schema" classname="org.apache.avro.specific.SchemaTask">
-									<classpath refid="maven.compile.classpath" />
-								</taskdef>
-								<taskdef name="paranamer"
-									classname="com.thoughtworks.paranamer.ant.ParanamerGeneratorTask">
-									<classpath refid="maven.compile.classpath" />
-								</taskdef>
-
-								<protocol destdir="target/generated-sources">
-									<fileset dir="src/main/avro">
-										<include name="**/*.avpr" />
-									</fileset>
-								</protocol>
-
-								<schema destdir="target/generated-sources">
-									<fileset dir="src/main/avro">
-										<include name="**/*.avsc" />
-									</fileset>
-								</schema>
-							</tasks>
-							<sourceRoot>target/generated-sources</sourceRoot>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
 				</executions>
 			</plugin>
 			<plugin>

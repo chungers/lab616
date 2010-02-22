@@ -82,7 +82,7 @@ function build_package {
 	    MavenProjectDir=../../../../${MavenProjectName}
 	    if [ -d ${MavenProjectDir} ]; then
 		echo "Creating link to maven built jar file in ${MavenProjectName}."
-		ln -s ${MavenProjectDir}/target/${MavenProjectName}-1.0-SNAPSHOT-with-dependencies.jar ${PACKAGE}.jar
+		ln -s ${MavenProjectDir}/target/${MavenProjectName}-1.0-SNAPSHOT-jar-with-dependencies.jar ${PACKAGE}.jar
 		popd;
 	    fi
 	fi

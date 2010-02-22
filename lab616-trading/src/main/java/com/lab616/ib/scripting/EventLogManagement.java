@@ -12,7 +12,6 @@ import com.lab616.ib.api.TWSClient;
 import com.lab616.ib.api.TWSClientManager;
 import com.lab616.ib.api.TWSClientManager.Managed;
 import com.lab616.ib.api.loggers.ManagedLogger;
-import com.lab616.ib.api.loggers.TWSEventAvroLogger;
 import com.lab616.ib.api.loggers.TWSEventCSVLogger;
 import com.lab616.ib.api.loggers.TWSEventProtoLogger;
 import com.lab616.omnibus.http.ServletScript;
@@ -124,10 +123,6 @@ public class EventLogManagement extends ScriptObject {
                 return m instanceof TWSEventProtoLogger
                   && ((TWSEventProtoLogger) m).getSourceId().equals(
                   client.getSourceId());
-              case AVRO:
-                return m instanceof TWSEventAvroLogger
-                  && ((TWSEventAvroLogger) m).getSourceId().equals(
-                  client.getSourceId());
             }
             return false;
           }
@@ -162,18 +157,6 @@ public class EventLogManagement extends ScriptObject {
             }
           });
           return w2;
-        case AVRO:
-          final TWSEventAvroLogger w3 = new TWSEventAvroLogger(directory,
-            profile, client.getSourceId());
-          this.clientManager.enqueue(profile, clientId,
-            new Function<TWSClient, ManagedLogger>() {
-            @Override
-            public ManagedLogger apply(TWSClient tws) {
-              tws.getEventEngine().add(w3);
-              return w3;
-            }
-          });
-          return w3;
       }
       return null; // Impossible to get here.
     } catch (Exception e) {

@@ -5,17 +5,12 @@ package com.lab616.ib.api;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.apache.avro.generic.GenericData;
-import org.apache.avro.util.Utf8;
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
 import com.ib.client.EWrapper;
 import com.lab616.common.Converter;
 import com.lab616.common.Pair;
-import com.lab616.ib.api.avro.TWS.TWSEvent;
-import com.lab616.ib.api.avro.TWS.TWSField;
-import com.lab616.ib.api.avro.TWS.TWSMethod;
 import com.lab616.ib.api.proto.TWSProto;
 
 /**
@@ -187,35 +182,4 @@ public class ApiBuilder {
     }
     return Pair.of(getApiMethod(), args);
   }
-
-
-  public TWSEvent buildAvro(String source, long timestamp, Object[] args) {
-    TWSEvent event = new TWSEvent();
-    event.method = TWSMethod.valueOf(this.getMethodName());
-    event.timestamp = timestamp;
-    event.source = new Utf8(source);
-    int i = 0;
-    event.fields = new GenericData.Array<TWSField>(args.length, 
-        (new TWSField()).getSchema());
-    for (Column c : this.columns) {
-      if (c.apiArg) {
-        TWSField field = new TWSField();
-        Object value = args[i++];
-        if (value instanceof Integer) {
-          field.intValue = ((Integer) value);
-        } else if (value instanceof Double) {
-          field.doubleValue = ((Double) value);
-        } else if (value instanceof String) {
-          field.stringValue = new Utf8((String) value);
-        } else if (value instanceof Long) {
-          field.longValue = ((Long) value);
-        } else if (value instanceof Boolean) {
-          field.booleanValue = ((Boolean) value);
-        }
-        event.fields.add(field);
-      }
-    }
-    return event;
-  }
-  
 }
