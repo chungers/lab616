@@ -52,16 +52,18 @@ public class TWSConnectionProfileManager {
     if (profiles.get(profile) != null) {
     	return profiles.get(profile);
     } else {
-    	return new HostPort();
+      HostPort v = new HostPort();
+      profiles.put(profile, v);
+    	return v;
     }
   }
   
   public void addProfile(String profile, HostPort hostPort) {
-    profiles.get(profile).set(hostPort);
-    logger.info("Added " + hostPort + ", allProfiles = " + profiles);
+    getHostPort(profile).set(hostPort);
+    logger.info("Added " + hostPort + ", profiles = " + profiles);
   }
 
   public boolean exists(String profile) {
-    return profiles.get(profile).port == -1;
+    return profiles.containsKey(profile);
   }
 }

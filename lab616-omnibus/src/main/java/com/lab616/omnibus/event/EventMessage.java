@@ -2,6 +2,8 @@
 
 package com.lab616.omnibus.event;
 
+import com.lab616.common.Converter;
+
 /**
  * Event within the system.  This is basically a generalized form of an object
  * method call, with instance name (e.g. account/client), method (api method)
@@ -52,5 +54,23 @@ public final class EventMessage {
 	
 	public String getInstance() {
 		return instance;
+	}
+	
+	public String toString() {
+	  StringBuffer buff = new StringBuffer();
+	  buff.append(Converter.ISO8601.print(timestamp));
+	  buff.append(",");
+    buff.append(source);
+    buff.append(",");
+    buff.append(destination);
+    buff.append(",");
+    buff.append(instance);
+    buff.append(",");
+    buff.append(method);
+    for (Object o : args) {
+      buff.append(",");
+      buff.append(o);
+    }
+	  return buff.toString();
 	}
 }

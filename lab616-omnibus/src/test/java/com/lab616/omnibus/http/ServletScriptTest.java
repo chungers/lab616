@@ -79,7 +79,7 @@ public class ServletScriptTest extends TestCase {
         new TestGuiceModule()).runInThread(new String[]{});
     }
 
-    while (!k.isRunning(5000L));
+    while (!k.isRunning(60000L));
   }
 
   public void testCommand0() throws Exception {

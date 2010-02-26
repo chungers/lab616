@@ -54,7 +54,7 @@ public class ConnectionManagement extends ScriptObject {
       profile, hostName, port));
     try {
       if (!this.clientManager.profileExists(profile)) {
-        this.clientManager.addProfile(hostName, hostName, port);
+        this.clientManager.addProfile(profile, hostName, port);
       }
     } catch (Exception e) {
       throw new ScriptException(this, e,
@@ -64,7 +64,8 @@ public class ConnectionManagement extends ScriptObject {
       "OK: newProfile with profile=%s, hostName=%s, port=%d",
       profile, hostName, port));
   }
-
+  
+  
   /**
    * Starts a new connection by profile name.
    * @param profile The profile name.
@@ -104,8 +105,6 @@ public class ConnectionManagement extends ScriptObject {
       throw new ScriptException(this, e,
         "Exception while starting up client (%s@%d): %s",
         profile, clientId, e);
-    } finally {
-    	clientManager.stopConnection(profile, status.getClientId());
     }
   }
 

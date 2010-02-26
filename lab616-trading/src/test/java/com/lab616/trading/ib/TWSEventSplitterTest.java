@@ -102,7 +102,7 @@ public class TWSEventSplitterTest extends TestCase {
       // Call the wrapper
       w.tickPrice(1001, 0, 26.0, 1);
     }
-    Thread.sleep(1L); // HAVE TO ADD THIS??
+    Thread.sleep(1000L); // HAVE TO ADD THIS??
     
     for (TWSProto.Event e : prices) {
       assertEquals(TWSProto.Method.tickPrice, e.getMethod());
