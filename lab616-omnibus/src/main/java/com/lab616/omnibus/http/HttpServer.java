@@ -5,6 +5,8 @@ package com.lab616.omnibus.http;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.net.BindException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -101,7 +103,7 @@ public class HttpServer implements Kernel.Startable, Provider<Kernel.Shutdown<Vo
   
   @SuppressWarnings("serial")
   protected void addScriptObjects(Context root, Iterable<ScriptObject> sobjects) {
-    Set<String> registered = Sets.newHashSet();
+    final Set<String> registered = Sets.newHashSet();
 
     for (ScriptObject s : sobjects) {
       final ScriptModule moduleAnnotation = s.getClass().getAnnotation(ScriptModule.class);
@@ -168,8 +170,29 @@ public class HttpServer implements Kernel.Startable, Provider<Kernel.Shutdown<Vo
       root.addServlet(new ServletHolder(
           new RScriptServlet(moduleAnnotation, servletAnnotation, moduleSpec)), servletAnnotation.path());
     }
+    
+    // Add a global servlet that generates the link to each module:
+    root.addServlet(new ServletHolder(
+        new BasicServlet() {
+          @Override
+          public void processRequest(Map<String, String> params, ResponseBuilder b) {
+            for (String mpath : registered) {
+              b.println("http://%s:%s%s", getHostName(), port, mpath);
+            }
+            b.build();
+          }
+        }), "/scripts");
   }
-  
+
+  String getHostName() {
+    try {
+      return InetAddress.getLocalHost().getHostAddress();
+    } catch (UnknownHostException e) {
+     // Nothing. 
+    }
+    return "localhost";
+  }
+
   protected final Map<String, HttpServlet> getServletMap() {
   	return this.servletMap;
   }

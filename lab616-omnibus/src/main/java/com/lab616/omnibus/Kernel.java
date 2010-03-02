@@ -345,6 +345,9 @@ public class Kernel {
     // It's now safe to parse and set all the flags.
     Flags.parse(argv);
     
+    System.out.print("Using profile = " + profile);
+    System.out.flush();
+    
     // Check to see if profile is specified.
     if (profile != null) {
       Properties props = new Properties();

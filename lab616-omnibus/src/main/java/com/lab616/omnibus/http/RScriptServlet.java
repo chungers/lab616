@@ -21,6 +21,8 @@ import com.lab616.common.scripting.ScriptObjects.Descriptor;
  */
 public class RScriptServlet extends BasicServlet {
 
+  private static final long serialVersionUID = 1L;
+  
   private final ScriptModule moduleAnnot;
   private final ServletScript moduleServletAnnot;
   private final List<Pair<String, Descriptor>> scriptObjectSpecs;
@@ -49,6 +51,10 @@ public class RScriptServlet extends BasicServlet {
      // Nothing. 
     }
     return "localhost";
+  }
+  
+  String getModulePath() {
+    return moduleServletAnnot.path();
   }
   
   String getServerFunction() {

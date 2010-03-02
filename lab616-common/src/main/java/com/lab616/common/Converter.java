@@ -24,7 +24,7 @@ import com.google.common.collect.Sets;
  */
 public class Converter {
   
-	static DateTimeFormatter ISO8601 = ISODateTimeFormat.dateTime();
+	public static DateTimeFormatter ISO8601 = ISODateTimeFormat.dateTime();
 
 	public static Map<Type, FromString<?>> stringConverters =
 		Maps.newHashMap();
