@@ -107,7 +107,6 @@ case "${OPTION}" in
     # Copy the files over from the template directory
     cp -r ${BINARY_FILES} ${TARGET_DIR}
     cp -r ${PROFILE_FILES} ${TARGET_DIR}
-    chmod 600 ${TARGET_DIR}/profiles/*
     cp -r ${SCRIPT_FILES} ${TARGET_DIR}
     cp -r ${LOCAL_FILES} ${TARGET_DIR}
     for n in ${NATIVE_FILES}; do
