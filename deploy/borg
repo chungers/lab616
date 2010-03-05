@@ -191,6 +191,18 @@ case "${OPTION}" in
    REMOTE_LOG=${PACKAGE}.${PROFILE}.log
    run_remote ${INSTANCE} ${REMOTE_USER} "tail -f /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}"
 ;;
+--proxylocal)
+   # Grep for the http port, setup local forwarded port and display the log.
+   PROFILE=$1; shift;
+   INSTANCE=$1; shift;
+   REMOTE_USER=$1; shift;
+   REMOTE_LOG=/home/${REMOTE_USER}/runtime/${PACKAGE}/${PACKAGE}.${PROFILE}.log
+   REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
+   PORT=$(run_remote ${INSTANCE} ${REMOTE_USER} \
+"grep -e 'HttpServer @ port =' ${REMOTE_LOG} | sed -e 's/ //g' | tail -1 | cut -f 2 -d '='")
+   echo "Tunneling at port $PORT"
+   ssh -i ${REMOTE_ID_FILE} -L ${PORT}:localhost:${PORT} ${REMOTE_USER}@`dns ${INSTANCE}` "tail -f ${REMOTE_LOG}"
+;;
 --exec)
    # Exec remotely.
    INSTANCE=$1; shift;
@@ -216,10 +228,10 @@ case "${OPTION}" in
 ;;
 --tunnel)
    # SSH tunnel
-   INSTANCE=$1;
-   REMOTE_PORT=$2
-   LOCAL_PORT=$3
-   REMOTE_USER=$4
+   INSTANCE=$1; shift;
+   REMOTE_PORT=$1; shift;
+   LOCAL_PORT=$1; shift;
+   REMOTE_USER=$1; shift;
    REMOTE_ID_FILE=${DEPLOY_DIR}/accounts/${REMOTE_USER}.id_dsa
    ssh -i ${REMOTE_ID_FILE} -L ${LOCAL_PORT}:localhost:${REMOTE_PORT} ${REMOTE_USER}@`dns ${INSTANCE}`
 ;;
