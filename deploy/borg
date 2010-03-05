@@ -162,7 +162,7 @@ case "${OPTION}" in
    PROFILE=$1; shift;
    INSTANCE=$1; shift;
    REMOTE_USER=$1; shift;
-   run_remote ${INSTANCE} ${REMOTE_USER} /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_SCRIPT} ${PROFILE} $@
+   run_remote ${INSTANCE} ${REMOTE_USER} "/home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_SCRIPT} ${PROFILE} $@"
 ;;
 --stop)
    # Stop remote server.
@@ -170,8 +170,8 @@ case "${OPTION}" in
    INSTANCE=$1; shift;
    REMOTE_USER=$1; shift;
    REMOTE_PID=${PACKAGE}.${PROFILE}.pid
-   PID=`run_remote ${INSTANCE} ${REMOTE_USER} cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_PID}`
-   run_remote ${INSTANCE} ${REMOTE_USER} kill -s TERM ${PID}
+   PID=$(run_remote ${INSTANCE} ${REMOTE_USER} "cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_PID}")
+   run_remote ${INSTANCE} ${REMOTE_USER} "kill -s TERM ${PID}"
 ;;
 --viewlog)
    # View the remote log file.
@@ -180,16 +180,16 @@ case "${OPTION}" in
    REMOTE_USER=$1; shift;
    REMOTE_PID=${PACKAGE}.${PROFILE}.pid
    REMOTE_LOG=${PACKAGE}.${PROFILE}.log
-   run_remote ${INSTANCE} ${REMOTE_USER} cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}
+   run_remote ${INSTANCE} ${REMOTE_USER} "cat /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}"
 ;;
 --taillog)
    # View the remote log file.
    PROFILE=$1; shift;
    INSTANCE=$1; shift;
-   REMOTE_USER=lab616
+   REMOTE_USER=$1; shift;
    REMOTE_PID=${PACKAGE}.${PROFILE}.pid
    REMOTE_LOG=${PACKAGE}.${PROFILE}.log
-   run_remote ${INSTANCE} ${REMOTE_USER} tail -f /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}
+   run_remote ${INSTANCE} ${REMOTE_USER} "tail -f /home/${REMOTE_USER}/runtime/${PACKAGE}/${REMOTE_LOG}"
 ;;
 --exec)
    # Exec remotely.
