@@ -1,0 +1,3 @@
+IB TWS C++ API
+dist/ -> original cpp files distributed with the api download
+src/  -> modified cpp files.  Files are taken from dist as appropriate.
