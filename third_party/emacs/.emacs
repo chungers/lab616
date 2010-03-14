@@ -10,8 +10,3 @@
 
 (semantic-load-enable-code-helpers)       ; Enable prototype help and smart completion 
 (semantic-load-enable-gaudy-code-helpers) ;
-
-defun my-c-mode-cedet-hook ()
- (local-set-key "." 'semantic-complete-self-insert)
- (local-set-key ">" 'semantic-complete-self-insert))
-(add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
