@@ -1,4 +1,20 @@
-(load-file "~/lab616/third_party/emacs/cedet-1.0pre7/common/cedet.el")
+;;; .emacs
+(load-file "~/lab616/third_party/emacs/google-c-style.el")               ; Google C++ styles
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+;;; Use "%" to jump to the matching parenthesis.
+(defun goto-match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis, otherwise insert
+  the character typed."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+    ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+    (t                    (self-insert-command (or arg 1))) ))
+(global-set-key "%" `goto-match-paren)
+
+(load-file "~/lab616/third_party/emacs/cedet-1.0pre7/common/cedet.el")   ; C++ IDE
 (require 'ede)
 (require 'semantic-gcc)
 (require 'semanticdb)
