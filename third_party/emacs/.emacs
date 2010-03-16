@@ -1,4 +1,13 @@
 ;;; .emacs
+
+; Add cmake listfile names to the mode list.
+(setq auto-mode-alist
+        (append
+	    '(("CMakeLists\\.txt\\'" . cmake-mode))
+	       '(("\\.cmake\\'" . cmake-mode))
+	          auto-mode-alist))
+(autoload 'cmake-mode "~/lab616/third_party/emacs/cmake-mode.el" t)      ; CMake support
+
 (load-file "~/lab616/third_party/emacs/google-c-style.el")               ; Google C++ styles
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)

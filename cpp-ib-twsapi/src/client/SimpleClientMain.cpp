@@ -12,7 +12,8 @@ int main(int argc, char** argv)
   int clientId = 0;
 
   unsigned attempt = 0;
-  printf( "Start of Simple Socket Client Test %u\n", attempt);
+  printf("Start of Simple Socket Client Test (%u.%u) attempts = %u\n",
+         CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, attempt);
 
   for (;;) {
     ++attempt;
