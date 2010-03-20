@@ -25,6 +25,11 @@ target/
 # CMake files
 CMakeFiles/
 CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# Custom CMake build output directory:
+build/
 
 # Runtime / testing
 mock*
