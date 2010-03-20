@@ -15,6 +15,7 @@ set(SRC_ROOT ${PROJECT_SOURCE_DIR}/src)
 set(GEN_ROOT ${PROJECT_SOURCE_DIR}/genfiles)
 set(API_ROOT ${SRC_ROOT}/${IBAPI_DIR})
 
+# Compiler flags
 add_definitions(-Wall -W -ggdb)
 
 # Pass CMake settings to files below:
@@ -33,7 +34,9 @@ include_directories("${GEN_ROOT}"
 option(IB_USE_STD_STRING "Use standard c++ string (see Shared/IBString.h)." ON)
 			 
 if (IB_USE_STD_STRING)
+  # Also: add_definitions('-DIB_USE_STD_STRING')
   set_source_files_properties(
+    ${SRC_ROOT}/client/SimpleClient.cpp
     ${SRC_ROOT}/client/SimpleClientMain.cpp
     PROPERTIES
     COMPILE_FLAGS -DIB_USE_STD_STRING)
@@ -41,7 +44,14 @@ endif (IB_USE_STD_STRING)
 
 add_subdirectory(${SRC_ROOT})
 
-add_executable(SimpleClientMain ${SRC_ROOT}/client/SimpleClientMain.cpp)
+add_executable(SimpleClientMain 
+  ${SRC_ROOT}/client/SimpleClient.cpp
+  ${SRC_ROOT}/client/SimpleClientMain.cpp
+)
 
+target_link_libraries(SimpleClientMain twsclient)
+
+# Finally install the final artifacts.
+# This installs to /usr/local/bin and /usr/local/include
 install(TARGETS SimpleClientMain DESTINATION bin)
 install(FILES SimpleClient.h DESTINATION include)

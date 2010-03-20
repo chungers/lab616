@@ -22,6 +22,10 @@ classes/
 genfiles/
 target/
 
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+
 # Runtime / testing
 mock*
 runtime/
