@@ -10,6 +10,9 @@ option(OPTIMIZE "Compiler optimization" ON)
 set(IBClient_VERSION_MAJOR 0)
 set(IBClient_VERSION_MINOR 1)
 
+# cpplint.py tool
+set(CPPLINT ${PROJECT_SOURCE_DIR}/../scripts/cpplint.py)
+
 # Use 9.63 Beta version API.
 set(IBAPI_DIR "api9.63beta")
 
@@ -30,3 +33,4 @@ endif (OPTIMIZE)
 # Include the subdirectories required for this project:	 
 add_subdirectory(src)
 #add_subdirectory(test)
+

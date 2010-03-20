@@ -1,0 +1,19 @@
+# Useful Macros
+
+# Building an executable
+# Given a target of FOO, an executable target FOO is defined for
+# building with sources from list FOO_srcs and links with library
+# FOO_libs.  The output FOO executable is then copied to the build dir.
+macro(build_executable TARGET)
+  add_executable(${TARGET} ${${TARGET}_srcs})
+  target_link_libraries(${TARGET} ${${TARGET}_libs})
+  install(TARGETS ${TARGET} DESTINATION ${BUILD_DIR})
+endmacro(build_executable)
+
+# Running cpplint
+# Given a target of FOO, a FOO_lint target is automatically generated.
+macro(runlint TARGETS)
+  foreach(TARGET ${TARGETS})
+    add_custom_target(${TARGET}_lint ${CPPLINT} ${${TARGET}_srcs})
+  endforeach(TARGET)
+endmacro(runlint)
