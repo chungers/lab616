@@ -16,6 +16,8 @@ set(GEN_ROOT ${PROJECT_SOURCE_DIR}/genfiles)
 set(API_ROOT ${SRC_ROOT}/${IBAPI_DIR})
 
 # Compiler flags
+set(CMAKE_CXX_FLAGS "-ggdb -Wall -W")
+
 add_definitions(-Wall -W -ggdb)
 
 # Pass CMake settings to files below:
@@ -44,14 +46,3 @@ endif (IB_USE_STD_STRING)
 
 add_subdirectory(${SRC_ROOT})
 
-add_executable(SimpleClientMain 
-  ${SRC_ROOT}/client/SimpleClient.cpp
-  ${SRC_ROOT}/client/SimpleClientMain.cpp
-)
-
-target_link_libraries(SimpleClientMain twsclient)
-
-# Finally install the final artifacts.
-# This installs to /usr/local/bin and /usr/local/include
-install(TARGETS SimpleClientMain DESTINATION bin)
-install(FILES SimpleClient.h DESTINATION include)
