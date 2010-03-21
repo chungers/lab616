@@ -4,8 +4,9 @@
 (setq auto-mode-alist
         (append
 	    '(("CMakeLists\\.txt\\'" . cmake-mode))
-	       '(("\\.cmake\\'" . cmake-mode))
-	          auto-mode-alist))
+	    '(("CMakeLists\\.macros\\'" . cmake-mode))
+	    '(("\\.cmake\\'" . cmake-mode))
+	    auto-mode-alist))
 (autoload 'cmake-mode "~/lab616/third_party/emacs/cmake-mode.el" t)      ; CMake support
 
 (load-file "~/lab616/third_party/emacs/google-c-style.el")               ; Google C++ styles

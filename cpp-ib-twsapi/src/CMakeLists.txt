@@ -3,10 +3,7 @@
 
 cmake_minimum_required(VERSION 2.6)
 
-include(${PROJECT_SOURCE_DIR}/CMakeLists.macros)
-
-# Use the api version defined in the top level cmake file:
-set(API_ROOT ./${IBAPI_DIR})
+include(${PROJECT_MACROS})
 
 # Use standard string library instead of mvc foundation classes:
 option(IB_USE_STD_STRING "Use standard c++ string (see Shared/IBString.h)." ON)
@@ -30,19 +27,24 @@ configure_file(
 install(FILES ${GEN_DIR}/client/SimpleClient.h DESTINATION ${INCLUDE_DIR})
 
 # Core classes in the IB api:
-add_library(twsclient 
+add_library(twsapi 
   ${API_ROOT}/PosixSocketClient/EClientSocketBase.cpp
   ${API_ROOT}/PosixSocketClient/EPosixClientSocket.cpp
+)
+
+# Client implementation:
+add_library(twsclient
+  client/SimpleClient.cpp
 )
 
 ########################################################
 # Executable: SimpleClientMain
 #
-set(SimpleClientMain_srcs 
-  client/SimpleClient.cpp
+set(SimpleClientMain_srcs
   client/SimpleClientMain.cpp
 )
 set(SimpleClientMain_libs
+  twsapi
   twsclient
 )
 runlint(SimpleClientMain)
