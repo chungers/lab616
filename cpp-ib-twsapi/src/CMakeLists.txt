@@ -31,9 +31,8 @@ add_library(twsclient
 
 ########################################################
 # Executable: SimpleClientMain
-#
-# For -I includes
-set(SimpleClientMain_includes
+# _incs / _srcs / _libs
+set(SimpleClientMain_incs
   ${API_ROOT}/Shared 
   ${API_ROOT}/PosixSocketClient
   ${GEN_DIR}/client
@@ -45,6 +44,4 @@ set(SimpleClientMain_libs
   twsapi
   twsclient
 )
-runlint(SimpleClientMain)
 build_executable(SimpleClientMain)
-

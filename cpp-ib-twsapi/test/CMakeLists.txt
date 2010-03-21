@@ -11,15 +11,15 @@ endif (IB_USE_STD_STRING)
 
 #########################################
 # Test:
-set(SimpleClientTest_includes
+set(SimpleClientTest_incs
   ${GEN_DIR}
   ${API_ROOT}/Shared
   ${TEST_INCLUDES}
 )
 set(SimpleClientTest_srcs
   AllTests.cpp
-  ClientTest.cpp
-  SimpleClientTest.cpp
+  client/ClientTest.cpp
+  client/SimpleClientTest.cpp
 )
 set(SimpleClientTest_libs
   twsapi

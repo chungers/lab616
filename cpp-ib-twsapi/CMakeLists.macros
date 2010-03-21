@@ -5,9 +5,11 @@
 # building with sources from list FOO_srcs and links with library
 # FOO_libs.  The output FOO executable is then copied to the build dir.
 macro(build_executable TARGET)
-  include_directories(${TARGET} ${${TARGET}_includes})
+  include_directories(${TARGET} ${${TARGET}_incs})
   add_executable(${TARGET} ${${TARGET}_srcs})
   target_link_libraries(${TARGET} ${${TARGET}_libs})
+  add_custom_target(${TARGET}_lint 
+    ${CPPLINT} ${${TARGET}}_incs ${${TARGET}_srcs})
   install(TARGETS ${TARGET} DESTINATION ${BUILD_DIR}/bin)
 endmacro(build_executable)
 
@@ -15,7 +17,8 @@ endmacro(build_executable)
 # Given a target of FOO, a FOO_lint target is automatically generated.
 macro(runlint TARGETS)
   foreach(TARGET ${TARGETS})
-    add_custom_target(${TARGET}_lint ${CPPLINT} ${${TARGET}_srcs})
+    add_custom_target(${TARGET}_lint 
+      ${CPPLINT} ${${TARGET}}_incs ${${TARGET}_srcs})
   endforeach(TARGET)
 endmacro(runlint)
 
