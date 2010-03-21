@@ -27,7 +27,7 @@ set(PROJECT_MACROS ${PROJECT_SOURCE_DIR}/CMakeLists.macros)
 
 # Build directory contains the output of builds.
 set(BUILD_DIR ${PROJECT_SOURCE_DIR}/build)
-set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+set(INCLUDE_DIR ${BUILD_DIR}/include)
 
 # Testing support - GTest / GMock
 set(GMOCK_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gmock)

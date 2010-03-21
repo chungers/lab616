@@ -11,14 +11,6 @@ if (IB_USE_STD_STRING)
   add_definitions('-DIB_USE_STD_STRING')
 endif (IB_USE_STD_STRING)
 
-# For -I includes
-include_directories(
-  .
-  ${API_ROOT}/Shared 
-  ${API_ROOT}/PosixSocketClient
-  ${GEN_DIR}/client
-)
-
 # Process variables in headers with values set in top level cmake file:
 configure_file(
   client/SimpleClient.h.in
@@ -40,6 +32,12 @@ add_library(twsclient
 ########################################################
 # Executable: SimpleClientMain
 #
+# For -I includes
+set(SimpleClientMain_includes
+  ${API_ROOT}/Shared 
+  ${API_ROOT}/PosixSocketClient
+  ${GEN_DIR}/client
+)
 set(SimpleClientMain_srcs
   client/SimpleClientMain.cpp
 )
