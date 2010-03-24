@@ -19,7 +19,7 @@ configure_file(
 install(FILES ${GEN_DIR}/client/SimpleClient.h DESTINATION ${INCLUDE_DIR})
 
 # Core classes in the IB api:
-build_static_lib(twsapi 
+build_static_lib(tws_socket_impl 
   ${API_ROOT}/PosixSocketClient/EClientSocketBase.cpp
   ${API_ROOT}/PosixSocketClient/EPosixClientSocket.cpp
 )
@@ -41,7 +41,7 @@ set(SimpleClientMain_srcs
   client/SimpleClientMain.cpp
 )
 set(SimpleClientMain_libs
-  twsapi
+  tws_socket_impl
   twsclient
 )
 build_executable(SimpleClientMain)
