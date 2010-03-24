@@ -1,11 +1,29 @@
 # Useful Macros
 
+# Build static libraries that are required but not part of the project.
+# This includes common api libraries such as gtest and the TWS api.
+# Note that the IF is evaluated only when cmake is invoked.  Therefore,
+# in order to take into account of the library, do make install and then
+# rerun cmake.
+macro(build_static_lib TARGET SOURCES)
+  if(EXISTS ${BUILD_DIR}/lib/lib${TARGET}.a)
+    add_library(${TARGET} STATIC IMPORTED)
+    set_property(TARGET ${TARGET} 
+      PROPERTY IMPORTED_LOCATION ${BUILD_DIR}/lib/lib${TARGET}.a)
+  else(EXISTS ${BUILD_DIR}/lib/lib${TARGET}.a)
+    add_library(${ARGV})
+    # Install the library
+    install(TARGETS ${TARGET} DESTINATION ${BUILD_DIR}/lib)
+  endif(EXISTS ${BUILD_DIR}/lib/lib${TARGET}.a)
+endmacro(build_static_lib)
+
 # Building an executable
 # Given a target of FOO, an executable target FOO is defined for
 # building with sources from list FOO_srcs and links with library
 # FOO_libs.  The output FOO executable is then copied to the build dir.
 macro(build_executable TARGET)
   include_directories(${TARGET} ${${TARGET}_incs})
+  link_directories(${BUILD_DIR}/lib)
   add_executable(${TARGET} ${${TARGET}_srcs})
   target_link_libraries(${TARGET} ${${TARGET}_libs})
   add_custom_target(${TARGET}_lint 

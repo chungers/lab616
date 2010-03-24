@@ -24,6 +24,7 @@ endif (OPTIMIZE)
 
 # Macros to include
 set(PROJECT_MACROS ${PROJECT_SOURCE_DIR}/CMakeLists.macros)
+include(${PROJECT_MACROS})
 
 # Build directory contains the output of builds.
 set(BUILD_DIR ${PROJECT_SOURCE_DIR}/build)
@@ -40,14 +41,14 @@ set(TEST_INCLUDES
 )
 include_directories(${TEST_INCLUDES})
 
-# Compile the GoogleTest as a library.
-add_library(gtest
-  ${GTEST_DIR}/src/gtest.cc
-  ${GTEST_DIR}/src/gtest-death-test.cc
-  ${GTEST_DIR}/src/gtest-filepath.cc
-  ${GTEST_DIR}/src/gtest-port.cc
-  ${GTEST_DIR}/src/gtest-test-part.cc
-  ${GTEST_DIR}/src/gtest-typed-test.cc
+# GoogleTest
+build_static_lib(gtest
+    ${GTEST_DIR}/src/gtest.cc
+    ${GTEST_DIR}/src/gtest-death-test.cc
+    ${GTEST_DIR}/src/gtest-filepath.cc
+    ${GTEST_DIR}/src/gtest-port.cc
+    ${GTEST_DIR}/src/gtest-test-part.cc
+    ${GTEST_DIR}/src/gtest-typed-test.cc
 )
 
 # Directory for generated files:
