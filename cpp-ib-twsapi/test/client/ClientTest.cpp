@@ -1,8 +1,11 @@
 
-#include <client/SimpleClient.h>
+#include "mocks/MockEWrapper.h"
+#include "mocks/MockEClient.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+
+
 namespace {
 
 TEST(SimpleTest2, HelloWorld2) {
@@ -10,3 +13,4 @@ TEST(SimpleTest2, HelloWorld2) {
 }
 
 } // namespace
+

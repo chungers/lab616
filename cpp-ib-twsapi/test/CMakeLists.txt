@@ -13,7 +13,10 @@ endif (IB_USE_STD_STRING)
 # Test:
 set(SimpleClientTest_incs
   ${GEN_DIR}
+  ${SRC_ROOT}
+  ${API_ROOT}
   ${API_ROOT}/Shared
+  ${TEST_ROOT}
   ${TEST_INCLUDES}
 )
 set(SimpleClientTest_srcs
