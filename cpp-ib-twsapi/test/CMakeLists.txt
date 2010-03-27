@@ -25,7 +25,7 @@ set(SimpleClientTest_srcs
   client/SimpleClientTest.cpp
 )
 set(SimpleClientTest_libs
-  twsapi
+  tws_socket_impl
   twsclient
   gtest
 )

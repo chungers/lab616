@@ -17,16 +17,16 @@
 .settings
 .manager
 
-# Java classes and generated source files
-classes/
-genfiles/
-target/
-
 # CMake files
 CMakeFiles/
 CMakeCache.txt
 Makefile
 *.cmake
+
+# Other build artifacts:
+classes/
+genfiles/
+target/
 
 # Custom CMake build output directory:
 build/
