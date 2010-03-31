@@ -3,18 +3,13 @@
 
 cmake_minimum_required(VERSION 2.6)
 
-project(IBClient)
+# Project of market data client using IB API.
+project(IBMarketData)
 
 option(OPTIMIZE "Compiler optimization" ON)
 
-set(IBClient_VERSION_MAJOR 0)
-set(IBClient_VERSION_MINOR 1)
-
 # cpplint.py tool
 set(CPPLINT ${PROJECT_SOURCE_DIR}/../scripts/cpplint.py)
-
-# Use 9.63 Beta version API.
-set(IBAPI_DIR "api9.63beta")
 
 # Compiler flags
 set(CMAKE_CXX_FLAGS "-ggdb -Wall -Wno-switch")
