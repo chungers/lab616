@@ -1,0 +1,44 @@
+package trading;
+
+option java_package = "com.lab616.trading.trades.proto";
+option java_outer_classname = "Trades";
+option optimize_for = LITE_RUNTIME;
+
+enum OrderType {
+    BUY  = 0;
+    SELL = 1;
+    BUY_OPEN   = 2;  // For option buy to open position.
+    SELL_CLOSE = 3;  // For option sell to close position.
+    OPTION_EXPIRE = 4;
+}
+
+message Trade {
+  required string date         = 1; // MM/dd/yyyy
+  required OrderType orderType = 2;
+  optional string cusip        = 3;
+  required string security     = 4; // Symbol
+  required string description  = 5; // Security
+  required int32 quantity      = 6;
+  required float price         = 7;
+  optional float commission    = 8;
+  required float net           = 9;
+  
+  // Assigned:
+  required fixed64 timestamp   = 10; // computed from 1 
+  required fixed64 tradeId     = 11;
+}
+
+message GainLoss {
+  required string symbol  = 1;
+  required int32 quantity = 2;
+  required string openDate = 3;
+  required float openPrice = 4;
+  required float openNet = 5;
+  required OrderType orderType = 6;
+  required string closingDate = 7;
+  required float closingPrice = 8;
+  required float closingNet = 9;
+  required float gainLoss = 10;
+
+  required fixed64 id     = 11;
+}
