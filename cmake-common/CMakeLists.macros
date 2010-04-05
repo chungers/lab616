@@ -1,11 +1,13 @@
 # Useful Macros
 
+set(GLOBAL_ROOT ${PROJECT_SOURCE_DIR}/..)
+
 # Build static libraries that are required but not part of the project.
 # This includes common api libraries such as gtest and the TWS api.
 # Note that the IF is evaluated only when cmake is invoked.  Therefore,
 # in order to take into account of the library, do make install and then
 # rerun cmake.
-macro(build_static_lib TARGET SOURCES)
+macro(cpp_library TARGET SOURCES)
   if(EXISTS ${BUILD_DIR}/lib/lib${TARGET}.a)
     add_library(${TARGET} STATIC IMPORTED)
     set_property(TARGET ${TARGET} 
@@ -15,7 +17,7 @@ macro(build_static_lib TARGET SOURCES)
     # Install the library
     install(TARGETS ${TARGET} DESTINATION ${BUILD_DIR}/lib)
   endif(EXISTS ${BUILD_DIR}/lib/lib${TARGET}.a)
-endmacro(build_static_lib)
+endmacro(cpp_library)
 
 # Building an executable
 # Given a target of FOO, an executable target FOO is defined for

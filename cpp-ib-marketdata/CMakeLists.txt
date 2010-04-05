@@ -3,18 +3,13 @@
 
 cmake_minimum_required(VERSION 2.6)
 
-project(IBClient)
+# Project of market data client using IB API.
+project(IBMarketData)
 
 option(OPTIMIZE "Compiler optimization" ON)
 
-set(IBClient_VERSION_MAJOR 0)
-set(IBClient_VERSION_MINOR 1)
-
 # cpplint.py tool
 set(CPPLINT ${PROJECT_SOURCE_DIR}/../scripts/cpplint.py)
-
-# Use 9.63 Beta version API.
-set(IBAPI_DIR "api9.63beta")
 
 # Compiler flags
 set(CMAKE_CXX_FLAGS "-ggdb -Wall -Wno-switch")
@@ -23,7 +18,7 @@ if (OPTIMIZE)
 endif (OPTIMIZE)
 
 # Macros to include
-set(PROJECT_MACROS ${PROJECT_SOURCE_DIR}/CMakeLists.macros)
+set(PROJECT_MACROS ${PROJECT_SOURCE_DIR}/../cmake-common/CMakeLists.macros)
 include(${PROJECT_MACROS})
 
 # Build directory contains the output of builds.
@@ -42,7 +37,7 @@ set(TEST_INCLUDES
 include_directories(${TEST_INCLUDES})
 
 # GoogleTest
-build_static_lib(gtest
+cpp_library(gtest
     ${GTEST_DIR}/src/gtest.cc
     ${GTEST_DIR}/src/gtest-death-test.cc
     ${GTEST_DIR}/src/gtest-filepath.cc
