@@ -31,14 +31,14 @@ message Trade {
 message GainLoss {
   required string symbol  = 1;
   required int32 quantity = 2;
-  required string openDate = 3;
-  required float openPrice = 4;
-  required float openNet = 5;
-  required OrderType orderType = 6;
-  required string closingDate = 7;
-  required float closingPrice = 8;
-  required float closingNet = 9;
-  required float gainLoss = 10;
+  required string open_date = 3;
+  required float open_price = 4;
+  required float open_net = 5;
+  required OrderType order_type = 6;
+  required string closing_date = 7;
+  required float closing_price = 8;
+  required float closing_net = 9;
+  required float gain_loss = 10;
 
   required fixed64 id     = 11;
 }

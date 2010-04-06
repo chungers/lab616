@@ -23,7 +23,7 @@ if (OPTIMIZE)
 endif (OPTIMIZE)
 
 # Macros to include
-set(PROJECT_MACROS ${PROJECT_SOURCE_DIR}/../cmake-common/CMakeLists.macros)
+set(PROJECT_MACROS ${PROJECT_SOURCE_DIR}/../cmake-common/Init.cmk)
 include(${PROJECT_MACROS})
 
 # Build directory contains the output of builds.

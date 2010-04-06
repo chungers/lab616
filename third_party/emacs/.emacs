@@ -6,6 +6,7 @@
 	    '(("CMakeLists\\.txt\\'" . cmake-mode))
 	    '(("CMakeLists\\.macros\\'" . cmake-mode))
 	    '(("\\.cmake\\'" . cmake-mode))
+	    '(("\\.cmk\\'" . cmake-mode))
 	    auto-mode-alist))
 (autoload 'cmake-mode "~/lab616/third_party/emacs/cmake-mode.el" t)      ; CMake support
 

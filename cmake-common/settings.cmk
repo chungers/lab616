@@ -1,0 +1,19 @@
+
+set(CMAKE_CXX_FLAGS "-ggdb -Wall -Wno-switch")
+if (OPTIMIZE) 
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
+endif (OPTIMIZE)
+
+# Root of source and tests
+set(SRC_ROOT ${PROJECT_SOURCE_DIR}/src)
+set(TEST_ROOT ${PROJECT_SOURCE_DIR}/test)
+
+# Build directory contains the output of builds.
+set(BUILD_DIR ${PROJECT_SOURCE_DIR}/build)
+
+# Configured directory for header files (from .h.in).
+set(INCLUDE_DIR ${BUILD_DIR}/include)
+
+# Directory for generated files:
+set(GEN_DIR ${PROJECT_SOURCE_DIR}/genfiles)
+

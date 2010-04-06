@@ -1,6 +1,6 @@
 # Useful Macros
 
-set(GLOBAL_ROOT ${PROJECT_SOURCE_DIR}/..)
+set(LAB616 ${PROJECT_SOURCE_DIR}/..)
 
 # Build static libraries that are required but not part of the project.
 # This includes common api libraries such as gtest and the TWS api.

@@ -1,0 +1,7 @@
+find_package(Protobuf REQUIRED)
+
+set(CMAKE_COMMON ${PROJECT_SOURCE_DIR}/../cmake-common)
+
+include(${CMAKE_COMMON}/settings.cmk)
+include(${CMAKE_COMMON}/functions.cmk)
+include(${CMAKE_COMMON}/macros.cmk)

@@ -1,0 +1,29 @@
+# Common functions for builds
+
+set(COMMON_PROTOS ${LAB616}/common-protos)
+
+function(proto_library0 target proto_file)
+  # Build the paths of the generated files.
+  string(REGEX REPLACE ".proto" ".pb.h" h_file ${proto_file})
+  string(REGEX REPLACE ".proto" ".pb.cc" cc_file ${proto_file})
+  list(APPEND gen_files ${GEN_DIR}/${h_file} ${GEN_DIR}/${cc_file})
+
+#include_directories(${SRC_ROOT} ${GEN_DIR})
+  add_custom_command(OUTPUT ${gen_files}
+    /usr/local/bin/protoc --proto_path=${SRC_ROOT} --cpp_out=${GEN_DIR} 
+    ${SRC_ROOT}/${proto_file}
+    DEPENDS ${SRC_ROOT}/${proto_file}
+    COMMENT "Generating protos: ${proto_file}")
+  set_source_files_properties(${gen_files} PROPERTIES GENERATED TRUE)
+  #add_library(${target} ${gen_files})
+  #add_dependencies(${target} gen_${target})
+  #install(TARGETS ${target} DESTINATION ${BUILD_DIR}/lib)
+endfunction(proto_library0)
+
+function(proto_library target proto_file)
+  find_package(Protobuf REQUIRED)
+  include_directories(${PROTOBUF_INCLUDE_DIRS})
+  protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${proto_file})
+  add_library(${target} ${PROTO_SRCS} ${PROTO_HDRS})
+  install(TARGETS ${target} DESTINATION ${BUILD_DIR}/lib)
+endfunction(proto_library)
