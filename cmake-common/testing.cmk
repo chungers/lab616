@@ -1,0 +1,23 @@
+# Testing setup
+
+# Testing support - GTest / GMock
+set(GMOCK_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gmock)
+set(GTEST_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gtest)
+set(TEST_INCLUDES 
+  ${GTEST_DIR}
+  ${GTEST_DIR}/include
+  ${GMOCK_DIR}
+  ${GMOCK_DIR}/include
+)
+include_directories(${TEST_INCLUDES})
+
+# GoogleTest
+cpp_library(gtest
+    ${GTEST_DIR}/src/gtest.cc
+    ${GTEST_DIR}/src/gtest-death-test.cc
+    ${GTEST_DIR}/src/gtest-filepath.cc
+    ${GTEST_DIR}/src/gtest-port.cc
+    ${GTEST_DIR}/src/gtest-test-part.cc
+    ${GTEST_DIR}/src/gtest-typed-test.cc
+)
+

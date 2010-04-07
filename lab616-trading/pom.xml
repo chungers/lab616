@@ -47,7 +47,7 @@
 								<exec executable="/usr/local/bin/protoc">
 								  <arg value="--java_out=target/generated-sources" />
 								  <arg value="--proto_path=${project.basedir}/../" />
-								  <arg value="${project.basedir}/../common-protos/trades.proto" />
+								  <arg value="src/main/protobuf/trades.proto" />
 								</exec>
 							</tasks>
 							<sourceRoot>target/generated-sources</sourceRoot>

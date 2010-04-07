@@ -20,6 +20,7 @@ function(proto_library0 target proto_file)
   #install(TARGETS ${target} DESTINATION ${BUILD_DIR}/lib)
 endfunction(proto_library0)
 
+# Creates a static library of protobufs
 function(proto_library target proto_file)
   find_package(Protobuf REQUIRED)
   include_directories(${PROTOBUF_INCLUDE_DIRS})
@@ -27,3 +28,24 @@ function(proto_library target proto_file)
   add_library(${target} ${PROTO_SRCS} ${PROTO_HDRS})
   install(TARGETS ${target} DESTINATION ${BUILD_DIR}/lib)
 endfunction(proto_library)
+
+# Depends on an external target, in a different project
+function(external_depends target target_paths)
+  set(plist ${ARGV})
+  list(REMOVE_AT plist 0)
+  foreach(path ${plist})
+    string(REGEX REPLACE "//" "" p ${path})
+    string(REGEX MATCH "^([a-zA-Z0-9/\\-]*)[^:]" ex_p ${p})
+    string(REGEX REPLACE "${ex_p}:" "" ex_t ${p})
+    message("External depends = " ${LAB616}/${ex_p} : ${ex_t})
+    string(REGEX REPLACE "/" "-" pp ${ex_p})
+    set(dep_target ${target}-${pp}-${ex_t})
+    add_custom_target(${dep_target}
+      make ${ex_t} 
+      WORKING_DIRECTORY ${LAB616}/${ex_p}
+      COMMENT "Building target ${ex_t} in ${ex_p}.")
+    add_dependencies(${target} ${dep_target})
+    include_directories(${LAB616}/${ex_p})
+    link_directories(${LAB616}/${ex_p})
+  endforeach()
+endfunction(external_depends)

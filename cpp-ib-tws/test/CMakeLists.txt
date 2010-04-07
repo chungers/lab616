@@ -1,6 +1,5 @@
 # CMakeLists.txt for tests
 
-include(${PROJECT_MACROS})
 enable_testing()
 
 # Use standard string library instead of mvc foundation classes:

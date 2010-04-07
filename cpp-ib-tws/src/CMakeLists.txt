@@ -1,23 +1,6 @@
 # CMakeLists.txt
 # Directory: //src
 
-cmake_minimum_required(VERSION 2.6)
-
-include(${PROJECT_MACROS})
-message(STATUS "Global root = ${LAB616}")
-
-set(COMMON_PROTOS ${LAB616}/common-protos)
-# Generate protos
-add_custom_target(gen_protos
-  /usr/local/bin/protoc 
-  --proto_path=${COMMON_PROTOS} 
-  --cpp_out=${GEN_DIR}
-  ${COMMON_PROTOS}/trades.proto
-  DEPENDS
-  ${COMMON_PROTOS}/trades.proto
-  COMMENT
-  "Generating protos defined in ${COMMON_PROTOS}/trades.proto")
-
 # Use standard string library instead of mvc foundation classes:
 option(IB_USE_STD_STRING "Use standard c++ string (see Shared/IBString.h)." ON)
 if (IB_USE_STD_STRING)
@@ -43,6 +26,7 @@ add_library(twsclient
 )
 add_dependencies(twsclient gen_protos)
 
+external_depends(twsclient //common-protos/trading:trades_proto)
 
 ########################################################
 # Executable: SimpleClientMain
