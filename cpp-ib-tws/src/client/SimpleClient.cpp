@@ -5,6 +5,8 @@
 #include <errno.h>
 #include <sys/select.h>
 
+#include <trading/trades.pb.h>
+
 #include "EPosixClientSocket.h"
 #include "Contract.h"
 #include "Order.h"

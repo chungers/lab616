@@ -34,9 +34,14 @@ function(external_depends target target_paths)
   set(plist ${ARGV})
   list(REMOVE_AT plist 0)
   foreach(path ${plist})
-    string(REGEX REPLACE "//" "" p ${path})
-    string(REGEX MATCH "^([a-zA-Z0-9/\\-]*)[^:]" ex_p ${p})
-    string(REGEX REPLACE "${ex_p}:" "" ex_t ${p})
+    # path = //project/subdir1/subdir2:target
+    string(REGEX REPLACE "//" "" p ${path})  
+    # p = project/subdir1/subdir2:target
+    string(REGEX MATCH "^([a-zA-Z0-9/\\-]*)[^:]" ex_p ${p}) 
+    # ex_p = project/subdir1/subdir2
+    string(REGEX REPLACE "${ex_p}:" "" ex_t ${p}) # ex_t = target
+    # Get the top level project from ex_p, remove everything after first /:
+    string(REGEX REPLACE "/.*" "" ex_p ${ex_p})
     message("External depends = " ${LAB616}/${ex_p} : ${ex_t})
     string(REGEX REPLACE "/" "-" pp ${ex_p})
     set(dep_target ${target}-${pp}-${ex_t})
