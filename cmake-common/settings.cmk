@@ -5,8 +5,8 @@ if (OPTIMIZE)
 endif (OPTIMIZE)
 
 # Root of source and tests
-set(SRC_ROOT ${PROJECT_SOURCE_DIR}/src)
-set(TEST_ROOT ${PROJECT_SOURCE_DIR}/test)
+set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
+set(TEST_DIR ${PROJECT_SOURCE_DIR}/test)
 
 # Build directory contains the output of builds.
 set(BUILD_DIR ${PROJECT_SOURCE_DIR}/build)
@@ -19,3 +19,8 @@ set(GEN_DIR ${PROJECT_SOURCE_DIR}/genfiles)
 
 # cpplint.py tool
 set(CPPLINT ${PROJECT_SOURCE_DIR}/../scripts/cpplint.py)
+
+# GFlags library
+set(GFLAGS_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gflags)
+include_directories(${GFLAGS_DIR}/include)
+find_library(gflags libgflags.a ${GFLAGS_DIR}/lib)

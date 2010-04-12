@@ -21,3 +21,15 @@ cpp_library(gtest
     ${GTEST_DIR}/src/gtest-typed-test.cc
 )
 
+# Building GTests
+macro(cpp_gtest TARGET)
+  cpp_executable(${TARGET})
+  add_test(gtest_${TARGET} ${TEST_ROOT}/${TARGET})
+  target_link_libraries(${TARGET} gtest)
+endmacro(cpp_gtest)
+
+# build_tests
+function(build_tests)
+  enable_testing()
+  option(TESTING "Turn on testing." on)
+endfunction()
