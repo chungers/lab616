@@ -1,3 +1,0 @@
-IB TWS C++ API (API 9.62)
-dist/ -> original cpp files distributed with the api download
-src/  -> modified cpp files.  Files are taken from dist as appropriate.
