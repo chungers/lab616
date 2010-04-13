@@ -8,7 +8,7 @@ function(proto_library0 target proto_file)
   string(REGEX REPLACE ".proto" ".pb.cc" cc_file ${proto_file})
   list(APPEND gen_files ${GEN_DIR}/${h_file} ${GEN_DIR}/${cc_file})
 
-#include_directories(${SRC_ROOT} ${GEN_DIR})
+  #include_directories(${SRC_ROOT} ${GEN_DIR})
   add_custom_command(OUTPUT ${gen_files}
     /usr/local/bin/protoc --proto_path=${SRC_ROOT} --cpp_out=${GEN_DIR} 
     ${SRC_ROOT}/${proto_file}

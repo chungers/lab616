@@ -1,32 +1,41 @@
 # Testing setup
 
 # Testing support - GTest / GMock
-set(GMOCK_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gmock)
-set(GTEST_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gtest)
-set(TEST_INCLUDES 
-  ${GTEST_DIR}
-  ${GTEST_DIR}/include
-  ${GMOCK_DIR}
-  ${GMOCK_DIR}/include
-)
-include_directories(${TEST_INCLUDES})
+
 
 # GoogleTest
-cpp_library(gtest
-    ${GTEST_DIR}/src/gtest.cc
-    ${GTEST_DIR}/src/gtest-death-test.cc
-    ${GTEST_DIR}/src/gtest-filepath.cc
-    ${GTEST_DIR}/src/gtest-port.cc
-    ${GTEST_DIR}/src/gtest-test-part.cc
-    ${GTEST_DIR}/src/gtest-typed-test.cc
-)
+#set(GTEST_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gtest)
+#include_directories(${GTEST_DIR} ${GTEST_DIR}/include)
+#cpp_library(gtest
+#    ${GTEST_DIR}/src/gtest.cc
+#    ${GTEST_DIR}/src/gtest-death-test.cc
+#    ${GTEST_DIR}/src/gtest-filepath.cc
+#    ${GTEST_DIR}/src/gtest-port.cc
+#    ${GTEST_DIR}/src/gtest-test-part.cc
+#    ${GTEST_DIR}/src/gtest-typed-test.cc
+#)
+
+# GMock library
+set(GMOCK_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gmock)
+set(GMOCK_LIB_DIR ${GMOCK_DIR}/build/lib/.libs)
+include_directories(${GMOCK_DIR} ${GMOCK_DIR}/include)
+link_directories(${GMOCK_LIB_DIR})
+find_library(gmock libgmock.a ${GMOCK_LIB_DIR})
+
+# GTest library
+set(GTEST_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gtest)
+set(GTEST_LIB_DIR ${GTEST_DIR}/build/lib/.libs)
+include_directories(${GTEST_DIR} ${GTEST_DIR}/include)
+link_directories(${GTEST_LIB_DIR})
+find_library(gtest libgtest.a ${GTEST_LIB_DIR})
 
 # Building GTests
 macro(cpp_gtest TARGET)
   cpp_executable(${TARGET})
+  target_link_libraries(${TARGET} gtest gmock)
+  link_directories(${GTEST_LIB_DIR} ${GMOCK_LIB_DIR})
   add_test(gtest_${TARGET} ${TEST_ROOT}/${TARGET})
-  target_link_libraries(${TARGET} gtest)
-endmacro(cpp_gtest)
+endmacro()
 
 # build_tests
 function(build_tests)
