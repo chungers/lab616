@@ -6,6 +6,7 @@
 set(IBClient_VERSION_MAJOR 0)
 set(IBClient_VERSION_MINOR 1)
 
+third_party(gflags)
 
 # Process variables in headers with values set in top level cmake file:
 configure_file(

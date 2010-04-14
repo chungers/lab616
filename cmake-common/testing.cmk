@@ -1,33 +1,7 @@
 # Testing setup
 
-# Testing support - GTest / GMock
-
-
-# GoogleTest
-#set(GTEST_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gtest)
-#include_directories(${GTEST_DIR} ${GTEST_DIR}/include)
-#cpp_library(gtest
-#    ${GTEST_DIR}/src/gtest.cc
-#    ${GTEST_DIR}/src/gtest-death-test.cc
-#    ${GTEST_DIR}/src/gtest-filepath.cc
-#    ${GTEST_DIR}/src/gtest-port.cc
-#    ${GTEST_DIR}/src/gtest-test-part.cc
-#    ${GTEST_DIR}/src/gtest-typed-test.cc
-#)
-
-# GMock library
-set(GMOCK_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gmock)
-set(GMOCK_LIB_DIR ${GMOCK_DIR}/build/lib/.libs)
-include_directories(${GMOCK_DIR} ${GMOCK_DIR}/include)
-link_directories(${GMOCK_LIB_DIR})
-find_library(gmock libgmock.a ${GMOCK_LIB_DIR})
-
-# GTest library
-set(GTEST_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gtest)
-set(GTEST_LIB_DIR ${GTEST_DIR}/build/lib/.libs)
-include_directories(${GTEST_DIR} ${GTEST_DIR}/include)
-link_directories(${GTEST_LIB_DIR})
-find_library(gtest libgtest.a ${GTEST_LIB_DIR})
+third_party(gmock)
+third_party(gtest)
 
 # Building GTests
 macro(cpp_gtest TARGET)

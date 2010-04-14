@@ -20,9 +20,6 @@ set(GEN_DIR ${PROJECT_SOURCE_DIR}/genfiles)
 # cpplint.py tool
 set(CPPLINT ${PROJECT_SOURCE_DIR}/../scripts/cpplint.py)
 
-# GFlags library
-set(GFLAGS_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/gflags)
-set(GFLAGS_LIB_DIR ${GFLAGS_DIR}/build/lib/.libs)
-include_directories(${GFLAGS_DIR}/include)
-link_directories(${GFLAGS_LIB_DIR})
-find_library(gflags libgflags.a ${GFLAGS_LIB_DIR})
+set(THIRD_PARTY_BUILD_DIR ${BUILD_DIR}/third_party)
+
+add_custom_target(init)
