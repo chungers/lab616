@@ -36,7 +36,6 @@ cpp_library(SimpleClient)
 # _incs / _srcs / _libs
 set(SimpleClientMain_incs
   ${API_ROOT}/Shared 
-  ${API_ROOT}/PosixSocketClient
   ${GEN_DIR}
   ${SRC_DIR}
 )

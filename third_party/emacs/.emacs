@@ -39,9 +39,35 @@
 (semantic-load-enable-gaudy-code-helpers) ;
 
 (defun my-cedet-hook ()
+  ;; Code completion - symbol.
   (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  (local-set-key "\C-c " 'semantic-ia-complete-symbol-menu) ; C-c 'space'
-  (local-set-key "\C-cv" 'semantic-decoration-include-visit) ; C-c v
+
+  ;; Code completion - member functions.
+  (local-set-key "." 'semantic-complete-self-insert)
+  (local-set-key ">" 'semantic-complete-self-insert)
+
+  ;; C-c 'space': Displays menu for code completion.
+  (local-set-key "\C-c " 'semantic-ia-complete-symbol-menu)
+
+  ;; C-c j: Jumps to defintion of symbol under cursor.
+  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
+
+  ;; C-c b: Jumps back after C-c j
+  (local-set-key "\C-cb" 'semantic-mrub-switch-tag)
+
+  ;; C-c v: Visits the declaration in header file (cursor on #define)
+  (local-set-key "\C-cv" 'semantic-decoration-include-visit)
+
+  ;; C-c p: Toggles between function declaration and actual implementation.
+  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+
+  ;; C-c u: Finds all usage of symbol under cursor.
+  (local-set-key "\C-cu" 'semantic-symref-symbol)
+
+  ;; C-c d: Shows the documentation / function prototype of tag under cursor
+  (local-set-key "\C-cd" 'semantic-ia-show-doc)
+
+  ;; 
   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle))
+)
 (add-hook 'c-mode-common-hook 'my-cedet-hook)
