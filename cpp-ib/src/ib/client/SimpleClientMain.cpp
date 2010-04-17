@@ -26,7 +26,7 @@ int main(int argc, char** argv)
     SimpleClient client;
 
     client.connect( host, port, clientId);
-
+     
     while( client.isConnected()) {
       client.processMessages();
     }

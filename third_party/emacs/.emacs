@@ -37,3 +37,11 @@
 
 (semantic-load-enable-code-helpers)       ; Enable prototype help and smart completion 
 (semantic-load-enable-gaudy-code-helpers) ;
+
+(defun my-cedet-hook ()
+  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+  (local-set-key "\C-c " 'semantic-ia-complete-symbol-menu) ; C-c 'space'
+  (local-set-key "\C-cv" 'semantic-decoration-include-visit) ; C-c v
+  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle))
+(add-hook 'c-mode-common-hook 'my-cedet-hook)
