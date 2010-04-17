@@ -7,7 +7,7 @@ set(LAB616 ${PROJECT_SOURCE_DIR}/..)
 # Note that the IF is evaluated only when cmake is invoked.  Therefore,
 # in order to take into account of the library, do make install and then
 # rerun cmake.
-macro(cpp_library target sources)
+macro(ext_library target sources)
   if(EXISTS ${BUILD_DIR}/lib/lib${target}.a)
     add_library(${target} STATIC IMPORTED)
     set_property(target ${target} 
@@ -17,6 +17,20 @@ macro(cpp_library target sources)
     # Install the library
     install(TARGETS ${target} DESTINATION ${BUILD_DIR}/lib)
   endif(EXISTS ${BUILD_DIR}/lib/lib${target}.a)
+endmacro(ext_library)
+
+# Building a library
+# Given a target of FOO, an executable target FOO is defined for
+# building with sources from list FOO_srcs and links with library
+# FOO_libs.  The output libFOO.a is then copied to the build dir.
+macro(cpp_library target)
+  include_directories(${target} ${${target}_incs})
+  link_directories(${BUILD_DIR}/lib)
+  add_library(${target} ${${target}_srcs})
+  target_link_libraries(${target} ${${target}_libs})
+  add_custom_target(${target}_lint 
+    ${CPPLINT} ${${target}}_incs ${${target}_srcs})
+  install(TARGETS ${target} DESTINATION ${BUILD_DIR}/lib)
 endmacro(cpp_library)
 
 # Building an executable

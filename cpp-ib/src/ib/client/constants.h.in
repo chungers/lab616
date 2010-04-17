@@ -1,0 +1,14 @@
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+// From CMake project variables:
+
+#include "ib/api/@IBAPI_VERSION@/Shared/Contract.h"
+#include "ib/api/@IBAPI_VERSION@/Shared/Order.h"
+#include "ib/api/@IBAPI_VERSION@/Shared/EWrapper.h"
+#include "ib/api/@IBAPI_VERSION@/PosixSocketClient/EPosixClientSocket.h"
+
+#define CLIENT_VERSION_MAJOR @IBClient_VERSION_MAJOR@
+#define CLIENT_VERSION_MINOR @IBClient_VERSION_MINOR@
+
+#endif

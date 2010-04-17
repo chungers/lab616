@@ -5,6 +5,8 @@ build_tests()
 #########################################
 # Test:
 set(SimpleClientTest_incs
+  ${API_ROOT}/Shared 
+  ${API_ROOT}/PosixSocketClient
   ${GEN_DIR}
   ${SRC_DIR}
   ${TEST_DIR}

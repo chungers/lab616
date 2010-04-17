@@ -1,13 +1,11 @@
 // SimpleClient.cpp -- IB TWS client.
 #include "ib/client/SimpleClient.h"
 
+#include "ib/client/constants.h"
+
 #include <arpa/inet.h>
 #include <errno.h>
 #include <sys/select.h>
-
-#include "ib/api/@IBAPI_VERSION@/PosixSocketClient/EPosixClientSocket.h"
-#include "ib/api/@IBAPI_VERSION@/Shared/Contract.h"
-#include "ib/api/@IBAPI_VERSION@/Shared/Order.h"
 
 // helpers
 inline bool SocketsInit() { return true; };

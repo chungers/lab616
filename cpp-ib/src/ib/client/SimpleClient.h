@@ -6,13 +6,9 @@
 #ifndef CLIENT_SIMPLE_CLIENT_H_
 #define CLIENT_SIMPLE_CLIENT_H_
 
-#include "ib/api/@IBAPI_VERSION@/Shared/EWrapper.h"
+#include "ib/client/constants.h"
 
 #include <memory>
-
-// From CMake project variables:
-#define CLIENT_VERSION_MAJOR @IBClient_VERSION_MAJOR@
-#define CLIENT_VERSION_MINOR @IBClient_VERSION_MINOR@
 
 class EPosixClientSocket;
 

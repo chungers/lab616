@@ -10,15 +10,26 @@ third_party(gflags)
 
 # Process variables in headers with values set in top level cmake file:
 configure_file(
-  SimpleClient.h.in
-  ${GEN_DIR}/ib/client/SimpleClient.h
+  constants.h.in
+  ${GEN_DIR}/ib/client/constants.h
 )
-configure_file(
-  SimpleClient.cpp.in
-  ${GEN_DIR}/ib/client/SimpleClient.cpp
-)
-install(FILES ${GEN_DIR}/ib/client/SimpleClient.h DESTINATION ${INCLUDE_DIR})
+#install(FILES ${GEN_DIR}/ib/client/SimpleClient.h DESTINATION ${INCLUDE_DIR})
 
+set(SimpleClient_incs
+  ${API_ROOT}/Shared 
+  ${API_ROOT}/PosixSocketClient
+  ${GEN_DIR}
+  ${SRC_DIR}
+)
+set(SimpleClient_srcs
+  SimpleClient.cpp
+)
+set(SimpleClient_libs
+  ib_api
+  gflags
+)
+# Client implementation:
+cpp_library(SimpleClient)
 
 ########################################################
 # Executable: SimpleClientMain
@@ -36,9 +47,5 @@ set(SimpleClientMain_libs
   SimpleClient
   ib_api
   gflags
-)
-# Client implementation:
-add_library(SimpleClient
-  ${GEN_DIR}/ib/client/SimpleClient.cpp
 )
 cpp_executable(SimpleClientMain)
