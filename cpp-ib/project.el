@@ -7,6 +7,8 @@
  :include-path '("/src" 
 		 "/test"
 		 "/genfiles"
-		 "/build/third_party/include")
+		 "/build/third_party/include"
+		 "/build/third_party/boost/include"
+		 )
  :system-include-path '("/usr/local/google")
  )
