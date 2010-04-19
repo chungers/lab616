@@ -9,7 +9,7 @@ set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
 set(TEST_DIR ${PROJECT_SOURCE_DIR}/test)
 
 # Build directory contains the output of builds.
-set(BUILD_DIR ${PROJECT_SOURCE_DIR}/build)
+set(BUILD_DIR ${PROJECT_SOURCE_DIR}/_build)
 
 # Configured directory for header files (from .h.in).
 set(INCLUDE_DIR ${BUILD_DIR}/include)

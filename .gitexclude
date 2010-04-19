@@ -29,7 +29,7 @@ genfiles/
 target/
 
 # Custom CMake build output directory:
-build/
+_build/
 
 # Runtime / testing
 runtime/
