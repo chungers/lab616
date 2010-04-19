@@ -1,5 +1,8 @@
 ;;; .emacs
 
+(add-to-list 'load-path "~/lab616/third_party/emacs/git-emacs")
+(require 'git-emacs)
+
 ; Add cmake listfile names to the mode list.
 (setq auto-mode-alist
         (append
