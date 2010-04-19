@@ -1,12 +1,15 @@
 # //cpp-ib/src/ib/client/CMakeLists.txt
 #
-# Client code using the IB API directly.
+# Client code using the IB API directly -- for testing of API, etc.
 
 # Referenced inside source files as ifdef constants.
 set(IBClient_VERSION_MAJOR 0)
 set(IBClient_VERSION_MINOR 1)
 
+# Third party libraries used.
+boost_libraries(date_time thread)
 third_party(gflags)
+third_party(glog)
 
 # Process variables in headers with values set in top level cmake file:
 configure_file(
@@ -36,7 +39,6 @@ cpp_library(SimpleClient)
 # _incs / _srcs / _libs
 set(SimpleClientMain_incs
   ${API_ROOT}/Shared 
-  ${API_ROOT}/PosixSocketClient
   ${GEN_DIR}
   ${SRC_DIR}
 )
@@ -47,5 +49,6 @@ set(SimpleClientMain_libs
   SimpleClient
   ib_api
   gflags
+  glog
 )
 cpp_executable(SimpleClientMain)

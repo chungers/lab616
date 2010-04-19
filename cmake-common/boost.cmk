@@ -1,0 +1,46 @@
+
+# Boost libraries
+# As of 1.42, the following boost libraries require compile and linking:
+#./bjam --show-libraries
+#The following libraries require building:
+#    - date_time
+#    - filesystem
+#    - graph
+#    - graph_parallel
+#    - iostreams
+#    - math
+#    - mpi
+#    - program_options
+#    - python
+#    - regex
+#    - serialization
+#    - signals
+#    - system
+#    - test
+#    - thread
+#    - wave
+function(boost_libraries targets)
+  set(BOOST_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/boost)
+  include_directories(${THIRD_PARTY_BUILD_DIR}/boost/include)
+  link_directories(${THIRD_PARTY_BUILD_DIR}/boost/lib)
+  foreach (target ${ARGV})
+    set(package "boost_${target}")
+    message(STATUS "BOOST: Checking for ${target}")
+    find_library(${package} 
+      NAMES lib${package}.a 
+      PATHS ${THIRD_PARTY_BUILD_DIR}/boost/lib)
+    if (${${package}} MATCHES ${package}-NOTFOUND)
+      list(APPEND BOOST_TO_BUILD "--with-${target}")
+      message(STATUS 
+	"BOOST: Missing ${package}: 'make boost' OR 'make init' to build.")
+    endif()
+  endforeach(target)
+  message(STATUS "BOOST: bjam options = '${BOOST_TO_BUILD}'")
+  add_custom_target(build-boost
+    COMMAND mkdir -p ${THIRD_PARTY_BUILD_DIR}/boost
+	COMMAND ${BOOST_DIR}/bootstrap.sh 
+	--prefix=${THIRD_PARTY_BUILD_DIR}/boost 
+	COMMAND ${BOOST_DIR}/bjam ${BOOST_TO_BUILD} install
+	WORKING_DIRECTORY ${BOOST_DIR})
+      add_dependencies(init build-boost)
+endfunction(boost_libraries)

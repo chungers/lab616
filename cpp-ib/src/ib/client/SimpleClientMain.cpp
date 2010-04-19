@@ -1,6 +1,8 @@
 #include "ib/client/SimpleClient.h"
 
 #include <gflags/gflags.h>
+#include <glog/logging.h>
+#include <boost/date_time.hpp>
 #include <unistd.h>
 
 DEFINE_int32(max_attempts, 50, "Max number of attempts.");
@@ -26,7 +28,7 @@ int main(int argc, char** argv)
     SimpleClient client;
 
     client.connect( host, port, clientId);
-     
+    
     while( client.isConnected()) {
       client.processMessages();
     }

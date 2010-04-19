@@ -59,9 +59,12 @@ endfunction(external_depends)
 function(third_party package)
   include_directories(${THIRD_PARTY_BUILD_DIR}/include)
   link_directories(${THIRD_PARTY_BUILD_DIR}/lib)
-  find_library(${package} NAMES lib${package}.a PATHS ${THIRD_PARTY_BUILD_DIR}/lib)
+  find_library(${package} 
+    NAMES lib${package}.a 
+    PATHS ${THIRD_PARTY_BUILD_DIR}/lib)
   if (${${package}} MATCHES ${package}-NOTFOUND)
-    message(STATUS "******* RUN 'make build-${package}' OR 'make init' to build all.")
+    message(STATUS 
+      "THIRD_PARTY: 'make build-${package}' OR 'make init' to build all.")
     add_custom_target(build-${package}
       COMMAND mkdir -p ${THIRD_PARTY_BUILD_DIR} 
       COMMAND ${PROJECT_SOURCE_DIR}/../third_party/cpp/${package}/configure 
@@ -71,4 +74,4 @@ function(third_party package)
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/../third_party/cpp/${package})
     add_dependencies(init build-${package})
   endif()
-endfunction()
+endfunction(third_party)

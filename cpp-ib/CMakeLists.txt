@@ -15,6 +15,12 @@ option(OPTIMIZE "Compiler optimization" ON)
 # This corresponds to the name of the subdirectory in //cpp-ib/src/ib/api
 set(IBAPI_VERSION "9.63beta")
 
+# Configure the project file for loading into emacs.
+configure_file(
+  project.el.in
+  ${PROJECT_SOURCE_DIR}/project.el
+)
+
 
 # Use the api version defined in the top level cmake file:
 set(API_ROOT ${SRC_DIR}/ib/api/${IBAPI_VERSION})
