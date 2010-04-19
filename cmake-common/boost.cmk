@@ -21,7 +21,6 @@
 #    - wave
 function(boost_libraries targets)
   set(BOOST_DIR ${PROJECT_SOURCE_DIR}/../third_party/cpp/boost)
-  set(BOOST_TO_BUILD "")
   include_directories(${THIRD_PARTY_BUILD_DIR}/boost/include)
   link_directories(${THIRD_PARTY_BUILD_DIR}/boost/lib)
   foreach (target ${ARGV})
@@ -42,7 +41,6 @@ function(boost_libraries targets)
 	COMMAND ${BOOST_DIR}/bootstrap.sh 
 	--prefix=${THIRD_PARTY_BUILD_DIR}/boost 
 	COMMAND ${BOOST_DIR}/bjam ${BOOST_TO_BUILD} install
-	COMMAND ${BOOST_DIR}/bjam install
 	WORKING_DIRECTORY ${BOOST_DIR})
       add_dependencies(init build-boost)
 endfunction(boost_libraries)
