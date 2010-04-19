@@ -1,6 +1,6 @@
 # //cpp-ib/src/ib/client/CMakeLists.txt
 #
-# Client code using the IB API directly.
+# Client code using the IB API directly -- for testing of API, etc.
 
 # Referenced inside source files as ifdef constants.
 set(IBClient_VERSION_MAJOR 0)

@@ -1,5 +1,6 @@
 ;;; //cpp-ib/project.el
 
+;;; load this with M-x 'load-file'
 (ede-cpp-root-project 
  "cpp-ib"
  :file "~/lab616/cpp-ib/CMakeLists.txt"
