@@ -15,7 +15,7 @@ set(BUILD_DIR ${PROJECT_SOURCE_DIR}/_build)
 set(INCLUDE_DIR ${BUILD_DIR}/include)
 
 # Directory for generated files:
-set(GEN_DIR ${PROJECT_SOURCE_DIR}/genfiles)
+set(GEN_DIR ${PROJECT_SOURCE_DIR}/_genfiles)
 
 # cpplint.py tool
 set(CPPLINT ${PROJECT_SOURCE_DIR}/../scripts/cpplint.py)

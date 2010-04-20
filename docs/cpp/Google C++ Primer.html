@@ -1,0 +1,3010 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0050)http://www.corp.google.com/eng/doc/cpp_primer.html -->
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    
+    <LINK rel="stylesheet" type="text/css" href="./Google C++ Primer_files/docstyle.css">
+    <STYLE type="text/css">
+          span.qgjb { color: red }
+          span.qgjb pre { color: maroon  }
+          span.qgjb code { color: maroon }
+          pre.badcode { color: #cc0000 }
+    </STYLE>
+    <TITLE>Google C++ Primer</TITLE>
+  </HEAD><BODY>
+
+    <H1>Google C++ Primer</H1>
+    <ADDRESS>Last modified:
+       <SCRIPT type="text/javascript">
+           var lm = new Date(document.lastModified);
+           document.write(lm.toDateString());
+       </SCRIPT>Thu Apr 08 2010
+    </ADDRESS>
+
+    <H2><A name="intro">Introduction</A></H2>
+
+    <P>C++ is used widely throughout Google engineering.  Our <A href="http://www/eng/doc/cppguide.html">C++ style guide</A>
+    restricts the set of acceptable features to make the complexity of
+    the language more manageable.  This primer augments
+    that guide by helping engineers navigate the subset of the
+    language we endorse.  Throughout, we use real-code examples to
+    demonstrate the concepts and constructs that are most important.
+    </P>
+
+    <P>The intended audience is talented programmers with some C/C++
+    experience who are new to C++ at Google. <A name="contents">The
+    remaining sections of this document</A> include:</P>
+
+    <BLOCKQUOTE><DL>
+      <DT> Google-specific Features </DT>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#google_string">Google String Routines</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#google_io">Google I/O</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#google_assert">Asserting in Google Code</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#static_checking">Static Checking</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#google_callbacks">Callbacks and Closures</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#google_pointers">Google and "Smart" Pointers</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#google_flags">Google Flags</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#google_abstractions">Other Important Abstractions</A> </DD>
+      <DD> <BR> </DD>
+
+      <DT> Language Gotchas </DT>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#strsep">strsep</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#sprintf">strcpy, strncpy, sprintf, and gets</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#atoi">atoi, strtol, and friends</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#varargs">va_list</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#macro_varargs">Macros with a variable number of arguments</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#format_strings">Format strings</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#fork">fork and system</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#initialization">Static initialization</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#const_arrays">Const arrays</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#static_consts">Static constants inside a class</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#reference_members"><CODE>const T&amp;</CODE> members and passing temporaries to a constructor</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#volatile">volatile</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#thread_safety">Thread safety</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#type_sizes">Integer Type Sizes</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#signed_overflow">Signed Integer Overflow</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#stack_frame_sizes">Stack Sizes and Stack Frame Sizes</A> </DD>
+      <DD> <BR> </DD>
+
+      <DT> STL Primer </DT>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#stl_containers">Standard Template Library
+       Containers</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#generic">Generic Programming with Templates</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#stl_algorithms">Function objects and STL
+       Algorithms</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#strict_weak_ordering">StrictWeakOrdering Gotchas</A></DD>
+      <DD> <BR> </DD>
+
+      <DT> Common Patterns </DT>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#raii">Resource Acquisition Is Initialization (RAII)</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#registration">Registration</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#pimpl">PIMPL Idiom</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#factory">Factory Methods</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#callbacks">Callbacks</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#disallow_copy_and_assign">DISALLOW_COPY_AND_ASSIGN</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#options_pattern">Options Class Pattern</A> </DD>
+      <DD> <BR> </DD>
+
+      <DT> Miscellaneous </DT>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#newlang">Newer Language Features, for early C++
+       programmers</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#fromjava">C++ Gotchas for Java programmers</A> </DD>
+      <DD> <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#reading">Further reading</A> </DD>
+      <DD> <BR> </DD>
+    </DL></BLOCKQUOTE>
+
+    The reader is encouraged to suggest improvements and provide
+    feedback!
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+
+
+    <H2><A name="google_string">Google String Routines</A></H2>
+
+    <P>Google uses both the C++ <CODE>string</CODE> class and the C
+    <CODE>char*</CODE> type to hold data.  There are many routines in
+    <CODE>strings/strutil.h</CODE> to manipulate and analyze strings,
+    including splitting and joining strings, formatting and parsing
+    numbers from strings, and so forth.  The list has gotten pretty
+    comprehensive over the years.</P>
+
+    <P>Google defines its own <CODE>string</CODE> class that is a bit
+    more efficient than the standard C++ class.  So when you're using
+    strings, use <CODE>string</CODE> (in the global namespace) or
+    <CODE>::string</CODE>, rather than <CODE>std::string</CODE>.  In
+    Google code the standard header file <STRING> defines both
+    <CODE>::string</CODE> and <CODE>std::string</CODE>.</STRING></P>
+
+    <P>There are also classes for dealing explicitly with Unicode
+    strings.
+    <A href="http://wiki/Main/HowToUseUnicodeText"><CODE>UnicodeText</CODE></A>,
+    in <CODE>util/utf8/public/unicodetext.h</CODE>,
+    is a wrapper for UTF-8 strings, for which there are tools
+    in <CODE>util/utf8/public/unilib.h</CODE>
+    and <CODE>util/utf8/public/unicodeprops.h</CODE>.
+    </P>
+
+    <P>Google also defines its own container types for string-like
+    data.  <CODE>StringPiece</CODE>, in
+    <CODE>strings/stringpiece.h</CODE>, is a lightweight wrapper
+    around either strings or char*'s.  The <CODE>File</CODE> interface
+    (in <CODE>file/base/file.h</CODE>) lets you write directly to a
+    file, or you can use <CODE>IOBuffer</CODE> (in
+    <CODE>iobuffer/iobuffer.h</CODE>) to accumulate data in a
+    buffer and then easily send it over a file descriptor (either a
+    local file or a socket).  Either <CODE>Cord</CODE> (in
+    <CODE>strings/cord.h</CODE>) or <CODE>DataBuffer</CODE> (in
+    <CODE>iobuffer/databuffer.h</CODE>) are useful for accumulating
+    text or binary data into a buffer.</P>
+
+    <P>If you're trying to decide which of these classes to use, here
+    are a few pointers.  If you don't own the data in question,
+    <CODE>StringPiece</CODE> is a good choice.  It's also the best
+    choice for use for function and method parameters, since using
+    <CODE>StringPiece</CODE> means you don't have to overload the
+    function to take both <CODE>const char*</CODE> and
+    <CODE>string</CODE>.  If you think the data is likely to be copied
+    a lot, or ownership is likely to move around, <CODE>Cord</CODE> or
+    <CODE>DataBuffer</CODE> are a good choice.  More existing code uses
+    <CODE>DataBuffer</CODE> since it's been around longer, but
+    <CODE>Cord</CODE> may be a bit simpler to use for new code.</P>
+
+    <H2><A name="google_io">Google I/O</A></H2>
+
+    <P>The <CODE>File</CODE> interface (in
+    <CODE>file/base/file.h</CODE>) is the main interface for
+    outputting to files.  It includes built-in support for gfs and
+    other Google-specific storage media, and is preferred over the
+    standard C and C++ I/O classes for that reason.  Even if you're
+    sure your application will only ever write to local disk, still use
+    Google file I/O.  For one thing, you never know what other
+    applications might find your code useful.  For another, by
+    sticking to a standard I/O format you make it easier for others to
+    understand your code.  In particular, use the <CODE>File</CODE>
+    functions instead of C++ IO streams.</P>
+
+    <P>The code in <CODE>net</CODE> is used for network
+    communication.  The basic infrastructure involves a
+    <CODE>SelectServer</CODE>, which multiplexes many connections in a
+    single thread, using <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#google_callbacks">callbacks</A>.
+    Most applications will use a higher level interface, though:
+    perhaps <CODE>HTTPServer</CODE> (in <CODE>net/http</CODE>) for the
+    server code, and <CODE>stubby</CODE> (in <CODE>net/rpc</CODE>) for
+    the client code.  The <A href="http://www.corp.google.com/eng/doc/important-abstractions.html#networking_abstractions">important
+    abstractions</A> page has a lot more detail on the networking
+    classes.</P>
+
+    <P>Google applications do not typically write directly to stdout
+    or stderr.  Use the logging macros in <CODE>base/logging.h</CODE>
+    instead.  Note that this is the one case when we use stream IO in
+    google3.</P>
+
+    <H2><A name="google_assert">Asserting in Google Code</A></H2>
+
+    <P>Assertions are very helpful for tracking down bugs and for
+    reasoning about preconditions and postconditions of various
+    bits of code.</P>
+
+    <P>Instead of <CODE>assert()</CODE>, use the various
+    <CODE>CHECK</CODE> macros in <CODE>base/logging.h</CODE> to
+    implement assertions. <CODE>CHECK</CODE>s crash the program if the
+    assertion is false, logging a stack trace and an error
+    message. The test-specific variants such as <CODE>CHECK_EQ</CODE>,
+    <CODE>CHECK_LE</CODE> etc. print more detailed error messages, so
+    they can be more useful than vanilla <CODE>CHECK</CODE>.  For any
+    of the <CODE>CHECK</CODE> variants, you can stream a helpful
+    message (be sure to start your message with <CODE>":
+    "</CODE>):</P>
+    <PRE>CHECK_GT(factorial(foo), 0) &lt;&lt; ": foo is " &lt;&lt; foo;
+    </PRE>
+
+    <P> Use <CODE>CHECK</CODE> macros freely in your code.  If some
+    condition must be true for a block of code to work, do not just
+    assume that the condition is met; instead, <CODE>CHECK</CODE> that
+    it is at the beginning of the code block.  If there are any
+    variables whose value would be helpful for debugging why the
+    <CODE>CHECK</CODE> failed, print their values in the message.
+    </P>
+
+    <P> This does not mean that CHECK macros should be used when
+    returning an error to the user is more appropriate -- for example,
+    not being able to make sense of user input should return an error,
+    not crash the process, since the process might be handling the
+    requests of many users at once.  This is especially true for
+    servers in the path of search queries (GFE, GWS, Mustang, etc).
+    </P>
+
+    <P> In general, use CHECK when you are certain that the condition
+    can never happen, or if the process cannot continue to execute
+    safely in the current state.  Do not CHECK on user input
+    (including command line flags!), or other situations where
+    graceful error recovery would be reasonable.  </P>
+
+    <P> Note that <CODE>CHECK</CODE>s are executed in optimized mode
+    as well as in debug mode, so it is fine to CHECK expressions with
+    side effects, such as <CODE>CHECK_EQ(fp-&gt;Write(x), 4)</CODE>. If
+    you are writing performance-critical code and want the assertions
+    disabled in optimized mode, use <CODE>DCHECK</CODE> and its
+    variants. In this case remember not to <CODE>DCHECK</CODE>
+    expressions with side effects. Usually you should just
+    <CODE>CHECK</CODE> and only resort to <CODE>DCHECK</CODE> if this
+    results in measurable, significant and tested runtime
+    improvements.  There are also unconditional variants of these:
+    LOG(FATAL) and LOG(DFATAL). </P>
+
+    <H2> <A name="static_checking">Static Checking</A> </H2>
+
+    <P>It is often easier to find bugs at compile-time than at run-time.
+    In addition to
+    <A href="http://wiki.corp.google.com/Main/BugBot">BugBot</A>,
+    which looks for common bugs in checked-in code, the Google codebase has
+    several tools for annotating source code with compile-time checks.</P>
+
+    <P><CODE>COMPILE_ASSERT</CODE>, defined in <CODE>base/basictypes.h</CODE>,
+    checks any boolean expression that is available at compile time.
+    Also in that file is <CODE>ENFORCE_POD</CODE>, which checks that a type
+    is "Plain Old Data" (i.e. no non-trivial constructors or destructors).
+    <CODE>base/type_traits.h</CODE> has a subset of the C++ TR1 type
+    traits that can be used with <CODE>COMPILE_ASSERT</CODE>, including static
+    tests for whether a type is integral, pointer, floating-point, and more.</P>
+
+    <P>Adding the <CODE>MUST_USE_RESULT</CODE> macro (defined in
+    <CODE>base/port.h</CODE>) to the end of a function declaration requests
+    a compiler warning for call sites that ignore the return value.
+    In gcc 4.2, this works for primitive return types (numbers, pointers,
+    and enums) but may or may not warn about return values from templated
+    functions or of class type
+    (see <A href="http://www.google.com/url?sa=D&q=http://gcc.gnu.org/bugzilla/show_bug.cgi?id=31742">gcc bug #31742</A>).
+    It currently has no effect in MSVC++.
+    MUST_USE_RESULT can be used as follows:</P>
+
+    <PRE>ErrorCode DoStuffToFoo(Foo* foo) MUST_USE_RESULT;
+    </PRE>
+
+    <H2> <A name="google_callbacks">Callbacks and Closures</A> </H2>
+
+    <P>Callbacks are a major control-flow abstraction in Google.  You
+    can use them by including <CODE>base/callback.h</CODE>.  Due to
+    the magic of templates, it's easy to declare a callback object
+    that takes any number of arguments and has an arbitrary return
+    value.  The callback object is executed by calling
+    <CODE>object-&gt;Run()</CODE>.</P>
+
+    <P>Callback objects can be call-once, in which case they delete
+    themselves after they're called, or persistent, in which case they
+    live until deleted.</P>
+
+    <P>Callbacks are the major mechanism for receiving network events.
+    They are also used in classes like <CODE>FileLineReader</CODE> --
+    where you get a callback for every line that is read -- and
+    <CODE>HtmlLexer</CODE> -- where you get a callback for every html
+    token you see.  The main Google HTTPServer uses callbacks to
+    control what code is executed when the server receives a
+    particular url.  In all three of these cases, you <I>register</I>
+    your callback to say what kind of event, in particular, you are
+    interested in.</P>
+
+    <P>Closure objects are a special type of Callbacks, but Closures
+    take zero arguments (and are emphatically not LISP-style
+    closures).  For more about Callbacks and Closures, do the <A href="http://wiki.corp.google.com/twiki/bin/view/Codelab/CallbacksClosures">Callbacks
+    and Closures Codelab</A>.</P>
+
+    <H2> <A name="google_pointers">Google and "Smart" Pointers</A> </H2>
+
+    <P>There are a variety of "smart" pointer classes out there:
+    pointers that can reference count, those that keep track of who
+    "owns" them, and so forth.  We use a small number of smart
+    pointer classes at Google.</P>
+
+    <P>A bit of a philosophical note: some people are very enamored of
+    smart pointers, and believe it's obvious they should be used
+    everywhere.  Actually, the situation isn't so clear, at least in
+    C++.  The argument in favor of smart pointers is basically that
+    the "pointer" concept is overloaded in C, and it's best to
+    disentangle the different uses.  If you're using a pointer just
+    because you need to allocate the object on the heap, that's one
+    thing.  If you're using it because lots of different people need
+    to reference the same object, that's another.  It's clearer to
+    users, smart-pointer advocates argue, if these two cases have
+    different syntax, and in fact different language semantics that
+    enforce you use the pointer only in its intended manner.</P>
+
+    <P>Those who argue against smart pointers accept this to some
+    extent.  (After all, we do use <CODE>const</CODE> a lot in Google,
+    for many of the same reasons.)  Some argue, however, that the
+    incredibly ugly syntax required to use smart pointers in C++
+    outweighs any notational advantage they give.  The "type" of
+    pointer can usually be easily deduced by context, or if not by a
+    comment.  And the comment can be much more precise than a type in
+    any case.  Let people focus on the substance of the code, say
+    smart-pointer skeptics, and not the language machinery behind
+    it.</P>
+
+    <P>Another argument against some types of smart pointers is that
+    they are often misused.  Reference counting, for instance, is
+    occasionally useful but is more often a sign that someone isn't
+    thinking carefully about ownership.  Typically an object is
+    logically "owned" by one part of the system that is longer-lived
+    than other parts of the system that need to look at that object.
+    The logical "owner" should be the physical owner as well and be
+    responsible for constructing and destroying the object.  There is
+    no need to use a reference-counted pointer for the object.</P>
+
+    <P>Some smart pointers just are difficult or impossible to
+    implement correctly given the constraints of the C++ language.
+    <CODE>auto_ptr</CODE> is an infamous example: it tries to
+    formalize who "owns" a pointer (another case that can easily be
+    misused: if a pointer is changing ownership a lot, something is
+    wrong with the design; so why make it easy to change ownership?),
+    but ends up causing tricky bugs where it's hard to figure out
+    where a pointer should actually be deleted.</P>
+
+    <P>Some of these issues are discussed in an old <A href="https://g.corp.google.com/group/c-style-archive/browse_thread/thread/15208977ba576d09/fb9386d910c1b860#fb9386d910c1b860">c-style
+    thread</A> (be warned that the messages appear out of order in this thread); along with some typical <A href="https://g.corp.google.com/group/c-style-archive/msg/1e3808188ea48ead">pro</A>
+    and <A href="https://g.corp.google.com/group/c-style-archive/msg/1e35ec094aeb7a43">con</A>
+    arguments.</P>
+
+    <P>As a sort of middle ground between these contrasting views,
+    Google supports declaring variables to be of a smart pointer type
+    when appropriate, but does not support the "viral" spread of smart
+    pointers through function calls the way it does with, say,
+    <CODE>const</CODE>.  What this means is that in Google style,
+    functions always take and return a raw pointer, never a smart
+    pointer.</P>
+
+    <H3> <A name="scoped_ptr">scoped_ptr</A>: use often </H3>
+      <P>Use <CODE>scoped_ptr</CODE> often, whenever pointer semantics are
+        needed, or you would otherwise use a lot of stack space
+        (<A href="http://www.corp.google.com/eng/doc/cpp_primer.html#stack_frame_sizes">Stack Frame Sizes</A>).
+        If you allocate the object in only one place
+        and deallocate it upon leaving a scope or destroying an enclosing
+        object, then it's usually even simpler to not use a pointer at all
+        and instead embed the object directly.
+      </P>
+      <P>
+        A scoped pointer, defined in <CODE>base/scoped_ptr.h</CODE>,
+        is an object that owns a pointer to some other, heap-allocated
+        object. When the scoped pointer goes out of scope it deletes
+        the object it owns. <CODE>scoped_ptr</CODE> overrides
+        <CODE>operator*</CODE> and <CODE>operator-&gt;</CODE>, so in most
+        contexts it behaves just like a raw pointer to the underlying
+        object.
+      </P>
+      <P>
+        Use scoped pointers like this:
+      </P>
+      <PRE>{
+  scoped_ptr&lt;Foo&gt; foo(new Foo(1));
+  ...
+  foo-&gt;bar();
+  ...
+  foo.reset(new Foo(2));  // The old Foo is deleted.
+  ...
+  DoSomething(*foo);
+  ...
+}  // the Foo is deleted when foo goes out of scope.
+      </PRE>
+      <P>
+        Scoped pointers reduce much of the usual C++ worry of memory
+        leaks. It is common for a class to have members that are
+        scoped pointers if they cannot be embedded directly. The
+        underlying object is deleted automatically when the
+        <CODE>scoped_ptr</CODE> object is destroyed, for example at
+        the exit from the destructor of a class. Scoped pointers are
+        also very useful as local variables in a function that has
+        multiple return sites and uses the object in such a way that
+        it cannot be stack-allocated. There is no need to explicitly
+        delete an object before each return, since the
+        <CODE>scoped_ptr</CODE> will take care of this for you when it
+        goes out of scope.
+      </P>
+      <P>
+        A vanilla <CODE>scoped_ptr</CODE> calls <CODE>delete</CODE> on
+        its underlying pointer.  Use <CODE>scoped_array</CODE> if the
+        underlying pointer is an array, so that <CODE>delete[]</CODE>
+        is called. Use <CODE>scoped_ptr_malloc</CODE> if the
+        underlying pointer was allocated using <CODE>malloc</CODE>, so
+        that <CODE>free</CODE> is called.
+      </P>
+      <P>
+        There is one caution with scoped pointers if your
+        <CODE>.h</CODE> file has a forward declaration of a class
+        <CODE>Foo</CODE> and your class contains a scoped pointer
+        member variable that refers to <CODE>Foo</CODE>.  In this
+        circumstance, be sure to declare all constructors and
+        destructors for your class as non-inline -- that is, define
+        them in a <CODE>.cc</CODE> file.  Even if you don't have
+        anything to create or destroy, define a do-nothing constructor
+        and destructor.  The constructors/destructors for your
+        class need the definition of <CODE>Foo</CODE> so that when
+        they run, they can invoke <CODE>Foo::Foo()</CODE>/
+        <CODE>Foo::~Foo()</CODE>, respectively; in order to do that,
+        the constructors/destructors for your class must have the
+        definition of <CODE>Foo</CODE>.  See below:
+      </P>
+      <PRE class="badcode">class Foo;  // Forward declaration
+
+class MyClass {
+  MyClass() { }  // Wrong! -- do not declare inline constructor
+  ~MyClass() { } // Wrong! -- do not declare inline destructor
+ private:
+  scoped_ptr&lt;Foo&gt; foo_;
+}
+      </PRE>
+      <P>
+        Scoped pointers cannot be used inside STL containers, because
+        they cannot be copied. See <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#linked_ptr">Linked
+        Pointers</A> for more information on this.
+      </P>
+
+    <H3> <A name="linked_ptr">linked_ptr</A>: use in STL containers </H3>
+      <P>
+        Use <CODE>linked_ptr</CODE> only in STL containers where you
+        might otherwise use a <CODE>scoped_ptr</CODE>.
+      </P>
+      <P>
+        A linked pointer, defined in
+        <CODE>util/gtl/linked_ptr.h</CODE> is like a copyable <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#scoped_ptr">scoped pointer</A>.  It does not
+        transfer ownership to the copy.  Instead, all copies share
+        ownership using a linked list of owners.
+      </P>
+      <P>
+        Linked pointers are not commonly used, but they are sometimes
+        useful as members of STL containers.
+      </P>
+      <P>
+        One problem with using linked pointers is that linked pointer
+        objects contain two raw pointers, making them twice as large
+        as scoped pointer objects.  Furthermore, when there are many
+        copies of a linked pointer, it becomes more expensive to copy
+        or destroy them.  This is not a problem for linked pointers in
+        STL containers since STL only makes one copy at a time; STL
+        copies them only for the purpose of moving the linked pointer
+        object (that is, STL copies it and then destroys the
+        original).
+      </P>
+      <P>
+        You should use linked pointers only with STL, i.e., only in those
+        cases where you would like to put scoped pointers in an STL
+        container but cannot because scoped pointers are not copyable.
+        Do not make explicit copies of linked pointer objects or pass
+        them as arguments or return values, except as values in STL
+        containers.
+      </P>
+
+    <H3> <A name="auto_ptr">auto_ptr</A>: do not use </H3>
+      <P>
+        Do not use auto_ptr in google3.
+      </P>
+      <P>
+        Auto pointers are like <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#scoped_ptr">scoped
+        pointers</A> that support various additional operations, like
+        copying. Use <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#shared_ptr">shared_ptr</A> if you have
+        any advanced reference counting needs.
+      </P>
+
+    <H3><A name="shared_ptr">shared_ptr</A>: use only in rare
+        circumstances</H3>
+      <P>
+        Shared pointers, defined in <CODE>util/gtl/shared_ptr.h</CODE>,
+        are like <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#linked_ptr">linked pointers</A> that are more
+        efficient in keeping track of the number of concurrent owners.
+        A <CODE>shared_ptr</CODE> has a pointer to both the object and an
+        atomic32. It overloads the assignment operator such that any time the
+        pointer is copied, the shared atomic32 is incremented and the pointer
+        to both the atomic32 and the object are copied. Every time the
+        destructor is called the shared atomic32 is decremented. Once the
+        value of the atomic32 reaches 0, the pointer is deleted.
+        <CODE>shared_ptr</CODE> is thread-compatible, but the reference
+        counting makes it a bit slow.
+      </P>
+      <P>
+        We prefer that we design code with clear object ownership. By their
+        very definition, <CODE>shared_ptrs</CODE> are owned by nobody.  The
+        problem with this design is that it is easy to create circular
+        references or other strange conditions that cause an object to never be
+        deleted.  It is also slow to perform atomic operations every time a
+        value is copied or assigned.
+      </P>
+      <P>
+        Also keep in mind that many Googlers won't know how to use
+        <CODE>shared_ptr</CODE>.  Make sure your code is well documented so
+        people working with it aren't confused by the irregular behavior of
+        these pointers.
+      </P>
+      <P>
+        All this said, there are a few cases where reference counted pointers
+        are the simplest and most elegant way to solve a problem.  Most
+        examples involve multi-threaded servers with long running, un-owned,
+        "handlers" that need to access shared resources that are updated /
+        deleted by some other thread.  Another example is a system with many
+        different collections pointing to shared objects where any
+        of the collections might delete their ownership of the object
+        at any time. In other words, use shared pointers when warranted, don't
+        use shared pointers just because you're being lazy or sloppy about
+        ownership.
+      </P>
+      <P>
+        If you do use <CODE>shared_ptr</CODE> we ask that you follow these
+        basic guidelines:
+        </P><UL>
+          <LI>Discuss alternative implementation with your team and
+              c-style.</LI>
+          <LI>Always pass them by reference (unless you intend to copy
+              them).</LI>
+          <LI>Clearly document object ownership transfers.</LI>
+          <LI>Never have the <CODE>shared_ptr</CODE> object point to another
+              <CODE>shared_ptr</CODE>; this is how circular references
+              happen.</LI>
+          <LI>Create the "owned" object as close as possible to the creation
+              of the <CODE>shared_ptr</CODE>, preferably in the
+              constructor.</LI>
+        </UL>
+     <P></P>
+
+    <H2> <A name="google_flags">Google Flags</A> </H2>
+
+    <P>
+      We have a flexible library allowing you to control the
+      behavior of your code by means of flags. You can, for example, write:
+      </P><PRE>DEFINE_bool(use_the_force, // the flag name
+            false,         // the default value
+            "Whether the library should use the force");  // the description
+      </PRE>
+
+      And later run your binary setting the value of the flag, for example:
+
+      <PRE>attack_death_star --use_the_force=true
+      </PRE>
+
+      The library together with detailed explanations can be found in
+      <CODE>base/commandlineflags.h</CODE>.
+    <P></P>
+    <P>
+      Defining flags in libraries rather than in <CODE>main()</CODE> is
+      powerful, but does have some costs. One is that a library might not
+      have a good default value for its flags. In particular, if the flag
+      holds a filename, there is <I>no</I> default value which can be guaranteed to
+      work in all environments (MapReduce and borg strip/replace file paths).
+      To mitigate such problems, we recommend using flag validators to ensure
+      prompt notification of problems (in the form of a crash during
+      File::Init()), for example:
+
+      </P><PRE>DEFINE_string(filename, "googledata/my_file.txt", "The file to read");
+static bool dummy = RegisterFlagValidator(&amp;FLAGS_filename,
+                                          &amp;ValidateIsFile);  // from file/util/commandlineflags_validator.h
+      </PRE>
+    <P></P>
+
+    <H2><A name="google_abstractions">Other Important Abstractions</A></H2>
+
+    <P>
+      As you would expect in a large codebase, we have a great
+      many APIs, wrappers and utilities that will save you the
+      pain of implementing too much low-level code yourself.
+      Spend an afternoon familiarizing yourself with these and
+      other parts of google3 and you will discover a wealth of
+      code to reuse.  In many cases we actually require you to use
+      them.  A good way of discovering what utilities exist and
+      how they are used is to look at existing google3 application
+      code and seeing what utilities they use and how.  A summary
+      is in <A href="http://www.corp.google.com/eng/doc/important-abstractions.html">Overview of
+      Important Abstractions and Data Structures</A>.
+    </P>
+    <P>
+      Every C++ engineer should be familiar with, at least, the
+      following basic packages:
+    </P>
+    <UL>
+      <LI> <CODE>google3/base</CODE>: The ABCs of google code.  Take
+           a good look at everything in here, especially attention
+           to <CODE>google.h</CODE>, <CODE>basictypes.h</CODE>,
+           <CODE>callback.h</CODE>, <CODE>logging.h</CODE>,
+           <CODE>scoped_ptr.h</CODE>, and <CODE>synchronization.h</CODE>.
+           You will use these every day.
+           </LI>
+      <LI> <CODE>google3/file</CODE>: we do all our file IO through
+           the <CODE>File</CODE> API. Never write low-level file
+           access code yourself.  Start with
+           <CODE>google3/file/base/file.h</CODE> and go from there.
+           </LI>
+      <LI> <CODE>google3/net</CODE>: we do all our networking
+           through this comprehensive networking stack. Never talk
+           to sockets directly yourself.
+           </LI>
+      <LI> <CODE>google3/thread</CODE>: multithreaded code uses the
+           abstractions in this package. You should not usually
+           write pthread code yourself, although there are some
+           <CODE>pthread_*</CODE> functions that may sometimes be
+           called from your code. Look at existing code to see how
+           we use threads at google.
+           </LI>
+      <LI> <CODE>google3/strings</CODE>: all manner of utilities for
+           dealing with strings. <CODE>stringprintf.h</CODE> and
+           <CODE>strutil.h</CODE> are particularly noteworthy.
+           </LI>
+      <LI> <CODE>google3/util</CODE> and
+           <CODE>google3/webutil</CODE>: a grab-bag of useful
+           utilities.  For instance,
+           <CODE>google3/util/gtl/stl_util-inl.h</CODE> has useful
+           utilities for working with STL containers, including
+           <CODE>STLDeleteContainerPointers</CODE>, which assumes
+           that the contained objects are pointers and deletes them
+           all.  This is commonly used in destructors of objects
+           with members that are (scoped pointers to) STL containers
+           of pointers.
+           </LI>
+    </UL>
+    <P>
+      The <A href="http://www.corp.google.com/eng/doc/important-abstractions.html">important-abstractions</A>
+      page has examples of other classes and APIs you should have some
+      familiarity with: protocol messages, RecordIO, IOBuffer,
+      SelectServer, SSTables and more.
+    </P>
+
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+    <H2><A name="strsep">strsep</A></H2>
+
+    <P>Some old libc's have a broken version of <CODE>strsep</CODE>.
+    Use <CODE>gstrsep</CODE>, in <CODE>strings/strutil.h</CODE>
+    instead.</P>
+
+    <P>Also, prefer <CODE>gstrsep</CODE> to <CODE>strtok</CODE>, since
+    the latter is thread-hostile.</P>
+
+    <H2><A name="sprintf">strcpy, strncpy, sprintf, and gets</A></H2>
+
+    <P>Do not use <CODE>gets</CODE>, <CODE>strcpy</CODE>, or
+    <CODE>sprintf</CODE>: none check for buffer overflow.  Even if
+    you are "sure" the data will fit in your buffer, prefer
+    <CODE>fgets</CODE>, <CODE>safestrncpy</CODE> (in
+    <CODE>strings/strutil.h</CODE>) or <CODE>snprintf</CODE>.</P>
+
+    <P>Some people think <CODE>snprintf</CODE> is unsafe or needs to
+    be used carefully, so let me emphasize: <CODE>snprintf</CODE>
+    is safe and effective to use, right out of the box and just like
+    you think it should be: <CODE>snprintf(buf, sizeof(buf), ...)</CODE>.
+    This never writes outside of <CODE>buf</CODE>, and <I>always</I>
+    NUL-terminates its input.  Every version of <CODE>snprintf</CODE>
+    I've ever seen does this (except <A href="http://www.google.com/url?sa=D&q=http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vclib/html/_crt__snprintf.2c_._snwprintf.asp">Microsoft's</A>,
+    which you should therefore be wary of using).
+    I think the perception otherwise comes from the <I>return value</I> of
+    <CODE>snprintf</CODE>, which has indeed changed over the years.
+    It's best to ignore the return value, and use <CODE>strlen</CODE>
+    if you want to know how many bytes <CODE>snprintf</CODE> actually
+    wrote.
+
+    </P><P><CODE>strings/snprintfer.h</CODE> provides a very nice C++
+    wrapper around <CODE>snprintf</CODE>.</P>
+
+    <P>It may seem like <CODE>strncpy</CODE> is the appropriate
+    "replacement" for <CODE>strcpy</CODE>, but it has two problems:
+    one is that <CODE>strncpy</CODE> does not NUL-terminate
+    the string if there's overflow.  This can easily lead to bugs.
+    The second is that most <CODE>strncpy</CODE> implementations
+    actually pad the entire output buffer with NUL characters!  Thus
+    <CODE>strncpy</CODE> can be very slow even on small inputs.
+    <CODE>safestrncpy</CODE> avoids these problems.  You can also just
+    use <CODE>snprintf</CODE>.</P>
+
+    <H2><A name="atoi">atoi, strtol, and friends</A></H2>
+
+    <P>Prefer <CODE>[safe_]strto[u]32/64</CODE> to
+    <CODE>atoi</CODE>, <CODE>atol</CODE>,
+    <CODE>atof</CODE>, <CODE>atoi32</CODE>, or <CODE>atoi64</CODE>.
+    The latter allow invalid strings to be
+    silently treated as valid, giving surprising results — for
+    example, <CODE>int i = atoi("12e45")</CODE> will return 12, with
+    no error indication. To detect wrong input:
+    <CODE>CHECK(safe_strto32("12e45", &amp;i))</CODE>.
+    </P>
+
+    <P><CODE>strtol</CODE> and <CODE>strtoul</CODE> are also dangerous
+    because they convert their string argument into the appropriate
+    <CODE>long</CODE> data type before returning a value.  Because
+    <CODE>long</CODE>s may be differently sized on 32-bit and 64-bit
+    platforms, the conversions can therefore differ (note: Windows and
+    Linux have different ideas about the size of a <CODE>long</CODE>).
+    In particular, a value too large for a 32-bit <CODE>long</CODE>
+    might convert without overflow on a 64-bit platform.  If the
+    return value is then assigned to an <CODE>int</CODE>, unexpected
+    narrowing can occur.  Avoid these problems by using one of the
+    <CODE>[safe_]strto[u]32/64</CODE> functions in
+    <CODE>strings/strutil.h</CODE>.  If assigning the result to a
+    plain <CODE>int</CODE>, use <CODE>[safe_]strto[u]32</CODE>. This
+    is safe because these functions are in google3 and google3 requires
+    <CODE>int</CODE> to be exactly four bytes.</P>
+
+    <P>You can often avoid doing explicit conversion — for
+    example, prefer <CODE>DEFINE_int32</CODE> to
+    <CODE>DEFINE_string</CODE> + <CODE>safe_strto32</CODE>.
+
+    </P><H2><A name="varargs">va_list</A></H2>
+
+    <P> The <CODE>va_list</CODE> is a builtin type which can be
+    thought of as an iterator over a variable-length argument list.
+    Special care is needed when using a <CODE>va_list</CODE> because
+    its implementation may vary across platforms.  For some
+    <CODE>va_list</CODE> implementations, a <CODE>va_list</CODE>
+    passed to a function behaves as if it was passed by value, and in
+    others, as if passed by reference.  Also, in some implementations,
+    a call to <CODE>va_start</CODE> may allocate memory.  Bugs caused
+    by misuse of a <CODE>va_list</CODE> can be difficult to fix.  The
+    following guidelines will prevent most common mistakes, and can be
+    checked easily: </P>
+    <UL>
+      <LI> Any call to va_start or va_copy should be followed by a
+           matching call to va_end, within the same function,
+           preferably very soon after the use of the va_list.
+           </LI>
+      <LI> If you pass a va_list to a subroutine, you may not do
+           anything else with that va_list after the subroutine
+           returns, except call va_end if you were the original
+           creator with va_start.
+           </LI>
+      <LI> If you need to pass a va_list to more than one
+           subroutine, make copies with va_copy before the
+           subroutine calls, and pass a different copy to each
+           subroutine.
+           </LI>
+      <LI> Be careful that the items in the va_list are all Plain Old
+       Data, and not C++ types that must be constructed and
+       destructed.  (<CODE>string*</CODE> is OK,
+       <CODE>string</CODE> is not.)
+           </LI>
+    </UL>
+
+    <H2><A name="macro_varargs">Macros with a variable number of arguments</A></H2>
+
+    <P>The ellipsis (<CODE>...</CODE>) can also be used in macros:</P>
+<PRE> #define LOG(debug_only, ...)   \
+     { if (debug_only != NDEBUG) fprintf(logfile, __VA_ARGS__); }
+</PRE>
+
+    <P>This is like the ellipsis in functions, except instead
+    of using a va_list to expand the macro, one uses the keyword
+    <CODE>__VA_ARGS__</CODE>.</P>
+
+    <P>If you need to use macros with a variable number of arguments,
+    use them with the above syntax.  This syntax is part of the C99
+    standard, and it's supported by gcc (3.0 and higher) and VC++ (8.0
+    and higher).  Do <I>not</I> use the older, gcc-specific syntax:</P>
+<PRE class="badcode">  #define LOG(debug_only, format...)   \
+     { if (debug_only != NDEBUG) fprintf(logfile, format); }  // XXX BAD
+</PRE>
+
+    <P>Note that the older, gcc-specific formulation does have some
+    properties the standard __VA_ARGS__ formulation does not, including
+    comma elision.  See the <A href="http://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html">gcc
+    documentation</A> for more details.
+    Basically, the __VA_ARGS__ formulation will work fine as long as
+    you organize the macro so there will always be at least one
+    argument for the <CODE>...</CODE> -- that is, you'll never need to
+    make a call like this:
+</P><PRE class="badcode">  LOG(true);    // no arguments to pass to fprintf!?
+</PRE>
+
+    <P>A final note: while sometimes variadic macros are the best way
+    to solve a particular problem -- typically as a wrapper around
+    <CODE>printf</CODE> -- using macros is discouraged by Google
+    style, and using variadic arguments is too.  So you shouldn't be
+    needing to refer to this section very often!</P>
+
+    <H2><A name="format_strings">Format strings</A></H2>
+
+    <P>The <CODE>printf</CODE> family functions use format strings
+    like <CODE>"foo: %s"</CODE>.  It's good to use literals for format
+    strings instead of variables to avoid format string bugs.  Suppose
+    if you do <CODE>printf(foo)</CODE>, something bad will happen if
+    <CODE>foo</CODE> contains <CODE>%</CODE> letters.  Even worse,
+    this can be used for security exploits.  Search for
+    <A href="http://www.google.com/search?q=format+string+exploits">
+    format string exploits</A> for details.  Examples:</P>
+
+      <PRE>  printf(foo);         // Bad.
+  printf("%s", foo);   // Good.
+  fputs(foo, stdout);  // Only if you care about printf performance.
+  puts(foo);           // Questionable.  puts writes a trailing newline.
+
+  string bar = StringPrintf(foo);        // Bad.
+  string bar = StringPrintf("%s", foo);  // Safe but weird.
+  string bar = foo;                      // Good.
+
+  IOBuffer* output = ...;
+  output-&gt;printf(foo);        // Bad.
+  output-&gt;printf("%s", foo);  // Good.
+  output-&gt;WriteString(foo);   // Better.
+      </PRE>
+
+    <H2><A name="fork">fork and system</A></H2>
+
+    <P>The <CODE>fork</CODE> and <CODE>system</CODE> calls must be
+    used extremely carefully in the google3 environment, as they often
+    <A href="http://www.corp.google.com/~m3b/threads/fork.txt">interact
+    badly</A> with other threading and concurrency primitives.
+    Instead of calling these functions, use the wrapper functions
+    defined in <CODE>util/process/subprocess.h</CODE>.
+
+    </P><H2><A name="initialization">Static initialization</A></H2>
+    <P>As the
+    <A href="http://www.corp.google.com/eng/doc/cppguide.xml#Static_and_Global_Variables">
+    style guideline</A> warns, C++ only defines a partial order for constructing
+    global and static variables. Built-in (non-class) types and "aggregates"
+    (roughly struct/class types without constructors), initialized
+    with compile-time constants, are initialized by the linker (and/or
+    loader) before any code gets to run. Note that standard library
+    types like <CODE>string</CODE> and <CODE>vector</CODE> are
+    <EM>not</EM> built-in types . Other global variables (of class
+    types with constructors and built-in types initialized with the
+    result of a function call) are initialized to 0 by the linker, and
+    then really initialized before <CODE>main()</CODE> starts:
+    top-down within a file, but in an <EM>UNDEFINED</EM> order
+    between files. They are destructed after <CODE>main()</CODE> ends,
+    so threads that may still be active while the program is
+    terminating can't rely on them still existing.
+    (Destructor-ordering issues apply to static variables inside
+    functions too!) Bugs that run into these problems are particularly
+    hard to find and have caused problems in production code.</P>
+
+    <P>People often ask about the particular case of global
+    <CODE>string</CODE> variables. Yes, these are forbidden too,
+    but</P>
+
+    <PRE>const char kFrogSays[] = "ribbet";</PRE>
+
+    <P>in a header file is nearly as efficient. In particular, gcc
+    knows how to inline <CODE>strlen(kFrogSays)</CODE> to a
+    compile-time constant, so constructing a <CODE>StringPiece</CODE>
+    from it is free (or <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#const_arrays">ArraySlice
+    for other const arrays</A>). Passing <CODE>kFrogSays</CODE> to a function
+    that expects a <CODE>const string&amp;</CODE> is not free, but that's
+    the price we've decided to pay for keeping construction order
+    deterministic. If it really matters in your case, <EM>local</EM>
+    <CODE>static const string</CODE>s defined inside a function are
+    usually ok. However be careful about passing references or pointers to
+    such local statics, or their internal data, outside the function.
+    Local static variables are destroyed at program exit in unpredictable
+    order. If other destructors, or other threads, refer to your variable,
+    the results are undefined. Also, if you initialize a local static with
+    a runtime expression (e.g., with the return value of a function call or a
+    constructor call) then this initialization may not be thread-safe on
+    compilers other than gcc.</P>
+
+    <H2><A name="static_consts">Static constants inside a class</A></H2>
+    <P>Constants can be declared and initialized within a class, as in
+    this example:</P>
+
+    <PRE>foo.h:
+  class X {
+    static const int C = ...;
+   }</PRE>
+
+    Note that this is just a declaration! The standard demands that a
+    matching definition is provided, e.g.:
+
+    <PRE>foo.cc:
+    const int X::C;</PRE>
+
+    <P>The rules in the standard are:</P>
+    <UL>
+    <LI>Every declaration needs a matching definition.</LI>
+    <LI>For integral and enum types, either the declaration or
+        the definition may have an initializer, but not both.</LI>
+    <LI>For other types, the declaration may not have an initializer;
+        the definition may have an initializer.</LI>
+    </UL>
+
+    <P>See 9.4.2 [class.static.data] for gory standardese.</P>
+
+    <P>Different compilers relax the rules in different ways. Each new
+    compiler brings a new wave of warnings and errors, which we fix by
+    making the code closer to the standard. Usually this means adding
+    a definition; sometimes it means moving an initializer from a
+    declaration to a definition.</P>
+
+    <P>You might also move a static object from inside a class to
+    outside the class, changing its name to be unique.  Inside a class,
+    a static object is always a declaration, even if it has an
+    initializer.  At namespace scope, a static object with an initializer
+    is a definition.  This provides the required definition.</P>
+
+    <P>A program which lacks a required definition has undefined
+    behavior.  Sometimes a linker will report an error; sometimes
+    no problem will happen; and sometimes something else might happen.</P>
+
+    <P>General Rules:</P>
+    <UL>
+    <LI>Know that C++ has both declarations and definitions.</LI>
+    <LI>Always provide a definition.</LI>
+    </UL>
+
+    <H2><A name="const_arrays">Const arrays</A></H2>
+
+    <P>The style guide forbids using constant vectors, so you need to use
+    constant C-style arrays, for example:</P>
+    <PRE>const int primes[] = { 2, 3, 5, 7 };
+    </PRE>
+    <P>A downside of this approach is you have to pass both <CODE>primes</CODE>
+    and <CODE>arraysize(primes)</CODE> to every function that takes
+    <CODE>primes</CODE> as an argument.</P>
+
+    <P>Fortunately, the <A href="http://gtags/?fileprint=//depot/google3/util/gtl/array_slice.h">
+    ArraySlice</A> class addresses this downside, allowing you to declare for example:
+    </P><PRE>int GetLastElement(const ArraySlice&amp; a);
+    </PRE>
+    and call
+    <PRE>GetLastElement(primes);
+    </PRE><P></P>
+
+    <P>You can look at the
+    <A href="http://gtags/?fileprint=//depot/google3/util/gtl/array_slice_test.cc">
+    ConstStaticArrayConversion</A> test for a sample usage.</P>
+
+    <H2><A name="reference_members"><CODE>const T&amp;</CODE> members and
+    passing temporaries to constructors</A></H2>
+
+    <P>When your class has a <CODE>const T&amp;</CODE> member, it needs to be initialized
+    in the constructor which would usually take an argument to initialize
+    the reference with. Such an argument must stay alive at least as long as the
+    constructed instance of the class, which in particular means that
+    temporaries must not be passed to constructors in such situations, since
+    they'd be destructed right after the call to the constructor, making the member
+    reference invalid memory.</P>
+
+    <P>To make this more concrete, let's examine the particularly dangerous
+    case of <CODE>const string&amp;</CODE> members. A constructor would usually takes
+    another <CODE>const string&amp;</CODE> as an argument. For example:</P>
+
+    <PRE>class A {
+ public:
+  A(const string&amp; s) : s_(s) {}
+
+  const string&amp; s_;  // don't use
+};
+    </PRE>
+    <P>
+    The danger creeps thanks to the fact that passing <CODE>const
+    char*</CODE> to a function which takes <CODE>const string&amp;</CODE>
+    argument is very common and that it creates a <CODE>string</CODE> temporary
+    under the hood. Therefore, most people wouldn't think twice before writing:
+    </P><PRE>...
+A a = A("Goooooogle");
+    </PRE>
+    <P></P>
+    <P>
+    This is invalid. At the risk of repeating ourselves, any further reference to
+    <CODE>s_</CODE> will cause memory
+    corruption problems, because <CODE>s_</CODE> contains a reference to a temporary
+    string object that was created during the conversion of the <CODE>const char *</CODE>
+    argument to <CODE>const string&amp;</CODE>.
+    </P>
+    <P>General Rules:</P>
+    Do not use <CODE>const T&amp;</CODE> members.
+
+    Where performance is not an issue, members should generally have type
+    <CODE>const T</CODE> rather than <CODE>const T&amp;</CODE> (when it makes sense).
+    Where a copy would be prohibitively expensive, make sure not to
+    initialize the member from a constructor argument that's passed by reference.
+    In the latter case, the member type <CODE>const T*</CODE> is generally
+    less error-prone than <CODE>const T&amp;</CODE>.
+
+    <H2><A name="volatile">volatile</A></H2>
+
+    <P>The <CODE>volatile</CODE> is a qualifier to suppress
+    optimization over certain variables.  Use of volatile doesn't
+    guarantee atomicity in inter-thread communications.  Instead, you
+    need to use synchronization means such as mutex locks (and atomic
+    types and atomic operations in rare cases), for variables used in
+    inter-thread communications.  If you find yourself writing
+    volatile in code that does not deal directly with hardware or is
+    not part of a processor specific threading library, then you are
+    probably making a mistake.</P>
+
+    <P>Note that volatile can be used for working around
+    floating-point precision issues on 32-bit x86 platforms.  They use
+    80-bit precision in floating point math, while double is stored in
+    64-bit precision in memory, hence some subtle precision issues may
+    happen.</P>
+
+    <P>If you want to use <CODE>volatile</CODE>, write an explanatory
+    comment why it's needed.</P>
+
+    <P>The volatile issues are discussed in a <A href="https://g.corp.google.com/group/c-style-archive/browse_thread/thread/c89ddeca202fd7ef/c1377c3903824506">
+    c-style thread</A>, and also in Linux kernel's documentation:
+    <A href="http://www.google.com/url?sa=D&q=http://lwn.net/Articles/234017/">
+    volatile considered harmful</A>.
+
+    </P><H2><A name="thread_safety">Thread safety</A></H2>
+
+    <P>Your program is thread safe if it synchronizes its access to
+    data correctly. When you're writing a class, it's important to
+    document both how your callers need to <A href="https://www.corp.google.com/eng/designdocs/mutex/mutex.html#s6">lock
+    accesses</A> to it and how future maintainers need to <A href="https://www.corp.google.com/eng/designdocs/mutex/mutex.html#s6">lock
+    the internals</A> in order to make the whole program thread safe.
+    To help with this, we've defined four terms that summarize various
+    synchronization policies:</P>
+    <UL>
+      <LI><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#thread-safe">Thread-safe</A></LI>
+      <LI><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#thread-compatible">Thread-compatible</A></LI>
+      <LI><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#thread-unsafe">Thread-unsafe</A></LI>
+      <LI><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#thread-hostile">Thread-hostile</A></LI>
+    </UL>
+
+    <P>These terms are intended to cover most of the common cases, but
+    if your class behaves differently, don't feel constrained to this
+    set. These are the recommended meanings, but be aware that
+    "thread-safe" occasionally means something else in existing
+    code.</P>
+
+    <P>Note that thread safety applies to data, not code: it rarely
+    makes sense to document the safety of a single member function in
+    isolation. A free function may be thread-safe, but then callers
+    need to fall back to the guarantees of its arguments to determine
+    whether their call is safe.</P>
+
+    <BLOCKQUOTE>
+    <H3 id="thread-safe">Thread-safe</H3>
+
+    <P>Example: <A href="http://s/?fileprint=//depot/google3/thread/threadsafequeue.h">WaitQueue</A></P>
+    <PRE>  WaitQueue&lt;int&gt; q;  // Shared between threads
+
+  thread1 {  // Assume both threads start here and run concurrently.
+    int gotten;
+    q.Pop(&amp;gotten);
+  }
+  thread2 {
+    q.push(7);  // Concurrent calls are fine.
+  }</PRE>
+
+    <P>Given an instance of a thread-safe class, it's OK (where "OK"
+    means "as correct as the single-threaded case") to call any member
+    function concurrently. When a member fails to appear atomic, that
+    should be noted. There may still be sequences of operations that
+    are only correct if the client locks the instance.</P>
+
+    <P>A thread-safe class may still be used in unsafe ways. For
+    example, if <CODE>vector&lt;&gt;</CODE> were thread-safe, it still
+    wouldn't be safe to write <CODE>vec.size() &gt; 0 &amp;&amp;
+    vec[0]</CODE> because another thread might have emptied the vector
+    between the method calls. When there are sequences of operations
+    like this that need to be locked anyway, consider making the class
+    thread-compatible instead.</P>
+
+    <P>Clients must ensure that no object is used until after its
+    constructor returns and that access to an object ceases before its
+    destruction begins. This means that implementors may assume
+    single-threaded access in constructors and destructors even in
+    thread-safe classes.</P>
+
+    <H3 id="thread-compatible">Thread-compatible</H3>
+
+    <P>Example: <A href="http://s/?fileprint=//depot/google3/webutil/http/httputils.h">HTTPHeaders</A></P>
+    <PRE>  Mutex mu;  // Guards h1 (and <I>not</I> h_const or h2).
+  HTTPHeaders h1;  // Shared between threads; guarded by mu.
+  HTTPHeaders h2;
+  h2.SetHeaderFromLines("GET ...", true);
+  const HTTPHeaders&amp; h_const = h2;  // Never access h2 again.
+
+  thread1 {  // Assume both threads start here and run concurrently.
+    h_const.GetHostName();
+    {
+      MutexLock l(&amp;mu);
+      // Even const methods must be locked if called concurrently
+      // with non-const methods.
+      h1.DebugString();
+    }
+  }
+  thread2 {
+    h_const.reason_phrase();  // Concurrent calls to const methods are fine.
+    {
+      MutexLock l(&amp;mu);
+      h1.set_uri("http://www.google.com/");
+    }
+  }</PRE>
+
+    <P>Given an instance of a thread-compatible class, it's OK to
+    concurrently call any const functions or read internal data leaked
+    from them (like <CODE>.c_str()</CODE>), but if any thread calls a
+    non-const member function, all concurrent calls must be locked. A
+    simple pattern to do this safely is to expose only a
+    <CODE>const</CODE> pointer to other threads, and then never use
+    <CODE>const_cast&lt;&gt;</CODE>. <A href="https://www.corp.google.com/eng/designdocs/mutex/mutex.html#extensions">Reader/writer
+    locks</A> may be used with thread-compatible types.</P>
+
+    <P>Data classes should be thread-compatible by default to minimize
+    unnecessary locking and match the behavior of builtin types and
+    the STL container classes.</P>
+
+    <H3 id="thread-unsafe">Thread-unsafe</H3>
+
+    <P>Example: <A href="http://s/?fileprint=//depot/google3/ads/base/time-info.h*1">AdUtils::TimeInfo</A></P>
+    <PRE>  Mutex mu;  // Guards time.
+  // Shared between threads; guarded by mu:
+  const AdUtils::TimeInfo time(time());
+
+  thread1 {  // Assume both threads start here and run concurrently.
+    MutexLock l(&amp;mu);
+    // const method, but modifies mutable member variables,
+    // therefore is unsafe to call concurrently.
+    time.GetDay();
+  }
+  thread2 {
+    MutexLock l(&amp;mu);
+    time.GetDay();
+  }</PRE>
+
+    <P>No piece of a thread-unsafe object may be used concurrently
+    from multiple threads: every access must be locked if the object
+    is reachable from multiple threads. Separate instances may be
+    modified concurrently.</P>
+
+    <P>Thread-unsafe types:</P>
+    <UL>
+      <LI>Must lock accesses to mutable static data.</LI>
+      <LI>Are safe to use in <A href="http://s/?fileprint=//depot/google3/thread/threadlocal.h">ThreadLocal</A>
+      variables.</LI>
+      <LI>May include unusual thread-affinity constraints like <A href="http://s/?fileprint=//depot/google3/net/base/selectserver.h">SelectServer</A>
+      does, although they should be sure to document those
+      constraints.</LI>
+    </UL>
+
+    <H3 id="thread-hostile">Thread-hostile</H3>
+
+    <P>Example: <A href="http://gsearch/?fileprint=//depot/google3/webserver/frontend/xfe_server_state.cc*18&hilite_regexp=XFEServerState::Reload&line=280#280">XFEServerState</A></P>
+    <PRE>  thread1 {
+    XFEServerState::Reload();
+  }
+  thread2 {
+    XFEServerState::Reload();  // Kaboom! (Don't do this.)
+  }</PRE>
+
+    <P>Two separate instances of a thread-hostile type must not be
+    accessed concurrently. A thread-hostile free function must not be
+    called concurrently, even if you pass different data to each call.
+    Your code may become thread-hostile if it writes to static objects
+    without locks, as <CODE>strtok()</CODE> does. To support threaded
+    programs at all, the class could provide a static lock for users
+    to take out when they manipulate instances.</P>
+
+    </BLOCKQUOTE>
+
+    <P>Also see <A href="http://s/?fileprint=//depot/google3/java/com/google/devtools/build/lib/util/ThreadSafety.java">//java/com/google/devtools/build/lib/util/ThreadSafety.java</A>
+    for the Java version of these terms, "Item 52: Document thread
+    safety" from Josh Bloch's <I>Effective Java</I> from which they
+    are derived, and <A href="http://www.sgi.com/tech/stl/thread_safety.html">SGI's STL
+    thread-safety document</A>.</P>
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+
+    <H2><A name="type_sizes">Integer Type Sizes</A></H2>
+
+    <P>While the C/C++ standards provide only loose restrictions
+    on the size of the base types <CODE>char, short, int, </CODE>
+    and <CODE>long</CODE>, practical necessities provide some <A href="http://www.unix.org/version2/whatsnew/lp64_wp.html">unexpected
+    type sizes</A>.  In particular <CODE>sizeof(int) == 4</CODE> even with our
+    current 64-bit compilers.  Additionally <CODE>sizeof(long) == 4</CODE>
+    on the Windows 64-bit platform.  While you can safely assume
+    that chars are 8 bits and ints are at least 32 bits, you should not make
+    further assumptions: If your application requires 64-bit datatypes it
+    should use <CODE>int64</CODE> or <CODE>uint64</CODE> explicitly.  If
+    your data structures require a 32-bit datatype, you should use
+    <CODE>int32</CODE> or <CODE>uint32</CODE> explicitly.  If you need an
+    integer type big enough to hold a pointer, use <CODE>intptr_t</CODE> or
+    <CODE>uintptr_t</CODE>. Note that inside google3, you can additionally <A href="http://s/?fileprint=//depot/google3/devtools/cpp_tests/int_size_test.cc">
+    rely</A> on <CODE>sizeof(int) == 4</CODE>.
+
+    </P><H2><A name="signed_overflow">Signed Integer Overflow</A></H2>
+
+    <P>In C/C++ signed integer overflow is undefined.  This means that
+    if you write a test like <CODE>i + 1 == INT_MIN</CODE>, where
+    <CODE>i</CODE> is an int, the compiler may determine that that
+    test will always be false.  Logically, this condition can never be
+    true.  Practically, it will be true iff <CODE>i == INT_MAX</CODE>,
+    since <CODE>i + 1</CODE> will wrap.  However, that wrapping is an
+    overflow, which is undefined according to the language standards,
+    so the compiler may assume that it will not happen.  When
+    optimizing, the compiler may eliminate the test entirely, so your
+    code will not work as expected even when <CODE>i ==
+    INT_MAX</CODE>.</P>
+
+    <P>For a different example, this loop may run forever: <CODE>for
+    (int i = 1; i &gt; 0; i &lt;&lt;= 1) ++bits;</CODE>.  In this case, the
+    compiler may determine that since <CODE>i</CODE> starts out as
+    positive, and since it only ever gets larger, that <CODE>i &gt;
+    0</CODE> will always be true.</P>
+
+    <P>The gcc compiler does in fact work this way.  If your code
+    relies on the fact that overflow wraps around using normal
+    twos-complement arithmetic, you must use unsigned types.  In C/C++
+    unsigned integer overflow is defined to wrap around.</P>
+
+    <H2><A name="stack_frame_sizes">Stack Sizes and Stack Frame Sizes</A></H2>
+
+    <P>
+    The C/C++ standards allow stacks and the stack frames of individual
+    procedures to have arbitrary size.  As a result, our code base contains
+    routines with frame sizes exceeding 0.5MBytes (November 2007).  We wish to
+    limit thread stack sizes to 64kBytes, and individual stack frames to
+    16kBytes.  We urge developers to keep stack frame sizes well below
+    16kBytes, and to fix existing routines to be below that threshold; we plan
+    to introduce a 16kByte hard limit on stack frame sizes, and to enforce it
+    over the entire code base by February 2008.  The rationale for imposing a
+    limit is as follows.
+
+    </P><P>
+    To have no limit on stack and frame sizes has created several problems
+    for Google:
+    </P><UL>
+    <LI> If there is no limit, we must allocate larger stacks than we would like.
+         This wastes both memory and address space, and this is of particular
+         concern on 32-bit machines, of which we still have many.
+    </LI><LI> In turn, large stack sizes limit the number of threads that we can
+         use.  This forces programmers to plan on using few threads, which
+         constrains the designs of our servers and libraries in bad ways.
+    </LI><LI> Stack overflow is more common if stack frame can be large.
+    </LI><LI> With large stack frames, a stack overflow often leads not to a clean
+         crash but to memory corruption that is time consuming to debug.
+         Although our libraries leave an unmapped guard page at the end of each stack,
+         gcc may create a stack frame that includes the guard page, thus
+         skipping over it.  Arguably, the procedure's prologue should probe
+         pages in large stacks to avoid this corruption, but gcc does not
+         generate such prologues.  We can and will use multi-page guard
+         regions, but very large guard regions are problematic on machines with
+         limited virtual addressing.
+    </LI></UL>
+
+    The choice of a 16kByte stack frame size limit is a trade off.  On the one
+    hand, 16kBytes is considerably larger than most programmers should expect
+    to need, since heap allocation is both easy and cheap.  On the other, our
+    code base is large, and so the absolute number of routines with unusually large stack
+    frames is sizable, even though the fraction is small.  Thus, the 16kByte value
+    is higher than one might expect in order to reduce the effort needed
+    to fix those existing routines.
+
+    <P>
+    When reducing the sizes of routines with large stacks frames, please consider the following:
+    </P><UL>
+    <LI> The frame may be bigger in a 64-bit build than a 32-bit build; the 16kByte limit applies to both.
+    </LI><LI> Large arrays can be replaced with instances of <CODE>FixedArray</CODE>; see <CODE>util/gtl/fixedarray.h</CODE>.
+         Remember to update uses of <CODE>sizeof</CODE> and <CODE>ARRAYSIZE</CODE>.
+    </LI><LI> STL's <CODE>vector</CODE> also can be used to replace arrays.
+    </LI><LI> Large structs can be heap allocated, and in complex routines
+         deleted automatically via <CODE>scoped_ptr</CODE>.
+    </LI><LI> In some cases, such as in the <CODE>main()</CODE> routine of a test, it may be
+         reasonable simply to declare a variable as <CODE>static</CODE>.
+    </LI><LI> See <A href="http://wiki.corp.google.com/Main/TagBigStackBuilds">Tag Big Stack Builds</A> to override the stack size limit when building.
+    </LI></UL>
+
+
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+
+    <H2><A name="stl_containers">Standard Template Library Containers</A></H2>
+
+    <P>The Standard Template Library is used pervasively throughout
+    the Google C++ codebase.  Although it is a complex system to
+    master, the most common uses are straightforward.  This section
+    describes containers, iterators, and algorithms.  A <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#stl_algorithms">later section</A> discusses STL
+    algorithms.</P>
+
+    <P>Google3 used to provide nonstandard forward declarations for
+    STL containers in <CODE>base/stl_decl.h</CODE>.  This facility
+    is obsolete and deprecated; just include the standard headers
+    for the containers you use.  See
+    <A href="http://wiki.corp.google.com/twiki/bin/view/Main/GnuCompiler#base_stl_decl_h">this page</A> for historical details.</P>
+
+    <H3>Introduction to containers</H3>
+
+    <P>Containers are STL classes that embed instances of objects or
+    primitive types such as <CODE>int</CODE> or pointers.  There are
+    two broad classes of containers — <EM>sequence-based</EM> and
+    <EM>associative</EM>. The most commonly used sequence-based
+    containers are:</P>
+
+    <UL>
+      <LI><CODE>vector</CODE>: similar to C arrays, but dynamically-resizable;</LI>
+      <LI><CODE>list</CODE>/<CODE>slist</CODE>: a linked list of
+        values; and
+      </LI><LI><CODE>deque</CODE>: similar to a vector in that it allows
+        random access, but it supports constant time insertion
+        and removal from both ends of the array.
+    </LI></UL>
+
+    <P>and the most commonly used associative containers are:</P>
+
+    <UL>
+      <LI><CODE>hash_map</CODE>: an unordered collection that maps
+        keys to unique values;</LI>
+      <LI><CODE>hash_set</CODE>: an unordered collection of unique
+        values;</LI>
+      <LI><CODE>map</CODE>: an ordered collection that maps
+        keys to unique values;</LI>
+      <LI><CODE>set</CODE>: an ordered collection of unique
+        values;</LI>
+      <LI><CODE>hash_multimap</CODE>/<CODE>hash_multiset</CODE>:
+        non-unique versions of <CODE>hash_map</CODE> and
+        <CODE>hash_set</CODE>; and</LI>
+      <LI><CODE>multimap</CODE>/<CODE>multiset</CODE>:
+        non-unique versions of <CODE>map</CODE> and
+        <CODE>set</CODE></LI>
+    </UL>
+
+    <P>Google also has developed various special-purpose
+      containers:</P>
+
+    <UL>
+      <LI><CODE>sparse_hash_map</CODE>: uses less space (but
+      slower) than <CODE>hash_map</CODE> and allows writing to disk
+      (see <CODE>//util/gtl/sparse_hash_map.h</CODE> for usage);</LI>
+
+      <LI><CODE>dense_hash_map</CODE>: faster (but uses more space)
+      than <CODE>hash_map</CODE> (see
+      <CODE>//util/gtl/dense_hash_map.h</CODE> for usage);</LI>
+
+      <LI><CODE>small_map</CODE>: a wrapper for <CODE>map</CODE> or
+      <CODE>hash_map</CODE> which uses a small fixed array until the
+        map reaches a certain size, then uses <CODE>map</CODE> or
+        <CODE>hash_map</CODE> (see <CODE>//util/gtl/small_map.h</CODE>);</LI>
+
+      <LI><CODE>small_set</CODE>/<CODE>small_ordered_set</CODE>:
+        like <CODE>hash_set</CODE> or <CODE>set</CODE>, optimized for
+        a small number of values (see
+        <CODE>//util/gtl/small_set.h</CODE> and
+        <CODE>//util/gtl/small_ordered_set.h</CODE>);</LI>
+
+      <LI><CODE>btree_map</CODE>/<CODE>btree_set</CODE> and
+        <CODE>btree_multimap</CODE>/<CODE>btree_multiset</CODE>:
+        these implementations of map and set are faster and use less
+        memory than the STL containers, but have incompatible
+        iterator-invalidation semantics (see
+        <CODE>//util/btree</CODE> or the
+        <A href="http://wiki.corp.google.com/twiki/bin/view/Main/BTree">documentation</A>); and</LI>
+
+      <LI><CODE>safe_btree_map</CODE>/<CODE>safe_btree_set</CODE>:
+        these wrappers for <CODE>btree_map</CODE> and
+        <CODE>btree_set</CODE> are slightly less efficient but have
+        compatible iterator-invalidation semantics (see
+        <CODE>//util/btree</CODE> or the <A href="http://wiki.corp.google.com/twiki/bin/view/Main/BTree">documentation</A>)</LI>
+
+    </UL>
+
+    <P>All STL containers are class templates (see the next section)
+    that are parameterized at least by the type of the values that
+    they will store.  For example, to create a <TT>vector</TT> that
+    holds <TT>double</TT> values, we write:</P>
+
+<PRE>vector&lt;double&gt; weights;
+</PRE>
+    <P>As another example, a heap-allocated <TT>hash_map</TT> that
+    maps from <TT>int</TT> to <TT>string</TT> is created using the
+    <TT>new</TT> keyword:</P>
+
+<PRE>hash_map&lt;int, string&gt; *zip_to_city = new hash_map&lt;int, string&gt;();
+</PRE>
+
+   <P>Of course, the various containers are classes in their own right,
+   and they provide member functions for managing their contents.  For
+   example, to add an element to the end of a <TT>vector</TT> you use
+   <TT>push_back</TT>:</P>
+
+<PRE>weights.push_back(2.3);
+</PRE>
+
+   <P>and to associate a new value with a key in a <TT>hash_map</TT>
+   you can either use <TT>operator[]</TT> or build a
+   <TT>key,value</TT> pair and <TT>insert</TT> that object:</P>
+
+<PRE>(*zip_to_city)[94040] = string("Mountain View, CA");
+// or
+zip_to_city-&gt;insert(make_pair(94040, string("Mountain View, CA")));
+</PRE>
+   <P><SMALL>(See Meyer's <EM>Effective STL</EM> item 24 for more
+   about the tradeoffs between these two possibilities.)</SMALL></P>
+
+    <P>If you try to make a container hold an object of the wrong
+    type, you will get an error at compile time alerting you to the
+    static typing error.  Additionally, the compiler is aware of the type
+    of an element accessed through a container.  <SPAN class="java">Because of this static typing of STL containers, C++
+    avoids the dreaded downcasts that litter Java code using its
+    (pre-generics) containers of <TT>Object</TT>s.</SPAN></P>
+
+    <P>When containers are passed to functions, they should be passed
+    either by const-reference (if they are read-only inputs) or by
+    pointer (if they are for output). For example,
+    <CODE>strings/strutil.h</CODE> declares
+    <CODE>SplitToVector</CODE>:</P>
+
+<PRE>void SplitToVector(char* full, const char* delim,
+                   vector&lt;char*&gt; *vec, bool omit_empty_strings);
+</PRE>
+    <P>Above, the third argument is a pointer to a <CODE>vector</CODE>
+    container of C-style strings (i.e., <CODE>char *</CODE>s).</P>
+
+
+    <H3>Iterators</H3>
+
+    <P>Given a container of values, you often need to perform some
+    action on each element of the container.  For a <TT>vector</TT>,
+    you might choose to write this by using an <TT>int</TT> index:</P>
+
+<PRE>double sum = 0.0;
+for (int i = 0; i &lt; weights.size(); ++i) {
+  sum += weights[i];
+}
+</PRE>
+     <P>Although that code works well for <TT>vector</TT>s, other
+     containers such as <TT>hash_map</TT>s or <TT>set</TT>s do not
+     permit integer indexing.  Instead, the more general concept of an
+     <EM>iterator</EM> must by used.  An iterator is a generalization
+     of a pointer and is the primary concept that links containers and
+     algorithms that operate over containers.  All STL containers
+     provide the types <TT>iterator</TT> and <TT>const_iterator</TT>
+     that can be used to point at values inside a container;
+     <TT>const_iterator</TT>s are restricted to disallow assignment
+     through the iterator. (This is similar to the distinction between
+     pointers and pointers to const-objects, except that you cannot
+     easily cast-away the constness of a <TT>const_iterator</TT> —
+     see Meyer's <EM>Effective STL</EM> item #27.)</P>
+
+    <P>Like pointers, iterators support advancing to the next object
+    by using the pre-increment operator, <CODE>++</CODE>
+    (post-increment works, too, but is commonly avoided because it
+    creates an unnecessary temporary).  Also as with pointers, we
+    can access the element the iterator currently points at by using
+    the dereferencing operator, <CODE>*</CODE>.</P>
+
+     <P>To rewrite the above <TT>for</TT> loop using iterators, we
+     still need some way of accessing a starting element of the
+     container: the <TT>begin</TT> member function gives us that.  We
+     also need a means of determining when we have exhausted the
+     container: the <TT>end</TT> member function returns an iterator
+     that points just past the last element in the container, so
+     testing against it lets us know when we're done:
+
+</P><PRE>double sum = 0.0;
+for (vector&lt;double&gt;::const_iterator it = weights.begin();
+     it != weights.end();
+     ++it) {
+  sum += *it;
+}
+</PRE>
+
+   <P>It's worth noting that we use <TT>const_iterator</TT> values
+   (not pointers, not references), but that value type is dereferenced
+   in order to read the element in the container at that location.
+   For <TT>vector</TT>, <TT>begin()</TT> returns <TT>&amp;v[0]</TT>,
+   <TT>end()</TT> returns <TT>&amp;v[v.size()]</TT>, and a
+   <TT>const_iterator</TT> is just a pointer to the contained type.
+   Thus, we can see that the above is just a slight generalization of
+   an alternate way we could have written our <TT>vector</TT>-specific
+   loop:</P>
+
+<PRE>double sum = 0.0;
+for (const double *pd = &amp;weights[0];
+     pd != &amp;weights[weights.size()];
+     ++pd) {
+  sum += *pd;
+}
+</PRE>
+   <P>However, an important benefit of the iterator version is that it
+   works nearly unchanged if <TT>weights</TT> is instead a
+   <TT>set&lt;double&gt;</TT>:</P>
+
+<PRE>set&lt;double&gt; weights;
+...
+double sum = 0.0;
+for (set&lt;double&gt;::const_iterator it = weights.begin();
+     it != weights.end();
+     ++it) {
+  sum += *it;
+}
+</PRE>
+ <H4>Flavours of iterators</H4>
+    <P>This syntactic regularity is what enables STL algorithms to
+    provide general-purpose implementations across a variety of data
+    structures.  Of course, not all algorithms can be implemented just
+    by using an iterator that supports the pre-increment operation. <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#fig1">Figure 1</A> shows several kinds of iterators that
+    form a concept hierarchy based on what operations the iterator
+    supports.  Beware that this is not an object-oriented class
+    hierarchy: there is no class called <TT>ForwardIterator</TT>: that
+    designation is used to refer to iterators that can (at least)
+    successfully be moved forward (via the pre- or post-increment
+    operators) and assigned to.</P>
+
+<P><A name="fig1"><IMG src="./Google C++ Primer_files/iterators.gif" alt="C++ Iterator Concept Hierarchy"></A><BR>
+Figure 1: Concept hierarchy of the kinds of iterators.  Read the arrows as "is refined by".
+</P>
+
+   <P>Our example of summation, above, can be implemented using <TT><A href="http://www.google.com/url?sa=D&q=http://www.sgi.com/tech/stl/for_each.html">for_each</A></TT>
+   or the even more specific <TT><A href="http://www.google.com/url?sa=D&q=http://www.sgi.com/tech/stl/accumulate.html">accumulate</A></TT>.
+   Each of these algorithms requires only an <TT>InputIterator</TT>.
+   However, the more complex algorithm <TT><A href="http://www.google.com/url?sa=D&q=http://www.sgi.com/tech/stl/sort.html">sort</A></TT> requires
+   the greater flexibility afforded by a RandomAccessIterator.  More
+   classes support access by InputIterators than by
+   RandomAccessIterators.  For example, a linked list supports
+   BidirectionalIterators (and hence InputIterators), but not
+   RandomAccessIterators.  A singly-linked list (i.e., <TT>slist</TT>)
+   does not even support BidirectionalIterator's operations, while
+   <TT>vector</TT>s provide RandomAccessIterators.</P>
+
+ <H4>Iterators, directionality and ranges</H4>
+   <P>Of course, iterators are not only used for stepping through the
+   elements of a container; often they simply serve as a pointer into
+   the container to designate a location.  For example:</P>
+
+<PRE>hash_map&lt;int, string&gt;::const_iterator it = zip_to_city-&gt;find(12345);
+</PRE>
+
+   <P>In the above, if the <TT>hash_map</TT> contains the key
+   <TT>12345</TT>, the iterator <TT>it</TT> will point at the <CODE>pair</CODE>
+   containing that key and its value.  If the key could not be found,
+   <TT>it</TT> will equal <TT>zip_to_city-&gt;end()</TT>.  For performing
+   a simple membership test, you can avoid specifying the type of the
+   iterator by simply writing, for example:
+
+</P><PRE>   if (zip_to_city-&gt;find(12345) == zip_to_city-&gt;end()) {
+      // no entry 12345 was found...
+   }
+</PRE>
+
+  <P>Be sure to avoid writing <TT>(*zip_to_city)[12345]</TT> when you
+  simply want to find out if the element exists in the <TT>map</TT>;
+  doing so will default-construct a value and insert it into the
+  dictionary — likely not what you intended.</P>
+
+  <P>Many container member functions also use two iterators to
+  designate a range over which to perform some action.  See, for
+  example, <A href="http://www.google.com/url?sa=D&q=http://www.sgi.com/tech/stl/Vector.html">vector</A>'s
+  <TT>erase</TT> method.</P>
+
+  <P>In addition to <TT>iterator</TT> and <TT>const_iterator</TT>,
+  most containers also support <TT>reverse_iterator</TT> and
+  <TT>const_reverse_iterator</TT>.  These classes work like their
+  counterparts except that they advance by moving backwards among the
+  container's elements, rather than forwards.  For example, we can
+  process elements of a vector in reverse order like so:</P>
+
+<PRE>  for (vector&lt;int&gt;::const_reverse_iterator it = weights.rbegin();
+       it != weights.rend();
+       ++it) {
+    // do something to *it
+  }
+</PRE>
+
+  <P>Note that we still pre-increment it (<TT>++it</TT>), but because
+  <TT>it</TT> is a <TT>reverse_iterator</TT> that operation moves to
+  the previous element in the list.  The <TT>rbegin()</TT> and
+  <TT>rend()</TT> calls return the last and the position one before
+  the first element of the container, respectively.</P>
+
+  <P>Here is a visual depiction of where the various different
+     begin/end/rbegin/rend iterators point in a <CODE>vector</CODE>.</P>
+<IMG src="./Google C++ Primer_files/iterator-pointers-diagram.gif" alt="C++ iterator
+              pointers diagram">
+
+
+  <H3>Mutating containers</H3>
+
+  <P>Making changes to what elements are in a container is among the
+  most fundamental of operations.  Keep in mind that you must ensure
+  proper mutual exclusion when an STL container is mutable by some
+  thread.  Read the <A href="http://www.google.com/url?sa=D&q=http://www.sgi.com/tech/stl/thread_safety.html">STL
+  thread-safety document</A> and <EM>Effective STL</EM>'s Item 12.
+  Also see <A href="https://www.corp.google.com/docfinder?file=//depot/google3/base/synchronization.h">base/synchronization.h</A>
+  for our implementations of various synchronization
+  primitives.</P>
+
+  <DIV class="note">
+  <P>Remember, for a data structure to be thread safe, it needs to
+  satisfy at least one of the three "IIS" conditions:
+   1) be <FONT size="+1"><B>I</B></FONT>mmutable (i.e., read-only);
+   2) be <FONT size="+1"><B>I</B></FONT>solated in that all accesses/mutations are limited to a single thread;
+   3) use proper <FONT size="+1"><B>S</B></FONT>ynchronization primitives to guarantee mutual exclusion.
+  <BR><BR>
+
+  It is possible to leverage a different condition during distinct
+  periods of process execution.  For example, it's fairly common to
+  have a data structure that is first isolated to a single thread
+  during initialization and then graduate into being immutable but
+  accessible across all threads.
+  </P></DIV>
+
+  <P>The principal member functions for changing containers are
+  summarized in this table:</P>
+
+<TABLE border="1" summary="Mutating container methods">
+ <TBODY><TR><TH>Name</TH><TH>Description</TH>
+ </TR><TR><TD><CODE>push_back</CODE></TD><TD>Add an element to the end</TD></TR>
+ <TR><TD><CODE>pop_back</CODE></TD><TD>Remove an element from the end</TD></TR>
+ <TR><TD><CODE>push_front</CODE></TD><TD>Insert an element at the beginning</TD></TR>
+ <TR><TD><CODE>pop_front</CODE></TD><TD>Remove an element from the beginning</TD></TR>
+ <TR><TD><CODE>insert</CODE></TD><TD>Insert element(s) at an arbitrary location</TD></TR>
+ <TR><TD><CODE>erase</CODE></TD><TD>Erase element(s)</TD></TR>
+ <TR><TD><CODE>clear</CODE></TD><TD>Empties the container</TD></TR>
+</TBODY></TABLE>
+
+  <P>Be careful not to confuse <TT>clear()</TT>, which erases all
+  elements in a container, with <TT>empty()</TT> which returns a
+  <TT>bool</TT> reporting whether the container is empty.</P>
+
+  <P>There are also numerous non-member functions that can mutate
+  containers.  These are defined in the standard header
+  <TT>&lt;algorithm&gt;</TT> and include <TT>copy</TT>, <TT>fill</TT>,
+  <TT>generate</TT>, <TT>swap</TT>, <TT>transform</TT>,
+  <TT>replace{,_if,_copy,_copy_if}</TT>,
+  <TT>remove{,_if,_copy,_copy_if}</TT>, <TT>reverse</TT>,
+  <TT>rotate</TT>, <TT>random_shuffle</TT>, and <TT>sort</TT>.  See
+  the <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#algorithms">algorithms</A> section, below, for
+  details.</P>
+
+  <P>When mutating a container, you must keep in mind the impact that
+  changing the container has on existing iterators that point at
+  elements in the container.  For example, consider this code (from
+  <EM>Effective STL</EM>, item 9):</P>
+
+<PRE class="badcode">  // BUGGY CODE, DO NOT USE
+  for (hash_map&lt;int,int&gt;::iterator it = c.begin(); it != c.end();
+       ++it) {
+    if (badValue(*it)) {
+      c.erase(it);
+    }
+  }
+</PRE>
+
+  <P>Although this seems simple enough, there is a fatal flaw: erasing
+  an element in an associative container invalidates all iterators that
+  point to that element.  Thus, in the above <TT>for</TT>-loops
+  continuation step, the iterator <TT>it</TT> will be invalid whenever
+  <TT>c.erase(it)</TT> was just invoked, resulting in undefined
+  behaviour.  Instead, we need to carefully advance the iterator
+  before calling erase, like so:</P>
+
+<PRE>  for (hash_map&lt;int,int&gt;::iterator it = c.begin(); it != c.end(); ) {
+    if (badValue(*it)) {
+      c.erase(it++);
+    } else {
+      ++it;
+    }
+  }
+</PRE>
+  <P>This time, our loop behaves as expected because <TT>it</TT> is
+  incremented before calling <TT>erase</TT>, yet its previous (unincremented)
+  value is passed as the argument. For <TT>vector</TT>s, <TT>deque</TT>s, and <TT>list</TT>s, we can
+  leverage the fact that <TT>erase</TT> returns an iterator
+  that points at the next value in the container and write:</P>
+
+<PRE>  for (vector&lt;int&gt;::iterator it = c.begin(); it != c.end(); ) {
+    if (badValue(*it)) {
+      it = c.erase(it);
+    } else {
+      ++it;
+    }
+  }
+</PRE>
+
+  <P>See Item #9 of <A href="http://www.google.com/url?sa=D&q=http://www.awprofessional.com/titles/0-201-74962-9/">Effective
+  STL</A> for a more thorough discussion.</P>
+
+  <P>For different containers, there are different rules about which
+  iterators are invalidated for different mutations.  A good
+  understanding of the underlying storage format for a given container
+  will help guide your intuition.  In general, mutating a node-based
+  container (<TT>list/slist</TT> and associative containers) has no
+  impact on iterators pointing to unchanged elements. That contrasts
+  with mutating a contiguous-memory container (e.g., <TT>vector</TT>
+  and <TT>deque</TT>) where other iterators are often invalidated.  In
+  particular, for <TT>vector</TT> inserting or erasing an element
+  invalidates all iterators that point at elements at and beyond the
+  element changed.  Even more dramatic is when an insertion into a
+  <TT>vector</TT> causes a reallocation.  In that scenario, all
+  iterators pointing into the <TT>vector</TT> are invalidated.
+  Careful use of <TT>vector.reserve(..)</TT> can avoid untimely
+  reallocations and improve efficiency, or consider the use of a
+  <TT>deque</TT> which can support erasures from either end without
+  invalidating any iterators (except those pointing at the erased
+  element).  The <TT>deque</TT> also supports insertions from either
+  end without invalidating pointers or references to elements inside
+  the <TT>deque</TT> (though all iterators may be invalidated -- see
+  Meyers' <EM>Effective STL</EM> p. 15).</P>
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+    <H2><A name="generic">Generic Programming with Templates</A></H2>
+
+    <P>Skill with generic programming is essential to working
+    successfully with the Google source code.  This section introduces
+    function templates and class templates, demonstrates using them
+    with STL containers and iterators, and describes some advanced
+    features including member templates and partial template
+    specialization.</P>
+
+    <H3><A name="tempfunc">Function template example</A></H3>
+
+    <P>C++ templates let us write code without
+    detailing the specific types it will use.  For example, the
+    algorithm to compute the minimum of two objects simply requires
+    that the notion of "less-than" is defined for that type.  Without
+    C++ templates, we would write several functions:</P>
+
+<PRE>   int Min(int a, int b) { return b &lt; a? b: a; }
+
+   double Min(double a, double b) { return b &lt; a? b: a; }
+
+   const BigInt &amp;Min(const BigInt &amp;a,
+                     const BigInt &amp;b)
+   { return b &lt; a? b: a; }
+</PRE>
+
+    <P>In each of the above functions, the only operation we perform
+    on the inputs is use of "operator&lt;": the existence of that
+    operator is the only property of the argument type that is
+    necessary for the implementation.  C++ allows us to write
+    a single templated function:</P>
+
+<PRE>   template &lt;class T&gt;    // `template &lt;typename T&gt;' is synonymous
+   const T &amp;Min(const T &amp;a, const T &amp;b)
+   { return b &lt; a? b : a; }
+</PRE>
+
+   <DIV class="note"><P>
+
+   The ability of the language to alter behaviour based on the types
+   of objects that are being used is called "polymorphism".  Typical
+   object-oriented polymorphism in C++ involves dispatching
+   <CODE>virtual</CODE> functions on the basis of the run-time class
+   of the receiver object.  That form is called "bounded polymorphism"
+   because the set of known actions is explicitly stated ahead of time
+   by the list of virtual methods declared in a base class and in
+   order to use the dispatching mechanism, we must send the message to
+   an object that is known to be of that type or one of its
+   subclasses.  For this example to work using bounded polymorphism,
+   we could create a <CODE>Comparable</CODE> base-class that defines a
+   <CODE>virtual bool compareTo</CODE> method and then write
+   <CODE>Min</CODE> as a function that operates on two objects that
+   descend from that base class.
+   <BR><BR>
+
+   C++ templates exhibit "unbounded polymorphism" whereby we
+   leverage structural characteristics of a type to determine where it
+   can be substituted.  We don't need to decide ahead of time, nor
+   even document, what the requirements of a given type are for it to
+   be allowed as a type argument to the <CODE>Min</CODE> function.
+   The requirements are implicit in the implementation itself.
+   <BR>
+
+   </P></DIV>
+
+   <P>Notice the syntactic similarities between this templated
+   function and the prior function which works only for <TT>BigInt</TT>
+   objects.  As the name "template" suggests, you can think of this
+   new generically-typed function as a recipe for the compiler to
+   generate a new, explicitly-typed function whenever one is
+   needed. Upon seeing a call:</P>
+
+<PRE>   int c = Min(4, 9);
+</PRE>
+
+   <P>The C++ compiler recognizes that it can instantiate the
+   <TT>Min</TT> template, binding the template parameter <TT>T</TT> to
+   the actual type of <TT>int</TT>.  Importantly, this results in a
+   separate function, <TT>Min&lt;int&gt;</TT>, that has no run-time
+   relationship to the function <TT>Min&lt;BigInt&gt;</TT>.  Also, note
+   that these qualified function names are legal C++ syntax and
+   sometimes are necessary when the compiler is unable to infer the
+   arguments to use when instantiating the template.  We could have
+   written:</P>
+
+<PRE>   int c = Min&lt;int&gt;(4,9);
+</PRE>
+
+   <P>As you might know, a very similar templated function is a
+   part of the STL — <TT>#include &lt;algorithm&gt;</TT> and
+   you'll have <A href="http://www.google.com/url?sa=D&q=http://www.sgi.com/tech/stl/min.html"><TT>min</TT></A> and
+   its sister <A href="http://www.google.com/url?sa=D&q=http://www.sgi.com/tech/stl/max.html"><TT>max</TT></A> at
+   your disposal.</P>
+
+
+   <H3>Class template example</H3>
+
+   <P>Just as function templates provide a recipe for the C++ compiler
+   to generate a function, class templates provide instructions to
+   generate a class definition.  One common use of these is to support
+   generic container classes such as <A href="http://www.google.com/url?sa=D&q=http://www.sgi.com/tech/stl/Vector.html"><TT>vector</TT></A>
+   which supports random access to elements of any compile-time-chosen
+   type.  This enables a statically-typed, typesafe programming style
+   which avoids run-time checks, ubiquitous downcasts, and type
+   errors.</P>
+
+   <P>The Google codebase both uses class templates very heavily (see
+   the following subsections) and defines many templated classes. For
+   example, from <A href="https://www.corp.google.com/docfinder?file=//depot/google3/util/random/permute-inl.h"><TT>google3/util/random/permute-inl.h</TT></A>:</P>
+
+<PRE>template &lt;class T&gt;
+class RandomPermutation {
+ public:
+  RandomPermutation(vector&lt;T&gt; *elements, ACMRandom* rnd_gen);
+  void Permute();
+
+ private:
+  vector&lt;T&gt; *elements_;
+  <I>...</I>
+};
+</PRE>
+
+  <P>The above code snippet defines a rule for generating a class
+  named <TT>RandomPermutation&lt;T&gt;</TT> for an arbitrary type,
+  <TT>T</TT>.  For example, if you use
+  <TT>RandomPermutation&lt;int&gt;</TT>, the compiler will instantiate
+  the template by expanding the class definition and each member
+  function definition for <TT>int</TT>-typed objects. (Do not be
+  bothered by the primitive type <TT>int</TT> being used to substitute
+  for <TT>T</TT> in the <TT>&lt;class T&gt;</TT> syntax; the alternate
+  keyword <TT>typename</TT> can be used instead if you prefer.)  To
+  define a member function of a templated class, you write (in a
+  <CODE>-inl.h</CODE> file):</P>
+
+<PRE>template &lt;class T&gt;
+void RandomPermutation&lt;T&gt;::Permute() {
+  <I>...</I>
+}
+</PRE>
+
+  <P>For an ordinary member function of a templated class such as the
+  above, the <TT>template &lt;class T&gt;</TT> syntax precedes the member
+  function signature and and the <TT>&lt;T&gt;</TT> template parameter
+  syntax also decorates the class name.  The body of the method is
+  then free to use the symbol <TT>T</TT> as a surrogate for the actual
+  instantiated type.</P>
+
+  <DIV class="note"><P>
+  <A href="http://www.google.com/url?sa=D&q=http://www.cs.rpi.edu/~musser/gp/">Generic
+  programming</A> is defined by <A href="http://www.google.com/url?sa=D&q=http://www.cs.rpi.edu/~musser/gp/">David Musser</A> as
+  programming with families of abstractions that are all related by a
+  common set of requirements.  For the templated <CODE>Min</CODE>
+  function, the only requirement of the type was the existence of a
+  comparison function; for the templated
+  <CODE>RandomPermutation</CODE> class, the type must support
+  assignment and copy-construction.  There are techniques available to
+  support compile-time checking of these requirements (such as <A href="http://www.google.com/url?sa=D&q=http://www.boost.org/libs/static_assert/static_assert.htm">Boost's
+  static_assert</A>), but our current practice is to simply
+  document them in comments.
+  </P></DIV>
+
+  <H3>Member templates</H3>
+
+  <P>Our first example of defining a template was a <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#tempfunc">global function template</A>.  It's also often
+  convenient to define member function templates.  Of course, these
+  can be defined for either an ordinary (unparameterized) class or a
+  class template.  An important restriction of these member functions
+  is that they are not allowed to be virtual.  One example is the
+  standard's templated struct <CODE>pair</CODE>.  It has a templated
+  constructor that supports conversion between <CODE>pair</CODE>
+  types as long as the two contained types are convertible:</P>
+
+<PRE>template &lt;class T1, class T2&gt;
+struct pair {
+  T1 first;  T2 second;
+  ...
+  template &lt;class U1, class U2&gt;
+  pair(const pair&lt;U1, U2&gt; &amp;p) : first(p.first), second(p.second) { }
+};
+</PRE>
+  <P><SMALL>(The <TT>struct</TT> keyword is synonymous with
+  <TT>class</TT> except the default visibility of <TT>struct</TT>s is
+  public instead of private.)</SMALL></P>
+
+  <P>When defined outside of the class definition, the syntax is a
+  little bit tricky.  The template arguments to the class and to the
+  function must appear separately, like so:</P>
+
+<PRE>template &lt;class T1, class T2&gt; // template arguments for the class
+ template &lt;class U1, class U2&gt; // template arguments for the constructor
+pair&lt;T1,T2&gt;::pair(const pair &lt;U1,U2&gt; &amp;p)
+  : first(p.first), second(p.second) {
+  // empty
+}
+</PRE>
+
+<P>Again, contrast the above with the global (i.e., non-member)
+function template <CODE>make_pair</CODE>:</P>
+
+<PRE>template &lt;class T1, class T2&gt;
+inline pair&lt;T1, T2&gt; make_pair(const T1 &amp;x, const T2 &amp;y) {
+  return pair&lt;T1, T2&gt;(x, y);
+}
+</PRE>
+
+<P>The above illustrates one of the most important expressiveness
+benefits of templates: type inference.  Instead of forcing the
+programmer to write:</P>
+
+<PRE class="badcode">city_to_state_map-&gt;insert(pair&lt;char*, char*&gt;(city, state));
+</PRE>
+
+<P>She can simply write:</P>
+
+<PRE>city_to_state_map-&gt;insert(make_pair(city, state));
+</PRE>
+
+<P>and let the C++ compiler determine the types needed for
+<CODE>make_pair</CODE> to make the code compile.</P>
+
+  <H3>Explicit template specialization</H3>
+
+   <P>Although one of the points of templates is to leverage the
+   compiler to automatically-generate specializations of classes and
+   functions, sometimes the programmer knows better for certain cases.
+   For example, consider the function template <CODE>Stringify</CODE>
+   from <CODE>base/commandlineflags.cc</CODE>:</P>
+
+<PRE>// turns its argument into a string,
+// requires operator&lt;&lt;(ostream &amp;, const C&amp;) to be defined
+template &lt;class C&gt;
+inline string Stringify(const C &amp;value) {
+  ostrstream o;
+  o &lt;&lt; value;
+  return string(o.str(), o.pcount());
+}
+</PRE>
+
+   <P>The above template gives a general rule that works for many
+   types, but for <CODE>string</CODE>s, we want slightly different
+   behaviour.  To achieve that, we can explicitly
+   specialize the function template:</P>
+
+<PRE>template &lt;&gt;
+inline string Stringify(const string &amp;s) {
+  // Surrounding quotes help out for strings
+  return string("\"") + s + '\"';
+}
+</PRE>
+
+   <P>The above not only changes the behaviour for
+   <CODE>string</CODE>, but also hand-optimizes that special-case with
+   code that executes faster.  Either (or both) of those desires may
+   justify using explicit template specialization.  Notice the
+   definition syntax: you are still required to use the
+   <CODE>template</CODE> keyword with a list of template arguments
+   inside <CODE>&lt;</CODE> and <CODE>&gt;</CODE>, but because the
+   function we are defining has bound all template arguments (in this
+   case, the single type <CODE>C</CODE> is bound to
+   <CODE>string</CODE>), that empty list is simply written
+   <CODE>&lt;&gt;</CODE>.</P>
+
+   <P>When encountering code that calls <CODE>Stringify</CODE> on a
+   string, the compiler will instantiate
+   <CODE>Stringify&lt;string&gt;</CODE> (if it hasn't already) and
+   generate code to invoke it.  You can also be explicit at the call
+   site and include the type arguments after the function name:</P>
+
+<PRE>string answer = Stringify&lt;string&gt;(somestring);
+</PRE>
+
+   <P>There is some overlap between template specialization and
+   function overloading.  Although the best advice is to not define
+   templated and untemplated functions of the same name, see <A href="http://www.google.com/url?sa=D&q=http://www.gotw.ca/gotw/049.htm">GotW #49</A> if you're
+   curious.</P>
+
+   <P>Explicit specialization can apply to global functions (as with
+   <CODE>Stringify</CODE>, above), class templates (e.g.,
+   <CODE>vector&lt;bool&gt;</CODE>), member functions of template
+   classes, member function templates of ordinary classes, member
+   function templates of class templates.</P>
+
+  <H3>Partial template specialization</H3>
+
+   <P>In the preceding section, we saw how we could explicitly
+   specialize a templated function by writing a definition that
+   bound all the template arguments.  In standard C++, you need not
+   specify all template arguments: you can choose to only restrict
+   some of the arguments or the form of some of the arguments, For
+   example, the templated <CODE>struct hash</CODE> from
+   <CODE>util/hash/hash.h</CODE> has explicit (full) specializations
+   including:</P>
+
+<PRE>template&lt;&gt; struct hash&lt;int64&gt; {
+  size_t operator()(int64 x) const { return static_cast&lt;size_t&gt;(x); }
+};
+</PRE>
+
+   <P>The above applies to hashing <CODE>int64</CODE> values. We could
+   list full specializations for all the different kinds of pointer
+   types. For example:</P>
+
+<PRE>template&lt;&gt; struct hash&lt;string *&gt; {
+  size_t operator()(string *x) const { return reinterpret_cast&lt;size_t&gt;(x); }
+};
+
+template&lt;&gt; struct hash&lt;double *&gt; {
+  size_t operator()(double *x) const { return reinterpret_cast&lt;size_t&gt;(x); }
+};
+
+<EM>...etc...</EM>
+</PRE>
+
+   <P>Instead, we can exploit the commonality among the code we want
+   for all pointer types (which is different from what we want for
+   non-pointer types such as <CODE>int64</CODE>) by only partially
+   specifying the definition for the case when the template argument
+   is a pointer to an arbitrary type.  To do this, we write:</P>
+
+<PRE>template&lt;class T&gt; struct hash&lt;T *&gt; {
+  size_t operator()(T *x) const { return reinterpret_cast&lt;size_t&gt;(x); }
+};
+</PRE>
+
+   <P>Syntactically, notice that the <CODE>struct</CODE> still has a
+   template argument, <CODE>T</CODE>, and that that argument also
+   occurs as <CODE>&lt;T *&gt;</CODE> after the class name.  Because this
+   definition "matches" only for pointer types, it applies only to
+   them.</P>
+
+   <P>Partial template specializations can require <EM>more</EM>
+   template arguments than the class template being specialized.  For
+   example, specializing <TT>hash</TT> for an arbitrary array requires
+   an extra argument for the length of the array:</P>
+
+<PRE>template&lt;class T, size_t N&gt; struct hash&lt;T[N]&gt; {
+  size_t operator()(const T[N] &amp;x) const { ... }
+};
+</PRE>
+
+   <P>Partial template specialization is still one of the
+   least-well-supported features of standard C++.  For example, see <A href="http://www.google.com/url?sa=D&q=http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dndeepc/html/deep07092002.asp">Microsoft's
+   notes about Visual C++'s Partial Template Implementation</A>.
+
+ </P><H3>Non-type template arguments</H3>
+
+  <P>Although template arguments are often type parameters, as
+  demonstrated by the partial-template specialization for arrays in
+  the last section, they need not be: compile-time constants can be
+  used as well.  Such non-type parameters are important to the
+  arguably esoteric technique of <A href="http://www.google.com/url?sa=D&q=http://osl.iu.edu/~tveldhui/papers/Template-Metaprograms/meta-art.html">template
+  metaprogramming</A>, but also are useful in other contexts.  For
+  example, <CODE>strings/short-string.h</CODE> uses an integer
+  template argument to generate a class capable of holding
+  fixed-length strings:</P>
+
+<PRE>template &lt;int N&gt;
+class ShortString {
+  <EM>...</EM>
+  char buf_[N];
+};
+</PRE>
+
+   <P>Remember, though, that for each different fixed-size, a whole
+   new instantiation of the methods for <CODE>ShortString&lt;N&gt;</CODE>
+   may be generated. Another example is from
+   <CODE>util/gtl/general_trie.h</CODE> where a second template argument
+   gives a distinguished object value to be used in the implementation:</P>
+
+<PRE>template&lt;class T, T NULL_VALUE&gt;
+class GeneralTrie {
+  <EM>...</EM>
+  static const T kNullValue;
+};
+
+// subsequent definition of static field kNullValue
+template &lt;class T, T NULL_VALUE&gt;
+const T GeneralTrie&lt;T, NULL_VALUE&gt;::kNullValue = NULL_VALUE;
+</PRE>
+
+   <P>Notice that the non-type argument's type must be <CODE>T</CODE>,
+   which corresponds to the first template argument.  This is legal C++.
+   However, because C++ requires the template argument
+   <CODE>NULL_VALUE</CODE> to be an <A href="http://www.google.com/url?sa=D&q=http://www.boost.org/more/int_const_guidelines.htm">integral constant
+   expression</A> or (in case T is a pointer type) <A href="http://groups-beta.google.com/group/comp.std.c++/browse_frm/thread/c018dd44ee537e05/053160d97dd75772">
+   a constant id-expression that evaluates to the address of an object
+   with external linkage</A>, it restricts the template's possible
+   instantiations to objects of those types <CODE>T</CODE> that conform
+   to these restrictions.</P>
+
+   <P>In particular, when <CODE>T</CODE> is of pointer
+   type, GCC will not accept <CODE>NULL</CODE> as a valid value for the
+   NULL_VALUE parameter. To make this work, you can declare a static
+   object of type <CODE>T</CODE> as your own "null value" and
+   use its address as the type parameter, like so:
+</P><PRE>typedef SomeClass* MyTrieElement;
+static SomeClass null_value;
+GeneralTrie&lt;MyTrieElement, &amp;null_value&gt; my_trie;
+</PRE>
+
+   <P>See Section 14.3.2 of the C++ Standard for the gory details.</P>
+
+   <H3>Default template arguments</H3>
+
+   <P>Sometimes a templated class has enough parameters that
+   specifying all of them at use sites becomes unwieldy.  For function
+   templates, type inference (as with <CODE>make_pair</CODE>, above)
+   can help.  For templated classes, there are two ways to simplify
+   access for clients of your class: 1) define some
+   <CODE>typedef</CODE>s that cover the common case (e.g.,
+   <CODE>string</CODE> is just a <CODE>typedef</CODE> for
+   <CODE>basic_string&lt;char&gt;</CODE>); or 2) specify default template
+   arguments.</P>
+
+   <P>A default template argument simply specifies how to instantiate
+   a template when the argument is omitted.  For example
+   <CODE>scoped_ptr_malloc</CODE> takes a typename <CODE>T</CODE> to
+   which it stores a pointer, and a function <CODE>FF</CODE> that
+   specifies how to free the object:</P>
+
+<PRE>template&lt;typename T, void (*FF)(void*) = free&gt; class scoped_ptr_malloc {
+  <EM>...</EM>
+  ~scoped_ptr_malloc() {
+    FF((void*) ptr);
+  }
+};
+</PRE>
+
+   <P>Because it is generally intended for use with
+   <CODE>malloc</CODE>, the function defaults to <CODE>free</CODE> and
+   the class can be used either like this:</P>
+
+<PRE>   scoped_ptr_malloc&lt;double&gt; pd(&amp;somedouble);
+</PRE>
+
+   <P>or by explicitly designating a function:</P>
+
+<PRE>   scoped_ptr_malloc&lt;double, fast_free&gt; pd(&amp;somedouble);
+</PRE>
+
+   <P>Of course, you're allowed to redundantly specify the default
+   argument to be the default value; typically you'll only give the
+   argument when it's not the default.</P>
+
+   <P>Default template arguments are used pervasively by the STL.  For
+   example, a <CODE>hash_map</CODE> has template arguments for the hash
+   function, the equality test, and the allocator, each with an
+   appropriate default:</P>
+
+<PRE>template &lt;class Key, class Val,
+          class HashFcn = hash&lt;Key&gt;,
+          class EqualKey = equal_to&lt;Key&gt;,
+          class Alloc = allocator&lt;Val&gt; &gt;
+class hash_map;
+</PRE>
+
+   <P>Notice that the default values can (and often do) make use of
+   earlier template arguments (e.g., <CODE>hash&lt;Key&gt;</CODE>
+   references the first argument, <CODE>Key</CODE>).</P>
+
+   <P>Unfortunately, there's no way to require the specification of
+   either both the <CODE>HashFcn</CODE> and the <CODE>EqualKey</CODE>,
+   or neither of them: it's almost always a bug to change one and not
+   the other.  (Some other implementations of this extension of the
+   STL couple these two functions into a single traits class to
+   side-step this deficiency.)</P>
+
+   <P>As with default values for functions, you can specify leading
+   arguments and still use default values for trailing arguments.  To
+   create a case-independent <CODE>hash_map</CODE> of cities to states,
+   you can write:</P>
+
+<PRE>#include "util/hash/hash.h"
+hash_map&lt;const char *, const char *,
+         CStringCaseHash, CStringCaseEqual&gt; city_to_state_map;
+</PRE>
+
+   <P>where the default argument for <CODE>Alloc</CODE> will still be
+   used.</P>
+
+   <P>The current C++ standard does not allow default template
+   arguments for function templates.  This limitation is usually not
+   problematic because function calls usually are made without
+   explicit template arguments: type inference is relied upon instead
+   (e.g., we write <TT>Min(3,4)</TT> not <TT>Min&lt;int&gt;(3,4)</TT>,
+   though the latter is perfectly acceptable.)</P>
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+  <H2><A name="stl_algorithms">Function objects and STL Algorithms</A></H2>
+
+  <P>In addition to the <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#stl_containers">containers discussed
+  earlier</A>, the Standard Template Library provides numerous
+  algorithms.  This section introduces <EM>function objects</EM> and
+  explains how to use them in conjunction with STL algorithms.</P>
+
+  <H3><A name="function_objects">Function objects</A></H3>
+
+  <P>To this point, we have been writing explicit loops over elements
+  in a container to manipulate them.  Although that approach is
+  sometimes convenient, to simplify working with the contents of
+  containers, the STL provides numerous abstractions that are
+  parameterized by a behaviour.  We discuss the algorithms that are
+  available in a <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#algorithms">later section</A> but one
+  common property that those abstractions share is their dependence on
+  <EM>function objects</EM>.
+
+  </P><P>A function object is simply an object that has an
+  <TT>operator()</TT> defined so that it can be called with function
+  call syntax.  A simple example from <A href="https://www.corp.google.com/docfinder?file=//depot/google3/util/hash/hash.h">//depot/google3/util/hash/hash.h</A>
+  is:</P>
+
+<PRE>struct CStringCaseEqual {
+  bool operator()(const char *str1, const char *str2) const {
+    return !strcasecmp(str1, str2);
+  }
+};
+</PRE>
+
+  <P>The above defines a class (remember <TT>struct</TT> is identical
+  to <TT>class</TT> except the default visibility is <TT>public</TT>)
+  that can be called like so:</P>
+
+<PRE>  if (CStringCaseEqual()("apple", "banana")) {
+    // ...
+  }
+</PRE>
+
+  <P>Notice that the <TT>operator()</TT> method is invoked on a
+  default-constructed temporary object.  We could write the above more
+  verbosely as follows:</P>
+
+<PRE>  CStringCaseEqual equal;
+  if (equal("apple", "banana")) {
+    // ...
+  }
+</PRE>
+
+  <P>This longer form more clearly demonstrates how the <TT>equal</TT>
+  object behaves like a function.  Often, though, the function object
+  is passed as an argument to a higher-order function (i.e., a
+  function that takes or returns a function) or as a template argument
+  to a class template.</P>
+
+<PRE>** bind1st, not, etc.
+** algorithm, functional, numeric headers -- examples!
+** sort example
+</PRE>
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+    <H2><A name="strict_weak_ordering">StrictWeakOrdering Gotchas</A></H2>
+
+  <P>If you are getting segfaults with <CODE>sort</CODE> in the stack trace and
+  can't seem to find the bug, you are most likely violating <CODE>sort</CODE>'s
+  requirement of "strict weak ordering." The <A href="http://www.corp.google.com/mirror/ISO/INCITS+ISO+IEC+14882-1998.pdf">
+  C++ standard</A> describes this requirement in <CODE>25.3 [lib.alg.sorting]
+  </CODE> (The STL page on <CODE>
+  <A href="http://www.sgi.com/tech/stl/StrictWeakOrdering.html">
+  StrictWeakOrdering</A></CODE> also describes this requirement)</P>
+
+  <P>To keep this requirement in mind to anyone who may read the code, it may
+  be helpful to have your functor name end in <CODE>Lt</CODE> (or
+  <CODE>Gt</CODE>, if that is the case). If your compare function fails
+  <CODE>StrictWeakOrdering</CODE>, strange things may happen
+  (including spurious segfaults). There are several non-obvious ways of
+  violating this requirement:</P>
+
+  <UL>
+    <LI><CODE>comp(x, x)</CODE> returns <CODE>true</CODE>. A typical violation
+        is using <CODE>&lt;=</CODE> instead of <CODE>&lt;</CODE>.
+    </LI><LI><CODE>comp(x, y) == comp(y, x)</CODE>. <CODE>NaN</CODE> behaves like
+        this, which makes sorting floating-point numbers tricky. A good
+        function for sorting doubles would be:</LI>
+
+<PRE>  bool DoubleLt(const double&amp; a, const double&amp;b) const {
+    // Treat NaN as smaller than negative infinity.
+    if (isnan(b))
+      return false;
+    if (isnan(a))
+      return true;
+    return a &lt; b;
+  }
+</PRE>
+
+    <LI>Floating point calculations can result in higher precision
+        intermediates, which can throw off comparisons (see <A href="http://gcc.gnu.org/wiki/x87note">GCC Note</A>). A simple
+        way to fix this is:</LI>
+
+<PRE>  // Was x.ComputeScore() &lt; y.ComputeScore().
+  return x.cached_score() &lt; y.cached_score();
+</PRE>
+
+    <LI>Not sorting lexicographically when sorting by several values. This is a
+        proper lexicographic sort on two (non-floating-point) values:</LI>
+
+<PRE>  if (x.a != y.a) return x.a &lt; y.a;
+  if (x.b != y.b) return x.b &lt; y.b;
+  return x.c &lt; y.c;
+</PRE>
+
+    <LI>Values used for the sort are not constant through the sort. For
+        instance, calling <CODE>time()</CODE>.
+
+    </LI><LI> Violating transitivity (f(x,y) and f(y,z) should imply f(x,z)):</LI>
+
+<PRE class="badcode">  // BAD CODE: can violate transitivity, and thus Strict Weak Ordering:
+  int v = max(x.a, y.a);
+  int score_for_x = x.a - v * x.b;
+  int score_for_y = y.a - v * y.b;
+  return score_for_x &lt; score_for_y;
+</PRE>
+
+  </UL>
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+    <H2><A name="patterns">Common Patterns</A></H2>
+
+<P>Numerous patterns recur throughout our codebase.  Many of these
+are, at least in the abstract, not specific to Google, but their
+concrete form often does have some local flavour.</P>
+
+<H3><A name="raii">Resource Acquisition Is Initialization (RAII)</A></H3>
+
+<P>Perhaps the most common C++ pattern, Resource Acquisition Is
+Initialization couples the use of a resource to the lifetime of an
+object.  Acquiring the resource amounts to initializing (i.e.,
+constructing) the object, and the subsequent destruction of the object
+corresponds to release of that resource.  The value of the pattern
+derives from the fact that the lifetime of numerous kinds of objects
+is controlled by the language semantics.  In particular,
+stack-allocated local variables and member fields are implicitly
+destructed when the stack frame or enclosing object is destroyed,
+respectively.</P>
+
+<P>Here's a simple example.  Suppose we need to call
+<TT>mutex_-&gt;Lock()</TT> before accessing a datastructure and
+<TT>mutex_-&gt;Unlock()</TT> afterwards.  Without using the RAII pattern,
+we might write:</P>
+
+<PRE>  mutex_-&gt;Lock();
+  // do some work
+  mutex_-&gt;Unlock();
+</PRE>
+
+<P>Although this works fine in the simple case, non-local exits from
+the <TT>do some work</TT> block complicate matters.  In particular,
+consider:</P>
+
+<PRE class="badcode">  // BUGGY CODE!
+  mutex_-&gt;Lock();
+  if (data_ == NULL)
+     return;
+  // do some work
+  mutex_-&gt;Unlock();
+</PRE>
+
+<P>The above code has a big problem: in the case where we early exit
+from the function without doing the work, we also fail to release the
+lock.  (This problem is made far worse by C++ exceptions which can
+result in non-obvious non-local exits; Google disallows exceptions, so
+we don't discuss that case further.)</P>
+
+<P>The RAII idiom addresses this problem by coupling the acquisition
+of a resource (e.g., a lock) with the initialization of a
+stack-allocated object.  The purpose of the idiom is to tie dynamic
+lifetime of that stack-allocated object with the ownership of the
+resource and to enforce a "release" behaviour that is implemented in
+the destructor of the object.  Because the object is stack-allocated,
+its destructor will be invoked when that stack frame is popped, thus
+releasing the resource.  Importantly, the C++ standard guarantees that
+objects in the same stack frame are destroyed in the reverse order of
+their construction, so the idiom can properly nest multiple behaviours.</P>
+
+<P>From <A href="https://www.corp.google.com/docfinder?file=//depot/google3/base/mutex.h">base/mutex.h</A>,
+here's <CODE>MutexLock</CODE>, a simple RAII wrapper around
+<CODE>Mutex</CODE> (also defined in that same file):
+
+</P><PRE>class MutexLock {
+public:
+  explicit MutexLock(Mutex* mutex)
+    : mutex_(mutex)
+  { mutex_-&gt;Lock(); }
+
+  ~MutexLock()
+  { mutex_-&gt;Unlock(); }
+
+private:
+  Mutex* const mutex_;
+};
+</PRE>
+
+We then use <CODE>MutexLock</CODE> in conjunction with a
+<CODE>Mutex</CODE> object that corresponds to the resource to which we
+are synchronizing access.  For example, in <A href="https://www.corp.google.com/docfinder?file=//depot/google3/base/sysinfo.cc">base/sysinfo.cc</A>,
+we ensure that only one thread is active within the
+<CODE>PhysicalMemInternal()</CODE> function like so:
+
+<PRE>static Mutex physical_mem_lock;
+static uint64 physical_mem = 0;
+static bool physical_mem_initialized = false;
+
+uint64 PhysicalMem(void) {
+  // calls physical_mem_lock-&gt;Lock()
+  MutexLock ml(&amp;physical_mem_lock);
+  if (!physical_mem_initialized) {
+    physical_mem = PhysicalMemInternal();
+    physical_mem_initialized = true;
+  }
+  // ml's destructor calls physical_mem_lock-&gt;Unlock()
+  return physical_mem;
+}
+</PRE>
+
+<P>Generally, the name associated with an object employing the RAII
+idiom is unimportant.  (However, do not try to use an unnamed
+temporary -- those have a shorter lifetime and will not hold the
+resource through the end of the static scope.)</P>
+
+<P>If you have experience writing Java or C#, you may recognize that
+the behaviour this idiom affords is similar to <CODE>finally</CODE>
+blocks.  In a sense, the destructors of the stack-allocated objects
+are woven together in reverse order to construct an implicit
+<CODE>finally</CODE> block for that stack frame.  The RAII involves
+defining classes with destructors that are useful in that scenario.</P>
+
+<P>Other examples of the RAII pattern include <A href="https://www.corp.google.com/docfinder?file=//depot/google3/base/varsetter.h">base/varsetter.h</A>
+and <A href="https://www.corp.google.com/docfinder?file=//depot/google3/base/scoped_ptr.h">base/scoped_ptr.h</A>.
+The latter (and its variants) is especially valuable as a means of
+ensuring that a heap-allocated resource is reclaimed (e.g., via
+<CODE>delete</CODE>, <CODE>delete[]</CODE>, or <CODE>free</CODE>)
+properly.</P>
+
+
+<H3><A name="registration">Registration</A></H3>
+
+<P>Oftentimes, different translation units need to define instances of
+similar objects that then need to be aggregated in a global registry
+for access throughout a library or program.  For example, command-line
+arguments that control different modules are best defined in those
+modules, but at runtime, all of those flags have to be available in a
+centralized location when the command-line parser analyzes the
+arguments.  One primary benefit of this technique is that adding new
+functionality in a new module does not require changes to any
+pre-existing code.</P>
+
+<P>The basic registration pattern is straightforward: the objects we
+wish to register have constructors that call a registration function
+on a global singleton, the registry.  Each translation unit defines
+whatever file-static instances they wish, and before
+<CODE>main()</CODE> is executed, the registry is fully
+initialized.</P>
+
+<P>One complication of the pattern is that it relies on the registry
+object being constructed before each of the objects that tries to
+register itself.  Because the registry and the registered objects
+are generally in different translation units, we need to guarantee the
+order of initialization.  It used to be necessary to use pthread_once or
+GoogleOnce to accomplish this, but now it can be done safely using a statically
+initialized Mutex.</P>
+
+<P>An example of this registration idiom appears in <A href="http://gsearch/?fileprint=//depot/google3/bigtable/common/thread_utils.cc">bigtable/common/thread_utils.cc</A>.
+Here is a slightly modified excerpt from the bigtable thread utils
+implementation that shows the relevant code:</P>
+
+<PRE>static Mutex executor_lock(base::LINKER_INITIALIZED);
+static hash_set&lt;thread::Executor*&gt; *executors;
+
+static void InitializeModuleIfNecessary() {
+  executor_lock.AssertHeld();
+  if (executors == NULL) {
+    executors = new hash_set&lt;thread::Executor*&gt;;
+  }
+}
+
+void RegisterServerExecutor(thread::Executor* executor) {
+  MutexLock l(&amp;executor_lock);
+  InitializeModuleIfNecessary();
+  bool ok = executors-&gt;insert(executor).second;
+  CHECK(ok);
+}
+</PRE>
+
+<P>
+The initialization of executor_lock as base::LINKER_INITIALIZED guarantees
+that the Mutex will be initialized by the linker before any code executes, and
+thus can be used immediately.
+</P>
+
+<P>Beware that using the registration idiom often requires that you
+ensure that the translation units that interact by registering
+components are linked in.  With <TT>google3</TT> <TT>BUILD</TT> files,
+you may need to use the <CODE>alwayslink = 1</CODE> flag on libraries.</P>
+
+<P>
+If your code does not require a mutex but you do need to run initialization
+code once before callers can use your code, <CODE>GoogleOnceInit()</CODE>
+can ensure that your initialization function will run exactly once.  The code
+snippet below initializes a pattern matcher:
+</P>
+
+<PRE>static GoogleOnceType pattern_init = GOOGLE_ONCE_INIT;
+static RE2 *precompiled_pattern;
+
+static void PatternInit() {
+  precompiled_pattern = new RE2("foo.*bar");
+}
+
+void SomeRoutineThatUsesThePattern()
+  GoogleOnceInit(&amp;pattern_init, &amp;PatternInit);
+  ... use *precompiled_pattern ...
+}
+</PRE>
+
+<P>The <A href="https://www.corp.google.com/docfinder?file=//depot/google3/base/googleinit.h">base/googleinit.h</A>
+module also provides a flexible, general code registration to enable
+per-module initialization to run after <CODE>InitGoogle</CODE> has
+processed command-line flags.  Unfortunately, this is not suitable for
+the registration pattern described above, where registration happens
+before <CODE>main()</CODE> or <CODE>InitGoogle()</CODE> executes.</P>
+
+<P>Finally, note that the following code is <EM>only thread-safe
+on gcc</EM> and should not be used to provide a global registry (or
+access to a global singleton in general) in code that needs to run on
+MSVC++ (at least up to 8.0). Using it there could cause the_registry to
+be constructed multiple times:
+
+</P><PRE class="badcode">// THREAD-HOSTILE CODE ON VC++.
+static Registry* TheRegistry() {
+  static Registry the_registry;
+  return &amp;the_registry;
+}
+</PRE>
+
+<H3><A name="pimpl">PIMPL Idiom</A></H3>
+
+<P>One of the most prevalent and useful C++ patterns is called the
+PIMPL idiom, short for "Pointer to IMPLementation".  It trades
+reducing compile-time dependencies between classes for a slight
+run-time performance hit (in having to dereference a pointer). Other
+names for the pattern include "compilation firewall", "handle-body",
+and "envelope-letter".</P>
+
+<P>In a nutshell, the PIMPL idiom breaks a logical object into two
+physical parts, each represented by separate classes: 1) a lightweight
+handle that has few compile-time dependencies and a pointer to the
+second part; and 2) a heavyweight implementation object that may have
+broad and complicated compile-time dependencies but that is hidden
+from clients of the logical object.</P>
+
+<P>Consider <A href="https://www.corp.google.com/docfinder?file=//depot/google3/docserving/server/docserver.h">docserving/server/docserver.h</A>.
+It defines <CODE>class DocServer</CODE> (slightly simplified
+here):</P>
+
+<PRE>class DocServer {
+ public:
+  DocServer(HTTPServer*, AbstractThreadPool*,
+            AbstractDocStore*,
+            int shard, int num_shards);
+  virtual ~DocServer();
+
+ private:
+  // Here's the PIMPL
+  DocServerImpl* const impl_;
+
+  void ProcessModernRequest(HTTPServerRequest* r);
+  ...
+};
+</PRE>
+
+<P>Clients then use this simple class directly and hence are saved
+from the compilation dependencies of the <CODE>DocServerImpl</CODE>
+class.  To do its heavy-lifting, the <CODE>DocServer</CODE> methods
+(implemented in docserver.cc, never inlined in the header file)
+forward to the underlying implementation class like so:</P>
+
+<PRE>void DocServer::ProcessModernRequest(HTTPServerRequest* request) {
+  impl_-&gt;worker_freelist.New()-&gt;DispatchRequest(impl_, request, true, true);
+}
+</PRE>
+
+<H3><A name="factory">Factory Methods</A></H3>
+
+<P>The Factory pattern is an idiom that lets us create objects from a
+class hierarchy while hiding the details of which concrete class is
+actually instantiated.  For example, we can write:</P>
+
+<PRE>File *fp = File::Create("/gfs/qe/foo.txt", "w")
+</PRE>
+
+<P>without worrying about whether the object created by
+<CODE>File::Create</CODE> is an instance of <CODE>File</CODE>,
+<CODE>GFS_File</CODE>, <CODE>LocalFile</CODE>, or any of the other
+subclasses of <CODE>File</CODE>.  Using the factory method
+<CODE>File::Create</CODE> also lets our client code use only the
+abstract interface provided by <CODE>File</CODE> -- they need not
+reason about the various subclasses nor <CODE>#include</CODE> any
+header other than <A href="https://www.corp.google.com/docfinder?file=//depot/google3/file/base/file.h">file/base/file.h</A>.
+(Of course the BUILD file for the program needs to be sure that the
+object files for the appropriate subclasses are built into the
+binary.)</P>
+
+<P>Note also that the factory pattern generally requires the use of
+the <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#registration">registration idiom</A>.  E.g., <A href="https://www.corp.google.com/docfinder?file=//depot/google3/file/localfile/localfile.cc">file/localfile/localfile.cc</A>
+hooks into the <CODE>FileFactory</CODE> using
+REGISTER_MODULE_INITIALIZER and doing:
+
+</P><PRE>FileFactory::RegisterFactory(&amp;local_file_factory, "local-file");
+</PRE>
+
+<P>In general factory methods provide greater flexibility than
+constructors. In particular, as we've seen, factory methods are able
+to create instances of subclasses.  Additionally, factory methods need
+not create an object at all, and they can instead reuse an existing
+object.  Finally, factory methods can be given more meaningful names
+(constructors have to rely on overloading on argument number and
+types).</P>
+
+<H3><A name="callbacks">Callbacks</A></H3>
+
+<P>Earlier we saw how <A href="http://www.corp.google.com/eng/doc/cpp_primer.html#function_objects">function objects</A>
+can be useful for encapsulating a method to be called in the future
+with some optional state parameterizing behaviour.  Our google3
+codebase provides <A href="https://www.corp.google.com/docfinder?file=//depot/google3/base/callback.h">base/callback.h</A>,
+a rich framework that provides function object adaptors to classes
+that were not originally designed for use as function objects.  See
+the documentation for more details.</P>
+
+<H3><A name="disallow_copy_and_assign">DISALLOW_COPY_AND_ASSIGN</A></H3>
+
+<P>The <A href="https://www.corp.google.com/docfinder?file=//depot/google3/base/macros.h">base/macros.h</A>
+header defines a useful macro with the descriptive name
+<CODE>DISALLOW_COPY_AND_ASSIGN</CODE>.  Any user-defined class that
+does not have value semantics (i.e., one that cannot be safely
+assigned or copy-constructed) must either redefine
+<CODE>operator=</CODE> and a copy constructor or hide those two
+methods so that the compiler does not implicitly generate incorrect
+implementations of those behaviours. The easiest way to simply hide
+those methods is just using this macro inside the
+<CODE>private:</CODE> section of a class definition:</P>
+
+<PRE>class DocServer {
+ ...
+ private:
+  DISALLOW_COPY_AND_ASSIGN(DocServer);
+};
+</PRE>
+
+<P>For classes using this technique, accidental uses of assignment or
+copy-construction of the class will be caught either at compile time
+(for code not allowed to access the private details of the class) or
+at link time (because the implementations are not found).</P>
+
+<H3><A name="options_pattern">Options Class Pattern</A></H3>
+
+<P>You can use a class or a struct holding a set of options as an
+argument to another class or member function. This is generally useful
+if you think you would like to have default values for the options or
+if you have more than two arguments that are just configuration
+options. If you find yourself adding a second configuration option to a
+class or function, then it might be the right time to refactor it to
+use an options class/struct.</P>
+
+<P>A number of concrete examples
+<A href="http://cs/codesearch?q=lang:c%2B%2B+(class|struct).*Options.*\{">
+exist in the codebase</A>. Below there is a simple abstract example.</P>
+
+<P>Suppose we would like to implement a <CODE>Brush</CODE> class, which
+can be configured by a <CODE>BrushOptions</CODE> struct. And whose
+<CODE>Paint*</CODE> member functions can be configured with a
+<CODE>PaintOptions</CODE> class (omitted for brevity).</P>
+
+<PRE>struct BrushOptions {
+  enum Format { ROUND, FLAT, BRIGHT, FILBERT, FAN, ANGLE, MOP, RIGGER };
+
+  int size;
+  Format format;
+
+  // The default constructor initializes the options with default values.
+  BrushOptions() : size(...), format(...) { }
+};
+</PRE>
+
+Then <CODE>Brush</CODE> implementation would look somewhat like:
+
+<PRE>class Brush {
+ public:
+  explicit Brush(const BrushOptions&amp; options);
+
+  void PaintLine(const PaintOptions&amp; options,
+                 Point src, Point dst, Canvas* canvas);
+
+  // ...
+};
+</PRE>
+
+And usage:
+
+<PRE>BrushOptions options;
+options.size = 10;
+options.format = BrushOptions::FILBERT;
+
+Brush brush(options);
+
+PaintOptions paint_options;
+// ...
+brush.PaintLine(paint_options, src, dst, &amp;canvas);
+</PRE>
+
+<P>Some important points:
+</P><UL>
+<LI>You can use the
+<A href="http://www/eng/doc/cppguide.xml#Structs_vs._Classes">standard
+rules</A> to decide when it's better to use a class or struct.</LI>
+<LI>Avoid providing a mutable accessor to the options. That won't
+usually work since you won't always know when the options changed,
+and the state of the class might be set when the class is
+created.</LI>
+<LI>For the same reasons as above, always take the options argument as
+a const reference.</LI>
+<LI>Leave it explicitly documented which are the default options being
+used.</LI>
+<LI>You might also want to make the options class/struct nested, and call it
+just <CODE>Options</CODE>. In this example, we would have
+<CODE>Brush::Options</CODE>.</LI>
+<LI>If you need serializable options then you might use a protocol
+buffer as the options class. But refrain from doing it if it is not
+necessary: keep it simple.</LI>
+</UL><P></P>
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+<H2><A name="newlang">Newer Language Features, for legacy C++ programmers</A></H2>
+
+<H3><A name="mutable">Mutable fields (<CODE>mutable</CODE>)</A></H3>
+
+<H3><A name="explicit">Explicit fields (<CODE>explicit</CODE>)</A></H3>
+
+<H3><A name="using">Using declarations (<CODE>using</CODE>)</A></H3>
+
+* overriding vs. overloading
+
+<H3><A name="defaults">Default arguments and overriding</A></H3>
+* Defaults are chosen statically, dispatch is dynamic.
+
+<H3><A name="static_definitions">Non-integral static variable definitions</A></H3>
+
+<H3><A name="nested_classes">Nested classes</A></H3>
+
+<H3><A name="for_scoping">Scoping changes to <TT>for</TT> loop variables</A></H3>
+
+<H3><A name="namespaces">Namespaces and <TT>.h</TT>-less header files</A></H3>
+
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+<H2><A name="fromjava">C++ Gotchas for Java programmers</A></H2>
+
+<H3><A name="stack_vs_heap">Stack- vs. heap- allocated objects</A></H3>
+
+* also mention arenas
+
+<H3><A name="final_virtual">Virtual methods (instead of <CODE>final</CODE>)</A></H3>
+
+* C++'s default is the opposite, no way to prevent further overriding
+* also no final classes
+
+<H3><A name="interfaces">Abstract classes, Interfaces, and Multiple Inheritance</A></H3>
+
+<H3><A name="initializers">Initialization of objects</A></H3>
+
+* dispatch on partially constructed objects
+* order of initialization
+* no implicit null
+
+<H3><A name="pointers_references">Pointers vs. References vs. Java references</A></H3>
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+    <H2><A name="reading">Further reading</A></H2>
+
+<P>There are numerous other sources of valuable information about C++
+coding at google.</P>
+
+<H3>Internal documents</H3>
+<P>The most relevant reading among our internal documents includes:</P>
+
+<UL>
+<LI><A href="http://www.corp.google.com/eng/doc/cppguide.html">C++ style guide</A></LI>
+<LI><A href="http://www.corp.google.com/eng/doc/important-abstractions.html">Important
+                          abstractions</A></LI>
+</UL>
+<P>The <A href="http://www/eng/">Engineering homepage</A> has numerous
+other links of interest.</P>
+
+<H3>External links and books</H3>
+
+<P>If you wish a copy of a book mentioned below, remember you can
+request it from the <A href="http://www.corp.google.com/eng/engEDU/library/index.shtml">engineering library</A>.</P>
+
+<UL>
+<LI>The canonical online reference to the <A href="http://www.google.com/url?sa=D&q=http://www.sgi.com/tech/stl/table_of_contents.html">SGI STL</A>
+is invaluable.</LI>
+
+<LI>Scott Meyer's excellent series of books:
+<A href="http://www.google.com/url?sa=D&q=http://www.awprofessional.com/titles/0-201-92488-9/">Effective C++</A>,
+<A href="http://www.google.com/url?sa=D&q=http://www.awprofessional.com/titles/0-201-63371-X/">More Effective C++</A>,
+<A href="http://www.google.com/url?sa=D&q=http://www.awprofessional.com/titles/0-201-74962-9/">Effective STL</A>.</LI>
+
+<LI>The most comprehensive discussions of the language include
+Stroustrup's <A href="http://www.google.com/url?sa=D&q=http://www.research.att.com/~bs/3rd.html">C++
+Programming Language, 3rd ed.</A> (see esp. Appendix&nbsp;B if you are
+transitioning from C), and Lippman, LaJoie, and Moo's <A href="http://www.google.com/url?sa=D&q=http://www.informit.com/store/product.aspx?isbn=0201721481">C++
+Primer (4th Edition)</A>.</LI>
+
+<LI>Musser, Derge, and Saini have the best <A href="http://www.google.com/url?sa=D&q=http://www.cs.rpi.edu/~musser/stl-book/">STL Tutorial
+and Reference Guide</A>.</LI>
+
+<LI>A great book about the C++ Standard Library (not just the STL) is
+Josuttis's <A href="http://www.google.com/url?sa=D&q=http://www.amazon.com/exec/obidos/tg/detail/-/0201379260">The
+C++ Standard Library: A Tutorial and Reference</A>.
+
+</LI><LI>The most thorough treatment of templates is Josuttis's <A href="http://www.google.com/url?sa=D&q=http://www.josuttis.com/tmplbook/">C++ Templates, The Complete
+Guide</A>.
+
+</LI><LI>The Gang of Four wrote <A href="http://www.google.com/url?sa=D&q=http://www.awprofessional.com/title/0201633612">Design
+Patterns</A>.
+
+</LI><LI>Bjarne Stroustrup maintains a <A href="http://www.google.com/url?sa=D&q=http://www.research.att.com/~bs/bs_faq.html">C++ FAQ</A>
+which is worth reading.
+
+</LI><LI>The <A href="http://www.google.com/url?sa=D&q=http://www.boost.org">Boost</A> libraries may contain useful code
+and have some valuable documentation, too.
+</LI><LI> Online version of the text <EM>Thinking In C++</EM> by Bruce
+Eckel can be found here:
+<A href="http://www.google.com/url?sa=D&q=http://mindview.net/Books/TICPP/ThinkingInCPP2e.html">Thinking
+In C++ V1 and V2</A>
+</LI></UL>
+
+<P>Please send suggestions and links for other worthwhile readings to
+the authors.</P>
+
+
+    <BR><BR><A href="http://www.corp.google.com/eng/doc/cpp_primer.html#contents">[back to top]</A>
+<H2>Document History</H2>
+
+<TABLE border="" summary="Document history" width="90%">
+
+<TBODY><TR>
+  <TD width="10%"><B>Date</B></TD>
+  <TD width="15%"><B>Author</B></TD>
+  <TD width="50%"><B>Description</B></TD>
+  <TD width="15%"><B>Reviewed by</B></TD>
+  <TD width="15%"><B>Signed off by</B></TD>
+</TR>
+
+<TR id="rev0" onclick="highlight(&#39;rev0&#39;)">
+  <TD>Aug-Oct 2003</TD>
+  <TD>Greg Badros</TD>
+  <TD>First (incomplete) draft.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+<TR>
+  <TD>March 2004</TD>
+  <TD>Greg Badros</TD>
+  <TD>More progress and first announcement.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+<TR>
+  <TD>April 29 2004</TD>
+  <TD>Greg Badros</TD>
+  <TD>Mention linkalways BUILD flag, finish updating for google3, fix links to /~engdocs. Also
+responded to feedback from Victoria G, Craig S, Daniel D, and Peter M.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+<TR>
+  <TD>May 6 2004</TD>
+  <TD>Greg Badros</TD>
+  <TD>Improved on the discussion of erasing from containers; Thanks Fay Chang for
+pointing out a flaw that I've fixed.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>1 July 2004</TD>
+  <TD>Greg Badros</TD>
+  <TD>Minor updates thanks to feedback from Brian Park and Matthew Hiller.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>9 September 2005</TD>
+  <TD>Will Robinson</TD>
+  <TD>Replaced registration example with a thread-safe version.</TD>
+  <TD>Greg Badros</TD>
+  <TD>Greg Badros</TD>
+</TR>
+
+<TR>
+  <TD>9 September 2006</TD>
+  <TD>Craig Silverstein</TD>
+  <TD>Added "Google-specific" section and "gotchas" section.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>19 October 2006</TD>
+  <TD>Satoru Takabayashi</TD>
+  <TD>Added "format strings" section.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>12 June 2007</TD>
+  <TD>Satoru Takabayashi</TD>
+  <TD>Added "volatile" section, based on a discussion on c-style.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>18 June 2007</TD>
+  <TD>Craig Silverstein</TD>
+  <TD>Added a section on variadic macros.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>5 October 2007</TD>
+  <TD>Simon Baldwin</TD>
+  <TD>Added a small section on strtol and atoi, requested on c-style.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>23 October 2007</TD>
+  <TD>Peter Ludemann</TD>
+  <TD>Added to atoi/strol/etc., requested on c-style.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>25 October 2007</TD>
+  <TD>Bryan Mills</TD>
+  <TD>Added a small section on static checking.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>17 November 2007</TD>
+  <TD>Mike Burrows</TD>
+  <TD>Added a section on stack sizes and stack frame sizes.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>20 November 2007</TD>
+  <TD>Brendan McMahan</TD>
+  <TD>Added a pointer to util/registration/registerer.h</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>25 July 2008</TD>
+  <TD>Alexander Mohr</TD>
+  <TD>Added a link to the Callbacks and Closures codelab and the 4th ed. C++ Primer.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+<TR>
+  <TD>24 March 2010</TD>
+  <TD>Nilton Volpato</TD>
+  <TD>Added a section about the Options Class Pattern.</TD>
+  <TD>...</TD>
+  <TD>...</TD>
+</TR>
+
+</TBODY></TABLE>
+
+<!-- This text only shows if JavaScript has been enabled in the
+     browser -->
+<SCRIPT type="text/javascript" language="JavaScript1.2"><!--
+document.writeln('<font size="-1">Click on a row to highlight changes\
+                  made to a particular revision of this document.</font><br>');
+//-->
+</SCRIPT><FONT size="-1">Click on a row to highlight changes                  made to a particular revision of this document.</FONT><BR>
+
+<BR><ADDRESS>This document is <A href="http://www.corp.google.com/confidential.html">Google Confidential</A>.</ADDRESS>
+  <SCRIPT type="text/javascript"> var gaJsHost = (('https:' == document.location.protocol) ? 'https://ssl.' : 'http://www.'); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); </SCRIPT><SCRIPT src="./Google C++ Primer_files/ga.js" type="text/javascript"></SCRIPT> <SCRIPT type="text/javascript"> var pageTracker = _gat._getTracker('UA-1067920-1'); _gat.lc='https://ssl.google-analytics.com/__utm.gif'; pageTracker._initData(); pageTracker._trackPageview(); </SCRIPT> 
+
+</BODY></HTML>

@@ -1,0 +1,75 @@
+.content {
+  color: black;
+  margin-right: 8%;
+  margin-left: 8%;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  color: #555555;
+  font-family: sans-serif;
+}
+@media print {
+  /* Darker version for printing */
+  h1, h2, h3, h4, h5, h6 {
+    color: #000080;
+    font-family: helvetica, sans-serif;
+  }
+}
+
+h1 { 
+  text-align: center;
+  font-size: 18pt;
+}
+h2 {
+  margin-left: -6%;
+}
+h3 {
+  margin-left: -4.5%;
+}
+h4 {
+  margin-left: -3.5%;
+}
+address {
+  text-align: right;
+}
+code,pre,samp,var {
+  color: #006000;
+}
+kbd {
+  color: #600000;
+}
+div.note p {
+  float: right;
+  width: 3in;
+  margin-right: 0%;
+  padding: 1px;
+  border: 2px solid #6060a0;
+  background-color: #fffff0;
+}
+
+/*
+body:after {
+  content: "Google Confidential";
+}
+*/
+
+pre, .code {
+  background-color: #e0eaf4;
+  border: 1px solid #a9cef1;
+  padding-left:1em;
+  padding-top:0.5em;
+  padding-bottom:0.5em;
+  overflow:auto;
+}
+
+/* Style for access restriction */
+span.restricted { 
+  border:solid 1px #900;
+  padding:2px;
+  color:#900;
+  cursor:hand;
+  font-weight: bold;
+  font-style: italic;
+}
+div.invisible { display:none; }

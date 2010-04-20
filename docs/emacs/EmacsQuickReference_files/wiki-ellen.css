@@ -1,0 +1,155 @@
+
+a.tinybutton:link {
+    border: 1px outset white;
+    padding: 2px;
+    margin: 0px 2px;
+    text-decoration: none;
+    font-size: 90%;
+    vertical-align: middle;
+    background-color: white;
+}
+
+a.tinybutton:hover {
+    border: 1px inset white !important;
+    /* padding: 3px 1px 1px 3px !important; */
+    margin: 0px 2px;
+    text-decoration: none !important;
+    font-size: 90%;
+    background-color: white !important;
+    color: blue !important;
+}
+
+a.tinybutton:visited {
+    border: 1px outset white;
+    padding: 2px;
+    margin: 0px 2px;
+    text-decoration: none;
+    font-size: 90%;
+    vertical-align: middle;
+    background-color: white;
+}
+
+input.tinybutton {
+    border: 1px outset white;
+    font-size: 90%;
+    background-color: white;
+    vertical-align: baseline;
+    margin-bottom: 1px;
+}
+
+
+a.subtle:link {
+ color: #6161CC;
+}
+
+a.subtle:hover {
+    background-color: #6161FF !important;
+    color: white !important;
+}
+
+a.subtle:visited {
+ color: #515199;
+}
+
+a.command {
+ color: #0000cc;
+}
+
+body {
+  margin: 0 !important;
+}
+
+/* For Safari browsers */        
+#maincontent { 
+  margin-top: .2em; 
+}
+
+/* Variations when Wiki is embedded within another page. 
+   
+   Added by mwichary, June 2007. */
+
+.showWhenEmbedded {
+  display: none;
+}
+body.embedded .hideWhenEmbedded {
+  display: none;
+}
+body.embedded span.showWhenEmbedded {
+  display: inline;
+}
+body.embedded div.showWhenEmbedded {
+  display: block;
+}
+.showWhenNoHeader {
+  display: none !important; 
+}
+body.noHeader .hideWhenNoHeader {
+  display: none !important;
+}
+body.noHeader span.showWhenNoHeader {
+  display: inline !important;
+}
+body.noHeader div.showWhenNoHeader {
+  display: block !important;
+}
+body.noHeader td.showWhenNoHeader {
+ display: table-cell !important;
+}
+* html body.noHeader td.showWhenNoHeader {
+  display: block !important; /* Correction for IE6 */
+}
+body.noHeader {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+body.noHeader table#canvas {
+  margin-top: -0.3em; 
+  width: 100%;
+  border-collapse: collapse;
+}
+body.noHeader table#canvas td {
+  padding: 0;
+}
+td#revisions {
+  height: 1.5em;
+}
+body.noHeader td#revisions table {
+  border-collapse: collapse;
+  height: 25px;
+}
+body.noHeader td#revisions table td {
+  padding: 0;
+}
+* html body.embedded table#canvas {
+  margin-top: 0.5em; /* Correction for IE6 */
+}
+body.noHeader #header, body.noHeader #shorturl {
+  display: none;  
+}
+#hideHeader {
+  position: absolute;
+  top: 0.2em;
+  right: 0.4em;
+}
+#verySmallLogo {
+  background: white url(../img/google_vsm.gif) left top no-repeat;
+  width: 135px;
+  padding: 0; 
+  margin: 0;
+}
+#verySmallLogo a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+div#goowikiContentEnd, div#goowikiBodyEnd {
+  clear: both;
+}
+hr.gooDivider {
+  border-top: 1px solid black;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+  height: 1px;
+}
+

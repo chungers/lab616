@@ -1,0 +1,372 @@
+
+<!-- saved from url=(0067)http://wiki.corp.google.com/twiki/bin/view/Main/EmacsQuickReference -->
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <TITLE>Main . EmacsQuickReference   </TITLE>
+  <!--<BASE target="_top" href="http://wiki.corp.google.com/twiki/bin/view/Main/EmacsQuickReference">--><BASE href="." target="_top">
+  <LINK type="text/css" rel="stylesheet" href="./EmacsQuickReference_files/wiki-ellen.css">
+  <LINK type="text/css" rel="stylesheet" href="./EmacsQuickReference_files/designstyle.css">
+  <LINK type="text/css" rel="stylesheet" href="./EmacsQuickReference_files/prettify.css">
+   
+  <META name="parent" content="Main.Emacs">
+  <META name="DC.Date.Modified" content="2008-09-04">
+  
+  <SCRIPT type="text/javascript" src="./EmacsQuickReference_files/ga.js"></SCRIPT><SCRIPT type="text/javascript" src="./EmacsQuickReference_files/toggle.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./EmacsQuickReference_files/redirect_external.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="./EmacsQuickReference_files/prettify.js"></SCRIPT>
+<SCRIPT type="text/javascript">
+// This function is called during onload.
+// The function checks for the existence of each possible onload function
+// before calling the function. (Not all templates will include the JS for
+// each of these functions.)
+function gooinit() {
+  var setSearchBoxFocus = 0;
+
+  // Scrub any URLs to external pages.
+  if (self.redirectExternalLinks) {
+	 redirectExternalLinks();
+  }
+  // Pretty print code in any preformatted blocks with class="prettyprint".
+  if (self.prettyPrint) {
+	 prettyPrint();
+  }
+  // Put the cursor in the search box if the URL does not point to
+  // a named anchor.
+  if ((setSearchBoxFocus) && (! window.location.hash)) {
+	 if ((document.goosearchform) && (document.goosearchform.q)) {
+		// Suppress JS errors that occur in IE when the search box is hidden.
+		// ("Can't move focus to the control because it is invisible,
+		// not enabled, or of a type that does not accept the focus")
+		try {
+		  document.goosearchform.q.focus();
+		} catch (e) {
+		  // ignore errors
+		}
+	 // Handle the call for the PSO web templates.
+	 } else if ((document.getElementById('search')) &&
+		  (location.href.indexOf('/twiki/bin/view') != -1)) {
+		try {
+		  document.getElementById('search').focus();
+		} catch (e) {
+		  // ignore errors
+		}
+	 }
+  }
+
+  // If the Wiki page appears within an iframe, set the height of the iframe
+  // based on the height of the current Wiki page.
+  if ("undefined" != typeof(parentResizeIframeToFitContent)) {
+	 parentResizeIframeToFitContent();
+	 window.onresize = parentResizeIframeToFitContent;
+  }
+}
+</SCRIPT>
+
+<SCRIPT type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-19001-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+	 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</SCRIPT>
+</HEAD><BODY topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="white" onload="gooinit(); hovercardinit();">
+<SCRIPT type="text/javascript">
+// Maximum number of Wiki Names on a page that should have hovercards.
+// This limit is needed to prevent slow loading of pages with many names.
+var maxHovercards = 32;
+</SCRIPT>
+  <SCRIPT type="text/javascript" src="./EmacsQuickReference_files/frames.js"></SCRIPT>
+<A name="PageTop"></A>
+<DIV class="invisible">
+  <P><A href="http://wiki.corp.google.com/twiki/bin/view/Main/EmacsQuickReference#maincontent">Skip to main content</A></P>
+</DIV>
+<DIV id="header">
+  <TABLE width="100%" border="0" cellpadding="0" cellspacing="0" id="banner">
+    <TBODY><TR valign="middle">
+      <TD style="width: 20% !important;">
+        <A href="http://wiki.corp.google.com/"><IMG src="./EmacsQuickReference_files/google_sm.gif" alt="Goowiki Home" hspace="5" border="0"></A>
+      </TD>
+      <TD>
+        <FORM action="http://wiki.corp.google.com/gw/scripts/search.php" method="get" name="goosearchform">
+          <INPUT type="hidden" name="web" value="Main"> 
+          <INPUT type="text" size="30" name="q"> 
+          <INPUT type="submit" name="submit" value="Search Wiki"> 
+          <SPAN style="font-size:xx-small"><A href="http://wiki.corp.google.com/twiki/bin/view/Nonconf/GoowikiSearchHelp">Search Help</A></SPAN>
+          <BR>
+          <A href="http://wiki.corp.google.com/twiki/bin/view/Main/WebHome">Main</A>  |  <A href="http://wiki.corp.google.com/twiki/bin/view/Nonconf/WebHome">Nonconf</A>  |  <A href="http://wiki.corp.google.com/twiki/bin/view/Codelab/WebHome">Codelab</A>  |  <A href="http://wiki.corp.google.com/twiki/bin/view/Pso/WebHome">Pso</A>  |  <A href="http://wiki.corp.google.com/twiki/bin/view/Style/WebHome">Style</A>  |  <A href="http://wiki.corp.google.com/twiki/bin/view/Sandbox/WebHome">Sandbox</A>  |  <A href="http://wiki.corp.google.com/twiki/bin/view/TWiki/WebHome">Setup</A>  |  <A href="http://wiki.corp.google.com/twiki/bin/view/Trash/WebHome">Trash</A>  |  <A href="http://wiki.corp.google.com/twiki/bin/view/Youtube/WebHome">Youtube</A>
+        </FORM> 
+      </TD> 
+      <TD>
+        <A href="http://wiki.corp.google.com/twiki/bin/view/Main/DavidChung" username="dchung">DavidChung</A> |
+        <!-- >a href="https://fancypants.corp.google.com/" target="_new"<Login history>/a& | -->
+        <A href="https://login.corp.google.com/logout">Sign out</A><BR>
+        <DIV style="display: inline; color: #7f7f7f;  font-size: 83%;" id="llDiv"></DIV>
+      </TD>
+    </TR>
+  </TBODY></TABLE>
+  <TABLE bgcolor="#CCCCFF" align="center" width="97%" border="0" cellpadding="3" cellspacing="0">
+    <TBODY><TR>
+      <TD bgcolor="#CCCCFF">
+        <!-- 
+          <a href="http://wiki.corp.google.com/twiki/bin/view/Main/WebHome">Goowiki</a> &gt;
+        -->
+        <A href="http://wiki.corp.google.com/twiki/bin/view/Main/WebHome">Main</A> 
+        <FONT size="-1">(<A href="http://wiki.corp.google.com/twiki/bin/view/Main/WebChanges">Changes</A>)</FONT> 
+        &gt; <A href="http://wiki.corp.google.com/twiki/bin/view/Main/TechnologiesAndTools">TechnologiesAndTools</A> &gt; <A href="http://wiki.corp.google.com/twiki/bin/view/Main/Emacs">Emacs</A> &gt;
+        <A href="./EmacsQuickReference_files/EmacsQuickReference.html">EmacsQuickReference</A> 
+<P>
+      </P></TD>
+      <SCRIPT>var wikiTitle = 'EmacsQuickReference';</SCRIPT>
+      <TD align="right">
+        <A class="tinybutton" href="http://wiki.corp.google.com/twiki/bin/oops/Main/EmacsQuickReference?template=oopsmore&param1=1.5&param2=1.5">More&nbsp;Actions</A> &nbsp; 
+        <A class="tinybutton" href="http://wiki.corp.google.com/twiki/bin/view/Main/EmacsQuickReference#" onclick="window.open(&#39;http://bookmarks.corp.google.com/notebook/a/google.com/add_bookmark?style=popout&amp;title=&#39; + encodeURIComponent(wikiTitle) + &#39;&amp;bkmk=&#39; + encodeURIComponent(document.URL), &#39;Bookmark&#39;, &#39;width=640, height=600&#39;);return false;">&nbsp;Bookmark&nbsp;This&nbsp;</A>
+        <A class="tinybutton" href="http://wiki.corp.google.com/twiki/bin/view/Main/EmacsQuickReference?raw=on">&nbsp;Raw&nbsp;</A>
+        <A class="tinybutton" href="http://wiki.corp.google.com/twiki/bin/view/Main/EmacsQuickReference?skin=print"><IMG src="./EmacsQuickReference_files/icon_print.gif" border="0">&nbsp;Printable</A>
+        <A class="tinybutton" href="http://wiki.corp.google.com/twiki/bin/attach/Main/EmacsQuickReference"><IMG src="./EmacsQuickReference_files/icon_attach.gif" border="0">&nbsp;Attach</A>
+        <!-- Update the time stamp using <a href="/twiki/bin/view/Main/JavaScript">JavaScript</a> to prevent caching. -->
+        <A class="tinybutton" href="http://wiki.corp.google.com/twiki/bin/edit/Main/EmacsQuickReference?t=1271704183" onmouseover="this.href = this.href.replace(/\?t=.*/, &quot;?t=&quot; + (new Date()).getTime());"><IMG border="0" src="./EmacsQuickReference_files/icon_edit.gif">&nbsp;Edit</A>
+      </TD>
+    </TR>
+  </TBODY></TABLE> 
+</DIV>
+<P>
+</P><DIV id="hideHeader" class="showWhenEmbedded hideWhenNoHeader">
+  <A class="command" href="http://wiki.corp.google.com/twiki/bin/view/Main/EmacsQuickReference#" onclick="return toggleHeader()">hide header</A>
+</DIV>
+<P>
+  <!-- * Set GOOWIKIDOWNTIMEMESSAGE = >div style="padding: 0.25em; background-color: #EEEEEE; font-family: Arial,Helvetica,Sans-Serif; text-align: center; font-size: large; font-weight: bold;"<The wiki will be running in read-only mode until approximately 20:15 Pacific Time >/div& -->
+  <!--* Set GOOWIKIMOREACTIONSMESSAGE = -->
+<TABLE id="canvas" align="center" width="97%" bgcolor="#CCCCFF">
+  <TBODY><TR>
+    <TD id="revisions">
+      <FORM style="margin:0" name="main" action="./EmacsQuickReference_files/EmacsQuickReference.html">
+        <TABLE border="0" width="100%">
+          <TBODY><TR>
+            <TD id="verySmallLogo" class="showWhenNoHeader"><A href="http://wiki.corp.google.com/"></A></TD>
+            <TD>
+              <SPAN class="hideWhenNoHeader">Revision</SPAN> r1.5 - 04 Sep 2008 - 21:57 GMT - <A href="http://wiki.corp.google.com/twiki/bin/view/Main/JordanWeitz" username="jweitz">JordanWeitz</A> <SPAN class="hideWhenNoHeader">-- 
+              <A href="http://wiki.corp.google.com/twiki/bin/rdiff/Main/EmacsQuickReference">view changes</A></SPAN>
+              <!-- Main . {  <a href="/twiki/bin/view/Main/WebChanges">Changes</a>  |  <a href="/twiki/bin/view/Main/WebIndex">Topic Index</a>  |  <a href="/twiki/bin/view/Main/TWikiUsers">Users</a>  |  <a href="/twiki/bin/view/Main/WebSearch">Search</a>  |  Jump to page: >input type="text" name="topic" size="16" /&  } -->
+            </TD>
+            <TD align="right">
+               <SPAN class="hideWhenNoHeader">Short URL: http://wiki/Main/EmacsQuickReference</SPAN> 
+              <SPAN class="showWhenEmbedded showWhenNoHeader">
+                <A class="command" href="http://wiki.corp.google.com/twiki/bin/view/Main/EmacsQuickReference#" onclick="return toggleHeader()">show header</A>
+                <IMG src="./EmacsQuickReference_files/arrow-up.gif.php" border="0" width="6" height="7">
+                |
+                <A class="command" href="" onclick="return expandFrameToEntirePage()">full window</A>
+                &nbsp;
+                <!-- Update the time stamp using <a href="/twiki/bin/view/Main/JavaScript">JavaScript</a> to prevent caching. -->
+                <A class="tinybutton" href="http://wiki.corp.google.com/twiki/bin/edit/Main/EmacsQuickReference?t=1271704183" onmouseover="this.href = this.href.replace(/\?t=.*/, &quot;?t=&quot; + (new Date()).getTime());"><IMG border="0" src="./EmacsQuickReference_files/icon_edit.gif">&nbsp;Edit</A>
+              </SPAN>
+            </TD>
+          </TR>
+        </TBODY></TABLE>
+      </FORM>
+    </TD>
+  </TR>
+</TBODY></TABLE>
+</P><DIV id="maincontent" class="content">
+ <H1><A name="Emacs_Quick_Reference"> </A> Emacs Quick Reference </H1>
+<P>
+(Copied from <A href="http://www.google.com/url?sa=D&q=http%3A%2F%2Fvertigo.hsrl.rutgers.edu%2Fug%2Femacs_qref.html" target="_top">http://vertigo.hsrl.rutgers.edu/ug/emacs_qref.html</A>)
+</P><P>
+NOTES:  This file is not inclusive.
+</P><P>
+<STRONG>C</STRONG> followed by a - (dash) and a letter means hold down the <CODE>CONTROL</CODE> key while pressing the appropriate letter.
+</P><P>
+    <B>M</B> followed by a - and a letter means to depress and
+    release the &lt;ESC&gt; key followed by the appropriate letter.
+</P><P>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-\ t </TD><TD bgcolor="#EEEEEE"> Tutorial suggested for new emacs users. </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x C-c </TD><TD bgcolor="#F4F4F4"> exit emacs </TD></TR>
+</TBODY></TABLE>
+</P><P>
+</P><H3><A name="Files"> </A> Files </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-x C-f </TD><TD bgcolor="#EEEEEE"> read a file into emacs </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x C-s </TD><TD bgcolor="#F4F4F4"> save a file back to disk </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-x i </TD><TD bgcolor="#EEEEEE"> insert contents of another file into </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> &nbsp; </TD><TD bgcolor="#F4F4F4"> this buffer </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-x C-v </TD><TD bgcolor="#EEEEEE"> replace this file with the contents of </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> &nbsp; </TD><TD bgcolor="#F4F4F4"> file you want </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-x C-w </TD><TD bgcolor="#EEEEEE"> write buffer to specified file </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><P>
+</P><H3><A name="Error_Recovery"> </A> Error Recovery </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-g </TD><TD bgcolor="#EEEEEE"> abort partially typed or executing </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> &nbsp; </TD><TD bgcolor="#F4F4F4"> command </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-x recover-file </TD><TD bgcolor="#EEEEEE"> recover a file lost by a system crash </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x C-_ </TD><TD bgcolor="#F4F4F4"> undo an unwanted change </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-x revert-buffer </TD><TD bgcolor="#EEEEEE"> restore a buffer to its original </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> &nbsp; </TD><TD bgcolor="#F4F4F4"> contents </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-l </TD><TD bgcolor="#EEEEEE"> redraw garbled screen </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><H3><A name="Getting_Help"> </A> Getting Help </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-\ t </TD><TD bgcolor="#EEEEEE"> Tutorial recommended for new emacs users </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x 1 </TD><TD bgcolor="#F4F4F4"> get rid of help window </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M C-v </TD><TD bgcolor="#EEEEEE"> scroll help window </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><H3><A name="Incremental_Search"> </A> Incremental Search </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-x goto-line </TD><TD bgcolor="#EEEEEE"> go to line number </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-s </TD><TD bgcolor="#F4F4F4"> search forward (can repeat for next, </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> &nbsp; </TD><TD bgcolor="#EEEEEE"> use M to exit) </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-r </TD><TD bgcolor="#F4F4F4"> search backward (can repeat for next, </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> &nbsp; </TD><TD bgcolor="#EEEEEE"> use M to exit) </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-r </TD><TD bgcolor="#F4F4F4"> search backward </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-w </TD><TD bgcolor="#EEEEEE"> (during search) extend search </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> &nbsp; </TD><TD bgcolor="#F4F4F4"> to whole word </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-M-s </TD><TD bgcolor="#EEEEEE"> regular expression search </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> M or C-g </TD><TD bgcolor="#F4F4F4"> escape incremental search </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><H3><A name="Cursor_Movement"> </A> Cursor Movement </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-f </TD><TD bgcolor="#EEEEEE"> move forward one character </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-b </TD><TD bgcolor="#F4F4F4"> move backward one character </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-n </TD><TD bgcolor="#EEEEEE"> move to next line </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-p </TD><TD bgcolor="#F4F4F4"> move to previous line </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-a </TD><TD bgcolor="#EEEEEE"> move to beginning of line </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-e </TD><TD bgcolor="#F4F4F4"> move to end of line </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-f </TD><TD bgcolor="#EEEEEE"> move forward one word </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> M-b </TD><TD bgcolor="#F4F4F4"> move backword one word </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-v </TD><TD bgcolor="#EEEEEE"> move forward one screen </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> M-v </TD><TD bgcolor="#F4F4F4"> move backward one screen </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-&lt; </TD><TD bgcolor="#EEEEEE"> go to beginning of file </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> M-&gt; </TD><TD bgcolor="#F4F4F4"> go to end of file </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><H3><A name="Killing_and_Deleting"> </A> Killing and Deleting </H3>
+<P>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> &lt;DEL&gt; </TD><TD bgcolor="#EEEEEE"> delete backward one character </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-d </TD><TD bgcolor="#F4F4F4"> delete forward one character </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-&lt;DEL&gt; </TD><TD bgcolor="#EEEEEE"> delete backward one word </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> M-d </TD><TD bgcolor="#F4F4F4"> delete forward one word </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-z {char} </TD><TD bgcolor="#EEEEEE"> kill to next occurrenc of character </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-k </TD><TD bgcolor="#F4F4F4"> kill to end of line </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-y </TD><TD bgcolor="#EEEEEE"> yank back last thing killed </TD></TR>
+</TBODY></TABLE>
+</P><P>
+</P><H3><A name="Marking"> </A> Marking </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-@ or C-&lt;SPC&gt; </TD><TD bgcolor="#EEEEEE"> set mark here </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x C-x </TD><TD bgcolor="#F4F4F4"> exchange point and mark </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-h </TD><TD bgcolor="#EEEEEE"> mark paragraph </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x h </TD><TD bgcolor="#F4F4F4"> mark entire buffer (alternately M-&lt; M-&gt;) </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><H3><A name="Replacing"> </A> Replacing </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-% </TD><TD bgcolor="#EEEEEE"> interactively replace a test string </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> M-x replace-string </TD><TD bgcolor="#F4F4F4"> replace string with string </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> &nbsp; </TD><TD bgcolor="#EEEEEE"> mark to end of file </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><H3><A name="Multiple_Windows"> </A> Multiple Windows </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-x 1 </TD><TD bgcolor="#EEEEEE"> delete all other windows </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x 0 </TD><TD bgcolor="#F4F4F4"> delete this window </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-x 2 </TD><TD bgcolor="#EEEEEE"> split this window in half vertically </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x 3 </TD><TD bgcolor="#F4F4F4"> split this window in half horizontally </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-M-v </TD><TD bgcolor="#EEEEEE"> scroll other window </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x o </TD><TD bgcolor="#F4F4F4"> switch cursor to another window </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><H3><A name="Buffers"> </A> Buffers </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-x b </TD><TD bgcolor="#EEEEEE"> select another buffer </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> C-x C-b </TD><TD bgcolor="#F4F4F4"> list all buffers </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-x k </TD><TD bgcolor="#EEEEEE"> kill a buffer </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><H3><A name="Spelling_Check"> </A> Spelling Check </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-$ </TD><TD bgcolor="#EEEEEE"> check spelling of current word </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> M-x spell-region </TD><TD bgcolor="#F4F4F4"> check spelling of marked region </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-x spell-buffer </TD><TD bgcolor="#EEEEEE"> check spelling of entire buffer </TD></TR>
+</TBODY></TABLE>
+<P>
+</P><H3><A name="Shells"> </A> Shells </H3>
+<TABLE border="0" cellspacing="1" cellpadding="2">
+<TBODY><TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> M-! </TD><TD bgcolor="#EEEEEE"> execute a shell command </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#F4F4F4"> M-| </TD><TD bgcolor="#F4F4F4"> run a shell command on region </TD></TR>
+<TR><TD class="twikiFirstCol" bgcolor="#EEEEEE"> C-u M-| </TD><TD bgcolor="#EEEEEE"> filter a region through a shell command </TD></TR>
+</TBODY></TABLE>
+<P>
+Additional help is available in <STRONG>man emacs</STRONG>.
+  </P><DIV id="goowikiContentEnd"></DIV>
+</DIV>
+<DIV id="goowikiBodyEnd"></DIV>
+<P>
+</P><P>
+</P><HR class="gooDivider">
+<TABLE width="100%" border="0" cellpadding="3" cellspacing="0">
+  <TBODY><TR>
+    <TD valign="top">
+      <SPAN id="goowikicopyrightfooter"><FONT size="-1" color="#990000;"><B>Google Confidential!</B></FONT> <BR><FONT size="-2"><A href="http://www.corp.google.com/">moma home</A> - <A href="http://wiki.corp.google.com/twiki/bin/view/Main/GoowikiAdministration">GoowikiAdministration</A><BR>Please note: Google's intranet contains confidential information that should be accessed on a "need to know" basis. If you have questions about what this means, please contact <A href="mailto:code-of-conduct@google.com">code-of-conduct@google.com</A>.<BR><BR>Copyright © 2004-2010 Google, Inc.  Problems with a particular page? E-mail the page's author.<BR>Ideas, requests, problems with Goowiki itself? <A href="https://remedyweb.corp.google.com/guts/ticket.php?fromLogin=true&openCreateNewTicket=true&action=templatizer&jumpToCreatePageType=Default&create_summary=Goowiki+Support%3A+Feedback+on+Main.EmacsQuickReference">Log a helpdesk ticket</A>.</FONT></SPAN>
+    </TD>
+  </TR>
+  <TR>
+    <TD colspan="2"> 
+<P>
+    </P></TD>
+  </TR>
+</TBODY></TABLE>
+<A name="PageBottom"></A>
+<SCRIPT type="text/javascript">
+<!--  Hide JavaScript and <pre> escape TWiki rendering
+if (document && document.querySelector) {
+  var wiki1H1 = document.querySelector('h1');
+  if (wiki1H1 && wiki1H1.innerText) { wikiTitle = wiki1H1.innerText; }
+} else if (document && document.getElementsByTagName) {
+  var wiki1H1 = document.getElementsByTagName('h1');
+  if (wiki1H1 && wiki1H1.innerText) { wikiTitle = wiki1H1.innerText; }
+}
+// Stop hiding and stop </pre> escaping TWiki rendering -->
+</SCRIPT>
+<!-- >script type="text/javascript" src="http://profiles.corp.google.com/a/google.com/ui/HovercardLauncher/manifest.js"<&/script> -->
+<SCRIPT type="text/javascript">
+<!-- Hide JavaScript and <pre> escape TWiki rendering
+// If maxHovercards was set to something that is not a number,
+// set it to 32 by default.
+var maxHovercards;
+if (isNaN(maxHovercards)) {
+  maxHovercards = 32;
+}
+function hovercardinit() {
+  // user can turn off hovercards by setting HIDEHOVERCARDS to 1
+  if("1" != "%HIDEHOVERCARDS%") {
+    // don't bother doing this unless we were successful loading manifest.js
+    if('function' == typeof addHovercard) {
+      var hoverCount = 0;
+      var linkNodes = document.documentElement.getElementsByTagName("a");
+      for(var i = 0; i<linkNodes.length && hoverCount < maxHovercards; i++) {
+        var node = linkNodes[i];
+        var username = node.getAttribute("username");
+        if(username && username != "") {
+          var profileUri = "http://profiles.corp.google.com/a/google.com/profiles/" + username;
+          addHovercard(node, username, {'nickname':username, 'profileUri':profileUri, "hl":"en-US"});
+          hoverCount++;
+        }
+      }
+    }
+  }
+}
+// Stop hiding and stop </pre> escaping TWiki rendering -->
+</SCRIPT>
+<P>
+
+</P></BODY></HTML>

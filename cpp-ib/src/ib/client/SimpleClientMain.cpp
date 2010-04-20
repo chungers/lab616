@@ -37,7 +37,7 @@ int main(int argc, char** argv)
       break;
     }
 
-    printf( "Sleeping %u seconds before next attempt\n", SLEEP_TIME);
+    printf( "******************************** Sleeping %u seconds before next attempt\n", SLEEP_TIME);
     sleep( SLEEP_TIME);
   }
 

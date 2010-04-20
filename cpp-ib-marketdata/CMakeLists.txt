@@ -47,7 +47,7 @@ cpp_library(gtest
 )
 
 # Directory for generated files:
-set(GEN_DIR ${PROJECT_SOURCE_DIR}/genfiles)
+set(GEN_DIR ${PROJECT_SOURCE_DIR}/_genfiles)
 
 # Root of source and tests
 set(SRC_ROOT ${PROJECT_SOURCE_DIR}/src)

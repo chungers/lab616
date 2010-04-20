@@ -25,11 +25,10 @@ Makefile
 
 # Other build artifacts:
 classes/
-genfiles/
-target/
 
 # Custom CMake build output directory:
 _build/
+_genfiles/
 
 # Runtime / testing
 runtime/
