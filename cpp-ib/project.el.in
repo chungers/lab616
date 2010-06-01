@@ -9,9 +9,9 @@
 		 "/src/ib/api/@IBAPI_VERSION@/Shared"
 		 "/src/ib/api/@IBAPI_VERSION@/PosixSocketClient"
 		 "/test"
-		 "/genfiles"
-		 "/build/third_party/include"
-		 "/build/third_party/boost/include"
+		 "/_genfiles"
+		 "/_build/third_party/include"
+		 "/_build/third_party/boost/include"
 		 )
  :system-include-path '("/usr/local/google")
  )

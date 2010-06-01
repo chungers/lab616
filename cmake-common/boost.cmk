@@ -26,21 +26,24 @@ function(boost_libraries targets)
   foreach (target ${ARGV})
     set(package "boost_${target}")
     message(STATUS "BOOST: Checking for ${target}")
-    find_library(${package} 
-      NAMES lib${package}.a 
+    find_library(${package}
+      NAMES lib${package}.a
       PATHS ${THIRD_PARTY_BUILD_DIR}/boost/lib)
     if (${${package}} MATCHES ${package}-NOTFOUND)
       list(APPEND BOOST_TO_BUILD "--with-${target}")
-      message(STATUS 
+      message(STATUS
 	"BOOST: Missing ${package}: 'make boost' OR 'make init' to build.")
     endif()
   endforeach(target)
   message(STATUS "BOOST: bjam options = '${BOOST_TO_BUILD}'")
-  add_custom_target(build-boost
-    COMMAND mkdir -p ${THIRD_PARTY_BUILD_DIR}/boost
-	COMMAND ${BOOST_DIR}/bootstrap.sh 
-	--prefix=${THIRD_PARTY_BUILD_DIR}/boost 
+  if (${BOOST_TO_BUILD})
+    message(STATUS "Adding Boost build targets")
+    add_custom_target(build-boost
+      COMMAND mkdir -p ${THIRD_PARTY_BUILD_DIR}/boost
+      COMMAND ${BOOST_DIR}/bootstrap.sh
+        --prefix=${THIRD_PARTY_BUILD_DIR}/boost
 	COMMAND ${BOOST_DIR}/bjam ${BOOST_TO_BUILD} install
 	WORKING_DIRECTORY ${BOOST_DIR})
       add_dependencies(init build-boost)
+  endif()
 endfunction(boost_libraries)
