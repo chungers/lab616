@@ -21,7 +21,8 @@ int main(int argc, char** argv)
   const int clientId = 0;
 
   const std::string hostname = FLAGS_host;
-
+  std::string name = "Name";
+  
   unsigned attempt = 0;
   printf("Start of Simple Socket Client Test (%u.%u) attempts = %u\n",
          CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, attempt);
