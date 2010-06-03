@@ -75,7 +75,7 @@
 		<dependency>
 			<groupId>com.interactivebrokers</groupId>
 			<artifactId>com.interactivebrokers.tws.jts</artifactId>
-			<version>900</version>
+			<version>905</version>
 		</dependency>
 		<!-- TEST -->
 		<dependency>

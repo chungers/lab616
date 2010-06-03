@@ -110,7 +110,7 @@
 		<dependency>
 			<groupId>com.interactivebrokers</groupId>
 			<artifactId>com.interactivebrokers.api</artifactId>
-			<version>963</version>
+			<version>964</version>
 		</dependency>
 		<!-- TEST -->
 		<dependency>

@@ -35,16 +35,16 @@ install ${TOMCAT_NATIVE_DIR}/tomcat-native.jar tomcat-native tomcat-native ${TOM
 ####################################################################################################
 # Interactive Brokers TWS Client API
 
-TWS_API_DIR=java/ib-twsapi-963/IBJts
-TWS_API_VERSION=963
+TWS_API_DIR=java/ib-twsapi-964/IBJts
+TWS_API_VERSION=964
 install ${TWS_API_DIR}/jtsclient.jar com.interactivebrokers com.interactivebrokers.api ${TWS_API_VERSION} $@
 
 
 ####################################################################################################
 # Interactive Brokers TWS
 
-TWS_DIR=java/ib-tws-900/IBJts
-TWS_VERSION=900
+TWS_DIR=java/ib-tws-905/IBJts
+TWS_VERSION=905
 TWS_JARS=`ls ${TWS_DIR}/*.jar`
 TWS_GROUP="com.interactivebrokers"
 TWS_PREFIX="com.interactivebrokers.tws."
@@ -59,7 +59,7 @@ cat <<EOF > ${TWS_POM}
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.interactivebrokers</groupId>
   <artifactId>com.interactivebrokers.tws.jts</artifactId>
-  <version>900</version>
+  <version>905</version>
   <packaging>jar</packaging>
   <description>POM created to include all dependencies</description>
   <dependencies>
