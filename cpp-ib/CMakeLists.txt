@@ -13,7 +13,7 @@ option(OPTIMIZE "Compiler optimization" ON)
 
 # IB API VERSION
 # This corresponds to the name of the subdirectory in //cpp-ib/src/ib/api
-set(IBAPI_VERSION "9.63beta")
+set(IBAPI_VERSION "9.63")
 
 # Configure the project file for loading into emacs.
 configure_file(
