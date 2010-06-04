@@ -68,7 +68,7 @@ EOF
 # Package-specific parameters:
 
 ARGS=""
-${JAVA_COMMAND} ${ARGS} $@ &>>${LOGFILE} &
+${JAVA_COMMAND} ${ARGS} $@ &> ${LOGFILE} &
 
 # Send the pid to a file (last process captured in $!)
 echo $! > ${PID}
