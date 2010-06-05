@@ -27,6 +27,11 @@
 			<name>Jarvana Repo</name>
 			<url>http://jarvana.com</url>
 		</repository>
+		<repository>
+			<id>jcl-sourceforge</id>
+			<name>JCL</name>
+			<url>http://jcloader.sourceforge.net/mvn-repo</url>
+		</repository>
 	</repositories>
 	<build>
 		<plugins>
@@ -76,6 +81,11 @@
 			<groupId>com.interactivebrokers</groupId>
 			<artifactId>com.interactivebrokers.tws.jts</artifactId>
 			<version>905</version>
+		</dependency>
+		<dependency>
+			<groupId>org.xeustechnologies</groupId>
+			<artifactId>jcl-core</artifactId>
+			<version>2.2</version>
 		</dependency>
 		<!-- TEST -->
 		<dependency>
