@@ -47,7 +47,7 @@ public class TwsContainer {
       Flags.register(GuiceModule.class);
     }
 
-    //@Override //JDK1.5
+    @Override
     public void configure(Binder binder) {
       
       binder.bindConstant().annotatedWith(Names.named("username"))

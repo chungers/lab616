@@ -78,7 +78,8 @@ public interface UIControl {
    * user interface state transition.
    * 
    * @param name The name of the submit (button) to match.
+   * @param optionalForceEnable True to setEnable(true) if not already enabled.
    * @return The submit interface.
    */
-  Submit getSubmit(String name);
+  Submit getSubmit(String name, boolean... optionalForceEnable);
 }

@@ -46,13 +46,13 @@ public class TwsWindowHandlers {
     @Inject @Named("password")
     private String password;
 
-    //@Override //JDK1.5
+    @Override
     public STATE handleUI(UIControl control, STATE state) throws Exception {
       switch (state) {
         case START :
           control.getField(LOGIN).setValue(username);
           control.getField(PASSWD).setValue(password);
-          control.getSubmit("Login").submit();
+          control.getSubmit("Login", true).submit();
           logger.info("Logging in.");
           return STATE.LOGIN;
         case LOGIN_FAILED :
@@ -64,33 +64,34 @@ public class TwsWindowHandlers {
       }
     }
 
-    //@Override //JDK1.5
+    @Override
     public boolean match(String name, UIControl control, STATE state) {
       return name.matches(".*Login");
     }
   }
   
   public static UIHandler<STATE> LOGIN_FAILED_HANDLER = new UIHandler<STATE>() {
-    //@Override //JDK1.5
-    public STATE handleUI(UIControl control, STATE state) throws Exception {
+  	@Override
+  	public STATE handleUI(UIControl control, STATE state) throws Exception {
       control.getSubmit("Yes|YES|Ok|OK").submit();
       return STATE.LOGIN_FAILED;
     }
 
-    //@Override //JDK1.5
+  	@Override
     public boolean match(String name, UIControl control, STATE state) {
       return control.hasMessage("Login failed", ".*failed.*");
     }
   };
   
   public static UIHandler<STATE> TIP_OF_THE_DAY_HANDLER = new UIHandler<STATE>() {
-    //@Override //JDK1.5
-    public STATE handleUI(UIControl control, STATE state) throws Exception {
+
+  	@Override
+  	public STATE handleUI(UIControl control, STATE state) throws Exception {
       control.getSubmit("Close").submit();
       return STATE.LOGIN;
     }
 
-    //@Override //JDK1.5
+  	@Override
     public boolean match(String name, UIControl control, STATE state) {
       return name.matches(".*Tip of the Day.*") ||
         control.hasMessage("Tip of the Day");
@@ -99,14 +100,14 @@ public class TwsWindowHandlers {
   
   public static UIHandler<STATE> NEWER_VERSION_NOTICE_HANDLER = 
     new UIHandler<STATE>() {
-    //@Override //JDK1.5
-    public STATE handleUI(UIControl control, STATE state) throws Exception {
+    @Override
+  	public STATE handleUI(UIControl control, STATE state) throws Exception {
       logger.info("Declining newer version.");
       control.getSubmit("No").submit();
       return STATE.LOGIN;
     }
 
-    //@Override //JDK1.5
+    @Override
     public boolean match(String name, UIControl control, STATE state) {
       return (name.matches(".*Trader Workstation.*")) &&
         control.hasMessage("Newer Version");
@@ -115,14 +116,14 @@ public class TwsWindowHandlers {
   
   public static UIHandler<STATE> ACCEPT_API_CONNECTION_HANDLER = 
     new UIHandler<STATE>() {
-    //@Override //JDK1.5
+    @Override
     public STATE handleUI(UIControl control, STATE state) throws Exception {
       logger.info("Accepting incoming connection.");
       control.getSubmit("Yes|YES|Ok|OK").submit();
       return STATE.API_CONNECTED;
     }
 
-    //@Override //JDK1.5
+    @Override
     public boolean match(String name, UIControl control, STATE state) {
       return (name.matches(".*Trader Workstation.*")) &&
         control.hasMessage("Accept incoming connection attempt");
@@ -131,14 +132,14 @@ public class TwsWindowHandlers {
 
   public static UIHandler<STATE> WELCOME_SCREEN_HANDLER = 
     new UIHandler<STATE>() {
-    //@Override //JDK1.5
+    @Override
     public STATE handleUI(UIControl control, STATE state) throws Exception {
       logger.info("Disposing Welcome screen.");
       control.getWindow().dispose();
       return STATE.LOGIN;
     }
 
-    //@Override //JDK1.5
+    @Override
     public boolean match(String name, UIControl control, STATE state) {
       return (name.matches("Welcome"));
     }
@@ -146,21 +147,21 @@ public class TwsWindowHandlers {
 
   public static UIHandler<STATE> API_CONFIGURATION_HANDLER = 
     new UIHandler<STATE>() {
-    //@Override //JDK1.5
+    @Override
     public STATE handleUI(UIControl control, STATE state) throws Exception {
       logger.info("Configuring API access.");
       // Not implemented.  Use configuration xml in darykq directory instead.
       return STATE.RUNNING;
     }
 
-    //@Override //JDK1.5
+    @Override
     public boolean match(String name, UIControl control, STATE state) {
       return (name.matches(".*Trader Workstation Configuration.*"));
     }
   };
 
   public static UIHandler<STATE> MAIN_SCREEN_HANDLER = new UIHandler<STATE>() {
-    //@Override //JDK1.5
+    @Override
     public STATE handleUI(UIControl control, STATE state) throws Exception {
       logger.info("Running.");
       
@@ -180,7 +181,7 @@ public class TwsWindowHandlers {
       return STATE.RUNNING;
     }
 
-    //@Override //JDK1.5
+    @Override
     public boolean match(String name, UIControl control, STATE state) {
       return (name.matches(".*Trader Workstation")) && state == STATE.LOGIN;
     }

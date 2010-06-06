@@ -23,9 +23,9 @@ public class TwsModule implements Module {
   public static TypeLiteral<AWTWindowEventReceiver<STATE>> TYPE =
     new TypeLiteral<AWTWindowEventReceiver<STATE>>() {};
 
-  //@Override //JDK1.5
+  
+  @Override
   public void configure(Binder binder) {
-    
     binder.bind(TYPE).toProvider(
         new Provider<AWTWindowEventReceiver<STATE>>() {
 
@@ -33,7 +33,7 @@ public class TwsModule implements Module {
           LoginHandler login;
           
           @SuppressWarnings("unchecked")
-          //@Override //JDK1.5
+          @Override
           public AWTWindowEventReceiver<STATE> get() {
             return new AWTWindowEventReceiver<STATE>(
                 login,

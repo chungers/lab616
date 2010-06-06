@@ -87,10 +87,22 @@ public class Kernel {
 	private final Set<Class<? extends Throwable>> startUpExceptionsToIgnore = Sets.newHashSet();
   private Runnable runnable = null;
   
+  private String[] argv = null;
+  
   protected Kernel() {
   	// Subclass only.
   }
   
+  protected Kernel(String[] argv) {
+  	// Subclass only.
+  	try {
+    	Flags.parse(argv);
+    	this.argv = argv;
+  	} catch (Exception e) {
+  		throw new RuntimeException("Error parsing args:", e);
+  	}
+  }
+
   public Kernel(Runnable runnable, Module... modules) {
   	this.runnable = runnable;
   	for (Module m : modules) {
@@ -343,7 +355,10 @@ public class Kernel {
     
     // By now all flags are registered as the module classes were loaded.
     // It's now safe to parse and set all the flags.
-    Flags.parse(argv);
+    if (this.argv == null && argv != null) {
+    	this.argv = argv;
+      Flags.parse(argv);
+    }
     
     System.out.print("Using profile = " + profile);
     System.out.flush();

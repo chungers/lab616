@@ -107,22 +107,28 @@ class AWTControl implements UIControl {
   }
 
   
-  public Submit getSubmit(final String name) {
+  public Submit getSubmit(final String name, boolean... optionalForceEnable) {
+  	boolean forceEnable = (optionalForceEnable.length > 0) ?
+  			optionalForceEnable[0] : false;
+  			
     final JButton b = JBUTTON_FINDER.find(c, name);
     if (b != null) {
-      return new UIControl.Submit() {
-        
-        public void submit() {
-          b.doClick();
-        }
-      };
+    	if (forceEnable && !b.isEnabled()) {
+    		b.setEnabled(true);
+    	}
+    	return new UIControl.Submit() {
+    		@Override
+    		public void submit() {
+    			b.doClick();
+    		}
+    	};
     }
 
     // Try the menu item instead.
     final JMenuItem mi = findMenuItem(name);
     if (mi != null) {
       return new UIControl.Submit() {
-        
+      	@Override
         public void submit() {
           mi.doClick();
         }
@@ -130,7 +136,7 @@ class AWTControl implements UIControl {
     }
 
     return new UIControl.Submit() {
-      
+      @Override
       public void submit() {
         throw new NoSuchControlException(name);
       }
