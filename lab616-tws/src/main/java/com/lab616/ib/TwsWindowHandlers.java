@@ -50,8 +50,13 @@ public class TwsWindowHandlers {
     public STATE handleUI(UIControl control, STATE state) throws Exception {
       switch (state) {
         case START :
+        	// Need to select IB API in case of running the Gateway
+        	if (TwsAgent.RUN_GATEWAY) {
+          	control.getOption("IB API").select();
+        	}
           control.getField(LOGIN).setValue(username);
           control.getField(PASSWD).setValue(password);
+
           control.getSubmit("Login", true).submit();
           logger.info("Logging in.");
           return STATE.LOGIN;
@@ -66,10 +71,10 @@ public class TwsWindowHandlers {
 
     @Override
     public boolean match(String name, UIControl control, STATE state) {
-      return name.matches(".*Login");
+      return name.matches(".*Login") || name.matches("IB Gateway");
     }
   }
-  
+
   public static UIHandler<STATE> LOGIN_FAILED_HANDLER = new UIHandler<STATE>() {
   	@Override
   	public STATE handleUI(UIControl control, STATE state) throws Exception {

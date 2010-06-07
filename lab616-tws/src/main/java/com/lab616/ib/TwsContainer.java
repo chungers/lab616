@@ -28,6 +28,7 @@ import com.lab616.util.Time;
  * @author david
  *
  */
+@Deprecated
 public class TwsContainer {
 
   static Logger logger = Logger.getLogger(TwsContainer.class);

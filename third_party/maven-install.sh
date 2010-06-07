@@ -41,7 +41,7 @@ install ${TWS_API_DIR}/jtsclient.jar com.interactivebrokers com.interactivebroke
 
 
 ####################################################################################################
-# Interactive Brokers TWS
+# Interactive Brokers TWS + Gateway Client
 
 TWS_DIR=java/ib-tws-905/IBJts
 TWS_VERSION=905
@@ -59,7 +59,7 @@ cat <<EOF > ${TWS_POM}
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.interactivebrokers</groupId>
   <artifactId>com.interactivebrokers.tws.jts</artifactId>
-  <version>905</version>
+  <version>${TWS_VERSION}</version>
   <packaging>jar</packaging>
   <description>POM created to include all dependencies</description>
   <dependencies>
@@ -69,11 +69,11 @@ for i in ${TWS_JARS}; do
     <dependency>
       <groupId>${TWS_GROUP}</groupId>
       <artifactId>${TWS_PREFIX}`basename $i`</artifactId>
-      <version>${version}</version>
+      <version>${TWS_VERSION}</version>
     </dependency>
 EOF
-done   
-cat <<EOF >> ${TWS_POM} 
+done
+cat <<EOF >> ${TWS_POM}
   </dependencies>
 </project>
 EOF

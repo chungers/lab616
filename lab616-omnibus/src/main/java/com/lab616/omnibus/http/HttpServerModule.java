@@ -36,7 +36,7 @@ public class HttpServerModule extends AbstractHttpServletModule {
 
   public static int generateHttpPortNumber() {
   	Random rnd = new Random(System.currentTimeMillis());
-  	HTTP_PORT = rnd.nextInt(1000) + 4000;
+  	HTTP_PORT = rnd.nextInt(1000) + 5000;
   	return HTTP_PORT;
   }
   

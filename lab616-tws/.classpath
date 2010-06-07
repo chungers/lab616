@@ -90,7 +90,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/antlr/stringtemplate/3.2/stringtemplate-3.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/tomcat-native/tomcat-native/1.1.17/tomcat-native-1.1.17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/lab616-omnibus"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/lab616-common"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/lab616-omnibus"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

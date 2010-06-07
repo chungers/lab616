@@ -60,7 +60,7 @@ public class AWTWindowEventReceiver<S>
   @Override
   protected List<Integer> getEventsToHandle() {
     return Lists.newArrayList(
-        WindowEvent.WINDOW_OPENED);
+        WindowEvent.WINDOW_OPENED, WindowEvent.WINDOW_CLOSED);
   }
 
   @Override

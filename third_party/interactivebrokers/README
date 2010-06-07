@@ -1,0 +1,54 @@
+6/6/2010 - Versions:
+- IB TWS Client = 905.4  (tws-unix-905)
+- IB API = 964 (beta)
+  - 964 requires 905 client.  Key features = Option computation for gamma, theata, vega (see below).
+
+Note:  IB Gateway is packaged with the TWS Platform client. 
+
+6/6/2010 - API Beta Notes
+The modifications below are in build 9.64 of the TWS API. Please note that all the enhancements for release 9.64 require the minimum server version 48 (TWS version 905).
+
+For clarification on any of the items listed, refer to the appropriate section in the API Reference Guide, or send us an email at Beta Support.
+
+Enhancements
+Request Market Data and Place Order by conid
+You can now request market data and place orders from the API using the conid, the unique contract identifier. Previously, the conid could only be used for contract details.
+
+This enhancement applies to the ActiveX, C++ and Java APIs.
+
+Bond Bid/Ask/Last Yield
+API market data requests for bond contracts now return values for askYield, bidYield and lastYield.
+
+This enhancement applies to the ActiveX, C++ and Java APIs.
+
+New Request for Implied Volatility
+A new API request, calculateImpliedVolatility, calculates the Implied Volatility based on the user-supplied option and underlying prices.
+
+calculateImpliedVolatility(int reqId, Contract optionContract, double optionPrice, double underPrice) 
+
+where
+
+optionContract is the option contract.
+optionPrice is the price of the option.
+underPrice is the price of the underlying of the option.
+The calculated implied volatility is returned by tickOptionComputation( ) in a new tick type, CUST_OPTION_COMPUTATION, which is described below.
+
+This enhancement applies to the ActiveX, C++ and Java APIs.
+
+New Tick Type
+A new tick type has been added to the API:
+
+CUST_OPTION_COMPUTATION - returns calculated implied volatility as a result of an calculateImpliedVolatility( ) request. 
+Tick Value 53, returned by tickOptionCompution( ).
+This enhancement applies to the ActiveX, C++ and Java APIs.
+
+Tick Types Now Return Greeks, Underlying Price, Model Implied Volatility, Stock and Option Reference Price
+The following tick types return values for the Greeks (delta, gamma, vega, theta), the underlying price, pvDividend and the stock and option reference price when requested:
+
+BID_OPTION_COMPUTATION
+ASK_OPTION_COMPUTATION
+LAST_OPTION_COMPUTATION
+MODEL_OPTION_COMPUTATION
+MODEL_OPTION_COMPUTATION also returns model implied volatility.
+
+This enhancement applies to the ActiveX, C++ and Java APIs.
