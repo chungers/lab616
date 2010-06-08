@@ -1,0 +1,6 @@
+Directories in the IB directory:
+
+1. api - The api directory maintains the Interactive Brokers API source code,
+by version.
+
+2. client - The api client classes and headers.

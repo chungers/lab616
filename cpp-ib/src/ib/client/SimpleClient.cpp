@@ -246,8 +246,12 @@ void SimpleClient::error(const int id, const int errorCode, const IBString error
 
 void SimpleClient::tickPrice(TickerId tickerId, TickType field, double price, int canAutoExecute) {}
 void SimpleClient::tickSize(TickerId tickerId, TickType field, int size) {}
-void SimpleClient::tickOptionComputation(TickerId tickerId, TickType tickType, double impliedVol, double delta,
-                                   double modelPrice, double pvDividend) {}
+
+void SimpleClient::tickOptionComputation(
+    TickerId tickerId, TickType tickType,
+    double impliedVol,
+    double delta, double optPrice, double pvDividend,
+    double gamma, double vega, double theta, double undPrice) {}
 
 void SimpleClient::tickGeneric(TickerId tickerId, TickType tickType, double value) {}
 void SimpleClient::tickString(TickerId tickerId, TickType tickType, const IBString& value) {}
