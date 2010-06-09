@@ -44,7 +44,7 @@ available_tags=" CXX F77"
 
 # ### BEGIN LIBTOOL CONFIG
 
-# Libtool was configured on host chunger.local:
+# Libtool was configured on host David-Chungs-MacBook-Pro.local:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/sh"
@@ -66,13 +66,13 @@ fast_install=needless
 
 # The host system.
 host_alias=
-host=i386-apple-darwin10.3.0
-host_os=darwin10.3.0
+host=i386-apple-darwin10.3.1
+host_os=darwin10.3.1
 
 # The build system.
 build_alias=
-build=i386-apple-darwin10.3.0
-build_os=darwin10.3.0
+build=i386-apple-darwin10.3.1
+build_os=darwin10.3.1
 
 # An echo program that does not interpret backslashes.
 echo="/bin/echo"
@@ -7317,7 +7317,7 @@ disable_libs=static
 # End:
 # ### BEGIN LIBTOOL TAG CONFIG: CXX
 
-# Libtool was configured on host chunger.local:
+# Libtool was configured on host David-Chungs-MacBook-Pro.local:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/sh"
@@ -7339,13 +7339,13 @@ fast_install=needless
 
 # The host system.
 host_alias=
-host=i386-apple-darwin10.3.0
-host_os=darwin10.3.0
+host=i386-apple-darwin10.3.1
+host_os=darwin10.3.1
 
 # The build system.
 build_alias=
-build=i386-apple-darwin10.3.0
-build_os=darwin10.3.0
+build=i386-apple-darwin10.3.1
+build_os=darwin10.3.1
 
 # An echo program that does not interpret backslashes.
 echo="/bin/echo"
@@ -7626,7 +7626,7 @@ include_expsyms=""
 
 # ### BEGIN LIBTOOL TAG CONFIG: F77
 
-# Libtool was configured on host chunger.local:
+# Libtool was configured on host David-Chungs-MacBook-Pro.local:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/sh"
@@ -7648,13 +7648,13 @@ fast_install=needless
 
 # The host system.
 host_alias=
-host=i386-apple-darwin10.3.0
-host_os=darwin10.3.0
+host=i386-apple-darwin10.3.1
+host_os=darwin10.3.1
 
 # The build system.
 build_alias=
-build=i386-apple-darwin10.3.0
-build_os=darwin10.3.0
+build=i386-apple-darwin10.3.1
+build_os=darwin10.3.1
 
 # An echo program that does not interpret backslashes.
 echo="/bin/echo"
