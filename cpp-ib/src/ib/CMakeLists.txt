@@ -1,18 +1,27 @@
 # //cpp-ib/src/ib/CMakeLists.txt
 #
-
 # Referenced inside source files as ifdef constants.
 set(IBClient_VERSION_MAJOR 0)
 set(IBClient_VERSION_MINOR 1)
+set(BRIDGE_VERSION 9.64beta)
+
+# Configure constants
+configure_file(
+  bridge_constants.h.in
+  ${GEN_DIR}/ib/bridge_constants.h
+)
 
 # Third party libraries used.
 boost_libraries(date_time thread)
 third_party(gflags)
 third_party(glog)
 
+# Generate protos
+proto_library(ib_events_proto ib_events.proto)
+
 set(V964Bridge_incs
-  api/964beta/Shared
-  api/964beta/PosixSocketClient
+  ${SRC_DIR}/ib/api/${BRIDGE_VERSION}
+  ${SRC_DIR}/ib/api/${BRIDGE_VERSION}/Shared
   ${GEN_DIR}
   ${SRC_DIR}
 )
@@ -21,11 +30,11 @@ set(V964Bridge_srcs
 )
 set(V964Bridge_libs
   ib_api
+  ib_events_proto
   gflags
 )
 # Client implementation:
 cpp_library(V964Bridge)
-
 
 # Include subdirectories here:
 add_subdirectory(api)

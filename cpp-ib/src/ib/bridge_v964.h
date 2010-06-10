@@ -1,15 +1,16 @@
-
-#ifndef IB_USE_STD_STRING
-#define IB_USE_STD_STRING
-#endif
+// 2010, lab616.com
+// Bridge header file.
 
 #ifndef V964_BRIDGE_H_
 #define V964_BRIDGE_H_
 
-#include "api/9.64beta/Shared/Contract.h"
-#include "api/9.64beta/Shared/Order.h"
-#include "api/9.64beta/Shared/EWrapper.h"
-#include "api/9.64beta/PosixSocketClient/EPosixClientSocket.h"
+#include "ib/bridge_constants.h"
+#include "Shared/Contract.h"
+#include "Shared/Order.h"
+#include "Shared/EWrapper.h"
+#include "PosixSocketClient/EPosixClientSocket.h"
+
+#include "ib/ib_events.pb.h"
 
 #include <memory>
 
