@@ -1,52 +1,36 @@
+// Events / data from the IB API.
 package ib.events;
 
 option java_package = "com.lab616.ib.events";
 option java_outer_classname = "IBEvents";
 option optimize_for = LITE_RUNTIME;
 
-message Instrument {
-  required string symbol = 1;
-
-  message OptionSpec {
-    enum Side { CALL = 1; PUT = 2; }
-    required Side side = 1;
-    required double strike = 2;
-    required int32 exp_month = 3;
-    required int32 exp_year = 4;
-  }
-  optional OptionSpec option = 2;
-}
-
-message Id {
-  required int32 id = 1;
-  optional string symbol = 2;
-}
-
+import "ib_common.proto";
 
 message Bid {
   required int64 time_stamp = 1;
-  required Id id = 2;
+  required ib.common.Id id = 2;
   optional double price = 3;
   optional int32 size = 4;
 }
 
 message Ask {
   required int64 time_stamp = 1;
-  required Id id = 2;
+  required ib.common.Id id = 2;
   optional double price = 3;
   optional int32 size = 4;
 }
 
 message Last {
   required int64 time_stamp = 1;
-  required Id id = 2;
+  required ib.common.Id id = 2;
   optional double price = 3;
   optional int32 size = 4;
 }
 
 message Option {
   required int64 time_stamp = 1;
-  required Id id = 2;
+  required ib.common.Id id = 2;
   optional double price = 3;
   optional double delta = 4;
   optional double gamma = 5;
@@ -56,24 +40,13 @@ message Option {
 }
 
 message Bar {
-  message Interval {
-    enum Unit {
-      MINUTE = 1;
-      HOUR = 2;
-      DAY = 3;
-      WEEK = 4;
-    }
-    required Unit unit = 1;
-    required int32 duration = 2;
-  }
-
   required int64 time_stamp = 1;
-  required Id id = 2;
+  required ib.common.Id id = 2;
   required double open = 3;
   required double high = 4;
   required double low = 5;
   required double close = 6;
   required double wap = 7;
   required int32 count = 8;  // # of samples in this interval
-  optional Interval interval = 9;
+  optional ib.common.Interval interval = 9;
 }

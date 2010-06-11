@@ -1,0 +1,38 @@
+// Common proto definitions.
+
+package ib.common;
+
+option java_package = "com.lab616.ib.common";
+option java_outer_classname = "IBCommon";
+option optimize_for = LITE_RUNTIME;
+
+message Id {
+  required int32 id = 1;
+}
+
+message Interval {
+  enum Unit {
+    MINUTE = 1;
+    HOUR = 2;
+    DAY = 3;
+    WEEK = 4;
+  }
+  required Unit unit = 1;
+  required int32 duration = 2;
+}
+
+message Option {
+  required Id id = 1;
+  required string symbol = 2;
+
+  enum Right { CALL = 1; PUT = 2; }
+  required Right right = 3;
+  required double strike = 4;
+  required int32 expiry_month = 5;  // range: 1 - 12
+  required int32 expiry_year = 6;  // YYYY
+}
+
+message Stock {
+  required Id id = 1;
+  required string symbol = 2;
+}
