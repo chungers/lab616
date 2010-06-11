@@ -1,0 +1,65 @@
+# GITIGNORE - files matching the criteria will
+# not be committed; however, repo files already
+# committed prior to the rule added are not ignored.
+
+# OS generated files #
+######################
+.DS_Store?
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Editor generated files #
+##########################
+*~
+*.swp
+*.elc
+*.*#
+.#*
+TAGS
+
+# Eclipse IDE #
+###############
+.eclipse/
+
+# Logs and Databases #
+######################
+*.log
+*.sql
+*.sqlite
+nohup.out
+
+# CMake Runtime #
+#################
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.cmake
+
+# Custom CMake Build #
+######################
+_build/
+_genfiles/
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.[oa]
+*.so
+
+# Java Builds #
+###############
+classes/
+
+# Runtime / Testing #
+#####################
+runtime/
+
+# Installed Tools #
+###################
+third_party/
+tools/
