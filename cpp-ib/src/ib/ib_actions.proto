@@ -10,14 +10,24 @@ import "ib_common.proto";
 // Note that a single request proto can request data
 // streams for multiple instruments.
 message RequestMarketData {
-  repeated ib.common.Stock stock = 1;
-  repeated ib.common.Option option = 2;
-  optional bool snapshot = 3;
+  repeated group Stock = 1 {
+    required ib.common.Stock stock = 1;
+    optional bool snapshot = 2;
+  }
+  repeated group Option = 2 {
+    required ib.common.Option option = 1;
+    optional bool snapshot = 2;
+  }
+  repeated group Index = 3 {
+    required ib.common.Index index = 1;
+    optional bool snapshot = 2;
+  }
 }
 
 message CancelMarketData {
   repeated ib.common.Stock stock = 1;
   repeated ib.common.Option option = 2;
+  repeated ib.common.Index index = 3;
 }
 
 message RequestBars {
@@ -31,11 +41,17 @@ message RequestBars {
     required ib.common.Interval bar_size = 2;
     optional bool regular_trading_hours = 3;
   }
+  repeated group Index = 3 {
+    required ib.common.Index index = 1;
+    required ib.common.Interval bar_size = 2;
+    optional bool regular_trading_hours = 3;
+  }
 }
 
 message CancelBars {
   repeated ib.common.Stock stock = 1;
   repeated ib.common.Option option = 2;
+  repeated ib.common.Index index = 3;
 }
 
 message RequestHistory {
@@ -51,9 +67,37 @@ message RequestHistory {
     required ib.common.Interval duration = 3;
     optional bool regular_trading_hours = 4;
   }
+  repeated group Index = 3 {
+    required ib.common.Index index = 1;
+    required ib.common.Interval bar_size = 2;
+    required ib.common.Interval duration = 3;
+    optional bool regular_trading_hours = 4;
+  }
 }
 
 message CancelHistory {
   repeated ib.common.Stock stock = 1;
   repeated ib.common.Option option = 2;
+  repeated ib.common.Index index = 3;
+}
+
+message RequestMarketDataLog {
+  repeated group Stock = 1 {
+    required ib.common.Stock stock = 1;
+    optional int64 requested_timestamp = 2;
+    optional int64 start_timestamp = 3;
+    optional int64 cancel_timestamp = 4;
+  }
+  repeated group Option = 2 {
+    required ib.common.Option option = 1;
+    optional int64 requested_timestamp = 2;
+    optional int64 start_timestamp = 3;
+    optional int64 cancel_timestamp = 4;
+  }
+  repeated group Index = 3 {
+    required ib.common.Index index = 1;
+    optional int64 requested_timestamp = 2;
+    optional int64 start_timestamp = 3;
+    optional int64 cancel_timestamp = 4;
+  }
 }

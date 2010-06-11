@@ -36,3 +36,9 @@ message Stock {
   required Id id = 1;
   required string symbol = 2;
 }
+
+message Index {
+  required Id id = 1;
+  required string symbol = 2;
+  optional string exhange = 3; // TODO exchange as enum
+}
