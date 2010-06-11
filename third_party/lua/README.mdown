@@ -1,0 +1,29 @@
+Lua Embedding
+=============
+
+This directory contains the [Lua][] language distribution. The
+current version is 5.1.4.  Also there's the [Lua JIT][], which
+is a higher [performance][1] just-in-time compiler and runtime
+environment.
+
+Lua is a small footprint, fast scripting language that has a
+simple syntax and supports functional style programming.  It
+is fast and implements proper tail recursion without causing
+stack overflows.  This means it's simple to implement state
+machines where one fuctions hands a 'goto' to another function.
+Functions are first-class values in Lua.
+
+Lua is popular as a scripting language for games; therefore,
+its properties of simplicity and compactness (memory footprint)
+as well as performance are well documented.  It's also used in
+some network routers and appliances where small memory requirement
+and speed are basic requiements.
+
+Currently Lua is being considered as the scripting language for
+implementing strategies, while the bulk of interfacing with data
+feeds and order management systems will still be implemented in
+c++ and exposed as Lua objects/ functions.
+
+[Lua]: http://www.lua.org
+[Lua JIT]: http://luajit.org
+[1]: http://luajit.org/performance.html
