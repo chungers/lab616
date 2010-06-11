@@ -1,0 +1,17 @@
+Interactive Brokers Support
+===========================
+
+This package contains the code for interfacing with the [Interactive Brokers][]
+proprietary API.  Starting with [version 9.64][], the [API Gateway][] is used
+instead of the TWS platform for connectivity.
+
+Directories
+-----------
+ - api - The api directory maintains the Interactive Brokers API source code,
+by version.
+
+ - client - The api client classes and headers.
+
+[Interactive Brokers]: http://interactivebrokers.com
+[version 9.64]: https://github.com/lab616/lab616/tree/master/cpp-ib/src/ib/api/9.64beta%2F
+[API Gateway]: http://interactivebrokers.com/en/p.php?f=programInterface&ib_entity=llc#connection
