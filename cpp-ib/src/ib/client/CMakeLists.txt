@@ -2,15 +2,6 @@
 #
 # Client code using the IB API directly -- for testing of API, etc.
 
-# Referenced inside source files as ifdef constants.
-set(IBClient_VERSION_MAJOR 0)
-set(IBClient_VERSION_MINOR 1)
-
-# Third party libraries used.
-boost_libraries(date_time thread)
-third_party(gflags)
-third_party(glog)
-
 # Process variables in headers with values set in top level cmake file:
 configure_file(
   constants.h.in

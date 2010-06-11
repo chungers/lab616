@@ -89,14 +89,14 @@ it blindly to other people's files can cause enormously messy diffs!"
 (add-to-list 'load-path "~/lab616/third_party/emacs/git-emacs")
 (require 'git-emacs)
 
-; CMake support
-; Add cmake listfile names to the mode list.
+; fontlock mode support:
 (setq auto-mode-alist
         (append
 	    '(("CMakeLists\\.txt\\'" . cmake-mode))
 	    '(("CMakeLists\\.macros\\'" . cmake-mode))
 	    '(("\\.cmake\\'" . cmake-mode))
 	    '(("\\.cmk\\'" . cmake-mode))
+	    '(("\\.proto\\'" . c++-mode))
 	    auto-mode-alist))
 (autoload 'cmake-mode "~/lab616/third_party/emacs/cmake-mode.el" t)
 

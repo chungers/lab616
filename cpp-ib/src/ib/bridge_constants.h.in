@@ -1,0 +1,14 @@
+#ifndef BRIDGE_CONSTANTS_H
+#define BRIDGE_CONSTANTS_H
+
+// From CMake project variables:
+
+#define CLIENT_VERSION_MAJOR @IBClient_VERSION_MAJOR@
+#define CLIENT_VERSION_MINOR @IBClient_VERSION_MINOR@
+#define BRIDGE_VERSION @BRIDGE_VERSION@
+
+#ifndef IB_USE_STD_STRING
+#define IB_USE_STD_STRING
+#endif
+
+#endif

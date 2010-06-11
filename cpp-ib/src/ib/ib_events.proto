@@ -1,0 +1,52 @@
+// Events / data from the IB API.
+package ib.events;
+
+option java_package = "com.lab616.ib.events";
+option java_outer_classname = "IBEvents";
+option optimize_for = LITE_RUNTIME;
+
+import "ib_common.proto";
+
+message Bid {
+  required int64 time_stamp = 1;
+  required ib.common.Id id = 2;
+  optional double price = 3;
+  optional int32 size = 4;
+}
+
+message Ask {
+  required int64 time_stamp = 1;
+  required ib.common.Id id = 2;
+  optional double price = 3;
+  optional int32 size = 4;
+}
+
+message Last {
+  required int64 time_stamp = 1;
+  required ib.common.Id id = 2;
+  optional double price = 3;
+  optional int32 size = 4;
+}
+
+message Option {
+  required int64 time_stamp = 1;
+  required ib.common.Id id = 2;
+  optional double price = 3;
+  optional double delta = 4;
+  optional double gamma = 5;
+  optional double vega = 6;
+  optional double theta = 7;
+  optional double impliedVol = 8;
+}
+
+message Bar {
+  required int64 time_stamp = 1;
+  required ib.common.Id id = 2;
+  required double open = 3;
+  required double high = 4;
+  required double low = 5;
+  required double close = 6;
+  required double wap = 7;
+  required int32 count = 8;  // # of samples in this interval
+  optional ib.common.Interval interval = 9;
+}

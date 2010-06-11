@@ -31,13 +31,14 @@ function(boost_libraries targets)
       PATHS ${THIRD_PARTY_BUILD_DIR}/boost/lib)
     if (${${package}} MATCHES ${package}-NOTFOUND)
       list(APPEND BOOST_TO_BUILD "--with-${target}")
+      set(BUILD_BOOST 1)
       message(STATUS
 	"BOOST: Missing ${package}: 'make boost' OR 'make init' to build.")
     endif()
   endforeach(target)
   message(STATUS "BOOST: bjam options = '${BOOST_TO_BUILD}'")
-  if (${BOOST_TO_BUILD})
-    message(STATUS "Adding Boost build targets")
+  if (${BUILD_BOOST})
+    message(STATUS "BOOST: Adding Boost build targets")
     add_custom_target(build-boost
       COMMAND mkdir -p ${THIRD_PARTY_BUILD_DIR}/boost
       COMMAND ${BOOST_DIR}/bootstrap.sh
