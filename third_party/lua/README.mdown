@@ -1,6 +1,9 @@
 Lua Embedding
 =============
 
+Introduction
+------------
+
 This directory contains the [Lua][] language distribution. The
 current version is 5.1.4.  Also there's the [Lua JIT][], which
 is a higher [performance][1] just-in-time compiler and runtime
@@ -24,6 +27,12 @@ implementing strategies, while the bulk of interfacing with data
 feeds and order management systems will still be implemented in
 c++ and exposed as Lua objects/ functions.
 
+Performance
+-----------
+
+Some data on Lua performance [compared to Java][2].
+
 [Lua]: http://www.lua.org
 [Lua JIT]: http://luajit.org
 [1]: http://luajit.org/performance.html
+[2]: http://shootout.alioth.debian.org/u32/benchmark.php?test=all&lang=luajit&lang2=java
