@@ -1,5 +1,5 @@
 
-#include "ib/tools/internal.hpp"
+#include "ib/util/internal.hpp"
 
 #include <arpa/inet.h>
 #include <errno.h>

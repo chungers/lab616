@@ -48,4 +48,4 @@ cpp_library(V964Bridge)
 add_subdirectory(api) # For IB provided source files.
 add_subdirectory(client)
 
-add_subdirectory(tools) # For prototyping, testing, command utilities.
+add_subdirectory(util) # For prototyping, testing, command utilities.

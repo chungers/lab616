@@ -2,8 +2,8 @@
 // Internal header file for package-private declarations.
 // This shouldn't be exposed to outside world.
 
-#ifndef IB_TOOLS_INTERNAL_H_
-#define IB_TOOLS_INTERNAL_H_
+#ifndef IB_UTIL_INTERNAL_H_
+#define IB_UTIL_INTERNAL_H_
 
 // Required
 #ifndef IB_USE_STD_STRING
@@ -16,7 +16,7 @@
 #include "Shared/EWrapper.h"
 #include "PosixSocketClient/EPosixClientSocket.h"
 
-#include "ib/tools/constants.hpp"
+#include "ib/util/constants.hpp"
 
 #include <memory>
 
@@ -144,4 +144,4 @@ private:
   OrderId m_orderId;
 };
 
-#endif // IB_TOOLS_INTERNAL_H_
+#endif // IB_UTIL_INTERNAL_H_
