@@ -14,6 +14,10 @@ configure_file(
 # Third party libraries used.
 boost_libraries(date_time thread)
 
+# The macros here will first find any locally installed
+# libraries.  If not, it will build them in build/third_party.
+# Consider install these on the local host to ensure proper
+# function and more efficient builds.
 third_party(gflags)
 set(glog_deps gflags)
 third_party(glog)
