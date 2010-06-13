@@ -15,6 +15,8 @@ set(util_ib_client_incs
   ${SRC_DIR}
 )
 set(util_ib_client_srcs
+  pipeline.hpp
+  pipeline.cpp
   print_wrapper.cpp
   ib_client.cpp
 )
@@ -34,6 +36,7 @@ set(ibcli_incs
   ${SRC_DIR}
 )
 set(ibcli_srcs
+  pipeline.hpp
   command_line_client.cpp
 )
 set(ibcli_libs

@@ -13,6 +13,8 @@ inline int SocketClose(int sockfd) { return close(sockfd); };
 const int PING_DEADLINE = 2; // seconds
 const int SLEEP_BETWEEN_PINGS = 30; // seconds
 
+using namespace ib::util;
+
 ///////////////////////////////////////////////////////////
 // member funcs
 IbClient::IbClient()

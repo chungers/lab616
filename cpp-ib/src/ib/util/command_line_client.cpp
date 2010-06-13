@@ -1,4 +1,5 @@
 #include "ib/util/internal.hpp"
+#include "ib/util/pipeline.hpp"
 
 #include <gflags/gflags.h>
 #include <glog/logging.h>
@@ -6,14 +7,24 @@
 #include <string.h>
 #include <unistd.h>
 
+using namespace ib::util;
+
 DEFINE_int32(max_attempts, 50, "Max number of attempts.");
 DEFINE_int32(sleep_time, 10, "Sleep interval in seconds.");
 DEFINE_string(host, "", "Hostname to connect.");
-DEFINE_int32(port, 7496, "Port");
+DEFINE_int32(port, 4001, "Port");
 
 int main(int argc, char** argv)
 {
   google::ParseCommandLineFlags(&argc, &argv, true);
+  LOG(INFO) << "======================================  Initialize logging..";
+
+  google::InitGoogleLogging(argv[0]);
+
+  LOG(WARNING) << "======================================  STARTING UP.";
+
+  LogWrapper lw;
+  lw.tickPrice(1000, BID, 1.0, 1);
 
   const unsigned MAX_ATTEMPTS = FLAGS_max_attempts;
   const unsigned SLEEP_TIME = FLAGS_sleep_time;
@@ -31,7 +42,7 @@ int main(int argc, char** argv)
     ++attempt;
     printf( "Attempt %u, host:port=%s:%d\n", FLAGS_max_attempts,
             hostname.c_str(), FLAGS_port);
-
+    PrintWrapper printWrapper;
     IbClient client;
 
     client.connect(hostname.c_str(), FLAGS_port, clientId);
