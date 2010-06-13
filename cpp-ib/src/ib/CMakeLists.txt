@@ -13,8 +13,11 @@ configure_file(
 
 # Third party libraries used.
 boost_libraries(date_time thread)
+
 third_party(gflags)
+set(glog_deps gflags)
 third_party(glog)
+
 
 # Generate protos
 proto_library(ib_common_proto ib_common.proto ${SRC_DIR}/ib)
