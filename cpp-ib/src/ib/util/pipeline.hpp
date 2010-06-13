@@ -15,9 +15,21 @@
 #include <glog/logging.h>
 #include <memory>
 
+
+#include <sys/time.h>
+typedef uint64_t int64;
+inline int64 now_micros() {
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  return static_cast<int64>(tv.tv_sec) * 1000000 + tv.tv_usec;
+}
+#define TS "ts=" << now_micros() << ","
+
+
+
 // Verbose level.  Use flag --v=N where N >= VLOG_LEVEL to see.
 #define VLOG_LEVEL 1
-#define LOG_EVENT VLOG(VLOG_LEVEL) << "event=" << __func__
+#define LOG_EVENT VLOG(VLOG_LEVEL) << TS << "event=" << __func__
 #define __f__(m) "" << ',' << #m << '=' << m
 
 // TODO :

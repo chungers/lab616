@@ -24,7 +24,10 @@ int main(int argc, char** argv)
   LOG(WARNING) << "======================================  STARTING UP.";
 
   LogWrapper lw;
-  lw.tickPrice(1000, BID, 1.0, 1);
+  for (int i = 0; i < 10; i++) {
+    lw.tickPrice(1000, BID, 1.0, i);
+  }
+
 
   const unsigned MAX_ATTEMPTS = FLAGS_max_attempts;
   const unsigned SLEEP_TIME = FLAGS_sleep_time;
