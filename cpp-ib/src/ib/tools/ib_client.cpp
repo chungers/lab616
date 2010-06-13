@@ -1,8 +1,5 @@
-// 2010 lab616.com
-// bridge.cpp
-// IB Bridge
-#include "ib_bridge.hpp"
-#include "bridge_v964.hpp"
+
+#include "ib/tools/internal.hpp"
 
 #include <arpa/inet.h>
 #include <errno.h>
@@ -18,7 +15,7 @@ const int SLEEP_BETWEEN_PINGS = 30; // seconds
 
 ///////////////////////////////////////////////////////////
 // member funcs
-V964Bridge::V964Bridge()
+IbClient::IbClient()
     : m_pClient(new EPosixClientSocket(this))
     , m_state(ST_CONNECT)
     , m_sleepDeadline(0)
@@ -26,20 +23,20 @@ V964Bridge::V964Bridge()
 {
 }
 
-V964Bridge::~V964Bridge()
+IbClient::~IbClient()
 {
 }
 
-bool V964Bridge::connect(const char *host, unsigned int port, int clientId)
+bool IbClient::connect(const char *host, unsigned int port, int clientId)
 {
   // trying to connect
   printf("Connecting to %s:%d clientId:%d\n",
          !(host && *host) ? "127.0.0.1" : host,
          port,
          clientId);
-  
+
   bool bRes = m_pClient->eConnect(host, port, clientId);
-  
+
   if (bRes) {
     printf("Connected to %s:%d clientId:%d\n", !(host && *host) ? "127.0.0.1" : host, port, clientId);
   }
@@ -49,19 +46,19 @@ bool V964Bridge::connect(const char *host, unsigned int port, int clientId)
   return bRes;
 }
 
-void V964Bridge::disconnect() const
+void IbClient::disconnect() const
 {
   m_pClient->eDisconnect();
 
   printf ("Disconnected\n");
 }
 
-bool V964Bridge::isConnected() const
+bool IbClient::isConnected() const
 {
   return m_pClient->isConnected();
 }
 
-void V964Bridge::processMessages()
+void IbClient::processMessages()
 {
   fd_set readSet, writeSet, errorSet;
 
@@ -155,7 +152,7 @@ void V964Bridge::processMessages()
 
 //////////////////////////////////////////////////////////////////
 // methods
-void V964Bridge::reqCurrentTime()
+void IbClient::reqCurrentTime()
 {
   printf("Requesting Current Time\n");
 
@@ -167,7 +164,7 @@ void V964Bridge::reqCurrentTime()
   m_pClient->reqCurrentTime();
 }
 
-void V964Bridge::placeOrder()
+void IbClient::placeOrder()
 {
   Contract contract;
   Order order;
@@ -189,7 +186,7 @@ void V964Bridge::placeOrder()
   m_pClient->placeOrder(m_orderId, contract, order);
 }
 
-void V964Bridge::cancelOrder()
+void IbClient::cancelOrder()
 {
   printf("Cancelling Order %ld\n", m_orderId);
 
@@ -198,9 +195,10 @@ void V964Bridge::cancelOrder()
   m_pClient->cancelOrder(m_orderId);
 }
 
+
 ///////////////////////////////////////////////////////////////////
 // events
-void V964Bridge::orderStatus(OrderId orderId, const IBString &status, int filled,
+void IbClient::orderStatus(OrderId orderId, const IBString &status, int filled,
                          int remaining, double avgFillPrice, int permId, int parentId,
                          double lastFillPrice, int clientId, const IBString& whyHeld)
 
@@ -216,14 +214,14 @@ void V964Bridge::orderStatus(OrderId orderId, const IBString &status, int filled
   }
 }
 
-void V964Bridge::nextValidId(OrderId orderId)
+void IbClient::nextValidId(OrderId orderId)
 {
   m_orderId = orderId;
 
   m_state = ST_PLACEORDER;
 }
 
-void V964Bridge::currentTime(long time)
+void IbClient::currentTime(long time)
 {
   if (m_state == ST_PING_ACK) {
     time_t t = (time_t)time;
@@ -237,7 +235,8 @@ void V964Bridge::currentTime(long time)
   }
 }
 
-void V964Bridge::error(const int id, const int errorCode, const IBString errorString)
+void IbClient::error(const int id, const int errorCode,
+                     const IBString errorString)
 {
   //	printf("Error id=%d, errorCode=%d, msg=%s\n", id, errorCode, errorString.c_str());
 
@@ -245,53 +244,54 @@ void V964Bridge::error(const int id, const int errorCode, const IBString errorSt
     disconnect();
 }
 
-void V964Bridge::tickPrice(TickerId tickerId, TickType field, double price, int canAutoExecute) {}
-void V964Bridge::tickSize(TickerId tickerId, TickType field, int size) {}
+/*
+void IbClient::tickPrice(TickerId tickerId, TickType field, double price, int canAutoExecute) {}
+void IbClient::tickSize(TickerId tickerId, TickType field, int size) {}
 
-void V964Bridge::tickOptionComputation(
+void IbClient::tickOptionComputation(
     TickerId tickerId, TickType tickType,
     double impliedVol,
     double delta, double optPrice, double pvDividend,
     double gamma, double vega, double theta, double undPrice) {}
 
-void V964Bridge::tickGeneric(TickerId tickerId, TickType tickType, double value) {}
-void V964Bridge::tickString(TickerId tickerId, TickType tickType, const IBString& value) {}
-void V964Bridge::tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const IBString& formattedBasisPoints,
+void IbClient::tickGeneric(TickerId tickerId, TickType tickType, double value) {}
+void IbClient::tickString(TickerId tickerId, TickType tickType, const IBString& value) {}
+void IbClient::tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const IBString& formattedBasisPoints,
                      double totalDividends, int holdDays, const IBString& futureExpiry, double dividendImpact, double dividendsToExpiry) {}
-void V964Bridge::openOrder(OrderId orderId, const Contract&, const Order&, const OrderState& ostate) {}
-void V964Bridge::openOrderEnd() {}
-void V964Bridge::winError(const IBString &str, int lastError) {}
-void V964Bridge::connectionClosed() {}
-void V964Bridge::updateAccountValue(const IBString& key, const IBString& val,
+void IbClient::openOrder(OrderId orderId, const Contract&, const Order&, const OrderState& ostate) {}
+void IbClient::openOrderEnd() {}
+void IbClient::winError(const IBString &str, int lastError) {}
+void IbClient::connectionClosed() {}
+void IbClient::updateAccountValue(const IBString& key, const IBString& val,
                                 const IBString& currency, const IBString& accountName) {}
-void V964Bridge::updatePortfolio(const Contract& contract, int position,
+void IbClient::updatePortfolio(const Contract& contract, int position,
                              double marketPrice, double marketValue, double averageCost,
                              double unrealizedPNL, double realizedPNL, const IBString& accountName){}
-void V964Bridge::updateAccountTime(const IBString& timeStamp) {}
-void V964Bridge::accountDownloadEnd(const IBString& accountName) {}
-void V964Bridge::contractDetails(int reqId, const ContractDetails& contractDetails) {}
-void V964Bridge::bondContractDetails(int reqId, const ContractDetails& contractDetails) {}
-void V964Bridge::contractDetailsEnd(int reqId) {}
-void V964Bridge::execDetails(int reqId, const Contract& contract, const Execution& execution) {}
-void V964Bridge::execDetailsEnd(int reqId) {}
+void IbClient::updateAccountTime(const IBString& timeStamp) {}
+void IbClient::accountDownloadEnd(const IBString& accountName) {}
+void IbClient::contractDetails(int reqId, const ContractDetails& contractDetails) {}
+void IbClient::bondContractDetails(int reqId, const ContractDetails& contractDetails) {}
+void IbClient::contractDetailsEnd(int reqId) {}
+void IbClient::execDetails(int reqId, const Contract& contract, const Execution& execution) {}
+void IbClient::execDetailsEnd(int reqId) {}
 
-void V964Bridge::updateMktDepth(TickerId id, int position, int operation, int side,
+void IbClient::updateMktDepth(TickerId id, int position, int operation, int side,
                             double price, int size) {}
-void V964Bridge::updateMktDepthL2(TickerId id, int position, IBString marketMaker, int operation,
+void IbClient::updateMktDepthL2(TickerId id, int position, IBString marketMaker, int operation,
                               int side, double price, int size) {}
-void V964Bridge::updateNewsBulletin(int msgId, int msgType, const IBString& newsMessage, const IBString& originExch) {}
-void V964Bridge::managedAccounts(const IBString& accountsList) {}
-void V964Bridge::receiveFA(faDataType pFaDataType, const IBString& cxml) {}
-void V964Bridge::historicalData(TickerId reqId, const IBString& date, double open, double high,
+void IbClient::updateNewsBulletin(int msgId, int msgType, const IBString& newsMessage, const IBString& originExch) {}
+void IbClient::managedAccounts(const IBString& accountsList) {}
+void IbClient::receiveFA(faDataType pFaDataType, const IBString& cxml) {}
+void IbClient::historicalData(TickerId reqId, const IBString& date, double open, double high,
                             double low, double close, int volume, int barCount, double WAP, int hasGaps) {}
-void V964Bridge::scannerParameters(const IBString &xml) {}
-void V964Bridge::scannerData(int reqId, int rank, const ContractDetails &contractDetails,
+void IbClient::scannerParameters(const IBString &xml) {}
+void IbClient::scannerData(int reqId, int rank, const ContractDetails &contractDetails,
                          const IBString &distance, const IBString &benchmark, const IBString &projection,
                          const IBString &legsStr) {}
-void V964Bridge::scannerDataEnd(int reqId) {}
-void V964Bridge::realtimeBar(TickerId reqId, long time, double open, double high, double low, double close,
+void IbClient::scannerDataEnd(int reqId) {}
+void IbClient::realtimeBar(TickerId reqId, long time, double open, double high, double low, double close,
                          long volume, double wap, int count) {}
-void V964Bridge::fundamentalData(TickerId reqId, const IBString& data) {}
-void V964Bridge::deltaNeutralValidation(int reqId, const UnderComp& underComp) {}
-void V964Bridge::tickSnapshotEnd(int reqId) {}
-
+void IbClient::fundamentalData(TickerId reqId, const IBString& data) {}
+void IbClient::deltaNeutralValidation(int reqId, const UnderComp& underComp) {}
+void IbClient::tickSnapshotEnd(int reqId) {}
+*/

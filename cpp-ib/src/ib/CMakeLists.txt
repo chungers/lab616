@@ -45,5 +45,7 @@ set(V964Bridge_libs
 cpp_library(V964Bridge)
 
 # Include subdirectories here:
-add_subdirectory(api)
+add_subdirectory(api) # For IB provided source files.
 add_subdirectory(client)
+
+add_subdirectory(tools) # For prototyping, testing, command utilities.
