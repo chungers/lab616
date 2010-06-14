@@ -1,5 +1,5 @@
 #include "ib/util/internal.hpp"
-#include "ib/util/pipeline.hpp"
+#include "ib/util/log_wrapper.hpp"
 
 #include <gflags/gflags.h>
 #include <glog/logging.h>
@@ -13,6 +13,7 @@ DEFINE_int32(max_attempts, 50, "Max number of attempts.");
 DEFINE_int32(sleep_time, 10, "Sleep interval in seconds.");
 DEFINE_string(host, "", "Hostname to connect.");
 DEFINE_int32(port, 4001, "Port");
+DEFINE_int32(client_id, 0, "Client Id.");
 
 int main(int argc, char** argv)
 {
@@ -23,7 +24,7 @@ int main(int argc, char** argv)
 
   LOG(WARNING) << "======================================  STARTING UP.";
 
-  LogWrapper lw;
+  LogWrapper lw(2);
   for (int i = 0; i < 10; i++) {
     lw.tickPrice(1000, BID, 1.0, i);
   }
@@ -32,7 +33,7 @@ int main(int argc, char** argv)
   const unsigned MAX_ATTEMPTS = FLAGS_max_attempts;
   const unsigned SLEEP_TIME = FLAGS_sleep_time;
 
-  const int clientId = 0;
+  const int clientId = FLAGS_client_id;
 
   const std::string hostname = FLAGS_host;
   std::string name = "Name";
@@ -45,8 +46,7 @@ int main(int argc, char** argv)
     ++attempt;
     printf( "Attempt %u, host:port=%s:%d\n", FLAGS_max_attempts,
             hostname.c_str(), FLAGS_port);
-    PrintWrapper printWrapper;
-    IbClient client;
+    IbClient client(clientId);
 
     client.connect(hostname.c_str(), FLAGS_port, clientId);
 

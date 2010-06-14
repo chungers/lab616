@@ -17,8 +17,10 @@ using namespace ib::util;
 
 ///////////////////////////////////////////////////////////
 // member funcs
-IbClient::IbClient()
-    : m_pClient(new EPosixClientSocket(this))
+IbClient::IbClient(int id)
+    : connection_id(id)
+    , m_eWrapper(new LogWrapper(id))
+    , m_pClient(new EPosixClientSocket(m_eWrapper.get()))
     , m_state(ST_CONNECT)
     , m_sleepDeadline(0)
     , m_orderId(0)
