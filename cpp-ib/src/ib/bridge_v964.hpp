@@ -28,7 +28,7 @@ enum State {
 };
 
 
-class V964Bridge : public EWrapper
+class V964Bridge : public EWrapper, public ::ib::bridge::Bridge
 {
 public:
 
@@ -42,6 +42,7 @@ public:
   bool connect(const char * host, unsigned int port, int clientId = 0);
   void disconnect() const;
   bool isConnected() const;
+  ::ib::bridge::ApiVersion get_api_version() const;
 
 private:
 
