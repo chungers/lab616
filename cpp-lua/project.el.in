@@ -1,0 +1,14 @@
+;;; //cpp-lua/project.el
+
+;;; load this with M-x 'load-file'
+(ede-cpp-root-project 
+ "cpp-lua"
+ :file "CMakeLists.txt"
+ :include-path '("/src" 
+		 "/test"
+		 "/_genfiles"
+		 "/_build/third_party/include"
+		 "/_build/third_party/boost/include"
+		 )
+ :system-include-path '("/usr/local/google")
+ )
