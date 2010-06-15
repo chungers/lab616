@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template geometric_distribution</title>
+<link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../boost_random/reference.html#header.boost.random.geometric_distribution_hpp" title="Header &lt;boost/random/geometric_distribution.hpp&gt;">
+<link rel="prev" href="gamma_distribution.html" title="Class template gamma_distribution">
+<link rel="next" href="random/inversive_congruential.html" title="Class template inversive_congruential">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../boost.png"></td>
+<td align="center"><a href="../../../index.html">Home</a></td>
+<td align="center"><a href="../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="gamma_distribution.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.geometric_distribution_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="random/inversive_congruential.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template geometric_distribution">
+<a name="boost.geometric_distribution"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template geometric_distribution</span></h2>
+<p>boost::geometric_distribution</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../boost_random/reference.html#header.boost.random.geometric_distribution_hpp" title="Header &lt;boost/random/geometric_distribution.hpp&gt;">boost/random/geometric_distribution.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> IntType = <span class="bold"><strong>int</strong></span>, <span class="bold"><strong>typename</strong></span> RealType = double&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="geometric_distribution.html" title="Class template geometric_distribution">geometric_distribution</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> RealType <a name="boost.geometric_distribution.input_type"></a>input_type; 
+  <span class="bold"><strong>typedef</strong></span> IntType  <a name="boost.geometric_distribution.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="geometric_distribution.html#boost.geometric_distributionconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="geometric_distribution.html#id1129240-bb">geometric_distribution</a>(<span class="bold"><strong>const</strong></span> RealType &amp; = RealType(0.5));
+
+  <span class="emphasis"><em>// <a class="link" href="geometric_distribution.html#id1129193-bb">public member functions</a></em></span>
+  <span class="type">RealType</span> <a class="link" href="geometric_distribution.html#id1129196-bb">p</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="geometric_distribution.html#id1129212-bb">reset</a>() ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a class="link" href="geometric_distribution.html#id1129219-bb"><span class="bold"><strong>operator</strong></span>()</a>(Engine &amp;) ;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1706299"></a><h2>Description</h2>
+<p>An instantiation of the class template <code class="computeroutput">geometric_distribution</code> models a  <a class="link" href="../boost_random/reference.html#boost_random.reference.concepts.random_distribution" title="Random Distribution">random distribution</a> . The distribution produces positive integers which are the number of bernoulli trials with probability <code class="computeroutput">p</code> required to get one that fails.</p>
+<p>For the geometric distribution, <span class="inlinemediaobject"><img src="../images/random/form_4.png"></span>. </p>
+<div class="refsect2" title="geometric_distribution public construct/copy/destruct">
+<a name="id1706351"></a><h3>
+<a name="boost.geometric_distributionconstruct-copy-destruct"></a><code class="computeroutput">geometric_distribution</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<pre class="literallayout"><a name="id1129240-bb"></a>geometric_distribution(<span class="bold"><strong>const</strong></span> RealType &amp; p = RealType(0.5));</pre>
+<p>Contructs a new geometric_distribution with the paramter <code class="computeroutput">p</code>.</p>
+<p>Requires: 0 &lt; p &lt; 1 </p>
+</li></ol></div>
+</div>
+<div class="refsect2" title="geometric_distribution public member functions">
+<a name="id1706404"></a><h3>
+<a name="id1129193-bb"></a><code class="computeroutput">geometric_distribution</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="type">RealType</span> <a name="id1129196-bb"></a>p() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns: the distribution parameter <code class="computeroutput">p</code> </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1129212-bb"></a>reset() ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a name="id1129219-bb"></a><span class="bold"><strong>operator</strong></span>()(Engine &amp; eng) ;</pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="gamma_distribution.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.geometric_distribution_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="random/inversive_congruential.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

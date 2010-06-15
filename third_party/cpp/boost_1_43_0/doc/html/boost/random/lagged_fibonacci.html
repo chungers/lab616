@@ -1,0 +1,129 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template lagged_fibonacci</title>
+<link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../boost_random/reference.html#header.boost.random.lagged_fibonacci_hpp" title="Header &lt;boost/random/lagged_fibonacci.hpp&gt;">
+<link rel="prev" href="../hellekalek1995.html" title="Type definition hellekalek1995">
+<link rel="next" href="lagged_fibonacci_01.html" title="Class template lagged_fibonacci_01">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../hellekalek1995.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.lagged_fibonacci_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="lagged_fibonacci_01.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template lagged_fibonacci">
+<a name="boost.random.lagged_fibonacci"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template lagged_fibonacci</span></h2>
+<p>boost::random::lagged_fibonacci</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../../boost_random/reference.html#header.boost.random.lagged_fibonacci_hpp" title="Header &lt;boost/random/lagged_fibonacci.hpp&gt;">boost/random/lagged_fibonacci.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> UIntType, <span class="bold"><strong>int</strong></span> w, <span class="bold"><strong>unsigned</strong></span> <span class="bold"><strong>int</strong></span> p, <span class="bold"><strong>unsigned</strong></span> <span class="bold"><strong>int</strong></span> q, 
+         UIntType val = 0&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="lagged_fibonacci.html" title="Class template lagged_fibonacci">lagged_fibonacci</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> UIntType <a name="boost.random.lagged_fibonacci.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="lagged_fibonacci.html#boost.random.lagged_fibonacciconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="lagged_fibonacci.html#id1129796-bb">lagged_fibonacci</a>();
+  <a class="link" href="lagged_fibonacci.html#id1129808-bb">lagged_fibonacci</a>(uint32_t);
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a class="link" href="lagged_fibonacci.html#id1129826-bb">lagged_fibonacci</a>(It &amp;, It);
+
+  <span class="emphasis"><em>// <a class="link" href="lagged_fibonacci.html#id1129694-bb">public member functions</a></em></span>
+  <span class="type">result_type</span> <a class="link" href="lagged_fibonacci.html#id1129698-bb">min</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="lagged_fibonacci.html#id1129710-bb">max</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="lagged_fibonacci.html#id1129722-bb">seed</a>(uint32_t = 331u) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="lagged_fibonacci.html#id1129748-bb">seed</a>(It &amp;, It) ;
+  <span class="type">result_type</span> <a class="link" href="lagged_fibonacci.html#id1129784-bb"><span class="bold"><strong>operator</strong></span>()</a>() ;
+
+  <span class="emphasis"><em>// <a class="link" href="lagged_fibonacci.html#id1129857-bb">public static functions</a></em></span>
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="lagged_fibonacci.html#id1129861-bb">validation</a>(result_type) ;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>bool</strong></span></span> has_fixed_range;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>int</strong></span></span> word_size;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>unsigned</strong></span> <span class="bold"><strong>int</strong></span></span> long_lag;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>unsigned</strong></span> <span class="bold"><strong>int</strong></span></span> short_lag;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1708032"></a><h2>Description</h2>
+<p>Instantiations of class template  <a class="link" href="lagged_fibonacci.html" title="Class template lagged_fibonacci">lagged_fibonacci</a> model a  <a class="link" href="../../boost_random/reference.html#boost_random.reference.concepts.pseudo_random_number_generator" title="Pseudo-Random Number Generator">pseudo-random number generator</a> . It uses a lagged Fibonacci algorithm with two lags <code class="computeroutput">p</code> and <code class="computeroutput">q:</code> x(i) = x(i-p) + x(i-q) (mod 2<sup>w</sup>) with p &gt; q. </p>
+<div class="refsect2" title="lagged_fibonacci public construct/copy/destruct">
+<a name="id1708072"></a><h3>
+<a name="boost.random.lagged_fibonacciconstruct-copy-destruct"></a><code class="computeroutput">lagged_fibonacci</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><a name="id1129796-bb"></a>lagged_fibonacci();</pre>
+<p>Creates a new <code class="computeroutput">lagged_fibonacci</code> generator and calls <code class="computeroutput">seed()</code> </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="id1129808-bb"></a>lagged_fibonacci(uint32_t value);</pre>
+<p>Creates a new <code class="computeroutput">lagged_fibonacci</code> generator and calls <code class="computeroutput">seed(value)</code> </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a name="id1129826-bb"></a>lagged_fibonacci(It &amp; first, It last);</pre>
+<p>Creates a new <code class="computeroutput">lagged_fibonacci</code> generator and calls <code class="computeroutput">seed(first, last)</code> </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" title="lagged_fibonacci public member functions">
+<a name="id1708188"></a><h3>
+<a name="id1129694-bb"></a><code class="computeroutput">lagged_fibonacci</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1129698-bb"></a>min() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns: the smallest value that the generator can produce </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1129710-bb"></a>max() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns: the largest value that the generator can produce </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1129722-bb"></a>seed(uint32_t value = 331u) ;</pre>
+<p>Sets the state of the generator to values produced by a  <code class="computeroutput"><a class="link" href="../minstd_rand.html" title="Type definition minstd_rand">minstd_rand</a></code>  generator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1129748-bb"></a>seed(It &amp; first, It last) ;</pre>
+<p>Sets the state of the generator to values from the iterator range [first, last). If there are not enough elements in the range [first, last) throws <code class="computeroutput">std::invalid_argument</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1129784-bb"></a><span class="bold"><strong>operator</strong></span>()() ;</pre>
+<p>Returns: the next value of the generator </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" title="lagged_fibonacci public static functions">
+<a name="id1708358"></a><h3>
+<a name="id1129857-bb"></a><code class="computeroutput">lagged_fibonacci</code> public static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id1129861-bb"></a>validation(result_type x) ;</pre></li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../hellekalek1995.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.lagged_fibonacci_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="lagged_fibonacci_01.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

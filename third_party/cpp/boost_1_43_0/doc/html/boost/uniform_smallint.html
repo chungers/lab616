@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template uniform_smallint</title>
+<link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../boost_random/reference.html#header.boost.random.uniform_smallint_hpp" title="Header &lt;boost/random/uniform_smallint.hpp&gt;">
+<link rel="prev" href="uniform_real.html" title="Class template uniform_real">
+<link rel="next" href="variate_generator.html" title="Class template variate_generator">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../boost.png"></td>
+<td align="center"><a href="../../../index.html">Home</a></td>
+<td align="center"><a href="../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="uniform_real.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.uniform_smallint_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="variate_generator.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template uniform_smallint">
+<a name="boost.uniform_smallint"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template uniform_smallint</span></h2>
+<p>boost::uniform_smallint</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../boost_random/reference.html#header.boost.random.uniform_smallint_hpp" title="Header &lt;boost/random/uniform_smallint.hpp&gt;">boost/random/uniform_smallint.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> IntType = <span class="bold"><strong>int</strong></span>&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="uniform_smallint.html" title="Class template uniform_smallint">uniform_smallint</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> IntType <a name="boost.uniform_smallint.input_type"></a>input_type; 
+  <span class="bold"><strong>typedef</strong></span> IntType <a name="boost.uniform_smallint.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="uniform_smallint.html#boost.uniform_smallintconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="uniform_smallint.html#id1134884-bb">uniform_smallint</a>(IntType = 0, IntType = 9);
+
+  <span class="emphasis"><em>// <a class="link" href="uniform_smallint.html#id1134837-bb">public member functions</a></em></span>
+  <span class="type">result_type</span> <a class="link" href="uniform_smallint.html#id1134841-bb">min</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="uniform_smallint.html#id1134848-bb">max</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="uniform_smallint.html#id1134856-bb">reset</a>() ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a class="link" href="uniform_smallint.html#id1134864-bb"><span class="bold"><strong>operator</strong></span>()</a>(Engine &amp;) ;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1722172"></a><h2>Description</h2>
+<p>The distribution function uniform_smallint models a  <a class="link" href="../boost_random/reference.html#boost_random.reference.concepts.random_distribution" title="Random Distribution">random distribution</a> . On each invocation, it returns a random integer value uniformly distributed in the set of integer numbers {min, min+1, min+2, ..., max}. It assumes that the desired range (max-min+1) is small compared to the range of the underlying source of random numbers and thus makes no attempt to limit quantization errors.</p>
+<p>Let r<sub>out</sub>=(max-min+1) the desired range of integer numbers, and let r<sub>base</sub> be the range of the underlying source of random numbers. Then, for the uniform distribution, the theoretical probability for any number i in the range r<sub>out</sub> will be p<sub>out</sub>(i) = 1/r<sub>out</sub>. Likewise, assume a uniform distribution on r<sub>base</sub> for the underlying source of random numbers, i.e. p<sub>base</sub>(i) = 1/r<sub>base</sub>. Let p<sub>out_s</sub>(i) denote the random distribution generated by <code class="computeroutput">uniform_smallint</code>. Then the sum over all i in r<sub>out</sub> of (p<sub>out_s</sub>(i)/p<sub>out</sub>(i) - 1)<sup>2</sup> shall not exceed r<sub>out</sub>/r<sub>base</sub><sup>2</sup> (r<sub>base</sub> mod r<sub>out</sub>)(r<sub>out</sub> - r<sub>base</sub> mod r<sub>out</sub>).</p>
+<p>The template parameter IntType shall denote an integer-like value type.</p>
+<p>Note: The property above is the square sum of the relative differences in probabilities between the desired uniform distribution p<sub>out</sub>(i) and the generated distribution p<sub>out_s</sub>(i). The property can be fulfilled with the calculation (base_rng mod r<sub>out</sub>), as follows: Let r = r<sub>base</sub> mod r<sub>out</sub>. The base distribution on r<sub>base</sub> is folded onto the range r<sub>out</sub>. The numbers i &lt; r have assigned (r<sub>base</sub> div r<sub>out</sub>)+1 numbers of the base distribution, the rest has only (r<sub>base</sub> div r<sub>out</sub>). Therefore, p<sub>out_s</sub>(i) = ((r<sub>base</sub> div r<sub>out</sub>)+1) / r<sub>base</sub> for i &lt; r and p<sub>out_s</sub>(i) = (r<sub>base</sub> div r<sub>out</sub>)/r<sub>base</sub> otherwise. Substituting this in the above sum formula leads to the desired result.</p>
+<p>Note: The upper bound for (r<sub>base</sub> mod r<sub>out</sub>) (r<sub>out</sub> - r<sub>base</sub> mod r<sub>out</sub>) is r<sub>out</sub><sup>2</sup>/4. Regarding the upper bound for the square sum of the relative quantization error of r<sub>out</sub><sup>3</sup>/(4*r<sub>base</sub><sup>2</sup>), it seems wise to either choose r<sub>base</sub> so that r<sub>base</sub> &gt; 10*r<sub>out</sub><sup>2</sup> or ensure that r<sub>base</sub> is divisible by r<sub>out</sub>. </p>
+<div class="refsect2" title="uniform_smallint public construct/copy/destruct">
+<a name="id1722425"></a><h3>
+<a name="boost.uniform_smallintconstruct-copy-destruct"></a><code class="computeroutput">uniform_smallint</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<pre class="literallayout"><a name="id1134884-bb"></a>uniform_smallint(IntType min_arg = 0, IntType max_arg = 9);</pre>
+<p>Constructs a <code class="computeroutput">uniform_smallint</code>. <code class="computeroutput">min</code> and <code class="computeroutput">max</code> are the lower and upper bounds of the output range, respectively. </p>
+</li></ol></div>
+</div>
+<div class="refsect2" title="uniform_smallint public member functions">
+<a name="id1722478"></a><h3>
+<a name="id1134837-bb"></a><code class="computeroutput">uniform_smallint</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="type">result_type</span> <a name="id1134841-bb"></a>min() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type">result_type</span> <a name="id1134848-bb"></a>max() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1134856-bb"></a>reset() ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a name="id1134864-bb"></a><span class="bold"><strong>operator</strong></span>()(Engine &amp; eng) ;</pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="uniform_real.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.uniform_smallint_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="variate_generator.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
