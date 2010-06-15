@@ -15,6 +15,7 @@ set(util_ib_client_incs
   ${SRC_DIR}
 )
 set(util_ib_client_srcs
+  log_client.hpp
   log_wrapper.hpp
   ib_client.cpp
 )
@@ -34,7 +35,6 @@ set(ibcli_incs
   ${SRC_DIR}
 )
 set(ibcli_srcs
-  log_wrapper.hpp
   command_line_client.cpp
 )
 set(ibcli_libs

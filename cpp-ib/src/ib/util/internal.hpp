@@ -17,11 +17,13 @@
 #include "PosixSocketClient/EPosixClientSocket.h"
 
 #include "ib/util/constants.hpp"
+#include "ib/util/log_client.hpp"
 #include "ib/util/log_wrapper.hpp"
 #include <memory>
 
 
 class EPosixClientSocket;
+class EClient;
 
 namespace ib {
 namespace util {
@@ -70,7 +72,7 @@ public:
 private:
   int connection_id;
   std::auto_ptr<EWrapper> m_eWrapper;
-  std::auto_ptr<EPosixClientSocket> m_pClient;
+  std::auto_ptr<LogClientSocket> m_pClient;
   State m_state;
   time_t m_sleepDeadline;
 

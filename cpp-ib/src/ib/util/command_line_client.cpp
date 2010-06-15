@@ -1,5 +1,7 @@
 #include "ib/util/internal.hpp"
-#include "ib/util/log_wrapper.hpp"
+
+#include "ib/util/log_client.hpp" // Remove these later.  This is testing only.
+#include "ib/util/log_wrapper.hpp" // Remove later.
 
 #include <gflags/gflags.h>
 #include <glog/logging.h>
@@ -15,6 +17,7 @@ DEFINE_string(host, "", "Hostname to connect.");
 DEFINE_int32(port, 4001, "Port");
 DEFINE_int32(client_id, 0, "Client Id.");
 
+
 int main(int argc, char** argv)
 {
   google::ParseCommandLineFlags(&argc, &argv, true);
@@ -28,6 +31,7 @@ int main(int argc, char** argv)
   for (int i = 0; i < 10; i++) {
     lw.tickPrice(1000, BID, 1.0, i);
   }
+
 
 
   const unsigned MAX_ATTEMPTS = FLAGS_max_attempts;
