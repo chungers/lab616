@@ -21,18 +21,9 @@ DEFINE_int32(client_id, 0, "Client Id.");
 int main(int argc, char** argv)
 {
   google::ParseCommandLineFlags(&argc, &argv, true);
-  LOG(INFO) << "======================================  Initialize logging..";
-
   google::InitGoogleLogging(argv[0]);
 
-  LOG(WARNING) << "======================================  STARTING UP.";
-
-  LogWrapper lw(2);
-  for (int i = 0; i < 10; i++) {
-    lw.tickPrice(1000, BID, 1.0, i);
-  }
-
-
+  VLOG(1) << "======================================  STARTING UP.";
 
   const unsigned MAX_ATTEMPTS = FLAGS_max_attempts;
   const unsigned SLEEP_TIME = FLAGS_sleep_time;
