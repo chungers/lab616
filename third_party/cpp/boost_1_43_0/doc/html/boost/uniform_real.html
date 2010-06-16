@@ -1,0 +1,96 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template uniform_real</title>
+<link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../boost_random/reference.html#header.boost.random.uniform_real_hpp" title="Header &lt;boost/random/uniform_real.hpp&gt;">
+<link rel="prev" href="uniform_on_sphere.html" title="Class template uniform_on_sphere">
+<link rel="next" href="uniform_smallint.html" title="Class template uniform_smallint">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../boost.png"></td>
+<td align="center"><a href="../../../index.html">Home</a></td>
+<td align="center"><a href="../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="uniform_on_sphere.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.uniform_real_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="uniform_smallint.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template uniform_real">
+<a name="boost.uniform_real"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template uniform_real</span></h2>
+<p>boost::uniform_real</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../boost_random/reference.html#header.boost.random.uniform_real_hpp" title="Header &lt;boost/random/uniform_real.hpp&gt;">boost/random/uniform_real.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> RealType = double&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="uniform_real.html" title="Class template uniform_real">uniform_real</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> RealType <a name="boost.uniform_real.input_type"></a>input_type; 
+  <span class="bold"><strong>typedef</strong></span> RealType <a name="boost.uniform_real.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="uniform_real.html#boost.uniform_realconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="uniform_real.html#id1134521-bb">uniform_real</a>(RealType = RealType(0), RealType = RealType(1));
+
+  <span class="emphasis"><em>// <a class="link" href="uniform_real.html#id1134466-bb">public member functions</a></em></span>
+  <span class="type">result_type</span> <a class="link" href="uniform_real.html#id1134469-bb">min</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="uniform_real.html#id1134481-bb">max</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="uniform_real.html#id1134493-bb">reset</a>() ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a class="link" href="uniform_real.html#id1134501-bb"><span class="bold"><strong>operator</strong></span>()</a>(Engine &amp;) ;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1721722"></a><h2>Description</h2>
+<p>The distribution function uniform_real models a random distribution. On each invocation, it returns a random floating-point value uniformly distributed in the range [min..max). The value is computed using std::numeric_limits&lt;RealType&gt;::digits random binary digits, i.e. the mantissa of the floating-point value is completely filled with random bits.</p>
+<p>Note: The current implementation is buggy, because it may not fill all of the mantissa with random bits. </p>
+<div class="refsect2" title="uniform_real public construct/copy/destruct">
+<a name="id1721743"></a><h3>
+<a name="boost.uniform_realconstruct-copy-destruct"></a><code class="computeroutput">uniform_real</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<pre class="literallayout"><a name="id1134521-bb"></a>uniform_real(RealType min_arg = RealType(0), RealType max_arg = RealType(1));</pre>
+<p>Constructs a uniform_real object. <code class="computeroutput">min</code> and <code class="computeroutput">max</code> are the parameters of the distribution.</p>
+<p>Requires: min &lt;= max </p>
+</li></ol></div>
+</div>
+<div class="refsect2" title="uniform_real public member functions">
+<a name="id1721790"></a><h3>
+<a name="id1134466-bb"></a><code class="computeroutput">uniform_real</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1134469-bb"></a>min() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns: The "min" parameter of the distribution </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1134481-bb"></a>max() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns: The "max" parameter of the distribution </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1134493-bb"></a>reset() ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a name="id1134501-bb"></a><span class="bold"><strong>operator</strong></span>()(Engine &amp; eng) ;</pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="uniform_on_sphere.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.uniform_real_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="uniform_smallint.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

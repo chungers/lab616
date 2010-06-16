@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template triangle_distribution</title>
+<link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../boost_random/reference.html#header.boost.random.triangle_distribution_hpp" title="Header &lt;boost/random/triangle_distribution.hpp&gt;">
+<link rel="prev" href="random/subtract_with_carry_01.html" title="Class template subtract_with_carry_01">
+<link rel="next" href="uniform_01.html" title="Class template uniform_01">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../boost.png"></td>
+<td align="center"><a href="../../../index.html">Home</a></td>
+<td align="center"><a href="../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="random/subtract_with_carry_01.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.triangle_distribution_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="uniform_01.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template triangle_distribution">
+<a name="boost.triangle_distribution"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template triangle_distribution</span></h2>
+<p>boost::triangle_distribution</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../boost_random/reference.html#header.boost.random.triangle_distribution_hpp" title="Header &lt;boost/random/triangle_distribution.hpp&gt;">boost/random/triangle_distribution.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> RealType = double&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="triangle_distribution.html" title="Class template triangle_distribution">triangle_distribution</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> RealType <a name="boost.triangle_distribution.input_type"></a>input_type; 
+  <span class="bold"><strong>typedef</strong></span> RealType <a name="boost.triangle_distribution.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="triangle_distribution.html#boost.triangle_distributionconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="triangle_distribution.html#id1133990-bb">triangle_distribution</a>(result_type = result_type(0), 
+                        result_type = result_type(0.5), 
+                        result_type = result_type(1));
+
+  <span class="emphasis"><em>// <a class="link" href="triangle_distribution.html#id1133913-bb">public member functions</a></em></span>
+  <span class="type">result_type</span> <a class="link" href="triangle_distribution.html#id1133916-bb">a</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="triangle_distribution.html#id1133931-bb">b</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="triangle_distribution.html#id1133946-bb">c</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="triangle_distribution.html#id1133962-bb">reset</a>() ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a class="link" href="triangle_distribution.html#id1133969-bb"><span class="bold"><strong>operator</strong></span>()</a>(Engine &amp;) ;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1719904"></a><h2>Description</h2>
+<p>Instantiations of <code class="computeroutput">triangle_distribution</code> model a  <a class="link" href="../boost_random/reference.html#boost_random.reference.concepts.random_distribution" title="Random Distribution">random distribution</a> . A <code class="computeroutput">triangle_distribution</code> has three parameters, <code class="computeroutput">a</code>, <code class="computeroutput">b</code>, and <code class="computeroutput">c</code>, which are the smallest, the most probable and the largest values of the distribution respectively. </p>
+<div class="refsect2" title="triangle_distribution public construct/copy/destruct">
+<a name="id1719949"></a><h3>
+<a name="boost.triangle_distributionconstruct-copy-destruct"></a><code class="computeroutput">triangle_distribution</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<pre class="literallayout"><a name="id1133990-bb"></a>triangle_distribution(result_type a_arg = result_type(0), 
+                      result_type b_arg = result_type(0.5), 
+                      result_type c_arg = result_type(1));</pre>
+<p>Constructs a <code class="computeroutput">triangle_distribution</code> with the parameters <code class="computeroutput">a</code>, <code class="computeroutput">b</code>, and <code class="computeroutput">c</code>.</p>
+<p>Preconditions: a &lt;= b &lt;= c. </p>
+</li></ol></div>
+</div>
+<div class="refsect2" title="triangle_distribution public member functions">
+<a name="id1720014"></a><h3>
+<a name="id1133913-bb"></a><code class="computeroutput">triangle_distribution</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1133916-bb"></a>a() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns the <code class="computeroutput">a</code> parameter of the distribution </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1133931-bb"></a>b() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns the <code class="computeroutput">b</code> parameter of the distribution </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1133946-bb"></a>c() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns the <code class="computeroutput">c</code> parameter of the distribution </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1133962-bb"></a>reset() ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a name="id1133969-bb"></a><span class="bold"><strong>operator</strong></span>()(Engine &amp; eng) ;</pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="random/subtract_with_carry_01.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.triangle_distribution_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="uniform_01.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
