@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template xor_combine</title>
+<link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../boost_random/reference.html#header.boost.random.xor_combine_hpp" title="Header &lt;boost/random/xor_combine.hpp&gt;">
+<link rel="prev" href="../variate_generator.html" title="Class template variate_generator">
+<link rel="next" href="../../boost_random/performance.html" title="Performance">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../variate_generator.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.xor_combine_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="../../boost_random/performance.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template xor_combine">
+<a name="boost.random.xor_combine"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template xor_combine</span></h2>
+<p>boost::random::xor_combine</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../../boost_random/reference.html#header.boost.random.xor_combine_hpp" title="Header &lt;boost/random/xor_combine.hpp&gt;">boost/random/xor_combine.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> URNG1, <span class="bold"><strong>int</strong></span> s1, <span class="bold"><strong>typename</strong></span> URNG2, <span class="bold"><strong>int</strong></span> s2&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="xor_combine.html" title="Class template xor_combine">xor_combine</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> URNG1                   <a name="boost.random.xor_combine.base1_type"></a>base1_type; 
+  <span class="bold"><strong>typedef</strong></span> URNG2                   <a name="boost.random.xor_combine.base2_type"></a>base2_type; 
+  <span class="bold"><strong>typedef</strong></span> base1_type::result_type <a name="boost.random.xor_combine.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="xor_combine.html#boost.random.xor_combineconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="xor_combine.html#id1135503-bb">xor_combine</a>();
+  <a class="link" href="xor_combine.html#id1135512-bb">xor_combine</a>(<span class="bold"><strong>const</strong></span> base1_type &amp;, <span class="bold"><strong>const</strong></span> base2_type &amp;);
+  <a class="link" href="xor_combine.html#id1135532-bb">xor_combine</a>(<span class="bold"><strong>const</strong></span> result_type &amp;);
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a class="link" href="xor_combine.html#id1135551-bb">xor_combine</a>(It &amp;, It);
+
+  <span class="emphasis"><em>// <a class="link" href="xor_combine.html#id1135364-bb">public member functions</a></em></span>
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="xor_combine.html#id1135368-bb">seed</a>() ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="xor_combine.html#id1135383-bb">seed</a>(<span class="bold"><strong>const</strong></span> result_type &amp;) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="xor_combine.html#id1135406-bb">seed</a>(It &amp;, It) ;
+  <span class="type"><span class="bold"><strong>const</strong></span> base1_type &amp;</span> <a class="link" href="xor_combine.html#id1135443-bb">base1</a>() ;
+  <span class="type"><span class="bold"><strong>const</strong></span> base2_type &amp;</span> <a class="link" href="xor_combine.html#id1135455-bb">base2</a>() ;
+  <span class="type">result_type</span> <a class="link" href="xor_combine.html#id1135467-bb"><span class="bold"><strong>operator</strong></span>()</a>() ;
+  <span class="type">result_type</span> <a class="link" href="xor_combine.html#id1135479-bb">min</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="xor_combine.html#id1135491-bb">max</a>() <span class="bold"><strong>const</strong></span>;
+
+  <span class="emphasis"><em>// <a class="link" href="xor_combine.html#id1135585-bb">public static functions</a></em></span>
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="xor_combine.html#id1135588-bb">validation</a>(result_type) ;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>bool</strong></span></span> has_fixed_range;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>int</strong></span></span> shift1;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>int</strong></span></span> shift2;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1723950"></a><h2>Description</h2>
+<p>Instantiations of <code class="computeroutput">xor_combine</code> model a  <a class="link" href="../../boost_random/reference.html#boost_random.reference.concepts.pseudo_random_number_generator" title="Pseudo-Random Number Generator">pseudo-random number generator</a> . To produce its output it invokes each of the base generators, shifts their results and xors them together. </p>
+<div class="refsect2" title="xor_combine public construct/copy/destruct">
+<a name="id1723973"></a><h3>
+<a name="boost.random.xor_combineconstruct-copy-destruct"></a><code class="computeroutput">xor_combine</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><a name="id1135503-bb"></a>xor_combine();</pre>
+<p>Constructors a <code class="computeroutput">xor_combine</code> by default constructing both base generators. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="id1135512-bb"></a>xor_combine(<span class="bold"><strong>const</strong></span> base1_type &amp; rng1, <span class="bold"><strong>const</strong></span> base2_type &amp; rng2);</pre>
+<p>Constructs a <code class="computeroutput">xor_combine</code> by copying two base generators. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="id1135532-bb"></a>xor_combine(<span class="bold"><strong>const</strong></span> result_type &amp; v);</pre>
+<p>Constructs a <code class="computeroutput">xor_combine</code>, seeding both base generators with <code class="computeroutput">v</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a name="id1135551-bb"></a>xor_combine(It &amp; first, It last);</pre>
+<p>Constructs a <code class="computeroutput">xor_combine</code>, seeding both base generators with values from the iterator range [first, last) and changes first to point to the element after the last one used. If there are not enough elements in the range to seed both generators, throws <code class="computeroutput">std::invalid_argument</code>. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" title="xor_combine public member functions">
+<a name="id1724125"></a><h3>
+<a name="id1135364-bb"></a><code class="computeroutput">xor_combine</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1135368-bb"></a>seed() ;</pre>
+<p>Calls <code class="computeroutput">seed()</code> for both base generators. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1135383-bb"></a>seed(<span class="bold"><strong>const</strong></span> result_type &amp; v) ;</pre>
+<p><code class="computeroutput">seeds</code> both base generators with <code class="computeroutput">v</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1135406-bb"></a>seed(It &amp; first, It last) ;</pre>
+<p>seeds both base generators with values from the iterator range [first, last) and changes first to point to the element after the last one used. If there are not enough elements in the range to seed both generators, throws <code class="computeroutput">std::invalid_argument</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>const</strong></span> base1_type &amp;</span> <a name="id1135443-bb"></a>base1() ;</pre>
+<p>Returns the first base generator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>const</strong></span> base2_type &amp;</span> <a name="id1135455-bb"></a>base2() ;</pre>
+<p>Returns the second base generator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1135467-bb"></a><span class="bold"><strong>operator</strong></span>()() ;</pre>
+<p>Returns the next value of the generator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1135479-bb"></a>min() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns the smallest value that the generator can produce. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1135491-bb"></a>max() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns the largest value that the generator can produce. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" title="xor_combine public static functions">
+<a name="id1724377"></a><h3>
+<a name="id1135585-bb"></a><code class="computeroutput">xor_combine</code> public static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id1135588-bb"></a>validation(result_type x) ;</pre></li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../variate_generator.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.xor_combine_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="../../boost_random/performance.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

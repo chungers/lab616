@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template subtract_with_carry</title>
+<link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../boost_random/reference.html#header.boost.random.subtract_with_carry_hpp" title="Header &lt;boost/random/subtract_with_carry.hpp&gt;">
+<link rel="prev" href="../kreutzer1986.html" title="Type definition kreutzer1986">
+<link rel="next" href="subtract_with_carry_01.html" title="Class template subtract_with_carry_01">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../kreutzer1986.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.subtract_with_carry_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="subtract_with_carry_01.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template subtract_with_carry">
+<a name="boost.random.subtract_with_carry"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template subtract_with_carry</span></h2>
+<p>boost::random::subtract_with_carry</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../../boost_random/reference.html#header.boost.random.subtract_with_carry_hpp" title="Header &lt;boost/random/subtract_with_carry.hpp&gt;">boost/random/subtract_with_carry.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> IntType, IntType m, <span class="bold"><strong>unsigned</strong></span> <span class="bold"><strong>int</strong></span> s, <span class="bold"><strong>unsigned</strong></span> <span class="bold"><strong>int</strong></span> r, 
+         IntType val&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="subtract_with_carry.html" title="Class template subtract_with_carry">subtract_with_carry</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> IntType <a name="boost.random.subtract_with_carry.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="subtract_with_carry.html#boost.random.subtract_with_carryconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="subtract_with_carry.html#id1133576-bb">subtract_with_carry</a>();
+  <a class="link" href="subtract_with_carry.html#id1133577-bb">subtract_with_carry</a>(uint32_t);
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Generator&gt; <a class="link" href="subtract_with_carry.html#id1133584-bb">subtract_with_carry</a>(Generator &amp;);
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a class="link" href="subtract_with_carry.html#id1133597-bb">subtract_with_carry</a>(It &amp;, It);
+
+  <span class="emphasis"><em>// <a class="link" href="subtract_with_carry.html#id1133482-bb">public member functions</a></em></span>
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="subtract_with_carry.html#id1133485-bb">seed</a>() ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="subtract_with_carry.html#id1133493-bb">seed</a>(uint32_t) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Generator&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="subtract_with_carry.html#id1133506-bb">seed</a>(Generator &amp;) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="subtract_with_carry.html#id1133527-bb">seed</a>(It &amp;, It) ;
+  <span class="type">result_type</span> <a class="link" href="subtract_with_carry.html#id1133553-bb">min</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="subtract_with_carry.html#id1133560-bb">max</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="subtract_with_carry.html#id1133568-bb"><span class="bold"><strong>operator</strong></span>()</a>() ;
+
+  <span class="emphasis"><em>// <a class="link" href="subtract_with_carry.html#id1133616-bb">public static functions</a></em></span>
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="subtract_with_carry.html#id1133620-bb">validation</a>(result_type) ;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>bool</strong></span></span> has_fixed_range;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> result_type</span> min_value;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> result_type</span> max_value;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> result_type</span> modulus;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>unsigned</strong></span> <span class="bold"><strong>int</strong></span></span> long_lag;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>unsigned</strong></span> <span class="bold"><strong>int</strong></span></span> short_lag;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1718605"></a><h2>Description</h2>
+<p>Instantiations of <code class="computeroutput">subtract_with_carry</code> model a  <a class="link" href="../../boost_random/reference.html#boost_random.reference.concepts.pseudo_random_number_generator" title="Pseudo-Random Number Generator">pseudo-random number generator</a> . The algorithm is described in</p>
+<p> </p>
+<div class="blockquote"><blockquote class="blockquote"><p>  "A New Class of Random Number Generators", George Marsaglia and Arif Zaman, Annals of Applied Probability, Volume 1, Number 3 (1991), 462-480.  </p></blockquote></div>
+<p>  </p>
+<div class="refsect2" title="subtract_with_carry public construct/copy/destruct">
+<a name="id1718636"></a><h3>
+<a name="boost.random.subtract_with_carryconstruct-copy-destruct"></a><code class="computeroutput">subtract_with_carry</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a name="id1133576-bb"></a>subtract_with_carry();</pre></li>
+<li class="listitem"><pre class="literallayout"><a name="id1133577-bb"></a>subtract_with_carry(uint32_t value);</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Generator&gt; <a name="id1133584-bb"></a>subtract_with_carry(Generator &amp; gen);</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a name="id1133597-bb"></a>subtract_with_carry(It &amp; first, It last);</pre></li>
+</ol></div>
+</div>
+<div class="refsect2" title="subtract_with_carry public member functions">
+<a name="id1718736"></a><h3>
+<a name="id1133482-bb"></a><code class="computeroutput">subtract_with_carry</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1133485-bb"></a>seed() ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1133493-bb"></a>seed(uint32_t value) ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Generator&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1133506-bb"></a>seed(Generator &amp; gen) ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1133527-bb"></a>seed(It &amp; first, It last) ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type">result_type</span> <a name="id1133553-bb"></a>min() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type">result_type</span> <a name="id1133560-bb"></a>max() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type">result_type</span> <a name="id1133568-bb"></a><span class="bold"><strong>operator</strong></span>()() ;</pre></li>
+</ol></div>
+</div>
+<div class="refsect2" title="subtract_with_carry public static functions">
+<a name="id1718922"></a><h3>
+<a name="id1133616-bb"></a><code class="computeroutput">subtract_with_carry</code> public static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id1133620-bb"></a>validation(result_type x) ;</pre></li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../kreutzer1986.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.subtract_with_carry_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="subtract_with_carry_01.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

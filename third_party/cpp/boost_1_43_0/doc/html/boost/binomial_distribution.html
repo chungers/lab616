@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template binomial_distribution</title>
+<link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../boost_random/reference.html#header.boost.random.binomial_distribution_hpp" title="Header &lt;boost/random/binomial_distribution.hpp&gt;">
+<link rel="prev" href="bernoulli_distribution.html" title="Class template bernoulli_distribution">
+<link rel="next" href="cauchy_distribution.html" title="Class template cauchy_distribution">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../boost.png"></td>
+<td align="center"><a href="../../../index.html">Home</a></td>
+<td align="center"><a href="../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="bernoulli_distribution.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.binomial_distribution_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="cauchy_distribution.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template binomial_distribution">
+<a name="boost.binomial_distribution"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template binomial_distribution</span></h2>
+<p>boost::binomial_distribution</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../boost_random/reference.html#header.boost.random.binomial_distribution_hpp" title="Header &lt;boost/random/binomial_distribution.hpp&gt;">boost/random/binomial_distribution.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> IntType = <span class="bold"><strong>int</strong></span>, <span class="bold"><strong>typename</strong></span> RealType = double&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="binomial_distribution.html" title="Class template binomial_distribution">binomial_distribution</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> <a class="link" href="bernoulli_distribution.html" title="Class template bernoulli_distribution">bernoulli_distribution</a>&lt; RealType &gt;::input_type <a name="boost.binomial_distribution.input_type"></a>input_type; 
+  <span class="bold"><strong>typedef</strong></span> IntType                                        <a name="boost.binomial_distribution.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="binomial_distribution.html#boost.binomial_distributionconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="binomial_distribution.html#id1128277-bb">binomial_distribution</a>(IntType = 1, <span class="bold"><strong>const</strong></span> RealType &amp; = RealType(0.5));
+
+  <span class="emphasis"><em>// <a class="link" href="binomial_distribution.html#id1128206-bb">public member functions</a></em></span>
+  <span class="type">IntType</span> <a class="link" href="binomial_distribution.html#id1128209-bb">t</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">RealType</span> <a class="link" href="binomial_distribution.html#id1128224-bb">p</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="binomial_distribution.html#id1128240-bb">reset</a>() ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a class="link" href="binomial_distribution.html#id1128253-bb"><span class="bold"><strong>operator</strong></span>()</a>(Engine &amp;) ;
+
+  <span class="emphasis"><em>// <a class="link" href="binomial_distribution.html#id1128313-bb">friend functions</a></em></span>
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharT, <span class="bold"><strong>typename</strong></span> Traits&gt; 
+    <span class="type"><span class="bold"><strong>friend</strong></span> std::basic_ostream&lt; CharT, Traits &gt; &amp;</span> 
+    <a class="link" href="binomial_distribution.html#id1128316-bb"><span class="bold"><strong>operator</strong></span>&lt;&lt;</a>(std::basic_ostream&lt; CharT, Traits &gt; &amp;, 
+               <span class="bold"><strong>const</strong></span> <a class="link" href="binomial_distribution.html" title="Class template binomial_distribution">binomial_distribution</a> &amp;) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharT, <span class="bold"><strong>typename</strong></span> Traits&gt; 
+    <span class="type"><span class="bold"><strong>friend</strong></span> std::basic_istream&lt; CharT, Traits &gt; &amp;</span> 
+    <a class="link" href="binomial_distribution.html#id1128360-bb"><span class="bold"><strong>operator</strong></span>&gt;&gt;</a>(std::basic_istream&lt; CharT, Traits &gt; &amp;, <a class="link" href="binomial_distribution.html" title="Class template binomial_distribution">binomial_distribution</a> &amp;) ;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1703218"></a><h2>Description</h2>
+<p>The binomial distribution is an integer valued distribution with two parameters, <code class="computeroutput">t</code> and <code class="computeroutput">p</code>. The values of the distribution are within the range [0,t].</p>
+<p>The probability that the distribution produces a value k is <span class="inlinemediaobject"><img src="../images/random/form_0.png"></span>. </p>
+<div class="refsect2" title="binomial_distribution public construct/copy/destruct">
+<a name="id1703261"></a><h3>
+<a name="boost.binomial_distributionconstruct-copy-destruct"></a><code class="computeroutput">binomial_distribution</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<pre class="literallayout"><a name="id1128277-bb"></a>binomial_distribution(IntType t = 1, <span class="bold"><strong>const</strong></span> RealType &amp; p = RealType(0.5));</pre>
+<p>Construct an <code class="computeroutput">binomial_distribution</code> object. <code class="computeroutput">t</code> and <code class="computeroutput">p</code> are the parameters of the distribution.</p>
+<p>Requires: t &gt;=0 &amp;&amp; 0 &lt;= p &lt;= 1 </p>
+</li></ol></div>
+</div>
+<div class="refsect2" title="binomial_distribution public member functions">
+<a name="id1703326"></a><h3>
+<a name="id1128206-bb"></a><code class="computeroutput">binomial_distribution</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="type">IntType</span> <a name="id1128209-bb"></a>t() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns: the <code class="computeroutput">t</code> parameter of the distribution </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">RealType</span> <a name="id1128224-bb"></a>p() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns: the <code class="computeroutput">p</code> parameter of the distribution </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1128240-bb"></a>reset() ;</pre>
+<p>Effects: Subsequent uses of the distribution do not depend on values produced by any engine prior to invoking reset. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Engine&gt; <span class="type">result_type</span> <a name="id1128253-bb"></a><span class="bold"><strong>operator</strong></span>()(Engine &amp; eng) ;</pre>
+<p>Returns: a random variate distributed according to the binomial distribution. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" title="binomial_distribution friend functions">
+<a name="id1703464"></a><h3>
+<a name="id1128313-bb"></a><code class="computeroutput">binomial_distribution</code> friend functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharT, <span class="bold"><strong>typename</strong></span> Traits&gt; 
+  <span class="type"><span class="bold"><strong>friend</strong></span> std::basic_ostream&lt; CharT, Traits &gt; &amp;</span> 
+  <a name="id1128316-bb"></a><span class="bold"><strong>operator</strong></span>&lt;&lt;(std::basic_ostream&lt; CharT, Traits &gt; &amp; os, 
+             <span class="bold"><strong>const</strong></span> <a class="link" href="binomial_distribution.html" title="Class template binomial_distribution">binomial_distribution</a> &amp; bd) ;</pre>
+<p>Writes the parameters of the distribution to a <code class="computeroutput">std::ostream</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharT, <span class="bold"><strong>typename</strong></span> Traits&gt; 
+  <span class="type"><span class="bold"><strong>friend</strong></span> std::basic_istream&lt; CharT, Traits &gt; &amp;</span> 
+  <a name="id1128360-bb"></a><span class="bold"><strong>operator</strong></span>&gt;&gt;(std::basic_istream&lt; CharT, Traits &gt; &amp; is, 
+             <a class="link" href="binomial_distribution.html" title="Class template binomial_distribution">binomial_distribution</a> &amp; bd) ;</pre>
+<p>Reads the parameters of the distribution from a <code class="computeroutput">std::istream</code>. </p>
+</li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="bernoulli_distribution.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.binomial_distribution_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="cauchy_distribution.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

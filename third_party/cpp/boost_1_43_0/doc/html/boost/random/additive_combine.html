@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template additive_combine</title>
+<link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../boost_random/reference.html#header.boost.random.additive_combine_hpp" title="Header &lt;boost/random/additive_combine.hpp&gt;">
+<link rel="prev" href="../taus88.html" title="Type definition taus88">
+<link rel="next" href="../ecuyer1988.html" title="Type definition ecuyer1988">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../taus88.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.additive_combine_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="../ecuyer1988.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template additive_combine">
+<a name="boost.random.additive_combine"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template additive_combine</span></h2>
+<p>boost::random::additive_combine</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../../boost_random/reference.html#header.boost.random.additive_combine_hpp" title="Header &lt;boost/random/additive_combine.hpp&gt;">boost/random/additive_combine.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> MLCG1, <span class="bold"><strong>typename</strong></span> MLCG2, <span class="bold"><strong>typename</strong></span> MLCG1::result_type val&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> MLCG1              <a name="boost.random.additive_combine.first_base"></a>first_base; 
+  <span class="bold"><strong>typedef</strong></span> MLCG2              <a name="boost.random.additive_combine.second_base"></a>second_base;
+  <span class="bold"><strong>typedef</strong></span> MLCG1::result_type <a name="boost.random.additive_combine.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="additive_combine.html#boost.random.additive_combineconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="additive_combine.html#id1153072-bb">additive_combine</a>();
+  <a class="link" href="additive_combine.html#id1153084-bb">additive_combine</a>(result_type);
+  <a class="link" href="additive_combine.html#id1153102-bb">additive_combine</a>(<span class="bold"><strong>typename</strong></span> MLCG1::result_type, <span class="bold"><strong>typename</strong></span> MLCG2::result_type);
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a class="link" href="additive_combine.html#id1153134-bb">additive_combine</a>(It &amp;, It);
+
+  <span class="emphasis"><em>// <a class="link" href="additive_combine.html#id1152901-bb">public member functions</a></em></span>
+  <span class="type">result_type</span> <a class="link" href="additive_combine.html#id1152904-bb">min</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="additive_combine.html#id1152916-bb">max</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="additive_combine.html#id1152928-bb">seed</a>() ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="additive_combine.html#id1152947-bb">seed</a>(result_type) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="additive_combine.html#id1152975-bb">seed</a>(<span class="bold"><strong>typename</strong></span> MLCG1::result_type, <span class="bold"><strong>typename</strong></span> MLCG2::result_type) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="additive_combine.html#id1153013-bb">seed</a>(It &amp;, It) ;
+  <span class="type">result_type</span> <a class="link" href="additive_combine.html#id1153061-bb"><span class="bold"><strong>operator</strong></span>()</a>() ;
+
+  <span class="emphasis"><em>// <a class="link" href="additive_combine.html#id1146268-bb">public static functions</a></em></span>
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="additive_combine.html#id1146272-bb">validation</a>(result_type) ;
+
+  <span class="emphasis"><em>// <a class="link" href="additive_combine.html#id1127683-bb">friend functions</a></em></span>
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharT, <span class="bold"><strong>typename</strong></span> Traits&gt; 
+    <span class="type"><span class="bold"><strong>friend</strong></span> std::basic_ostream&lt; CharT, Traits &gt; &amp;</span> 
+    <a class="link" href="additive_combine.html#id1127686-bb"><span class="bold"><strong>operator</strong></span>&lt;&lt;</a>(std::basic_ostream&lt; CharT, Traits &gt; &amp;, 
+               <span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp;) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharT, <span class="bold"><strong>typename</strong></span> Traits&gt; 
+    <span class="type"><span class="bold"><strong>friend</strong></span> std::basic_istream&lt; CharT, Traits &gt; &amp;</span> 
+    <a class="link" href="additive_combine.html#id1127745-bb"><span class="bold"><strong>operator</strong></span>&gt;&gt;</a>(std::basic_istream&lt; CharT, Traits &gt; &amp;, <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp;) ;
+  <span class="type"><span class="bold"><strong>friend</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="additive_combine.html#id1127793-bb"><span class="bold"><strong>operator</strong></span>==</a>(<span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp;, <span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp;) ;
+  <span class="type"><span class="bold"><strong>friend</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="additive_combine.html#id1127831-bb"><span class="bold"><strong>operator</strong></span>!=</a>(<span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp;, <span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp;) ;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>bool</strong></span></span> has_fixed_range;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> result_type</span> min_value;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> result_type</span> max_value;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1701113"></a><h2>Description</h2>
+<p>An instantiation of class template  <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a>  model a  <a class="link" href="../../boost_random/reference.html#boost_random.reference.concepts.pseudo_random_number_generator" title="Pseudo-Random Number Generator">pseudo-random number generator</a> . It combines two multiplicative  <a class="link" href="linear_congruential.html" title="Class template linear_congruential">linear_congruential</a> number generators, i.e. those with <code class="computeroutput">c</code> = 0. It is described in</p>
+<p> </p>
+<div class="blockquote"><blockquote class="blockquote"><p>  "Efficient and Portable Combined Random Number Generators", Pierre L'Ecuyer, Communications of the ACM, Vol. 31, No. 6, June 1988, pp. 742-749, 774  </p></blockquote></div>
+<p> </p>
+<p>The template parameters MLCG1 and MLCG2 shall denote two different  <a class="link" href="linear_congruential.html" title="Class template linear_congruential">linear_congruential</a> number generators, each with c = 0. Each invocation returns a random number X(n) := (MLCG1(n) - MLCG2(n)) mod (m1 - 1), where m1 denotes the modulus of MLCG1.</p>
+<p>The template parameter <code class="computeroutput">val</code> is the validation value checked by validation. </p>
+<div class="refsect2" title="additive_combine public construct/copy/destruct">
+<a name="id1701184"></a><h3>
+<a name="boost.random.additive_combineconstruct-copy-destruct"></a><code class="computeroutput">additive_combine</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><a name="id1153072-bb"></a>additive_combine();</pre>
+<p>Constructs an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator using the default constructors of the two base generators. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="id1153084-bb"></a>additive_combine(result_type aseed);</pre>
+<p>Constructs an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator, using aseed as the constructor argument for both base generators. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="id1153102-bb"></a>additive_combine(<span class="bold"><strong>typename</strong></span> MLCG1::result_type seed1, 
+                 <span class="bold"><strong>typename</strong></span> MLCG2::result_type seed2);</pre>
+<p>Constructs an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator, using <code class="computeroutput">seed1</code> and <code class="computeroutput">seed2</code> as the constructor argument to the first and second base generators, respectively. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a name="id1153134-bb"></a>additive_combine(It &amp; first, It last);</pre>
+<p>Contructs an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator with values from the range defined by the input iterators first and last. first will be modified to point to the element after the last one used.</p>
+<p>Throws: <code class="computeroutput">std::invalid_argument</code> if the input range is too small.</p>
+<p>Exception Safety: Basic </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" title="additive_combine public member functions">
+<a name="id1701365"></a><h3>
+<a name="id1152901-bb"></a><code class="computeroutput">additive_combine</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1152904-bb"></a>min() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns: The smallest value that the generator can produce </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1152916-bb"></a>max() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns: The largest value that the generator can produce </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1152928-bb"></a>seed() ;</pre>
+<p>Seeds an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator using the default seeds of the two base generators. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1152947-bb"></a>seed(result_type aseed) ;</pre>
+<p>Seeds an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator, using <code class="computeroutput">aseed</code> as the seed for both base generators. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1152975-bb"></a>seed(<span class="bold"><strong>typename</strong></span> MLCG1::result_type seed1, 
+          <span class="bold"><strong>typename</strong></span> MLCG2::result_type seed2) ;</pre>
+<p>Seeds an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator, using <code class="computeroutput">seed1</code> and <code class="computeroutput">seed2</code> as the seeds to the first and second base generators, respectively. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1153013-bb"></a>seed(It &amp; first, It last) ;</pre>
+<p>Seeds an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator with values from the range defined by the input iterators first and last. first will be modified to point to the element after the last one used.</p>
+<p>Throws: <code class="computeroutput">std::invalid_argument</code> if the input range is too small.</p>
+<p>Exception Safety: Basic </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">result_type</span> <a name="id1153061-bb"></a><span class="bold"><strong>operator</strong></span>()() ;</pre>
+<p>Returns: the next value of the generator </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" title="additive_combine public static functions">
+<a name="id1701652"></a><h3>
+<a name="id1146268-bb"></a><code class="computeroutput">additive_combine</code> public static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id1146272-bb"></a>validation(result_type x) ;</pre></li></ol></div>
+</div>
+<div class="refsect2" title="additive_combine friend functions">
+<a name="id1701695"></a><h3>
+<a name="id1127683-bb"></a><code class="computeroutput">additive_combine</code> friend functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharT, <span class="bold"><strong>typename</strong></span> Traits&gt; 
+  <span class="type"><span class="bold"><strong>friend</strong></span> std::basic_ostream&lt; CharT, Traits &gt; &amp;</span> 
+  <a name="id1127686-bb"></a><span class="bold"><strong>operator</strong></span>&lt;&lt;(std::basic_ostream&lt; CharT, Traits &gt; &amp; os, 
+             <span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp; r) ;</pre>
+<p>Writes the state of an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator to a <code class="computeroutput">std::ostream</code>. The textual representation of an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator is the textual representation of the first base generator followed by the textual representation of the second base generator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharT, <span class="bold"><strong>typename</strong></span> Traits&gt; 
+  <span class="type"><span class="bold"><strong>friend</strong></span> std::basic_istream&lt; CharT, Traits &gt; &amp;</span> 
+  <a name="id1127745-bb"></a><span class="bold"><strong>operator</strong></span>&gt;&gt;(std::basic_istream&lt; CharT, Traits &gt; &amp; is, <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp; r) ;</pre>
+<p>Reads the state of an  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generator from a <code class="computeroutput">std::istream</code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>friend</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id1127793-bb"></a><span class="bold"><strong>operator</strong></span>==(<span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp; x, <span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp; y) ;</pre>
+<p>Returns: true iff the two  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generators will produce the same sequence of values. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type"><span class="bold"><strong>friend</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id1127831-bb"></a><span class="bold"><strong>operator</strong></span>!=(<span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp; x, <span class="bold"><strong>const</strong></span> <a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a> &amp; y) ;</pre>
+<p>Returns: true iff the two  <code class="computeroutput"><a class="link" href="additive_combine.html" title="Class template additive_combine">additive_combine</a></code>  generators will produce different sequences of values. </p>
+</li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../taus88.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.additive_combine_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="../ecuyer1988.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class template shuffle_output</title>
+<link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../boost_random/reference.html#header.boost.random.shuffle_output_hpp" title="Header &lt;boost/random/shuffle_output.hpp&gt;">
+<link rel="prev" href="../ranlux64_4.html" title="Type definition ranlux64_4">
+<link rel="next" href="../kreutzer1986.html" title="Type definition kreutzer1986">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../ranlux64_4.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.shuffle_output_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="../kreutzer1986.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class template shuffle_output">
+<a name="boost.random.shuffle_output"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template shuffle_output</span></h2>
+<p>boost::random::shuffle_output</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../../boost_random/reference.html#header.boost.random.shuffle_output_hpp" title="Header &lt;boost/random/shuffle_output.hpp&gt;">boost/random/shuffle_output.hpp</a>&gt;
+
+</em></span><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> UniformRandomNumberGenerator, <span class="bold"><strong>int</strong></span> k, 
+         <span class="bold"><strong>typename</strong></span> UniformRandomNumberGenerator::result_type val = 0&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="shuffle_output.html" title="Class template shuffle_output">shuffle_output</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> UniformRandomNumberGenerator <a name="boost.random.shuffle_output.base_type"></a>base_type;  
+  <span class="bold"><strong>typedef</strong></span> base_type::result_type       <a name="boost.random.shuffle_output.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="shuffle_output.html#boost.random.shuffle_outputconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="shuffle_output.html#id1133224-bb">shuffle_output</a>();
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> T&gt; <a class="link" href="shuffle_output.html#id1133236-bb">shuffle_output</a>(T);
+  <a class="link" href="shuffle_output.html#id1133258-bb">shuffle_output</a>(<span class="bold"><strong>const</strong></span> base_type &amp;);
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a class="link" href="shuffle_output.html#id1133277-bb">shuffle_output</a>(It &amp;, It);
+
+  <span class="emphasis"><em>// <a class="link" href="shuffle_output.html#id1133126-bb">public member functions</a></em></span>
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="shuffle_output.html#id1133130-bb">seed</a>() ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> T&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="shuffle_output.html#id1133138-bb">seed</a>(T) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="shuffle_output.html#id1133167-bb">seed</a>(It &amp;, It) ;
+  <span class="type"><span class="bold"><strong>const</strong></span> base_type &amp;</span> <a class="link" href="shuffle_output.html#id1133193-bb">base</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="shuffle_output.html#id1133201-bb"><span class="bold"><strong>operator</strong></span>()</a>() ;
+  <span class="type">result_type</span> <a class="link" href="shuffle_output.html#id1133208-bb">min</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">result_type</span> <a class="link" href="shuffle_output.html#id1133216-bb">max</a>() <span class="bold"><strong>const</strong></span>;
+
+  <span class="emphasis"><em>// <a class="link" href="shuffle_output.html#id1133297-bb">public static functions</a></em></span>
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="shuffle_output.html#id1133300-bb">validation</a>(result_type) ;
+
+  <span class="emphasis"><em>// <a class="link" href="shuffle_output.html#id1133313-bb">private member functions</a></em></span>
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="shuffle_output.html#id1133317-bb">init</a>() ;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>bool</strong></span></span> has_fixed_range;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>int</strong></span></span> buffer_size;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1717455"></a><h2>Description</h2>
+<p>Instatiations of class template shuffle_output model a  <a class="link" href="../../boost_random/reference.html#boost_random.reference.concepts.pseudo_random_number_generator" title="Pseudo-Random Number Generator">pseudo-random number generator</a> . It mixes the output of some (usually  <a class="link" href="linear_congruential.html" title="Class template linear_congruential">linear_congruential</a>)  <a class="link" href="../../boost_random/reference.html#boost_random.reference.concepts.uniform_random_number_generator" title="Uniform Random Number Generator">uniform random number generator</a>  to get better statistical properties. The algorithm is described in</p>
+<p> </p>
+<div class="blockquote"><blockquote class="blockquote"><p>  "Improving a poor random number generator", Carter Bays and S.D. Durham, ACM Transactions on Mathematical Software, Vol 2, No. 1, March 1976, pp. 59-64. <a href="http://doi.acm.org/10.1145/355666.355670" target="_top">http://doi.acm.org/10.1145/355666.355670</a>  </p></blockquote></div>
+<p> </p>
+<p>The output of the base generator is buffered in an array of length k. Every output X(n) has a second role: It gives an index into the array where X(n+1) will be retrieved. Used array elements are replaced with fresh output from the base generator.</p>
+<p>Template parameters are the base generator and the array length k, which should be around 100. The template parameter val is the validation value checked by validation. </p>
+<div class="refsect2" title="shuffle_output public construct/copy/destruct">
+<a name="id1717517"></a><h3>
+<a name="boost.random.shuffle_outputconstruct-copy-destruct"></a><code class="computeroutput">shuffle_output</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><a name="id1133224-bb"></a>shuffle_output();</pre>
+<p>Constructs a <code class="computeroutput">shuffle_output</code> generator by invoking the default constructor of the base generator.</p>
+<p>Complexity: Exactly k+1 invocations of the base generator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> T&gt; <a name="id1133236-bb"></a>shuffle_output(T s);</pre>
+<p>Constructs a shuffle_output generator by invoking the one-argument constructor of the base generator with the parameter seed.</p>
+<p>Complexity: Exactly k+1 invocations of the base generator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="id1133258-bb"></a>shuffle_output(<span class="bold"><strong>const</strong></span> base_type &amp; rng);</pre>
+<p>Constructs a shuffle_output generator by using a copy of the provided generator.</p>
+<p>Precondition: The template argument UniformRandomNumberGenerator shall denote a CopyConstructible type.</p>
+<p>Complexity: Exactly k+1 invocations of the base generator. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a name="id1133277-bb"></a>shuffle_output(It &amp; first, It last);</pre></li>
+</ol></div>
+</div>
+<div class="refsect2" title="shuffle_output public member functions">
+<a name="id1717651"></a><h3>
+<a name="id1133126-bb"></a><code class="computeroutput">shuffle_output</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1133130-bb"></a>seed() ;</pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> T&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1133138-bb"></a>seed(T s) ;</pre>
+<p>Invokes the one-argument seed method of the base generator with the parameter seed and re-initializes the internal buffer array.</p>
+<p>Complexity: Exactly k+1 invocations of the base generator. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1133167-bb"></a>seed(It &amp; first, It last) ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>const</strong></span> base_type &amp;</span> <a name="id1133193-bb"></a>base() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type">result_type</span> <a name="id1133201-bb"></a><span class="bold"><strong>operator</strong></span>()() ;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type">result_type</span> <a name="id1133208-bb"></a>min() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li class="listitem"><pre class="literallayout"><span class="type">result_type</span> <a name="id1133216-bb"></a>max() <span class="bold"><strong>const</strong></span>;</pre></li>
+</ol></div>
+</div>
+<div class="refsect2" title="shuffle_output public static functions">
+<a name="id1717850"></a><h3>
+<a name="id1133297-bb"></a><code class="computeroutput">shuffle_output</code> public static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id1133300-bb"></a>validation(result_type x) ;</pre></li></ol></div>
+</div>
+<div class="refsect2" title="shuffle_output private member functions">
+<a name="id1717894"></a><h3>
+<a name="id1133313-bb"></a><code class="computeroutput">shuffle_output</code> private member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1133317-bb"></a>init() ;</pre></li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../ranlux64_4.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_random/reference.html#header.boost.random.shuffle_output_hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="../kreutzer1986.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

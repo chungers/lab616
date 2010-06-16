@@ -40,11 +40,16 @@ function(boost_libraries targets)
   if (${BUILD_BOOST})
     message(STATUS "BOOST: Adding Boost build targets")
     add_custom_target(build-boost
-      COMMAND mkdir -p ${THIRD_PARTY_BUILD_DIR}/boost
-      COMMAND ${BOOST_DIR}/bootstrap.sh
-        --prefix=${THIRD_PARTY_BUILD_DIR}/boost
-	COMMAND ${BOOST_DIR}/bjam ${BOOST_TO_BUILD} install
-	WORKING_DIRECTORY ${BOOST_DIR})
+	COMMAND mkdir -p ${THIRD_PARTY_BUILD_DIR}/boost
+      	COMMAND ${BOOST_DIR}/bootstrap.sh
+        	--prefix=${THIRD_PARTY_BUILD_DIR}/boost)
       add_dependencies(init build-boost)
+    foreach (boost_lib ${BOOST_TO_BUILD})
+      add_custom_target(build-boost${boost_lib}
+	COMMAND ${BOOST_DIR}/bjam ${boost_lib} install
+		WORKING_DIRECTORY ${BOOST_DIR})
+      add_dependencies(build-boost build-boost${boost_lib})
+      message(STATUS "BOOST: Added build-boost${boost_lib}")
+    endforeach(boost_lib)
   endif()
 endfunction(boost_libraries)
