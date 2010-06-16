@@ -1,0 +1,21 @@
+Third Party Libraries
+=====================
+
+Packages that require installation as root on a local machine:
+ - Boost
+ - Google Protobuf
+ - Google Flags (gflag)
+ - Google Logging (glog)
+
+In general, installation on a localhost follows this procedure (example gflag):
+ 
+  sudo su -
+  cd /tmp
+  cp -r third_party/cpp/gflag .
+  cd gflag
+  ./configure 
+  ./make
+  ./make install
+
+
+ 

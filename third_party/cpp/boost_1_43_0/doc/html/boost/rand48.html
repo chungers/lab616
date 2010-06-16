@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Class rand48</title>
+<link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../boost_random/reference.html#header.boost.random.linear_congruential_hpp" title="Header &lt;boost/random/linear_congruential.hpp&gt;">
+<link rel="prev" href="random/linear_congruential.html" title="Class template linear_congruential">
+<link rel="next" href="minstd_rand0.html" title="Type definition minstd_rand0">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../boost.png"></td>
+<td align="center"><a href="../../../index.html">Home</a></td>
+<td align="center"><a href="../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="random/linear_congruential.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.linear_congruential_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="minstd_rand0.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" title="Class rand48">
+<a name="boost.rand48"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class rand48</span></h2>
+<p>boost::rand48</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="emphasis"><em>// In header: &lt;<a class="link" href="../boost_random/reference.html#header.boost.random.linear_congruential_hpp" title="Header &lt;boost/random/linear_congruential.hpp&gt;">boost/random/linear_congruential.hpp</a>&gt;
+
+</em></span>
+<span class="bold"><strong>class</strong></span> <a class="link" href="rand48.html" title="Class rand48">rand48</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> int32_t <a name="boost.rand48.result_type"></a>result_type;
+
+  <span class="emphasis"><em>// <a class="link" href="rand48.html#boost.rand48construct-copy-destruct">construct/copy/destruct</a></em></span>
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> T&gt; <a class="link" href="rand48.html#id1130773-bb">rand48</a>(T = 1);
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a class="link" href="rand48.html#id1130806-bb">rand48</a>(It &amp;, It);
+
+  <span class="emphasis"><em>// <a class="link" href="rand48.html#id1130679-bb">public member functions</a></em></span>
+  <span class="type">int32_t</span> <a class="link" href="rand48.html#id1130683-bb">min</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">int32_t</span> <a class="link" href="rand48.html#id1130695-bb">max</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> T&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="rand48.html#id1130707-bb">seed</a>(T = 1) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="rand48.html#id1130736-bb">seed</a>(It &amp;, It) ;
+  <span class="type">int32_t</span> <a class="link" href="rand48.html#id1130761-bb"><span class="bold"><strong>operator</strong></span>()</a>() ;
+
+  <span class="emphasis"><em>// <a class="link" href="rand48.html#id1130826-bb">public static functions</a></em></span>
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="rand48.html#id1130829-bb">validation</a>(int32_t) ;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>bool</strong></span></span> has_fixed_range;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> int32_t</span> min_value;
+  <span class="bold"><strong>static</strong></span> <span class="type"><span class="bold"><strong>const</strong></span> int32_t</span> max_value;
+};</pre></div>
+<div class="refsect1" title="Description">
+<a name="id1711214"></a><h2>Description</h2>
+<p>Class <code class="computeroutput">rand48</code> models a  <a class="link" href="../boost_random/reference.html#boost_random.reference.concepts.pseudo_random_number_generator" title="Pseudo-Random Number Generator">pseudo-random number generator</a> . It uses the linear congruential algorithm with the parameters a = 0x5DEECE66D, c = 0xB, m = 2**48. It delivers identical results to the <code class="computeroutput">lrand48()</code> function available on some systems (assuming lcong48 has not been called).</p>
+<p>It is only available on systems where <code class="computeroutput">uint64_t</code> is provided as an integral type, so that for example static in-class constants and/or enum definitions with large <code class="computeroutput">uint64_t</code> numbers work. </p>
+<div class="refsect2" title="rand48 public construct/copy/destruct">
+<a name="id1711260"></a><h3>
+<a name="boost.rand48construct-copy-destruct"></a><code class="computeroutput">rand48</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> T&gt; <a name="id1130773-bb"></a>rand48(T x0 = 1);</pre>
+<p>If T is an integral type smaller than int46_t, constructs a  <code class="computeroutput"><a class="link" href="rand48.html" title="Class rand48">rand48</a></code>  generator with x(0) := (x0 &lt;&lt; 16) | 0x330e. Otherwise constructs a  <code class="computeroutput"><a class="link" href="rand48.html" title="Class rand48">rand48</a></code>  generator with x(0) = x0. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <a name="id1130806-bb"></a>rand48(It &amp; first, It last);</pre></li>
+</ol></div>
+</div>
+<div class="refsect2" title="rand48 public member functions">
+<a name="id1711359"></a><h3>
+<a name="id1130679-bb"></a><code class="computeroutput">rand48</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+<pre class="literallayout"><span class="type">int32_t</span> <a name="id1130683-bb"></a>min() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns the smallest value that the generator can produce </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">int32_t</span> <a name="id1130695-bb"></a>max() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns the largest value that the generator can produce </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> T&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1130707-bb"></a>seed(T x0 = 1) ;</pre>
+<p>If T is an integral type smaller than int46_t, changes the current value x(n) of the generator to (x0 &lt;&lt; 16) | 0x330e. Otherwise changes the current value x(n) to x0. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> It&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id1130736-bb"></a>seed(It &amp; first, It last) ;</pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="type">int32_t</span> <a name="id1130761-bb"></a><span class="bold"><strong>operator</strong></span>()() ;</pre>
+<p>Returns the next value of the generator. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" title="rand48 public static functions">
+<a name="id1711519"></a><h3>
+<a name="id1130826-bb"></a><code class="computeroutput">rand48</code> public static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id1130829-bb"></a>validation(int32_t x) ;</pre></li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000 -2005 Jens Maurer, 2009 Steven Watanabe<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="random/linear_congruential.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_random/reference.html#header.boost.random.linear_congruential_hpp"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="minstd_rand0.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
