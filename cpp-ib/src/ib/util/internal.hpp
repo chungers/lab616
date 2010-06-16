@@ -20,7 +20,7 @@
 #include "ib/util/log_client.hpp"
 #include "ib/util/log_wrapper.hpp"
 #include <memory>
-
+#include <list>
 
 class EPosixClientSocket;
 class EClient;
@@ -30,6 +30,7 @@ namespace util {
 
 enum State {
   ST_CONNECT,
+  ST_MARKETDATA,
   ST_PLACEORDER,
   ST_PLACEORDER_ACK,
   ST_CANCELORDER,
@@ -39,7 +40,9 @@ enum State {
   ST_IDLE
 };
 
-class IbClient
+using namespace std;
+
+class IbClient : public LogWrapper
 {
 public:
 
@@ -49,7 +52,7 @@ public:
   void processMessages();
 
 public:
-
+  void addSymbol(string symbol);
   bool connect(const char * host, unsigned int port, int clientId = 0);
   void disconnect() const;
   bool isConnected() const;
@@ -68,14 +71,14 @@ public:
   void reqCurrentTime();
   void placeOrder();
   void cancelOrder();
+  void requestMarketData();
 
 private:
   int connection_id;
-  std::auto_ptr<EWrapper> m_eWrapper;
-  std::auto_ptr<LogClientSocket> m_pClient;
+  auto_ptr<LogClientSocket> m_pClient;
   State m_state;
   time_t m_sleepDeadline;
-
+  list<string> symbols_;
   OrderId m_orderId;
 };
 

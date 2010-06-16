@@ -1,6 +1,8 @@
 
 #include "ib/util/internal.hpp"
 
+#include <glog/logging.h>
+
 #include <arpa/inet.h>
 #include <errno.h>
 #include <sys/select.h>
@@ -13,15 +15,16 @@ inline int SocketClose(int sockfd) { return close(sockfd); };
 const int PING_DEADLINE = 2; // seconds
 const int SLEEP_BETWEEN_PINGS = 30; // seconds
 
-using namespace ib::util;
+const int LEVEL = 2;
 
+using namespace ib::util;
 
 ///////////////////////////////////////////////////////////
 // member funcs
-IbClient::IbClient(int id)
-    : connection_id(id)
-    , m_eWrapper(new LogWrapper(id))
-    , m_pClient(new LogClientSocket(id, m_eWrapper.get()))
+IbClient::IbClient(int id) :
+    LogWrapper::LogWrapper(id)
+    , connection_id(id)
+    , m_pClient(new LogClientSocket(id, this))
     , m_state(ST_CONNECT)
     , m_sleepDeadline(0)
     , m_orderId(0)
@@ -75,6 +78,9 @@ void IbClient::processMessages()
   time_t now = time(NULL);
 
   switch (m_state) {
+    case ST_MARKETDATA:
+      requestMarketData();
+      break;
     case ST_PLACEORDER:
       placeOrder();
       break;
@@ -170,47 +176,82 @@ void IbClient::reqCurrentTime()
   m_pClient->reqCurrentTime();
 }
 
-void IbClient::placeOrder()
+Contract CreateContractForStock(std::string symbol)
 {
-  Contract contract;
-  Order order;
+  VLOG(LEVEL) << "Creating contract for " << symbol;
 
-  contract.symbol = "MSFT";
+  Contract contract;
+  contract.symbol = symbol;
   contract.secType = "STK";
   contract.exchange = "SMART";
   contract.currency = "USD";
+  return contract;
+}
+
+void IbClient::addSymbol(std::string symbol) {
+  VLOG(LEVEL) << "Adding symbol to watch: " << symbol;
+  symbols_.push_back(symbol);
+}
+
+void IbClient::requestMarketData() {
+  list<string>::iterator iter;
+  int i = 0;
+  for (iter = symbols_.begin(); iter != symbols_.end();  iter++, i++) {
+    Contract c = CreateContractForStock(*iter);
+    TickerId id = i;
+    m_pClient->reqMktData(id, c, "", false);
+  }
+  m_state = ST_PING;
+}
+
+void IbClient::placeOrder()
+{
+  VLOG(LEVEL)  << "Placing order.";
+  Contract contract = CreateContractForStock("MSFT");
+  Order order;
 
   order.action = "BUY";
   order.totalQuantity = 1000;
   order.orderType = "LMT";
   order.lmtPrice = 0.01;
 
-  printf("Placing Order %ld: %s %ld %s at %f\n", m_orderId, order.action.c_str(), order.totalQuantity, contract.symbol.c_str(), order.lmtPrice);
+  VLOG(LEVEL)
+      << "Placing Order " << m_orderId << " " << order.action
+      << " " << order.totalQuantity << " " << contract.symbol
+      << " @ " << order.lmtPrice;
 
   m_state = ST_PLACEORDER_ACK;
 
   m_pClient->placeOrder(m_orderId, contract, order);
+  VLOG(LEVEL) << "Order placed.";
 }
 
 void IbClient::cancelOrder()
 {
-  printf("Cancelling Order %ld\n", m_orderId);
+  VLOG(LEVEL) << "Cancelling Order " << m_orderId;
 
   m_state = ST_CANCELORDER_ACK;
 
   m_pClient->cancelOrder(m_orderId);
+  VLOG(LEVEL) << "State = " << m_state;
 }
 
 
 ///////////////////////////////////////////////////////////////////
 // events
 void IbClient::orderStatus(OrderId orderId, const IBString &status, int filled,
-                         int remaining, double avgFillPrice, int permId, int parentId,
-                         double lastFillPrice, int clientId, const IBString& whyHeld)
+                           int remaining, double avgFillPrice,
+                           int permId, int parentId,
+                           double lastFillPrice, int clientId,
+                           const IBString& whyHeld)
 
 {
+  LogWrapper::orderStatus(orderId, status, filled, remaining, avgFillPrice,
+                          permId, parentId, lastFillPrice, clientId, whyHeld);
+
   if(orderId == m_orderId) {
-    if(m_state == ST_PLACEORDER_ACK && (status == "PreSubmitted" || status == "Submitted"))
+    if(m_state == ST_PLACEORDER_ACK &&
+       (status == "PreSubmitted" || status == "Submitted"))
       m_state = ST_CANCELORDER;
 
     if(m_state == ST_CANCELORDER_ACK && status == "Cancelled")
@@ -222,13 +263,15 @@ void IbClient::orderStatus(OrderId orderId, const IBString &status, int filled,
 
 void IbClient::nextValidId(OrderId orderId)
 {
+  LogWrapper::nextValidId(orderId);
   m_orderId = orderId;
-
-  m_state = ST_PLACEORDER;
+  m_state = ST_MARKETDATA; // PLACEORDER;
+  VLOG(LEVEL) << "Transition to state " << m_state;
 }
 
 void IbClient::currentTime(long time)
 {
+  LogWrapper::currentTime(time);
   if (m_state == ST_PING_ACK) {
     time_t t = (time_t)time;
     struct tm * timeinfo = localtime (&t);
@@ -244,60 +287,10 @@ void IbClient::currentTime(long time)
 void IbClient::error(const int id, const int errorCode,
                      const IBString errorString)
 {
-  //	printf("Error id=%d, errorCode=%d, msg=%s\n", id, errorCode, errorString.c_str());
+  LogWrapper::error(id, errorCode, errorString);
 
-  if(id == -1 && errorCode == 1100) // if "Connectivity between IB and TWS has been lost"
+  // Connectivity between IB and TWS has been lost"
+  if(id == -1 && errorCode == 1100) {
     disconnect();
+  }
 }
-
-/*
-void IbClient::tickPrice(TickerId tickerId, TickType field, double price, int canAutoExecute) {}
-void IbClient::tickSize(TickerId tickerId, TickType field, int size) {}
-
-void IbClient::tickOptionComputation(
-    TickerId tickerId, TickType tickType,
-    double impliedVol,
-    double delta, double optPrice, double pvDividend,
-    double gamma, double vega, double theta, double undPrice) {}
-
-void IbClient::tickGeneric(TickerId tickerId, TickType tickType, double value) {}
-void IbClient::tickString(TickerId tickerId, TickType tickType, const IBString& value) {}
-void IbClient::tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const IBString& formattedBasisPoints,
-                     double totalDividends, int holdDays, const IBString& futureExpiry, double dividendImpact, double dividendsToExpiry) {}
-void IbClient::openOrder(OrderId orderId, const Contract&, const Order&, const OrderState& ostate) {}
-void IbClient::openOrderEnd() {}
-void IbClient::winError(const IBString &str, int lastError) {}
-void IbClient::connectionClosed() {}
-void IbClient::updateAccountValue(const IBString& key, const IBString& val,
-                                const IBString& currency, const IBString& accountName) {}
-void IbClient::updatePortfolio(const Contract& contract, int position,
-                             double marketPrice, double marketValue, double averageCost,
-                             double unrealizedPNL, double realizedPNL, const IBString& accountName){}
-void IbClient::updateAccountTime(const IBString& timeStamp) {}
-void IbClient::accountDownloadEnd(const IBString& accountName) {}
-void IbClient::contractDetails(int reqId, const ContractDetails& contractDetails) {}
-void IbClient::bondContractDetails(int reqId, const ContractDetails& contractDetails) {}
-void IbClient::contractDetailsEnd(int reqId) {}
-void IbClient::execDetails(int reqId, const Contract& contract, const Execution& execution) {}
-void IbClient::execDetailsEnd(int reqId) {}
-
-void IbClient::updateMktDepth(TickerId id, int position, int operation, int side,
-                            double price, int size) {}
-void IbClient::updateMktDepthL2(TickerId id, int position, IBString marketMaker, int operation,
-                              int side, double price, int size) {}
-void IbClient::updateNewsBulletin(int msgId, int msgType, const IBString& newsMessage, const IBString& originExch) {}
-void IbClient::managedAccounts(const IBString& accountsList) {}
-void IbClient::receiveFA(faDataType pFaDataType, const IBString& cxml) {}
-void IbClient::historicalData(TickerId reqId, const IBString& date, double open, double high,
-                            double low, double close, int volume, int barCount, double WAP, int hasGaps) {}
-void IbClient::scannerParameters(const IBString &xml) {}
-void IbClient::scannerData(int reqId, int rank, const ContractDetails &contractDetails,
-                         const IBString &distance, const IBString &benchmark, const IBString &projection,
-                         const IBString &legsStr) {}
-void IbClient::scannerDataEnd(int reqId) {}
-void IbClient::realtimeBar(TickerId reqId, long time, double open, double high, double low, double close,
-                         long volume, double wap, int count) {}
-void IbClient::fundamentalData(TickerId reqId, const IBString& data) {}
-void IbClient::deltaNeutralValidation(int reqId, const UnderComp& underComp) {}
-void IbClient::tickSnapshotEnd(int reqId) {}
-*/

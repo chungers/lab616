@@ -5,16 +5,21 @@
 
 #include <gflags/gflags.h>
 #include <glog/logging.h>
+#include <boost/algorithm/string.hpp>
 #include <boost/date_time.hpp>
 #include <string.h>
 #include <unistd.h>
+#include <vector>
+
 
 using namespace ib::util;
+using namespace std;
 
 DEFINE_int32(max_attempts, 50, "Max number of attempts.");
 DEFINE_int32(sleep_time, 10, "Sleep interval in seconds.");
 DEFINE_string(host, "", "Hostname to connect.");
 DEFINE_int32(port, 4001, "Port");
+DEFINE_string(symbols, "AAPL", "Symbols, comma-delimited.");
 DEFINE_int32(client_id, 0, "Client Id.");
 
 
@@ -30,8 +35,7 @@ int main(int argc, char** argv)
 
   const int clientId = FLAGS_client_id;
 
-  const std::string hostname = FLAGS_host;
-  std::string name = "Name";
+  const string hostname = FLAGS_host;
 
   unsigned attempt = 0;
   printf("Start of Simple Socket Client Test (%u.%u) attempts = %u\n",
@@ -42,6 +46,14 @@ int main(int argc, char** argv)
     printf( "Attempt %u, host:port=%s:%d\n", FLAGS_max_attempts,
             hostname.c_str(), FLAGS_port);
     IbClient client(clientId);
+
+    // Split the string flag by comma:
+    vector<string> tokens;
+    boost::split(tokens, FLAGS_symbols, boost::is_any_of(","));
+    vector<string>::iterator itr;
+    for (itr = tokens.begin(); itr != tokens.end(); itr++) {
+      client.addSymbol(*itr);
+    }
 
     client.connect(hostname.c_str(), FLAGS_port, clientId);
 
