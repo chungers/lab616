@@ -1,0 +1,10 @@
+MDF - Market Data Feed
+======================
+
+MDF
+: Market Data Feed
+: C++ project for market data feed.  Currently based on [Interactive Brokers][]
+API.
+: Integrates with tickdb backend for tickdata storage.
+
+[Interactive Brokers]: http://interactivebrokers.com
