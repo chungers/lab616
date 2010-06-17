@@ -30,4 +30,6 @@ inline int64 now_micros() {
   return static_cast<int64>(tv.tv_sec) * 1000000 + tv.tv_usec;
 }
 
+#define __f__(m) "," << #m << '=' << m
+
 #endif // IB_UTIL_LOG_COMMON_H_

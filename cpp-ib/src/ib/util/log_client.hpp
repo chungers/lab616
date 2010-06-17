@@ -5,18 +5,16 @@
 
 #define LOG_START \
   VLOG(VLOG_LEVEL_ECLIENT - 1) \
-  << "id=" << connection_id_ \
+  << "cid=" << connection_id_ \
   << ",ts=" << (call_start_ = now_micros()) \
   << ",action=" << __func__
 
 #define LOG_END \
   VLOG(VLOG_LEVEL_ECLIENT) \
-  << "id=" << connection_id_ \
+  << "cid=" << connection_id_ \
   << ",ts=" << (call_start_ = now_micros()) \
   << ",action=" << __func__ \
   << ",elapsed=" << (now_micros() - call_start_)
-
-#define __f__(m) "" << ',' << #m << '=' << m
 
 namespace ib {
 namespace util {
@@ -112,12 +110,6 @@ class LogClientSocket : public EPosixClientSocket {
         << __f__(numIds);
     EPosixClientSocket::reqIds(numIds);
     LOG_END;
- }
-  bool checkMessages() {
-    LOG_START;
-    bool v = EPosixClientSocket::checkMessages();
-    LOG_END;
-    return v;
  }
   void reqContractDetails(int reqId, const Contract &contract) {
     LOG_START

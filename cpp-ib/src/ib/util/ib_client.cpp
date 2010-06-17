@@ -13,7 +13,7 @@ inline bool SocketsDestroy() { return true; };
 inline int SocketClose(int sockfd) { return close(sockfd); };
 
 const int PING_DEADLINE = 2; // seconds
-const int SLEEP_BETWEEN_PINGS = 30; // seconds
+const int SLEEP_BETWEEN_PINGS = 60 * 60 * 10; // seconds
 
 const int LEVEL = 2;
 
