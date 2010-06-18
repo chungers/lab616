@@ -28,6 +28,9 @@ IbClient::IbClient(int id) :
     , m_state(ST_CONNECT)
     , m_sleepDeadline(0)
     , m_orderId(0)
+    , book_data_(false)
+    , tick_data_(false)
+    , realtime_bars_(false)
 {
 
 }
@@ -188,18 +191,45 @@ Contract CreateContractForStock(std::string symbol)
   return contract;
 }
 
-void IbClient::addSymbol(std::string symbol) {
+void IbClient::AddSymbol(std::string symbol) {
   VLOG(LEVEL) << "Adding symbol to watch: " << symbol;
   symbols_.push_back(symbol);
 }
 
+void IbClient::RequestBookData(bool f) {
+  VLOG(LEVEL) << "Requesting book data = " << f;
+  book_data_ = f;
+}
+
+void IbClient::RequestTickData(bool f) {
+  VLOG(LEVEL) << "Requesting tick data = " << f;
+  tick_data_ = f;
+}
+
+void IbClient::RequestRealTimeBars(bool f) {
+  VLOG(LEVEL) << "Requesting realtime bars = " << f;
+  realtime_bars_ = f;
+}
+
 void IbClient::requestMarketData() {
+  VLOG(LEVEL) << "Requesting market data... Server Version = "
+              << m_pClient->serverVersion();
   list<string>::iterator iter;
   int i = 0;
   for (iter = symbols_.begin(); iter != symbols_.end();  iter++, i++) {
     Contract c = CreateContractForStock(*iter);
     TickerId id = i;
-    m_pClient->reqMktData(id, c, "", false);
+    if (tick_data_) {
+      m_pClient->reqMktData(id, c, "", false);
+    }
+    if (realtime_bars_) {
+      // Note: Real-time bars are not supported via the Gateway.
+      // Must connect to TWS application.
+      m_pClient->reqRealTimeBars(id, c, 5, "TRADES", true);
+    }
+    if (book_data_) {
+      m_pClient->reqMktDepth(id, c, 10);
+    }
   }
   m_state = ST_PING;
 }

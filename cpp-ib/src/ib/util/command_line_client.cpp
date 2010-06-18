@@ -21,6 +21,9 @@ DEFINE_string(host, "", "Hostname to connect.");
 DEFINE_int32(port, 4001, "Port");
 DEFINE_string(symbols, "AAPL", "Symbols, comma-delimited.");
 DEFINE_int32(client_id, 0, "Client Id.");
+DEFINE_bool(book_data, false, "Book data.");
+DEFINE_bool(tick_data, true, "Tick data.");
+DEFINE_bool(realtime_bars, true, "Realtime bars");
 
 
 int main(int argc, char** argv)
@@ -47,12 +50,16 @@ int main(int argc, char** argv)
             hostname.c_str(), FLAGS_port);
     IbClient client(clientId);
 
+    client.RequestTickData(FLAGS_tick_data);
+    client.RequestBookData(FLAGS_book_data);
+    client.RequestRealTimeBars(FLAGS_realtime_bars);
+
     // Split the string flag by comma:
     vector<string> tokens;
     boost::split(tokens, FLAGS_symbols, boost::is_any_of(","));
     vector<string>::iterator itr;
     for (itr = tokens.begin(); itr != tokens.end(); itr++) {
-      client.addSymbol(*itr);
+      client.AddSymbol(*itr);
     }
 
     client.connect(hostname.c_str(), FLAGS_port, clientId);

@@ -52,7 +52,10 @@ public:
   void processMessages();
 
 public:
-  void addSymbol(string symbol);
+  void AddSymbol(string symbol);
+  void RequestBookData(bool f);
+  void RequestTickData(bool f);
+  void RequestRealTimeBars(bool f);
   bool connect(const char * host, unsigned int port, int clientId = 0);
   void disconnect() const;
   bool isConnected() const;
@@ -80,6 +83,9 @@ private:
   time_t m_sleepDeadline;
   list<string> symbols_;
   OrderId m_orderId;
+  bool book_data_;
+  bool tick_data_;
+  bool realtime_bars_;
 };
 
 }
