@@ -1,0 +1,26 @@
+// TickDb format as protobuf definitions.
+package tickdb.file;
+
+option optimize_for = LITE_RUNTIME;
+
+enum Type {
+  META = 0;
+  DATA = 1;
+};
+
+// Actual key value is encoded as bytes.
+message Key  {
+  required Type row_type = 1 [default = DATA];
+  required bytes KEY_BYTES = 2;
+}
+
+enum MessageType {
+  // Reserved value for the protobuffer
+  // that describes the actual message proto.
+  PROTO_DEF = 0;
+};
+
+message Value {
+  required uint32 message_type_code = 1;
+  required bytes value_bytes = 2;
+};
