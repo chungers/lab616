@@ -1,0 +1,96 @@
+;;; Project-specific template for Emacs.
+;;; The variables here are to be filled in by CMake.
+;;;
+;;;
+;;; //@PROJECT_NAME@/project.el
+
+;;; load this with M-x 'load-file'
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Git-Emacs
+(add-to-list 'load-path
+ "@PROJECT_SOURCE_DIR@/../third_party/emacs/git-emacs")
+(require 'git-emacs)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Google C++ styles
+(load-file
+ "@PROJECT_SOURCE_DIR@/../third_party/emacs/google-c-style.el")
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; CMake Mode
+(autoload 'cmake-mode
+ "@PROJECT_SOURCE_DIR@/../third_party/emacs/cmake-mode.el" t)
+(setq auto-mode-alist
+        (append
+	    '(("CMakeLists\\.txt\\'" . cmake-mode))
+	    '(("CMakeLists\\.macros\\'" . cmake-mode))
+	    '(("\\.cmake\\'" . cmake-mode))
+	    '(("\\.cmk\\'" . cmake-mode))
+	    '(("\\.proto\\'" . c++-mode))
+	    auto-mode-alist))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; CDET C++ Project
+(load-file
+ "@PROJECT_SOURCE_DIR@/../third_party/emacs/cedet/common/cedet.el")
+(require 'ede)
+(require 'semantic-gcc)
+(require 'semanticdb)
+(require 'semantic-decorate-include)
+
+(global-ede-mode 1)                       ; Enable Project management system
+(global-srecode-minor-mode 1)             ; Template insertion menu
+(global-semanticdb-minor-mode 1)
+
+(semantic-load-enable-code-helpers)       ; Prototype help and smart completion
+(semantic-load-enable-gaudy-code-helpers) ;
+
+(defun my-cedet-hook ()
+  ;; Code completion - symbol.
+  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+
+  ;; Code completion - member functions.
+  (local-set-key "." 'semantic-complete-self-insert)
+  (local-set-key ">" 'semantic-complete-self-insert)
+
+  ;; C-c 'space': Displays menu for code completion.
+  (local-set-key "\C-c " 'semantic-ia-complete-symbol-menu)
+
+  ;; C-c j: Jumps to defintion of symbol under cursor.
+  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
+
+  ;; C-c b: Jumps back after C-c j
+  (local-set-key "\C-cb" 'semantic-mrub-switch-tag)
+
+  ;; C-c v: Visits the declaration in header file (cursor on #define)
+  (local-set-key "\C-cv" 'semantic-decoration-include-visit)
+
+  ;; C-c p: Toggles between function declaration and actual implementation.
+  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+
+  ;; C-c u: Finds all usage of symbol under cursor.
+  (local-set-key "\C-cu" 'semantic-symref-symbol)
+
+  ;; C-c d: Shows the documentation / function prototype of tag under cursor
+  (local-set-key "\C-cd" 'semantic-ia-show-doc)
+
+  ;;
+  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+)
+(add-hook 'c-mode-common-hook 'my-cedet-hook)
+
+(ede-cpp-root-project
+ "@PROJECT_NAME@"
+ :file "@PROJECT_SOURCE_DIR@/CMakeLists.txt"
+ :include-path '("/src"
+		 "/test"
+		 "/_genfiles"
+		 "/_build/third_party/include"
+		 @EMACS_PROJECT_INCLUDE_PATHS@
+		 )
+ :system-include-path '("/usr/local/google")
+ )
