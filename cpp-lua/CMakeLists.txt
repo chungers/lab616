@@ -11,11 +11,7 @@ include(${PROJECT_SOURCE_DIR}/../cmake-common/Init.cmk)
 
 option(OPTIMIZE "Compiler optimization" ON)
 
-# Configure the project file for loading into emacs.
-configure_file(
-  project.el.in
-  ${PROJECT_SOURCE_DIR}/project.el
-)
+emacs_ide_project("")
 
 # Include the subdirectories required for this project:
 add_subdirectory(src)
