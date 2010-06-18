@@ -9,9 +9,29 @@ enum Type {
 };
 
 // Actual key value is encoded as bytes.
+// There are a number of considerations for key:
+// 1. Must be sortable.
+// 2. Must be compact.
+// Using fixed64 (=8 bytes) is too large.
+// Since we only need to index by time.  Consider
+// Year  = 8 bits, 2^8 = 256 => [1970, 1970+256]
+// Month = 4 bits, 2^4 = 16  => [1, 12]
+// Day   = 5 bits, 2^5 = 32  => [1, 31]
+// HOUR  = 5 bits, 2^5 = 32  => [0, 23]
+// MIN   = 6 bits, 2^6 = 64  => [0, 59]
+// SEC   = 6 bits, 2^6 = 64  => [0, 59]
+// At per-minute resolution, we need 28 bits, while
+// per-second resolution, we need 34 bits.
+// Per-minute resolution is probably good enough. We
+// want to see if the size of the B+tree index page
+// can be large enough such that most of the rows
+// at microsecond resolution can be in the same page.
+// Using 28 bits, we add another 4 bits for
+// the message type code.  We can have up to
+// 16 different message types.
 message Key  {
   required Type row_type = 1 [default = DATA];
-  required bytes KEY_BYTES = 2;
+  required bytes key_bytes = 2;
 }
 
 enum MessageType {
