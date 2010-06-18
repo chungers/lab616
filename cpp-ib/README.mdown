@@ -32,10 +32,10 @@ in a new tick type, CUST_OPTION_COMPUTATION, which is described below.
 *New Tick Type*
 A new tick type has been added to the API:
 
-  CUST_OPTION_COMPUTATION - returns calculated implied volatility as a
+ + *CUST_OPTION_COMPUTATION* = returns calculated implied volatility as a
   result of an calculateImpliedVolatility( ) request. 
 
-  Tick Value 53, returned by tickOptionCompution( ).
+ + Tick Value *53*, returned by tickOptionCompution( ).
 
 *Greeks*
 Tick Types Now Return Greeks, Underlying Price, Model Implied Volatility,
@@ -43,10 +43,10 @@ Stock and Option Reference Price The following tick types return values
 for the Greeks (delta, gamma, vega, theta), the underlying price, 
 pvDividend and the stock and option reference price when requested:
 
-  BID_OPTION_COMPUTATION
-  ASK_OPTION_COMPUTATION
-  LAST_OPTION_COMPUTATION
-  MODEL_OPTION_COMPUTATION
-  MODEL_OPTION_COMPUTATION also returns model implied volatility.
+ + BID_OPTION_COMPUTATION
+ + ASK_OPTION_COMPUTATION
+ + LAST_OPTION_COMPUTATION
+ + MODEL_OPTION_COMPUTATION
+ + MODEL_OPTION_COMPUTATION also returns model implied volatility.
 
 [1]: http://www.interactivebrokers.com
