@@ -15,11 +15,12 @@ option(OPTIMIZE "Compiler optimization" ON)
 # This corresponds to the name of the subdirectory in //cpp-ib/src/ib/api
 set(IBAPI_VERSION "9.64beta")
 
-# Configure the project file for loading into emacs.
-configure_file(
-  project.el.in
-  ${PROJECT_SOURCE_DIR}/project.el
+list(APPEND includes
+  /src/ib/api/${IBAPI_VERSION}
+  /src/ib/api/${IBAPI_VERSION}/Shared
+  /src/ib/api/${IBAPI_VERSION}/PosixSocketClient
 )
+emacs_ide_project("${includes}")
 
 
 # Use the api version defined in the top level cmake file:
