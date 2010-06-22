@@ -22,6 +22,8 @@ list(APPEND includes
 )
 emacs_ide_project("${includes}")
 
+# Third party libraries used.
+boost_libraries(date_time thread)
 
 # Use the api version defined in the top level cmake file:
 set(API_ROOT ${SRC_DIR}/ib/api/${IBAPI_VERSION})
@@ -29,6 +31,7 @@ set(API_ROOT ${SRC_DIR}/ib/api/${IBAPI_VERSION})
 # Include the subdirectories required for this project:
 add_subdirectory(src)
 add_subdirectory(test/ib/mocks)
-add_subdirectory(test/ib/client)
+add_subdirectory(test/ib)
+
 
 

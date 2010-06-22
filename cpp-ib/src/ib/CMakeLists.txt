@@ -11,9 +11,6 @@ configure_file(
   ${GEN_DIR}/ib/bridge_constants.h
 )
 
-# Third party libraries used.
-boost_libraries(date_time thread)
-
 # The macros here will first find any locally installed
 # libraries.  If not, it will build them in build/third_party.
 # Consider install these on the local host to ensure proper
@@ -31,17 +28,21 @@ proto_library(ib_actions_proto ib_actions.proto ${SRC_DIR}/ib)
 add_dependencies(ib_events_proto ib_common_proto)
 add_dependencies(ib_actions_proto ib_common_proto)
 
-set(V964Bridge_incs
+set(v964_adapter_incs
   ${SRC_DIR}/ib
-  ${SRC_DIR}/ib/api/${BRIDGE_VERSION}
-  ${SRC_DIR}/ib/api/${BRIDGE_VERSION}/Shared
+  ${SRC_DIR}/ib/api/9.64beta
+  ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
   ${SRC_DIR}
 )
-set(V964Bridge_srcs
-  bridge_v964.cpp
+set(v964_adapter_srcs
+  bridge.hpp
+  bridge.cpp
+  adapters.hpp
+  adapters.cpp
+  thread_client.cpp
 )
-set(V964Bridge_libs
+set(v964_adapter_libs
   ib_api
   ib_common_proto
   ib_events_proto
@@ -49,10 +50,28 @@ set(V964Bridge_libs
   gflags
 )
 # Client implementation:
-cpp_library(V964Bridge)
+cpp_library(v964_adapter)
+
+######################
+set(cl_incs
+  ${SRC_DIR}/ib
+  ${SRC_DIR}/ib/api/9.64beta
+  ${SRC_DIR}/ib/api/9.64beta/Shared
+  ${GEN_DIR}
+  ${SRC_DIR}
+)
+set(cl_srcs
+  thread_client.cpp
+)
+set(cl_libs
+  v964_adapter
+  boost_thread
+  glog
+)
+# Client implementation:
+cpp_executable(cl)
 
 # Include subdirectories here:
 add_subdirectory(api) # For IB provided source files.
 add_subdirectory(client)
-
 add_subdirectory(util) # For prototyping, testing, command utilities.
