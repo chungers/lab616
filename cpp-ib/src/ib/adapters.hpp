@@ -1,7 +1,18 @@
-#ifndef ADAPTERS_H_
-#define ADAPTERS_H_
+#ifndef IB_ADAPTERS_H_
+#define IB_ADAPTERS_H_
 
-// Header files for EWrapper and EClient derived classes for IB API Version 9.64
+// Header file for EWrapper and EClient derived classes for IB API Version 9.64
+//
+// This file contains the logging adapters for the EWrapper and EClient classes
+// in the IB API.  This head file contains all the IB-specific dependencies and
+// requires update whenever IB changes their API.
+//
+// By default, all methods are logged, both for the EClient (outbound message)
+// and the EWrapper (inbound message).  These classes are intended to be
+// subclassed so that methods are overridden as necessary.  Those methods
+// not handled will then output log entries so that all events and actions
+// via the IB API are accounted for.
+
 #ifndef IB_USE_STD_STRING
 #define IB_USE_STD_STRING
 #endif
@@ -39,16 +50,22 @@ const std::string kTickTypes[] = {
 
 
 class LoggingEWrapper : public EWrapper {
+
  public:
-  LoggingEWrapper(int connection_id);
+
+  LoggingEWrapper(unsigned int connection_id);
   ~LoggingEWrapper();
 
  private:
-  int connection_id_;
+  const unsigned int connection_id_;
 
  public:
-  template <typename State_t> State_t GetState();
-  int GetConnectionId();
+
+  template <typename State_t> const State_t get_current_state();
+  template <typename State_t> const State_t get_previous_state();
+
+  // Returns the connection id.
+  const unsigned int get_connection_id();
 
  public:
 
@@ -129,14 +146,18 @@ class LoggingEWrapper : public EWrapper {
 
 class LoggingEClientSocket : public EPosixClientSocket {
  public:
-  LoggingEClientSocket(int connection_id, EWrapper* e_wrapper);
+
+  LoggingEClientSocket(unsigned int connection_id, EWrapper* e_wrapper);
   ~LoggingEClientSocket();
 
  private:
-  const int connection_id_;
+
+  const unsigned int connection_id_;
   uint64_t call_start_;
 
  public:
+
+  const unsigned int get_connection_id();
 
   // Methods from EPosixSocketClient
 
@@ -191,4 +212,4 @@ class LoggingEClientSocket : public EPosixClientSocket {
 };
 } // namespace adapter
 }  // namespace ib
-#endif  // ADAPTERS_H_
+#endif  // IB_ADAPTERS_H_

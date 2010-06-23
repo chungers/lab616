@@ -1,13 +1,16 @@
 // Bridge header file.
 
-#ifndef BRIDGE_H_
-#define BRIDGE_H_
+#ifndef IB_BRIDGE_H_
+#define IB_BRIDGE_H_
 
 #include <ib/ib_events.pb.h>
 
 using namespace std;
 
 namespace ib {
+
+
+
 
 class Bridge {
 
@@ -21,4 +24,4 @@ class Bridge {
   void Disconnect();
 };
 } // namespace ib
-#endif // BRIDGE_H_
+#endif // IB_BRIDGE_H_

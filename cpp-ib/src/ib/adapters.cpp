@@ -27,12 +27,15 @@ inline int64 now_micros() {
 namespace ib {
 namespace adapter {
 
-LoggingEWrapper::LoggingEWrapper(int connection_id) :
+LoggingEWrapper::LoggingEWrapper(unsigned int connection_id) :
     connection_id_(connection_id) {
 }
+
 LoggingEWrapper::~LoggingEWrapper() {
 }
-int LoggingEWrapper::GetConnectionId() {
+
+const unsigned int LoggingEWrapper::get_connection_id()
+{
   return connection_id_;
 }
 
@@ -340,13 +343,19 @@ void LoggingEWrapper::error(const int id, const int errorCode,
   << ",elapsed=" << (now_micros() - call_start_)
 
 
-LoggingEClientSocket::LoggingEClientSocket(int connection_id,
-                                          EWrapper* e_wrapper) :
-    EPosixClientSocket::EPosixClientSocket(e_wrapper),
-    connection_id_(connection_id) {
+LoggingEClientSocket::LoggingEClientSocket(
+    unsigned int connection_id,
+    EWrapper* e_wrapper)
+    : EPosixClientSocket::EPosixClientSocket(e_wrapper)
+    , connection_id_(connection_id) {
 }
 
 LoggingEClientSocket::~LoggingEClientSocket() {
+}
+
+const unsigned int LoggingEClientSocket::get_connection_id()
+{
+  return connection_id_;
 }
 
 bool LoggingEClientSocket::eConnect(const char *host,

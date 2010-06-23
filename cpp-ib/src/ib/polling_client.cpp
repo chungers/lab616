@@ -1,5 +1,7 @@
 
 #include <ib/adapters.hpp>
+#include <ib/session.hpp>
+
 #include <boost/thread.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <glog/logging.h>
@@ -14,88 +16,24 @@ using namespace std;
 #define LOG_LEVEL 1
 
 namespace ib {
-namespace client {
+namespace internal {
 
-enum SessionState {
-  RUNNING,
-  ERROR,
-  SHUTTING_DOWN,
-  DISCONNECTED
-};
-
-class ThreadClient;
-
-class EWrapperBase : public LoggingEWrapper {
- public:
-  EWrapperBase(int connection_id)
-      : LoggingEWrapper::LoggingEWrapper(connection_id)
-      , last_state_(DISCONNECTED)
-      , current_state_(DISCONNECTED)
-  {
-  }
-
-  ~EWrapperBase()
-  {
-  }
-
- private:
-  SessionState last_state_;
-  SessionState current_state_;
+class PollingClient {
 
  public:
-  SessionState GetState()
-  {
-    return current_state_;
-  }
-
- private:
-  inline void set_state(SessionState next)
-  {
-    last_state_ = current_state_;
-    current_state_ = next;
-  }
-
- public:
-  void error(const int id, const int errorCode, const IBString errorString)
-  {
-    LoggingEWrapper::error(id, errorCode, errorString);
-    if (id == -1 && errorCode == 1100) {
-      LOG(WARNING) << "Error code = " << errorCode << " disconnecting.";
-      set_state(SHUTTING_DOWN);
-      return;
-    }
-    if (errorCode == 502) {
-      set_state(ERROR);
-      LOG(INFO) << "Transitioned to state = " << GetState();
-    }
-  }
-  void nextValidId(OrderId orderId)
-  {
-    LoggingEWrapper::nextValidId(orderId);
-    set_state(RUNNING);
-  }
-};
-
-typedef boost::scoped_ptr<EWrapperBase> EWrapperBasePtr;
-
-class ThreadClient {
-
- public:
-  ThreadClient(string host, int port, int connection_id)
+  PollingClient(string host, int port, int connection_id)
       : host_(host)
       , port_(port)
       , connection_id_(connection_id)
-        //    , ewrapper_(new EWrapperBase(connection_id))
+      , event_receiver_ptr_(new EventReceiver(connection_id))
       , stop_requested_(false)
       , max_retries_(50)
       , sleep_seconds_(10)
   {
-    ewrapper_ = new EWrapperBase(connection_id);
   }
 
-  ~ThreadClient()
+  ~PollingClient()
   {
-    delete ewrapper_;
   }
 
   void start()
@@ -105,7 +43,7 @@ class ThreadClient {
     VLOG(LOG_LEVEL) << "Starting thread.";
 
     polling_thread_ = boost::shared_ptr<boost::thread>(
-        new boost::thread(boost::bind(&ThreadClient::event_loop, this)));
+        new boost::thread(boost::bind(&PollingClient::event_loop, this)));
   }
 
   void stop()
@@ -115,12 +53,17 @@ class ThreadClient {
     polling_thread_->join();
   }
 
+  void join()
+  {
+    polling_thread_->join();
+  }
+
  private :
   string host_;
   int port_;
   int connection_id_;
-  EWrapperBase* ewrapper_;
-  //const EWrapperBasePtr ewrapper_;
+
+  boost::scoped_ptr<EventReceiver> event_receiver_ptr_;
 
   volatile bool stop_requested_;
   boost::shared_ptr<boost::thread> polling_thread_;
@@ -131,10 +74,11 @@ class ThreadClient {
 
   void event_loop()
   {
-    int tries = 0;
+    unsigned int tries = 0;
     while (!stop_requested_) {
 
-      LoggingEClientSocket socket_client(connection_id_, ewrapper_);
+      LoggingEClientSocket socket_client(
+          connection_id_, event_receiver_ptr_->as_wrapper());
 
       VLOG(LOG_LEVEL) << "Connecting to " << host_ << ":" << port_ << "@"
                       << connection_id_;
@@ -152,8 +96,10 @@ class ThreadClient {
         time_t now = time(NULL);
 
         // Handle different states.
-        SessionState state = ewrapper_->GetState();
-        switch (state) {
+        SessionState previous_state = event_receiver_ptr_->get_previous_state();
+        SessionState current_state = event_receiver_ptr_->get_current_state();
+
+        switch (current_state) {
           default:
             break;
         }
@@ -162,6 +108,7 @@ class ThreadClient {
         // allows actions to be requested on the socket_client.
         // This interface uses the proto buffs instead.
 
+        // Now poll for the next event.
         poll_socket(tval, socket_client);
       }
 
@@ -234,7 +181,7 @@ class ThreadClient {
   }
 };
 
-} // namespace client
+} // namespace internal
 } // namespace ib
 
 int main(int argc, char** argv)
@@ -242,11 +189,10 @@ int main(int argc, char** argv)
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 
-  ib::client::ThreadClient cl("", 4001, 0);
+  ib::internal::PollingClient cl("", 4001, 0);
   cl.start();
 
   VLOG(1) << "Main thread here.";
-  while (true) {
 
-  }
+  cl.join();
 }

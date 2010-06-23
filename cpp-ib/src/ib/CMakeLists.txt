@@ -19,7 +19,6 @@ third_party(gflags)
 set(glog_deps gflags)
 third_party(glog)
 
-
 # Generate protos
 proto_library(ib_common_proto ib_common.proto ${SRC_DIR}/ib)
 proto_library(ib_events_proto ib_events.proto ${SRC_DIR}/ib)
@@ -29,7 +28,6 @@ add_dependencies(ib_events_proto ib_common_proto)
 add_dependencies(ib_actions_proto ib_common_proto)
 
 set(v964_adapter_incs
-  ${SRC_DIR}/ib
   ${SRC_DIR}/ib/api/9.64beta
   ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
@@ -40,7 +38,9 @@ set(v964_adapter_srcs
   bridge.cpp
   adapters.hpp
   adapters.cpp
-  thread_client.cpp
+  polling_client.cpp
+  session.hpp
+  session.cpp
 )
 set(v964_adapter_libs
   ib_api
@@ -54,14 +54,13 @@ cpp_library(v964_adapter)
 
 ######################
 set(cl_incs
-  ${SRC_DIR}/ib
   ${SRC_DIR}/ib/api/9.64beta
   ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
   ${SRC_DIR}
 )
 set(cl_srcs
-  thread_client.cpp
+  polling_client.cpp
 )
 set(cl_libs
   v964_adapter
