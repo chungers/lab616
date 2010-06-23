@@ -1,6 +1,7 @@
 
 #include <ib/adapters.hpp>
 #include <boost/thread.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <glog/logging.h>
 
 #include <arpa/inet.h>
@@ -18,8 +19,11 @@ namespace client {
 enum SessionState {
   RUNNING,
   ERROR,
+  SHUTTING_DOWN,
   DISCONNECTED
 };
+
+class ThreadClient;
 
 class EWrapperBase : public LoggingEWrapper {
  public:
@@ -55,8 +59,14 @@ class EWrapperBase : public LoggingEWrapper {
   void error(const int id, const int errorCode, const IBString errorString)
   {
     LoggingEWrapper::error(id, errorCode, errorString);
+    if (id == -1 && errorCode == 1100) {
+      LOG(WARNING) << "Error code = " << errorCode << " disconnecting.";
+      set_state(SHUTTING_DOWN);
+      return;
+    }
     if (errorCode == 502) {
       set_state(ERROR);
+      LOG(INFO) << "Transitioned to state = " << GetState();
     }
   }
   void nextValidId(OrderId orderId)
@@ -66,6 +76,7 @@ class EWrapperBase : public LoggingEWrapper {
   }
 };
 
+typedef boost::scoped_ptr<EWrapperBase> EWrapperBasePtr;
 
 class ThreadClient {
 
@@ -74,15 +85,16 @@ class ThreadClient {
       : host_(host)
       , port_(port)
       , connection_id_(connection_id)
+        //    , ewrapper_(new EWrapperBase(connection_id))
       , stop_requested_(false)
+      , max_retries_(50)
+      , sleep_seconds_(10)
   {
-    ewrapper_ = new EWrapperBase(connection_id_);
-    socket_client_ = new LoggingEClientSocket(connection_id_, ewrapper_);
+    ewrapper_ = new EWrapperBase(connection_id);
   }
 
   ~ThreadClient()
   {
-    delete socket_client_;
     delete ewrapper_;
   }
 
@@ -108,24 +120,31 @@ class ThreadClient {
   int port_;
   int connection_id_;
   EWrapperBase* ewrapper_;
-  LoggingEClientSocket* socket_client_;
+  //const EWrapperBasePtr ewrapper_;
+
   volatile bool stop_requested_;
   boost::shared_ptr<boost::thread> polling_thread_;
   boost::mutex mutex_;
 
+  const unsigned max_retries_;
+  const unsigned sleep_seconds_; // seconds.
+
   void event_loop()
   {
+    int tries = 0;
     while (!stop_requested_) {
+
+      LoggingEClientSocket socket_client(connection_id_, ewrapper_);
 
       VLOG(LOG_LEVEL) << "Connecting to " << host_ << ":" << port_ << "@"
                       << connection_id_;
 
-      bool connected = socket_client_->eConnect(
+      bool connected = socket_client.eConnect(
           host_.c_str(), port_, connection_id_);
 
       VLOG(LOG_LEVEL) << "Connected = " << connected;
 
-      while (socket_client_->isConnected()) {
+      while (socket_client.isConnected()) {
         struct timeval tval;
         tval.tv_usec = 0;
         tval.tv_sec = 0;
@@ -135,12 +154,6 @@ class ThreadClient {
         // Handle different states.
         SessionState state = ewrapper_->GetState();
         switch (state) {
-          case ERROR:
-            VLOG(LOG_LEVEL) << "Error!!!  Disconnecting.";
-            stop_requested_ = true;
-            socket_client_->eDisconnect();
-            break;
-
           default:
             break;
         }
@@ -149,31 +162,37 @@ class ThreadClient {
         // allows actions to be requested on the socket_client.
         // This interface uses the proto buffs instead.
 
-        poll_socket(tval);
+        poll_socket(tval, socket_client);
       }
 
-      VLOG(LOG_LEVEL) << "Disconnected.  Reconnecting.";
+      if (tries++ >= max_retries_) {
+        LOG(WARNING) << "Retry attempts exceeded: " << tries << ". Exiting.";
+        break;
+      }
+      LOG(INFO) << "Sleeping " << sleep_seconds_ << " sec. before reconnect.";
+      sleep(sleep_seconds_);
+      VLOG(LOG_LEVEL) << "Reconnecting.";
     }
 
     VLOG(LOG_LEVEL) << "Stopped.";
   }
 
-  void poll_socket(timeval tval)
+  void poll_socket(timeval tval, LoggingEClientSocket socket)
   {
     fd_set readSet, writeSet, errorSet;
 
-    if(socket_client_->fd() >= 0 ) {
+    if(socket.fd() >= 0 ) {
       FD_ZERO(&readSet);
       errorSet = writeSet = readSet;
 
-      FD_SET(socket_client_->fd(), &readSet);
+      FD_SET(socket.fd(), &readSet);
 
-      if(!socket_client_->isOutBufferEmpty())
-        FD_SET(socket_client_->fd(), &writeSet);
+      if(!socket.isOutBufferEmpty())
+        FD_SET(socket.fd(), &writeSet);
 
-      FD_CLR(socket_client_->fd(), &errorSet);
+      FD_CLR(socket.fd(), &errorSet);
 
-      int ret = select(socket_client_->fd() + 1,
+      int ret = select(socket.fd() + 1,
                        &readSet, &writeSet, &errorSet, &tval);
 
       if(ret == 0) {
@@ -184,32 +203,32 @@ class ThreadClient {
       if(ret < 0) {
         // error
         VLOG(LOG_LEVEL) << "Error. Disconnecting.";
-        socket_client_->eDisconnect();
+        socket.eDisconnect();
         return;
       }
 
-      if(socket_client_->fd() < 0)
+      if(socket.fd() < 0)
         return;
 
-      if(FD_ISSET(socket_client_->fd(), &errorSet)) {
+      if(FD_ISSET(socket.fd(), &errorSet)) {
         // error on socket
-        socket_client_->onError();
+        socket.onError();
       }
 
-      if(socket_client_->fd() < 0)
+      if(socket.fd() < 0)
         return;
 
-      if(FD_ISSET(socket_client_->fd(), &writeSet)) {
+      if(FD_ISSET(socket.fd(), &writeSet)) {
         // socket is ready for writing
-        socket_client_->onSend();
+        socket.onSend();
       }
 
-      if(socket_client_->fd() < 0)
+      if(socket.fd() < 0)
         return;
 
-      if(FD_ISSET(socket_client_->fd(), &readSet)) {
+      if(FD_ISSET(socket.fd(), &readSet)) {
         // socket is ready for reading
-        socket_client_->onReceive();
+        socket.onReceive();
       }
     }
   }
