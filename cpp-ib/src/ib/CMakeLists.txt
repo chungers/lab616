@@ -29,6 +29,7 @@ add_dependencies(ib_actions_proto ib_common_proto)
 
 set(v964_adapter_incs
   ${SRC_DIR}/ib/api/9.64beta
+  ${SRC_DIR}/ib/api/9.64beta/PosixSocketClient
   ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
   ${SRC_DIR}
@@ -38,6 +39,7 @@ set(v964_adapter_srcs
   bridge.cpp
   adapters.hpp
   adapters.cpp
+  helpers.hpp
   polling_client.cpp
   session.hpp
   session.cpp
@@ -47,15 +49,12 @@ set(v964_adapter_libs
   ib_common_proto
   ib_events_proto
   ib_actions_proto
-  gflags
 )
 # Client implementation:
 cpp_library(v964_adapter)
 
 ######################
 set(cl_incs
-  ${SRC_DIR}/ib/api/9.64beta
-  ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
   ${SRC_DIR}
 )
@@ -65,6 +64,7 @@ set(cl_srcs
 set(cl_libs
   v964_adapter
   boost_thread
+  gflags
   glog
 )
 # Client implementation:

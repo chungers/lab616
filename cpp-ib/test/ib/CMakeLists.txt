@@ -14,6 +14,7 @@ set(adapter_test_incs
 set(adapter_test_srcs
   AllTests.cpp
   adapter_test.cpp
+  helpers_test.cpp
 )
 set(adapter_test_libs
   v964_adapter

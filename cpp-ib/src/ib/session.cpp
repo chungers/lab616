@@ -1,18 +1,22 @@
+#include <ib/adapters.hpp>
 #include <ib/session.hpp>
 #include <glog/logging.h>
 
 #define VLOG_LEVEL 2
 
 using namespace ib::internal;
+using namespace std;
 
 //////////////////////////////////////////////////////////
 
 
-class EventReceiver::implementation : public LoggingEWrapper
+class Session::implementation : public LoggingEWrapper
 {
  public:
-  implementation(unsigned int connection_id)
+  implementation(string host, unsigned int port, unsigned int connection_id)
       : LoggingEWrapper::LoggingEWrapper(connection_id)
+      , host_(host)
+      , port_(port)
       , previous_state_(START)
       , current_state_(START)
   {
@@ -20,31 +24,44 @@ class EventReceiver::implementation : public LoggingEWrapper
 
   ~implementation()
   {
+    if (socket_) delete socket_;
   }
 
  private:
-  SessionState previous_state_;
-  SessionState current_state_;
+  string host_;
+  unsigned int port_;
+  Session::State previous_state_;
+  Session::State current_state_;
+  EPosixClientSocket* socket_;
 
-  inline void set_state(SessionState next)
+  inline void set_state(Session::State next)
   {
     previous_state_ = current_state_;
     current_state_ = next;
   }
 
-  inline void set_state_if(SessionState last, SessionState next)
+  inline void set_state_if(Session::State last,
+                           Session::State next)
   {
     if (previous_state_ == last) current_state_ = next;
   }
 
  public:
 
-  const SessionState get_current_state()
+  EPosixClientSocket* Connect()
+  {
+    if (socket_) delete socket_;
+    socket_ = new LoggingEClientSocket(get_connection_id(), this);
+    socket_->eConnect(host_.c_str(), port_, get_connection_id());
+    return socket_;
+  }
+
+  const Session::State get_current_state()
   {
     return current_state_;
   }
 
-  const SessionState get_previous_state()
+  const Session::State get_previous_state()
   {
     return previous_state_;
   }
@@ -80,24 +97,16 @@ class EventReceiver::implementation : public LoggingEWrapper
 //
 // Forward calls to the implementation
 //
-EventReceiver::EventReceiver(unsigned int connection_id)
-    : impl_(new implementation(connection_id)) {}
+Session::Session(string host, unsigned int port, unsigned int connection_id)
+    : impl_(new implementation(host, port, connection_id)) {}
 
-EventReceiver::~EventReceiver() {}
+Session::~Session() {}
 
-EWrapper* EventReceiver::as_wrapper()
-{ return impl_.get(); }
+EPosixClientSocket* Session::Connect()
+{ return impl_->Connect(); }
 
-const SessionState EventReceiver::get_current_state()
+const Session::State Session::get_current_state()
 { return impl_->get_current_state(); }
 
-const SessionState EventReceiver::get_previous_state()
+const Session::State Session::get_previous_state()
 { return impl_->get_previous_state(); }
-
-void EventReceiver::error(const int id, const int errorCode,
-                          const IBString errorString)
-{ impl_->error(id, errorCode, errorString); }
-
-void EventReceiver::nextValidId(OrderId orderId)
-{ impl_->nextValidId(orderId); }
-

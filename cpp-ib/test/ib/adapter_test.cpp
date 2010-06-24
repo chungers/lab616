@@ -41,7 +41,7 @@ class TestLoggingEWrapper : public LoggingEWrapper {
 TEST(AdapterTest, CreateAdapterTest) {
   VLOG(1) << "Starting test.";
   TestLoggingEWrapper wrapper(1);
-  EXPECT_EQ(1, wrapper.GetConnectionId());
+  EXPECT_EQ(1, wrapper.get_connection_id());
 
   int state = wrapper.GetState();
   EXPECT_EQ(OPEN, state);
@@ -49,10 +49,6 @@ TEST(AdapterTest, CreateAdapterTest) {
   OrderId nextId(10);
   wrapper.nextValidId(nextId);
   EXPECT_EQ(CONNECTED, wrapper.GetState());
-}
-
-TEST(AdapterTest, ThreadClientTest) {
-
 }
 
 } // namespace

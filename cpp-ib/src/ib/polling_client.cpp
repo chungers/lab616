@@ -1,13 +1,11 @@
 
-#include <ib/adapters.hpp>
+
 #include <ib/session.hpp>
 
 #include <boost/thread.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <glog/logging.h>
 
-#include <arpa/inet.h>
-#include <errno.h>
 #include <sys/select.h>
 
 using namespace ib::adapter;
@@ -25,7 +23,7 @@ class PollingClient {
       : host_(host)
       , port_(port)
       , connection_id_(connection_id)
-      , event_receiver_ptr_(new EventReceiver(connection_id))
+      , session_(new Session(host, port, connection_id))
       , stop_requested_(false)
       , max_retries_(50)
       , sleep_seconds_(10)
@@ -63,7 +61,7 @@ class PollingClient {
   int port_;
   int connection_id_;
 
-  boost::scoped_ptr<EventReceiver> event_receiver_ptr_;
+  boost::scoped_ptr<Session> session_;
 
   volatile bool stop_requested_;
   boost::shared_ptr<boost::thread> polling_thread_;
@@ -77,18 +75,12 @@ class PollingClient {
     unsigned int tries = 0;
     while (!stop_requested_) {
 
-      LoggingEClientSocket socket_client(
-          connection_id_, event_receiver_ptr_->as_wrapper());
+      EPosixClientSocket* socket = session_->Connect();
 
       VLOG(LOG_LEVEL) << "Connecting to " << host_ << ":" << port_ << "@"
                       << connection_id_;
 
-      bool connected = socket_client.eConnect(
-          host_.c_str(), port_, connection_id_);
-
-      VLOG(LOG_LEVEL) << "Connected = " << connected;
-
-      while (socket_client.isConnected()) {
+      while (socket->isConnected()) {
         struct timeval tval;
         tval.tv_usec = 0;
         tval.tv_sec = 0;
@@ -96,8 +88,10 @@ class PollingClient {
         time_t now = time(NULL);
 
         // Handle different states.
-        SessionState previous_state = event_receiver_ptr_->get_previous_state();
-        SessionState current_state = event_receiver_ptr_->get_current_state();
+        Session::State previous_state =
+            session_->get_previous_state();
+        Session::State current_state =
+            session_->get_current_state();
 
         switch (current_state) {
           default:
@@ -109,7 +103,7 @@ class PollingClient {
         // This interface uses the proto buffs instead.
 
         // Now poll for the next event.
-        poll_socket(tval, socket_client);
+        poll_socket(tval, socket);
       }
 
       if (tries++ >= max_retries_) {
@@ -124,22 +118,22 @@ class PollingClient {
     VLOG(LOG_LEVEL) << "Stopped.";
   }
 
-  void poll_socket(timeval tval, LoggingEClientSocket socket)
+  void poll_socket(timeval tval, EPosixClientSocket* socket)
   {
     fd_set readSet, writeSet, errorSet;
 
-    if(socket.fd() >= 0 ) {
+    if(socket->fd() >= 0 ) {
       FD_ZERO(&readSet);
       errorSet = writeSet = readSet;
 
-      FD_SET(socket.fd(), &readSet);
+      FD_SET(socket->fd(), &readSet);
 
-      if(!socket.isOutBufferEmpty())
-        FD_SET(socket.fd(), &writeSet);
+      if(!socket->isOutBufferEmpty())
+        FD_SET(socket->fd(), &writeSet);
 
-      FD_CLR(socket.fd(), &errorSet);
+      FD_CLR(socket->fd(), &errorSet);
 
-      int ret = select(socket.fd() + 1,
+      int ret = select(socket->fd() + 1,
                        &readSet, &writeSet, &errorSet, &tval);
 
       if(ret == 0) {
@@ -150,32 +144,32 @@ class PollingClient {
       if(ret < 0) {
         // error
         VLOG(LOG_LEVEL) << "Error. Disconnecting.";
-        socket.eDisconnect();
+        socket->eDisconnect();
         return;
       }
 
-      if(socket.fd() < 0)
+      if(socket->fd() < 0)
         return;
 
-      if(FD_ISSET(socket.fd(), &errorSet)) {
+      if(FD_ISSET(socket->fd(), &errorSet)) {
         // error on socket
-        socket.onError();
+        socket->onError();
       }
 
-      if(socket.fd() < 0)
+      if(socket->fd() < 0)
         return;
 
-      if(FD_ISSET(socket.fd(), &writeSet)) {
+      if(FD_ISSET(socket->fd(), &writeSet)) {
         // socket is ready for writing
-        socket.onSend();
+        socket->onSend();
       }
 
-      if(socket.fd() < 0)
+      if(socket->fd() < 0)
         return;
 
-      if(FD_ISSET(socket.fd(), &readSet)) {
+      if(FD_ISSET(socket->fd(), &readSet)) {
         // socket is ready for reading
-        socket.onReceive();
+        socket->onReceive();
       }
     }
   }
