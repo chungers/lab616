@@ -10,13 +10,13 @@ using namespace std;
 
 // Max code value representing ZZZZ << 11.
 const int MAX_CODE_VALUE = 1088389120 + (1 << 12 - 1);
-
-inline int pow(int v, int p)
-{
-  int out = 1;
-  for (int i = 0; i < p; i++) { out *= v; }
-  return out;
-}
+const int MAX_CHARS = 4;
+const int SCALE[] = {
+  1,            // 27 ^ 0
+  27,           // 27 ^ 1
+  27 * 27,      // 27 ^ 2
+  27 * 27 * 27  // 27 ^ 3
+};
 
 // Compute the ticker id based on the symbol.
 // Key points:
@@ -34,9 +34,9 @@ inline int pow(int v, int p)
 int to_ticker_id(const string& s)
 {
   int v = 0;
-  int size = s.length();
-  for (int i = 0; i < size; i++) {
-    v += (toupper(s.at(i)) - 'A' + 1) * pow(27, s.length()-(i+1));
+  int len = s.length();
+  for (int i = 0; i < len; i++) {
+    v += (toupper(s.at(i)) - 'A' + 1) * SCALE[len-(i+1)];
   }
   return v << 11;
 }
@@ -48,10 +48,9 @@ string from_ticker_id(int code)
 {
   ostringstream sbuff;
   int m = code >> 11;
-  for (int i = 3; i >= 0; i--) {
-    int fact = pow(27, i);
-    int c = m / fact;
-    m %= fact;
+  for (int i = MAX_CHARS - 1; i >= 0; i--) {
+    int c = m / SCALE[i];
+    m %= SCALE[i];
     if (c > 0) sbuff << (char)(c + 'A' - 1);
   }
   return sbuff.str();
