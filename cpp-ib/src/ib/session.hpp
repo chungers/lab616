@@ -39,8 +39,8 @@ class Session
   const State get_current_state();
   const State get_previous_state();
 
- private:
 
+ private:
   class implementation;
   boost::scoped_ptr<implementation> impl_;
 

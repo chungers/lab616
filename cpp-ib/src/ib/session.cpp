@@ -4,30 +4,33 @@
 
 #define VLOG_LEVEL 2
 
+using namespace ib::adapter;
 using namespace ib::internal;
 using namespace std;
 
 //////////////////////////////////////////////////////////
 
-
-class Session::implementation : public LoggingEWrapper
+class polling_implementation : public LoggingEWrapper
 {
  public:
-  implementation(string host, unsigned int port, unsigned int connection_id)
+  polling_implementation(string host,
+                         unsigned int port,
+                         unsigned int connection_id)
       : LoggingEWrapper::LoggingEWrapper(connection_id)
       , host_(host)
       , port_(port)
-      , previous_state_(START)
-      , current_state_(START)
+      , previous_state_(Session::START)
+      , current_state_(Session::START)
   {
   }
 
-  ~implementation()
+  ~polling_implementation()
   {
     if (socket_) delete socket_;
   }
 
  private:
+
   string host_;
   unsigned int port_;
   Session::State previous_state_;
@@ -48,14 +51,6 @@ class Session::implementation : public LoggingEWrapper
 
  public:
 
-  EPosixClientSocket* Connect()
-  {
-    if (socket_) delete socket_;
-    socket_ = new LoggingEClientSocket(get_connection_id(), this);
-    socket_->eConnect(host_.c_str(), port_, get_connection_id());
-    return socket_;
-  }
-
   const Session::State get_current_state()
   {
     return current_state_;
@@ -66,6 +61,14 @@ class Session::implementation : public LoggingEWrapper
     return previous_state_;
   }
 
+  EPosixClientSocket* Connect()
+  {
+    if (socket_) delete socket_;
+    socket_ = new LoggingEClientSocket(get_connection_id(), this);
+    socket_->eConnect(host_.c_str(), port_, get_connection_id());
+    return socket_;
+  }
+
   // Handles the various error codes and states from the
   // IB gateway.
   void error(const int id, const int errorCode, const IBString errorString)
@@ -73,11 +76,11 @@ class Session::implementation : public LoggingEWrapper
     LoggingEWrapper::error(id, errorCode, errorString);
     if (id == -1 && errorCode == 1100) {
       LOG(WARNING) << "Error code = " << errorCode << " disconnecting.";
-      set_state(STOPPING);
+      set_state(Session::STOPPING);
       return;
     }
     if (errorCode == 502) {
-      set_state(ERROR);
+      set_state(Session::ERROR);
       LOG(INFO) << "Transitioned to state = " << get_current_state();
     }
   }
@@ -86,9 +89,24 @@ class Session::implementation : public LoggingEWrapper
   void nextValidId(OrderId orderId)
   {
     LoggingEWrapper::nextValidId(orderId);
-    set_state_if(START, CONNECTED);
+    set_state_if(Session::START, Session::CONNECTED);
     VLOG(VLOG_LEVEL) << "Connected.  (" << previous_state_ << ")->("
                      << current_state_ << ")";
+  }
+};
+
+
+/////////////////////////////////////////////////////////////////////
+class Session::implementation : public polling_implementation
+{
+ public:
+  implementation(string host, unsigned int port, unsigned int connection_id)
+      : polling_implementation(host, port, connection_id)
+  {
+  }
+
+  ~implementation()
+  {
   }
 };
 
