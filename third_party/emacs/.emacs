@@ -1,5 +1,10 @@
 ;;; .emacs
 
+;; Colors
+(set-face-foreground 'default "white")
+(set-face-background 'default "black")
+(set-face-background 'region "DarkRed")
+
 ;; General formatting -- 80 character limits
 (defun font-lock-width-keyword (width)
   "Return a font-lock style keyword for a string beyond width WIDTH

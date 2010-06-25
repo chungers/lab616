@@ -40,6 +40,7 @@ set(v964_adapter_srcs
   adapters.hpp
   adapters.cpp
   helpers.hpp
+  polling_client.hpp
   polling_client.cpp
   session.hpp
   session.cpp
@@ -59,7 +60,7 @@ set(cl_incs
   ${SRC_DIR}
 )
 set(cl_srcs
-  polling_client.cpp
+  main.cpp
 )
 set(cl_libs
   v964_adapter

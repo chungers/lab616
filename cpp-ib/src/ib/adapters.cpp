@@ -27,11 +27,26 @@ inline int64 now_micros() {
 namespace ib {
 namespace adapter {
 
-LoggingEWrapper::LoggingEWrapper(unsigned int connection_id) :
-    connection_id_(connection_id) {
+LoggingEWrapper::LoggingEWrapper(const string host,
+                                 const unsigned int port,
+                                 const unsigned int connection_id)
+    : host_(host)
+    , port_(port)
+    , connection_id_(connection_id)
+{
 }
 
 LoggingEWrapper::~LoggingEWrapper() {
+}
+
+const string LoggingEWrapper::get_host()
+{
+  return host_;
+}
+
+const unsigned int LoggingEWrapper::get_port()
+{
+  return port_;
 }
 
 const unsigned int LoggingEWrapper::get_connection_id()

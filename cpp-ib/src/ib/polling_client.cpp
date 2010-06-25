@@ -1,192 +1,141 @@
 
 
-#include <ib/session.hpp>
+#include <ib/polling_client.hpp>
 
-#include <boost/thread.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <glog/logging.h>
-
 #include <sys/select.h>
 
 using namespace ib::adapter;
 using namespace std;
 
-#define LOG_LEVEL 1
-
 namespace ib {
 namespace internal {
 
-class PollingClient {
+PollingClient::PollingClient(EPosixClientSocketFactory* f)
+    : client_socket_factory_(f)
+    , stop_requested_(false)
+    , max_retries_(50)
+    , sleep_seconds_(10)
+{
+}
 
- public:
-  PollingClient(string host, int port, int connection_id)
-      : host_(host)
-      , port_(port)
-      , connection_id_(connection_id)
-      , session_(new Session(host, port, connection_id))
-      , stop_requested_(false)
-      , max_retries_(50)
-      , sleep_seconds_(10)
-  {
-  }
+PollingClient::~PollingClient()
+{
+}
 
-  ~PollingClient()
-  {
-  }
 
-  void start()
-  {
-    assert(!polling_thread_);
+void PollingClient::start()
+{
+  assert(!polling_thread_);
+  VLOG(LOG_LEVEL) << "Starting thread.";
 
-    VLOG(LOG_LEVEL) << "Starting thread.";
+  polling_thread_ = boost::shared_ptr<boost::thread>(
+      new boost::thread(boost::bind(&PollingClient::event_loop, this)));
+}
 
-    polling_thread_ = boost::shared_ptr<boost::thread>(
-        new boost::thread(boost::bind(&PollingClient::event_loop, this)));
-  }
+void PollingClient::stop()
+{
+  assert(polling_thread_);
+  stop_requested_ = true;
+  polling_thread_->join();
+}
 
-  void stop()
-  {
-    assert(polling_thread_);
-    stop_requested_ = true;
-    polling_thread_->join();
-  }
+void PollingClient::join()
+{
+  polling_thread_->join();
+}
 
-  void join()
-  {
-    polling_thread_->join();
-  }
+void PollingClient::event_loop()
+{
+  unsigned int tries = 0;
+  while (!stop_requested_) {
 
- private :
-  string host_;
-  int port_;
-  int connection_id_;
+    VLOG(1) << "About to connect.";
 
-  boost::scoped_ptr<Session> session_;
+    EPosixClientSocket* socket =
+        client_socket_factory_->Connect();
 
-  volatile bool stop_requested_;
-  boost::shared_ptr<boost::thread> polling_thread_;
-  boost::mutex mutex_;
+    VLOG(1) << "Got socket " << socket;
 
-  const unsigned max_retries_;
-  const unsigned sleep_seconds_; // seconds.
+    while (socket->isConnected()) {
+      struct timeval tval;
+      tval.tv_usec = 0;
+      tval.tv_sec = 0;
 
-  void event_loop()
-  {
-    unsigned int tries = 0;
-    while (!stop_requested_) {
+      time_t now = time(NULL);
 
-      EPosixClientSocket* socket = session_->Connect();
-
-      VLOG(LOG_LEVEL) << "Connecting to " << host_ << ":" << port_ << "@"
-                      << connection_id_;
-
-      while (socket->isConnected()) {
-        struct timeval tval;
-        tval.tv_usec = 0;
-        tval.tv_sec = 0;
-
-        time_t now = time(NULL);
-
-        // Handle different states.
-        Session::State previous_state =
-            session_->get_previous_state();
-        Session::State current_state =
-            session_->get_current_state();
-
-        switch (current_state) {
-          default:
-            break;
-        }
-        // Invoke the handler registered for the given
-        // state.  The handler has a input parameter that
-        // allows actions to be requested on the socket_client.
-        // This interface uses the proto buffs instead.
-
-        // Now poll for the next event.
-        poll_socket(tval, socket);
-      }
-
-      if (tries++ >= max_retries_) {
-        LOG(WARNING) << "Retry attempts exceeded: " << tries << ". Exiting.";
-        break;
-      }
-      LOG(INFO) << "Sleeping " << sleep_seconds_ << " sec. before reconnect.";
-      sleep(sleep_seconds_);
-      VLOG(LOG_LEVEL) << "Reconnecting.";
+      // Now poll for the event.
+      poll_socket(tval, socket);
     }
 
-    VLOG(LOG_LEVEL) << "Stopped.";
+    if (tries++ >= max_retries_) {
+      LOG(WARNING) << "Retry attempts exceeded: " << tries << ". Exiting.";
+      break;
+    }
+    LOG(INFO) << "Sleeping " << sleep_seconds_ << " sec. before reconnect.";
+    sleep(sleep_seconds_);
+    VLOG(LOG_LEVEL) << "Reconnecting.";
   }
 
-  void poll_socket(timeval tval, EPosixClientSocket* socket)
-  {
-    fd_set readSet, writeSet, errorSet;
+  VLOG(LOG_LEVEL) << "Stopped.";
+}
 
-    if(socket->fd() >= 0 ) {
-      FD_ZERO(&readSet);
-      errorSet = writeSet = readSet;
+void PollingClient::poll_socket(timeval tval, EPosixClientSocket* socket)
+{
+  fd_set readSet, writeSet, errorSet;
 
-      FD_SET(socket->fd(), &readSet);
+  if(socket->fd() >= 0 ) {
+    FD_ZERO(&readSet);
+    errorSet = writeSet = readSet;
 
-      if(!socket->isOutBufferEmpty())
-        FD_SET(socket->fd(), &writeSet);
+    FD_SET(socket->fd(), &readSet);
 
-      FD_CLR(socket->fd(), &errorSet);
+    if(!socket->isOutBufferEmpty())
+      FD_SET(socket->fd(), &writeSet);
 
-      int ret = select(socket->fd() + 1,
-                       &readSet, &writeSet, &errorSet, &tval);
+    FD_CLR(socket->fd(), &errorSet);
 
-      if(ret == 0) {
-        // timeout
-        return;
-      }
+    int ret = select(socket->fd() + 1,
+                     &readSet, &writeSet, &errorSet, &tval);
 
-      if(ret < 0) {
-        // error
-        VLOG(LOG_LEVEL) << "Error. Disconnecting.";
-        socket->eDisconnect();
-        return;
-      }
+    if(ret == 0) {
+      // timeout
+      return;
+    }
 
-      if(socket->fd() < 0)
-        return;
+    if(ret < 0) {
+      // error
+      VLOG(LOG_LEVEL) << "Error. Disconnecting.";
+      socket->eDisconnect();
+      return;
+    }
 
-      if(FD_ISSET(socket->fd(), &errorSet)) {
-        // error on socket
-        socket->onError();
-      }
+    if(socket->fd() < 0)
+      return;
 
-      if(socket->fd() < 0)
-        return;
+    if(FD_ISSET(socket->fd(), &errorSet)) {
+      // error on socket
+      socket->onError();
+    }
 
-      if(FD_ISSET(socket->fd(), &writeSet)) {
-        // socket is ready for writing
-        socket->onSend();
-      }
+    if(socket->fd() < 0)
+      return;
 
-      if(socket->fd() < 0)
-        return;
+    if(FD_ISSET(socket->fd(), &writeSet)) {
+      // socket is ready for writing
+      socket->onSend();
+    }
 
-      if(FD_ISSET(socket->fd(), &readSet)) {
-        // socket is ready for reading
-        socket->onReceive();
-      }
+    if(socket->fd() < 0)
+      return;
+
+    if(FD_ISSET(socket->fd(), &readSet)) {
+      // socket is ready for reading
+      socket->onReceive();
     }
   }
-};
+}
+
 
 } // namespace internal
 } // namespace ib
-
-int main(int argc, char** argv)
-{
-  google::ParseCommandLineFlags(&argc, &argv, true);
-  google::InitGoogleLogging(argv[0]);
-
-  ib::internal::PollingClient cl("", 4001, 0);
-  cl.start();
-
-  VLOG(1) << "Main thread here.";
-
-  cl.join();
-}

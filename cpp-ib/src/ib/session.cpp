@@ -1,4 +1,5 @@
 #include <ib/adapters.hpp>
+#include <ib/polling_client.hpp>
 #include <ib/session.hpp>
 #include <glog/logging.h>
 
@@ -8,19 +9,20 @@ using namespace ib::adapter;
 using namespace ib::internal;
 using namespace std;
 
-//////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
-class polling_implementation : public LoggingEWrapper
+class polling_implementation
+    : public LoggingEWrapper, public EPosixClientSocketFactory
 {
  public:
   polling_implementation(string host,
                          unsigned int port,
                          unsigned int connection_id)
-      : LoggingEWrapper::LoggingEWrapper(connection_id)
-      , host_(host)
-      , port_(port)
+      : LoggingEWrapper::LoggingEWrapper(host, port, connection_id)
       , previous_state_(Session::START)
       , current_state_(Session::START)
+      , socket_(NULL)
+      , polling_client_(new PollingClient(this))
   {
   }
 
@@ -31,11 +33,10 @@ class polling_implementation : public LoggingEWrapper
 
  private:
 
-  string host_;
-  unsigned int port_;
   Session::State previous_state_;
   Session::State current_state_;
   EPosixClientSocket* socket_;
+  boost::scoped_ptr<PollingClient> polling_client_;
 
   inline void set_state(Session::State next)
   {
@@ -61,11 +62,39 @@ class polling_implementation : public LoggingEWrapper
     return previous_state_;
   }
 
+
+  void start()
+  {
+    //polling_client_ = (new PollingClient(this));
+    // Start the polling client, which will call the Connect method to
+    // get a client socket for polling for events on the socket.
+    polling_client_->start();
+  }
+
+  void join()
+  {
+    // Just delegate to the polling client.
+    polling_client_->join();
+  }
+
   EPosixClientSocket* Connect()
   {
     if (socket_) delete socket_;
-    socket_ = new LoggingEClientSocket(get_connection_id(), this);
-    socket_->eConnect(host_.c_str(), port_, get_connection_id());
+
+    const string host = get_host();
+    const unsigned int port = get_port();
+    const unsigned int connection_id = get_connection_id();
+
+    socket_ = new LoggingEClientSocket(connection_id, this);
+
+
+    LOG(INFO) << "Connecting to "
+              << host << ":" << port << " @ " << connection_id;
+
+    socket_->eConnect(host.c_str(), port, connection_id);
+
+    // At this point, we really need to look for the nextValidId
+    // event in EWrapper to confirm that a connection has been made.
     return socket_;
   }
 
@@ -96,6 +125,7 @@ class polling_implementation : public LoggingEWrapper
 };
 
 
+
 /////////////////////////////////////////////////////////////////////
 class Session::implementation : public polling_implementation
 {
@@ -120,8 +150,11 @@ Session::Session(string host, unsigned int port, unsigned int connection_id)
 
 Session::~Session() {}
 
-EPosixClientSocket* Session::Connect()
-{ return impl_->Connect(); }
+void Session::start()
+{ impl_->start(); }
+
+void Session::join()
+{ impl_->join(); }
 
 const Session::State Session::get_current_state()
 { return impl_->get_current_state(); }

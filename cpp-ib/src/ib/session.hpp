@@ -33,8 +33,8 @@ class Session
 
  public:
 
-  // Performs a connection and returns IB API client.
-  EPosixClientSocket* Connect();
+  void start();
+  void join();
 
   const State get_current_state();
   const State get_previous_state();
