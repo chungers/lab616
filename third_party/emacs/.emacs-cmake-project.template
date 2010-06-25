@@ -6,6 +6,9 @@
 
 ;;; load this with M-x 'load-file'
 
+; Default working directory
+(setq default-directory "@PROJECT_SOURCE_DIR@/")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Git-Emacs
 (add-to-list 'load-path
