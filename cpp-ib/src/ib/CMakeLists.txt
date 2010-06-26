@@ -42,6 +42,7 @@ set(v964_adapter_srcs
   helpers.hpp
   polling_client.hpp
   polling_client.cpp
+  services.hpp
   session.hpp
   session.cpp
 )

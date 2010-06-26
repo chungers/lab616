@@ -1,11 +1,14 @@
 
+
+#include <ib/services.hpp>
 #include <ib/session.hpp>
+
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
 
-using namespace ib::adapter;
 using namespace std;
 
 DEFINE_int32(max_attempts, 50, "Max number of attempts.");
@@ -31,14 +34,18 @@ int main(int argc, char** argv)
   const int port = FLAGS_port;
   const int connection_id = FLAGS_client_id;
 
-  ib::internal::Session session(host, port, connection_id);
+  ib::Session session(host, port, connection_id);
 
   VLOG(1) << "Session created for " << host << ":" << port << " @ "
           << connection_id;
 
   session.start();
 
-  VLOG(1) << "Main thread waiting.";
+  MarketData* md = session.access_market_data();
+
+  VLOG(1) << "Got MarketData = " << md;
+
+  VLOG(1) << "Requested AAPL = " << md->requestTicks("AAPL");
 
   session.join();
 }

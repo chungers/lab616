@@ -1,19 +1,16 @@
 #ifndef IB_SESSION_H_
 #define IB_SESSION_H_
 
-#include <ib/adapters.hpp>
+#include <ib/services.hpp>
 #include <boost/scoped_ptr.hpp>
 
-using namespace ib::adapter;
 using namespace std;
+using ib::services::MarketData;
 
 namespace ib {
-namespace internal {
 
-// Class that intercepts specific IB EWrapper events
-// in order to implement a unified state machine that
-// serves as the foundation of a stateful session with
-// the IB API Gateway.
+// A single session with the IB API Gateway, identified by
+// the host, port, and connection id.
 class Session
 {
 
@@ -34,11 +31,17 @@ class Session
  public:
 
   void start();
+  void stop();
   void join();
 
+  // These are public for now.  Not really necessary.
   const State get_current_state();
   const State get_previous_state();
 
+  bool ready(int timeout);
+
+  // Interface for request market data (tick, book, etc.)
+  MarketData* access_market_data();
 
  private:
   class implementation;
@@ -46,6 +49,5 @@ class Session
 
 };
 
-} // namespace internal
 } // namespace ib
 #endif // IB_SESSION_H_

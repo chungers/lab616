@@ -50,12 +50,8 @@ void PollingClient::event_loop()
   unsigned int tries = 0;
   while (!stop_requested_) {
 
-    VLOG(1) << "About to connect.";
-
     EPosixClientSocket* socket =
         client_socket_factory_->Connect();
-
-    VLOG(1) << "Got socket " << socket;
 
     while (socket->isConnected()) {
       struct timeval tval;
@@ -76,7 +72,6 @@ void PollingClient::event_loop()
     sleep(sleep_seconds_);
     VLOG(LOG_LEVEL) << "Reconnecting.";
   }
-
   VLOG(LOG_LEVEL) << "Stopped.";
 }
 

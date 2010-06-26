@@ -1,6 +1,7 @@
 #ifndef IB_POLLING_CLIENT_H_
 #define IB_POLLING_CLIENT_H_
 
+#include <ib/adapters.hpp>
 #include <ib/session.hpp>
 
 #include <boost/scoped_ptr.hpp>

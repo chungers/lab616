@@ -1,15 +1,28 @@
 #include <ib/adapters.hpp>
+#include <ib/marketdata.hpp>
 #include <ib/polling_client.hpp>
+#include <ib/services.hpp>
 #include <ib/session.hpp>
+
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/scoped_ptr.hpp>
+#include <boost/thread.hpp>
+
 #include <glog/logging.h>
 
 #define VLOG_LEVEL 2
 
-using namespace ib::adapter;
-using namespace ib::internal;
+using ib::adapter::LoggingEClientSocket;;
+using ib::adapter::LoggingEWrapper;
+using ib::services::MarketData;
+using ib::Session;
+
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
+
+namespace ib {
+namespace internal {
 
 class polling_implementation
     : public LoggingEWrapper, public EPosixClientSocketFactory
@@ -18,25 +31,37 @@ class polling_implementation
   polling_implementation(string host,
                          unsigned int port,
                          unsigned int connection_id)
-      : LoggingEWrapper::LoggingEWrapper(host, port, connection_id)
+      : LoggingEWrapper(host, port, connection_id)
       , previous_state_(Session::START)
       , current_state_(Session::START)
-      , socket_(NULL)
       , polling_client_(new PollingClient(this))
+      , client_socket_(NULL)
+      , marketdata_(NULL)
+      , connected_(false)
   {
   }
 
   ~polling_implementation()
   {
-    if (socket_) delete socket_;
   }
 
  private:
 
   Session::State previous_state_;
   Session::State current_state_;
-  EPosixClientSocket* socket_;
   boost::scoped_ptr<PollingClient> polling_client_;
+
+  boost::scoped_ptr<EPosixClientSocket> client_socket_;
+  boost::scoped_ptr<MarketData> marketdata_;
+
+  volatile bool connected_;
+  boost::mutex connected_mutex_;
+  boost::condition_variable connected_control_;
+
+  friend class PollingClient;
+  friend class market_data_implementation;
+
+ private:
 
   inline void set_state(Session::State next)
   {
@@ -52,6 +77,33 @@ class polling_implementation
 
  public:
 
+  bool ready(int timeout)
+  {
+    return wait_for_order_id(boost::posix_time::milliseconds(timeout));
+  }
+
+  void start()
+  {
+    // Immeidately returns as the thread starts.
+    // Block only when trying to access services.
+    polling_client_->start();
+    return;
+  }
+
+  void stop()
+  {
+    // First disconnect.
+
+    // The polling thread then stops.
+    polling_client_->stop();
+  }
+
+  void join()
+  {
+    // Just delegate to the polling client.
+    polling_client_->join();
+  }
+
   const Session::State get_current_state()
   {
     return current_state_;
@@ -62,40 +114,33 @@ class polling_implementation
     return previous_state_;
   }
 
-
-  void start()
+  MarketData* access_market_data()
   {
-    //polling_client_ = (new PollingClient(this));
-    // Start the polling client, which will call the Connect method to
-    // get a client socket for polling for events on the socket.
-    polling_client_->start();
+    bool ok = ready(5000);
+    LOG_IF(WARNING, !ok) << "Timed out on next order id!!!";
+    return (ok) ? marketdata_.get() : NULL;
   }
 
-  void join()
-  {
-    // Just delegate to the polling client.
-    polling_client_->join();
-  }
+ private:
 
   EPosixClientSocket* Connect()
   {
-    if (socket_) delete socket_;
-
     const string host = get_host();
     const unsigned int port = get_port();
     const unsigned int connection_id = get_connection_id();
 
-    socket_ = new LoggingEClientSocket(connection_id, this);
-
+    // Deletes any previously allocated resource.
+    client_socket_.reset(new LoggingEClientSocket(connection_id, this));
+    marketdata_.reset(new MarketDataImpl(client_socket_.get()));
 
     LOG(INFO) << "Connecting to "
               << host << ":" << port << " @ " << connection_id;
 
-    socket_->eConnect(host.c_str(), port, connection_id);
+    client_socket_->eConnect(host.c_str(), port, connection_id);
 
     // At this point, we really need to look for the nextValidId
     // event in EWrapper to confirm that a connection has been made.
-    return socket_;
+    return client_socket_.get();
   }
 
   // Handles the various error codes and states from the
@@ -121,17 +166,46 @@ class polling_implementation
     set_state_if(Session::START, Session::CONNECTED);
     VLOG(VLOG_LEVEL) << "Connected.  (" << previous_state_ << ")->("
                      << current_state_ << ")";
+
+    boost::unique_lock<boost::mutex> lock(connected_mutex_);
+    connected_ = true;
+    connected_control_.notify_all();
   }
+
+  // Returns false if timed out.
+  bool wait_for_order_id(const boost::posix_time::time_duration& duration)
+  {
+    if (connected_) return true;
+
+    boost::posix_time::ptime const start = boost::get_system_time();
+    boost::system_time const timeout = start + duration;
+
+    while (true && boost::get_system_time() <= timeout) {
+
+      // Block here until nextValidId gets the order id.
+      boost::unique_lock<boost::mutex> lock(connected_mutex_);
+
+      if (connected_) return true;
+    }
+    return (connected_);;
+  }
+
 };
 
+}; // namespace internal
+}; // namespace ib
 
+
+namespace ib {
 
 /////////////////////////////////////////////////////////////////////
-class Session::implementation : public polling_implementation
+
+class Session::implementation
+    : public ib::internal::polling_implementation
 {
  public:
   implementation(string host, unsigned int port, unsigned int connection_id)
-      : polling_implementation(host, port, connection_id)
+      : ib::internal::polling_implementation(host, port, connection_id)
   {
   }
 
@@ -139,7 +213,6 @@ class Session::implementation : public polling_implementation
   {
   }
 };
-
 
 /////////////////////////////////////////////////////////////////////
 //
@@ -153,6 +226,9 @@ Session::~Session() {}
 void Session::start()
 { impl_->start(); }
 
+void Session::stop()
+{ impl_->stop(); }
+
 void Session::join()
 { impl_->join(); }
 
@@ -161,3 +237,8 @@ const Session::State Session::get_current_state()
 
 const Session::State Session::get_previous_state()
 { return impl_->get_previous_state(); }
+
+MarketData* Session::access_market_data()
+{ return impl_->access_market_data(); }
+
+} // namespace ib
