@@ -25,11 +25,11 @@ using namespace std;
 namespace ib {
 namespace internal {
 
-DEFINE_int32(max_wait_confirm_connection, 5000,
+DEFINE_int32(max_wait_confirm_connection, 20000,
              "Max wait time in millis for connection confirmation.");
 
 class polling_implementation
-    : public LoggingEWrapper, public EPosixClientSocketFactory
+    : public LoggingEWrapper, public EPosixClientSocketAccess
 {
  public:
   polling_implementation(string host,
@@ -60,6 +60,7 @@ class polling_implementation
 
   volatile bool connected_;
   boost::mutex connected_mutex_;
+  boost::mutex socket_write_mutex_;
   boost::condition_variable connected_control_;
 
   friend class PollingClient;
@@ -128,8 +129,10 @@ class polling_implementation
 
  private:
 
-  EPosixClientSocket* Connect()
+  void connect()
   {
+    boost::unique_lock<boost::mutex> lock(socket_write_mutex_);
+
     const string host = get_host();
     const unsigned int port = get_port();
     const unsigned int connection_id = get_connection_id();
@@ -142,11 +145,29 @@ class polling_implementation
               << host << ":" << port << " @ " << connection_id;
 
     client_socket_->eConnect(host.c_str(), port, connection_id);
+  }
 
-    // At this point, we really need to look for the nextValidId
-    // event in EWrapper to confirm that a connection has been made.
+  void disconnect()
+  {
+    if (client_socket_.get()) {
+      boost::unique_lock<boost::mutex> lock(socket_write_mutex_);
+      client_socket_->eDisconnect();
+    }
+  }
+
+  void ping()
+  {
+    if (client_socket_.get()) {
+      boost::unique_lock<boost::mutex> lock(socket_write_mutex_);
+      client_socket_->reqCurrentTime();
+    }
+  }
+
+  EPosixClientSocket* get_for_read()
+  {
     return client_socket_.get();
   }
+
 
   // Handles the various error codes and states from the
   // IB gateway.
@@ -156,6 +177,10 @@ class polling_implementation
     if (id == -1 && errorCode == 1100) {
       LOG(WARNING) << "Error code = " << errorCode << " disconnecting.";
       set_state(Session::STOPPING);
+      if (client_socket_) {
+        client_socket_->eDisconnect();
+        polling_client_->received_disconnected();
+      }
       return;
     }
     if (errorCode == 502) {
@@ -175,6 +200,16 @@ class polling_implementation
     boost::unique_lock<boost::mutex> lock(connected_mutex_);
     connected_ = true;
     connected_control_.notify_all();
+
+    // Notify the poll client too
+    polling_client_->received_connected();
+  }
+
+  void currentTime(long time)
+  {
+    LoggingEWrapper::currentTime(time);
+    // Notify poll client that we have heartbeat.
+    polling_client_->received_heartbeat(time);
   }
 
   // Returns false if timed out.

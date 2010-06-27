@@ -16,10 +16,13 @@ namespace ib {
 namespace internal {
 
 
-class EPosixClientSocketFactory
+class EPosixClientSocketAccess
 {
  public:
-  virtual EPosixClientSocket* Connect() = 0;
+  virtual void connect() = 0;
+  virtual void disconnect() = 0;
+  virtual void ping() = 0;
+  virtual EPosixClientSocket* get_for_read() = 0;
 };
 
 
@@ -28,27 +31,31 @@ class EPosixClientSocketFactory
 class PollingClient {
 
  public:
-  PollingClient(EPosixClientSocketFactory* factory);
+  PollingClient(EPosixClientSocketAccess* factory);
   ~PollingClient();
 
   void start();
   void stop();
   void join();
 
+  void received_connected();
+  void received_disconnected();
+  void received_heartbeat(long time);
+
  private :
 
-  EPosixClientSocketFactory* client_socket_factory_;
+  EPosixClientSocketAccess* client_socket_access_;
 
   volatile bool stop_requested_;
+  volatile bool connected_;
+
   boost::shared_ptr<boost::thread> polling_thread_;
   boost::mutex mutex_;
 
-  const unsigned max_retries_;
-  const unsigned sleep_seconds_; // seconds.
+  volatile time_t heartbeat_deadline_;
 
   void event_loop();
   bool poll_socket(timeval tval, EPosixClientSocket* socket);
-
 };
 
 } // namespace internal
