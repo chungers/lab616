@@ -60,7 +60,6 @@ class polling_implementation
 
   volatile bool connected_;
   boost::mutex connected_mutex_;
-  boost::mutex socket_write_mutex_;
   boost::condition_variable connected_control_;
 
   friend class PollingClient;
@@ -131,8 +130,6 @@ class polling_implementation
 
   void connect()
   {
-    boost::unique_lock<boost::mutex> lock(socket_write_mutex_);
-
     const string host = get_host();
     const unsigned int port = get_port();
     const unsigned int connection_id = get_connection_id();
@@ -147,10 +144,14 @@ class polling_implementation
     client_socket_->eConnect(host.c_str(), port, connection_id);
   }
 
+  bool is_connected()
+  {
+    return (client_socket_.get())? client_socket_->isConnected() : false;
+  }
+
   void disconnect()
   {
     if (client_socket_.get()) {
-      boost::unique_lock<boost::mutex> lock(socket_write_mutex_);
       client_socket_->eDisconnect();
     }
   }
@@ -158,7 +159,6 @@ class polling_implementation
   void ping()
   {
     if (client_socket_.get()) {
-      boost::unique_lock<boost::mutex> lock(socket_write_mutex_);
       client_socket_->reqCurrentTime();
     }
   }

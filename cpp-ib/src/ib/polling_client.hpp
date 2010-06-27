@@ -20,6 +20,7 @@ class EPosixClientSocketAccess
 {
  public:
   virtual void connect() = 0;
+  virtual bool is_connected() = 0;
   virtual void disconnect() = 0;
   virtual void ping() = 0;
   virtual EPosixClientSocket* get_for_read() = 0;

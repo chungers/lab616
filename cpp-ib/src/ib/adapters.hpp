@@ -23,6 +23,7 @@
 #include <Shared/Order.h>
 #include <PosixSocketClient/EPosixClientSocket.h>
 
+#include <boost/thread.hpp>
 #include <sys/time.h>
 
 using namespace std;
@@ -159,6 +160,7 @@ class LoggingEClientSocket : public EPosixClientSocket {
 
  private:
 
+  boost::mutex socket_write_mutex_;  // For outbound messages only.
   const unsigned int connection_id_;
   uint64_t call_start_;
 

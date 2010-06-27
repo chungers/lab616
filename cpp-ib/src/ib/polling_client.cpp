@@ -98,7 +98,7 @@ void PollingClient::event_loop()
 
     time_t next_heartbeat = time(NULL);
 
-    while (client_socket_access_->get_for_read()->isConnected()) {
+    while (client_socket_access_->is_connected()) {
       struct timeval tval;
       tval.tv_usec = 0;
       tval.tv_sec = 0;
@@ -127,6 +127,10 @@ void PollingClient::event_loop()
         break;
       }
     }
+
+    // Push the heartbeat deadline into the future since right now we
+    // are not connected.
+    next_heartbeat = time(NULL) + FLAGS_heartbeat_interval;
 
     if (tries++ >= FLAGS_max_attempts) {
       LOG(WARNING) << "Retry attempts exceeded: " << tries << ". Exiting.";
