@@ -40,6 +40,7 @@ set(v964_adapter_srcs
   adapters.hpp
   adapters.cpp
   helpers.hpp
+  marketdata.cpp
   polling_client.hpp
   polling_client.cpp
   services.hpp

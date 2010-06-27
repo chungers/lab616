@@ -47,7 +47,7 @@ class PollingClient {
   const unsigned sleep_seconds_; // seconds.
 
   void event_loop();
-  void poll_socket(timeval tval, EPosixClientSocket* socket);
+  bool poll_socket(timeval tval, EPosixClientSocket* socket);
 
 };
 

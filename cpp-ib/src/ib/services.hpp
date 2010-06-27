@@ -10,11 +10,11 @@ namespace ib {
 namespace services {
 
 
-// Service for Requesting Market Data.
-class MarketData
+// Service interface for Requesting Market Data.
+class IMarketData
 {
-
  public:
+  virtual ~IMarketData() {}
 
   // Requests tick data for the given symbol.
   // Returns the unique ticker id.

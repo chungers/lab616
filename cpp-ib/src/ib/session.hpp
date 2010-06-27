@@ -5,7 +5,7 @@
 #include <boost/scoped_ptr.hpp>
 
 using namespace std;
-using ib::services::MarketData;
+using ib::services::IMarketData;
 
 namespace ib {
 
@@ -38,10 +38,10 @@ class Session
   const State get_current_state();
   const State get_previous_state();
 
-  bool ready(int timeout);
+  bool ready(int timeout = 0);
 
   // Interface for request market data (tick, book, etc.)
-  MarketData* access_market_data();
+  IMarketData* access_market_data();
 
  private:
   class implementation;

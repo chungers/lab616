@@ -8,13 +8,14 @@
 #include <boost/scoped_ptr.hpp>
 #include <boost/thread.hpp>
 
+#include <gflags/gflags.h>
 #include <glog/logging.h>
 
 #define VLOG_LEVEL 2
 
 using ib::adapter::LoggingEClientSocket;;
 using ib::adapter::LoggingEWrapper;
-using ib::services::MarketData;
+using ib::services::IMarketData;
 using ib::Session;
 
 using namespace std;
@@ -23,6 +24,9 @@ using namespace std;
 
 namespace ib {
 namespace internal {
+
+DEFINE_int32(max_wait_confirm_connection, 5000,
+             "Max wait time in millis for connection confirmation.");
 
 class polling_implementation
     : public LoggingEWrapper, public EPosixClientSocketFactory
@@ -52,7 +56,7 @@ class polling_implementation
   boost::scoped_ptr<PollingClient> polling_client_;
 
   boost::scoped_ptr<EPosixClientSocket> client_socket_;
-  boost::scoped_ptr<MarketData> marketdata_;
+  boost::scoped_ptr<IMarketData> marketdata_;
 
   volatile bool connected_;
   boost::mutex connected_mutex_;
@@ -77,8 +81,9 @@ class polling_implementation
 
  public:
 
-  bool ready(int timeout)
+  bool ready(int timeout = 0)
   {
+    if (!timeout) timeout = FLAGS_max_wait_confirm_connection;
     return wait_for_order_id(boost::posix_time::milliseconds(timeout));
   }
 
@@ -114,10 +119,10 @@ class polling_implementation
     return previous_state_;
   }
 
-  MarketData* access_market_data()
+  IMarketData* access_market_data()
   {
-    bool ok = ready(5000);
-    LOG_IF(WARNING, !ok) << "Timed out on next order id!!!";
+    bool ok = ready();
+    LOG_IF(WARNING, !ok) << "Connection not confirmed.  No market data.";
     return (ok) ? marketdata_.get() : NULL;
   }
 
@@ -238,7 +243,7 @@ const Session::State Session::get_current_state()
 const Session::State Session::get_previous_state()
 { return impl_->get_previous_state(); }
 
-MarketData* Session::access_market_data()
+IMarketData* Session::access_market_data()
 { return impl_->access_market_data(); }
 
 } // namespace ib
