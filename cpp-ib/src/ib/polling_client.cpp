@@ -84,7 +84,6 @@ void PollingClient::received_heartbeat(long time)
   // Lock then update the next heartbeat deadline. In case it's called
   // from another thread to message this object that heartbeat was received.
   boost::unique_lock<boost::mutex> lock(mutex_);
-  time_t now = ::time(NULL);
   heartbeat_deadline_ = 0;
   pending_heartbeat_ = false;
 }
@@ -107,8 +106,8 @@ void PollingClient::event_loop()
       time_t now = time(NULL);
       if (connected_ && now >= next_heartbeat) {
         // Do heartbeat
-        client_socket_access_->ping();
         boost::unique_lock<boost::mutex> lock(mutex_);
+        client_socket_access_->ping();
         heartbeat_deadline_ = now + FLAGS_heartbeat_deadline;
         next_heartbeat = now + FLAGS_heartbeat_interval;
         pending_heartbeat_ = true;
@@ -158,9 +157,12 @@ bool PollingClient::poll_socket(timeval tval)
   // the poll_socket() will return right away.  This is usually observed
   // with a spike in cpu %.
   time_t  now = time(NULL);
-  if (heartbeat_deadline_ > now) {
+  if (pending_heartbeat_) {
     tval.tv_sec = heartbeat_deadline_ - now;
+  } else {
+    tval.tv_sec = FLAGS_heartbeat_interval;
   }
+  VLOG(VLOG_LEVEL+10) << "select() timeout=" << tval.tv_sec;
   return client_socket_access_->poll_socket(tval);
 }
 
