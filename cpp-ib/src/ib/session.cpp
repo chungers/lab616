@@ -11,6 +11,8 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
+#include <sys/select.h>
+
 #define VLOG_LEVEL 2
 
 using ib::adapter::LoggingEClientSocket;;
@@ -25,7 +27,7 @@ using namespace std;
 namespace ib {
 namespace internal {
 
-DEFINE_int32(max_wait_confirm_connection, 20000,
+DEFINE_int32(max_wait_confirm_connection, 2000,
              "Max wait time in millis for connection confirmation.");
 
 class polling_implementation
@@ -36,12 +38,11 @@ class polling_implementation
                          unsigned int port,
                          unsigned int connection_id)
       : LoggingEWrapper(host, port, connection_id)
-      , previous_state_(Session::START)
-      , current_state_(Session::START)
       , polling_client_(new PollingClient(this))
       , client_socket_(NULL)
       , marketdata_(NULL)
       , connected_(false)
+      , disconnect_callback_(NULL)
   {
   }
 
@@ -51,10 +52,7 @@ class polling_implementation
 
  private:
 
-  Session::State previous_state_;
-  Session::State current_state_;
   boost::scoped_ptr<PollingClient> polling_client_;
-
   boost::scoped_ptr<EPosixClientSocket> client_socket_;
   boost::scoped_ptr<IMarketData> marketdata_;
 
@@ -65,60 +63,46 @@ class polling_implementation
   friend class PollingClient;
   friend class market_data_implementation;
 
- private:
+ private:  // callbacks:
 
-  inline void set_state(Session::State next)
-  {
-    previous_state_ = current_state_;
-    current_state_ = next;
-  }
-
-  inline void set_state_if(Session::State last,
-                           Session::State next)
-  {
-    if (previous_state_ == last) current_state_ = next;
-  }
+  Session::DisconnectCallback disconnect_callback_;
 
  public:
 
-  bool ready(int timeout = 0)
-  {
-    if (!timeout) timeout = FLAGS_max_wait_confirm_connection;
-    return wait_for_order_id(boost::posix_time::milliseconds(timeout));
-  }
-
+  /** @implements Session */
   void start()
   {
-    // Immeidately returns as the thread starts.
-    // Block only when trying to access services.
-    polling_client_->start();
-    return;
+    polling_client_->start();  // Start the thread.
   }
 
+  /** @implements Session */
   void stop()
   {
-    // First disconnect.
-
-    // The polling thread then stops.
+    disconnect();
     polling_client_->stop();
   }
 
+  /** @implements Session */
   void join()
   {
     // Just delegate to the polling client.
     polling_client_->join();
   }
 
-  const Session::State get_current_state()
+  /** @implements Session */
+  bool ready(int timeout = 0)
   {
-    return current_state_;
+    if (!timeout) timeout = FLAGS_max_wait_confirm_connection;
+    return wait_for_order_id(boost::posix_time::milliseconds(timeout));
   }
 
-  const Session::State get_previous_state()
+  /** @implements Session */
+  void register_callback(Session::DisconnectCallback cb)
   {
-    return previous_state_;
+    disconnect_callback_ = cb;
   }
 
+  /** @implements Session */
   IMarketData* access_market_data()
   {
     bool ok = ready();
@@ -128,6 +112,7 @@ class polling_implementation
 
  private:
 
+  /** @implements EPosixClientSocketAccess */
   void connect()
   {
     const string host = get_host();
@@ -144,18 +129,23 @@ class polling_implementation
     client_socket_->eConnect(host.c_str(), port, connection_id);
   }
 
+  /** @implements EPosixClientSocketAccess */
   bool is_connected()
   {
     return (client_socket_.get())? client_socket_->isConnected() : false;
   }
 
+  /** @implements EPosixClientSocketAccess */
   void disconnect()
   {
     if (client_socket_.get()) {
       client_socket_->eDisconnect();
+      polling_client_->received_disconnected();
+      if (disconnect_callback_) disconnect_callback_();
     }
   }
 
+  /** @implements EPosixClientSocketAccess */
   void ping()
   {
     if (client_socket_.get()) {
@@ -163,10 +153,64 @@ class polling_implementation
     }
   }
 
-  EPosixClientSocket* get_for_read()
+  /**
+   * See http://www.gnu.org/s/libc/manual/html_node/Waiting-for-I_002fO.html
+   * This uses select with the timeout determined by the caller.
+   * @implements EPosixClientSocketAccess
+   */
+  bool poll_socket(timeval tval)
   {
-    return client_socket_.get();
+    if (!client_socket_.get()) return true;
+    fd_set readSet, writeSet, errorSet;
+
+    if(client_socket_->fd() >= 0 ) {
+      FD_ZERO(&readSet);
+      errorSet = writeSet = readSet;
+
+      FD_SET(client_socket_->fd(), &readSet);
+
+      if(!client_socket_->isOutBufferEmpty())
+        FD_SET(client_socket_->fd(), &writeSet);
+
+      FD_CLR(client_socket_->fd(), &errorSet);
+
+      int ret = select(client_socket_->fd() + 1,
+                       &readSet, &writeSet, &errorSet, &tval);
+
+      if(ret == 0) return true; // expired
+
+      if(ret < 0) {
+        // error
+        VLOG(LOG_LEVEL) << "Error. Disconnecting.";
+        disconnect();
+        return false; // Do not continue.
+      }
+
+      if(client_socket_->fd() < 0) return false;
+
+      if(FD_ISSET(client_socket_->fd(), &errorSet)) {
+        // error on socket
+        client_socket_->onError();
+      }
+
+      if(client_socket_->fd() < 0) return false;
+
+      if(FD_ISSET(client_socket_->fd(), &writeSet)) {
+        // socket is ready for writing
+        client_socket_->onSend();
+      }
+
+      if(client_socket_->fd() < 0) return false;
+
+      if(FD_ISSET(client_socket_->fd(), &readSet)) {
+        // socket is ready for reading
+        client_socket_->onReceive();
+      }
+    }
+    return true;  // Ok to continue.
   }
+
+  /////////////////////////////////////////////////////////////////////////
 
 
   // Handles the various error codes and states from the
@@ -176,26 +220,28 @@ class polling_implementation
     LoggingEWrapper::error(id, errorCode, errorString);
     if (id == -1 && errorCode == 1100) {
       LOG(WARNING) << "Error code = " << errorCode << " disconnecting.";
-      set_state(Session::STOPPING);
-      if (client_socket_) {
-        client_socket_->eDisconnect();
-        polling_client_->received_disconnected();
-      }
+      disconnect();
       return;
     }
-    if (errorCode == 502) {
-      set_state(Session::ERROR);
-      LOG(INFO) << "Transitioned to state = " << get_current_state();
+    LOG(WARNING) << "Error code = " << errorCode
+                 << ", message = " << errorString;
+    switch (errorCode) {
+      case 502:
+        return;
+      case 509:
+        LOG(WARNING) << "Connection reset. Disconnecting.";
+        disconnect();
+      default:
+        break;
     }
   }
 
-  // This method is invoked on initial connection.
+  /** @implements EWrapper */
   void nextValidId(OrderId orderId)
   {
     LoggingEWrapper::nextValidId(orderId);
-    set_state_if(Session::START, Session::CONNECTED);
-    VLOG(VLOG_LEVEL) << "Connected.  (" << previous_state_ << ")->("
-                     << current_state_ << ")";
+    LOG(INFO) << "Connection confirmed wth next order id = "
+              << orderId;
 
     boost::unique_lock<boost::mutex> lock(connected_mutex_);
     connected_ = true;
@@ -205,6 +251,7 @@ class polling_implementation
     polling_client_->received_connected();
   }
 
+  /** @implements EWrapper */
   void currentTime(long time)
   {
     LoggingEWrapper::currentTime(time);
@@ -272,11 +319,8 @@ void Session::stop()
 void Session::join()
 { impl_->join(); }
 
-const Session::State Session::get_current_state()
-{ return impl_->get_current_state(); }
-
-const Session::State Session::get_previous_state()
-{ return impl_->get_previous_state(); }
+void Session::register_callback(Session::DisconnectCallback cb)
+{ impl_->register_callback(cb); }
 
 IMarketData* Session::access_market_data()
 { return impl_->access_market_data(); }

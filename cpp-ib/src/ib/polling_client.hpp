@@ -15,15 +15,17 @@ using namespace std;
 namespace ib {
 namespace internal {
 
-
+// Interface through which the polling client interacts
+// with the underlying socket client.
 class EPosixClientSocketAccess
 {
  public:
+  virtual ~EPosixClientSocketAccess() {}
   virtual void connect() = 0;
   virtual bool is_connected() = 0;
   virtual void disconnect() = 0;
   virtual void ping() = 0;
-  virtual EPosixClientSocket* get_for_read() = 0;
+  virtual bool poll_socket(timeval tval) = 0;
 };
 
 
@@ -32,7 +34,7 @@ class EPosixClientSocketAccess
 class PollingClient {
 
  public:
-  PollingClient(EPosixClientSocketAccess* factory);
+  PollingClient(EPosixClientSocketAccess* access);
   ~PollingClient();
 
   void start();
@@ -49,6 +51,7 @@ class PollingClient {
 
   volatile bool stop_requested_;
   volatile bool connected_;
+  volatile bool pending_heartbeat_;
 
   boost::shared_ptr<boost::thread> polling_thread_;
   boost::mutex mutex_;
@@ -56,7 +59,7 @@ class PollingClient {
   volatile time_t heartbeat_deadline_;
 
   void event_loop();
-  bool poll_socket(timeval tval, EPosixClientSocket* socket);
+  bool poll_socket(timeval tval);
 };
 
 } // namespace internal

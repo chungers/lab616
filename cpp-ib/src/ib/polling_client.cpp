@@ -6,7 +6,6 @@
 
 #include <gflags/gflags.h>
 #include <glog/logging.h>
-#include <sys/select.h>
 
 using namespace ib::adapter;
 using namespace std;
@@ -22,7 +21,7 @@ DEFINE_int32(max_attempts, 50,
              "Max number of connection attempts.");
 DEFINE_int32(heartbeat_deadline, 2,
              "Heartbeat deadline in seconds.");
-DEFINE_int32(heartbeat_interval, 30,
+DEFINE_int32(heartbeat_interval, 10,
              "Heartbeat interval in seconds.");
 
 
@@ -33,6 +32,7 @@ PollingClient::PollingClient(EPosixClientSocketAccess* f)
     : client_socket_access_(f)
     , stop_requested_(false)
     , connected_(false)
+    , pending_heartbeat_(false)
     , heartbeat_deadline_(0)
 {
 }
@@ -79,13 +79,14 @@ void PollingClient::received_heartbeat(long time)
 {
   time_t t = (time_t)time;
   struct tm * timeinfo = localtime (&t);
-  VLOG(VLOG_LEVEL) << "The current date/time is: " << asctime(timeinfo);
+  VLOG(VLOG_LEVEL + 2) << "The current date/time is: " << asctime(timeinfo);
 
   // Lock then update the next heartbeat deadline. In case it's called
   // from another thread to message this object that heartbeat was received.
   boost::unique_lock<boost::mutex> lock(mutex_);
   time_t now = ::time(NULL);
-  heartbeat_deadline_ = now + FLAGS_heartbeat_interval;  // next expected time.
+  heartbeat_deadline_ = 0;
+  pending_heartbeat_ = false;
 }
 
 void PollingClient::event_loop()
@@ -110,11 +111,12 @@ void PollingClient::event_loop()
         boost::unique_lock<boost::mutex> lock(mutex_);
         heartbeat_deadline_ = now + FLAGS_heartbeat_deadline;
         next_heartbeat = now + FLAGS_heartbeat_interval;
+        pending_heartbeat_ = true;
         lock.unlock();
       }
 
       // Check for heartbeat timeouts
-      if (heartbeat_deadline_ > 0 && now > heartbeat_deadline_) {
+      if (pending_heartbeat_ && now > heartbeat_deadline_) {
         LOG(WARNING) << "No heartbeat in " << FLAGS_heartbeat_deadline
                      << " seconds.";
         client_socket_access_->disconnect();
@@ -122,7 +124,7 @@ void PollingClient::event_loop()
         break;
       }
 
-      if (!poll_socket(tval, client_socket_access_->get_for_read())) {
+      if (!poll_socket(tval)) {
         VLOG(LOG_LEVEL) << "Error on socket. Try later.";
         break;
       }
@@ -130,7 +132,10 @@ void PollingClient::event_loop()
 
     // Push the heartbeat deadline into the future since right now we
     // are not connected.
-    next_heartbeat = time(NULL) + FLAGS_heartbeat_interval;
+    boost::unique_lock<boost::mutex> lock(mutex_);
+    next_heartbeat = 0;
+    pending_heartbeat_ = false;
+    lock.unlock();
 
     if (tries++ >= FLAGS_max_attempts) {
       LOG(WARNING) << "Retry attempts exceeded: " << tries << ". Exiting.";
@@ -145,61 +150,18 @@ void PollingClient::event_loop()
 }
 
 // Returns false on error on the socket.
-bool PollingClient::poll_socket(timeval tval, EPosixClientSocket* socket)
+bool PollingClient::poll_socket(timeval tval)
 {
-  fd_set readSet, writeSet, errorSet;
-
-  if(socket->fd() >= 0 ) {
-    FD_ZERO(&readSet);
-    errorSet = writeSet = readSet;
-
-    FD_SET(socket->fd(), &readSet);
-
-    if(!socket->isOutBufferEmpty())
-      FD_SET(socket->fd(), &writeSet);
-
-    FD_CLR(socket->fd(), &errorSet);
-
-    // Update the select() call timeout if we have a heartbeat coming.
-    time_t  now = time(NULL);
-    if (heartbeat_deadline_ > now) {
-      tval.tv_sec = heartbeat_deadline_ - now;
-    }
-
-    int ret = select(socket->fd() + 1,
-                     &readSet, &writeSet, &errorSet, &tval);
-
-    if(ret == 0) return true; // expired
-
-    if(ret < 0) {
-      // error
-      VLOG(LOG_LEVEL) << "Error. Disconnecting.";
-      socket->eDisconnect();
-      return false; // Do not continue.
-    }
-
-    if(socket->fd() < 0) return false;
-
-    if(FD_ISSET(socket->fd(), &errorSet)) {
-      // error on socket
-      socket->onError();
-    }
-
-    if(socket->fd() < 0) return false;
-
-    if(FD_ISSET(socket->fd(), &writeSet)) {
-      // socket is ready for writing
-      socket->onSend();
-    }
-
-    if(socket->fd() < 0) return false;
-
-    if(FD_ISSET(socket->fd(), &readSet)) {
-      // socket is ready for reading
-      socket->onReceive();
-    }
+  // Update the select() call timeout if we have a heartbeat coming.
+  // The timeout is set to the next expected heartbeat.  If the timeout
+  // value is too small (or == 0), there will be excessive polling because
+  // the poll_socket() will return right away.  This is usually observed
+  // with a spike in cpu %.
+  time_t  now = time(NULL);
+  if (heartbeat_deadline_ > now) {
+    tval.tv_sec = heartbeat_deadline_ - now;
   }
-  return true;  // Ok to continue.
+  return client_socket_access_->poll_socket(tval);
 }
 
 

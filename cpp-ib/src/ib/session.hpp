@@ -2,6 +2,8 @@
 #define IB_SESSION_H_
 
 #include <ib/services.hpp>
+#include <boost/bind.hpp>
+#include <boost/function.hpp>
 #include <boost/scoped_ptr.hpp>
 
 using namespace std;
@@ -13,17 +15,7 @@ namespace ib {
 // the host, port, and connection id.
 class Session
 {
-
  public:
-
-  // State of a session with the IB API/Gateway.
-  enum State {
-    START = 0,
-    CONNECTED,
-    STOPPING,
-    ERROR,
-    DISCONNECTED
-  };
 
   Session(string host, unsigned int port, unsigned int connection_id);
   ~Session();
@@ -34,11 +26,13 @@ class Session
   void stop();
   void join();
 
-  // These are public for now.  Not really necessary.
-  const State get_current_state();
-  const State get_previous_state();
-
   bool ready(int timeout = 0);
+
+
+  // Callbacks
+  typedef boost::function<void()> DisconnectCallback;
+  void register_callback(DisconnectCallback cb);
+
 
   // Interface for request market data (tick, book, etc.)
   IMarketData* access_market_data();

@@ -21,6 +21,10 @@ DEFINE_bool(book_data, false, "Book data.");
 DEFINE_bool(tick_data, true, "Tick data.");
 DEFINE_bool(realtime_bars, true, "Realtime bars");
 
+void OnDisconnect()
+{
+  LOG(WARNING) << "================== DISCONNECTED!!!";
+}
 
 int main(int argc, char** argv)
 {
@@ -37,6 +41,9 @@ int main(int argc, char** argv)
           << connection_id;
 
   session.start();
+
+  // register callback
+  session.register_callback(boost::bind(OnDisconnect));
 
   ib::services::IMarketData* md = NULL;
   while (!md) {
