@@ -30,9 +30,11 @@ class Session
 
 
   // Callbacks
-  typedef boost::function<void()> DisconnectCallback;
-  void register_callback(DisconnectCallback cb);
+  typedef boost::function<void()> ConnectConfirmCallback;
+  void register_callback_on_connect(ConnectConfirmCallback cb);
 
+  typedef boost::function<void()> DisconnectCallback;
+  void register_callback_on_disconnect(DisconnectCallback cb);
 
   // Interface for request market data (tick, book, etc.)
   IMarketData* access_market_data();

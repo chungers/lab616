@@ -61,10 +61,13 @@ class LoggingEWrapper : public EWrapper {
                   const unsigned int connection_id);
   ~LoggingEWrapper();
 
+ protected:
+  void set_connection_id(const unsigned int id);
+
  private:
   const string host_;
   const unsigned int port_;
-  const unsigned int connection_id_;
+  unsigned int connection_id_;
 
  public:
 

@@ -42,6 +42,7 @@ class polling_implementation
       , client_socket_(NULL)
       , marketdata_(NULL)
       , connected_(false)
+      , connect_confirm_callback_(NULL)
       , disconnect_callback_(NULL)
   {
   }
@@ -60,11 +61,15 @@ class polling_implementation
   boost::mutex connected_mutex_;
   boost::condition_variable connected_control_;
 
+  // TODO: Use a struct
+  int disconnects_;
+
   friend class PollingClient;
   friend class market_data_implementation;
 
  private:  // callbacks:
 
+  Session::ConnectConfirmCallback connect_confirm_callback_;
   Session::DisconnectCallback disconnect_callback_;
 
  public:
@@ -97,7 +102,13 @@ class polling_implementation
   }
 
   /** @implements Session */
-  void register_callback(Session::DisconnectCallback cb)
+  void register_callback_on_connect(Session::ConnectConfirmCallback cb)
+  {
+    connect_confirm_callback_ = cb;
+  }
+
+  /** @implements Session */
+  void register_callback_on_disconnect(Session::DisconnectCallback cb)
   {
     disconnect_callback_ = cb;
   }
@@ -140,6 +151,7 @@ class polling_implementation
   {
     if (client_socket_.get()) {
       client_socket_->eDisconnect();
+      disconnects_++;
       polling_client_->received_disconnected();
       if (disconnect_callback_) disconnect_callback_();
     }
@@ -226,6 +238,12 @@ class polling_implementation
     LOG(WARNING) << "Error code = " << errorCode
                  << ", message = " << errorString;
     switch (errorCode) {
+      case 326:
+        LOG(WARNING) << "Conflicting connection id. Disconnecting.";
+        disconnect();
+        // Update the connection id for connection retry.
+        set_connection_id(get_connection_id() + 1);
+        break;
       case 502:
         return;
       case 509:
@@ -249,6 +267,7 @@ class polling_implementation
 
     // Notify the poll client too
     polling_client_->received_connected();
+    if (connect_confirm_callback_) connect_confirm_callback_();
   }
 
   /** @implements EWrapper */
@@ -319,8 +338,11 @@ void Session::stop()
 void Session::join()
 { impl_->join(); }
 
-void Session::register_callback(Session::DisconnectCallback cb)
-{ impl_->register_callback(cb); }
+void Session::register_callback_on_connect(Session::ConnectConfirmCallback cb)
+{ impl_->register_callback_on_connect(cb); }
+
+void Session::register_callback_on_disconnect(Session::DisconnectCallback cb)
+{ impl_->register_callback_on_disconnect(cb); }
 
 IMarketData* Session::access_market_data()
 { return impl_->access_market_data(); }

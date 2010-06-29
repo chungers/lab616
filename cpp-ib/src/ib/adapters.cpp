@@ -39,6 +39,12 @@ LoggingEWrapper::LoggingEWrapper(const string host,
 LoggingEWrapper::~LoggingEWrapper() {
 }
 
+void LoggingEWrapper::set_connection_id(const unsigned int id)
+{
+  connection_id_ = id;
+  VLOG(VLOG_LEVEL_EWRAPPER) << "Connection id updated to " << id;
+}
+
 const string LoggingEWrapper::get_host()
 {
   return host_;

@@ -1,5 +1,4 @@
 
-
 #include <ib/polling_client.hpp>
 
 #include <boost/thread.hpp>
@@ -19,9 +18,9 @@ DEFINE_int32(retry_sleep_seconds, 10,
              "Sleep time in seconds before retry connection.");
 DEFINE_int32(max_attempts, 50,
              "Max number of connection attempts.");
-DEFINE_int32(heartbeat_deadline, 2,
+DEFINE_int32(heartbeat_deadline, 5,
              "Heartbeat deadline in seconds.");
-DEFINE_int32(heartbeat_interval, 10,
+DEFINE_int32(heartbeat_interval, 10 * 60 * 60,
              "Heartbeat interval in seconds.");
 
 

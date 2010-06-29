@@ -37,6 +37,7 @@ unsigned int MarketDataImpl::requestTicks(const string& symbol)
   Contract c = CreateContractForStock(symbol);
   TickerId id = to_ticker_id(symbol);
   eclient_->reqMktData(id, c, "", false);
+  eclient_->reqMktDepth(id, c, 10);
   return id;
 }
 
