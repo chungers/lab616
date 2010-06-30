@@ -29,6 +29,11 @@ class MarketDataImpl : public ib::services::IMarketData
 
  public:
   virtual unsigned int requestTicks(const string& symbol);
+
+  virtual unsigned int requestOptionData(const string& symbol,
+                                         bool call,
+                                         const double strike,
+                                         const int year, const int month);
 };
 
 

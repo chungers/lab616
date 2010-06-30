@@ -19,6 +19,12 @@ class IMarketData
   // Requests tick data for the given symbol.
   // Returns the unique ticker id.
   virtual unsigned int requestTicks(const string& symbol) = 0;
+
+  // Option data
+  virtual unsigned int requestOptionData(const string& symbol,
+                                         bool call,
+                                         const double strike,
+                                         const int year, const int month) = 0;
 };
 
 

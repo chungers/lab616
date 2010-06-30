@@ -5,6 +5,7 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/format.hpp>
 #include <boost/thread.hpp>
 
 #include <gflags/gflags.h>
@@ -23,6 +24,13 @@ DEFINE_int32(client_id, 0, "Client Id.");
 DEFINE_bool(book_data, false, "Book data.");
 DEFINE_bool(tick_data, true, "Tick data.");
 DEFINE_bool(realtime_bars, true, "Realtime bars");
+
+DEFINE_bool(option, true, "Request option data.");
+DEFINE_string(option_symbol, "AAPL", "Option underlying symbol");
+DEFINE_bool(option_call, true, "True for Calls.");
+DEFINE_int32(option_month, 7, "month 1 - 12");
+DEFINE_int32(option_year, 2010, "YYYY");
+DEFINE_double(option_strike, 0.0, "Strike");
 
 ib::Session* session;
 vector<string> tokens;
@@ -43,8 +51,8 @@ ib::services::IMarketData* WaitForConnectionConfirmation()
   return md;
 }
 
-void RequestData(vector<string> symbols,
-                 ib::services::IMarketData* md)
+void RequestStockData(vector<string> symbols,
+                      ib::services::IMarketData* md)
 {
   vector<string>::iterator itr;
   for (itr = symbols.begin(); itr != symbols.end(); itr++) {
@@ -53,13 +61,39 @@ void RequestData(vector<string> symbols,
   }
 }
 
+string FormatOptionExpiry(int year, int month)
+{
+  ostringstream s1;
+  string fmt = (month > 9) ? "%4d%2d" : "%4d0%1d";
+  s1 << boost::format(fmt) % year % month;
+  return s1.str();
+}
+
+void RequestOptionData(ib::services::IMarketData* md)
+{
+  md->requestOptionData(FLAGS_option_symbol,
+                        FLAGS_option_call,
+                        FLAGS_option_strike,
+                        FLAGS_option_year,
+                        FLAGS_option_month);
+  VLOG(1) << "Requested " << FLAGS_option_symbol
+          << ", call = " << FLAGS_option_call
+          << ", strike = " << FLAGS_option_strike
+          << ", expiry = " << FormatOptionExpiry(FLAGS_option_year,
+                                                 FLAGS_option_month);
+}
+
 void OnConnectConfirm()
 {
   LOG(INFO) << "================== CONNECTION CONFIRMED ===================";
 
   ib::services::IMarketData* md = session->access_market_data();
   if (md) {
-    RequestData(tokens, md);
+    if (FLAGS_option) {
+      RequestOptionData(md);
+    } else {
+      RequestStockData(tokens, md);
+    }
   }
 }
 
