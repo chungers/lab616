@@ -24,7 +24,8 @@ class IMarketData
   virtual unsigned int requestOptionData(const string& symbol,
                                          bool call,
                                          const double strike,
-                                         const int year, const int month) = 0;
+                                         const int year, const int month,
+                                         const int day) = 0;
 };
 
 

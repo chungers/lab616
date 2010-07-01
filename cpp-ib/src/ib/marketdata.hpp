@@ -33,7 +33,9 @@ class MarketDataImpl : public ib::services::IMarketData
   virtual unsigned int requestOptionData(const string& symbol,
                                          bool call,
                                          const double strike,
-                                         const int year, const int month);
+                                         const int year,
+                                         const int month,
+                                         const int day);
 };
 
 

@@ -28,6 +28,7 @@ DEFINE_bool(realtime_bars, true, "Realtime bars");
 DEFINE_bool(option, true, "Request option data.");
 DEFINE_string(option_symbol, "AAPL", "Option underlying symbol");
 DEFINE_bool(option_call, true, "True for Calls.");
+DEFINE_int32(option_day, 16, "month 1 - 31");
 DEFINE_int32(option_month, 7, "month 1 - 12");
 DEFINE_int32(option_year, 2010, "YYYY");
 DEFINE_double(option_strike, 0.0, "Strike");
@@ -61,11 +62,12 @@ void RequestStockData(vector<string> symbols,
   }
 }
 
-string FormatOptionExpiry(int year, int month)
+string FormatOptionExpiry(int year, int month, int day)
 {
   ostringstream s1;
   string fmt = (month > 9) ? "%4d%2d" : "%4d0%1d";
-  s1 << boost::format(fmt) % year % month;
+  string fmt2 = (day > 9) ? "%2d" : "0%1d";
+  s1 << boost::format(fmt) % year % month << boost::format(fmt2) % day;
   return s1.str();
 }
 
@@ -75,12 +77,13 @@ void RequestOptionData(ib::services::IMarketData* md)
                         FLAGS_option_call,
                         FLAGS_option_strike,
                         FLAGS_option_year,
-                        FLAGS_option_month);
+                        FLAGS_option_month,
+                        FLAGS_option_day);
   VLOG(1) << "Requested " << FLAGS_option_symbol
-          << ", call = " << FLAGS_option_call
           << ", strike = " << FLAGS_option_strike
           << ", expiry = " << FormatOptionExpiry(FLAGS_option_year,
-                                                 FLAGS_option_month);
+                                                 FLAGS_option_month,
+                                                 FLAGS_option_day);
 }
 
 void OnConnectConfirm()
