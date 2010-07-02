@@ -90,12 +90,12 @@ unsigned int MarketDataImpl::requestOptionData(
       symbol, call, strike, year, month, day);
 
   // One sid of straddle
-  TickerId id1 = id + 511 + (call ? +1 : -1) * strike;
+  TickerId id1 = id + 512 + (call ? +1 : -1) * strike;
   eclient_->reqMktData(id1, optContract, GENERIC_TICK_TAGS, false);
   eclient_->reqMktDepth(id1, optContract, 10);
 
   // Opposite side
-  TickerId id2 = id + 511 + (!call ? +1 : -1) * strike;
+  TickerId id2 = id + 512 + (!call ? +1 : -1) * strike;
   Contract optContract2 = CreateContractForOption(
       symbol, !call, strike, year, month, day);
   eclient_->reqMktData(id2, optContract2, GENERIC_TICK_TAGS, false);

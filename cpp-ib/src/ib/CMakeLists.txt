@@ -75,5 +75,4 @@ cpp_executable(cl)
 
 # Include subdirectories here:
 add_subdirectory(api) # For IB provided source files.
-add_subdirectory(client)
 add_subdirectory(util) # For prototyping, testing, command utilities.
