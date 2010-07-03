@@ -1,0 +1,52 @@
+Interactive Brokers Integration
+===============================
+This project contains code that integrates with the trading platform
+from [Interactive Brokers][1].
+
+6/6/2010 - Versions
+-------------------
+- IB TWS Client = 905.4  (tws-unix-905)
+- IB API = 964 (beta)
+  - 964 requires 905 client.
+  - Key features = Option computation for gamma, theata, vega.
+- IB Gateway:
+  - Replacement for TWS platform for connectivity.
+  - No longer logs out daily.  Connection to IB's API server
+  can stay indefinitely.
+  - Part of the TWS distribution, just different Java main class.
+
+6/6/2010 - IB API Update
+------------------------
+*New Request for Implied Volatility*
+A new API request, calculateImpliedVolatility, calculates the
+Implied Volatility based on the user-supplied option and underlying prices.
+
+  calculateImpliedVolatility(int reqId, Contract optionContract, double optionPrice, double underPrice) 
+
+where optionContract is the option contract. optionPrice is the price of the option.
+underPrice is the price of the underlying of the option.
+
+dThe calculated implied volatility is returned by tickOptionComputation()
+in a new tick type, CUST_OPTION_COMPUTATION, which is described below.
+
+*New Tick Type*
+A new tick type has been added to the API:
+
+ + *CUST_OPTION_COMPUTATION* = returns calculated implied volatility as a
+  result of an calculateImpliedVolatility( ) request. 
+
+ + Tick Value *53*, returned by tickOptionCompution( ).
+
+*Greeks*
+Tick Types Now Return Greeks, Underlying Price, Model Implied Volatility,
+Stock and Option Reference Price The following tick types return values
+for the Greeks (delta, gamma, vega, theta), the underlying price, 
+pvDividend and the stock and option reference price when requested:
+
+ + BID_OPTION_COMPUTATION
+ + ASK_OPTION_COMPUTATION
+ + LAST_OPTION_COMPUTATION
+ + MODEL_OPTION_COMPUTATION
+ + MODEL_OPTION_COMPUTATION also returns model implied volatility.
+
+[1]: http://www.interactivebrokers.com

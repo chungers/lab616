@@ -1,7 +1,6 @@
 # //cpp-ib/src/ib/api/CMakeLists.txt
 # Build file for the IB api library.
 
-
 # Use standard string library instead of mvc foundation classes:
 option(IB_USE_STD_STRING "Use standard c++ string (see Shared/IBString.h)." ON)
 if (IB_USE_STD_STRING)
