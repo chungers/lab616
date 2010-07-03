@@ -1,8 +1,4 @@
-#include <ib/adapters.hpp>
-#include <ib/marketdata.hpp>
-#include <ib/polling_client.hpp>
-#include <ib/services.hpp>
-#include <ib/session.hpp>
+#include <sys/select.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -11,7 +7,12 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
-#include <sys/select.h>
+#include <ib/adapters.hpp>
+#include <ib/marketdata.hpp>
+#include <ib/polling_client.hpp>
+#include <ib/services.hpp>
+#include <ib/session.hpp>
+
 
 #define VLOG_LEVEL 2
 

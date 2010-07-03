@@ -1,10 +1,10 @@
+#include <sstream>
+#include <boost/format.hpp>
+#include <glog/logging.h>
 #include <ib/helpers.hpp>
+#include <ib/ticker_id.hpp>
 #include <ib/marketdata.hpp>
 
-#include <glog/logging.h>
-
-#include <boost/format.hpp>
-#include <sstream>
 
 #define VLOG_MARKETDATA 3
 
@@ -70,7 +70,7 @@ MarketDataImpl::~MarketDataImpl()
 unsigned int MarketDataImpl::requestTicks(const string& symbol)
 {
   Contract c = CreateContractForStock(symbol);
-  TickerId id = to_ticker_id(symbol);
+  TickerId id = SymbolToTickerId(symbol);
   eclient_->reqMktData(id, c, GENERIC_TICK_TAGS, false);
   eclient_->reqMktDepth(id, c, 10);
   return id;

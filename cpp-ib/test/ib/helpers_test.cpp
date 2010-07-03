@@ -1,13 +1,13 @@
-#include <ib/helpers.hpp>
-
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-
-#include <boost/algorithm/string.hpp>
-
 #include <string.h>
 #include <iostream>
 #include <vector>
+#include <boost/algorithm/string.hpp>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
+#include <ib/helpers.hpp>
+#include <ib/ticker_id.hpp>
+
 
 using namespace std;
 
@@ -38,8 +38,8 @@ C,COF,AXP,RTH";
 
 int test_encode(const string& symbol)
 {
-  int code = to_ticker_id(symbol);
-  string from_code = from_ticker_id(code);
+  int code = SymbolToTickerId(symbol);
+  string from_code = SymbolFromTickerId(code);
   EXPECT_EQ(to_upper(symbol), from_code);
   return code;
 }

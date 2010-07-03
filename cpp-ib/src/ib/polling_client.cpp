@@ -1,10 +1,11 @@
 
-#include <ib/polling_client.hpp>
+#include <gflags/gflags.h>
+#include <glog/logging.h>
 
 #include <boost/thread.hpp>
 
-#include <gflags/gflags.h>
-#include <glog/logging.h>
+#include <ib/polling_client.hpp>
+
 
 using namespace ib::adapter;
 using namespace std;

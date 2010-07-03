@@ -1,8 +1,6 @@
 #ifndef IB_INTERNAL_MARKETDATA_H_
 #define IB_INTERNAL_MARKETDATA_H_
 
-#include <ib/services.hpp>
-
 #ifndef IB_USE_STD_STRING
 #define IB_USE_STD_STRING
 #endif
@@ -11,6 +9,7 @@
 #include <Shared/EClient.h>
 #include <Shared/Order.h>
 
+#include <ib/services.hpp>
 
 using namespace std;
 

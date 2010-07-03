@@ -1,11 +1,11 @@
-#include <ib/adapters.hpp>
-
 #include <string.h>
 
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+
+#include <ib/adapters.hpp>
 
 using namespace ib::adapter;
 using namespace std;
@@ -21,7 +21,7 @@ enum State {
 class TestLoggingEWrapper : public LoggingEWrapper {
  public :
   TestLoggingEWrapper(int id) :
-      LoggingEWrapper::LoggingEWrapper(id),
+      LoggingEWrapper::LoggingEWrapper("", 4001, id),
       state_(OPEN)
   {
   }

@@ -17,14 +17,14 @@
 #define IB_USE_STD_STRING
 #endif
 
+#include <sys/time.h>
+#include <boost/thread.hpp>
+
 #include <Shared/Contract.h>
 #include <Shared/EClient.h>
 #include <Shared/EWrapper.h>
 #include <Shared/Order.h>
 #include <PosixSocketClient/EPosixClientSocket.h>
-
-#include <boost/thread.hpp>
-#include <sys/time.h>
 
 using namespace std;
 

@@ -1,8 +1,8 @@
 #ifndef IB_SERVICES_H_
 #define IB_SERVICES_H_
 
-#include <boost/scoped_ptr.hpp>
 #include <string>
+#include <boost/scoped_ptr.hpp>
 
 using namespace std;
 

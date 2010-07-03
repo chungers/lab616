@@ -1,7 +1,6 @@
-
+#include <sys/time.h>
 #include <ib/adapters.hpp>
 #include <glog/logging.h>
-#include <sys/time.h>
 
 // Verbose level.  Use flag --v=N where N >= VLOG_LEVEL_* to see.
 #define VLOG_LEVEL_ECLIENT  2

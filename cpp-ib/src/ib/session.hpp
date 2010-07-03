@@ -1,10 +1,11 @@
 #ifndef IB_SESSION_H_
 #define IB_SESSION_H_
 
-#include <ib/services.hpp>
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 #include <boost/scoped_ptr.hpp>
+
+#include <ib/services.hpp>
 
 using namespace std;
 using ib::services::IMarketData;
