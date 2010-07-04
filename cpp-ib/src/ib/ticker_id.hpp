@@ -77,6 +77,9 @@ string SymbolFromTickerId(int code)
   return sbuff.str();
 }
 
+// Encoded option.  Note that this is not a complete
+// specification of an option contract.  There is not
+// enough bits to encode the expiry of the option.
 struct EncodedOption {
  public:
   EncodedOption(const string& sym,
