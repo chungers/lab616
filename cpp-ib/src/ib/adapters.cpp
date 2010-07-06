@@ -1,4 +1,5 @@
 #include <sys/time.h>
+#include <boost/date_time.hpp>
 #include <ib/adapters.hpp>
 #include <glog/logging.h>
 
@@ -7,10 +8,20 @@
 #define VLOG_LEVEL_EWRAPPER 1
 
 typedef uint64_t int64;
-inline int64 now_micros() {
+inline int64 now_micros()
+{
   struct timeval tv;
   gettimeofday(&tv, NULL);
   return static_cast<int64>(tv.tv_sec) * 1000000 + tv.tv_usec;
+}
+
+static const boost::posix_time::ptime utc_epoch(
+    boost::gregorian::date(1970, 1, 1));
+
+inline boost::posix_time::time_duration utc_micros()
+{
+  using namespace boost::posix_time;
+  return microsec_clock::universal_time() - utc_epoch;
 }
 
 #define __f__(m) "," << #m << '=' << m
@@ -18,6 +29,7 @@ inline int64 now_micros() {
 #define LOG_EVENT				\
   VLOG(VLOG_LEVEL_EWRAPPER)			\
   << "cid=" << connection_id_			\
+  << ",ts_utc=" << utc_micros().total_microseconds()  \
   << ",ts=" << now_micros()			\
   << ",event=" << __func__
 
@@ -353,12 +365,13 @@ void LoggingEWrapper::error(const int id, const int errorCode,
   VLOG(VLOG_LEVEL_ECLIENT - 1)                  \
   << "cid=" << connection_id_                   \
   << ",ts=" << (call_start_ = now_micros())     \
+  << ",ts_utc=" << utc_micros().total_microseconds() \
   << ",action=" << __func__
 
 #define LOG_END                                         \
   VLOG(VLOG_LEVEL_ECLIENT)                              \
   << "cid=" << connection_id_                           \
-  << ",ts=" << (call_start_ = now_micros())             \
+  << ",ts=" << (call_start_)                            \
   << ",action=" << __func__                             \
   << ",elapsed=" << (now_micros() - call_start_)
 
