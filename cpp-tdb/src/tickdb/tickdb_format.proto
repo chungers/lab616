@@ -8,30 +8,16 @@ enum Type {
   DATA = 1;
 };
 
-// Actual key value is encoded as bytes.
-// There are a number of considerations for key:
-// 1. Must be sortable.
-// 2. Must be compact.
-// Using fixed64 (=8 bytes) is too large.
-// Since we only need to index by time.  Consider
-// Year  = 8 bits, 2^8 = 256 => [1970, 1970+256]
-// Month = 4 bits, 2^4 = 16  => [1, 12]
-// Day   = 5 bits, 2^5 = 32  => [1, 31]
-// HOUR  = 5 bits, 2^5 = 32  => [0, 23]
-// MIN   = 6 bits, 2^6 = 64  => [0, 59]
-// SEC   = 6 bits, 2^6 = 64  => [0, 59]
-// At per-minute resolution, we need 28 bits, while
-// per-second resolution, we need 34 bits.
-// Per-minute resolution is probably good enough. We
-// want to see if the size of the B+tree index page
-// can be large enough such that most of the rows
-// at microsecond resolution can be in the same page.
-// Using 28 bits, we add another 4 bits for
-// the message type code.  We can have up to
-// 16 different message types.
+// Simple key with fixed width bytes.
+// The key is constructed such that it is
+// sortable by B+ tree in kyotocabinet.
+// The first is the row type (data or metadata)
+// followed by the timestamp in micros and
+// then the computed ticker id.
 message Key  {
   required Type row_type = 1 [default = DATA];
-  required bytes key_bytes = 2;
+  required fixed64 time_stamp = 2;
+  required fixed32 ticker_id = 3;
 }
 
 enum MessageType {
@@ -43,4 +29,5 @@ enum MessageType {
 message Value {
   required uint32 message_type_code = 1;
   required bytes value_bytes = 2;
+  optional string str_value = 3;
 };

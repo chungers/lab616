@@ -1,5 +1,4 @@
-# //cpp-tdb/test/CMakeLists.txt
+add_subdirectory(tickdb)
 
-#build_tests()
 
-		
+
