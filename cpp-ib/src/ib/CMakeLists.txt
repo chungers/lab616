@@ -69,6 +69,7 @@ set(cl_libs
   boost_thread
   gflags
   glog
+  tcmalloc
 )
 # Client implementation:
 cpp_executable(cl)
