@@ -54,8 +54,8 @@ function(third_party package)
       --prefix=${THIRD_PARTY_BUILD_DIR}
       --libdir=${THIRD_PARTY_BUILD_DIR}/lib
       --includedir=${THIRD_PARTY_BUILD_DIR}/include
-      COMMAND make 
-      COMMAND make install 
+      COMMAND make
+      COMMAND make install
       COMMAND make clean
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/../third_party/cpp/${package})
     add_dependencies(init build-${package})
