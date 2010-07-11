@@ -6,10 +6,14 @@ cmake_minimum_required(VERSION 2.6)
 # Project //cpp-ib
 project(IB)
 
+option(OPTIMIZE "Compiler optimization" ON)
+#set(OPTIMIZE_LEVEL 2)
+
+# Build for debugging and profiling
+set(CFLAGS "-pg -g")
+
 # Macros to include
 include(${PROJECT_SOURCE_DIR}/../cmake-common/Init.cmk)
-
-option(OPTIMIZE "Compiler optimization" ON)
 
 # IB API VERSION
 # This corresponds to the name of the subdirectory in //cpp-ib/src/ib/api
