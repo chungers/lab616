@@ -1,7 +1,13 @@
 
-set(CMAKE_CXX_FLAGS "-ggdb -Wall -Wno-switch")
-if (OPTIMIZE) 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
+set(CMAKE_CXX_FLAGS "${CFLAGS} -ggdb -Wall -Wno-switch")
+if (OPTIMIZE)
+  if (OPTIMIZE_LEVEL)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O${OPTIMIZE_LEVEL}")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
+  endif()
+else()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
 endif (OPTIMIZE)
 
 # Root of source and tests
