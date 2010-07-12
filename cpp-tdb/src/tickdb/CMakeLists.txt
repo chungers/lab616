@@ -4,19 +4,20 @@
 # Generate protos
 proto_library(tickdb_format_proto tickdb_format.proto ${SRC_DIR}/tickdb)
 
-set(tickdb_format_incs
+set(tickdb_incs
   ${GEN_DIR}
   ${SRC_DIR}
   ${THIRD_PARTY_BUILD_DIR}/include
 )
-set(tickdb_format_srcs
+set(tickdb_srcs
+  utils.cpp
   main.cpp
 )
-set(tickdb_format_libs
+set(tickdb_libs
   tickdb_format_proto
 )
 # Client implementation:
-cpp_library(tickdb_format)
+cpp_library(tickdb)
 
 
 set(tdb_incs
@@ -27,7 +28,7 @@ set(tdb_srcs
   main.cpp
 )
 set(tdb_libs
-  tickdb_format
+  tickdb
   glog
   gflags
   protobuf

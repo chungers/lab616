@@ -1,4 +1,4 @@
-#include <string.h>
+#include <string>
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -16,6 +16,7 @@
 
 #include <tickdb/tickdb_format.pb.h>
 
+#include <tickdb/utils.hpp>
 
 
 using namespace std;
@@ -52,6 +53,39 @@ ptime Convert_UTC(adjustor adj, ptime local_time)
   return adj.local_to_utc(local_time);
 }
 
+TEST(UtilsTest, TestTimeFunctions)
+{
+  cout << "Time functions." << endl;
+  boost::format key_format("%s:%018d");
+  uint64_t now = now_micros();
+
+  string ts = str(boost::format("%s") % now);
+  cout << "ts = " << ts << ", len=" << ts.length() << endl;
+
+  cout << "key = " << key_format % "AAPL" % now_micros() << endl;
+
+  cout << "today = " << boost::gregorian::day_clock::local_day() << endl;
+
+  boost::posix_time::ptime ptime_utc_now =
+      boost::posix_time::microsec_clock::universal_time();
+  boost::posix_time::ptime ptime_now =
+      boost::posix_time::second_clock::local_time();
+  cout << "now = " << ptime_now << ", utc = " << ptime_utc_now << endl;
+  cout << "now PST = " << ptime_now
+       << ", toUTC = " << Convert_UTC(us_pacific(), ptime_now) << endl;
+
+  boost::gregorian::date today = ptime_now.date();
+  boost::gregorian::date tomorrow = today + boost::gregorian::days(1);
+
+  cout << "today = " << today << ", tomorrow = " << tomorrow << endl;
+
+  using namespace boost::local_time;
+  time_zone_ptr zone(new posix_time_zone("MST-07"));
+  local_date_time ldt = local_microsec_clock::local_time(zone);
+
+  cout << "zone = " << zone << ", ldt = " << ldt << endl;
+}
+
 TEST(UtilsTest, TestDateTimeFunctions)
 {
   using namespace boost::posix_time;
@@ -84,97 +118,75 @@ TEST(UtilsTest, TestDateTimeFunctions)
   EXPECT_EQ(offset1.total_milliseconds(), offset2.total_milliseconds());
 
   EXPECT_EQ(8, sizeof(t.total_microseconds())); // 8 bytes for microseconds.
-
 }
 
-// http://stackoverflow.com/questions/1466756/c-equivalent-of-java-bytebuffer
-template <typename T>
-std::stringstream& put( std::stringstream& str, const T& value )
+TEST(UtilsTest, TestKeyEncodingTiming)
 {
-  union coercion { T value; char   data[ sizeof ( T ) ]; };
-  coercion    c;
-  c.value = value;
-  str.write ( c.data, sizeof ( T ) );
-  return str;
-}
+  uint MAX = 1000000;
 
-template <typename T>
-std::stringstream& get( std::stringstream& str, T& value )
-{
-  union coercion { T value; char   data[ sizeof ( T ) ]; };
-  coercion    c;
-  c.value = value;
-  str.read ( c.data, sizeof ( T ) );
-  value = c.value;
-  return str;
-}
+  cout << "Encoding the key " << MAX << " times." << endl;
 
-TEST(UtilsTest, TestEncodeKey)
-{
-  using namespace boost::posix_time;
-  ptime now_utc = microsec_clock::universal_time();
-  ptime epoch(date(1970, 1, 1)); // UTC start
-  time_duration t = now_utc - epoch;
-
-  // Encode database key.
-  std::stringstream bytes;
-  string symbol("AAPL");
-  string::iterator itr;
-  for (itr = symbol.begin(); itr < symbol.end(); itr++) {
-    put(bytes, *itr);
+  ptime timer_start = microsec_clock::universal_time();
+  for (uint i = 0 ; i < MAX; i++) {
+    const tickdb::record::Key key(10002918, now_micros());
   }
-  put(bytes, t.total_microseconds());
-  cout << "ts = " << t.total_microseconds() << endl;
+  time_duration elapsed = microsec_clock::universal_time() - timer_start;
+  uint64_t usec = elapsed.total_microseconds();
 
-  const char* p = bytes.str().c_str();  // kyotocabinet key buffer type
-  cout << "symbol = " << string(p, 4) << endl;
-
-  EXPECT_EQ(symbol, string(p, 4));
-
-  std::stringstream ts_bytes(string(&p[4], 8));
-  uint64_t ts;
-  get(ts_bytes, ts);
-  cout << "ts = " << ts << endl;
-
-  EXPECT_EQ(t.total_microseconds(), ts);
+  cout << "total = " << usec
+       << ", usec/key = "
+       << static_cast<double>(usec) / static_cast<double>(MAX) << endl;
 }
 
-TEST(UtilsTest, TestTimeFunctions)
+TEST(UtilsTest, TestKeyCompare)
 {
-  // Db key is of the format
-  // symbol-timestamp
-  //boost::format stock_format("%4s");
-  //boost::format option_format("%4s:%");
-  boost::format key_format("%s:%018d");
+  using namespace tickdb::record;
 
-  uint64_t now = now_micros();
+  Key::Id ticker_id = 40000;
+  Key::Timestamp ts = now_micros();
 
-  string ts = str(boost::format("%s") % now);
-  cout << "ts = " << ts << ", len=" << ts.length() << endl;
+  const Key key1(ticker_id, ts);
+  const Key key2(ticker_id, ts + 1);
+  const Key key3(ticker_id + 1, ts);
 
-  cout << "key = " << key_format % "AAPL" % now_micros() << endl;
+  cout << "key1 = " << key1 << endl;
+  cout << "key2 = " << key2 << endl;
+  cout << "key3 = " << key3 << endl;
 
-  cout << "today = " << boost::gregorian::day_clock::local_day() << endl;
+  EXPECT_TRUE(key1 == key1);
+  EXPECT_TRUE(key2 == key2);
+  EXPECT_TRUE(key1 != key2);
+  EXPECT_TRUE(key2 != key1);
+  EXPECT_FALSE(key1 == key2);
+  EXPECT_FALSE(key2 == key1);
+  EXPECT_FALSE(key1 != key1);
+  EXPECT_FALSE(key2 != key2);
 
-  boost::posix_time::ptime ptime_utc_now =
-      boost::posix_time::microsec_clock::universal_time();
-  boost::posix_time::ptime ptime_now =
-      boost::posix_time::second_clock::local_time();
-  cout << "now = " << ptime_now << ", utc = " << ptime_utc_now << endl;
-  cout << "now PST = " << ptime_now
-       << ", toUTC = " << Convert_UTC(us_pacific(), ptime_now) << endl;
+  EXPECT_EQ(key1, key1);
+  EXPECT_EQ(key2, key2);
+  EXPECT_EQ(key3, key3);
+  EXPECT_NE(key1, key2);
+  EXPECT_NE(key1, key3);
+  EXPECT_NE(key2, key3);
 
-  boost::gregorian::date today = ptime_now.date();
-  boost::gregorian::date tomorrow = today + boost::gregorian::days(1);
+  // key1 and key2 have the same id so
+  // comparisons are meaningful.
+  EXPECT_EQ(key1.get_id(), key2.get_id());
+  EXPECT_LT(key1, key2);
+  EXPECT_GT(key2, key1);
+  EXPECT_GE(key2, key1);
+  EXPECT_LE(key1, key2);
 
-  cout << "today = " << today << ", tomorrow = " << tomorrow << endl;
+  // key1 and key3 have different id
+  // so they are different under all cases.
+  EXPECT_NE(key1, key3);
 
-  using namespace boost::local_time;
-  time_zone_ptr zone(new posix_time_zone("MST-07"));
-  local_date_time ldt = local_microsec_clock::local_time(zone);
-
-  cout << "zone = " << zone << ", ldt = " << ldt << endl;
+  const Key key4(key1.get_id() + 1, key1.get_timestamp() + 1);
+  EXPECT_NE(key1, key4);
+  EXPECT_GT(key4, key1);  // Strictly in terms of time.
 }
+
+
 
 
 } // namespace

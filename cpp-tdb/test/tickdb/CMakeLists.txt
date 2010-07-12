@@ -10,9 +10,10 @@ set(tickdb_test_incs
 set(tickdb_test_srcs
   AllTests.cpp
   utils_test.cpp
+  prototype.cpp
 )
 set(tickdb_test_libs
-  tickdb_format
+  tickdb
   glog
   gflags
   protobuf
