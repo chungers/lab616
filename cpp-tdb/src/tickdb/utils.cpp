@@ -68,13 +68,13 @@ Key::TimestampUtc Key::UtcTimestamp() const
   return static_cast<TimestampUtc>(GetPtime(*this));
 }
 
-const std::string Key::ToString() const
+void Key::ToString(string* s) const
 {
   using namespace tickdb::internal;
   std::stringstream buff(std::stringstream::out);
   BufferPut(buff, id_);
   BufferPut(buff, ts_);
-  return buff.str();
+  s->assign(buff.str());
 }
 } // namespace record
 } // namespace tickdb

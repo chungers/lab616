@@ -70,7 +70,8 @@ int main(int argc, char** argv)
     valueProto.set_value_bytes(value.c_str());
     valueProto.set_str_value(value);
 
-    const std::string k = rowKey.ToString();
+    string k;
+    rowKey.ToString(&k);
     int vsz = valueProto.ByteSize();
     const char* v = valueProto.SerializeAsString().c_str();
     db.add(k.c_str(), k.size(), v, vsz);
@@ -105,7 +106,8 @@ int main(int argc, char** argv)
   // Search by key.
   jumpTo = tickdb::record::Key(tickdb::record::Key::Id(1), start);
   cout << "Jumping to " << jumpTo << endl;
-  const std::string j = jumpTo.ToString();
+  string j;
+  jumpTo.ToString(&j);
   cout << "Found = " << cur->jump(j.c_str(), j.size()) << endl;
 
 

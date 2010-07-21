@@ -51,7 +51,7 @@ class Key {
 
   friend std::ostream& operator<<(std::ostream& out, const Key& k);
 
-  const std::string ToString() const;
+  void ToString(std::string* s) const;
 
  private:
   Id id_;
