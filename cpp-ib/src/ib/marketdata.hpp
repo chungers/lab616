@@ -27,14 +27,19 @@ class MarketDataImpl : public ib::services::IMarketData
   EClient* eclient_;
 
  public:
-  virtual unsigned int requestTicks(const string& symbol);
+  virtual unsigned int requestIndex(const string& symbol,
+                                    const string& exchange);
+
+  virtual unsigned int requestTicks(const string& symbol,
+                                    bool marketDepth);
 
   virtual unsigned int requestOptionData(const string& symbol,
                                          bool call,
                                          const double strike,
                                          const int year,
                                          const int month,
-                                         const int day);
+                                         const int day,
+                                         bool marketDepth);
 };
 
 

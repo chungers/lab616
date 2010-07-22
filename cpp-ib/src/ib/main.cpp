@@ -9,8 +9,8 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
-#include <ib/services.hpp>
-#include <ib/session.hpp>
+#include "ib/services.hpp"
+#include "ib/session.hpp"
 
 
 
@@ -29,62 +29,61 @@ DEFINE_bool(realtime_bars, true, "Realtime bars");
 DEFINE_bool(option, true, "Request option data.");
 DEFINE_string(option_symbol, "AAPL", "Option underlying symbol");
 DEFINE_bool(option_call, true, "True for Calls.");
-DEFINE_int32(option_day, 16, "month 1 - 31");
-DEFINE_int32(option_month, 7, "month 1 - 12");
+DEFINE_int32(option_day, 20, "month 1 - 31");
+DEFINE_int32(option_month, 8, "month 1 - 12");
 DEFINE_int32(option_year, 2010, "YYYY");
-DEFINE_double(option_strike, 0.0, "Strike");
+DEFINE_double(option_strike, 260.0, "Strike");
 
 ib::Session* session;
 vector<string> tokens;
 
-ib::services::IMarketData* WaitForConnectionConfirmation()
+static void RequestIndexData(ib::services::IMarketData* md)
 {
-  time_t deadline = ::time(NULL) + 30; // 30 seconds;
-  ib::services::IMarketData* md = NULL;
-  while (!md && deadline > ::time(NULL)) {
-    VLOG(1) << "Trying to access market data.";
-    md = session->access_market_data();
-    LOG_IF(WARNING, !md) << "No market data.  Connection not confirmed.";
-
-    if (md) return md;;
-    // Sleep for a bit.
-    sleep(1);
-  }
-  return md;
+  md->requestIndex("INDU", "NYSE");
+  md->requestIndex("SPX", "CBOE");
+  md->requestIndex("VIX", "CBOE");
+  // In case we can't get spx, use spy as a substitute.
+  string sym("SPY");
+  VLOG(1) << "Requested " << sym
+          << ", tickerId=" << md->requestTicks(sym, false);
 }
 
-void RequestStockData(vector<string> symbols,
-                      ib::services::IMarketData* md)
+static void RequestStockData(vector<string> symbols,
+                             ib::services::IMarketData* md)
 {
   vector<string>::iterator itr;
   for (itr = symbols.begin(); itr != symbols.end(); itr++) {
     VLOG(1) << "Requested " << *itr
-            << ", tickerId=" << md->requestTicks(*itr);
+            << ", tickerId=" << md->requestTicks(*itr, false);
   }
 }
 
-string FormatOptionExpiry(int year, int month, int day)
+static string FormatOptionExpiry(int year, int month, int day,
+                                  string* formatted)
 {
   ostringstream s1;
   string fmt = (month > 9) ? "%4d%2d" : "%4d0%1d";
   string fmt2 = (day > 9) ? "%2d" : "0%1d";
   s1 << boost::format(fmt) % year % month << boost::format(fmt2) % day;
-  return s1.str();
+  formatted->assign(s1.str());
+  return *formatted;
 }
 
-void RequestOptionData(ib::services::IMarketData* md)
+static void RequestOptionData(ib::services::IMarketData* md)
 {
   md->requestOptionData(FLAGS_option_symbol,
                         FLAGS_option_call,
                         FLAGS_option_strike,
                         FLAGS_option_year,
                         FLAGS_option_month,
-                        FLAGS_option_day);
+                        FLAGS_option_day, true);
+  string formatted;
   VLOG(1) << "Requested " << FLAGS_option_symbol
           << ", strike = " << FLAGS_option_strike
           << ", expiry = " << FormatOptionExpiry(FLAGS_option_year,
                                                  FLAGS_option_month,
-                                                 FLAGS_option_day);
+                                                 FLAGS_option_day,
+                                                 &formatted);
 }
 
 void OnConnectConfirm()
@@ -93,6 +92,8 @@ void OnConnectConfirm()
 
   ib::services::IMarketData* md = session->access_market_data();
   if (md) {
+    // First request index: INDU
+    RequestIndexData(md);
     if (FLAGS_option) {
       RequestOptionData(md);
     } else {
@@ -124,14 +125,14 @@ int main(int argc, char** argv)
   VLOG(1) << "Session created for " << host << ":" << port << " @ "
           << connection_id;
 
-  session->start();
+  session->Start();
 
   // register callback
-  session->register_callback_on_connect(boost::bind(OnConnectConfirm));
-  session->register_callback_on_disconnect(boost::bind(OnDisconnect));
+  session->RegisterCallbackOnConnect(boost::bind(OnConnectConfirm));
+  session->RegisterCallbackOnDisconnect(boost::bind(OnDisconnect));
 
   // just wait for connection and disconnect events.
-  session->join();
+  session->Join();
 
   delete session;
 }

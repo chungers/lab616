@@ -16,16 +16,22 @@ class IMarketData
  public:
   virtual ~IMarketData() {}
 
+  // Dow = (INDU, NYSE), S&P = (SPX, CBOE), VIX = (VIX, CBOE)
+  virtual unsigned int requestIndex(const string& symbol,
+                                    const string& exchange) = 0;
+
   // Requests tick data for the given symbol.
   // Returns the unique ticker id.
-  virtual unsigned int requestTicks(const string& symbol) = 0;
+  virtual unsigned int requestTicks(const string& symbol,
+                                    bool marketDepth) = 0;
 
   // Option data
   virtual unsigned int requestOptionData(const string& symbol,
                                          bool call,
                                          const double strike,
                                          const int year, const int month,
-                                         const int day) = 0;
+                                         const int day,
+                                         bool marketDepth) = 0;
 };
 
 

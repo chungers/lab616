@@ -2,13 +2,7 @@
 
 package ib.common;
 
-option java_package = "com.lab616.ib.common";
-option java_outer_classname = "IBCommon";
 option optimize_for = LITE_RUNTIME;
-
-message Id {
-  required int32 id = 1;
-}
 
 message Interval {
   enum Unit {
@@ -22,7 +16,7 @@ message Interval {
 }
 
 message Option {
-  required Id id = 1;
+  required int32 id = 1;
   required string symbol = 2;
 
   enum Right { CALL = 1; PUT = 2; }
@@ -33,12 +27,12 @@ message Option {
 }
 
 message Stock {
-  required Id id = 1;
+  required int32 id = 1;
   required string symbol = 2;
 }
 
 message Index {
-  required Id id = 1;
+  required int32 id = 1;
   required string symbol = 2;
   optional string exhange = 3; // TODO exchange as enum
 }
