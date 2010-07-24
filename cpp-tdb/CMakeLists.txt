@@ -21,7 +21,7 @@ emacs_ide_project("")
 
 
 # Third party libraries used.
-boost_libraries(date_time thread)
+boost_libraries(date_time thread filesystem system)
 third_party(gflags)
 set(glog_deps gflags) # glog depends on gflags
 third_party(glog)

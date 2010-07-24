@@ -16,8 +16,8 @@ class Key {
   typedef uint64_t Timestamp;
   typedef boost::posix_time::ptime TimestampUtc;
 
-  Key(const char* b, size_t s);
-  Key(Id id, Timestamp ts) : id_(id), ts_(ts) {}
+  explicit Key(const char* b, size_t s);
+  explicit Key(Id id, Timestamp ts) : id_(id), ts_(ts) {}
   ~Key() {}
 
   Id get_id() const { return id_; }

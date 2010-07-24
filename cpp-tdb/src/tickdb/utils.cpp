@@ -14,22 +14,20 @@ namespace internal {
 
 // http://stackoverflow.com/questions/1466756/c-equivalent-of-java-bytebuffer
 template <typename T>
-std::stringstream& BufferPut(std::stringstream& str, const T& value)
+void BufferPut(std::stringstream* str, const T& value)
 {
   union coercion { T value; char data[ sizeof(T) ]; } c;
   c.value = value;
-  str.write(c.data, sizeof(T));
-  return str;
+  str->write(c.data, sizeof(T));
 }
 
 template <typename T>
-std::stringstream& BufferGet(std::stringstream& str, T& value)
+void BufferGet(std::stringstream& str, T* value_ptr)
 {
   union coercion { T value; char data[ sizeof(T) ]; } c;
-  c.value = value;
   str.read(c.data, sizeof(T));
-  value = c.value;
-  return str;
+  *value_ptr = c.value;
+  //cout << " value = " << *value_ptr;
 }
 
 static const boost::posix_time::ptime EPOCH(boost::gregorian::date(1970, 1, 1));
@@ -51,10 +49,11 @@ namespace record {
 using namespace tickdb::internal;
 
 Key::Key(const char* buff, size_t size)
+    : id_(0), ts_(0)
 {
   std::stringstream bytes(std::string(buff, size));
-  BufferGet(bytes, id_);
-  BufferGet(bytes, ts_);
+  BufferGet(bytes, &id_);
+  BufferGet(bytes, &ts_);
 }
 
 std::ostream& operator<<(std::ostream& out, const Key& k)
@@ -72,8 +71,8 @@ void Key::ToString(string* s) const
 {
   using namespace tickdb::internal;
   std::stringstream buff(std::stringstream::out);
-  BufferPut(buff, id_);
-  BufferPut(buff, ts_);
+  BufferPut(&buff, id_);
+  BufferPut(&buff, ts_);
   s->assign(buff.str());
 }
 } // namespace record

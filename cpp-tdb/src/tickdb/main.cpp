@@ -65,10 +65,13 @@ int main(int argc, char** argv)
 
     string value = str(val_formatter % i);
 
-    tickdb::file::Value valueProto;
-    valueProto.set_message_type_code(1);
-    valueProto.set_value_bytes(value.c_str());
-    valueProto.set_str_value(value);
+    tickdb::file::RowKey keyProto;
+    keyProto.set_id(i);
+    keyProto.set_timestamp(ts);
+    keyProto.set_typecode(1);
+
+    tickdb::file::RowValue valueProto;
+    valueProto.set_bytes(value.c_str());
 
     string k;
     rowKey.ToString(&k);

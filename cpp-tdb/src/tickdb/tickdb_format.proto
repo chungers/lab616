@@ -3,31 +3,26 @@ package tickdb.file;
 
 option optimize_for = LITE_RUNTIME;
 
-enum Type {
-  META = 0;
-  DATA = 1;
-};
-
-// Simple key with fixed width bytes.
-// The key is constructed such that it is
-// sortable by B+ tree in kyotocabinet.
-// The first is the row type (data or metadata)
-// followed by the timestamp in micros and
-// then the computed ticker id.
-message Key  {
-  required Type row_type = 1 [default = DATA];
-  required fixed64 time_stamp = 2;
-  required fixed32 ticker_id = 3;
+message RowKey  {
+  required int32 id = 1;
+  required int64 timestamp = 2;
+  optional int32 typecode = 3 [default = 0];
 }
 
-enum MessageType {
-  // Reserved value for the protobuffer
-  // that describes the actual message proto.
-  PROTO_DEF = 0;
+message RowValue {
+  required bytes bytes = 1;
 };
 
-message Value {
-  required uint32 message_type_code = 1;
-  required bytes value_bytes = 2;
-  optional string str_value = 3;
-};
+// Test payload message to be included in RowValue:
+message Payload {
+  required int32 id = 1;
+  required int64 timestamp = 2;
+
+  enum Type {
+    TYPE1 = 1;
+    TYPE2 = 2;
+  }
+
+  required Type type = 3;
+  required double value = 4;
+}

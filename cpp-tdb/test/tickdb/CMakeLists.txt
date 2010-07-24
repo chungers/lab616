@@ -18,5 +18,7 @@ set(tickdb_test_libs
   gflags
   protobuf
   kyotocabinet
+  boost_system
+  boost_filesystem
 )
 cpp_gtest(tickdb_test)
