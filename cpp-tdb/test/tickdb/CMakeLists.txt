@@ -20,5 +20,6 @@ set(tickdb_test_libs
   kyotocabinet
   boost_system
   boost_filesystem
+  tcmalloc
 )
 cpp_gtest(tickdb_test)

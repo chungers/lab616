@@ -5,7 +5,7 @@
 #include <boost/bind.hpp>
 #include <boost/format.hpp>
 #include <boost/function.hpp>
-#include <boost/filesystem.hpp>
+#include <boost/filesystem/operations.hpp>
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -25,9 +25,9 @@ using namespace tickdb::file;
 namespace {
 
 static int MAX_ROWS_TO_PRINT = 20;
-static int MAX_RECORDS = 1000;
+static int MAX_RECORDS = 1000000;
 
-static const Key::Id ID = 100000;
+static const Key::Id ID = 10000;
 
 typedef uint64_t Timestamp;
 
@@ -68,7 +68,7 @@ struct BuildStringKey {
                   string* outstr)
   {
     ostringstream ss;
-    ss << ts;
+    ss << id << '.' << ts;
     outstr->assign(ss.str());
   }
 };
@@ -80,7 +80,8 @@ struct PrintStringKey {
   }
 };
 
-static bool insertStack(TreeDB* db, KeyBuilder buildKey, int i)
+static bool insertStack(TreeDB* db, KeyBuilder buildKey, int i,
+                        Key::Timestamp* last)
 {
   Key::Timestamp ts(now_micros());
   string keyBuff;
@@ -101,9 +102,11 @@ static bool insertStack(TreeDB* db, KeyBuilder buildKey, int i)
   if (db) {
     status = db->add(keyBuff.c_str(), keyBuff.size(),
                      rowBuff.c_str(), rowBuff.size());
-
-    //cout << " (" << i << "," << ts << "," << keyBuff.size() << ")";
+    if (!status) {
+      cout << " (" << i << ",ts=" << ts << ",last=" << *last << ")";
+    }
   }
+  *last = ts;
   return status;
 }
 
@@ -237,7 +240,7 @@ TEST(Prototype, TreeDbEncodedKeyBenchmark)
   StatusMap* status = printStatus(&db);
 
   // Assert that the comparator is custom.
-  EXPECT_EQ("external", (*status)["rcomp"]);
+  //EXPECT_EQ("external", (*status)["rcomp"]);
   EXPECT_TRUE(db.clear());
   delete status;
 
@@ -247,11 +250,12 @@ TEST(Prototype, TreeDbEncodedKeyBenchmark)
   // KeyPrinter keyPrinter = PrintRowKey();
 
   Timestamp start = now_micros();
+  Timestamp last;
   int records = MAX_RECORDS;
   cout << "Inserting" << endl;
   TreeDB* db_ptr = &db;
   for (int i = 0; i < MAX_RECORDS; i++) {
-    EXPECT_TRUE(insertStack(db_ptr, keyBuilder, i));
+    EXPECT_TRUE(insertStack(db_ptr, keyBuilder, i, &last));
   }
   EXPECT_EQ(records, db.count());
 
@@ -266,15 +270,23 @@ TEST(Prototype, TreeDbEncodedKeyBenchmark)
   int visited = dumpDb(&db, keyPrinter);
   EXPECT_EQ(records, visited);
 
+  // Note that before closing the file, the size is
+  // smaller since db hasn't flushed memory to disk.
   struct stat fstat;
   stat(file.c_str(), &fstat);
   cout << "File size = " << db.size() << ","
-       << boost::filesystem::file_size(file)
-       << "," << fstat.st_size
+       << ",stat=" << fstat.st_size
        << endl;
 
   // close the database
   EXPECT_TRUE(db.close());
+
+  // Final file size
+  namespace fs = boost::filesystem;
+  fs::path p(file.c_str(), fs::native);
+  cout << "File.exists=" << fs::exists(p)
+       << ",regular=" << fs::is_regular(p)
+       << ",size= " << fs::file_size(p) << endl;
 }
 
 
