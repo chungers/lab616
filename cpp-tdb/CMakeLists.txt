@@ -10,7 +10,7 @@ project(TDB)
 #set(OPTIMIZE_LEVEL 2)
 
 # Build for debugging and profiling
-set(CFLAGS "-pg -g")
+set(CFLAGS "-pg -g -ggdb")
 
 
 # Macros to include

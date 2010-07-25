@@ -1,5 +1,10 @@
 #include <iostream>
+#include <sstream>
+#include <string>
+#include <sys/stat.h>
+#include <boost/bind.hpp>
 #include <boost/format.hpp>
+#include <boost/function.hpp>
 #include <boost/filesystem.hpp>
 
 #include <gmock/gmock.h>
@@ -7,6 +12,7 @@
 
 #include <kccompare.h>
 #include <kctreedb.h>
+
 #include "tickdb/tickdb_format.pb.h"
 #include "tickdb/utils.hpp"
 
@@ -16,8 +22,12 @@ using namespace kyotocabinet;
 using namespace tickdb::record;
 using namespace tickdb::file;
 
-
 namespace {
+
+static int MAX_ROWS_TO_PRINT = 20;
+static int MAX_RECORDS = 1000;
+
+static const Key::Id ID = 100000;
 
 typedef uint64_t Timestamp;
 
@@ -27,53 +37,57 @@ inline Timestamp now_micros() {
   return static_cast<Timestamp>(tv.tv_sec) * 1000000 + tv.tv_usec;
 }
 
+typedef boost::function<void(const Key::Id& id, const Key::Timestamp& ts,
+                             string* outstr)> KeyBuilder;
+typedef boost::function<void(const char*, size_t, string* printstr)> KeyPrinter;
 
-static bool insert(TreeDB* db, const Key::Id& id, int i)
-{
-  Key::Timestamp ts(now_micros());
-
-  // Build the key
-  Key* rowKey = new Key(id, ts);
-  string* keyBuff = new string;
-  rowKey->ToString(keyBuff);
-
-  Payload* payload = new Payload();
-  payload->set_id(id);
-  payload->set_timestamp(ts);
-  payload->set_value((double) i * 10. + 1000.);
-  payload->set_type(Payload_Type_TYPE1);
-  RowValue* rowValue = new RowValue();
-  rowValue->set_bytes(payload->SerializeAsString());
-  string* rowBuff = new string;
-  rowValue->SerializeToString(rowBuff);
-
-  bool status = true;
-
-  if (db) {
-    status = db->add(keyBuff->c_str(), keyBuff->size(),
-                          rowBuff->c_str(), rowBuff->size());
-    cout << " " << i;
+struct BuildRowKey {
+  void operator()(const Key::Id& id, const Key::Timestamp& ts,
+                  string* outstr)
+  {
+    RowKey rowKey;
+    rowKey.set_id(static_cast<int32_t>(id));
+    rowKey.set_timestamp(static_cast<int64_t>(ts));
+    EXPECT_TRUE(rowKey.SerializeToString(outstr));
   }
+};
 
-  delete keyBuff;
-  delete rowBuff;
-  delete rowKey;
-  delete rowValue;
-  return status;
-}
+struct PrintRowKey {
+  void operator()(const char* buff, size_t sz, string* printstr)
+  {
+    RowKey rowKey;
+    EXPECT_TRUE(rowKey.ParseFromString(string(buff, sz)));
+    ostringstream ss;
+    ss << "[" << rowKey.id() << "/" << rowKey.timestamp() << "]";
+    printstr->assign(ss.str());
+  }
+};
 
-// Allocates from stack
-static bool insertStack(TreeDB* db, const Key::Id& id, int i)
+struct BuildStringKey {
+  void operator()(const Key::Id& id, const Key::Timestamp& ts,
+                  string* outstr)
+  {
+    ostringstream ss;
+    ss << ts;
+    outstr->assign(ss.str());
+  }
+};
+
+struct PrintStringKey {
+  void operator()(const char* buff, size_t sz, string* printstr)
+  {
+    printstr->assign(string(buff, sz));
+  }
+};
+
+static bool insertStack(TreeDB* db, KeyBuilder buildKey, int i)
 {
   Key::Timestamp ts(now_micros());
-
-  // Build the key
-  Key rowKey(id, ts);
   string keyBuff;
-  rowKey.ToString(&keyBuff);
+  buildKey(ID, ts, &keyBuff);
 
   Payload payload;
-  payload.set_id(id);
+  payload.set_id(ID);
   payload.set_timestamp(ts);
   payload.set_value((double) i * 10. + 1000.);
   payload.set_type(Payload_Type_TYPE1);
@@ -86,35 +100,34 @@ static bool insertStack(TreeDB* db, const Key::Id& id, int i)
 
   if (db) {
     status = db->add(keyBuff.c_str(), keyBuff.size(),
-                          rowBuff.c_str(), rowBuff.size());
+                     rowBuff.c_str(), rowBuff.size());
 
-    cout << " " << i;
+    //cout << " (" << i << "," << ts << "," << keyBuff.size() << ")";
   }
   return status;
 }
 
-static int MAX_ROWS_TO_PRINT = 20;
-static int MAX_RECORDS = 100000;
-
-static int dumpDb(TreeDB* db)
+static int dumpDb(TreeDB* db, KeyPrinter printKey)
 {
   cout << "Count = " << db->count() << endl;
   int count = 0;
-  DB::Cursor* cur = db->cursor();
+  TreeDB::Cursor* cur = db->cursor();
   cur->jump();
   pair<string, string>* rec;
   while ((rec = cur->get_pair(true)) != NULL) {
-    Key key(rec->first.c_str(), rec->first.size());
+    string k_str;
+    printKey(rec->first.c_str(), rec->first.size(), &k_str);
+
     RowValue row;
     EXPECT_TRUE(row.ParseFromString(rec->second));
     Payload payload;
     EXPECT_TRUE(payload.ParseFromString(row.bytes()));
 
     if (count < MAX_ROWS_TO_PRINT) {
-      cout << key
-           << ":" << payload.ByteSize() << "," << row.ByteSize()
-           << ":" << payload.id() << "," << payload.timestamp()
+      cout << k_str << "/" << rec->first.size()
+           << "=" << payload.id() << "," << payload.timestamp()
            << "," << payload.type() << "," << payload.value()
+           << "@" << payload.ByteSize() << "/" << row.ByteSize()
            << endl;
     }
     delete rec; // Per documentation. Caller must delete to prevent leak.
@@ -162,6 +175,33 @@ class KeyComparator : public kyotocabinet::Comparator
 
   int32_t compare(const char* a, size_t az, const char* b, size_t bz)
   {
+    RowKey ak, bk;
+    EXPECT_TRUE(ak.ParseFromString(string(a, az)));
+    EXPECT_TRUE(bk.ParseFromString(string(b, bz)));
+    // cout << "a(" << ak.id() << "/" << ak.timestamp() << ")"
+    //      << "b(" << bk.id() << "/" << bk.timestamp() << ")" << endl;
+    int64_t d = ak.timestamp() - bk.timestamp();
+    int32_t dd = static_cast<int32_t>(d);
+    if (dd != 0) return dd;
+    else if (d > 0) return 1;
+    else if (d < 0) return -1;
+    return 0;
+  }
+
+  int32_t compare1(const char* a, size_t az, const char* b, size_t bz)
+  {
+    uint64_t t1(0), t2(0);
+    for (size_t i = 0; i < 8; i++) {
+      t1 |= ((uint64_t*)a)[i+4] << (64-(i+1)*8);
+      t2 |= ((uint64_t*)b)[i+4] << (64-(i+1)*8);
+    }
+    cout << "t1 = " << t1 << ", t2 = " << t2 << endl;
+    if (t1 > t2) return 1;
+    else if (t1 == t2) return 0;
+    else return -1;
+  }
+  int32_t compare0(const char* a, size_t az, const char* b, size_t bz)
+  {
     Key k1(a, az);
     Key k2(b, bz);
     int64_t diff = k1.get_timestamp() - k2.get_timestamp();
@@ -201,13 +241,17 @@ TEST(Prototype, TreeDbEncodedKeyBenchmark)
   EXPECT_TRUE(db.clear());
   delete status;
 
-  Timestamp start = now_micros();
+  KeyBuilder keyBuilder = BuildStringKey();
+  KeyPrinter keyPrinter = PrintStringKey();
+  // KeyBuilder keyBuilder = BuildRowKey();
+  // KeyPrinter keyPrinter = PrintRowKey();
 
+  Timestamp start = now_micros();
   int records = MAX_RECORDS;
   cout << "Inserting" << endl;
   TreeDB* db_ptr = &db;
-  for (int i = 0; i < MAX_RECORDS; ++i) {
-    EXPECT_TRUE(insertStack(db_ptr, 1000 + i, i));
+  for (int i = 0; i < MAX_RECORDS; i++) {
+    EXPECT_TRUE(insertStack(db_ptr, keyBuilder, i));
   }
   EXPECT_EQ(records, db.count());
 
@@ -219,8 +263,15 @@ TEST(Prototype, TreeDbEncodedKeyBenchmark)
        << endl;
 
 
-  int visited = dumpDb(&db);
+  int visited = dumpDb(&db, keyPrinter);
   EXPECT_EQ(records, visited);
+
+  struct stat fstat;
+  stat(file.c_str(), &fstat);
+  cout << "File size = " << db.size() << ","
+       << boost::filesystem::file_size(file)
+       << "," << fstat.st_size
+       << endl;
 
   // close the database
   EXPECT_TRUE(db.close());
