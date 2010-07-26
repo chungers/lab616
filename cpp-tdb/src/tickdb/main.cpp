@@ -66,12 +66,12 @@ int main(int argc, char** argv)
     string value = str(val_formatter % i);
 
     tickdb::file::RowKey keyProto;
-    keyProto.set_id(i);
     keyProto.set_timestamp(ts);
-    keyProto.set_typecode(1);
 
-    tickdb::file::RowValue valueProto;
-    valueProto.set_bytes(value.c_str());
+    tickdb::file::Row valueProto;
+    tickdb::file::Row_Column* c = valueProto.add_column();
+    c->set_type(1);
+    c->set_value(value);
 
     string k;
     rowKey.ToString(&k);
@@ -90,7 +90,7 @@ int main(int argc, char** argv)
     //    if (!db.set(key, value)) {
     //  cerr << "set error: " << db.error().name() << endl;
     //}
-
+    delete c;
   }
 
   uint64_t elapsed = now_micros() - start;

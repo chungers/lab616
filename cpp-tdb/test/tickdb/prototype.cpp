@@ -7,6 +7,7 @@
 #include <boost/function.hpp>
 #include <boost/filesystem/operations.hpp>
 
+#include <glog/logging.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -25,7 +26,7 @@ using namespace tickdb::file;
 namespace {
 
 static int MAX_ROWS_TO_PRINT = 20;
-static int MAX_RECORDS = 1000000;
+static int MAX_RECORDS = 50000000;
 
 static const Key::Id ID = 10000;
 
@@ -46,7 +47,6 @@ struct BuildRowKey {
                   string* outstr)
   {
     RowKey rowKey;
-    rowKey.set_id(static_cast<int32_t>(id));
     rowKey.set_timestamp(static_cast<int64_t>(ts));
     EXPECT_TRUE(rowKey.SerializeToString(outstr));
   }
@@ -58,7 +58,7 @@ struct PrintRowKey {
     RowKey rowKey;
     EXPECT_TRUE(rowKey.ParseFromString(string(buff, sz)));
     ostringstream ss;
-    ss << "[" << rowKey.id() << "/" << rowKey.timestamp() << "]";
+    ss << "[" << rowKey.timestamp() << "]";
     printstr->assign(ss.str());
   }
 };
@@ -68,7 +68,7 @@ struct BuildStringKey {
                   string* outstr)
   {
     ostringstream ss;
-    ss << id << '.' << ts;
+    ss << ts;
     outstr->assign(ss.str());
   }
 };
@@ -83,31 +83,53 @@ struct PrintStringKey {
 static bool insertStack(TreeDB* db, KeyBuilder buildKey, int i,
                         Key::Timestamp* last)
 {
-  Key::Timestamp ts(now_micros());
+  bool duplicate = false;
+  Key::Timestamp ts;
   string keyBuff;
-  buildKey(ID, ts, &keyBuff);
+  //cerr << " " << i;
+  do {
+    ts = now_micros();
+    buildKey(ID, ts, &keyBuff);
 
-  Payload payload;
-  payload.set_id(ID);
-  payload.set_timestamp(ts);
-  payload.set_value((double) i * 10. + 1000.);
-  payload.set_type(Payload_Type_TYPE1);
-  RowValue rowValue;
-  rowValue.set_bytes(payload.SerializeAsString());
-  string rowBuff;
-  rowValue.SerializeToString(&rowBuff);
+    Payload payload;
+    payload.set_id(ID);
+    payload.set_timestamp(ts);
+    payload.set_value((double) i * 10. + 1000.);
+    payload.set_type(Payload_Type_TYPE1);
+    Row row;
+    Row_Column* c = row.add_column();
+    c->set_type(1);
+    c->set_value(payload.SerializeAsString());
 
-  bool status = true;
+    string rowBuff;
+    row.SerializeToString(&rowBuff);
 
-  if (db) {
-    status = db->add(keyBuff.c_str(), keyBuff.size(),
-                     rowBuff.c_str(), rowBuff.size());
-    if (!status) {
-      cout << " (" << i << ",ts=" << ts << ",last=" << *last << ")";
+    if (db) {
+      duplicate = !(db->add(keyBuff, rowBuff));
+      if (duplicate) {
+        cerr << "collision: (" << i << ",ts=" << ts << ",last="
+             << *last << ")" << endl;
+        string* row_buff = db->get(keyBuff);
+        Row currentRow;
+        currentRow.ParseFromString(*row_buff);
+
+        Row_Column* cc = currentRow.add_column();
+        cc->set_type(1);
+        cc->set_value(payload.SerializeAsString());
+
+        string newRowBuff;
+        currentRow.SerializeToString(&newRowBuff);
+        // Compare and swap - update
+        EXPECT_TRUE(db->cas(keyBuff.c_str(), keyBuff.size(),
+                            row_buff->c_str(), row_buff->size(),
+                            newRowBuff.c_str(), newRowBuff.size()));
+        delete row_buff;
+        duplicate = false;
+      }
     }
-  }
+  } while (duplicate);
   *last = ts;
-  return status;
+  return !duplicate;
 }
 
 static int dumpDb(TreeDB* db, KeyPrinter printKey)
@@ -117,24 +139,37 @@ static int dumpDb(TreeDB* db, KeyPrinter printKey)
   TreeDB::Cursor* cur = db->cursor();
   cur->jump();
   pair<string, string>* rec;
+  bool print = false;
+
   while ((rec = cur->get_pair(true)) != NULL) {
     string k_str;
     printKey(rec->first.c_str(), rec->first.size(), &k_str);
 
-    RowValue row;
+    Row row;
     EXPECT_TRUE(row.ParseFromString(rec->second));
-    Payload payload;
-    EXPECT_TRUE(payload.ParseFromString(row.bytes()));
+    EXPECT_LE(1, row.column_size());
+    count += row.column_size();
 
-    if (count < MAX_ROWS_TO_PRINT) {
-      cout << k_str << "/" << rec->first.size()
-           << "=" << payload.id() << "," << payload.timestamp()
-           << "," << payload.type() << "," << payload.value()
-           << "@" << payload.ByteSize() << "/" << row.ByteSize()
-           << endl;
+    // print = (count < MAX_ROWS_TO_PRINT);
+    print = row.column_size() > 1;
+    if (print) {
+      cerr << k_str << "/" << rec->first.size() << "=";
     }
+
+    Payload payload;
+    for (int i = 0; i != row.column_size(); ++i) {
+      EXPECT_TRUE(payload.ParseFromString(row.column(i).value()));
+      if (print) {
+        cerr << "[" << row.column(i).type() << "],"
+             << payload.id() << "," << payload.timestamp()
+             << "," << payload.type() << "," << payload.value()
+             << "@" << payload.ByteSize() << "/" << row.ByteSize()
+             << "|";
+      }
+    }
+    if (print) cerr << endl;
+
     delete rec; // Per documentation. Caller must delete to prevent leak.
-    count++;
   }
   delete cur;
   return count;
@@ -173,11 +208,21 @@ TEST(Prototype, TestKeyIntegrity)
 class KeyComparator : public kyotocabinet::Comparator
 {
  public:
-  KeyComparator() {}
-  ~KeyComparator() {}
 
   int32_t compare(const char* a, size_t az, const char* b, size_t bz)
   {
+    CHECK(a && b);
+    size_t msiz = az < bz ? az : bz;
+    for (size_t i = 0; i < msiz; i++) {
+      if (((uint8_t*)a)[i] != ((uint8_t*)b)[i])
+        return ((uint8_t*)a)[i] - ((uint8_t*)b)[i];
+    }
+    return (int32_t)az - (int32_t)bz;
+  }
+
+  int32_t compare2(const char* a, size_t az, const char* b, size_t bz)
+  {
+    CHECK(a && b);
     RowKey ak, bk;
     EXPECT_TRUE(ak.ParseFromString(string(a, az)));
     EXPECT_TRUE(bk.ParseFromString(string(b, bz)));
@@ -219,10 +264,9 @@ TEST(Prototype, TreeDbEncodedKeyBenchmark)
 {
   // create the database object
   TreeDB db;
-  KeyComparator kc;
 
-  // open the database
-  //EXPECT_TRUE(db.tune_comparator(&kc));
+  KeyComparator KC;
+  //EXPECT_TRUE(db.tune_comparator(&KC));
 
   // Delete the old db file, if any.  This is because
   // kc stores metadata about the comparator in the file
@@ -257,17 +301,24 @@ TEST(Prototype, TreeDbEncodedKeyBenchmark)
   for (int i = 0; i < MAX_RECORDS; i++) {
     EXPECT_TRUE(insertStack(db_ptr, keyBuilder, i, &last));
   }
-  EXPECT_EQ(records, db.count());
 
   uint64_t elapsed = now_micros() - start;
   double qps = (static_cast<double>(records)
                 / static_cast<double>(elapsed)) * 1000000;
 
-  cout << "Elapsed = " << elapsed << ", qps = " << qps
+  cout << "Elapsed = " << elapsed << ", write qps = " << qps
        << endl;
 
-
+  start = now_micros();
   int visited = dumpDb(&db, keyPrinter);
+
+  elapsed = now_micros() - start;
+  qps = (static_cast<double>(visited)
+         / static_cast<double>(elapsed)) * 1000000;
+
+  cout << "Elapsed = " << elapsed << ", read qps = " << qps
+       << endl;
+
   EXPECT_EQ(records, visited);
 
   // Note that before closing the file, the size is

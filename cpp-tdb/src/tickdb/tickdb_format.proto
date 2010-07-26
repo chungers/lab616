@@ -4,13 +4,15 @@ package tickdb.file;
 option optimize_for = LITE_RUNTIME;
 
 message RowKey  {
-  required int32 id = 1;
-  required int64 timestamp = 2;
-  optional int32 typecode = 3 [default = 0];
+  required sfixed64 timestamp = 2;
+  //optional fixed32 bloom = 3 [default = 0];
 }
 
-message RowValue {
-  required bytes bytes = 1;
+message Row {
+  repeated group Column = 1 {
+    required int32 type = 2;
+    required bytes value = 3;
+  };
 };
 
 // Test payload message to be included in RowValue:
