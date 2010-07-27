@@ -11,6 +11,7 @@ set(tickdb_test_srcs
   AllTests.cpp
   utils_test.cpp
   prototype.cpp
+  tickdb_test.cpp
 )
 set(tickdb_test_libs
   tickdb

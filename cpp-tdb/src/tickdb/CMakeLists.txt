@@ -10,13 +10,13 @@ set(tickdb_incs
   ${THIRD_PARTY_BUILD_DIR}/include
 )
 set(tickdb_srcs
+  tickdb.hpp
+  tickdb.cpp
   utils.cpp
-  main.cpp
 )
 set(tickdb_libs
   tickdb_format_proto
 )
-# Client implementation:
 cpp_library(tickdb)
 
 

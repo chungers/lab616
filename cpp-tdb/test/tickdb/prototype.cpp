@@ -26,7 +26,7 @@ using namespace tickdb::file;
 namespace {
 
 static int MAX_ROWS_TO_PRINT = 20;
-static int MAX_RECORDS = 50000000;
+static int MAX_RECORDS = 1000;
 
 static const Key::Id ID = 10000;
 
@@ -83,6 +83,7 @@ struct PrintStringKey {
 static bool insertStack(TreeDB* db, KeyBuilder buildKey, int i,
                         Key::Timestamp* last)
 {
+  CHECK(db);
   bool duplicate = false;
   Key::Timestamp ts;
   string keyBuff;
@@ -104,11 +105,14 @@ static bool insertStack(TreeDB* db, KeyBuilder buildKey, int i,
     string rowBuff;
     row.SerializeToString(&rowBuff);
 
-    if (db) {
-      duplicate = !(db->add(keyBuff, rowBuff));
-      if (duplicate) {
-        cerr << "collision: (" << i << ",ts=" << ts << ",last="
-             << *last << ")" << endl;
+    duplicate = !(db->add(keyBuff, rowBuff));
+    if (duplicate) {
+      cerr << "collision: (" << i << ",ts=" << ts << ",last="
+           << *last << ")" << endl;
+
+      bool cas = false;
+      do {
+
         string* row_buff = db->get(keyBuff);
         Row currentRow;
         currentRow.ParseFromString(*row_buff);
@@ -120,12 +124,15 @@ static bool insertStack(TreeDB* db, KeyBuilder buildKey, int i,
         string newRowBuff;
         currentRow.SerializeToString(&newRowBuff);
         // Compare and swap - update
-        EXPECT_TRUE(db->cas(keyBuff.c_str(), keyBuff.size(),
-                            row_buff->c_str(), row_buff->size(),
-                            newRowBuff.c_str(), newRowBuff.size()));
+        cas = db->cas(keyBuff.c_str(), keyBuff.size(),
+                      row_buff->c_str(), row_buff->size(),
+                      newRowBuff.c_str(), newRowBuff.size());
+        EXPECT_TRUE(cas);
         delete row_buff;
-        duplicate = false;
-      }
+
+      } while (!cas);
+
+      duplicate = false;
     }
   } while (duplicate);
   *last = ts;
@@ -299,7 +306,9 @@ TEST(Prototype, TreeDbEncodedKeyBenchmark)
   cout << "Inserting" << endl;
   TreeDB* db_ptr = &db;
   for (int i = 0; i < MAX_RECORDS; i++) {
+    // db.begin_transaction();
     EXPECT_TRUE(insertStack(db_ptr, keyBuilder, i, &last));
+    // db.end_transaction();
   }
 
   uint64_t elapsed = now_micros() - start;
