@@ -18,24 +18,25 @@ using namespace std;
 
 DEFINE_string(host, "", "Hostname to connect.");
 DEFINE_int32(port, 4001, "Port");
-DEFINE_string(symbols, "AAPL", "Symbols, comma-delimited.");
+
+
+DEFINE_string(tickdata_symbols,
+              "AMZN,ABK,BAC,DDM,DXD,EUO,ULE,FAS,FAZ,FSLR,GOOG,GS,\
+JPM,NFLX,QID,QQQQ,PCLN,RIMM,RTH,SDS,SPY",
+              "Symbols for tickdata only, comma-delimited.");
+
 DEFINE_int32(client_id, 0, "Client Id.");
 
-
-DEFINE_bool(book_data, false, "Book data.");
-DEFINE_bool(tick_data, true, "Tick data.");
-DEFINE_bool(realtime_bars, true, "Realtime bars");
-
-DEFINE_bool(option, true, "Request option data.");
 DEFINE_string(option_symbol, "AAPL", "Option underlying symbol");
 DEFINE_bool(option_call, true, "True for Calls.");
 DEFINE_int32(option_day, 20, "month 1 - 31");
 DEFINE_int32(option_month, 8, "month 1 - 12");
 DEFINE_int32(option_year, 2010, "YYYY");
 DEFINE_double(option_strike, 260.0, "Strike");
+DEFINE_bool(option_book, true, "Book data for option legs.");
 
 ib::Session* session;
-vector<string> tokens;
+vector<string> tickdata_tokens;
 
 static void RequestIndexData(ib::services::IMarketData* md)
 {
@@ -76,7 +77,8 @@ static void RequestOptionData(ib::services::IMarketData* md)
                         FLAGS_option_strike,
                         FLAGS_option_year,
                         FLAGS_option_month,
-                        FLAGS_option_day, true);
+                        FLAGS_option_day,
+                        FLAGS_option_book);
   string formatted;
   VLOG(1) << "Requested " << FLAGS_option_symbol
           << ", strike = " << FLAGS_option_strike
@@ -94,11 +96,8 @@ void OnConnectConfirm()
   if (md) {
     // First request index: INDU
     RequestIndexData(md);
-    if (FLAGS_option) {
-      RequestOptionData(md);
-    } else {
-      RequestStockData(tokens, md);
-    }
+    RequestOptionData(md);
+    RequestStockData(tickdata_tokens, md);
   }
 }
 
@@ -117,7 +116,7 @@ int main(int argc, char** argv)
   const int connection_id = FLAGS_client_id;
 
   // Split the string flag by comma:
-  boost::split(tokens, FLAGS_symbols, boost::is_any_of(","));
+  boost::split(tickdata_tokens, FLAGS_tickdata_symbols, boost::is_any_of(","));
 
   // Connect
   session = new ib::Session(host, port, connection_id);
