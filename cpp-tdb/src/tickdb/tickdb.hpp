@@ -1,16 +1,8 @@
 #ifndef TICKDB_H_
 #define TICKDB_H_
 
-#include <iostream>
-#include <sstream>
 #include <string>
-#include <sys/stat.h>
-#include <boost/bind.hpp>
-#include <boost/format.hpp>
 #include <boost/function.hpp>
-#include <boost/filesystem/operations.hpp>
-
-#include <glog/logging.h>
 #include "tickdb/tickdb_format.pb.h"
 
 namespace tickdb {
@@ -22,36 +14,35 @@ typedef uint64_t Timestamp;
  * C is a type code, and T is the proto message type.
  */
 template <int C, typename T>
-class Marshaller
+class ColumnMarshaller
 {
  public:
-  ~Marshaller() {}
+  ColumnMarshaller() {}
+  ~ColumnMarshaller() {}
 
   /** @return The type code. */
   int TypeCode() { return C; }
 
-  /**
-   * @param input The proto message
-   * @param output The output mutable string.
-   * @returns True if success.
-   */
-  bool SerializeToString(const T& input, std::string* output)
+  bool SerializeToColumnBuffer(const T& input, std::string* output)
   {
-    return input.SerializeToString(output);
+    tickdb::file::Row_Column col;
+    std::string buff;
+    bool ok = input.SerializeToString(&buff);
+    if (!ok) return false;
+    col.set_type(C);
+    col.set_value(buff);
+    return col.SerializeToString(output);
   }
 
-  /**
-   * @param input The const string buffer.
-   * @param output The mutable message to merge results to.
-   * @returns True if success.
-   */
-  bool ParseFromString(const std::string& input, T* output)
+  bool ParseFromColumnBuffer(const std::string& input, T* output)
   {
-    return output.ParseFromString(input);
+    tickdb::file::Row_Column col;
+    bool ok = col.ParseFromString(input);
+    if (!ok) return false;
+    if (col.type() != C) return false; // Wrong type.
+    return output.ParseFromString(col.value());
   }
 };
-
-typedef Marshaller<0, tickdb::file::Payload> PayloadMarshaller;
 
 
 class TickDbInterface
