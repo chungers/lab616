@@ -11,26 +11,28 @@ namespace services {
 
 
 // Service interface for Requesting Market Data.
-class IMarketData
+class MarketDataInterface
 {
  public:
-  virtual ~IMarketData() {}
+  virtual ~MarketDataInterface() {}
 
   // Dow = (INDU, NYSE), S&P = (SPX, CBOE), VIX = (VIX, CBOE)
-  virtual unsigned int requestIndex(const string& symbol,
+  virtual unsigned int RequestIndex(const string& symbol,
                                     const string& exchange) = 0;
 
   // Requests tick data for the given symbol.
   // Returns the unique ticker id.
-  virtual unsigned int requestTicks(const string& symbol,
+  virtual unsigned int RequestTicks(const string& symbol,
                                     bool marketDepth) = 0;
 
+  enum OptionType { CALL = 0, PUT = 1 };
+
   // Option data
-  virtual unsigned int requestOptionData(const string& symbol,
-                                         bool call,
-                                         const double strike,
-                                         const int year, const int month,
-                                         const int day,
+  virtual unsigned int RequestOptionData(const string& symbol,
+                                         OptionType option_type,
+                                         double strike,
+                                         int year, const int month,
+                                         int day,
                                          bool marketDepth) = 0;
 };
 

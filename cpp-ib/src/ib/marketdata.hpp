@@ -17,7 +17,7 @@ namespace ib {
 namespace internal {
 
 
-class MarketDataImpl : public ib::services::IMarketData
+class MarketDataImpl : public ib::services::MarketDataInterface
 {
  public:
   MarketDataImpl(EClient* eclient);
@@ -27,18 +27,18 @@ class MarketDataImpl : public ib::services::IMarketData
   EClient* eclient_;
 
  public:
-  virtual unsigned int requestIndex(const string& symbol,
+  virtual unsigned int RequestIndex(const string& symbol,
                                     const string& exchange);
 
-  virtual unsigned int requestTicks(const string& symbol,
+  virtual unsigned int RequestTicks(const string& symbol,
                                     bool marketDepth);
 
-  virtual unsigned int requestOptionData(const string& symbol,
-                                         bool call,
-                                         const double strike,
-                                         const int year,
-                                         const int month,
-                                         const int day,
+  virtual unsigned int RequestOptionData(const string& symbol,
+                                         OptionType option_type,
+                                         double strike,
+                                         int year,
+                                         int month,
+                                         int day,
                                          bool marketDepth);
 };
 

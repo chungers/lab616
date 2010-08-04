@@ -38,65 +38,35 @@ DEFINE_bool(option_book, true, "Book data for option legs.");
 ib::Session* session;
 vector<string> tickdata_tokens;
 
-static void RequestIndexData(ib::services::IMarketData* md)
+static void RequestIndexData(ib::services::MarketDataInterface* md)
 {
-  md->requestIndex("INDU", "NYSE");
-  md->requestIndex("SPX", "CBOE");
-  md->requestIndex("VIX", "CBOE");
+  md->RequestIndex("INDU", "NYSE");
+  md->RequestIndex("SPX", "CBOE");
+  md->RequestIndex("VIX", "CBOE");
   // In case we can't get spx, use spy as a substitute.
   string sym("SPY");
   VLOG(1) << "Requested " << sym
-          << ", tickerId=" << md->requestTicks(sym, false);
+          << ", tickerId=" << md->RequestTicks(sym, false);
 }
 
 static void RequestStockData(vector<string> symbols,
-                             ib::services::IMarketData* md)
+                             ib::services::MarketDataInterface* md)
 {
   vector<string>::iterator itr;
   for (itr = symbols.begin(); itr != symbols.end(); itr++) {
     VLOG(1) << "Requested " << *itr
-            << ", tickerId=" << md->requestTicks(*itr, false);
+            << ", tickerId=" << md->RequestTicks(*itr, false);
   }
-}
-
-static string FormatOptionExpiry(int year, int month, int day,
-                                  string* formatted)
-{
-  ostringstream s1;
-  string fmt = (month > 9) ? "%4d%2d" : "%4d0%1d";
-  string fmt2 = (day > 9) ? "%2d" : "0%1d";
-  s1 << boost::format(fmt) % year % month << boost::format(fmt2) % day;
-  formatted->assign(s1.str());
-  return *formatted;
-}
-
-static void RequestOptionData(ib::services::IMarketData* md)
-{
-  md->requestOptionData(FLAGS_option_symbol,
-                        FLAGS_option_call,
-                        FLAGS_option_strike,
-                        FLAGS_option_year,
-                        FLAGS_option_month,
-                        FLAGS_option_day,
-                        FLAGS_option_book);
-  string formatted;
-  VLOG(1) << "Requested " << FLAGS_option_symbol
-          << ", strike = " << FLAGS_option_strike
-          << ", expiry = " << FormatOptionExpiry(FLAGS_option_year,
-                                                 FLAGS_option_month,
-                                                 FLAGS_option_day,
-                                                 &formatted);
 }
 
 void OnConnectConfirm()
 {
   LOG(INFO) << "================== CONNECTION CONFIRMED ===================";
 
-  ib::services::IMarketData* md = session->access_market_data();
+  ib::services::MarketDataInterface* md = session->AccessMarketData();
   if (md) {
     // First request index: INDU
     RequestIndexData(md);
-    RequestOptionData(md);
     RequestStockData(tickdata_tokens, md);
   }
 }

@@ -20,8 +20,12 @@ case $1 in
 	make install $TARGET
 ;;
 --stop)
-	echo -e "Stopping $(cat $PID_FILE)"
-	kill -s TERM $(cat $PID_FILE)
+	l=$(ps -p $(cat $PID_FILE) -o command=)
+	echo -e "Found: $l"
+	if [[ $l != "" ]]; then
+	    echo -e "Stopping $(cat $PID_FILE)"
+	    kill -s TERM $(cat $PID_FILE)
+	fi
 	exit 1;
 ;;
 esac
@@ -41,9 +45,9 @@ done
 echo -e "Tickers = $TICKERS"
 
 CMD="$BIN --log_dir=$LOG_DIR \
---client_id=1000 --v=4 --stderrthreshold=3 \
+--client_id=1000 --v=4 \
 --tickdata_symbols=$TICKERS \
---option_symbol=AAPL --option_strike=260 \
+--option_symbol=SPY --option_strike=112 \
 --option_month=8 --option_day=20 --option_year=2010
 "
 echo $CMD
