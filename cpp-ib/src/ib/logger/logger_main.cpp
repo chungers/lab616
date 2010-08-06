@@ -1,6 +1,9 @@
 
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
 #include <vector>
+#include <unistd.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/format.hpp>
@@ -37,12 +40,15 @@ DEFINE_double(option_strike, 112.0, "Strike");
 ib::Session* session;
 vector<string> tickdata_tokens;
 
+vector<unsigned int> live_marketdata; // For clean up
+
 static void RequestIndexData(ib::services::MarketDataInterface* md)
 {
+
   if (FLAGS_request_index) {
-    md->RequestIndex("INDU", "NYSE");
-    md->RequestIndex("SPX", "CBOE");
-    md->RequestIndex("VIX", "CBOE");
+    live_marketdata.push_back(md->RequestIndex("INDU", "NYSE"));
+    live_marketdata.push_back(md->RequestIndex("SPX", "CBOE"));
+    live_marketdata.push_back(md->RequestIndex("VIX", "CBOE"));
   }
 }
 
@@ -50,10 +56,15 @@ static void RequestStockData(vector<string> symbols,
                              ib::services::MarketDataInterface* md)
 {
   vector<string>::iterator itr;
+  unsigned int id;
   for (itr = symbols.begin(); itr != symbols.end(); ++itr) {
     if (itr->length()) {
+      id = md->RequestTicks(*itr, false);
+
       VLOG(1) << "Requested " << *itr
-              << ", tickerId=" << md->RequestTicks(*itr, false);
+              << ", tickerId=" << id;
+
+      live_marketdata.push_back(id);
     }
   }
 }
@@ -76,12 +87,13 @@ static void RequestOptionData(ib::services::MarketDataInterface* md)
       ib::services::MarketDataInterface::CALL :
       ib::services::MarketDataInterface::PUT;
 
-  md->RequestOptionData(FLAGS_option_symbol,
-                        option_type,
-                        FLAGS_option_strike,
-                        FLAGS_option_year,
-                        FLAGS_option_month,
-                        FLAGS_option_day, false);
+  live_marketdata.push_back(
+      md->RequestOptionData(FLAGS_option_symbol,
+                            option_type,
+                            FLAGS_option_strike,
+                            FLAGS_option_year,
+                            FLAGS_option_month,
+                            FLAGS_option_day, false));
 
   string formatted;
   VLOG(1) << "Requested " << FLAGS_option_symbol << ",side = " << option_type
@@ -96,12 +108,13 @@ static void RequestOptionData(ib::services::MarketDataInterface* md)
         FLAGS_option_call ?
         ib::services::MarketDataInterface::PUT:
         ib::services::MarketDataInterface::CALL;
-    md->RequestOptionData(FLAGS_option_symbol,
-                          option_type2,
-                          FLAGS_option_strike,
-                          FLAGS_option_year,
-                          FLAGS_option_month,
-                          FLAGS_option_day, false);
+    live_marketdata.push_back(
+        md->RequestOptionData(FLAGS_option_symbol,
+                              option_type2,
+                              FLAGS_option_strike,
+                              FLAGS_option_year,
+                              FLAGS_option_month,
+                              FLAGS_option_day, false));
 
     string formatted;
     VLOG(1) << "Requested " << FLAGS_option_symbol << ",side = " << option_type2
@@ -111,6 +124,28 @@ static void RequestOptionData(ib::services::MarketDataInterface* md)
                                                    FLAGS_option_day,
                                                    &formatted);
   }
+}
+
+void OnTerminate(int param)
+{
+  LOG(INFO) << "===================== SHUTTING DOWN =======================";
+
+  ib::services::MarketDataInterface* md = session->AccessMarketData();
+  if (md) {
+  // First cancel data subscriptions
+    vector<unsigned int>::iterator itr;
+    for (itr = live_marketdata.begin(); itr != live_marketdata.end(); ++itr) {
+      LOG(INFO) << "Cancel market data for " << *itr;
+      md->CancelMarketData(*itr);
+    }
+  }
+  sleep(5);
+  LOG(INFO) << "Calling session Stop.";
+  session->Stop();
+  LOG(INFO) << "Waiting for shutdown....";
+  session->Join();
+  LOG(INFO) << "Bye.";
+  exit(1);
 }
 
 void OnConnectConfirm()
@@ -133,6 +168,14 @@ void OnDisconnect()
 
 int main(int argc, char** argv)
 {
+  // Signal handler
+  void (*terminate)(int);
+  terminate = signal(SIGTERM, OnTerminate);
+  if (terminate == SIG_IGN) {
+    LOG(INFO) << "********** RESETTING SIGNAL SIGTERM";
+    signal(SIGTERM, SIG_IGN);
+  }
+
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 

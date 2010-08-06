@@ -40,6 +40,8 @@ class MarketDataImpl : public ib::services::MarketDataInterface
                                          int month,
                                          int day,
                                          bool marketDepth);
+
+  virtual void CancelMarketData(unsigned int id);
 };
 
 

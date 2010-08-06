@@ -129,6 +129,13 @@ unsigned int MarketDataImpl::RequestOptionData(const string& symbol,
   return id1;
 }
 
+void MarketDataImpl::CancelMarketData(unsigned int id)
+{
+  if (id % (1 << ib::internal::OFFSET)) {
+    VLOG(VLOG_MARKETDATA) << "Id " << id << " is option contract.";
+  }
+  eclient_->cancelMktData(id);
+}
 
 }; // namespace internal
 }; // namespace ib

@@ -34,6 +34,9 @@ class MarketDataInterface
                                          int year, const int month,
                                          int day,
                                          bool marketDepth) = 0;
+
+  // Cancels the requested data.  The id determines stock or option.
+  virtual void CancelMarketData(unsigned int id) = 0;
 };
 
 
