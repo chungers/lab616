@@ -1,6 +1,9 @@
 
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
 #include <vector>
+#include <unistd.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/format.hpp>
@@ -19,44 +22,50 @@ using namespace std;
 DEFINE_string(host, "", "Hostname to connect.");
 DEFINE_int32(port, 4001, "Port");
 
-
-DEFINE_string(
-    tickdata_symbols,
-    "AMZN,ABK,BAC,DDM,DXD,EUO,ULE,FAS,FAZ,FSLR,GOOG,GS,SINA,JPM,USO,MSFT,\
-NFLX,QID,QQQQ,PCLN,RIMM,RTH,SDS,GLD,ABX,COF,IAU,AXP,MS,IACI,BIDU,APC,CBG",
-    "Symbols for tickdata only, comma-delimited.");
+DEFINE_bool(request_index, true, "True to request index feed.");
+DEFINE_string(tickdata_symbols, "",
+              "Symbols for tickdata only, comma-delimited.");
 
 DEFINE_int32(client_id, 0, "Client Id.");
 
-DEFINE_string(option_symbol, "AAPL", "Option underlying symbol");
+DEFINE_string(option_symbol, "SPY", "Option underlying symbol");
 DEFINE_bool(option_call, true, "True for Calls.");
-DEFINE_int32(option_day, 20, "month 1 - 31");
+DEFINE_bool(option_straddle, true, "True if straddle -- both sides of strike.");
+DEFINE_int32(option_day, 21, "month 1 - 31");
 DEFINE_int32(option_month, 8, "month 1 - 12");
 DEFINE_int32(option_year, 2010, "YYYY");
-DEFINE_double(option_strike, 260.0, "Strike");
-DEFINE_bool(option_book, true, "Book data for option legs.");
+DEFINE_double(option_strike, 112.0, "Strike");
+
 
 ib::Session* session;
 vector<string> tickdata_tokens;
 
-static void RequestIndexData(ib::services::IMarketData* md)
+vector<unsigned int> live_marketdata; // For clean up
+
+static void RequestIndexData(ib::services::MarketDataInterface* md)
 {
-  md->requestIndex("INDU", "NYSE");
-  md->requestIndex("SPX", "CBOE");
-  md->requestIndex("VIX", "CBOE");
-  // In case we can't get spx, use spy as a substitute.
-  string sym("SPY");
-  VLOG(1) << "Requested " << sym
-          << ", tickerId=" << md->requestTicks(sym, false);
+
+  if (FLAGS_request_index) {
+    live_marketdata.push_back(md->RequestIndex("INDU", "NYSE"));
+    live_marketdata.push_back(md->RequestIndex("SPX", "CBOE"));
+    live_marketdata.push_back(md->RequestIndex("VIX", "CBOE"));
+  }
 }
 
 static void RequestStockData(vector<string> symbols,
-                             ib::services::IMarketData* md)
+                             ib::services::MarketDataInterface* md)
 {
   vector<string>::iterator itr;
-  for (itr = symbols.begin(); itr != symbols.end(); itr++) {
-    VLOG(1) << "Requested " << *itr
-            << ", tickerId=" << md->requestTicks(*itr, false);
+  unsigned int id;
+  for (itr = symbols.begin(); itr != symbols.end(); ++itr) {
+    if (itr->length()) {
+      id = md->RequestTicks(*itr, false);
+
+      VLOG(1) << "Requested " << *itr
+              << ", tickerId=" << id;
+
+      live_marketdata.push_back(id);
+    }
   }
 }
 
@@ -71,29 +80,79 @@ static string FormatOptionExpiry(int year, int month, int day,
   return *formatted;
 }
 
-static void RequestOptionData(ib::services::IMarketData* md)
+static void RequestOptionData(ib::services::MarketDataInterface* md)
 {
-  md->requestOptionData(FLAGS_option_symbol,
-                        FLAGS_option_call,
-                        FLAGS_option_strike,
-                        FLAGS_option_year,
-                        FLAGS_option_month,
-                        FLAGS_option_day,
-                        FLAGS_option_book);
+  ib::services::MarketDataInterface::OptionType option_type =
+      FLAGS_option_call ?
+      ib::services::MarketDataInterface::CALL :
+      ib::services::MarketDataInterface::PUT;
+
+  live_marketdata.push_back(
+      md->RequestOptionData(FLAGS_option_symbol,
+                            option_type,
+                            FLAGS_option_strike,
+                            FLAGS_option_year,
+                            FLAGS_option_month,
+                            FLAGS_option_day, false));
+
   string formatted;
-  VLOG(1) << "Requested " << FLAGS_option_symbol
+  VLOG(1) << "Requested " << FLAGS_option_symbol << ",side = " << option_type
           << ", strike = " << FLAGS_option_strike
           << ", expiry = " << FormatOptionExpiry(FLAGS_option_year,
                                                  FLAGS_option_month,
                                                  FLAGS_option_day,
                                                  &formatted);
+
+  if (FLAGS_option_straddle) {
+    ib::services::MarketDataInterface::OptionType option_type2 =
+        FLAGS_option_call ?
+        ib::services::MarketDataInterface::PUT:
+        ib::services::MarketDataInterface::CALL;
+    live_marketdata.push_back(
+        md->RequestOptionData(FLAGS_option_symbol,
+                              option_type2,
+                              FLAGS_option_strike,
+                              FLAGS_option_year,
+                              FLAGS_option_month,
+                              FLAGS_option_day, false));
+
+    string formatted;
+    VLOG(1) << "Requested " << FLAGS_option_symbol << ",side = " << option_type2
+            << ", strike = " << FLAGS_option_strike
+            << ", expiry = " << FormatOptionExpiry(FLAGS_option_year,
+                                                   FLAGS_option_month,
+                                                   FLAGS_option_day,
+                                                   &formatted);
+  }
+}
+
+void OnTerminate(int param)
+{
+  LOG(INFO) << "===================== SHUTTING DOWN =======================";
+
+  ib::services::MarketDataInterface* md = session->AccessMarketData();
+  if (md) {
+  // First cancel data subscriptions
+    vector<unsigned int>::iterator itr;
+    for (itr = live_marketdata.begin(); itr != live_marketdata.end(); ++itr) {
+      LOG(INFO) << "Cancel market data for " << *itr;
+      md->CancelMarketData(*itr);
+    }
+  }
+  sleep(5);
+  LOG(INFO) << "Calling session Stop.";
+  session->Stop();
+  LOG(INFO) << "Waiting for shutdown....";
+  session->Join();
+  LOG(INFO) << "Bye.";
+  exit(1);
 }
 
 void OnConnectConfirm()
 {
   LOG(INFO) << "================== CONNECTION CONFIRMED ===================";
 
-  ib::services::IMarketData* md = session->access_market_data();
+  ib::services::MarketDataInterface* md = session->AccessMarketData();
   if (md) {
     // First request index: INDU
     RequestIndexData(md);
@@ -109,6 +168,14 @@ void OnDisconnect()
 
 int main(int argc, char** argv)
 {
+  // Signal handler
+  void (*terminate)(int);
+  terminate = signal(SIGTERM, OnTerminate);
+  if (terminate == SIG_IGN) {
+    LOG(INFO) << "********** RESETTING SIGNAL SIGTERM";
+    signal(SIGTERM, SIG_IGN);
+  }
+
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 

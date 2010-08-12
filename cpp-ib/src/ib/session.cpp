@@ -18,7 +18,7 @@
 
 using ib::adapter::LoggingEClientSocket;;
 using ib::adapter::LoggingEWrapper;
-using ib::services::IMarketData;
+using ib::services::MarketDataInterface;
 using ib::Session;
 
 using namespace std;
@@ -56,7 +56,7 @@ class polling_implementation
 
   boost::scoped_ptr<PollingClient> polling_client_;
   boost::scoped_ptr<EPosixClientSocket> client_socket_;
-  boost::scoped_ptr<IMarketData> marketdata_;
+  boost::scoped_ptr<MarketDataInterface> marketdata_;
 
   volatile bool connected_;
   boost::mutex connected_mutex_;
@@ -115,7 +115,7 @@ class polling_implementation
   }
 
   /** @implements Session */
-  IMarketData* access_market_data()
+  MarketDataInterface* AccessMarketData()
   {
     bool ok = IsReady();
     LOG_IF(WARNING, !ok) << "Connection not confirmed.  No market data.";
@@ -345,7 +345,7 @@ void Session::RegisterCallbackOnConnect(Session::ConnectConfirmCallback cb)
 void Session::RegisterCallbackOnDisconnect(Session::DisconnectCallback cb)
 { impl_->RegisterCallbackOnDisconnect(cb); }
 
-IMarketData* Session::access_market_data()
-{ return impl_->access_market_data(); }
+MarketDataInterface* Session::AccessMarketData()
+{ return impl_->AccessMarketData(); }
 
 } // namespace ib

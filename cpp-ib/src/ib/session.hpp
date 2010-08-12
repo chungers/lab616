@@ -8,7 +8,7 @@
 #include "ib/services.hpp"
 
 using namespace std;
-using ib::services::IMarketData;
+using ib::services::MarketDataInterface;
 
 namespace ib {
 
@@ -38,7 +38,7 @@ class Session
   void RegisterCallbackOnDisconnect(DisconnectCallback cb);
 
   // Interface for request market data (tick, book, etc.)
-  IMarketData* access_market_data();
+  MarketDataInterface* AccessMarketData();
 
  private:
   class implementation;
