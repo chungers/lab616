@@ -11,11 +11,16 @@
 # Pass a list of include paths:
 #  First, list(APPEND p A B C).
 #  Then, call emacs_ide_project("${p}") to pass the list.
-function(emacs_ide_project include_paths)
+function(emacs_ide_project include_paths sys_include_paths)
   foreach (p ${include_paths})
     set(EMACS_PROJECT_INCLUDE_PATHS "\"${p}\" ${EMACS_PROJECT_INCLUDE_PATHS}")
   endforeach()
-  message(STATUS "Emacs IDE include path: ${EMACS_PROJECT_INCLUDE_PATHS}")
+  foreach (sp ${sys_include_paths})
+    set(EMACS_PROJECT_SYS_INCLUDE_PATHS
+      "\"${sp}\" ${EMACS_PROJECT_SYS_INCLUDE_PATHS}")
+  endforeach()
+  message(STATUS "Emacs include path: ${EMACS_PROJECT_INCLUDE_PATHS}")
+  message(STATUS "Emacs sys include path: ${EMACS_PROJECT_SYS_INCLUDE_PATHS}")
   configure_file(
     ${PROJECT_SOURCE_DIR}/../third_party/emacs/.emacs-cmake-project.template
     ${PROJECT_SOURCE_DIR}/project.el

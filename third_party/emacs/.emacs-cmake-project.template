@@ -95,5 +95,5 @@
 		 "/_build/third_party/include"
 		 @EMACS_PROJECT_INCLUDE_PATHS@
 		 )
- :system-include-path '("/usr/local/google")
+ :system-include-path '(@EMACS_PROJECT_SYS_INCLUDE_PATHS@)
  )

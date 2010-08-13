@@ -19,12 +19,17 @@ include(${PROJECT_SOURCE_DIR}/../cmake-common/Init.cmk)
 # This corresponds to the name of the subdirectory in //cpp-ib/src/ib/api
 set(IBAPI_VERSION "9.64beta")
 
-list(APPEND includes
+list(APPEND emacs_includes
   /src/ib/api/${IBAPI_VERSION}
   /src/ib/api/${IBAPI_VERSION}/Shared
   /src/ib/api/${IBAPI_VERSION}/PosixSocketClient
 )
-emacs_ide_project("${includes}")
+
+set(LIBSIGC_PATH "/usr/local/include/sigc++-2.0")
+list(APPEND emacs_sys_includes
+  ${LIBSIGC_PATH}
+)
+emacs_ide_project("${emacs_includes}" "${emacs_sys_includes}")
 
 # Third party libraries used.
 boost_libraries(date_time thread)

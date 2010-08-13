@@ -4,7 +4,7 @@
 #include <boost/algorithm/string.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
+#include <sigc++/sigc++.h>
 
 using namespace std;
 

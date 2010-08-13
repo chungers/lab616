@@ -10,6 +10,7 @@ set(adapter_test_incs
   ${GEN_DIR}
   ${SRC_DIR}
   ${TEST_DIR}
+  ${LIBSIGC_PATH}
 )
 set(adapter_test_srcs
   AllTests.cpp
@@ -20,5 +21,6 @@ set(adapter_test_srcs
 set(adapter_test_libs
   v964_adapter
   glog
+  sigc-2.0
 )
 cpp_gtest(adapter_test)
