@@ -1,36 +1,48 @@
 // Events / data from the IB API.
 package ib.events;
 
-option java_package = "com.lab616.ib.events";
-option java_outer_classname = "IBEvents";
 option optimize_for = LITE_RUNTIME;
 
 import "ib_common.proto";
 
+message Tick {
+  required int64 time_stamp = 1;
+  required int32 id = 2;
+
+  enum Type {
+    BID_PRICE  = 1;
+    ASK_PRICE  = 2;
+    BID_VOLUME = 3;
+    ASK_VOLUME = 4;
+  }
+  required Type type = 3;
+  optional double value = 4;
+}
+
 message Bid {
   required int64 time_stamp = 1;
-  required ib.common.Id id = 2;
+  required int32 id = 2;
   optional double price = 3;
   optional int32 size = 4;
 }
 
 message Ask {
   required int64 time_stamp = 1;
-  required ib.common.Id id = 2;
+  required int32 id = 2;
   optional double price = 3;
   optional int32 size = 4;
 }
 
 message Last {
   required int64 time_stamp = 1;
-  required ib.common.Id id = 2;
+  required int32 id = 2;
   optional double price = 3;
   optional int32 size = 4;
 }
 
 message Option {
   required int64 time_stamp = 1;
-  required ib.common.Id id = 2;
+  required int32 id = 2;
   optional double price = 3;
   optional double delta = 4;
   optional double gamma = 5;
@@ -41,7 +53,7 @@ message Option {
 
 message Bar {
   required int64 time_stamp = 1;
-  required ib.common.Id id = 2;
+  required int32 id = 2;
   required double open = 3;
   required double high = 4;
   required double low = 5;

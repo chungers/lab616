@@ -1,14 +1,16 @@
+#include <sstream>
+#include <boost/format.hpp>
+#include <glog/logging.h>
 #include <ib/helpers.hpp>
+#include <ib/ticker_id.hpp>
 #include <ib/marketdata.hpp>
 
-#include <glog/logging.h>
-
-#include <boost/format.hpp>
-#include <sstream>
 
 #define VLOG_MARKETDATA 3
 
 using namespace std;
+using namespace ib::services;
+
 
 namespace ib {
 namespace internal {
@@ -17,45 +19,64 @@ namespace internal {
 static const string GENERIC_TICK_TAGS =
     "100,101,104,105,106,107,165,221,225,233,236,258";
 
-string FormatOptionExpiry(int year, int month, int day)
+static string* FormatOptionExpiry(int year, int month, int day, string* out)
 {
   ostringstream s1;
   string fmt = (month > 9) ? "%4d%2d" : "%4d0%1d";
   string fmt2 = (day > 9) ? "%2d" : "0%1d";
   s1 << boost::format(fmt) % year % month << boost::format(fmt2) % day;
-  return s1.str();
+  out->assign(s1.str());
+  return out;
 }
 
 // TODO: Move to another file.
-Contract CreateContractForStock(std::string symbol)
+static void CreateContractForIndex(const string& symbol,
+                                   const string& exchange,
+                                   Contract* contract)
+{
+  VLOG(VLOG_MARKETDATA) << "Creating IND contract for " << symbol
+                        << " on " << exchange;
+
+  contract->symbol = symbol;
+  contract->secType = "IND";
+  contract->exchange = exchange;
+  contract->primaryExchange = exchange;
+  contract->currency = "USD";
+}
+
+static void CreateContractForStock(const string& symbol,
+                                   Contract* contract)
 {
   VLOG(VLOG_MARKETDATA) << "Creating STK contract for " << symbol;
 
-  Contract contract;
-  contract.symbol = symbol;
-  contract.secType = "STK";
-  contract.exchange = "SMART";
-  contract.currency = "USD";
-  return contract;
+  contract->symbol = symbol;
+  contract->secType = "STK";
+  contract->exchange = "SMART";
+  contract->currency = "USD";
 }
 
-Contract CreateContractForOption(const std::string& symbol, bool call,
-                                 const double strike,
-                                 const int year, const int month,
-                                 const int day)
+static void CreateContractForOption(const string& symbol,
+                                    MarketDataInterface::OptionType option_type,
+                                    double strike,
+                                    int year, int month,
+                                    int day,
+                                    Contract* contract)
 {
   VLOG(VLOG_MARKETDATA) << "Creating OPTION contract for " << symbol;
-
-  Contract contract;
-  contract.symbol = symbol;
-  contract.secType = "OPT";
-  contract.exchange = "SMART";
-  contract.currency = "USD";
-  contract.strike = strike;
-  contract.expiry = FormatOptionExpiry(year, month, day);
-  contract.right = (call) ? "CALL" : "PUT";
-  contract.multiplier = 100;
-  return contract;
+  contract->symbol = symbol;
+  contract->secType = "OPT";
+  contract->exchange = "SMART";
+  contract->currency = "USD";
+  if (strike > 0.0) {
+    contract->strike = strike;
+    contract->multiplier = 100;
+  }
+  if (year && month && day) {
+    string formatted;
+    FormatOptionExpiry(year, month, day, &formatted);
+    contract->expiry = formatted;
+  }
+  contract->right = (option_type == MarketDataInterface::CALL) ? "C" : "P";
 }
 
 
@@ -67,42 +88,70 @@ MarketDataImpl::~MarketDataImpl()
 {
 }
 
-unsigned int MarketDataImpl::requestTicks(const string& symbol)
+
+unsigned int MarketDataImpl::RequestIndex(const string& symbol,
+                                          const string& exchange)
 {
-  Contract c = CreateContractForStock(symbol);
-  TickerId id = to_ticker_id(symbol);
+  Contract c;
+  CreateContractForIndex(symbol, exchange, &c);
+  TickerId id = SymbolToTickerId(symbol);
   eclient_->reqMktData(id, c, GENERIC_TICK_TAGS, false);
-  eclient_->reqMktDepth(id, c, 10);
   return id;
 }
 
-unsigned int MarketDataImpl::requestOptionData(
-    const string& symbol,
-    bool call,
-    const double strike,
-    const int year, const int month, const int day)
+unsigned int MarketDataImpl::RequestTicks(const string& symbol,
+                                          bool marketDepth)
 {
-  // First stock
-  TickerId id = requestTicks(symbol);
-
-  // Option.  TickerId = TickerId(stk) + strike. (strike < 2^10).
-  Contract optContract = CreateContractForOption(
-      symbol, call, strike, year, month, day);
-
-  // One sid of straddle
-  TickerId id1 = id + 512 + (call ? +1 : -1) * strike;
-  eclient_->reqMktData(id1, optContract, GENERIC_TICK_TAGS, false);
-  eclient_->reqMktDepth(id1, optContract, 10);
-
-  // Opposite side
-  TickerId id2 = id + 512 + (!call ? +1 : -1) * strike;
-  Contract optContract2 = CreateContractForOption(
-      symbol, !call, strike, year, month, day);
-  eclient_->reqMktData(id2, optContract2, GENERIC_TICK_TAGS, false);
-  eclient_->reqMktDepth(id2, optContract2, 10);
+  Contract c;
+  CreateContractForStock(symbol, &c);
+  TickerId id = SymbolToTickerId(symbol);
+  eclient_->reqMktData(id, c, GENERIC_TICK_TAGS, false);
+  if (marketDepth) eclient_->reqMktDepth(id, c, 10);
   return id;
 }
 
+unsigned int MarketDataImpl::RequestOptionChain(
+    const string& symbol,
+    MarketDataInterface::OptionType option_type,
+    int year, int month, int day)
+{
+  // Option.  TickerId = TickerId(stk) + strike. (strike < 2^10).
+  TickerId id = SymbolToTickerId(symbol);
+  Contract optContract;
+  CreateContractForOption(symbol, option_type, 0.0, year, month, day,
+                          &optContract);
+  eclient_->reqContractDetails(id, optContract);
+  return id;
+}
+
+unsigned int MarketDataImpl::RequestOptionData(
+    const string& symbol,
+    MarketDataInterface::OptionType option_type,
+    double strike,
+    int year,
+    int month,
+    int day,
+    bool marketDepth)
+{
+  // Option.  TickerId = TickerId(stk) + strike. (strike < 2^10).
+  bool call = (option_type == CALL);
+  TickerId id = SymbolToTickerId(symbol, call, strike);
+  Contract optContract;
+  CreateContractForOption(symbol, option_type, strike, year, month, day,
+                          &optContract);
+
+  eclient_->reqMktData(id, optContract, GENERIC_TICK_TAGS, false);
+  if (marketDepth) eclient_->reqMktDepth(id, optContract, 10);
+  return id;
+}
+
+void MarketDataImpl::CancelMarketData(unsigned int id)
+{
+  if (id % (1 << ib::internal::OFFSET)) {
+    VLOG(VLOG_MARKETDATA) << "Id " << id << " is option contract.";
+  }
+  eclient_->cancelMktData(id);
+}
 
 }; // namespace internal
 }; // namespace ib

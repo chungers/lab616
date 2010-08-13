@@ -1,0 +1,621 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="Apache Forrest" name="Generator">
+<meta name="Forrest-version" content="0.8">
+<meta name="Forrest-skin-name" content="pelt">
+<title>Installing HBase on Windows using Cygwin</title>
+<link type="text/css" href="skin/basic.css" rel="stylesheet">
+<link media="screen" type="text/css" href="skin/screen.css" rel="stylesheet">
+<link media="print" type="text/css" href="skin/print.css" rel="stylesheet">
+<link type="text/css" href="skin/profile.css" rel="stylesheet">
+<script src="skin/getBlank.js" language="javascript" type="text/javascript"></script><script src="skin/getMenu.js" language="javascript" type="text/javascript"></script><script src="skin/fontsize.js" language="javascript" type="text/javascript"></script>
+<link rel="shortcut icon" href="images/favicon.ico">
+</head>
+<body onload="init()">
+<script type="text/javascript">ndeSetTextSize();</script>
+<div id="top">
+<!--+
+    |breadtrail
+    +-->
+<div class="breadtrail">
+<a href="http://www.apache.org/">Apache</a> &gt; <a href="http://hadoop.apache.org/">Hadoop</a> &gt; <a href="http://hbase.apache.org/">HBase</a><script src="skin/breadcrumbs.js" language="JavaScript" type="text/javascript"></script>
+</div>
+<!--+
+    |header
+    +-->
+<div class="header">
+<!--+
+    |start group logo
+    +-->
+<div class="grouplogo">
+<a href="http://hadoop.apache.org/"><img class="logoImage" alt="Hadoop" src="images/hadoop-logo.jpg" title="Apache Hadoop"></a>
+</div>
+<!--+
+    |end group logo
+    +-->
+<!--+
+    |start Project Logo
+    +-->
+<div class="projectlogo">
+<a href="http://hbase.apache.org/"><img class="logoImage" alt="HBase" src="images/hbase_small.gif" title="The Hadoop database"></a>
+</div>
+<!--+
+    |end Project Logo
+    +-->
+<!--+
+    |start Search
+    +-->
+<div class="searchbox">
+<form action="http://www.google.com/search" method="get" class="roundtopsmall">
+<input value="hbase.apache.org" name="sitesearch" type="hidden"><input onFocus="getBlank (this, 'Search the site with google');" size="25" name="q" id="query" type="text" value="Search the site with google">&nbsp; 
+                    <input name="Search" value="Search" type="submit">
+</form>
+</div>
+<!--+
+    |end search
+    +-->
+<!--+
+    |start Tabs
+    +-->
+<ul id="tabs">
+<li>
+<a class="unselected" href="http://hbase.apache.org/">Project</a>
+</li>
+<li>
+<a class="unselected" href="http://wiki.apache.org/hadoop/Hbase">Wiki</a>
+</li>
+<li class="current">
+<a class="selected" href="index.html">HBase Documentation</a>
+</li>
+</ul>
+<!--+
+    |end Tabs
+    +-->
+</div>
+</div>
+<div id="main">
+<div id="publishedStrip">
+<!--+
+    |start Subtabs
+    +-->
+<div id="level2tabs"></div>
+<!--+
+    |end Endtabs
+    +-->
+<script type="text/javascript"><!--
+document.write("Last Published: " + document.lastModified);
+//  --></script>
+</div>
+<!--+
+    |breadtrail
+    +-->
+<div class="breadtrail">
+
+             &nbsp;
+           </div>
+<!--+
+    |start Menu, mainarea
+    +-->
+<!--+
+    |start Menu
+    +-->
+<div id="menu">
+<div onclick="SwitchMenu('menu_selected_1.1', 'skin/')" id="menu_selected_1.1Title" class="menutitle" style="background-image: url('skin/images/chapter_open.gif');">Documentation</div>
+<div id="menu_selected_1.1" class="selectedmenuitemgroup" style="display: block;">
+<div class="menuitem">
+<a href="index.html">Overview</a>
+</div>
+<div class="menuitem">
+<a href="api/overview-summary.html#overview_description">Getting Started</a>
+</div>
+<div class="menuitem">
+<a href="releasenotes.html">Release Notes</a>
+</div>
+<div class="menuitem">
+<a href="api/index.html">API Docs</a>
+</div>
+<div class="menuitem">
+<a href="metrics.html">HBase Metrics</a>
+</div>
+<div class="menuitem">
+<a href="hbase-conf.html">HBase  Default Configuration</a>
+</div>
+<div class="menupage">
+<div class="menupagetitle">HBase on Windows</div>
+</div>
+<div class="menuitem">
+<a href="http://wiki.apache.org/hadoop/Hbase">Wiki</a>
+</div>
+<div class="menuitem">
+<a href="http://wiki.apache.org/hadoop/Hbase/FAQ">FAQ</a>
+</div>
+<div class="menuitem">
+<a href="http://hbase.apache.org/mailing_lists.html">Mailing Lists</a>
+</div>
+</div>
+<div id="credit"></div>
+<div id="roundbottom">
+<img style="display: none" class="corner" height="15" width="15" alt="" src="skin/images/rc-b-l-15-1body-2menu-3menu.png"></div>
+<!--+
+  |alternative credits
+  +-->
+<div id="credit2"></div>
+</div>
+<!--+
+    |end Menu
+    +-->
+<!--+
+    |start content
+    +-->
+<div id="content">
+<div title="Portable Document Format" class="pdflink">
+<a class="dida" href="cygwin.pdf"><img alt="PDF -icon" src="skin/images/pdfdoc.gif" class="skin"><br>
+        PDF</a>
+</div>
+<h1>Installing HBase on Windows using Cygwin</h1>
+<div id="minitoc-area">
+<ul class="minitoc">
+<li>
+<a href="#Introduction">Introduction</a>
+</li>
+<li>
+<a href="#Purpose">Purpose</a>
+</li>
+<li>
+<a href="#Installation">Installation</a>
+<ul class="minitoc">
+<li>
+<a href="#Java">Java</a>
+</li>
+<li>
+<a href="#Cygwin">Cygwin</a>
+</li>
+<li>
+<a href="#SSH">SSH</a>
+</li>
+<li>
+<a href="#HBase">HBase</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#Configuration">Configuration</a>
+<ul class="minitoc">
+<li>
+<a href="#Java-N101FB">Java</a>
+</li>
+<li>
+<a href="#SSH-N10227">SSH</a>
+</li>
+<li>
+<a href="#HBase-N10329">HBase</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#Testing">Testing</a>
+</li>
+<li>
+<a href="#Conclusion">Conclusion</a>
+</li>
+</ul>
+</div>
+
+<a name="N1000D"></a><a name="Introduction"></a>
+<h2 class="h3">Introduction</h2>
+<div class="section">
+<p>
+<a href="http://hadoop.apache.org/hbase" target="_blank" title="HBase project">HBase</a> is a distributed, column-oriented store, modeled after Google's <a href="http://labs.google.com/papers/bigtable.html" target="_blank" title="Google's BigTable">BigTable</a>. HBase is built on top of <a href="http://hadoop.apache.org" title="Hadoop project">Hadoop</a> for its <a href="http://hadoop.apache.org/mapreduce" target="_blank" title="Hadoop MapReduce project">MapReduce </a>and <a href="http://hadoop.apache.org/hdfs" title="Hadoop DFS project">distributed file system</a> implementation. All these projects are open-source and part of the <a href="http://www.apache.org/" target="_blank" title="The Apache Software Foundation">Apache Software Foundation</a>.</p>
+<p style="text-align: justify; ">As being distributed, large scale platforms, the Hadoop and HBase projects mainly focus on <em><strong>*nix</strong></em><strong> environments</strong> for production installations. However, being developed in <strong>Java</strong>, both projects are fully <strong>portable</strong> across platforms and, hence, also to the <strong>Windows operating system</strong>. For ease of development the projects rely on <a href="http://www.cygwin.com/" target="_blank" title="Cygwin site">Cygwin</a> to have a *nix-like environment on Windows to run the shell scripts.</p>
+</div>
+
+<a name="N10051"></a><a name="Purpose"></a>
+<h2 class="h3">Purpose</h2>
+<div class="section">
+<p style="text-align: justify; ">This document explains the <strong>intricacies of running HBase on Windows using Cygwin</strong> as an all-in-one single-node installation for testing and development. The HBase <a href="http://hadoop.apache.org/hbase/docs/current/api/overview-summary.html#overview_description" target="_blank" title="HBase Overview">Overview</a> and <a href="http://hadoop.apache.org/common/docs/current/quickstart.html" target="_blank" title="HBase QuickStart">QuickStart</a> guides on the other hand go a long way in explaning how to setup <a href="http://hadoop.apache.org/hbase" target="_blank" title="HBase project">HBase</a> in more complex deployment scenario's.</p>
+</div>
+
+
+<a name="N10071"></a><a name="Installation"></a>
+<h2 class="h3">Installation</h2>
+<div class="section">
+<p style="text-align: justify; ">For running HBase on Windows, 3 technologies are required: <strong>Java, Cygwin and SSH</strong>. The following paragraphs detail the installation of each of the aforementioned technologies.</p>
+<a name="N1007E"></a><a name="Java"></a>
+<h3 class="h4">Java</h3>
+<p style="text-align: justify; ">HBase depends on the <a href="http://java.sun.com/javase/6/" target="_blank" title="Java Platform, Standard Edition, 6 Release">Java Platform, Standard Edition, 6 Release</a>. So the target system has to be provided with at least the Java Runtime Environment (JRE); however if the system will also be used for development, the Jave Development Kit (JDK) is preferred. You can download the latest versions for both from <a href="http://java.sun.com/javase/downloads/index.jsp" target="_blank" title="Java SE Downloads">Sun's download page</a>. Installation is a simple GUI wizard that guides you through the process.</p>
+<a name="N10095"></a><a name="Cygwin"></a>
+<h3 class="h4">Cygwin</h3>
+<p style="text-align: justify; ">Cygwin is probably the oddest technology in this solution stack. It provides a dynamic link library that emulates most of a *nix environment on Windows. On top of that a whole bunch of the most common *nix tools are supplied. Combined, the DLL with the tools form a very *nix-alike environment on Windows.</p>
+<p style="text-align: justify; ">For installation, Cygwin provides the <a href="http://cygwin.com/setup.exe" target="_blank" title="Cygwin Setup Utility"><strong><span class="codefrag">setup.exe</span> utility</strong></a> that tracks the versions of all installed components on the target system and provides the mechanism for <strong>installing</strong> or <strong>updating </strong>everything from the mirror sites of Cygwin.</p>
+<p style="text-align: justify; ">To support installation, the <span class="codefrag">setup.exe</span> utility uses 2 directories on the target system. The <strong>Root</strong> directory for Cygwin (defaults to <span class="codefrag">C:\cygwin)</span> which will become <span class="codefrag">/</span> within the eventual Cygwin installation; and the <strong>Local Package </strong>directory (e.g. <span class="codefrag">C:\cygsetup</span> that is the cache where <span class="codefrag">setup.exe</span> stores the packages before they are installed. The cache must not be the same folder as the Cygwin root.</p>
+<p style="text-align: justify; ">Perform following steps to install Cygwin, which are elaboratly detailed in the <a href="http://cygwin.com/cygwin-ug-net/setup-net.html" target="_self" title="Setting Up Cygwin">2nd chapter</a> of the <a href="http://cygwin.com/cygwin-ug-net/cygwin-ug-net.html" target="_blank" title="Cygwin User's Guide">Cygwin User's Guide</a>:</p>
+<ol style="text-align: justify; ">
+	
+<li>Make sure you have <span class="codefrag">Administrator</span> privileges on the target system.</li>
+	
+<li>Choose and create you <strong>Root</strong> and <strong>Local Package</strong> directories. A good suggestion is to use <span class="codefrag">C:\cygwin\root</span> and <span class="codefrag">C:\cygwin\setup</span> folders.</li>
+	
+<li>Download the <span class="codefrag">setup.exe</span> utility and save it to the <strong>Local Package</strong> directory.</li>
+	
+<li>Run the <span class="codefrag">setup.exe</span> utility,
+<ol>
+	
+<li>Choose  the <span class="codefrag">Install from Internet</span> option,</li>
+	
+<li>Choose your <strong>Root</strong> and <strong>Local Package</strong> folders</li>
+	
+<li>and select an appropriate mirror.</li>
+	
+<li>Don't select any additional packages yet, as we only want to install Cygwin for now.</li>
+	
+<li>Wait for download and install</li>
+	
+<li>Finish the installation</li>
+
+</ol>
+
+</li>
+	
+<li>Optionally, you can now also add a shortcut to your Start menu pointing to the <span class="codefrag">setup.exe</span> utility in the <strong>Local Package </strong>folder.</li>
+	
+<li>Add <span class="codefrag">CYGWIN_HOME</span> system-wide environment variable that points to your <strong>Root </strong>directory.</li>
+	
+<li>Add <span class="codefrag">%CYGWIN_HOME%\bin</span> to the end of your <span class="codefrag">PATH</span> environment variable.</li>
+	
+<li>Reboot the sytem after making changes to the environment variables otherwise the OS will not be able to find the Cygwin utilities.</li>
+	
+<li>Test your installation by running your freshly created shortcuts or the <span class="codefrag">Cygwin.bat</span> command in the <strong>Root</strong> folder. You should end up in a terminal window that is running a <a href="http://www.gnu.org/software/bash/manual/bashref.html" target="_blank" title="Bash Reference Manual">Bash shell</a>. Test the shell by issuing following commands:
+<ol>
+	
+<li>
+<span class="codefrag">cd /</span> should take you to thr <strong>Root</strong> directory in Cygwin;</li>
+	
+<li>the <span class="codefrag">LS</span> commands that should list all files and folders in the current directory.</li>
+	
+<li>Use the <span class="codefrag">exit</span> command to end the terminal.</li>
+
+</ol>
+
+</li>
+	
+<li>When needed, to <strong>uninstall</strong> Cygwin you can simply delete the <strong>Root</strong> and <strong>Local Package</strong> directory, and the <strong>shortcuts</strong> that were created during installation.</li>
+
+</ol>
+<a name="N10175"></a><a name="SSH"></a>
+<h3 class="h4">SSH</h3>
+<p style="text-align: justify; ">HBase (and Hadoop) rely on <a href="http://nl.wikipedia.org/wiki/Secure_Shell" target="_blank" title="Secure Shell"><strong>SSH</strong></a> for interprocess/-node <strong>communication</strong> and launching<strong> remote commands</strong>. SSH will be provisioned on the target system via Cygwin, which supports running Cygwin programs as <strong>Windows services</strong>!</p>
+<ol style="text-align: justify; ">
+	
+<li>Rerun the <span class="codefrag">setup.exe</span><strong> utility</strong>.</li>
+	
+<li>Leave all parameters as is, skipping through the wizard using the <span class="codefrag">Next</span> button until the <span class="codefrag">Select Packages</span> panel is shown.</li>
+	
+<li>Maximize the window and click the <span class="codefrag">View</span> button to toggle to the list view, which is ordered alfabetically on <span class="codefrag">Package</span>, making it easier to find the packages we'll need.</li>
+	
+<li>Select the following packages by clicking the status word (normally <span class="codefrag">Skip</span>) so it's marked for installation. Use the <span class="codefrag">Next </span>button to download and install the packages.
+<ol>
+	
+<li>OpenSSH</li>
+	
+<li>tcp_wrappers</li>
+	
+<li>diffutils</li>
+	
+<li>zlib</li>
+
+</ol>
+
+</li>
+	
+<li>Wait for the install to complete and finish the installation.</li>
+
+</ol>
+<a name="N101C9"></a><a name="HBase"></a>
+<h3 class="h4">HBase</h3>
+<p style="text-align: justify; ">Download the <strong>latest release </strong>of HBase from the <a href="http://hadoop.apache.org/hbase/releases.html" target="_blank" title="HBase Releases">website</a>. As the HBase distributable is just a zipped archive, installation is as simple as unpacking the archive so it ends up in its final <strong>installation</strong> directory. Notice that HBase has to be installed in Cygwin and a good directory suggestion is to use <span class="codefrag">/usr/local/</span> (or [<span class="codefrag">Root directory]\usr\local</span> in Windows slang). You should end up with a <span class="codefrag">/usr/local/hbase-&lt;version&gt;</span> installation in Cygwin.</p>
+</div>
+
+<a name="N101EE"></a><a name="Configuration"></a>
+<h2 class="h3">Configuration</h2>
+<div class="section">
+<p style="text-align: justify; ">There are 3 parts left to configure: <strong>Java, SSH and HBase</strong> itself. Following paragraphs explain eacht topic in detail.</p>
+<a name="N101FB"></a><a name="Java-N101FB"></a>
+<h3 class="h4">Java</h3>
+<p style="text-align: justify; ">One important thing to remember in shell scripting in general (i.e. *nix and Windows) is that managing, manipulating and assembling path names that contains spaces can be very hard, due to the need to escape and quote those characters and strings. So we try to stay away from spaces in path names. *nix environments can help us out here very easily by using <strong>symbolic links</strong>.</p>
+<ol style="text-align: justify; ">
+	
+<li style="text-align: justify; ">Create a link in <span class="codefrag">/usr/local</span> to the Java home directory by using the following command and substituting the name of your chosen Java environment:
+<pre>LN -s /cygdrive/c/Program\ Files/Java/<em>&lt;jre name&gt; </em>/usr/local/<em>&lt;jre name&gt;</em>
+</pre>
+
+</li>
+	
+<li>Test your java installation by changing directories to your Java folder <span class="codefrag">CD /usr/local/&lt;jre name&gt;</span> and issueing the command <span class="codefrag">./bin/java -version</span>. This should output your version of the chosen JRE.</li>
+
+</ol>
+<a name="N10227"></a><a name="SSH-N10227"></a>
+<h3 class="h4">SSH</h3>
+<p style="text-align: justify; ">Configuring <strong>SSH </strong>is quite elaborate, but primarily a question of launching it by default as a<strong> Windows service</strong>.</p>
+<ol style="text-align: justify; ">
+	
+<li style="text-align: justify; ">On Windows Vista and above make sure you run the Cygwin shell with <strong>elevated privileges</strong>, by right-clicking on the shortcut an using <span class="codefrag">Run as Administrator</span>.</li>
+	
+<li style="text-align: justify; ">First of all, we have to make sure the <strong>rights on some crucial files</strong> are correct. Use the commands underneath. You can verify all rights by using the <span class="codefrag">LS -L</span> command on the different files. Also, notice the auto-completion feature in the shell using <span class="codefrag">&lt;TAB&gt;</span> is extremely handy in these situations.
+<ol>
+	
+<li>
+<span class="codefrag">chmod +r /etc/passwd</span> to make the passwords file readable for all</li>
+	
+<li>
+<span class="codefrag">chmod u+w /etc/passwd</span> to make the passwords file writable for the owner</li>
+	
+<li>
+<span class="codefrag">chmod +r /etc/group</span> to make the groups file readable for all</li>
+
+</ol>
+
+<ol>
+	
+<li>
+<span class="codefrag">chmod u+w /etc/group</span> to make the groups file writable for the owner</li>
+
+</ol>
+
+<ol>
+	
+<li>
+<span class="codefrag">chmod 755 /var</span> to make the var folder writable to owner and readable and executable to all</li>
+
+</ol>
+
+</li>
+	
+<li>Edit the <strong>/etc/hosts.allow</strong> file using your favorite editor (why not VI in the shell!) and make sure the following two lines are in there before the <span class="codefrag">PARANOID</span> line:
+<ol>
+	
+<li>
+<span class="codefrag">ALL : localhost 127.0.0.1/32 : allow</span>
+</li>
+	
+<li>
+<span class="codefrag">ALL : [::1]/128 : allow</span>
+</li>
+
+</ol>
+
+</li>
+	
+<li>Next we have to <strong>configure SSH</strong> by using the script <span class="codefrag">ssh-host-config</span>
+
+<ol>
+	
+<li>If this script asks to overwrite an existing <span class="codefrag">/etc/ssh_config</span>, answer <span class="codefrag">yes</span>.</li>
+	
+<li>If this script asks to overwrite an existing <span class="codefrag">/etc/sshd_config</span>, answer <span class="codefrag">yes</span>.</li>
+	
+<li>If this script asks to use privilege separation, answer <span class="codefrag">yes</span>.</li>
+	
+<li>If this script asks to install <span class="codefrag">sshd</span> as a service, answer <span class="codefrag">yes</span>. Make sure you started your shell as Adminstrator!</li>
+	
+<li>If this script asks for the CYGWIN value, just <span class="codefrag">&lt;enter&gt;</span> as the default is <span class="codefrag">ntsec</span>.</li>
+	
+<li>If this script asks to create the <span class="codefrag">sshd</span> account, answer <span class="codefrag">yes</span>.</li>
+	
+<li>If this script asks to use a different user name as service account, answer <span class="codefrag">no</span> as the default will suffice.</li>
+	
+<li>If this script asks to create the <span class="codefrag">cyg_server</span> account, answer <span class="codefrag">yes</span>. Enter a password for the account.</li>
+
+</ol>
+
+</li>
+	
+<li>
+<strong>Start the SSH service</strong> using <span class="codefrag">net start sshd</span> or <span class="codefrag">cygrunsrv  --start  sshd</span>. Notice that <span class="codefrag">cygrunsrv</span> is the utility that make the process run as a Windows service. Confirm that you see a message stating that <span class="codefrag">the CYGWIN sshd service  was started succesfully.</span>
+</li>
+	
+<li>Harmonize Windows and Cygwin<strong> user account</strong> by using the commands:
+<ol>
+	
+<li>
+<span class="codefrag">mkpasswd -cl &gt; /etc/passwd</span>
+</li>
+	
+<li>
+<span class="codefrag">mkgroup --local &gt; /etc/group</span>
+</li>
+
+</ol>
+
+</li>
+	
+<li>
+<strong>Test </strong>the installation of SSH:
+<ol>
+	
+<li>Open a new Cygwin terminal</li>
+	
+<li>Use the command <span class="codefrag">whoami</span> to verify your userID</li>
+	
+<li>Issue an <span class="codefrag">ssh localhost</span> to connect to the system itself
+<ol>
+	
+<li>Answer <span class="codefrag">yes</span> when presented with the server's fingerprint</li>
+	
+<li>Issue your password when prompted</li>
+	
+<li>test a few commands in the remote session</li>
+	
+<li>The <span class="codefrag">exit</span> command should take you back to your first shell in Cygwin</li>
+
+</ol>
+
+</li>
+	
+<li>
+<span class="codefrag">Exit</span> should terminate the Cygwin shell.</li>
+
+</ol>
+
+</li>
+
+</ol>
+<a name="N10329"></a><a name="HBase-N10329"></a>
+<h3 class="h4">HBase</h3>
+<strong>HBase config</strong><span class="codefrag">[installation directory]</span>
+<ol>
+	
+<li>HBase uses the <span class="codefrag">./conf/hbase-env.sh</span> to configure its dependencies on the runtime environment. Copy and uncomment following lines just underneath their original, change them to fit your environemnt. They should read something like:
+<ol>
+	
+<li>
+<span class="codefrag">export JAVA_HOME=/usr/local/&lt;jre name&gt;</span>
+</li>
+	
+<li>
+<span class="codefrag">export HBASE_IDENT_STRING=$HOSTNAME</span> as this most likely does not inlcude spaces.</li>
+
+</ol>
+
+</li>
+	
+<li>HBase uses the ./conf/<span class="codefrag">hbase-default.xml</span> file for configuration. Some properties do not resolve to existing directories because the JVM runs on Windows. This is the major issue to keep in mind when working with Cygwin: within the shell all paths are *nix-alike, hence relative to the root <span class="codefrag">/</span>. However, every parameter that is to be consumed within the windows processes themself, need to be Windows settings, hence <span class="codefrag">C:\</span>-alike. Change following propeties in the configuration file, adjusting paths where necessary to conform with your own installation:
+<ol>
+	
+<li>
+<span class="codefrag">hbase.rootdir</span> must read e.g. <span class="codefrag">file:///C:/cygwin/root/tmp/hbase/data</span>
+</li>
+	
+<li>
+<span class="codefrag">hbase.tmp.dir</span> must read <span class="codefrag">C:/cygwin/root/tmp/hbase/tmp</span>
+</li>
+	
+<li>
+<span class="codefrag">hbase.zookeeper.quorum</span> must read <span class="codefrag">127.0.0.1</span> because for some reason <span class="codefrag">localhost</span> doesn't seem to resolve properly on Cygwin.</li>
+
+</ol>
+
+</li>
+	
+<li>Make sure the configured <span class="codefrag">hbase.rootdir</span> and <span class="codefrag">hbase.tmp.dir</span> <strong>directories exist</strong> and have the proper<strong> rights</strong> set up e.g. by issuing a <span class="codefrag">chmod 777</span> on them.</li>
+
+</ol>
+</div>
+
+<a name="N1038E"></a><a name="Testing"></a>
+<h2 class="h3">Testing</h2>
+<div class="section">
+<p>
+This should conclude the installation and configuration of HBase on Windows using Cygwin. So it's time <strong>to test it</strong>.
+<ol>
+	
+<li>Start a Cygwin<strong> terminal</strong>, if you haven't already.</li>
+	
+<li>Change directory to HBase <strong>installation</strong> using <span class="codefrag">CD /usr/local/hbase-&lt;version&gt;</span>, preferably using auto-completion.</li>
+	
+<li>
+<strong>Start HBase</strong> using the command <span class="codefrag">./bin/start-hbase.sh</span>
+
+<ol>
+	
+<li>When prompted to accept the SSH fingerprint, answer <span class="codefrag">yes</span>.</li>
+	
+<li>When prompted, provide your password. Maybe multiple times.</li>
+	
+<li>When the command completes, the HBase server should have started.</li>
+	
+<li>However, to be absolutely certain, check the logs in the <span class="codefrag">./logs</span> directory for any exceptions.</li>
+
+</ol>
+
+</li>
+	
+<li>Next we <strong>start the HBase shell</strong> using the command <span class="codefrag">./bin/hbase shell</span>
+</li>
+	
+<li>We run some simple <strong>test commands</strong>
+
+<ol>
+	
+<li>Create a simple table using command <span class="codefrag">create 'test', 'data'</span>
+</li>
+	
+<li>Verify the table exists using the command <span class="codefrag">list</span>
+</li>
+	
+<li>Insert data into the table using e.g.
+<pre>put 'test', 'row1', 'data:1', 'value1'
+put 'test', 'row2', 'data:2', 'value2'
+put 'test', 'row3', 'data:3', 'value3'</pre>
+
+</li>
+	
+<li>List all rows in the table using the command <span class="codefrag">scan 'test'</span> that should list all the rows previously inserted. Notice how 3 new columns where added without changing the schema!</li>
+	
+<li>Finally we get rid of the table by issuing <span class="codefrag">disable 'test'</span> followed by <span class="codefrag">drop 'test'</span> and verified by <span class="codefrag">list</span> which should give an empty listing.</li>
+
+</ol>
+
+</li>
+	
+<li>
+<strong>Leave the shell</strong> by <span class="codefrag">exit</span>
+</li>
+	
+<li>To <strong>stop the HBase server</strong> issue the <span class="codefrag">./bin/stop-hbase.sh</span> command. And wait for it to complete!!! Killing the process might corrupt your data on disk.</li>
+	
+<li>In case of <strong>problems</strong>,
+<ol>
+	
+<li>verify the HBase logs in the <span class="codefrag">./logs</span> directory.</li>
+	
+<li>Try to fix the problem</li>
+	
+<li>Get help on the forums or IRC (<span class="codefrag">#hbase@freenode.net</span>). People are very active and keen to help out!</li>
+	
+<li>Stopr, restart and retest the server.</li>
+
+</ol>
+
+</li>
+
+</ol>
+
+</p>
+</div>
+
+
+<a name="N1042A"></a><a name="Conclusion"></a>
+<h2 class="h3">Conclusion</h2>
+<div class="section">
+<p>
+Now your <strong>HBase </strong>server is running, <strong>start coding</strong> and build that next killer app on this particular, but scalable datastore!
+</p>
+</div>
+
+</div>
+<!--+
+    |end content
+    +-->
+<div class="clearboth">&nbsp;</div>
+</div>
+<div id="footer">
+<!--+
+    |start bottomstrip
+    +-->
+<div class="lastmodified">
+<script type="text/javascript"><!--
+document.write("Last Published: " + document.lastModified);
+//  --></script>
+</div>
+<div class="copyright">
+        Copyright &copy;
+         2009 <a href="http://www.apache.org/licenses/">The Apache Software Foundation.</a>
+</div>
+<!--+
+    |end bottomstrip
+    +-->
+</div>
+</body>
+</html>

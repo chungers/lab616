@@ -1,15 +1,16 @@
-#include <ib/helpers.hpp>
-
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-
-#include <boost/algorithm/string.hpp>
-
 #include <string.h>
 #include <iostream>
 #include <vector>
+#include <boost/algorithm/string.hpp>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
+#include <ib/helpers.hpp>
+#include <ib/ticker_id.hpp>
+
 
 using namespace std;
+using namespace ib::internal;
 
 namespace {
 
@@ -30,18 +31,40 @@ TEST(HelpersTest, TestStringToLower)
   EXPECT_EQ("xyz", to_lower("XYZ"));
 }
 
-string symbols =
-    "FAS,FAZ,SRS,GS,AAPL,GOOG,URE,RIMM,TBT,BAC,DXD,\
+static string symbols =
+    "AAAA,FAS,FAZ,SRS,GS,AAPL,GOOG,URE,RIMM,TBT,BAC,DXD,\
 DXO,FSLR,FXP,LDK,QID,QLD,REW,SDS,SKF,BK,JPM,\
 MS,SMN,SSO,TYH,TYP,UYM,XLE,XLV,AYI,AMZN,DDM,\
-C,COF,AXP,RTH";
+C,COF,AXP,RTH,ZZZZ";
 
 int test_encode(const string& symbol)
 {
-  int code = to_ticker_id(symbol);
-  string from_code = from_ticker_id(code);
+  int code = SymbolToTickerId(symbol);
+  string from_code;
+  SymbolFromTickerId(code, &from_code);
   EXPECT_EQ(to_upper(symbol), from_code);
   return code;
+}
+
+
+int test_encode_option(const string& symbol, bool callOption,
+                       double strike)
+{
+  int code = SymbolToTickerId(symbol, callOption, strike);
+  string from_code;
+  SymbolFromTickerId(code, &from_code);
+  EXPECT_EQ(to_upper(symbol), from_code);
+  return code;
+}
+
+TEST(HelpersTest, PrintConstants)
+{
+  using namespace std;
+  cout << "MID = " << ib::internal::MID << endl;
+  cout << "shifted= " << (1 << ib::internal::OFFSET) << endl;
+  cout << "maxOpt= " << (ib::internal::MAX_OPTION_PART) << endl;
+  cout << "AAAA = " << SymbolToTickerId("AAAA") << endl;
+  cout << "ZZZZ = " << SymbolToTickerId("ZZZZ") << endl;
 }
 
 TEST(HelpersTest, TestEncodingAndDecodingTickerId)
@@ -57,5 +80,45 @@ TEST(HelpersTest, TestEncodingAndDecodingTickerId)
   }
 }
 
+TEST(HelpersTest, TestEncodingOptions)
+{
+  vector<string> list;
+  vector<string>::iterator itr;
+  double strike(10.0);
+
+  boost::split(list, symbols, boost::is_any_of(","));
+  for (itr = list.begin(); itr != list.end(); itr++) {
+    string s = *itr;
+    int a = test_encode_option(s, true, strike);
+    int b = test_encode_option(to_lower(s), true, strike);
+    EXPECT_EQ(a, b);
+  }
+
+  strike = 1023;
+  bool call = true;
+  int i = 0;
+  for (itr = list.begin(); itr != list.end(); itr++, i++) {
+    string s = *itr;
+    int a = SymbolToTickerId(s, call, strike);
+    EncodedOption eo;
+    EncodedOptionFromTickerId(a, &eo);
+    EXPECT_EQ(s, eo.symbol);
+    EXPECT_EQ(call, eo.call_option);
+    EXPECT_EQ(strike, eo.strike);
+  }
+
+  strike = 1023;
+  call = false;
+  for (itr = list.begin(); itr != list.end(); itr++, i++) {
+    string s = *itr;
+    int a = SymbolToTickerId(s, call, strike);
+    EncodedOption eo;
+    EncodedOptionFromTickerId(a, &eo);
+    EXPECT_EQ(s, eo.symbol);
+    EXPECT_EQ(call, eo.call_option);
+    EXPECT_EQ(strike, eo.strike);
+  }
+
+}
 
 } // namespace

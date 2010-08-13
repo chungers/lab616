@@ -1,8 +1,4 @@
-#include <ib/adapters.hpp>
-#include <ib/marketdata.hpp>
-#include <ib/polling_client.hpp>
-#include <ib/services.hpp>
-#include <ib/session.hpp>
+#include <sys/select.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -11,13 +7,18 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
-#include <sys/select.h>
+#include "ib/adapters.hpp"
+#include "ib/marketdata.hpp"
+#include "ib/polling_client.hpp"
+#include "ib/services.hpp"
+#include "ib/session.hpp"
+
 
 #define VLOG_LEVEL 2
 
 using ib::adapter::LoggingEClientSocket;;
 using ib::adapter::LoggingEWrapper;
-using ib::services::IMarketData;
+using ib::services::MarketDataInterface;
 using ib::Session;
 
 using namespace std;
@@ -55,7 +56,7 @@ class polling_implementation
 
   boost::scoped_ptr<PollingClient> polling_client_;
   boost::scoped_ptr<EPosixClientSocket> client_socket_;
-  boost::scoped_ptr<IMarketData> marketdata_;
+  boost::scoped_ptr<MarketDataInterface> marketdata_;
 
   volatile bool connected_;
   boost::mutex connected_mutex_;
@@ -75,48 +76,48 @@ class polling_implementation
  public:
 
   /** @implements Session */
-  void start()
+  void Start()
   {
     polling_client_->start();  // Start the thread.
   }
 
   /** @implements Session */
-  void stop()
+  void Stop()
   {
     disconnect();
     polling_client_->stop();
   }
 
   /** @implements Session */
-  void join()
+  void Join()
   {
     // Just delegate to the polling client.
     polling_client_->join();
   }
 
   /** @implements Session */
-  bool ready(int timeout = 0)
+  bool IsReady(int timeout = 0)
   {
     if (!timeout) timeout = FLAGS_max_wait_confirm_connection;
     return wait_for_order_id(boost::posix_time::milliseconds(timeout));
   }
 
   /** @implements Session */
-  void register_callback_on_connect(Session::ConnectConfirmCallback cb)
+  void RegisterCallbackOnConnect(Session::ConnectConfirmCallback cb)
   {
     connect_confirm_callback_ = cb;
   }
 
   /** @implements Session */
-  void register_callback_on_disconnect(Session::DisconnectCallback cb)
+  void RegisterCallbackOnDisconnect(Session::DisconnectCallback cb)
   {
     disconnect_callback_ = cb;
   }
 
   /** @implements Session */
-  IMarketData* access_market_data()
+  MarketDataInterface* AccessMarketData()
   {
-    bool ok = ready();
+    bool ok = IsReady();
     LOG_IF(WARNING, !ok) << "Connection not confirmed.  No market data.";
     return (ok) ? marketdata_.get() : NULL;
   }
@@ -329,22 +330,22 @@ Session::Session(string host, unsigned int port, unsigned int connection_id)
 
 Session::~Session() {}
 
-void Session::start()
-{ impl_->start(); }
+void Session::Start()
+{ impl_->Start(); }
 
-void Session::stop()
-{ impl_->stop(); }
+void Session::Stop()
+{ impl_->Stop(); }
 
-void Session::join()
-{ impl_->join(); }
+void Session::Join()
+{ impl_->Join(); }
 
-void Session::register_callback_on_connect(Session::ConnectConfirmCallback cb)
-{ impl_->register_callback_on_connect(cb); }
+void Session::RegisterCallbackOnConnect(Session::ConnectConfirmCallback cb)
+{ impl_->RegisterCallbackOnConnect(cb); }
 
-void Session::register_callback_on_disconnect(Session::DisconnectCallback cb)
-{ impl_->register_callback_on_disconnect(cb); }
+void Session::RegisterCallbackOnDisconnect(Session::DisconnectCallback cb)
+{ impl_->RegisterCallbackOnDisconnect(cb); }
 
-IMarketData* Session::access_market_data()
-{ return impl_->access_market_data(); }
+MarketDataInterface* Session::AccessMarketData()
+{ return impl_->AccessMarketData(); }
 
 } // namespace ib

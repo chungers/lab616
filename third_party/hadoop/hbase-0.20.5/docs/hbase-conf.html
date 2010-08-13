@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="Apache Forrest" name="Generator">
+<meta name="Forrest-version" content="0.8">
+<meta name="Forrest-skin-name" content="pelt">
+<title> 
+      HBase Default Configuration
+    </title>
+<link type="text/css" href="skin/basic.css" rel="stylesheet">
+<link media="screen" type="text/css" href="skin/screen.css" rel="stylesheet">
+<link media="print" type="text/css" href="skin/print.css" rel="stylesheet">
+<link type="text/css" href="skin/profile.css" rel="stylesheet">
+<script src="skin/getBlank.js" language="javascript" type="text/javascript"></script><script src="skin/getMenu.js" language="javascript" type="text/javascript"></script><script src="skin/fontsize.js" language="javascript" type="text/javascript"></script>
+<link rel="shortcut icon" href="images/favicon.ico">
+</head>
+<body onload="init()">
+<script type="text/javascript">ndeSetTextSize();</script>
+<div id="top">
+<!--+
+    |breadtrail
+    +-->
+<div class="breadtrail">
+<a href="http://www.apache.org/">Apache</a> &gt; <a href="http://hadoop.apache.org/">Hadoop</a> &gt; <a href="http://hbase.apache.org/">HBase</a><script src="skin/breadcrumbs.js" language="JavaScript" type="text/javascript"></script>
+</div>
+<!--+
+    |header
+    +-->
+<div class="header">
+<!--+
+    |start group logo
+    +-->
+<div class="grouplogo">
+<a href="http://hadoop.apache.org/"><img class="logoImage" alt="Hadoop" src="images/hadoop-logo.jpg" title="Apache Hadoop"></a>
+</div>
+<!--+
+    |end group logo
+    +-->
+<!--+
+    |start Project Logo
+    +-->
+<div class="projectlogo">
+<a href="http://hbase.apache.org/"><img class="logoImage" alt="HBase" src="images/hbase_small.gif" title="The Hadoop database"></a>
+</div>
+<!--+
+    |end Project Logo
+    +-->
+<!--+
+    |start Search
+    +-->
+<div class="searchbox">
+<form action="http://www.google.com/search" method="get" class="roundtopsmall">
+<input value="hbase.apache.org" name="sitesearch" type="hidden"><input onFocus="getBlank (this, 'Search the site with google');" size="25" name="q" id="query" type="text" value="Search the site with google">&nbsp; 
+                    <input name="Search" value="Search" type="submit">
+</form>
+</div>
+<!--+
+    |end search
+    +-->
+<!--+
+    |start Tabs
+    +-->
+<ul id="tabs">
+<li>
+<a class="unselected" href="http://hbase.apache.org/">Project</a>
+</li>
+<li>
+<a class="unselected" href="http://wiki.apache.org/hadoop/Hbase">Wiki</a>
+</li>
+<li class="current">
+<a class="selected" href="index.html">HBase Documentation</a>
+</li>
+</ul>
+<!--+
+    |end Tabs
+    +-->
+</div>
+</div>
+<div id="main">
+<div id="publishedStrip">
+<!--+
+    |start Subtabs
+    +-->
+<div id="level2tabs"></div>
+<!--+
+    |end Endtabs
+    +-->
+<script type="text/javascript"><!--
+document.write("Last Published: " + document.lastModified);
+//  --></script>
+</div>
+<!--+
+    |breadtrail
+    +-->
+<div class="breadtrail">
+
+             &nbsp;
+           </div>
+<!--+
+    |start Menu, mainarea
+    +-->
+<!--+
+    |start Menu
+    +-->
+<div id="menu">
+<div onclick="SwitchMenu('menu_selected_1.1', 'skin/')" id="menu_selected_1.1Title" class="menutitle" style="background-image: url('skin/images/chapter_open.gif');">Documentation</div>
+<div id="menu_selected_1.1" class="selectedmenuitemgroup" style="display: block;">
+<div class="menuitem">
+<a href="index.html">Overview</a>
+</div>
+<div class="menuitem">
+<a href="api/overview-summary.html#overview_description">Getting Started</a>
+</div>
+<div class="menuitem">
+<a href="releasenotes.html">Release Notes</a>
+</div>
+<div class="menuitem">
+<a href="api/index.html">API Docs</a>
+</div>
+<div class="menuitem">
+<a href="metrics.html">HBase Metrics</a>
+</div>
+<div class="menupage">
+<div class="menupagetitle">HBase  Default Configuration</div>
+</div>
+<div class="menuitem">
+<a href="cygwin.html">HBase on Windows</a>
+</div>
+<div class="menuitem">
+<a href="http://wiki.apache.org/hadoop/Hbase">Wiki</a>
+</div>
+<div class="menuitem">
+<a href="http://wiki.apache.org/hadoop/Hbase/FAQ">FAQ</a>
+</div>
+<div class="menuitem">
+<a href="http://hbase.apache.org/mailing_lists.html">Mailing Lists</a>
+</div>
+</div>
+<div id="credit"></div>
+<div id="roundbottom">
+<img style="display: none" class="corner" height="15" width="15" alt="" src="skin/images/rc-b-l-15-1body-2menu-3menu.png"></div>
+<!--+
+  |alternative credits
+  +-->
+<div id="credit2"></div>
+</div>
+<!--+
+    |end Menu
+    +-->
+<!--+
+    |start content
+    +-->
+<div id="content">
+<div title="Portable Document Format" class="pdflink">
+<a class="dida" href="hbase-conf.pdf"><img alt="PDF -icon" src="skin/images/pdfdoc.gif" class="skin"><br>
+        PDF</a>
+</div>
+<h1> 
+      HBase Default Configuration
+    </h1>
+<table class="ForrestTable" cellspacing="1" cellpadding="4" border="1">
+<tr>
+<td><b>property</b></td><td><b>default value</b></td><td><b>description</b></td>
+</tr>
+<tr>
+<td><a name="hbase.rootdir">hbase.rootdir</a></td><td>file:///tmp/hbase-${user.name}/hbase</td><td>The directory shared by region servers.
+    Should be fully-qualified to include the filesystem to use.
+    E.g: hdfs://NAMENODE_SERVER:PORT/HBASE_ROOTDIR
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.master.port">hbase.master.port</a></td><td>60000</td><td>The port master should bind to.</td>
+</tr>
+<tr>
+<td><a name="hbase.cluster.distributed">hbase.cluster.distributed</a></td><td>false</td><td>The mode the cluster will be in. Possible values are
+      false: standalone and pseudo-distributed setups with managed Zookeeper
+      true: fully-distributed with unmanaged Zookeeper Quorum (see hbase-env.sh)
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.tmp.dir">hbase.tmp.dir</a></td><td>/tmp/hbase-${user.name}</td><td>Temporary directory on the local filesystem.</td>
+</tr>
+<tr>
+<td><a name="hbase.master.info.port">hbase.master.info.port</a></td><td>60010</td><td>The port for the hbase master web UI
+    Set to -1 if you do not want the info server to run.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.master.info.bindAddress">hbase.master.info.bindAddress</a></td><td>0.0.0.0</td><td>The address for the hbase master web UI
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.client.write.buffer">hbase.client.write.buffer</a></td><td>2097152</td><td>Size of the write buffer in bytes. A bigger buffer takes more
+    memory -- on both the client and server side since server instantiates
+    the passed write buffer to process it -- but reduces the number of RPC.  
+    For an estimate of server-side memory-used, evaluate
+    hbase.client.write.buffer * hbase.regionserver.handler.count
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.master.meta.thread.rescanfrequency">hbase.master.meta.thread.rescanfrequency</a></td><td>60000</td><td>How long the HMaster sleeps (in milliseconds) between scans of
+    the root and meta tables.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.master.lease.period">hbase.master.lease.period</a></td><td>120000</td><td>HMaster server lease period in milliseconds. Default is
+    120 seconds.  Region servers must report in within this period else
+    they are considered dead.  On loaded cluster, may need to up this
+    period.</td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.port">hbase.regionserver.port</a></td><td>60020</td><td>The port an HBase region server binds to.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.info.port">hbase.regionserver.info.port</a></td><td>60030</td><td>The port for the hbase regionserver web UI
+    Set to -1 if you do not want the info server to run.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.info.port.auto">hbase.regionserver.info.port.auto</a></td><td>false</td><td>Info server auto port bind. Enables automatic port
+    search if hbase.regionserver.info.port is already in use.
+    Useful for testing, turned off by default.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.info.bindAddress">hbase.regionserver.info.bindAddress</a></td><td>0.0.0.0</td><td>The address for the hbase regionserver web UI
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.class">hbase.regionserver.class</a></td><td>org.apache.hadoop.hbase.ipc.HRegionInterface</td><td>An interface that is assignable to HRegionInterface.  Used in HClient for
+    opening proxy to remote region server.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.client.pause">hbase.client.pause</a></td><td>1000</td><td>General client pause value.  Used mostly as value to wait
+    before running a retry of a failed get, region lookup, etc.</td>
+</tr>
+<tr>
+<td><a name="hbase.client.retries.number">hbase.client.retries.number</a></td><td>10</td><td>Maximum retries.  Used as maximum for all retryable
+    operations such as fetching of the root region from root region
+    server, getting a cell's value, starting a row update, etc.
+    Default: 10.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.client.scanner.caching">hbase.client.scanner.caching</a></td><td>1</td><td>Number of rows that will be fetched when calling next
+    on a scanner if it is not served from memory. Higher caching values
+    will enable faster scanners but will eat up more memory and some
+    calls of next may take longer and longer times when the cache is empty.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.lease.period">hbase.regionserver.lease.period</a></td><td>60000</td><td>HRegion server lease period in milliseconds. Default is
+    60 seconds. Clients must report in within this period else they are
+    considered dead.</td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.handler.count">hbase.regionserver.handler.count</a></td><td>25</td><td>Count of RPC Server instances spun up on RegionServers
+    Same property is used by the HMaster for count of master handlers.
+    Default is 25.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.msginterval">hbase.regionserver.msginterval</a></td><td>1000</td><td>Interval between messages from the RegionServer to HMaster
+    in milliseconds. Use a high value like 3000 for clusters with more than 10
+    nodes. Default is 1 second so that HBase seems more 'live'.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.flushlogentries">hbase.regionserver.flushlogentries</a></td><td>100</td><td>Sync the HLog to the HDFS when it has accumulated this many
+    entries. Default 100. Value is checked on every HLog.sync
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.optionallogflushinterval">hbase.regionserver.optionallogflushinterval</a></td><td>10000</td><td>Sync the HLog to the HDFS after this interval if it has not
+    accumulated enough entries to trigger a sync. Default 10 seconds. Units:
+    milliseconds.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.logroll.period">hbase.regionserver.logroll.period</a></td><td>3600000</td><td>Period at which we will roll the commit log.</td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.thread.splitcompactcheckfrequency">hbase.regionserver.thread.splitcompactcheckfrequency</a></td><td>20000</td><td>How often a region server runs the split/compaction check.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.nbreservationblocks">hbase.regionserver.nbreservationblocks</a></td><td>4</td><td>The number of reservation blocks which are used to prevent
+    unstable region servers caused by an OOME.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.dns.interface">hbase.zookeeper.dns.interface</a></td><td>default</td><td>The name of the Network Interface from which a ZooKeeper server
+      should report its IP address.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.dns.nameserver">hbase.zookeeper.dns.nameserver</a></td><td>default</td><td>The host name or IP address of the name server (DNS)
+      which a ZooKeeper server should use to determine the host name used by the
+      master for communication and display purposes.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.dns.interface">hbase.regionserver.dns.interface</a></td><td>default</td><td>The name of the Network Interface from which a region server 
+      should report its IP address.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.dns.nameserver">hbase.regionserver.dns.nameserver</a></td><td>default</td><td>The host name or IP address of the name server (DNS)
+      which a region server should use to determine the host name used by the
+      master for communication and display purposes.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.master.dns.interface">hbase.master.dns.interface</a></td><td>default</td><td>The name of the Network Interface from which a master 
+      should report its IP address.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.master.dns.nameserver">hbase.master.dns.nameserver</a></td><td>default</td><td>The host name or IP address of the name server (DNS)
+      which a master should use to determine the host name used 
+      for communication and display purposes.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.global.memstore.upperLimit">hbase.regionserver.global.memstore.upperLimit</a></td><td>0.4</td><td>Maximum size of all memstores in a region server before new 
+      updates are blocked and flushes are forced. Defaults to 40% of heap
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regionserver.global.memstore.lowerLimit">hbase.regionserver.global.memstore.lowerLimit</a></td><td>0.35</td><td>When memstores are being forced to flush to make room in
+      memory, keep flushing until we hit this mark. Defaults to 30% of heap. 
+      This value equal to hbase.regionserver.global.memstore.upperLimit causes
+      the minimum possible flushing to occur when updates are blocked due to 
+      memstore limiting.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hbasemaster.maxregionopen">hbase.hbasemaster.maxregionopen</a></td><td>120000</td><td>Period to wait for a region open.  If regionserver
+    takes longer than this interval, assign to a new regionserver.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regions.percheckin">hbase.regions.percheckin</a></td><td>10</td><td>Maximum number of regions that can be assigned in a single go
+    to a region server.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.server.thread.wakefrequency">hbase.server.thread.wakefrequency</a></td><td>10000</td><td>Time to sleep in between searches for work (in milliseconds).
+    Used as sleep interval by service threads such as META scanner and log roller.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hregion.memstore.flush.size">hbase.hregion.memstore.flush.size</a></td><td>67108864</td><td>
+    Memstore will be flushed to disk if size of the memstore
+    exceeds this number of bytes.  Value is checked by a thread that runs
+    every hbase.server.thread.wakefrequency.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hregion.preclose.flush.size">hbase.hregion.preclose.flush.size</a></td><td>5242880</td><td>
+      If the memstores in a region are this size or larger when we go
+      to close, run a "pre-flush" to clear out memstores before we put up
+      the region closed flag and take the region offline.  On close,
+      a flush is run under the close flag up to empty memory.  During
+      this time the region is offline and we are not taking on any writes.
+      If the memstore content large, this flush could take a long time to
+      complete.  The preflush is meant to clean out the bulk of the memstore
+      before putting up the close flag and taking the region offline so the
+      flush that runs under the close flag has little to do.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hregion.memstore.block.multiplier">hbase.hregion.memstore.block.multiplier</a></td><td>2</td><td>
+    Block updates if memstore has hbase.hregion.block.memstore
+    time hbase.hregion.flush.size bytes.  Useful preventing
+    runaway memstore during spikes in update traffic.  Without an
+    upper-bound, memstore fills such that when it flushes the
+    resultant flush files take a long time to compact or split, or
+    worse, we OOME.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hregion.max.filesize">hbase.hregion.max.filesize</a></td><td>268435456</td><td>
+    Maximum HStoreFile size. If any one of a column families' HStoreFiles has
+    grown to exceed this value, the hosting HRegion is split in two.
+    Default: 256M.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hstore.compactionThreshold">hbase.hstore.compactionThreshold</a></td><td>3</td><td>
+    If more than this number of HStoreFiles in any one HStore
+    (one HStoreFile is written per flush of memstore) then a compaction
+    is run to rewrite all HStoreFiles files as one.  Larger numbers
+    put off compaction but when it runs, it takes longer to complete.
+    During a compaction, updates cannot be flushed to disk.  Long
+    compactions require memory sufficient to carry the logging of
+    all updates across the duration of the compaction.
+    
+    If too large, clients timeout during compaction.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hstore.blockingStoreFiles">hbase.hstore.blockingStoreFiles</a></td><td>7</td><td>
+    If more than this number of StoreFiles in any one Store
+    (one StoreFile is written per flush of MemStore) then updates are
+    blocked for this HRegion until a compaction is completed, or
+    until hbase.hstore.blockingWaitTime has been exceeded.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hstore.blockingWaitTime">hbase.hstore.blockingWaitTime</a></td><td>90000</td><td>
+    The time an HRegion will block updates for after hitting the StoreFile
+    limit defined by hbase.hstore.blockingStoreFiles.
+    After this time has elapsed, the HRegion will stop blocking updates even
+    if a compaction has not been completed.  Default: 90 seconds.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hstore.compaction.max">hbase.hstore.compaction.max</a></td><td>10</td><td>Max number of HStoreFiles to compact per 'minor' compaction.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.hregion.majorcompaction">hbase.hregion.majorcompaction</a></td><td>86400000</td><td>The time (in miliseconds) between 'major' compactions of all
+    HStoreFiles in a region.  Default: 1 day.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.regions.slop">hbase.regions.slop</a></td><td>0.3</td><td>Rebalance if regionserver has average + (average * slop) regions.
+    Default is 30% slop.
+    </td>
+</tr>
+<tr>
+<td><a name="hfile.min.blocksize.size">hfile.min.blocksize.size</a></td><td>65536</td><td>Minimum store file block size.  The smaller you make this, the
+    bigger your index and the less you fetch on a random-access.  Set size down
+    if you have small cells and want faster random-access of individual cells.
+    </td>
+</tr>
+<tr>
+<td><a name="hfile.block.cache.size">hfile.block.cache.size</a></td><td>0.2</td><td>
+          Percentage of maximum heap (-Xmx setting) to allocate to block cache
+          used by HFile/StoreFile. Default of 0.2 means allocate 20%.
+          Set to 0 to disable.
+      </td>
+</tr>
+<tr>
+<td><a name="hbase.hash.type">hbase.hash.type</a></td><td>murmur</td><td>The hashing algorithm for use in HashFunction. Two values are
+    supported now: murmur (MurmurHash) and jenkins (JenkinsHash).
+    </td>
+</tr>
+<tr>
+<td><a name="zookeeper.session.timeout">zookeeper.session.timeout</a></td><td>60000</td><td>ZooKeeper session timeout.
+      HBase passes this to the zk quorum as suggested maximum time for a
+      session.  See http://hadoop.apache.org/zookeeper/docs/current/zookeeperProgrammers.html#ch_zkSessions
+      "The client sends a requested timeout, the server responds with the
+      timeout that it can give the client. The current implementation
+      requires that the timeout be a minimum of 2 times the tickTime
+      (as set in the server configuration) and a maximum of 20 times
+      the tickTime." Set the zk ticktime with hbase.zookeeper.property.tickTime.
+      In milliseconds.
+    </td>
+</tr>
+<tr>
+<td><a name="zookeeper.retries">zookeeper.retries</a></td><td>5</td><td>How many times to retry connections to ZooKeeper. Used for
+      reading/writing root region location, checking/writing out of safe mode.
+      Used together with ${zookeeper.pause} in an exponential backoff fashion
+      when making queries to ZooKeeper.
+    </td>
+</tr>
+<tr>
+<td><a name="zookeeper.pause">zookeeper.pause</a></td><td>2000</td><td>Sleep time between retries to ZooKeeper. In milliseconds. Used
+      together with ${zookeeper.retries} in an exponential backoff fashion when
+      making queries to ZooKeeper.
+    </td>
+</tr>
+<tr>
+<td><a name="zookeeper.znode.parent">zookeeper.znode.parent</a></td><td>/hbase</td><td>Root ZNode for HBase in ZooKeeper. All of HBase's ZooKeeper
+      files that are configured with a relative path will go under this node.
+      By default, all of HBase's ZooKeeper file path are configured with a
+      relative path, so they will all go under this directory unless changed.
+    </td>
+</tr>
+<tr>
+<td><a name="zookeeper.znode.rootserver">zookeeper.znode.rootserver</a></td><td>root-region-server</td><td>Path to ZNode holding root region location. This is written by
+      the master and read by clients and region servers. If a relative path is
+      given, the parent folder will be ${zookeeper.znode.parent}. By default,
+      this means the root location is stored at /hbase/root-region-server.
+    </td>
+</tr>
+<tr>
+<td><a name="zookeeper.znode.safemode">zookeeper.znode.safemode</a></td><td>safe-mode</td><td>Path to ephemeral ZNode signifying cluster is out of safe mode.
+      This is created by the master when scanning is done. Clients wait for this
+      node before querying the cluster. If a relative path is given, the parent
+      folder will be ${zookeeper.znode.parent}. By default, this means the safe
+      mode flag is stored at /hbase/safe-mode.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.quorum">hbase.zookeeper.quorum</a></td><td>localhost</td><td>Comma separated list of servers in the ZooKeeper Quorum.
+    For example, "host1.mydomain.com,host2.mydomain.com,host3.mydomain.com".
+    By default this is set to localhost for local and pseudo-distributed modes
+    of operation. For a fully-distributed setup, this should be set to a full
+    list of ZooKeeper quorum servers. If HBASE_MANAGES_ZK is set in hbase-env.sh
+    this is the list of servers which we will start/stop ZooKeeper on.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.peerport">hbase.zookeeper.peerport</a></td><td>2888</td><td>Port used by ZooKeeper peers to talk to each other.
+    See http://hadoop.apache.org/zookeeper/docs/r3.1.1/zookeeperStarted.html#sc_RunningReplicatedZooKeeper
+    for more information.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.leaderport">hbase.zookeeper.leaderport</a></td><td>3888</td><td>Port used by ZooKeeper for leader election.
+    See http://hadoop.apache.org/zookeeper/docs/r3.1.1/zookeeperStarted.html#sc_RunningReplicatedZooKeeper
+    for more information.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.property.tickTime">hbase.zookeeper.property.tickTime</a></td><td>3000</td><td>Property from ZooKeeper's config zoo.cfg.
+    The number of milliseconds of each tick.  See
+    zookeeper.session.timeout description.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.property.initLimit">hbase.zookeeper.property.initLimit</a></td><td>10</td><td>Property from ZooKeeper's config zoo.cfg.
+    The number of ticks that the initial synchronization phase can take.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.property.syncLimit">hbase.zookeeper.property.syncLimit</a></td><td>5</td><td>Property from ZooKeeper's config zoo.cfg.
+    The number of ticks that can pass between sending a request and getting an
+    acknowledgment.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.property.dataDir">hbase.zookeeper.property.dataDir</a></td><td>${hbase.tmp.dir}/zookeeper</td><td>Property from ZooKeeper's config zoo.cfg.
+    The directory where the snapshot is stored.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.property.clientPort">hbase.zookeeper.property.clientPort</a></td><td>2181</td><td>Property from ZooKeeper's config zoo.cfg.
+    The port at which the clients will connect.
+    </td>
+</tr>
+<tr>
+<td><a name="hbase.zookeeper.property.maxClientCnxns">hbase.zookeeper.property.maxClientCnxns</a></td><td>30</td><td>Property from ZooKeeper's config zoo.cfg.
+    Limit on number of concurrent connections (at the socket level) that a
+    single client, identified by IP address, may make to a single member of
+    the ZooKeeper ensemble. Set high to avoid zk connection issues running
+    standalone and pseudo-distributed.
+    </td>
+</tr>
+</table>
+</div>
+<!--+
+    |end content
+    +-->
+<div class="clearboth">&nbsp;</div>
+</div>
+<div id="footer">
+<!--+
+    |start bottomstrip
+    +-->
+<div class="lastmodified">
+<script type="text/javascript"><!--
+document.write("Last Published: " + document.lastModified);
+//  --></script>
+</div>
+<div class="copyright">
+        Copyright &copy;
+         2009 <a href="http://www.apache.org/licenses/">The Apache Software Foundation.</a>
+</div>
+<!--+
+    |end bottomstrip
+    +-->
+</div>
+</body>
+</html>

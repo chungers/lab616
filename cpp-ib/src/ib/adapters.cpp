@@ -1,17 +1,28 @@
-
+#include <sys/time.h>
+#include <iostream>
+#include <boost/date_time.hpp>
 #include <ib/adapters.hpp>
 #include <glog/logging.h>
-#include <sys/time.h>
 
 // Verbose level.  Use flag --v=N where N >= VLOG_LEVEL_* to see.
 #define VLOG_LEVEL_ECLIENT  2
 #define VLOG_LEVEL_EWRAPPER 1
 
 typedef uint64_t int64;
-inline int64 now_micros() {
+inline int64 now_micros()
+{
   struct timeval tv;
   gettimeofday(&tv, NULL);
   return static_cast<int64>(tv.tv_sec) * 1000000 + tv.tv_usec;
+}
+
+static const boost::posix_time::ptime utc_epoch(
+    boost::gregorian::date(1970, 1, 1));
+
+inline boost::posix_time::time_duration utc_micros()
+{
+  using namespace boost::posix_time;
+  return microsec_clock::universal_time() - utc_epoch;
 }
 
 #define __f__(m) "," << #m << '=' << m
@@ -19,6 +30,7 @@ inline int64 now_micros() {
 #define LOG_EVENT				\
   VLOG(VLOG_LEVEL_EWRAPPER)			\
   << "cid=" << connection_id_			\
+  << ",ts_utc=" << utc_micros().total_microseconds()  \
   << ",ts=" << now_micros()			\
   << ",event=" << __func__
 
@@ -59,6 +71,24 @@ const unsigned int LoggingEWrapper::get_connection_id()
 {
   return connection_id_;
 }
+
+struct PrintContract
+{
+  PrintContract(const ContractDetails& c) : c_(c) {}
+  const ContractDetails& c_;
+  friend std::ostream& operator<<(std::ostream& os, const PrintContract& c)
+  {
+    os << "Contract["
+       << "symbol=" << c.c_.summary.symbol
+       << ",localSymbol=" << c.c_.summary.localSymbol
+       << ",secType=" << c.c_.summary.secType
+       << ",strike=" << c.c_.summary.strike
+       << ",right=" << c.c_.summary.right
+       << ",expiry=" << c.c_.summary.expiry
+       << "]";
+    return os;
+  }
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // EWrapper Methods
@@ -183,7 +213,8 @@ void LoggingEWrapper::contractDetails(int reqId,
                                       const ContractDetails& contractDetails) {
   LOG_EVENT
       << __f__(reqId)
-      << __f__(&contractDetails);
+      << __f__(&contractDetails)
+      << PrintContract(contractDetails);
 }
 void LoggingEWrapper::bondContractDetails(
     int reqId, const ContractDetails& contractDetails) {
@@ -354,12 +385,13 @@ void LoggingEWrapper::error(const int id, const int errorCode,
   VLOG(VLOG_LEVEL_ECLIENT - 1)                  \
   << "cid=" << connection_id_                   \
   << ",ts=" << (call_start_ = now_micros())     \
+  << ",ts_utc=" << utc_micros().total_microseconds() \
   << ",action=" << __func__
 
 #define LOG_END                                         \
   VLOG(VLOG_LEVEL_ECLIENT)                              \
   << "cid=" << connection_id_                           \
-  << ",ts=" << (call_start_ = now_micros())             \
+  << ",ts=" << (call_start_)                            \
   << ",action=" << __func__                             \
   << ",elapsed=" << (now_micros() - call_start_)
 

@@ -1,13 +1,14 @@
 #ifndef IB_SESSION_H_
 #define IB_SESSION_H_
 
-#include <ib/services.hpp>
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 #include <boost/scoped_ptr.hpp>
 
+#include "ib/services.hpp"
+
 using namespace std;
-using ib::services::IMarketData;
+using ib::services::MarketDataInterface;
 
 namespace ib {
 
@@ -22,22 +23,22 @@ class Session
 
  public:
 
-  void start();
-  void stop();
-  void join();
+  void Start();
+  void Stop();
+  void Join();
 
-  bool ready(int timeout = 0);
+  bool IsReady(int timeout = 0);
 
 
   // Callbacks
   typedef boost::function<void()> ConnectConfirmCallback;
-  void register_callback_on_connect(ConnectConfirmCallback cb);
+  void RegisterCallbackOnConnect(ConnectConfirmCallback cb);
 
   typedef boost::function<void()> DisconnectCallback;
-  void register_callback_on_disconnect(DisconnectCallback cb);
+  void RegisterCallbackOnDisconnect(DisconnectCallback cb);
 
   // Interface for request market data (tick, book, etc.)
-  IMarketData* access_market_data();
+  MarketDataInterface* AccessMarketData();
 
  private:
   class implementation;

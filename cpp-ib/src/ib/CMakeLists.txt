@@ -56,23 +56,8 @@ set(v964_adapter_libs
 # Client implementation:
 cpp_library(v964_adapter)
 
-######################
-set(cl_incs
-  ${GEN_DIR}
-  ${SRC_DIR}
-)
-set(cl_srcs
-  main.cpp
-)
-set(cl_libs
-  v964_adapter
-  boost_thread
-  gflags
-  glog
-)
-# Client implementation:
-cpp_executable(cl)
-
 # Include subdirectories here:
-add_subdirectory(api) # For IB provided source files.
-add_subdirectory(util) # For prototyping, testing, command utilities.
+add_subdirectory(api)
+add_subdirectory(logger)
+add_subdirectory(logreader)
+add_subdirectory(util)
