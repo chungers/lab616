@@ -33,6 +33,10 @@ class MarketDataImpl : public ib::services::MarketDataInterface
   virtual unsigned int RequestTicks(const string& symbol,
                                     bool marketDepth);
 
+  virtual unsigned int RequestOptionChain(const string& symbol,
+                                          OptionType option_type,
+                                          int year, int month, int day);
+
   virtual unsigned int RequestOptionData(const string& symbol,
                                          OptionType option_type,
                                          double strike,

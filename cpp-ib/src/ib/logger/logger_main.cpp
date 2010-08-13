@@ -34,7 +34,13 @@ DEFINE_bool(option_straddle, true, "True if straddle -- both sides of strike.");
 DEFINE_int32(option_day, 21, "month 1 - 31");
 DEFINE_int32(option_month, 8, "month 1 - 12");
 DEFINE_int32(option_year, 2010, "YYYY");
-DEFINE_double(option_strike, 112.0, "Strike");
+DEFINE_double(option_strike, 112.0, "DEFINE");
+
+DEFINE_string(option_chain_symbol, "", "Request contract symbol");
+DEFINE_bool(option_chain_call, true, "True for Calls.");
+DEFINE_int32(option_chain_day, 0, "month 1 - 31");
+DEFINE_int32(option_chain_month, 0, "month 1 - 12");
+DEFINE_int32(option_chain_year, 0, "YYYY");
 
 
 ib::Session* session;
@@ -49,6 +55,22 @@ static void RequestIndexData(ib::services::MarketDataInterface* md)
     live_marketdata.push_back(md->RequestIndex("INDU", "NYSE"));
     live_marketdata.push_back(md->RequestIndex("SPX", "CBOE"));
     live_marketdata.push_back(md->RequestIndex("VIX", "CBOE"));
+  }
+}
+
+static void RequestOptionChain(ib::services::MarketDataInterface* md)
+{
+  CHECK(md);
+  using namespace ib::services;
+  MarketDataInterface::OptionType side = (FLAGS_option_chain_call) ?
+      MarketDataInterface::CALL : MarketDataInterface::PUT;
+
+  if (FLAGS_option_chain_symbol.length() > 0) {
+    LOG(INFO) << "Requesting contracts for " << FLAGS_option_chain_symbol;
+    md->RequestOptionChain(FLAGS_option_chain_symbol, side,
+                           FLAGS_option_chain_year,
+                           FLAGS_option_chain_month,
+                           FLAGS_option_chain_day);
   }
 }
 
@@ -154,7 +176,7 @@ void OnConnectConfirm()
 
   ib::services::MarketDataInterface* md = session->AccessMarketData();
   if (md) {
-    // First request index: INDU
+    RequestOptionChain(md);
     RequestIndexData(md);
     RequestOptionData(md);
     RequestStockData(tickdata_tokens, md);
@@ -163,7 +185,9 @@ void OnConnectConfirm()
 
 void OnDisconnect()
 {
-  LOG(WARNING) << "=================== DISCONNECTED ==========================";
+  LOG(INFO) << "=================== DISCONNECTED ==========================";
+  live_marketdata.clear();
+  LOG(INFO) << "Cleared live_marketdata list.";
 }
 
 int main(int argc, char** argv)

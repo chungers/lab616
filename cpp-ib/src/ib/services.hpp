@@ -27,6 +27,10 @@ class MarketDataInterface
 
   enum OptionType { CALL = 0, PUT = 1 };
 
+  virtual unsigned int RequestOptionChain(const string& symbol,
+                                          OptionType option_type,
+                                          int year, int month, int day) = 0;
+
   // Option data
   virtual unsigned int RequestOptionData(const string& symbol,
                                          OptionType option_type,

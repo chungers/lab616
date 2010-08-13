@@ -1,4 +1,5 @@
 #include <sys/time.h>
+#include <iostream>
 #include <boost/date_time.hpp>
 #include <ib/adapters.hpp>
 #include <glog/logging.h>
@@ -70,6 +71,24 @@ const unsigned int LoggingEWrapper::get_connection_id()
 {
   return connection_id_;
 }
+
+struct PrintContract
+{
+  PrintContract(const ContractDetails& c) : c_(c) {}
+  const ContractDetails& c_;
+  friend std::ostream& operator<<(std::ostream& os, const PrintContract& c)
+  {
+    os << "Contract["
+       << "symbol=" << c.c_.summary.symbol
+       << ",localSymbol=" << c.c_.summary.localSymbol
+       << ",secType=" << c.c_.summary.secType
+       << ",strike=" << c.c_.summary.strike
+       << ",right=" << c.c_.summary.right
+       << ",expiry=" << c.c_.summary.expiry
+       << "]";
+    return os;
+  }
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // EWrapper Methods
@@ -194,7 +213,8 @@ void LoggingEWrapper::contractDetails(int reqId,
                                       const ContractDetails& contractDetails) {
   LOG_EVENT
       << __f__(reqId)
-      << __f__(&contractDetails);
+      << __f__(&contractDetails)
+      << PrintContract(contractDetails);
 }
 void LoggingEWrapper::bondContractDetails(
     int reqId, const ContractDetails& contractDetails) {

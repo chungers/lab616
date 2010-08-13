@@ -32,15 +32,16 @@ TEST(HelpersTest, TestStringToLower)
 }
 
 static string symbols =
-    "FAS,FAZ,SRS,GS,AAPL,GOOG,URE,RIMM,TBT,BAC,DXD,\
+    "AAAA,FAS,FAZ,SRS,GS,AAPL,GOOG,URE,RIMM,TBT,BAC,DXD,\
 DXO,FSLR,FXP,LDK,QID,QLD,REW,SDS,SKF,BK,JPM,\
 MS,SMN,SSO,TYH,TYP,UYM,XLE,XLV,AYI,AMZN,DDM,\
-C,COF,AXP,RTH";
+C,COF,AXP,RTH,ZZZZ";
 
 int test_encode(const string& symbol)
 {
   int code = SymbolToTickerId(symbol);
-  string from_code = SymbolFromTickerId(code);
+  string from_code;
+  SymbolFromTickerId(code, &from_code);
   EXPECT_EQ(to_upper(symbol), from_code);
   return code;
 }
@@ -50,9 +51,20 @@ int test_encode_option(const string& symbol, bool callOption,
                        double strike)
 {
   int code = SymbolToTickerId(symbol, callOption, strike);
-  string from_code = SymbolFromTickerId(code);
+  string from_code;
+  SymbolFromTickerId(code, &from_code);
   EXPECT_EQ(to_upper(symbol), from_code);
   return code;
+}
+
+TEST(HelpersTest, PrintConstants)
+{
+  using namespace std;
+  cout << "MID = " << ib::internal::MID << endl;
+  cout << "shifted= " << (1 << ib::internal::OFFSET) << endl;
+  cout << "maxOpt= " << (ib::internal::MAX_OPTION_PART) << endl;
+  cout << "AAAA = " << SymbolToTickerId("AAAA") << endl;
+  cout << "ZZZZ = " << SymbolToTickerId("ZZZZ") << endl;
 }
 
 TEST(HelpersTest, TestEncodingAndDecodingTickerId)
@@ -82,17 +94,31 @@ TEST(HelpersTest, TestEncodingOptions)
     EXPECT_EQ(a, b);
   }
 
-  strike = 100;
+  strike = 1023;
+  bool call = true;
   int i = 0;
   for (itr = list.begin(); itr != list.end(); itr++, i++) {
     string s = *itr;
-    strike += 20;
-    int a = SymbolToTickerId(s, true, strike);
-    EncodedOption eo = EncodedOptionFromTickerId(a);
+    int a = SymbolToTickerId(s, call, strike);
+    EncodedOption eo;
+    EncodedOptionFromTickerId(a, &eo);
     EXPECT_EQ(s, eo.symbol);
-    EXPECT_EQ(true, eo.call_option);
+    EXPECT_EQ(call, eo.call_option);
     EXPECT_EQ(strike, eo.strike);
   }
+
+  strike = 1023;
+  call = false;
+  for (itr = list.begin(); itr != list.end(); itr++, i++) {
+    string s = *itr;
+    int a = SymbolToTickerId(s, call, strike);
+    EncodedOption eo;
+    EncodedOptionFromTickerId(a, &eo);
+    EXPECT_EQ(s, eo.symbol);
+    EXPECT_EQ(call, eo.call_option);
+    EXPECT_EQ(strike, eo.strike);
+  }
+
 }
 
 } // namespace

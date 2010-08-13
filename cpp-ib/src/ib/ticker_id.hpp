@@ -12,18 +12,20 @@ using namespace std;
 namespace ib {
 namespace internal {
 
+static const int BASE = 27;
 static const int MAX_CHARS = 4;
 static const int SCALE[] = {
-  1,            // 27 ^ 0
-  27,           // 27 ^ 1
-  27 * 27,      // 27 ^ 2
-  27 * 27 * 27  // 27 ^ 3
+  1,                  // BASE ^ 0
+  BASE,               // BASE ^ 1
+  BASE * BASE,        // BASE ^ 2
+  BASE * BASE * BASE  // BASE ^ 3
 };
 
 static const int OFFSET = 11;
 static const int MAX_OPTION_PART = 1 << (OFFSET + 1) - 1;
 static const int MID = 1 << (OFFSET - 1);
 // Max code value representing ZZZZ << 11.
+// Max option value on either side (call or put) is 1023.
 static const int MAX_CODE_VALUE = 1088389120 + MAX_OPTION_PART;
 
 
@@ -65,7 +67,7 @@ int SymbolToTickerId(const string& s, bool isCallOption, const double strike)
 // Computes the symbol from the input code value.  See above
 // for description of the encoding scheme.  Basically this does
 // in reverse what the encoding step does .
-string SymbolFromTickerId(int code)
+void SymbolFromTickerId(int code, string* output)
 {
   ostringstream sbuff;
   int m = code >> OFFSET;
@@ -74,21 +76,19 @@ string SymbolFromTickerId(int code)
     m %= SCALE[i];
     if (c > 0) sbuff << (char)(c + 'A' - 1);
   }
-  return sbuff.str();
+  output->assign(sbuff.str());
 }
 
 // Encoded option.  Note that this is not a complete
 // specification of an option contract.  There is not
 // enough bits to encode the expiry of the option.
 struct EncodedOption {
- public:
-  EncodedOption(const string& sym,
-                const bool call,
-                const double strk)
-      : symbol(sym), call_option(call), strike(strk) {}
-  const string symbol;
-  const bool call_option;
-  const double strike;
+
+  EncodedOption() : symbol(""), call_option(true), strike(0.0) {}
+
+  string symbol;
+  bool call_option;
+  double strike;
 
   // For printing to output stream.
   friend ostream& operator<<(ostream& os, const EncodedOption& opt)
@@ -97,16 +97,28 @@ struct EncodedOption {
        << "," << opt.strike << ")";
     return os;
   }
+
+  EncodedOption& operator=(const EncodedOption& rhs)
+  {
+    if (this == &rhs) return *this;
+    symbol = rhs.symbol;
+    call_option = rhs.call_option;
+    strike = rhs.strike;
+    return *this;
+  }
 };
 
-EncodedOption EncodedOptionFromTickerId(int code)
+void EncodedOptionFromTickerId(int code, EncodedOption* output)
 {
   int option_mask = (code >> OFFSET) << OFFSET;
-  string sym = SymbolFromTickerId(option_mask);
+  string sym;
+  SymbolFromTickerId(option_mask, &sym);
   int opt = code - ((code >> OFFSET) << OFFSET) - MID;
   bool call = opt > 0;
   double strike = (call) ? (double) opt : (double) (-1 * opt);
-  return EncodedOption(sym, call, strike);
+  output->symbol = sym;
+  output->call_option = call;
+  output->strike = strike;
 }
 
 } // namespace internal
