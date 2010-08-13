@@ -13,7 +13,7 @@ include(${PROJECT_SOURCE_DIR}/../cmake-common/Init.cmk)
 
 option(OPTIMIZE "Compiler optimization" ON)
 
-emacs_ide_project("")
+emacs_ide_project("" "")
 
 # Include the subdirectories required for this project:
 add_subdirectory(src)

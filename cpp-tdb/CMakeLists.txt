@@ -17,7 +17,7 @@ set(CFLAGS "-pg -g -ggdb")
 include(${PROJECT_SOURCE_DIR}/../cmake-common/Init.cmk)
 
 
-emacs_ide_project("")
+emacs_ide_project("" "")
 
 
 # Third party libraries used.
