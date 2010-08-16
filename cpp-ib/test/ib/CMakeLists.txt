@@ -28,7 +28,7 @@ cpp_gtest(adapter_test)
 
 #########################################
 # Test:
-set(prototype_incs
+set(ib_prototype_incs
   ${SRC_DIR}/ib/api/9.64beta
   ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
@@ -36,14 +36,14 @@ set(prototype_incs
   ${TEST_DIR}
   ${LIBSIGC_PATH}
 )
-set(prototype_srcs
+set(ib_prototype_srcs
   AllTests.cpp
   signals_prototype.cpp
 )
-set(prototype_libs
+set(ib_prototype_libs
   boost_thread
   v964_adapter
   glog
   sigc-2.0
 )
-cpp_gtest(prototype)
+cpp_gtest(ib_prototype)

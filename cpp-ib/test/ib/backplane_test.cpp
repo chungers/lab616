@@ -20,7 +20,7 @@ using namespace boost;
 
 namespace {
 
-TEST(BackPlaneTest Test1)
+TEST(BackPlaneTest, Test1)
 {
 
 }

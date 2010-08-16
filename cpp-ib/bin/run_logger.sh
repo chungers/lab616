@@ -3,7 +3,7 @@
 THIS=$(basename $0)
 HOME=$(dirname $0)/..
 
-TARGET=logger
+TARGET=logger_main
 BIN=$HOME/_build/bin/$TARGET
 LOG_DIR=$HOME/src/ib/cl-logs
 TICKERS_FILE=$HOME/conf/tickers

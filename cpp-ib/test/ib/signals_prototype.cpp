@@ -247,48 +247,61 @@ TEST(SignalPrototype, PrototypeBindFunction)
   cout << endl;
 }
 
-template <class T_accept, class T_functor, class T_arg1>
-struct mybind_functor : NoCopyAndAssign
+template <class T> struct Predicate
 {
-  mybind_functor(T_accept* ac, T_functor* t) : ac(ac), functor(t) {}
-  T_accept* ac;
+  virtual bool operator()(const T& arg) = 0;
+};
+
+template <typename T_arg1, typename T_functor>
+struct ConditionalFunctor
+{
+  ConditionalFunctor(Predicate<T_arg1>* p, T_functor* t)
+      : predicate(p), functor(t) {}
+  Predicate<T_arg1>* predicate;
   T_functor* functor;
 
-  void operator()(T_arg1 _A_arg1)
+  inline void operator()(T_arg1 arg1)
   {
-    if ((*ac)(_A_arg1)) (*functor)(_A_arg1);
+    if ((*predicate)(arg1)) (*functor)(arg1);
   }
 };
 
-struct acceptor {
-  inline bool operator()(const BidAsk& bid_ask)
+struct MatchById : public Predicate<BidAsk>, NoCopyAndAssign {
+  MatchById(int id) : id(id) {}
+  int id;
+  virtual inline bool operator()(const BidAsk& bid_ask)
   {
-    return bid_ask.id() == 1;
+    return bid_ask.id() == id;
   }
 };
 
-TEST(SignalPrototype, PrototypeAcceptor)
+TEST(SignalPrototype, PrototypeMatchById)
 {
   BidAsk bid_ask;
   bid_ask.set_time_stamp(100000);
   bid_ask.mutable_bid()->set_price(100.);
 
   BidAskReceiver r1(1);
+  BidAskReceiver r2(2);
 
   // Create the signal:
   BidAskSignal signal;
-  acceptor acc;
+  MatchById m1(1);
+  MatchById m2(2);
 
-  typedef mybind_functor<acceptor, BidAskReceiver, BidAsk> Acceptor;
-  Acceptor bound(&acc, &r1);
+  typedef ConditionalFunctor<BidAsk, BidAskReceiver> Functor;
+  Functor receiver(&m1, &r1);
+  Functor receiver2(&m2, &r2);
 
   // Connect
-  signal.connect(sigc::mem_fun(&bound, &Acceptor::operator()));
+  signal.connect(sigc::mem_fun(&receiver, &Functor::operator()));
+  signal.connect(sigc::mem_fun(&receiver2, &Functor::operator()));
 
   bid_ask.set_id(1);
   cout << endl << "Sending " << Print(bid_ask);
   signal.emit(bid_ask);
   EXPECT_EQ(1, r1.received);
+  EXPECT_EQ(0, r2.received);
   cout << endl;
 
   bid_ask.set_id(2);
@@ -296,6 +309,7 @@ TEST(SignalPrototype, PrototypeAcceptor)
   signal.emit(bid_ask);
   signal.emit(bid_ask);
   EXPECT_EQ(1, r1.received);
+  EXPECT_EQ(2, r2.received);
   cout << endl;
 }
 
