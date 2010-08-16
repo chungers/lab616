@@ -4,6 +4,19 @@ package ib.common;
 
 option optimize_for = LITE_RUNTIME;
 
+message Date {
+  required int32 year = 1;  // YYYY
+  required int32 month = 2;  // range: 1 - 12
+  required int32 day = 3;
+}
+
+// All time in UTC
+message Time {
+  required int32 hour = 1;  // 0-23
+  required int32 minute = 2;  // 0-59
+  required int32 second = 3; // 0-59
+}
+
 message Interval {
   enum Unit {
     MINUTE = 1;
@@ -15,15 +28,30 @@ message Interval {
   required int32 duration = 2;
 }
 
+message Duration {
+  // Start datetime - inclusive.
+  required group Start = 1 {
+    required Date date = 2;
+    optional Time time = 3;
+  }
+  // End datetime - exclusive.
+  required group End = 4 {
+    required Date date = 5;
+    optional Time time = 6;
+  }
+}
+
+enum OptionRight {
+  CALL = 1;
+  PUT  = 2;
+}
+
 message Option {
   required int32 id = 1;
   required string symbol = 2;
-
-  enum Right { CALL = 1; PUT = 2; }
-  required Right right = 3;
+  required OptionRight right = 3;
   required double strike = 4;
-  required int32 expiry_month = 5;  // range: 1 - 12
-  required int32 expiry_year = 6;  // YYYY
+  required Date expiry = 5;
 }
 
 message Stock {

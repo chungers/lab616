@@ -5,42 +5,28 @@ option optimize_for = LITE_RUNTIME;
 
 import "ib_common.proto";
 
-message Tick {
+// BidAsk is set up so that the listener
+// for this event is required to care about
+// for bid *and* ask.  This looks more like
+// a union of bid and ask since at the most
+// granular level, only one of the two is
+// updated at a given point in time.
+message BidAsk {
   required int64 time_stamp = 1;
   required int32 id = 2;
 
-  enum Type {
-    BID_PRICE  = 1;
-    ASK_PRICE  = 2;
-    BID_VOLUME = 3;
-    ASK_VOLUME = 4;
+  optional group Bid = 3 {
+    optional double price = 4;
+    optional int32 size = 5;
   }
-  required Type type = 3;
-  optional double value = 4;
+
+  optional group Ask = 6 {
+    optional double price = 7;
+    optional int32 size = 8;
+  };
 }
 
-message Bid {
-  required int64 time_stamp = 1;
-  required int32 id = 2;
-  optional double price = 3;
-  optional int32 size = 4;
-}
-
-message Ask {
-  required int64 time_stamp = 1;
-  required int32 id = 2;
-  optional double price = 3;
-  optional int32 size = 4;
-}
-
-message Last {
-  required int64 time_stamp = 1;
-  required int32 id = 2;
-  optional double price = 3;
-  optional int32 size = 4;
-}
-
-message Option {
+message OptionStats {
   required int64 time_stamp = 1;
   required int32 id = 2;
   optional double price = 3;

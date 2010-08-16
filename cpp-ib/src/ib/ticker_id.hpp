@@ -91,14 +91,14 @@ struct EncodedOption {
   double strike;
 
   // For printing to output stream.
-  friend ostream& operator<<(ostream& os, const EncodedOption& opt)
+  inline friend ostream& operator<<(ostream& os, const EncodedOption& opt)
   {
     os << "Option(" << opt.symbol << "," << ((opt.call_option) ? "CALL" : "PUT")
        << "," << opt.strike << ")";
     return os;
   }
 
-  EncodedOption& operator=(const EncodedOption& rhs)
+  inline EncodedOption& operator=(const EncodedOption& rhs)
   {
     if (this == &rhs) return *this;
     symbol = rhs.symbol;
