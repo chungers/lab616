@@ -267,11 +267,26 @@ struct ConditionalFunctor
 };
 
 struct MatchById : public Predicate<BidAsk>, NoCopyAndAssign {
-  MatchById(int id) : id(id) {}
-  int id;
+  MatchById() { }
+  MatchById(int id) { ids.push_back(id); }
+  vector<int> ids;
+
+  inline MatchById& operator<<(int id)
+  { return Add(id); }
+
+  inline MatchById& Add(int id)
+  {
+    ids.push_back(id);
+    return *this;
+  }
+
   virtual inline bool operator()(const BidAsk& bid_ask)
   {
-    return bid_ask.id() == id;
+    vector<int>::iterator itr;
+    for (itr = ids.begin(); itr != ids.end(); ++itr) {
+      if (bid_ask.id() == *itr) return true;
+    }
+    return false;
   }
 };
 
@@ -283,25 +298,33 @@ TEST(SignalPrototype, PrototypeMatchById)
 
   BidAskReceiver r1(1);
   BidAskReceiver r2(2);
+  BidAskReceiver r3(3);
 
   // Create the signal:
   BidAskSignal signal;
   MatchById m1(1);
   MatchById m2(2);
+  MatchById m3;
+
+  m3.Add(1).Add(10).Add(20);  // Add ids to match.
+  m3 << 2 << 3 << 4 << 5;
 
   typedef ConditionalFunctor<BidAsk, BidAskReceiver> Functor;
-  Functor receiver(&m1, &r1);
+  Functor receiver1(&m1, &r1);
   Functor receiver2(&m2, &r2);
+  Functor receiver3(&m3, &r3);
 
   // Connect
-  signal.connect(sigc::mem_fun(&receiver, &Functor::operator()));
+  signal.connect(sigc::mem_fun(&receiver1, &Functor::operator()));
   signal.connect(sigc::mem_fun(&receiver2, &Functor::operator()));
+  signal.connect(sigc::mem_fun(&receiver3, &Functor::operator()));
 
   bid_ask.set_id(1);
   cout << endl << "Sending " << Print(bid_ask);
   signal.emit(bid_ask);
   EXPECT_EQ(1, r1.received);
   EXPECT_EQ(0, r2.received);
+  EXPECT_EQ(1, r3.received);
   cout << endl;
 
   bid_ask.set_id(2);
@@ -310,60 +333,8 @@ TEST(SignalPrototype, PrototypeMatchById)
   signal.emit(bid_ask);
   EXPECT_EQ(1, r1.received);
   EXPECT_EQ(2, r2.received);
+  EXPECT_EQ(3, r3.received);
   cout << endl;
 }
-
-
-template <class T_functor, class T_arg1>
-struct ConditionalSlot : NoCopyAndAssign
-{
-  typedef boost::function<bool(const T_arg1)> Condition;
-
-  ConditionalSlot(Condition ac, T_functor* t) : ac(ac), functor(t) {}
-  Condition ac;
-  T_functor* functor;
-
-  void operator()(const T_arg1& _A_arg1)
-  {
-    if ((*ac)(_A_arg1)) (*functor)(_A_arg1);
-  }
-};
-
-bool accept2(const BidAsk& bid_ask)
-{
-  return bid_ask.id() == 2;
-}
-
-TEST(SignalPrototype, PrototypeConditionalSlot)
-{
-  BidAsk bid_ask;
-  bid_ask.set_time_stamp(100000);
-  bid_ask.mutable_bid()->set_price(100.);
-
-  BidAskReceiver r1(1);
-
-  // Create the signal:
-  BidAskSignal signal;
-
-  typedef ConditionalSlot<BidAskReceiver, const BidAsk&> ConditionalBidAsk;
-  //ConditionalBidAsk c(boost::bind(accept2), &r1);
-
-  // Connect
-  //  signal.connect(sigc::mem_fun(&c, &ConditionalBidAsk::operator()));
-
-  bid_ask.set_id(1);
-  cout << endl << "Sending " << Print(bid_ask);
-  signal.emit(bid_ask);
-  //EXPECT_EQ(1, r1.received);
-  cout << endl;
-
-  bid_ask.set_id(2);
-  cout << endl << "Sending " << Print(bid_ask);
-  signal.emit(bid_ask);
-  signal.emit(bid_ask);
-  //EXPECT_EQ(1, r1.received);
-  cout << endl;
-}
-
 
 } // Namespace
