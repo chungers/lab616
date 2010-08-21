@@ -47,7 +47,7 @@ echo -e "Tickers = $TICKERS"
 CMD="$BIN --log_dir=$LOG_DIR \
 --client_id=1000 --v=4 \
 --tickdata_symbols=$TICKERS \
---option_symbol=SPY --option_strike=112 \
+--option_symbol=SPY --option_strike=109 \
 --option_month=8 --option_day=20 --option_year=2010
 "
 echo $CMD
