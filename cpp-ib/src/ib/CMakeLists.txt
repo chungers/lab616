@@ -52,6 +52,7 @@ set(v964_adapter_libs
   ib_common_proto
   ib_events_proto
   ib_actions_proto
+  protobuf
 )
 # Client implementation:
 cpp_library(v964_adapter)

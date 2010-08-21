@@ -1,8 +1,6 @@
 // Actions supported by the IB interface.
 package ib.actions;
 
-option java_package = "com.lab616.ib.events";
-option java_outer_classname = "IBActions";
 option optimize_for = LITE_RUNTIME;
 
 import "ib_common.proto";
@@ -58,19 +56,19 @@ message RequestHistory {
   repeated group Stock = 1 {
     required ib.common.Stock stock = 1;
     required ib.common.Interval bar_size = 2;
-    required ib.common.Interval duration = 3;
+    required ib.common.Duration duration = 3;
     optional bool regular_trading_hours = 4;
   }
   repeated group Option = 2 {
     required ib.common.Option option = 1;
     required ib.common.Interval bar_size = 2;
-    required ib.common.Interval duration = 3;
+    required ib.common.Duration duration = 3;
     optional bool regular_trading_hours = 4;
   }
   repeated group Index = 3 {
     required ib.common.Index index = 1;
     required ib.common.Interval bar_size = 2;
-    required ib.common.Interval duration = 3;
+    required ib.common.Duration duration = 3;
     optional bool regular_trading_hours = 4;
   }
 }
