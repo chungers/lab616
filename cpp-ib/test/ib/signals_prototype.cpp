@@ -22,8 +22,6 @@ using namespace boost;
 
 namespace {
 
-
-
 // Test for thread local
 boost::mutex io_mutex;
 boost::thread_specific_ptr<int> ptr;

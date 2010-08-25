@@ -33,12 +33,15 @@ set(v964_adapter_incs
   ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
   ${SRC_DIR}
+  ${LIBSIGC_PATH}
 )
 set(v964_adapter_srcs
   bridge.hpp
   bridge.cpp
   adapters.hpp
   adapters.cpp
+  backplane.hpp
+  backplane.cpp
   helpers.hpp
   marketdata.cpp
   polling_client.hpp
