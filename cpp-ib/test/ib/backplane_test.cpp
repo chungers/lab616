@@ -1,5 +1,5 @@
 
-#include "common.hpp"
+#include "ib/backplane.hpp"
 
 #include <map>
 #include <vector>
@@ -11,8 +11,6 @@
 #include <gtest/gtest.h>
 #include <sigc++/sigc++.h>
 
-#include "ib/ib_events.pb.h"
-
 
 using namespace std;
 using namespace ib::events;
@@ -22,6 +20,9 @@ namespace {
 
 TEST(BackPlaneTest, Test1)
 {
+  BidAsk bid_ask;
+  bid_ask.set_time_stamp(100000);
+  bid_ask.mutable_bid()->set_price(100.);
 
 }
 } // Namespace
