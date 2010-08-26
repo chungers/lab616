@@ -5,6 +5,16 @@ option optimize_for = LITE_RUNTIME;
 
 import "ib_common.proto";
 
+message Connect {
+  required int64 time_stamp = 1;
+  required int32 id = 2;
+}
+
+message Disconnect {
+  required int64 time_stamp = 1;
+  required int32 id = 2;
+}
+
 // BidAsk is set up so that the listener
 // for this event is required to care about
 // for bid *and* ask.  This looks more like

@@ -15,11 +15,21 @@ template <class T> struct Predicate
   virtual bool operator()(const T& arg) = 0;
 };
 
+template <class T> struct Receiver : sigc::trackable, NoCopyAndAssign
+{
+  virtual void operator()(const T& arg) = 0;
+};
+
 template <typename T_arg1, typename T_functor>
 struct ConditionalFunctor
 {
   ConditionalFunctor(Predicate<T_arg1>* p, T_functor* t)
-      : predicate(p), functor(t) {}
+      : predicate(p), functor(t)
+  {
+    CHECK(predicate);
+    CHECK(functor);
+  }
+
   Predicate<T_arg1>* predicate;
   T_functor* functor;
 
@@ -29,27 +39,25 @@ struct ConditionalFunctor
   }
 };
 
-struct BidAskReceiver : sigc::trackable, NoCopyAndAssign {
-  virtual void operator()(const BidAsk& bid_ask) = 0;
-};
-
-
 class BackPlane : NoCopyAndAssign {
 
  public:
 
-  typedef sigc::signal<void, const BidAsk&> BidAskSignal;
-  typedef ConditionalFunctor<BidAsk, BidAskReceiver> BidAskFilter;
-
-  BackPlane();
   ~BackPlane() {}
 
-  void Register(BidAskFilter* r);
-  void Register(BidAskReceiver* r);
+ public:
+  static BackPlane* Create();
+  virtual void Register(Receiver<Connect>* r,
+                        Predicate<Connect>* predicate = NULL) = 0;
 
- private:
-  BidAskSignal bid_ask_signal_;
+  virtual void Register(Receiver<Disconnect>* r,
+                        Predicate<Disconnect>* predicate = NULL) = 0;
 
+  virtual void Register(Receiver<BidAsk>* r,
+                        Predicate<BidAsk>* predicate = NULL) = 0;
+
+ protected:
+  BackPlane();
 };
 
 
