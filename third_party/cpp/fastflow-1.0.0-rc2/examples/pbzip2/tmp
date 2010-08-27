@@ -1,0 +1,448 @@
+*************************************************************************
+Machine: Dual Quad-core Intel Xeon E5520  @ 2.27GHz (8-cores 16-contexts)
+*************************************************************************
+TOC:
+ 1 COMPRESSION TESTS SINGLE FILE (SF)
+ 2 DECOMPRESSION TESTS SINGLE FILE (SF)
+ 3 COMPRESSION TESTS MULTIPLE FILES (MF)
+ 4 DECOMPRESSION TESTS MULTIPLE FILES (MF)
+ 
+
+/**************** COMPRESSION TESTS SF **************************/
+
+Sequential using the default installed bzip2 Version 1.0.3, 15-Feb-2005.
+
+[torquati@andromeda pbzip2]$ time bzip2 linux-2.6.32.8.tar 
+real		    1m2.961s
+user		    1m2.520s
+sys		    0m0.431s
+
+
+      ***************** PBZIP2 ******************
+
+
+[torquati@andromeda pbzip2]$ ./pbzip2 -k -f -v linux-2.6.32.8.tar 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 900k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar
+    Output Name: linux-2.6.32.8.tar.bz2
+
+     Input Size: 382433280 bytes
+Compressing data...
+-------------------------------------------
+
+     Wall Clock: 7.063306 seconds
+
+
+[torquati@andromeda pbzip2]$ ./pbzip2 -1 -k -f -v linux-2.6.32.8.tar 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 100k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar
+    Output Name: linux-2.6.32.8.tar.bz2
+
+     Input Size: 382433280 bytes
+Compressing data...
+-------------------------------------------
+
+     Wall Clock: 5.335758 seconds
+
+
+      ***************** FastFlow ******************
+
+[torquati@andromeda pbzip2]$ ./pbzip2_ff -k -f -v linux-2.6.32.8.tar 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 900k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar
+    Output Name: linux-2.6.32.8.tar.bz2
+
+     Input Size: 382433280 bytes
+Compressing data...
+    Output Size: 64492900 bytes
+-------------------------------------------
+
+     Wall Clock: 7.026579 seconds
+
+
+[torquati@andromeda pbzip2]$ ./pbzip2_ff -1 -k -f -v linux-2.6.32.8.tar 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 100k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar
+    Output Name: linux-2.6.32.8.tar.bz2
+
+     Input Size: 382433280 bytes
+Compressing data...
+    Output Size: 77512612 bytes
+-------------------------------------------
+
+     Wall Clock: 5.397813 seconds
+
+
+
+/**************** DECOMPRESSION TESTS SF **************************/
+
+Sequential using the default installed bzip2 Version 1.0.3, 15-Feb-2005.
+
+[torquati@andromeda pbzip2]$ time bzip2 -d linux-2.6.32.8.tar.bz2 
+real		    0m14.628s
+user		    0m13.938s
+sys		    0m0.688s
+
+      ***************** PBZIP2 ******************
+[torquati@andromeda pbzip2]$ ./pbzip2 -k -v  -d linux-2.6.32.8.tar.bz2 -c > /dev/null 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 64492900 bytes
+Decompressing data...
+-------------------------------------------
+
+     Wall Clock: 1.750296 seconds
+
+
+      ***************** FastFlow ******************
+
+[torquati@andromeda pbzip2]$ ./pbzip2_ff -k -v  -d linux-2.6.32.8.tar.bz2 -c > /dev/null 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 64492900 bytes
+Decompressing data...
+    Output Size: 382433280 bytes
+-------------------------------------------
+
+     Wall Clock: 1.762537 seconds
+
+
+/**************** COMPRESSION TESTS MF **************************/
+
+Sequential using the default installed bzip2 Version 1.0.3, 15-Feb-2005.
+
+[torquati@andromeda pbzip2]$ time bzip2 -f linux-2.6.32.8.tar smallfile.bin bigfile.bin smallerfile.bin
+real	4m58.844s
+user	4m56.224s
+sys	0m2.575s
+
+
+
+      ***************** PBZIP2 ******************
+
+
+[torquati@andromeda pbzip2]$ ./pbzip2 -k -v -f  linux-2.6.32.8.tar smallfile.bin bigfile.bin smallerfile.bin -c > /dev/null 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 900k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 4
+     Input Name: linux-2.6.32.8.tar
+    Output Name: <stdout>
+
+     Input Size: 382433280 bytes
+Compressing data...
+-------------------------------------------
+         File #: 2 of 4
+     Input Name: smallfile.bin
+    Output Name: <stdout>
+
+     Input Size: 52428800 bytes
+Compressing data...
+-------------------------------------------
+         File #: 3 of 4
+     Input Name: bigfile.bin
+    Output Name: <stdout>
+
+     Input Size: 1132546048 bytes
+Compressing data...
+-------------------------------------------
+         File #: 4 of 4
+     Input Name: smallerfile.bin
+    Output Name: <stdout>
+
+     Input Size: 2097152 bytes
+Compressing data...
+-------------------------------------------
+
+     Wall Clock: 35.132936 seconds
+
+
+      ***************** FastFlow ******************
+
+[torquati@andromeda pbzip2]$ ./pbzip2_ff -k -v -f  linux-2.6.32.8.tar smallfile.bin bigfile.bin smallerfile.bin -c > /dev/null 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 900k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 4
+     Input Name: linux-2.6.32.8.tar
+    Output Name: <stdout>
+
+     Input Size: 382433280 bytes
+Compressing data...
+    Output Size: 64492900 bytes
+-------------------------------------------
+         File #: 2 of 4
+     Input Name: smallfile.bin
+    Output Name: <stdout>
+
+     Input Size: 52428800 bytes
+Compressing data...
+    Output Size: 9221932 bytes
+-------------------------------------------
+         File #: 3 of 4
+     Input Name: bigfile.bin
+    Output Name: <stdout>
+
+     Input Size: 1132546048 bytes
+Compressing data...
+    Output Size: 634274633 bytes
+-------------------------------------------
+         File #: 4 of 4
+     Input Name: smallerfile.bin
+    Output Name: <stdout>
+
+     Input Size: 2097152 bytes
+Compressing data...
+    Output Size: 743159 bytes
+-------------------------------------------
+
+     Wall Clock: 34.117367 seconds
+
+
+
+/**************** DECOMPRESSION TESTS MF **************************/
+
+time bzip2 -f -d linux-2.6.32.8.tar.bz2 smallfile.bin.bz2 bigfile.bin.bz2 smallerfile.bin.bz2 
+real	1m34.930s
+user	1m31.225s
+sys	0m3.605s
+
+
+
+      ***************** PBZIP2 ******************
+
+[torquati@andromeda pbzip2]$ ./pbzip2 -f -k -v -d linux-2.6.32.8.tar.bz2 smallfile.bin.bz2 bigfile.bin.bz2 smallerfile.bin.bz2 -c > /dev/null 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+-------------------------------------------
+         File #: 1 of 4
+     Input Name: linux-2.6.32.8.tar.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 64492900 bytes
+Decompressing data...
+-------------------------------------------
+         File #: 2 of 4
+     Input Name: smallfile.bin.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 9221932 bytes
+Decompressing data...
+-------------------------------------------
+         File #: 3 of 4
+     Input Name: bigfile.bin.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 634274633 bytes
+Decompressing data...
+-------------------------------------------
+         File #: 4 of 4
+     Input Name: smallerfile.bin.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 743159 bytes
+Decompressing data (no threads)...
+-------------------------------------------
+
+     Wall Clock: 11.976945 seconds
+
+
+
+      ***************** FastFlow ******************
+
+[torquati@andromeda pbzip2]$ ./pbzip2_ff -f -k -v -d linux-2.6.32.8.tar.bz2 smallfile.bin.bz2 bigfile.bin.bz2 smallerfile.bin.bz2 -c > /dev/null 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+-------------------------------------------
+         File #: 1 of 4
+     Input Name: linux-2.6.32.8.tar.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 64492900 bytes
+Decompressing data...
+    Output Size: 382433280 bytes
+-------------------------------------------
+         File #: 2 of 4
+     Input Name: smallfile.bin.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 9221932 bytes
+Decompressing data...
+    Output Size: 52428800 bytes
+-------------------------------------------
+         File #: 3 of 4
+     Input Name: bigfile.bin.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 634274633 bytes
+Decompressing data...
+    Output Size: 1132546048 bytes
+-------------------------------------------
+         File #: 4 of 4
+     Input Name: smallerfile.bin.bz2
+    Output Name: <stdout>
+
+ BWT Block Size: 900k
+     Input Size: 743159 bytes
+Decompressing data (no threads)...
+-------------------------------------------
+
+     Wall Clock: 11.624573 seconds
+
+
+
+*************************************************************************
+Machine: Intel(R) Core(TM)2 CPU          6300  @ 1.86GHz
+*************************************************************************
+
+/**************** COMPRESSION TESTS SF **************************/
+
+Sequential using the default installed bzip2 Version 
+
+
+      ***************** PBZIP2 ******************
+
+
+[torquati@andromeda pbzip2]$ ./pbzip2 -k -f -v linux-2.6.32.8.tar 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 900k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar
+    Output Name: linux-2.6.32.8.tar.bz2
+
+     Input Size: 382433280 bytes
+Compressing data...
+-------------------------------------------
+
+     Wall Clock: 7.063306 seconds
+
+
+[torquati@andromeda pbzip2]$ ./pbzip2 -1 -k -f -v linux-2.6.32.8.tar 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 100k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar
+    Output Name: linux-2.6.32.8.tar.bz2
+
+     Input Size: 382433280 bytes
+Compressing data...
+-------------------------------------------
+
+     Wall Clock: 5.335758 seconds
+
+
+      ***************** FastFlow ******************
+
+[torquati@andromeda pbzip2]$ ./pbzip2_ff -k -f -v linux-2.6.32.8.tar 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 900k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar
+    Output Name: linux-2.6.32.8.tar.bz2
+
+     Input Size: 382433280 bytes
+Compressing data...
+    Output Size: 64492900 bytes
+-------------------------------------------
+
+     Wall Clock: 7.026579 seconds
+
+
+[torquati@andromeda pbzip2]$ ./pbzip2_ff -1 -k -f -v linux-2.6.32.8.tar 
+Parallel BZIP2 v1.0.5 - by: Jeff Gilchrist [http://compression.ca]
+[Jan. 08, 2009]             (uses libbzip2 by Julian Seward)
+
+         # CPUs: 16
+ BWT Block Size: 100k
+File Block Size: 900k
+-------------------------------------------
+         File #: 1 of 1
+     Input Name: linux-2.6.32.8.tar
+    Output Name: linux-2.6.32.8.tar.bz2
+
+     Input Size: 382433280 bytes
+Compressing data...
+    Output Size: 77512612 bytes
+-------------------------------------------
+
+     Wall Clock: 5.397813 seconds
+
+
