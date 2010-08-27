@@ -39,7 +39,6 @@ set(backplane_test_incs
 set(backplane_test_srcs
   AllTests.cpp
   backplane_test.cpp
-  signals_prototype.cpp
 )
 set(backplane_test_libs
   boost_thread

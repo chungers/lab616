@@ -1,6 +1,11 @@
+
+#include <string>
 #include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <glog/logging.h>
 #include "ib/backplane.hpp"
+#include "ib/ticker_id.hpp"
 
 using namespace std;
 
@@ -21,14 +26,6 @@ typedef sigc::signal< void, const BidAsk& > BidAskSignal;
 typedef ConditionalFunctor< BidAsk, Receiver<BidAsk> > BidAskFilter;
 
 
-// template <typename T> void DeleteAll(vector<T*>* v)
-// {
-//   vector<T*>::iterator itr;
-//   for (itr = v->begin(); itr != v->end(); ++itr) {
-//     delete *itr;
-//   }
-// };
-
 class BackPlaneImpl : public BackPlane
 {
  public:
@@ -38,24 +35,6 @@ class BackPlaneImpl : public BackPlane
 
   ~BackPlaneImpl()
   {
-    vector<ConnectFilter*>::iterator itr1;
-    for (itr1 = connect_filters_.begin();
-         itr1 != connect_filters_.end();
-         ++itr1) {
-      delete *itr1;
-    }
-    vector<DisconnectFilter*>::iterator itr2;
-    for (itr2 = disconnect_filters_.begin();
-         itr2 != disconnect_filters_.end();
-         ++itr2) {
-      delete *itr2;
-    }
-    vector<BidAskFilter*>::iterator itr3;
-    for (itr3 = bid_ask_filters_.begin();
-         itr3 != bid_ask_filters_.end();
-         ++itr3) {
-      delete *itr3;
-    }
   }
 
   virtual void Register(Receiver<Connect>* r,
@@ -68,6 +47,7 @@ class BackPlaneImpl : public BackPlane
       ConnectFilter* filter = new ConnectFilter(predicate, r);
       connect_signal_.connect(
           sigc::mem_fun(filter, &ConnectFilter::operator()));
+      connect_filters_.push_back(filter);
     }
   }
 
@@ -81,10 +61,11 @@ class BackPlaneImpl : public BackPlane
       DisconnectFilter* filter = new DisconnectFilter(predicate, r);
       disconnect_signal_.connect(
           sigc::mem_fun(filter, &DisconnectFilter::operator()));
+      disconnect_filters_.push_back(filter);
     }
   }
 
-   virtual void Register(Receiver<BidAsk>* r,
+  virtual void Register(Receiver<BidAsk>* r,
                         Predicate<BidAsk>* predicate = NULL)
   {
     if (predicate == NULL) {
@@ -92,18 +73,35 @@ class BackPlaneImpl : public BackPlane
     } else {
       BidAskFilter* filter = new BidAskFilter(predicate, r);
       bid_ask_signal_.connect(sigc::mem_fun(filter, &BidAskFilter::operator()));
+      bid_ask_filters_.push_back(filter);
     }
+  }
+
+  virtual void OnConnect(Timestamp t, int id)
+  {
+    boost::scoped_ptr<Connect> connect(new Connect());
+    connect->set_id(id);
+    connect->set_time_stamp(t);
+    connect_signal_.emit(*connect);
+  }
+
+  virtual void OnDisconnect(Timestamp t, int id)
+  {
+    boost::scoped_ptr<Disconnect> disconnect(new Disconnect());
+    disconnect->set_id(id);
+    disconnect->set_time_stamp(t);
+    disconnect_signal_.emit(*disconnect);
   }
 
  private:
   ConnectSignal connect_signal_;
-  vector<ConnectFilter*> connect_filters_;
+  boost::ptr_vector<ConnectFilter> connect_filters_;
 
   DisconnectSignal disconnect_signal_;
-  vector<DisconnectFilter*> disconnect_filters_;
+  boost::ptr_vector<DisconnectFilter> disconnect_filters_;
 
   BidAskSignal bid_ask_signal_;
-  vector<BidAskFilter*> bid_ask_filters_;
+  boost::ptr_vector<BidAskFilter> bid_ask_filters_;
 };
 
 BackPlane* BackPlane::Create()
@@ -111,4 +109,14 @@ BackPlane* BackPlane::Create()
   return new BackPlaneImpl();
 }
 
-}
+
+namespace signal {
+
+int GetTickerId(const std::string& symbol)
+{ return ib::internal::SymbolToTickerId(symbol); }
+
+Selection& Selection::Add(const std::string& symbol)
+{ return Selection::Add(GetTickerId(symbol)); }
+
+} // namespace signal
+} // namespace ib
