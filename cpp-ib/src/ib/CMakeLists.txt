@@ -49,6 +49,7 @@ set(v964_adapter_srcs
   services.hpp
   session.hpp
   session.cpp
+  ticker_id.cpp
 )
 set(v964_adapter_libs
   ib_api

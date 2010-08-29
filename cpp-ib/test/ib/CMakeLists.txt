@@ -4,7 +4,7 @@ build_tests()
 
 #########################################
 # Test:
-set(adapter_test_incs
+set(all_tests_incs
   ${SRC_DIR}/ib/api/9.64beta
   ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
@@ -12,19 +12,19 @@ set(adapter_test_incs
   ${TEST_DIR}
   ${LIBSIGC_PATH}
 )
-set(adapter_test_srcs
+set(all_tests_srcs
   AllTests.cpp
   adapter_test.cpp
-  helpers_test.cpp
   backplane_test.cpp
+  helpers_test.cpp
 )
-set(adapter_test_libs
+set(all_tests_libs
   boost_thread
   v964_adapter
   glog
   sigc-2.0
 )
-cpp_gtest(adapter_test)
+cpp_gtest(all_tests)
 
 #########################################
 # Test:
@@ -49,7 +49,7 @@ set(backplane_test_libs
 cpp_gtest(backplane_test)
 
 #########################################
-# Test:
+# Prototype:
 set(ib_prototype_incs
   ${SRC_DIR}/ib/api/9.64beta
   ${SRC_DIR}/ib/api/9.64beta/Shared

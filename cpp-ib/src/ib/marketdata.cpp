@@ -147,7 +147,7 @@ unsigned int MarketDataImpl::RequestOptionData(
 
 void MarketDataImpl::CancelMarketData(unsigned int id)
 {
-  if (id % (1 << ib::internal::OFFSET)) {
+  if (ib::internal::IsTickerIdForOption(id)) {
     VLOG(VLOG_MARKETDATA) << "Id " << id << " is option contract.";
   }
   eclient_->cancelMktData(id);
