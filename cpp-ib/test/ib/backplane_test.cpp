@@ -193,11 +193,13 @@ TEST(BackPlaneTest, Test1)
   backplane->Register(&bid_ask_receiver);
 
   for (int i = 0 ; i < 100 ; ++i) {
-    backplane->OnConnect(now_micros(), 1);
-    EXPECT_TRUE(conn_receiver1.invoked);
-    EXPECT_TRUE(conn_receiver2.invoked);
     conn_receiver1.invoked = false; // reset
     conn_receiver2.invoked = false; // reset
+
+    backplane->OnConnect(now_micros(), 1);
+
+    EXPECT_TRUE(conn_receiver1.invoked);
+    EXPECT_TRUE(conn_receiver2.invoked);
   }
 }
 

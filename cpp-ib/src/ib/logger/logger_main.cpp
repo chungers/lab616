@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -12,12 +13,16 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
+#include "common.hpp"
+#include "ib/ib_events.pb.h"
+#include "ib/backplane.hpp"
 #include "ib/services.hpp"
 #include "ib/session.hpp"
 
 
 
 using namespace std;
+using namespace ib::events;
 
 DEFINE_string(host, "", "Hostname to connect.");
 DEFINE_int32(port, 4001, "Port");
@@ -47,6 +52,40 @@ ib::Session* session;
 vector<string> tickdata_tokens;
 
 vector<unsigned int> live_marketdata; // For clean up
+
+struct Print {
+  Print(const BidAsk& b) : bid_ask(b) {}
+  const BidAsk& bid_ask;
+
+  inline friend ostream& operator<<(ostream& out, const Print& p)
+  {
+    const BidAsk& bid_ask = p.bid_ask;
+    bool bid = bid_ask.has_bid();
+    double price = bid ? bid_ask.bid().price() : bid_ask.ask().price();
+    int size = bid ? bid_ask.bid().size() : bid_ask.ask().size();
+    std::string symbol;
+    ib::signal::GetSymbol(bid_ask.id(), &symbol);
+    out << "BidAsk[id=" << bid_ask.id()
+        << ",symbol=" << symbol
+        << ",type=" << (bid ? "BID" : "ASK")
+        << ",price=" << price
+        << ",size=" << size
+        << "]";
+    return out;
+  }
+};
+
+struct BidAskReceiver : public ib::Receiver<BidAsk>
+{
+  BidAskReceiver(int id) : id(id), received(0) {}
+  int id;
+  int received;
+  inline void operator()(const BidAsk& bid_ask)
+  {
+    cout << endl << "\t\tBidAskReceiver[" << id << "] @" << ++received << ": "
+         << Print(bid_ask);
+   }
+};
 
 static void RequestIndexData(ib::services::MarketDataInterface* md)
 {
@@ -221,6 +260,21 @@ int main(int argc, char** argv)
   // register callback
   session->RegisterCallbackOnConnect(boost::bind(OnConnectConfirm));
   session->RegisterCallbackOnDisconnect(boost::bind(OnDisconnect));
+
+  // Receive signals
+  BidAskReceiver receiver1(1);
+  BidAskReceiver receiver2(2);
+
+  ib::signal::Selection select1;
+  ib::signal::Selection select2;
+
+  select1 << "GOOG" << "AAPL";
+  select2 << "SPY" << "QQQQ";
+
+  ib::BackPlane* backplane = session->GetBackPlane();
+  backplane->Register(&receiver1, &select1);
+  backplane->Register(&receiver2, &select2);
+
 
   // just wait for connection and disconnect events.
   session->Join();

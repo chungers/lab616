@@ -77,7 +77,7 @@ class BackPlaneImpl : public BackPlane
     }
   }
 
-  virtual void OnConnect(Timestamp t, int id)
+  virtual void OnConnect(Timestamp t, Id id)
   {
     boost::scoped_ptr<Connect> connect(new Connect());
     connect->set_id(id);
@@ -85,12 +85,52 @@ class BackPlaneImpl : public BackPlane
     connect_signal_.emit(*connect);
   }
 
-  virtual void OnDisconnect(Timestamp t, int id)
+  virtual void OnDisconnect(Timestamp t, Id id)
   {
     boost::scoped_ptr<Disconnect> disconnect(new Disconnect());
     disconnect->set_id(id);
     disconnect->set_time_stamp(t);
     disconnect_signal_.emit(*disconnect);
+  }
+
+  virtual void OnBid(Timestamp t, Id id, double price)
+  {
+    boost::scoped_ptr<BidAsk> bidask(new BidAsk());
+    bidask->set_id(id);
+    bidask->set_time_stamp(t);
+    BidAsk_Bid* bid = bidask->mutable_bid();
+    bid->set_price(price);
+    bid_ask_signal_.emit(*bidask);
+  }
+
+  virtual void OnBid(Timestamp t, Id id, int size)
+  {
+    boost::scoped_ptr<BidAsk> bidask(new BidAsk());
+    bidask->set_id(id);
+    bidask->set_time_stamp(t);
+    BidAsk_Bid* bid = bidask->mutable_bid();
+    bid->set_size(size);
+    bid_ask_signal_.emit(*bidask);
+  }
+
+  virtual void OnAsk(Timestamp t, Id id, double price)
+  {
+    boost::scoped_ptr<BidAsk> bidask(new BidAsk());
+    bidask->set_id(id);
+    bidask->set_time_stamp(t);
+    BidAsk_Ask* ask = bidask->mutable_ask();
+    ask->set_price(price);
+    bid_ask_signal_.emit(*bidask);
+  }
+
+  virtual void OnAsk(Timestamp t, Id id, int size)
+  {
+    boost::scoped_ptr<BidAsk> bidask(new BidAsk());
+    bidask->set_id(id);
+    bidask->set_time_stamp(t);
+    BidAsk_Ask* ask = bidask->mutable_ask();
+    ask->set_size(size);
+    bid_ask_signal_.emit(*bidask);
   }
 
  private:
@@ -114,6 +154,9 @@ namespace signal {
 
 int GetTickerId(const std::string& symbol)
 { return ib::internal::SymbolToTickerId(symbol); }
+
+void GetSymbol(const int id, std::string* symbol)
+{ ib::internal::SymbolFromTickerId(id, symbol); }
 
 Selection& Selection::Add(const std::string& symbol)
 { return Selection::Add(GetTickerId(symbol)); }

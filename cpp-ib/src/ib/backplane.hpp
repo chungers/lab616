@@ -64,10 +64,17 @@ class BackPlane : NoCopyAndAssign
                         Predicate<BidAsk>* predicate = NULL) = 0;
 
   typedef int64_t Timestamp;
+  typedef int Id;
 
-  virtual void OnConnect(Timestamp t, int id) = 0;
+  virtual void OnConnect(Timestamp t, Id id) = 0;
 
-  virtual void OnDisconnect(Timestamp t, int id) = 0;
+  virtual void OnDisconnect(Timestamp t, Id id) = 0;
+
+  virtual void OnBid(Timestamp t, Id id, double price) = 0;
+  virtual void OnBid(Timestamp t, Id id, int size) = 0;
+
+  virtual void OnAsk(Timestamp t, Id id, double price) = 0;
+  virtual void OnAsk(Timestamp t, Id id, int size) = 0;
 
  protected:
   BackPlane();
@@ -79,6 +86,7 @@ namespace signal {
 using namespace ib::events;
 
 int GetTickerId(const std::string& symbol);
+void GetSymbol(const int id, std::string* symbol);
 
 class Selection :
     public Predicate<Connect>,

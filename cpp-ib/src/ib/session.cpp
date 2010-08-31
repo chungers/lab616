@@ -1,4 +1,5 @@
 #include <sys/select.h>
+#include <sys/time.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -12,7 +13,7 @@
 #include "ib/polling_client.hpp"
 #include "ib/services.hpp"
 #include "ib/session.hpp"
-
+#include "ib/backplane.hpp"
 
 #define VLOG_LEVEL 2
 
@@ -31,6 +32,14 @@ namespace internal {
 DEFINE_int32(max_wait_confirm_connection, 2000,
              "Max wait time in millis for connection confirmation.");
 
+typedef uint64_t int64;
+inline int64 now_micros()
+{
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  return static_cast<int64>(tv.tv_sec) * 1000000 + tv.tv_usec;
+}
+
 class polling_implementation
     : public LoggingEWrapper, public EPosixClientSocketAccess
 {
@@ -42,6 +51,7 @@ class polling_implementation
       , polling_client_(new PollingClient(this))
       , client_socket_(NULL)
       , marketdata_(NULL)
+      , backplane_(BackPlane::Create())
       , connected_(false)
       , connect_confirm_callback_(NULL)
       , disconnect_callback_(NULL)
@@ -57,6 +67,7 @@ class polling_implementation
   boost::scoped_ptr<PollingClient> polling_client_;
   boost::scoped_ptr<EPosixClientSocket> client_socket_;
   boost::scoped_ptr<MarketDataInterface> marketdata_;
+  boost::scoped_ptr<BackPlane> backplane_;
 
   volatile bool connected_;
   boost::mutex connected_mutex_;
@@ -120,6 +131,12 @@ class polling_implementation
     bool ok = IsReady();
     LOG_IF(WARNING, !ok) << "Connection not confirmed.  No market data.";
     return (ok) ? marketdata_.get() : NULL;
+  }
+
+  /** @implements Session */
+  BackPlane* GetBackPlane()
+  {
+    return backplane_.get();
   }
 
  private:
@@ -279,6 +296,37 @@ class polling_implementation
     polling_client_->received_heartbeat(time);
   }
 
+  /** @implements EWrapper */
+  void tickPrice(TickerId tickerId, TickType field,
+                 double price, int canAutoExecute) {
+    LoggingEWrapper::tickPrice(tickerId, field, price, canAutoExecute);
+    switch (field) {
+      case BID:
+        backplane_->OnBid(now_micros(), tickerId, price);
+        break;
+      case ASK:
+        backplane_->OnAsk(now_micros(), tickerId, price);
+        break;
+     default:
+        break;
+    }
+  }
+
+  /** @implements EWrapper */
+  void tickSize(TickerId tickerId, TickType field, int size) {
+    LoggingEWrapper::tickSize(tickerId, field, size);
+    switch (field) {
+      case BID_SIZE:
+        backplane_->OnBid(now_micros(), tickerId, size);
+        break;
+      case ASK_SIZE:
+        backplane_->OnAsk(now_micros(), tickerId, size);
+        break;
+      default:
+        break;
+    }
+  }
+
   // Returns false if timed out.
   bool wait_for_order_id(const boost::posix_time::time_duration& duration)
   {
@@ -347,5 +395,8 @@ void Session::RegisterCallbackOnDisconnect(Session::DisconnectCallback cb)
 
 MarketDataInterface* Session::AccessMarketData()
 { return impl_->AccessMarketData(); }
+
+BackPlane* Session::GetBackPlane()
+{ return impl_->GetBackPlane(); }
 
 } // namespace ib

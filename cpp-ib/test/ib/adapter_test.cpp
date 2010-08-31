@@ -40,8 +40,10 @@ class TestLoggingEWrapper : public LoggingEWrapper {
 
 TEST(AdapterTest, CreateAdapterTest) {
   VLOG(1) << "Starting test.";
-  TestLoggingEWrapper wrapper(1);
-  EXPECT_EQ(1, wrapper.get_connection_id());
+
+  TestLoggingEWrapper wrapper(1U);
+
+  EXPECT_EQ(1U, wrapper.get_connection_id());
 
   int state = wrapper.GetState();
   EXPECT_EQ(OPEN, state);

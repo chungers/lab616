@@ -5,6 +5,7 @@
 #include <boost/function.hpp>
 #include <boost/scoped_ptr.hpp>
 
+#include "ib/backplane.hpp"
 #include "ib/services.hpp"
 
 using namespace std;
@@ -39,6 +40,8 @@ class Session
 
   // Interface for request market data (tick, book, etc.)
   MarketDataInterface* AccessMarketData();
+
+  BackPlane* GetBackPlane();
 
  private:
   class implementation;

@@ -57,6 +57,7 @@ set(v964_adapter_libs
   ib_events_proto
   ib_actions_proto
   protobuf
+  sigc-2.0
 )
 # Client implementation:
 cpp_library(v964_adapter)
