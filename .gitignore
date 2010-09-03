@@ -37,7 +37,7 @@ nohup.out
 #################
 CMakeFiles/
 CMakeCache.txt
-Makefile
+#Makefile
 *.cmake
 
 # Custom CMake Build #
@@ -64,4 +64,4 @@ runtime/
 
 # Installed Tools #
 ###################
-third_party/
+#third_party/
