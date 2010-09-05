@@ -1,0 +1,35 @@
+// Events / data from the IB API.
+package prototypes;
+
+option optimize_for = LITE_RUNTIME;
+
+message Connect {
+  required int64 time_stamp = 1;
+  required int32 id = 2;
+}
+
+message Disconnect {
+  required int64 time_stamp = 1;
+  required int32 id = 2;
+}
+
+// BidAsk is set up so that the listener
+// for this event is required to care about
+// for bid *and* ask.  This looks more like
+// a union of bid and ask since at the most
+// granular level, only one of the two is
+// updated at a given point in time.
+message BidAsk {
+  required int64 time_stamp = 1;
+  required int32 id = 2;
+
+  optional group Bid = 3 {
+    optional double price = 4;
+    optional int32 size = 5;
+  }
+
+  optional group Ask = 6 {
+    optional double price = 7;
+    optional int32 size = 8;
+  };
+}

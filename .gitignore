@@ -32,6 +32,7 @@ project.el
 *.sql
 *.sqlite
 nohup.out
+gmon.out
 
 # CMake Runtime #
 #################
@@ -44,6 +45,11 @@ Makefile
 ######################
 _build/
 _genfiles/
+
+# Generated code #
+##################
+*.pb.h
+*.pb.cc
 
 # Compiled source #
 ###################
@@ -60,7 +66,7 @@ classes/
 
 # Runtime / Testing #
 #####################
-runtime/
+#runtime/
 
 # Installed Tools #
 ###################
