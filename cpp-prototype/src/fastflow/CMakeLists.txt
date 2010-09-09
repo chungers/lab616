@@ -11,7 +11,6 @@ build_tests()
 set(fastflow_prototype_incs
   ${GEN_DIR}
   ${SRC_DIR}
-  ${TEST_DIR}
   ${THIRD_PARTY_PATH}
   ${LIBSIGC_PATH}
   ${LIBFASTFLOW_PATH}
