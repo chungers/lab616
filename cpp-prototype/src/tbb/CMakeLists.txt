@@ -29,6 +29,4 @@ set(tbb_prototype_libs
   sigc-2.0
   tbb_debug
 )
-link_directories(${LIBTBB_PATH}/../lib_debug/libtbb_debug.dylib)
-#link_directories(${LIBTBB_PATH}/../lib_debug)
 cpp_gtest(tbb_prototype)
