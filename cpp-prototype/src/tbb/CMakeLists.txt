@@ -1,0 +1,34 @@
+# //cpp-prototype/src/tbb/CMakeLists.txt
+
+third_party(gflags)
+set(glog_deps gflags)
+third_party(glog)
+
+build_tests()
+
+#########################################
+# Prototype:
+set(tbb_prototype_incs
+  ${GEN_DIR}
+  ${SRC_DIR}
+  ${THIRD_PARTY_PATH}
+  ${LIBSIGC_PATH}
+  ${LIBTBB_PATH}
+)
+set(tbb_prototype_srcs
+  AllTests.cpp
+  tbb_prototype.cpp
+)
+set(tbb_prototype_libs
+  data_protobuffers
+  boost_system
+  boost_thread
+  protobuf
+  pthread
+  glog
+  sigc-2.0
+  tbb_debug
+)
+link_directories(${LIBTBB_PATH}/../lib_debug/libtbb_debug.dylib)
+#link_directories(${LIBTBB_PATH}/../lib_debug)
+cpp_gtest(tbb_prototype)

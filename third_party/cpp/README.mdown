@@ -9,13 +9,29 @@ Packages that require installation as root on a local machine:
 
 In general, installation on a localhost follows this procedure (example gflag):
  
-  sudo su -
-  cd /tmp
-  cp -r third_party/cpp/gflag .
-  cd gflag
-  ./configure 
-  ./make
-  ./make install
+    sudo su -
+    cd /tmp
+    cp -r third_party/cpp/gflag .
+    cd gflag
+    ./configure 
+    ./make
+    ./make install
 
+Installation of Intel Thread Building Blocks (TBB)
+--------------------------------------------------
+Run 'make all' in the third_party/cpp/tbb directory, then create some symlinks
+and copy the dylib (MacOSX) and .so (Linux) to /usr/local/lib.  TBB requires
+runtime dynamical linking instead of static linking of the libraries.
 
- 
+    cd third_party/cpp/tbb
+    make all
+    ln -s build/<platform_specific_dir>_debug lib_debug
+    ln -s build/<platform_specific_dir>_release lib_release
+    sudo cp lib_debug/libtbb*.dylib /usr/local/lib
+    sudo cp lib_release/libtbb*.dylib /usr/local/lib
+
+At runtime, if the dylib (.so) are already in /usr/local/lib, then nothing
+else is necessary besides running the executable.  Otherwise, do the following:
+
+    DYLIB_LIBRARY_PATH=/path/to/dylib /path/to/executable  # Mac OS X
+    LD_LIBRARY_PATH=/path/to/so /path/to/executable  # Linux
