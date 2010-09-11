@@ -1,4 +1,4 @@
-# //cpp-prototype/src/tbb/CMakeLists.txt
+# //experimental/src/tbb/CMakeLists.txt
 
 third_party(gflags)
 set(glog_deps gflags)
