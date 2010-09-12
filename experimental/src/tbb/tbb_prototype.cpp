@@ -9,6 +9,8 @@
 #include <boost/function.hpp>
 #include <boost/thread.hpp>
 
+#include <glog/logging.h>
+#include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <sigc++/sigc++.h>
@@ -17,27 +19,30 @@
 #include <tbb/tick_count.h>
 #include <tbb/task_scheduler_init.h>
 #include <tbb/tbb_allocator.h>
-#include <cstring>
-#include <cstdlib>
-#include <cstdio>
-#include <cctype>
 
 
 using namespace std;
 
 /* !!!!  See AllTests.cpp for initialization of TBB scheduler.  !!! */
 
+// Various attempts. Not all of them work so use a macro to point to
+// the working version / attempt.
+#define IMPL case3
+static const int TICKS = 200000;
 static int NThread = tbb::task_scheduler_init::automatic;
 
+
 //////////////////////////////////////////////////////////////////////
-struct Bid {
+struct Bid
+{
   int t;
   string symbol;
   double price;
   int volume;
 };
 
-struct Ask {
+struct Ask
+{
   int t;
   string symbol;
   double price;
@@ -77,6 +82,9 @@ template <typename M> struct Task {
 typedef Task<Bid> BidTask;
 typedef Task<Ask> AskTask;
 
+class Strategy;
+typedef map<string, Strategy*> StrategyMap;
+
 //////////////////////////////////////////////////////////////////////
 struct Strategy : public BidTask, public AskTask {
   Strategy(const string& symbol) : symbol(symbol) {}
@@ -85,58 +93,41 @@ struct Strategy : public BidTask, public AskTask {
 
   virtual void operator()(const Bid& bid)
   {
+    EXPECT_EQ(symbol, bid.symbol);
     boost::mutex::scoped_lock lock(cout_mutex);
-    Print() << "Bid = " << bid.price << endl;
+    Self() << "@ t=" << bid.t << ", " << bid.symbol
+           << ", Bid = " << bid.price << endl;
   }
 
   virtual void operator()(const Ask& ask)
   {
+    EXPECT_EQ(symbol, ask.symbol);
     boost::mutex::scoped_lock lock(cout_mutex);
-    Print() << "Ask = " << ask.price << endl;
+    Self() << "@ t=" << ask.t << ", " << ask.symbol
+           << ", Ask = " << ask.price << endl;
   }
 
-  ostream& Print()
+  ostream& Self()
   {
     cout << "Strategy[" << symbol << "]: ";
     return cout;
   }
 };
 
-
-//////////////////////////////////////////////////////////////////////
-typedef map<string, Strategy*> StrategyMap;
-
-class StrategyClosure
+TEST(TbbPrototype, StrategyTest)
 {
- public:
-  enum Type { BID = 0, ASK = 1 };
+  Strategy s("AAPL");
+  Bid* bid = NewInstance<Bid>(1, "AAPL", 100., 20);
+  s(*bid);
 
-  StrategyClosure(Strategy* strategy, Type t, void* m):
-      strategy_(*strategy), t_(t), message_(m) {}
-  ~StrategyClosure()
-  {
-    //    delete message_;
-  }
-
-  void call()
-  {
-    switch (t_) {
-      case BID:
-        strategy_(* static_cast<Bid*>(message_));
-        break;
-      case ASK:
-        strategy_(* static_cast<Ask*>(message_));
-        break;
-    }
-  }
-
- private:
-  Strategy& strategy_;
-  Type t_;
-  void* message_;
+  Strategy* p = new Strategy("PCLN");
+  Ask* ask = NewInstance<Ask>(1, "PCLN", 200., 30);
+  (*p)(*ask);
+  delete p;
 };
 
-class TaskFilter : public tbb::filter {
+//////////////////////////////////////////////////////////////////////
+class TaskFilter : public tbb::filter, NoCopyAndAssign {
  public:
   TaskFilter(const string& stage) :
       tbb::filter(parallel),
@@ -145,28 +136,20 @@ class TaskFilter : public tbb::filter {
 
   virtual void* operator()(void* task)
   {
-    Bid* bid = static_cast<Bid*>(task);
-    Print<Bid>("****** BID", bid) << endl;
-    return task;
-  }
-
-  virtual void* operator0(void* task)
-  {
-    if (task) {
-      // Simply invoke the task closure.
-      StrategyClosure& c = * static_cast<StrategyClosure*>(task);
-      cout << "Stage[" << stage_ << "]:\t\t\t";
-      c.call();
-      return task;
-    }
-    return NULL;
+    return IMPL(task);
   }
 
  private:
-  const string& stage_;
+
+  // Various attemtps to implement the operator()
+  void* case1(void* task);
+  void* case2(void* task);
+  void* case3(void* task);
+
+  string stage_;
 };
 
-class InputFilter : public tbb::filter {
+class InputFilter : public tbb::filter, NoCopyAndAssign {
  public:
   InputFilter(const string& id, int events, const StrategyMap& sm) :
       filter(serial_in_order),
@@ -179,36 +162,16 @@ class InputFilter : public tbb::filter {
 
   virtual void* operator()(void* task)
   {
-    if (++sent_ <= messages_) {
-      Bid* bid = NewInstance<Bid>(sent_, "PCLN", 1.0, sent_);
-      Print<Bid>("--> BID", bid) << endl;
-      return bid;
-    }
-    return NULL;
-  }
-
-  virtual void* operator0(void* task)
-  {
-    if (++sent_ <= messages_) {
-      string sym = (sent_ % 4 < 2) ? "AAPL" : "NFLX";
-      if (sent_ % 2) {
-        Bid* bid = NewInstance<Bid>(sent_, sym, 1.0, 10);
-        Print<Bid>("--> BID", bid) << endl;
-        Strategy* s = strategy_map_.find(sym)->second;
-        StrategyClosure* sc = new StrategyClosure(s, StrategyClosure::BID, bid);
-        return sc;
-      } else {
-        Ask* ask = NewInstance<Ask>(sent_, sym, 2.0, 20);
-        Print<Ask>("--> ASK", ask) << endl;
-        Strategy* s = strategy_map_.find(sym)->second;
-        StrategyClosure* sc = new StrategyClosure(s, StrategyClosure::ASK, ask);
-        return sc;
-      }
-    }
-    return NULL;
+    return IMPL(task);
   }
 
  private:
+
+  // Various attemtps to implement the operator()
+  void* case1(void* task);
+  void* case2(void* task);
+  void* case3(void* task);
+
   string id_;
   int messages_;
   int sent_;
@@ -225,6 +188,171 @@ void CleanUp(map<string, Strategy*>* m)
 }
 
 //////////////////////////////////////////////////////////////////////
+////  Case 1: Using Simple Data Object
+void* InputFilter::case1(void* task)
+{
+  if (++sent_ <= messages_) {
+    Bid* bid = NewInstance<Bid>(sent_, "PCLN", 1.0, sent_);
+    Print<Bid>("--> BID", bid) << endl;
+    return bid;
+  }
+  return NULL;
+}
+
+void* TaskFilter::case1(void* task)
+{
+  Bid* bid = static_cast<Bid*>(task);
+  Print<Bid>("  1111>>>> BID", bid) << endl;
+  return task;
+}
+
+//////////////////////////////////////////////////////////////////////
+////  Case 2: Using Container Message Object with void*
+class Event
+{
+ public:
+  enum Type { BID = 0, ASK = 1 };
+
+  ~Event() { /* TODO: leak here. */ }
+  Event(Bid* bid) : type_(BID), event_(bid) {}
+  Event(Ask* ask) : type_(ASK), event_(ask) {}
+
+ private:
+  Type type_;
+  void* event_;
+
+ public:
+  Type Type() const { return type_; }
+  void* Get() const { return event_; }
+};
+
+TEST(TbbPrototype, EventClass)
+{
+  Bid* bid = NewInstance<Bid>(1, "PCLN", 100., 10);
+  Event event(bid);
+  cout << "Event type = " << event.Type() << ", pt = " << event.Get() << endl;
+  switch (event.Type()) {
+    case Event::BID :
+      Print<Bid>(">>>BID", static_cast<Bid*>(event.Get())) << endl; break;
+    case Event::ASK :
+      Print<Ask>(">>>ASK", static_cast<Ask*>(event.Get())) << endl; break;
+  }
+};
+
+void* InputFilter::case2(void* task)
+{
+  if (++sent_ <= messages_) {
+    Bid* bid = NewInstance<Bid>(sent_, "PCLN", 1.0, sent_);
+    Print<Bid>("--> BID", bid) << endl;
+    Event* event = new Event(bid);
+    return event;
+  }
+  return NULL;
+}
+
+void* TaskFilter::case2(void* task)
+{
+  Event& event = * static_cast<Event*>(task);
+  cout << "Event type = " << event.Type() << ", pt = " << event.Get() << endl;
+  switch (event.Type()) {
+    case Event::BID :
+      Print<Bid>(" 2222>>>>BID", static_cast<Bid*>(event.Get())) << endl; break;
+    case Event::ASK :
+      Print<Ask>( "2222>>>>ASK", static_cast<Ask*>(event.Get())) << endl; break;
+  }
+  return task;
+}
+
+
+//////////////////////////////////////////////////////////////////////
+////  Case 3: Using StrategyClosure
+
+class StrategyClosure
+{
+ public:
+  enum Type { BID = 0, ASK = 1 };
+
+  StrategyClosure(Strategy* strategy, Type t, void* m):
+      strategy_(strategy), t_(t), message_(m) {}
+  ~StrategyClosure()
+  {
+    //    delete message_;
+  }
+
+  void call()
+  {
+    switch (t_) {
+      case BID:
+        (*strategy_)(* static_cast<Bid*>(message_));
+        break;
+      case ASK:
+        (*strategy_)(* static_cast<Ask*>(message_));
+        break;
+    }
+  }
+
+ private:
+  Strategy* strategy_;
+  Type t_;
+  void* message_;
+};
+
+TEST(TbbPrototype, StrategyClosureTest)
+{
+  Strategy s("AAPL");
+  Bid* bid = NewInstance<Bid>(1, "AAPL", 100., 20);
+  s(*bid);
+
+  StrategyClosure sc(&s, StrategyClosure::BID, bid);
+  sc.call();
+
+  Strategy* p = new Strategy("PCLN");
+  Ask* ask = NewInstance<Ask>(1, "PCLN", 200., 30);
+  (*p)(*ask);
+
+  StrategyClosure* pc = new StrategyClosure(p, StrategyClosure::ASK, ask);
+  pc->call();
+  delete p;
+  delete pc;
+};
+
+void* InputFilter::case3(void* task)
+{
+  if (++sent_ <= messages_) {
+    string sym = (sent_ % 4 < 2) ? "AAPL" : "NFLX";
+    if (sent_ % 2) {
+      Bid* bid = NewInstance<Bid>(sent_, sym, 1.0, 10);
+      Print<Bid>("--> BID", bid) << endl;
+      Strategy* s = strategy_map_.find(sym)->second;
+      CHECK(s);
+      StrategyClosure* sc = new StrategyClosure(s, StrategyClosure::BID, bid);
+      return sc;
+    } else {
+      Ask* ask = NewInstance<Ask>(sent_, sym, 2.0, 20);
+      Print<Ask>("--> ASK", ask) << endl;
+      Strategy* s = strategy_map_.find(sym)->second;
+      CHECK(s);
+      StrategyClosure* sc = new StrategyClosure(s, StrategyClosure::ASK, ask);
+      return sc;
+    }
+  }
+  return NULL;
+}
+
+void* TaskFilter::case3(void* task)
+{
+  if (task) {
+    cout << task << ".... Stage[" << stage_ << "]:\t\t\t";
+    // Simply invoke the task closure.
+    StrategyClosure& c = * static_cast<StrategyClosure*>(task);
+    c.call();
+    return task;
+  }
+  return NULL;
+}
+
+
+//////////////////////////////////////////////////////////////////////
 //                             TEST                                 //
 //////////////////////////////////////////////////////////////////////
 TEST(TbbPrototype, Pipeline)
@@ -235,7 +363,7 @@ TEST(TbbPrototype, Pipeline)
   strategies["PCLN"] = new Strategy("PCLN");
   strategies["NFLX"] = new Strategy("NFLX");
 
-  InputFilter input("TickSource", 10, strategies);
+  InputFilter input("TickSource", TICKS, strategies);
   TaskFilter strategy("Strategy");
 
   tbb::pipeline pipeline;
@@ -245,7 +373,7 @@ TEST(TbbPrototype, Pipeline)
   cout << "Start..." << endl;
   tbb::tick_count t0 = tbb::tick_count::now();
 
-  pipeline.run(4);
+  pipeline.run(10 * 4);
 
   tbb::tick_count t1 = tbb::tick_count::now();
   cout << "Run time = " << (t1 - t0).seconds() << endl;
