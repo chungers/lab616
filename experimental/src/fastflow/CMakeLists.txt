@@ -1,4 +1,4 @@
-# //cpp-prototype/src/fastflow/CMakeLists.txt
+# //experimental/src/fastflow/CMakeLists.txt
 
 third_party(gflags)
 set(glog_deps gflags)

@@ -1,10 +1,9 @@
-# //cpp-ib/CMakeLists.txt
+# //experimental/CMakeLists.txt
 #
 
 cmake_minimum_required(VERSION 2.6)
 
-# Project //cpp-prtotype
-project(PROTOTYPE)
+project(EXPERIMENTAL)
 
 option(OPTIMIZE "Compiler optimization" ON)
 #set(OPTIMIZE_LEVEL 2)
