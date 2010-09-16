@@ -27,8 +27,8 @@ using namespace std;
 
 // Various attempts. Not all of them work so use a macro to point to
 // the working version / attempt.
-#define IMPL case3
-static const int TICKS = 200000;
+#define IMPL case4
+static const int TICKS = 5;
 static int NThread = tbb::task_scheduler_init::automatic;
 
 
@@ -145,6 +145,7 @@ class TaskFilter : public tbb::filter, NoCopyAndAssign {
   void* case1(void* task);
   void* case2(void* task);
   void* case3(void* task);
+  void* case4(void* task);
 
   string stage_;
 };
@@ -171,6 +172,7 @@ class InputFilter : public tbb::filter, NoCopyAndAssign {
   void* case1(void* task);
   void* case2(void* task);
   void* case3(void* task);
+  void* case4(void* task);
 
   string id_;
   int messages_;
@@ -350,6 +352,84 @@ void* TaskFilter::case3(void* task)
   }
   return NULL;
 }
+
+
+//////////////////////////////////////////////////////////////////////
+////  Case 4: Using Generic Closure
+
+struct Callable
+{
+  ~Callable() {}
+  virtual void call() = 0;
+};
+
+template <typename M>
+class SClosure : public Callable
+{
+ public:
+
+  SClosure(Strategy* strategy, M* m):
+      strategy_(strategy), message_(m) {}
+  ~SClosure()
+  {
+    //    delete message_;
+  }
+
+  virtual void call()
+  {
+    (*strategy_)(*message_);
+  }
+
+ private:
+  Strategy* strategy_;
+  M* message_;
+};
+
+TEST(TbbPrototype, CallableTest)
+{
+  Strategy s("AAPL");
+  Bid* bid = NewInstance<Bid>(1, "AAPL", 100., 20);
+  s(*bid);
+
+  SClosure<Bid> sc(&s, bid);
+  sc.call();
+}
+
+void* InputFilter::case4(void* task)
+{
+  if (++sent_ <= messages_) {
+    string sym = (sent_ % 4 < 2) ? "AAPL" : "NFLX";
+    if (sent_ % 2) {
+      Bid* bid = NewInstance<Bid>(sent_, sym, 1.0, 10);
+      Print<Bid>("--> BID", bid) << endl;
+      Strategy* s = strategy_map_.find(sym)->second;
+      CHECK(s);
+      SClosure<Bid>* sc = new SClosure<Bid>(s, bid);
+      return sc;
+    } else {
+      Ask* ask = NewInstance<Ask>(sent_, sym, 2.0, 20);
+      Print<Ask>("--> ASK", ask) << endl;
+      Strategy* s = strategy_map_.find(sym)->second;
+      CHECK(s);
+      SClosure<Ask>* sc = new SClosure<Ask>(s, ask);
+      return sc;
+    }
+  }
+  return NULL;
+}
+
+void* TaskFilter::case4(void* task)
+{
+  if (task) {
+    cout << task << ".... Stage[" << stage_ << "]:\t\t\t";
+    // Simply invoke the task closure.
+    Callable& c = * static_cast<Callable*>(task);
+    c.call();
+    return task;
+  }
+  return NULL;
+}
+
 
 
 //////////////////////////////////////////////////////////////////////
