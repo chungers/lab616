@@ -33,20 +33,35 @@ static int NThread = tbb::task_scheduler_init::automatic;
 
 
 //////////////////////////////////////////////////////////////////////
-struct Bid
+struct Message
 {
-  int t;
-  string symbol;
-  double price;
-  int volume;
+  enum Type { BID = 0, ASK = 1 };
+
+  ~Message() {}
+
+  virtual Type tc() = 0;
 };
 
-struct Ask
+struct Bid : Message
 {
+ public:
   int t;
   string symbol;
   double price;
   int volume;
+
+  virtual Message::Type tc() { return BID; }
+};
+
+class Ask : public Message
+{
+ public:
+  int t;
+  string symbol;
+  double price;
+  int volume;
+
+  virtual Type tc() { return ASK; }
 };
 
 template <typename M>

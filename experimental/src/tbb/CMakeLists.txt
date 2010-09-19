@@ -17,6 +17,7 @@ set(tbb_prototype_incs
 )
 set(tbb_prototype_srcs
   AllTests.cpp
+#  context_pipeline.cpp
   tbb_prototype.cpp
 )
 set(tbb_prototype_libs
