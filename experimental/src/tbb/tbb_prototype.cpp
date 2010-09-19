@@ -15,6 +15,8 @@
 #include <gtest/gtest.h>
 #include <sigc++/sigc++.h>
 
+#include <tbb/concurrent_hash_map.h>
+#include <tbb/concurrent_queue.h>
 #include <tbb/pipeline.h>
 #include <tbb/tick_count.h>
 #include <tbb/task_scheduler_init.h>
@@ -28,7 +30,8 @@ using namespace std;
 // Various attempts. Not all of them work so use a macro to point to
 // the working version / attempt.
 #define IMPL case4
-static const int TICKS = 5;
+static const int TICKS = 500;
+static const bool VERBOSE = true; // Seems to deadlock if false;
 static int NThread = tbb::task_scheduler_init::automatic;
 
 
@@ -75,7 +78,7 @@ M* NewInstance(int i, const string& symbol, double price, int vol)
   return m;
 }
 
-static boost::mutex cout_mutex;;
+static boost::mutex cout_mutex;
 
 template<typename M>
 ostream& Print(const string& t, M* m)
@@ -100,8 +103,10 @@ typedef Task<Ask> AskTask;
 class Strategy;
 typedef map<string, Strategy*> StrategyMap;
 
+
 //////////////////////////////////////////////////////////////////////
-struct Strategy : public BidTask, public AskTask {
+struct Strategy : public BidTask, public AskTask
+{
   Strategy(const string& symbol) : symbol(symbol) {}
 
   string symbol;
@@ -109,24 +114,27 @@ struct Strategy : public BidTask, public AskTask {
   virtual void operator()(const Bid& bid)
   {
     EXPECT_EQ(symbol, bid.symbol);
+    if (!VERBOSE) return;
     boost::mutex::scoped_lock lock(cout_mutex);
-    Self() << "@ t=" << bid.t << ", " << bid.symbol
-           << ", Bid = " << bid.price << endl;
-  }
+    cout << "Strategy[" << symbol << "]"
+         << "@ t=" << bid.t
+         << ",s=" << bid.symbol
+         << ",bid=" << bid.price
+         << ",v=" << static_cast<float>(bid.volume)
+         << endl;
+   }
 
-  virtual void operator()(const Ask& ask)
-  {
+  virtual void operator()(const Ask& ask) {
     EXPECT_EQ(symbol, ask.symbol);
+    if (!VERBOSE) return;
     boost::mutex::scoped_lock lock(cout_mutex);
-    Self() << "@ t=" << ask.t << ", " << ask.symbol
-           << ", Ask = " << ask.price << endl;
-  }
-
-  ostream& Self()
-  {
-    cout << "Strategy[" << symbol << "]: ";
-    return cout;
-  }
+    cout << "Strategy[" << symbol << "]"
+         << "@ t=" << ask.t
+         << ",s=" << ask.symbol
+         << ",ask=" << ask.price
+         << ",v=" << static_cast<float>(ask.volume)
+         << endl;
+   }
 };
 
 TEST(TbbPrototype, StrategyTest)
@@ -165,20 +173,103 @@ class TaskFilter : public tbb::filter, NoCopyAndAssign {
   string stage_;
 };
 
+
+struct Callable
+{
+  ~Callable() {}
+  virtual void call() = 0;
+};
+
+template <typename M>
+class SClosure : public Callable
+{
+ public:
+
+  SClosure(Strategy* strategy, M* m):
+      strategy_(strategy), message_(m) {}
+  ~SClosure()
+  {
+    //    delete message_;
+  }
+
+  virtual void call()
+  {
+    (*strategy_)(*message_);
+  }
+
+ private:
+  Strategy* strategy_;
+  M* message_;
+};
+
 class InputFilter : public tbb::filter, NoCopyAndAssign {
  public:
+  InputFilter(const string& id, int events, const StrategyMap& sm,
+              tbb::concurrent_queue<Message*>* queue) :
+      filter(serial_in_order),
+      id_(id),
+      messages_(events), sent_(0),
+      strategy_map_(sm),
+      queue_(queue), run_(true)
+  {}
+
   InputFilter(const string& id, int events, const StrategyMap& sm) :
       filter(serial_in_order),
       id_(id),
       messages_(events), sent_(0),
-      strategy_map_(sm)
+      strategy_map_(sm),
+      queue_(NULL), run_(true)
   {}
 
   ~InputFilter() {}
 
+  void Stop()
+  {
+    boost::mutex::scoped_lock lock(run_mutex_);
+    cout << "Stopping input filter." << endl;
+    run_ = false;
+  }
+
   virtual void* operator()(void* task)
   {
-    return IMPL(task);
+    bool run;
+    boost::mutex::scoped_lock lock(run_mutex_);
+    run = run_;
+
+    //cout << "\n*** QUEUE = " << queue_ << ", run=" << run << endl;
+    if (queue_ == NULL) {
+      return IMPL(task);
+    }
+    Message* m = NULL;
+    while (!queue_->try_pop(m) && run) {
+      // Just loop until popped something or explicitly stopped.
+      if (m) break;
+    }
+
+    if (!m && !run) return NULL; // No work left and told to stop
+
+    //cout << "\n*** Got M = " << m << ", tc = " << m->tc() << "(";
+    switch (m->tc()) {
+      case Message::BID : {
+        //cout << "BID)" << ".... ";
+        Bid* bid = static_cast<Bid*>(m);
+        //Print<Bid>("  Bid = ", bid) << endl;
+        Strategy* s = strategy_map_.find(bid->symbol)->second;
+        CHECK(s);
+        SClosure<Bid>* sc = new SClosure<Bid>(s, bid);
+        return sc;
+      }
+      case Message::ASK : {
+        //cout << "ASK)" << ".... ";
+        Ask* ask = static_cast<Ask*>(m);
+        //Print<Ask>("  Ask = ", ask) << endl;
+        Strategy* s = strategy_map_.find(ask->symbol)->second;
+        CHECK(s);
+        SClosure<Ask>* sc = new SClosure<Ask>(s, ask);
+        return sc;
+      }
+    }
+    return NULL;
   }
 
  private:
@@ -193,6 +284,9 @@ class InputFilter : public tbb::filter, NoCopyAndAssign {
   int messages_;
   int sent_;
   const StrategyMap& strategy_map_;
+  tbb::concurrent_queue<Message*>* queue_;
+  bool run_;
+  boost::mutex run_mutex_;
 };
 
 void CleanUp(map<string, Strategy*>* m)
@@ -203,6 +297,46 @@ void CleanUp(map<string, Strategy*>* m)
     delete itr->second;
   }
 }
+
+//////////////////////////////////////////////////////////////////////
+TEST(TbbPrototype, TestConcurrentQueue)
+{
+  tbb::concurrent_queue<Message*> q;
+  for (int i = 0; i < 10; ++i) {
+    Bid* bid = NewInstance<Bid>(i, "PCLN", 100 + i, i * 10);
+    Print<Bid>("Pushing BID", bid) << endl;
+    q.push(static_cast<Message*>(bid));
+    Ask* ask = NewInstance<Ask>(i, "PCLN", 100 + i, i * 10);
+    Print<Ask>("Pushing ASK", ask) << endl;
+    q.push(static_cast<Message*>(ask));
+  }
+
+  // Poping
+  Message* m = NULL;
+  while (true) {
+    bool ok = q.try_pop(m);
+    if (!ok) { cout << "DONE" << endl; break; }
+    cout << "Got M = " << m << ", tc = " << m->tc() << "(";
+    switch (m->tc()) {
+      case Message::BID : {
+        cout << "BID)" << ".... ";
+        Bid* bid = static_cast<Bid*>(m);
+        Print<Bid>("  Bid = ", bid) << endl;
+        delete bid;
+        break;
+      }
+      case Message::ASK : {
+        cout << "ASK)" << ".... ";
+        Ask* ask = static_cast<Ask*>(m);
+        Print<Ask>("  Ask = ", ask) << endl;
+        delete ask;
+        break;
+      }
+    }
+  }
+}
+
+
 
 //////////////////////////////////////////////////////////////////////
 ////  Case 1: Using Simple Data Object
@@ -371,35 +505,6 @@ void* TaskFilter::case3(void* task)
 
 //////////////////////////////////////////////////////////////////////
 ////  Case 4: Using Generic Closure
-
-struct Callable
-{
-  ~Callable() {}
-  virtual void call() = 0;
-};
-
-template <typename M>
-class SClosure : public Callable
-{
- public:
-
-  SClosure(Strategy* strategy, M* m):
-      strategy_(strategy), message_(m) {}
-  ~SClosure()
-  {
-    //    delete message_;
-  }
-
-  virtual void call()
-  {
-    (*strategy_)(*message_);
-  }
-
- private:
-  Strategy* strategy_;
-  M* message_;
-};
-
 TEST(TbbPrototype, CallableTest)
 {
   Strategy s("AAPL");
@@ -436,7 +541,6 @@ void* InputFilter::case4(void* task)
 void* TaskFilter::case4(void* task)
 {
   if (task) {
-    cout << task << ".... Stage[" << stage_ << "]:\t\t\t";
     // Simply invoke the task closure.
     Callable& c = * static_cast<Callable*>(task);
     c.call();
@@ -450,7 +554,7 @@ void* TaskFilter::case4(void* task)
 //////////////////////////////////////////////////////////////////////
 //                             TEST                                 //
 //////////////////////////////////////////////////////////////////////
-TEST(TbbPrototype, Pipeline)
+TEST(TbbPrototype, DISABLED_Pipeline)
 {
   // Set up the strategies
   map<string, Strategy*> strategies;
@@ -473,5 +577,78 @@ TEST(TbbPrototype, Pipeline)
   tbb::tick_count t1 = tbb::tick_count::now();
   cout << "Run time = " << (t1 - t0).seconds() << endl;
 
+  CleanUp(&strategies);
+}
+
+struct TickGenerator
+{
+  typedef boost::function<void()> DoneCallback;
+
+  tbb::concurrent_queue<Message*>* queue;
+  DoneCallback callback;
+  TickGenerator(tbb::concurrent_queue<Message*>* q, DoneCallback cb) :
+      queue(q), callback(cb) {}
+
+  void operator()()
+  {
+    Bid* bid; Ask* ask;
+    for (int i = 0; i < TICKS; ++i) {
+      bid = NewInstance<Bid>(i, "AAPL", 100 + i, TICKS-i);
+//       Print<Bid>("Pushing BID", bid) << endl;
+      queue->push(static_cast<Message*>(bid));
+
+      ask = NewInstance<Ask>(i, "AAPL", 100 + i, TICKS-i);
+//       Print<Ask>("Pushing ASK", ask) << endl;
+      queue->push(static_cast<Message*>(ask));
+
+      bid = NewInstance<Bid>(i, "PCLN", 100 + i, TICKS-i);
+//       Print<Bid>("Pushing BID", bid) << endl;
+      queue->push(static_cast<Message*>(bid));
+      ask = NewInstance<Ask>(i, "PCLN", 100 + i, TICKS-i);
+//       Print<Ask>("Pushing ASK", ask) << endl;
+      queue->push(static_cast<Message*>(ask));
+    }
+    (callback)();
+  }
+};
+
+struct DoneCallback{
+  InputFilter* input;
+  DoneCallback(InputFilter* input) : input(input) {}
+  void operator()(void) { input->Stop(); }
+};
+
+TEST(TbbPrototype, PipelineWithQueue)
+{
+  // Set up the strategies
+  map<string, Strategy*> strategies;
+  strategies["AAPL"] = new Strategy("AAPL");
+  strategies["PCLN"] = new Strategy("PCLN");
+  strategies["NFLX"] = new Strategy("NFLX");
+
+  tbb::concurrent_queue<Message*> q;
+  InputFilter input("TickSource", TICKS, strategies, &q);
+  TaskFilter strategy("Strategy");
+
+  tbb::pipeline pipeline;
+  pipeline.add_filter(input);
+  pipeline.add_filter(strategy);
+
+  TickGenerator gen(&q, DoneCallback(&input));
+  boost::thread gen_thread(gen);
+
+  cout << "Start..." << endl;
+  tbb::tick_count t0 = tbb::tick_count::now();
+
+  pipeline.run(10 * 4); // Blocks
+
+  tbb::tick_count t1 = tbb::tick_count::now();
+  cout << endl;
+  cout << "Total = " << (t1 - t0).seconds() << endl;
+  cout << "QPS   = " << static_cast<float>(TICKS) / (t1 - t0).seconds();
+  cout << " / ms = "
+       << (t1 - t0).seconds() / static_cast<float>(TICKS) * 1000. << endl;
+
+  gen_thread.join();
   CleanUp(&strategies);
 }
