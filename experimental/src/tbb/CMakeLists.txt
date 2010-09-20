@@ -26,6 +26,7 @@ set(tbb_prototype_libs
   boost_thread
   protobuf
   pthread
+  gflags
   glog
   sigc-2.0
   tbb_debug

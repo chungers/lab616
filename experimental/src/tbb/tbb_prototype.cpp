@@ -3,14 +3,15 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <stdio.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 #include <boost/thread.hpp>
 
+#include <gflags/gflags.h>
 #include <glog/logging.h>
-#include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <sigc++/sigc++.h>
@@ -25,13 +26,17 @@
 
 using namespace std;
 
+DEFINE_int32(ticks, 200, "Number of ticks to generate.");
+DEFINE_int32(tokens, 10, "Number of tokens in flight.");
+DEFINE_bool(verbose, true, "Verbose.");
+
+
 /* !!!!  See AllTests.cpp for initialization of TBB scheduler.  !!! */
 
 // Various attempts. Not all of them work so use a macro to point to
 // the working version / attempt.
 #define IMPL case4
-static const int TICKS = 500;
-static const bool VERBOSE = true; // Seems to deadlock if false;
+static const bool VERBOSE = FLAGS_verbose; // Seems to deadlock if false;
 static int NThread = tbb::task_scheduler_init::automatic;
 
 
@@ -114,7 +119,10 @@ struct Strategy : public BidTask, public AskTask
   virtual void operator()(const Bid& bid)
   {
     EXPECT_EQ(symbol, bid.symbol);
-    if (!VERBOSE) return;
+    if (!FLAGS_verbose) {
+      sleep(1);
+      return;
+    }
     boost::mutex::scoped_lock lock(cout_mutex);
     cout << "Strategy[" << symbol << "]"
          << "@ t=" << bid.t
@@ -126,7 +134,10 @@ struct Strategy : public BidTask, public AskTask
 
   virtual void operator()(const Ask& ask) {
     EXPECT_EQ(symbol, ask.symbol);
-    if (!VERBOSE) return;
+    if (!FLAGS_verbose) {
+      sleep(1);
+      return;
+    }
     boost::mutex::scoped_lock lock(cout_mutex);
     cout << "Strategy[" << symbol << "]"
          << "@ t=" << ask.t
@@ -202,11 +213,14 @@ class SClosure : public Callable
   M* message_;
 };
 
+
+#define USE_MUTEX 1
+
 class InputFilter : public tbb::filter, NoCopyAndAssign {
  public:
   InputFilter(const string& id, int events, const StrategyMap& sm,
               tbb::concurrent_queue<Message*>* queue) :
-      filter(serial_in_order),
+      tbb::filter(serial_in_order),
       id_(id),
       messages_(events), sent_(0),
       strategy_map_(sm),
@@ -214,7 +228,7 @@ class InputFilter : public tbb::filter, NoCopyAndAssign {
   {}
 
   InputFilter(const string& id, int events, const StrategyMap& sm) :
-      filter(serial_in_order),
+      tbb::filter(serial_in_order),
       id_(id),
       messages_(events), sent_(0),
       strategy_map_(sm),
@@ -225,16 +239,15 @@ class InputFilter : public tbb::filter, NoCopyAndAssign {
 
   void Stop()
   {
-    boost::mutex::scoped_lock lock(run_mutex_);
-    cout << "Stopping input filter." << endl;
+    if (USE_MUTEX) boost::mutex::scoped_lock lock(run_mutex_);
+    cout << "********************************** Stopping input filter." << endl;
     run_ = false;
   }
 
   virtual void* operator()(void* task)
   {
-    bool run;
-    boost::mutex::scoped_lock lock(run_mutex_);
-    run = run_;
+    if (USE_MUTEX) boost::mutex::scoped_lock lock(run_mutex_);
+    bool run = run_;
 
     //cout << "\n*** QUEUE = " << queue_ << ", run=" << run << endl;
     if (queue_ == NULL) {
@@ -562,7 +575,7 @@ TEST(TbbPrototype, DISABLED_Pipeline)
   strategies["PCLN"] = new Strategy("PCLN");
   strategies["NFLX"] = new Strategy("NFLX");
 
-  InputFilter input("TickSource", TICKS, strategies);
+  InputFilter input("TickSource", FLAGS_ticks, strategies);
   TaskFilter strategy("Strategy");
 
   tbb::pipeline pipeline;
@@ -580,6 +593,7 @@ TEST(TbbPrototype, DISABLED_Pipeline)
   CleanUp(&strategies);
 }
 
+/////////////////////////////////////////////////////////////////
 struct TickGenerator
 {
   typedef boost::function<void()> DoneCallback;
@@ -591,20 +605,24 @@ struct TickGenerator
 
   void operator()()
   {
+    sleep(1);
     Bid* bid; Ask* ask;
-    for (int i = 0; i < TICKS; ++i) {
-      bid = NewInstance<Bid>(i, "AAPL", 100 + i, TICKS-i);
+    int ticks = FLAGS_ticks;
+    for (int i = 0; i < ticks; ++i) {
+      for (int j = 0; j < 1000; ++j) {}
+
+      bid = NewInstance<Bid>(i, "AAPL", 100 + i, ticks-i);
 //       Print<Bid>("Pushing BID", bid) << endl;
       queue->push(static_cast<Message*>(bid));
 
-      ask = NewInstance<Ask>(i, "AAPL", 100 + i, TICKS-i);
+      ask = NewInstance<Ask>(i, "AAPL", 100 + i, ticks-i);
 //       Print<Ask>("Pushing ASK", ask) << endl;
       queue->push(static_cast<Message*>(ask));
 
-      bid = NewInstance<Bid>(i, "PCLN", 100 + i, TICKS-i);
+      bid = NewInstance<Bid>(i, "PCLN", 100 + i, ticks-i);
 //       Print<Bid>("Pushing BID", bid) << endl;
       queue->push(static_cast<Message*>(bid));
-      ask = NewInstance<Ask>(i, "PCLN", 100 + i, TICKS-i);
+      ask = NewInstance<Ask>(i, "PCLN", 100 + i, ticks-i);
 //       Print<Ask>("Pushing ASK", ask) << endl;
       queue->push(static_cast<Message*>(ask));
     }
@@ -627,7 +645,7 @@ TEST(TbbPrototype, PipelineWithQueue)
   strategies["NFLX"] = new Strategy("NFLX");
 
   tbb::concurrent_queue<Message*> q;
-  InputFilter input("TickSource", TICKS, strategies, &q);
+  InputFilter input("TickSource", FLAGS_ticks, strategies, &q);
   TaskFilter strategy("Strategy");
 
   tbb::pipeline pipeline;
@@ -640,15 +658,55 @@ TEST(TbbPrototype, PipelineWithQueue)
   cout << "Start..." << endl;
   tbb::tick_count t0 = tbb::tick_count::now();
 
-  pipeline.run(10 * 4); // Blocks
+  pipeline.run(FLAGS_tokens); // Blocks
 
   tbb::tick_count t1 = tbb::tick_count::now();
   cout << endl;
   cout << "Total = " << (t1 - t0).seconds() << endl;
-  cout << "QPS   = " << static_cast<float>(TICKS) / (t1 - t0).seconds();
+  cout << "QPS   = " << static_cast<float>(FLAGS_ticks) / (t1 - t0).seconds();
   cout << " / ms = "
-       << (t1 - t0).seconds() / static_cast<float>(TICKS) * 1000. << endl;
+       << (t1 - t0).seconds() / static_cast<float>(FLAGS_ticks) * 1000. << endl;
 
   gen_thread.join();
   CleanUp(&strategies);
 }
+
+
+///////////////////////////////////////////////
+// Stream iterator
+// See http://software.intel.com/en-us/forums/showthread.php?t=56256
+// For use with parallel_do
+template<typename Stream>
+class tbb_stream_iterator: public std::iterator<std::input_iterator_tag,
+                                                typename Stream::value_type>
+{
+  Stream* my_stream;
+  typedef typename Stream::value_type value_type;
+  value_type my_item;
+
+ public:
+
+  // Construct input iterator representing end of stream.
+  tbb_stream_iterator() : my_stream(NULL) {}
+
+  // Construct input iterator representing front of stream.
+  tbb_stream_iterator(Stream& stream) : my_stream(&stream)
+  {
+    operator++();
+  }
+
+  bool operator==(const tbb_stream_iterator& other) const
+  {
+    return my_stream==other.my_stream;
+  }
+
+  const value_type& operator*() const {return my_item;}
+
+  const tbb_stream_iterator& operator++()
+  {
+    if( !my_stream->pop_if_present(my_item) )
+      my_stream = NULL;
+    return *this;
+  }
+};
+
