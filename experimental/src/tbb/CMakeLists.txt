@@ -30,5 +30,6 @@ set(tbb_prototype_libs
   glog
   sigc-2.0
   tbb_debug
+  tcmalloc
 )
 cpp_gtest(tbb_prototype)
