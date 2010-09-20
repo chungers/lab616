@@ -533,15 +533,15 @@ void* InputFilter::case4(void* task)
   if (++sent_ <= messages_) {
     string sym = (sent_ % 4 < 2) ? "AAPL" : "NFLX";
     if (sent_ % 2) {
-      Bid* bid = NewInstance<Bid>(sent_, sym, 1.0, 10);
-      Print<Bid>("--> BID", bid) << endl;
+      Bid* bid = NewInstance<Bid>(sent_, sym, 1.0, FLAGS_ticks - sent_);
+      //if (FLAGS_verbose) Print<Bid>("--> BID", bid) << endl;
       Strategy* s = strategy_map_.find(sym)->second;
       CHECK(s);
       SClosure<Bid>* sc = new SClosure<Bid>(s, bid);
       return sc;
     } else {
-      Ask* ask = NewInstance<Ask>(sent_, sym, 2.0, 20);
-      Print<Ask>("--> ASK", ask) << endl;
+      Ask* ask = NewInstance<Ask>(sent_, sym, 2.0, FLAGS_ticks - sent_);
+      //if (FLAGS_verbose) Print<Ask>("--> ASK", ask) << endl;
       Strategy* s = strategy_map_.find(sym)->second;
       CHECK(s);
       SClosure<Ask>* sc = new SClosure<Ask>(s, ask);
@@ -567,7 +567,7 @@ void* TaskFilter::case4(void* task)
 //////////////////////////////////////////////////////////////////////
 //                             TEST                                 //
 //////////////////////////////////////////////////////////////////////
-TEST(TbbPrototype, DISABLED_Pipeline)
+TEST(TbbPrototype, Pipeline)
 {
   // Set up the strategies
   map<string, Strategy*> strategies;
@@ -585,7 +585,7 @@ TEST(TbbPrototype, DISABLED_Pipeline)
   cout << "Start..." << endl;
   tbb::tick_count t0 = tbb::tick_count::now();
 
-  pipeline.run(10 * 4);
+  pipeline.run(FLAGS_tokens);
 
   tbb::tick_count t1 = tbb::tick_count::now();
   cout << "Run time = " << (t1 - t0).seconds() << endl;
@@ -636,7 +636,7 @@ struct DoneCallback{
   void operator()(void) { input->Stop(); }
 };
 
-TEST(TbbPrototype, PipelineWithQueue)
+TEST(TbbPrototype, DISABLED_PipelineWithQueue)
 {
   // Set up the strategies
   map<string, Strategy*> strategies;
