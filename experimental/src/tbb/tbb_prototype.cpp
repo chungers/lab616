@@ -1,5 +1,3 @@
-#include "common.hpp"
-
 #include <iostream>
 #include <map>
 #include <vector>
@@ -10,7 +8,6 @@
 #include <boost/function.hpp>
 #include <boost/thread.hpp>
 
-#include <gflags/gflags.h>
 #include <glog/logging.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -23,12 +20,11 @@
 #include <tbb/task_scheduler_init.h>
 #include <tbb/tbb_allocator.h>
 
+#include "common.hpp"
+#include "tbb_config.hpp"
+
 
 using namespace std;
-
-DEFINE_int32(ticks, 200, "Number of ticks to generate.");
-DEFINE_int32(tokens, 10, "Number of tokens in flight.");
-DEFINE_bool(verbose, true, "Verbose.");
 
 
 /* !!!!  See AllTests.cpp for initialization of TBB scheduler.  !!! */
@@ -36,7 +32,7 @@ DEFINE_bool(verbose, true, "Verbose.");
 // Various attempts. Not all of them work so use a macro to point to
 // the working version / attempt.
 #define IMPL case4
-static const bool VERBOSE = FLAGS_verbose; // Seems to deadlock if false;
+
 static int NThread = tbb::task_scheduler_init::automatic;
 
 
@@ -119,7 +115,7 @@ struct Strategy : public BidTask, public AskTask
   virtual void operator()(const Bid& bid)
   {
     EXPECT_EQ(symbol, bid.symbol);
-    if (!FLAGS_verbose) {
+    if (!TbbPrototype::GetConfig()->verbose) {
       sleep(1);
       return;
     }
@@ -134,7 +130,7 @@ struct Strategy : public BidTask, public AskTask
 
   virtual void operator()(const Ask& ask) {
     EXPECT_EQ(symbol, ask.symbol);
-    if (!FLAGS_verbose) {
+    if (!TbbPrototype::GetConfig()->verbose) {
       sleep(1);
       return;
     }
@@ -422,7 +418,7 @@ void* TaskFilter::case2(void* task)
     case Event::BID :
       Print<Bid>(" 2222>>>>BID", static_cast<Bid*>(event.Get())) << endl; break;
     case Event::ASK :
-      Print<Ask>( "2222>>>>ASK", static_cast<Ask*>(event.Get())) << endl; break;
+      Print<Ask>( "2222>>>ASK", static_cast<Ask*>(event.Get())) << endl; break;
   }
   return task;
 }
@@ -533,15 +529,23 @@ void* InputFilter::case4(void* task)
   if (++sent_ <= messages_) {
     string sym = (sent_ % 4 < 2) ? "AAPL" : "NFLX";
     if (sent_ % 2) {
-      Bid* bid = NewInstance<Bid>(sent_, sym, 1.0, FLAGS_ticks - sent_);
-      //if (FLAGS_verbose) Print<Bid>("--> BID", bid) << endl;
+      Bid* bid = NewInstance<Bid>(sent_, sym, 1.0, TbbPrototype::GetConfig()->ticks - sent_);
+
+      if (TbbPrototype::GetConfig()->verbose) {
+        //        Print<Bid>("--> BID", bid) << endl;
+      }
+
       Strategy* s = strategy_map_.find(sym)->second;
       CHECK(s);
       SClosure<Bid>* sc = new SClosure<Bid>(s, bid);
       return sc;
     } else {
-      Ask* ask = NewInstance<Ask>(sent_, sym, 2.0, FLAGS_ticks - sent_);
-      //if (FLAGS_verbose) Print<Ask>("--> ASK", ask) << endl;
+      Ask* ask = NewInstance<Ask>(sent_, sym, 2.0, TbbPrototype::GetConfig()->ticks - sent_);
+
+      if (TbbPrototype::GetConfig()->verbose) {
+        //        Print<Ask>("--> ASK", ask) << endl;
+      }
+
       Strategy* s = strategy_map_.find(sym)->second;
       CHECK(s);
       SClosure<Ask>* sc = new SClosure<Ask>(s, ask);
@@ -575,7 +579,7 @@ TEST(TbbPrototype, Pipeline)
   strategies["PCLN"] = new Strategy("PCLN");
   strategies["NFLX"] = new Strategy("NFLX");
 
-  InputFilter input("TickSource", FLAGS_ticks, strategies);
+  InputFilter input("TickSource", TbbPrototype::GetConfig()->ticks, strategies);
   TaskFilter strategy("Strategy");
 
   tbb::pipeline pipeline;
@@ -585,7 +589,7 @@ TEST(TbbPrototype, Pipeline)
   cout << "Start..." << endl;
   tbb::tick_count t0 = tbb::tick_count::now();
 
-  pipeline.run(FLAGS_tokens);
+  pipeline.run(TbbPrototype::GetConfig()->tokens);
 
   tbb::tick_count t1 = tbb::tick_count::now();
   cout << "Run time = " << (t1 - t0).seconds() << endl;
@@ -607,7 +611,7 @@ struct TickGenerator
   {
     sleep(1);
     Bid* bid; Ask* ask;
-    int ticks = FLAGS_ticks;
+    int ticks = TbbPrototype::GetConfig()->ticks;
     for (int i = 0; i < ticks; ++i) {
       for (int j = 0; j < 1000; ++j) {}
 
@@ -636,6 +640,7 @@ struct DoneCallback{
   void operator()(void) { input->Stop(); }
 };
 
+
 TEST(TbbPrototype, DISABLED_PipelineWithQueue)
 {
   // Set up the strategies
@@ -645,7 +650,8 @@ TEST(TbbPrototype, DISABLED_PipelineWithQueue)
   strategies["NFLX"] = new Strategy("NFLX");
 
   tbb::concurrent_queue<Message*> q;
-  InputFilter input("TickSource", FLAGS_ticks, strategies, &q);
+  InputFilter input("TickSource",
+                    TbbPrototype::GetConfig()->ticks, strategies, &q);
   TaskFilter strategy("Strategy");
 
   tbb::pipeline pipeline;
@@ -658,14 +664,18 @@ TEST(TbbPrototype, DISABLED_PipelineWithQueue)
   cout << "Start..." << endl;
   tbb::tick_count t0 = tbb::tick_count::now();
 
-  pipeline.run(FLAGS_tokens); // Blocks
+  pipeline.run(TbbPrototype::GetConfig()->tokens); // Blocks
 
   tbb::tick_count t1 = tbb::tick_count::now();
   cout << endl;
   cout << "Total = " << (t1 - t0).seconds() << endl;
-  cout << "QPS   = " << static_cast<float>(FLAGS_ticks) / (t1 - t0).seconds();
+  cout << "QPS   = "
+       << static_cast<float>(
+           TbbPrototype::GetConfig()->ticks) / (t1 - t0).seconds();
   cout << " / ms = "
-       << (t1 - t0).seconds() / static_cast<float>(FLAGS_ticks) * 1000. << endl;
+       << (t1 - t0).seconds() / static_cast<float>(
+           TbbPrototype::GetConfig()->ticks) * 1000.
+       << endl;
 
   gen_thread.join();
   CleanUp(&strategies);
