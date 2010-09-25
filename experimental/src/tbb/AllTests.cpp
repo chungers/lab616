@@ -19,7 +19,9 @@ using namespace std;
 DEFINE_int32(threads, 20, "Number of threads");
 DEFINE_int32(ticks, 20, "Number of ticks to generate.");
 DEFINE_int32(tokens, 20, "Number of tokens in flight.");
-DEFINE_bool(verbose, true, "Verbose.");
+DEFINE_int32(sleep, 0, "Number of seconds for strategy to sleep.");
+DEFINE_bool(verbose, false, "Verbose.");
+DEFINE_bool(tbb_alloc, false, "Use tbb allocator.");
 
 static const TbbPrototype::Config* __config__;
 
@@ -30,7 +32,9 @@ Config::Config() :
       threads(FLAGS_threads),
       ticks(FLAGS_ticks),
       tokens(FLAGS_tokens),
-      verbose(FLAGS_verbose)
+      sleep(FLAGS_sleep),
+      verbose(FLAGS_verbose),
+      tbb_alloc(FLAGS_tbb_alloc)
 {
 }
 

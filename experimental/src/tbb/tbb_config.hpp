@@ -10,9 +10,9 @@ struct Config {
   int threads;
   int ticks;
   int tokens;
+  int sleep;
   bool verbose;
-
-
+  bool tbb_alloc;
 };
 
 // Function to return the configuration
