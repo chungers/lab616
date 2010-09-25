@@ -71,8 +71,9 @@ struct Ask : Message
 template <typename M>
 M* NewInstance(int i, const string* symbol, double price, int vol)
 {
-  M* m = (!TbbPrototype::GetConfig()->tbb_alloc) ? new M() :
-      static_cast<M*>(tbb::tbb_allocator<M>().allocate(sizeof(M)));
+  M* m = (TbbPrototype::GetConfig()->tbb_alloc) ?
+      static_cast<M*>(tbb::tbb_allocator<M>().allocate(sizeof(M))) :
+      new M();
 
   m->t = i;
   m->symbol = symbol;
@@ -83,7 +84,11 @@ M* NewInstance(int i, const string* symbol, double price, int vol)
 
 template <typename M> void Delete(M* p)
 {
-  tbb::tbb_allocator<M>().deallocate(p, sizeof(M));
+  if (TbbPrototype::GetConfig()->tbb_alloc) {
+    tbb::tbb_allocator<M>().deallocate(p, sizeof(M));
+  } else {
+    delete p;
+  }
 }
 
 static boost::mutex cout_mutex;
@@ -334,15 +339,13 @@ TEST(TbbPrototype, DISABLED_TestConcurrentQueue)
       case Message::BID : {
         Bid* bid = static_cast<Bid*>(m);
         Print<Bid>("  Bid = ", bid);
-        if (!tbb_alloc) delete bid;
-        else Delete<Bid>(bid);
+        Delete<Bid>(bid);
         break;
       }
       case Message::ASK : {
         Ask* ask = static_cast<Ask*>(m);
         Print<Ask>("  Ask = ", ask);
-        if (!tbb_alloc) delete ask;
-        else Delete<Ask>(ask);
+        Delete<Ask>(ask);
         break;
       }
     }
