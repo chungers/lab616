@@ -38,7 +38,7 @@ gmon.out
 #################
 CMakeFiles/
 CMakeCache.txt
-#Makefile
+Makefile
 *.cmake
 
 # Custom CMake Build #
@@ -70,4 +70,4 @@ classes/
 
 # Installed Tools #
 ###################
-#third_party/
+third_party/
