@@ -149,7 +149,7 @@ struct Strategy : public BidTask, public AskTask
     boost::mutex::scoped_lock lock(cout_mutex);
     cout << "Strategy[" << symbol << "]"
          << "@ t=" << ask.t
-         << ",s=" << ask.symbol
+         << ",s=" << *ask.symbol
          << ",ask=" << ask.price
          << ",v=" << static_cast<float>(ask.volume)
          << endl;
@@ -266,7 +266,7 @@ class InputFilter : public tbb::filter, NoCopyAndAssign {
     }
 
     if (!m && !run) return NULL; // No work left and told to stop
-
+    cout << ".";
     switch (m->tc) {
       case Message::BID : {
         Bid* bid = static_cast<Bid*>(m);
@@ -621,18 +621,15 @@ struct TickGenerator
       for (int j = 0; j < 1000; ++j) {}
 
       bid = NewInstance<Bid>(i, &aapl, 100 + i, ticks-i);
-      Print<Bid>("Pushing BID", bid);
       queue->push(static_cast<Message*>(bid));
 
       ask = NewInstance<Ask>(i, &aapl, 100 + i, ticks-i);
-      Print<Ask>("Pushing ASK", ask);
       queue->push(static_cast<Message*>(ask));
 
       bid = NewInstance<Bid>(i, &pcln, 100 + i, ticks-i);
-      Print<Bid>("Pushing BID", bid);
       queue->push(static_cast<Message*>(bid));
+
       ask = NewInstance<Ask>(i, &pcln, 100 + i, ticks-i);
-      Print<Ask>("Pushing ASK", ask);
       queue->push(static_cast<Message*>(ask));
     }
     (callback)();
