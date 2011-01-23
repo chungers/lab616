@@ -26,8 +26,14 @@ list(APPEND emacs_includes
 )
 
 set(LIBSIGC_PATH "/usr/local/include/sigc++-2.0")
+set(THIRD_PARTY_PATH ${PROJECT_SOURCE_DIR}/../third_party/cpp)
+set(LIBFASTFLOW_PATH ${PROJECT_SOURCE_DIR}/../third_party/cpp/fastflow)
+
+
 list(APPEND emacs_sys_includes
   ${LIBSIGC_PATH}
+  ${THIRD_PARTY_PATH}
+  ${LIBFASTFLOW_PATH}
 )
 emacs_ide_project("${emacs_includes}" "${emacs_sys_includes}")
 

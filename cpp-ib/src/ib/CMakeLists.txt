@@ -33,12 +33,15 @@ set(v964_adapter_incs
   ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
   ${SRC_DIR}
+  ${LIBSIGC_PATH}
 )
 set(v964_adapter_srcs
   bridge.hpp
   bridge.cpp
   adapters.hpp
   adapters.cpp
+  backplane.hpp
+  backplane.cpp
   helpers.hpp
   marketdata.cpp
   polling_client.hpp
@@ -46,12 +49,15 @@ set(v964_adapter_srcs
   services.hpp
   session.hpp
   session.cpp
+  ticker_id.cpp
 )
 set(v964_adapter_libs
   ib_api
   ib_common_proto
   ib_events_proto
   ib_actions_proto
+  protobuf
+  sigc-2.0
 )
 # Client implementation:
 cpp_library(v964_adapter)

@@ -1,0 +1,5 @@
+#
+# Starts the logger at 4:00 am each morning and stops at 6:00 pm
+# min, hour, mday, month, wday, command
+0 3 * * 1,2,3,4,5 sh /Users/david/lab616/cpp-ib/bin/run_logger.sh
+0 18 * * 1,2,3,4,5 sh /Users/david/lab616/cpp-ib/bin/run_logger.sh --stop

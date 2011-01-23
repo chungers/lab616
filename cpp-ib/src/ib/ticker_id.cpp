@@ -12,6 +12,23 @@ using namespace std;
 namespace ib {
 namespace internal {
 
+static const int BASE = 27;
+static const int MAX_CHARS = 4;
+static const int SCALE[] = {
+  1,                  // BASE ^ 0
+  BASE,               // BASE ^ 1
+  BASE * BASE,        // BASE ^ 2
+  BASE * BASE * BASE  // BASE ^ 3
+};
+
+static const int OFFSET = 11;
+static const int MAX_OPTION_PART = 1 << (OFFSET + 1) - 1;
+static const int MID = 1 << (OFFSET - 1);
+// Max code value representing ZZZZ << 11.
+// Max option value on either side (call or put) is 1023.
+static const int MAX_CODE_VALUE = 1088389120 + MAX_OPTION_PART;
+
+
 // Compute the ticker id based on the symbol.
 // Key points:
 // 1. The string length is at most 4 characters (e.g. 'AAPL')
@@ -25,7 +42,15 @@ namespace internal {
 //    pushes the sum to the 11 most significant bits and leaves
 //    the lower 11 bits for storing other information, such
 //    as encoding option values.
-int SymbolToTickerId(const string& s);
+int SymbolToTickerId(const string& s)
+{
+  int v = 0;
+  int len = s.length();
+  for (int i = 0; i < len; i++) {
+    v += (toupper(s.at(i)) - 'A' + 1) * SCALE[len-(i+1)];
+  }
+  return v << OFFSET;
+}
 
 // For options.  This computes a ticker id based on the
 // original ticker id (shifted 11 bits) plus some encoded
@@ -33,12 +58,26 @@ int SymbolToTickerId(const string& s);
 // relative to the ticker id for that given strike price.  It
 // does not encode information about the expiration since
 // there aren't enough bits for that.
-int SymbolToTickerId(const string& s, bool isCallOption, const double strike);
+int SymbolToTickerId(const string& s, bool isCallOption, const double strike)
+{
+  int tick_id = SymbolToTickerId(s);
+  return tick_id + MID + ((isCallOption) ? +1 : -1) * strike;
+}
 
 // Computes the symbol from the input code value.  See above
 // for description of the encoding scheme.  Basically this does
 // in reverse what the encoding step does .
-void SymbolFromTickerId(int code, string* output);
+void SymbolFromTickerId(int code, string* output)
+{
+  ostringstream sbuff;
+  int m = code >> OFFSET;
+  for (int i = MAX_CHARS - 1; i >= 0; i--) {
+    int c = m / SCALE[i];
+    m %= SCALE[i];
+    if (c > 0) sbuff << (char)(c + 'A' - 1);
+  }
+  output->assign(sbuff.str());
+}
 
 // Encoded option.  Note that this is not a complete
 // specification of an option contract.  There is not
@@ -69,10 +108,24 @@ struct EncodedOption {
   }
 };
 
-void EncodedOptionFromTickerId(int code, EncodedOption* output);
+void EncodedOptionFromTickerId(int code, EncodedOption* output)
+{
+  int option_mask = (code >> OFFSET) << OFFSET;
+  string sym;
+  SymbolFromTickerId(option_mask, &sym);
+  int opt = code - ((code >> OFFSET) << OFFSET) - MID;
+  bool call = opt > 0;
+  double strike = (call) ? (double) opt : (double) (-1 * opt);
+  output->symbol = sym;
+  output->call_option = call;
+  output->strike = strike;
+}
 
 // Returns true if the input ticker id is encoded with contract information.
-bool IsTickerIdForOption(unsigned int id);
+bool IsTickerIdForOption(unsigned int id)
+{
+  return (id % (1 << OFFSET));
+}
 
 } // namespace internal
 } // namespace ib

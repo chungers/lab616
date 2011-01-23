@@ -57,12 +57,18 @@ int test_encode_option(const string& symbol, bool callOption,
   return code;
 }
 
+// From ticker_id.cpp:
+static const int OFFSET = 11;
+static const int MAX_OPTION_PART = 1 << (OFFSET + 1) - 1;
+static const int MID = 1 << (OFFSET - 1);
+
 TEST(HelpersTest, PrintConstants)
 {
   using namespace std;
-  cout << "MID = " << ib::internal::MID << endl;
-  cout << "shifted= " << (1 << ib::internal::OFFSET) << endl;
-  cout << "maxOpt= " << (ib::internal::MAX_OPTION_PART) << endl;
+
+  cout << "MID = " << MID << endl;
+  cout << "shifted= " << (1 << OFFSET) << endl;
+  cout << "maxOpt= " << (MAX_OPTION_PART) << endl;
   cout << "AAAA = " << SymbolToTickerId("AAAA") << endl;
   cout << "ZZZZ = " << SymbolToTickerId("ZZZZ") << endl;
 }
