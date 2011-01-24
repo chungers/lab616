@@ -1,0 +1,5 @@
+# lab616 #
+
+This repository stores all things related to trading, in particular, automated trading via the
+[Interactive Brokers API](http://www.interactivebrokers.com/en/p.php?f=programInterface&ib_entity=llc).
+
