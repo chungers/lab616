@@ -50,7 +50,7 @@ cpp_gtest(backplane_test)
 
 #########################################
 # Prototype:
-set(ib_prototypes_incs
+set(ib_prototype_incs
   ${SRC_DIR}/ib/api/9.64beta
   ${SRC_DIR}/ib/api/9.64beta/Shared
   ${GEN_DIR}
@@ -60,12 +60,12 @@ set(ib_prototypes_incs
   ${LIBSIGC_PATH}
   ${LIBFASTFLOW_PATH}
 )
-set(ib_prototypes_srcs
+set(ib_prototype_srcs
   AllTests.cpp
   fastflow_prototype.cpp
-#  signals_prototype.cpp
+  signals_prototype.cpp
 )
-set(ib_prototypes_libs
+set(ib_prototype_libs
   boost_system
   boost_thread
   pthread
@@ -73,4 +73,4 @@ set(ib_prototypes_libs
   glog
   sigc-2.0
 )
-cpp_gtest(ib_prototypes)
+cpp_gtest(ib_prototype)
