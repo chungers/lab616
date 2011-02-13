@@ -21,6 +21,7 @@ set(all_tests_srcs
 set(all_tests_libs
   boost_thread
   v964_adapter
+  gflags
   glog
   sigc-2.0
 )
@@ -43,10 +44,30 @@ set(backplane_test_srcs
 set(backplane_test_libs
   boost_thread
   v964_adapter
+  gflags
   glog
   sigc-2.0
 )
 cpp_gtest(backplane_test)
+
+#########################################
+# Test:
+set(utils_test_incs
+  ${GEN_DIR}
+  ${SRC_DIR}
+  ${TEST_DIR}
+  ${LIBSIGC_PATH}
+)
+set(utils_test_srcs
+  AllTests.cpp
+  utils_test.cpp
+)
+set(utils_test_libs
+  boost_thread
+  gflags
+  glog
+)
+cpp_gtest(utils_test)
 
 #########################################
 # Prototype:
@@ -70,6 +91,7 @@ set(ib_prototype_libs
   boost_thread
   pthread
   v964_adapter
+  gflags
   glog
   sigc-2.0
 )
