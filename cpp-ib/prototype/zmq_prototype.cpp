@@ -1,10 +1,13 @@
+#include "common.hpp">
+#include "utils.hpp"
 
-#include "common.hpp"
-
+#include <iostream>
 #include <map>
-#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <time.h>
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
@@ -21,25 +24,64 @@
 using namespace std;
 using namespace boost;
 
+
+DEFINE_int32(test, 0, "0 = hello server, 1 = pubsub");
 DEFINE_bool(server, false, "Start server.");
 DEFINE_string(endpoint, "tcp://*:5555", "End point string.");
+DEFINE_int32(messages, 10, "number of messages.");
+DEFINE_double(sleep, 50.0, "Milliseconds to sleep before sedning test messages.");
+DEFINE_bool(dataframe, false, "True if data is sent as binary frames.");
+DEFINE_bool(testmessage, false, "Ture if sending string 'TEST'.");
+DEFINE_string(symbol, "AAPL", "Symbol to subscribe (for --test=1 pubsub test subscriber.");
 
-// Logging command-line flags: --logtostderr --v=1  
-int main(int argc, char** argv)
-{
-  google::ParseCommandLineFlags(&argc, &argv, true);
-  google::InitGoogleLogging(argv[0]);
-  
-  zmq::context_t context(1);
+inline uint64_t now_micros() {
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  return static_cast<uint64_t>(tv.tv_sec) * 1000000 + tv.tv_usec;
+}
 
-  if (FLAGS_server) {
+struct Instrument;
+static map<int, Instrument*> TICKERS;
 
-    VLOG(1) << "Server mode." << endl;
-    
-    zmq::socket_t socket(context, ZMQ_REP);
+struct Instrument {
+
+  Instrument(const string& s, double lastp) : symbol(s), lastPrice(lastp) {
+    TICKERS[TICKERS.size()] = this;
+  }
+  string symbol;
+  double lastPrice;
+};
+
+inline void GeneratePrice(Instrument* ticker) {
+  int sign = ((rand() % 10 - 4) > 0) ? +1 : -1;  // 60% in favor of +
+  double percentChange = (rand() % 21) / 100.f; // 0 - 0.2% change
+  double priceChange = sign * percentChange / 100.f * ticker->lastPrice;
+  VLOG(3) << sign << " * %=" << percentChange << " change=" << priceChange << endl;
+  ticker->lastPrice += priceChange;
+};
+
+inline void sleep_micros(int micros) {
+  struct timespec st;
+  struct timespec rt;
+  st.tv_sec = micros / 1000000;
+  st.tv_nsec = (micros % 1000000) * 1000;
+  nanosleep(&st, &rt);
+}
+
+//////////////////////////////////////////////
+class HelloServer {
+
+ public:
+  HelloServer(zmq::context_t *context) :
+      context(context),
+      socket(*context, ZMQ_REP) {
+
     socket.bind(FLAGS_endpoint.c_str());
+    VLOG(1) << "Hello server bound @ " << FLAGS_endpoint << endl;
+  }
 
-    LOG(INFO) << "Starting server on " << FLAGS_endpoint << endl;
+  void Run() {
+    LOG(INFO) << "Hello server starting." << endl;
 
     bool loop = true;
     while (loop) {
@@ -55,17 +97,29 @@ int main(int argc, char** argv)
       memcpy((void *) reply.data(), "world", 6);
       socket.send(reply);
     }
-  } else {
+  }
+  
+ private:
+  zmq::context_t *context;
+  zmq::socket_t socket;
+};
 
-    VLOG(1) << "Client mode." << endl;
 
-    zmq::socket_t socket(context, ZMQ_REQ);
+//////////////////////////////////////////////
+class HelloClient {
 
-    LOG(INFO) << "Connecting to server at " << FLAGS_endpoint << endl;
+ public:
+  HelloClient(zmq::context_t *context, int messages) :
+      context(context),
+      socket(*context, ZMQ_REQ),
+      messages(messages) {
 
     socket.connect(FLAGS_endpoint.c_str());
+    VLOG(1) << "Hello client connected to " << FLAGS_endpoint << endl;
+  }
 
-    for (int i = 0; i < 10; ++i) {
+  void Run() {
+    for (int i = 0; i < messages; ++i) {
       zmq::message_t request(6);
       memcpy((void*) request.data(), "Hello", 6);
 
@@ -78,9 +132,190 @@ int main(int argc, char** argv)
       socket.recv(&reply);
 
       LOG(INFO) << "Received reply: " << i << ", data = " << (char *) reply.data() << endl;
+    }
+  }
+  
+ private:
+  zmq::context_t *context;
+  zmq::socket_t socket;
+  int messages;
+};
+
+//////////////////////////////////////////////
+class Publisher {
+ public:
+  Publisher(zmq::context_t *context) :
+      context(context),
+      socket(*context, ZMQ_PUB) {
+
+    socket.bind(FLAGS_endpoint.c_str());
+    VLOG(1) << "Publisher bound @ " << FLAGS_endpoint << endl;
+
+
+    // Initialize instruments
+    Instrument* amzn = new Instrument("AMZN", 180.0);
+    Instrument* appl = new Instrument("AAPL", 350.0);
+    Instrument* bidu = new Instrument("BIDU", 100.0);
+    Instrument* goog = new Instrument("GOOG", 600.0);
+    Instrument* nflx = new Instrument("NFLX", 200.0);
+    Instrument* pcln = new Instrument("PCLN", 400.0);
+  }
+  
+  void Run() {
+    LOG(INFO) << "Publisher starting." << endl;
+
+    bool loop = true;
+    while (loop) {
+
+      int pick = rand() % TICKERS.size();
+      Instrument* ticker = TICKERS[pick];
+      GeneratePrice(ticker);
+      PublishPrice(ticker);
+      
+      if (FLAGS_sleep > 0) {
+        // Sleep by X / size(tickers) so that we get roughly the
+        // frequency specified in the flag for all instruments (instead of 1/N).
+        sleep_micros((int)(FLAGS_sleep * 1000 / TICKERS.size()));
+      }
+    }
+  }
+
+ private:
+  void PublishPrice(Instrument* ticker) {
+    int64_t now = now_micros();
+
+    if (FLAGS_dataframe) {
+      VLOG(2) << now << ' ' << ticker->symbol << ' ' << ticker->lastPrice << endl;
+
+      // message format = binary data frames
+      
+    } else if (FLAGS_testmessage) {
+      // message format = test string 'TEST'
+
+      zmq::message_t event(6);
+      memcpy((void *) event.data(), "TEST", 5);
+
+      VLOG(4) << now << ", Pushing event " << (char*)event.data() << endl;
+      socket.send(event);
+    } else {
+      VLOG(2) << now << ' ' << ticker->symbol << ' ' << ticker->lastPrice << endl;
+
+      // message format = string
+      
+      ostringstream mem;
+      mem << ticker->symbol << ' ' << now_micros() << ' ' << ticker->lastPrice;
+      zmq::message_t event(mem.str().length() + 1);
+      memcpy((void*) event.data(), mem.str().c_str(), mem.str().length());
+
+      VLOG(4) << now << ", Pushing event " << (char*)event.data() << endl;
+      socket.send(event);
+    }
+  }
+  
+ private:
+  zmq::context_t *context;
+  zmq::socket_t socket;
+};
+
+
+//////////////////////////////////////////////
+class Subscriber {
+ public:
+  Subscriber(zmq::context_t *context) :
+      context(context),
+      socket(*context, ZMQ_SUB) {
+
+    socket.connect(FLAGS_endpoint.c_str());
+    VLOG(1) << "Subscriber connected @ " << FLAGS_endpoint << endl;
+
+    socket.setsockopt(ZMQ_SUBSCRIBE, FLAGS_symbol.c_str(), FLAGS_symbol.length());
+  }
+  
+  void Run() {
+    LOG(INFO) << "Subscriber listening." << endl;
+
+    bool loop = true;
+    int messages = 0;
+    while (loop) {
+
+      zmq::message_t event;
+      socket.recv(&event);
+
+      if (FLAGS_dataframe) {
+        // message format = binary frames
+        
+      } else if (FLAGS_testmessage) {
+        // message format = constant 'TEST'
+        zmq::message_t reply;
+        socket.recv(&reply);
+        
+        LOG(INFO) << "Received reply: "<< ", data = " << (char *) reply.data() << endl;
+      } else {
+        // message format = string
+        string symbol;
+        uint64_t ts;
+        double price;
+
+        VLOG(2) << "Received: " << event.data() << endl;
+        istringstream iss(static_cast<char*>(event.data()));
+        iss >> symbol >> ts >> price;
+
+        LOG(INFO) << messages << ' ' << ts << ' ' << symbol << ' ' << price << endl;
+        messages++;
+      }
+    }
+  }
+
+ private:
+  zmq::context_t *context;
+  zmq::socket_t socket;
+};
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
+// Logging command-line flags: --logtostderr --v=1  
+int main(int argc, char** argv)
+{
+  google::ParseCommandLineFlags(&argc, &argv, true);
+  google::InitGoogleLogging(argv[0]);
+
+  lab616::utils::init_random();
+    
+  zmq::context_t context(1);
+
+  switch (FLAGS_test) {
+
+    /////////////////////////////////////
+    // Hello World!  
+    case 0 :
+      if (FLAGS_server) {
+        HelloServer server(&context);
+        server.Run();
+      } else {
+        HelloClient client(&context, FLAGS_messages);
+        client.Run();
+      }
+      break;
+
+    /////////////////////////////////////
+    // PubSub
+    case 1 :
+      if (FLAGS_server) {
+        Publisher publisher(&context);
+        publisher.Run();
+      } else {
+        Subscriber subscriber(&context);
+        subscriber.Run();
+      }
+      break;
+
+    default:
+      LOG(ERROR) << "Unknown test case: " << FLAGS_test << endl;
+      return -1;
   }
   return 0;
-}
-
-
 }
