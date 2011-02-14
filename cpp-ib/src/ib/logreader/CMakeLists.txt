@@ -1,17 +1,17 @@
 # //cpp-ib/src/ib/logreader
 ######################
-set(logreader_incs
+set(logreader_main_incs
   ${GEN_DIR}
   ${SRC_DIR}
 )
-set(logreader_srcs
+set(logreader_main_srcs
   logreader_main.cpp
 )
-set(logreader_libs
+set(logreader_main_libs
   v964_adapter
   boost_thread
   gflags
   glog
   tcmalloc
 )
-cpp_executable(logreader)
+cpp_executable(logreader_main)

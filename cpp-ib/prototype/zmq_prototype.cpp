@@ -20,10 +20,9 @@
 #include <zmq.hpp>
 
 
-
 using namespace std;
 using namespace boost;
-
+using namespace lab616::utils;
 
 DEFINE_int32(test, 0, "0 = hello server, 1 = pubsub");
 DEFINE_bool(server, false, "Start server.");
@@ -56,17 +55,13 @@ inline void GeneratePrice(Instrument* ticker) {
   int sign = ((rand() % 10 - 4) > 0) ? +1 : -1;  // 60% in favor of +
   double percentChange = (rand() % 21) / 100.f; // 0 - 0.2% change
   double priceChange = sign * percentChange / 100.f * ticker->lastPrice;
-  VLOG(3) << sign << " * %=" << percentChange << " change=" << priceChange << endl;
+  VLOG(3) << sign
+          << " * %=" << percentChange
+          << " change=" << priceChange
+          << endl;
   ticker->lastPrice += priceChange;
 };
 
-inline void sleep_micros(int micros) {
-  struct timespec st;
-  struct timespec rt;
-  st.tv_sec = micros / 1000000;
-  st.tv_nsec = (micros % 1000000) * 1000;
-  nanosleep(&st, &rt);
-}
 
 //////////////////////////////////////////////
 class HelloServer {
@@ -276,15 +271,15 @@ class Subscriber {
 
 
 
-////////////////////////////////////////////////////////////////////////////////////
-// Logging command-line flags: --logtostderr --v=1  
+////////////////////////////////////////////////////////////////////////////
+// Logging command-line flags: --logtostderr --v=1
 int main(int argc, char** argv)
 {
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 
-  lab616::utils::init_random();
-    
+  init_random();
+
   zmq::context_t context(1);
 
   switch (FLAGS_test) {
