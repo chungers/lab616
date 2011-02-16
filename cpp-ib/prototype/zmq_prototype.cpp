@@ -41,6 +41,7 @@ inline uint64_t now_micros() {
 
 struct Instrument;
 static map<int, Instrument*> TICKERS;
+static string TICK_TYPES[] = { "BID", "ASK", "LAST" };
 
 struct Instrument {
 
@@ -49,17 +50,20 @@ struct Instrument {
   }
   string symbol;
   double lastPrice;
+  string type;
 };
 
 inline void GeneratePrice(Instrument* ticker) {
   int sign = ((rand() % 10 - 4) > 0) ? +1 : -1;  // 60% in favor of +
   double percentChange = (rand() % 21) / 100.f; // 0 - 0.2% change
   double priceChange = sign * percentChange / 100.f * ticker->lastPrice;
-  VLOG(3) << sign
+  VLOG(6) << sign
           << " * %=" << percentChange
           << " change=" << priceChange
           << endl;
+
   ticker->lastPrice += priceChange;
+  ticker->type = TICK_TYPES[rand() % 3];
 };
 
 
@@ -178,9 +182,12 @@ class Publisher {
  private:
   void PublishPrice(Instrument* ticker) {
     int64_t now = now_micros();
+    VLOG(4) << now 
+	    << ' ' << ticker->symbol 
+	    << ' ' << ticker->type
+	    << ' ' << ticker->lastPrice << endl;
 
     if (FLAGS_dataframe) {
-      VLOG(2) << now << ' ' << ticker->symbol << ' ' << ticker->lastPrice << endl;
 
       // message format = binary data frames
       
@@ -193,12 +200,14 @@ class Publisher {
       VLOG(4) << now << ", Pushing event " << (char*)event.data() << endl;
       socket.send(event);
     } else {
-      VLOG(2) << now << ' ' << ticker->symbol << ' ' << ticker->lastPrice << endl;
 
       // message format = string
       
       ostringstream mem;
-      mem << ticker->symbol << ' ' << now_micros() << ' ' << ticker->lastPrice;
+      mem << ticker->symbol
+          << ' ' << now_micros()
+          << ' ' << ticker->type
+          << ' ' << ticker->lastPrice;
       zmq::message_t event(mem.str().length() + 1);
       memcpy((void*) event.data(), mem.str().c_str(), mem.str().length());
 
@@ -248,14 +257,19 @@ class Subscriber {
       } else {
         // message format = string
         string symbol;
+	string type;
         uint64_t ts;
         double price;
 
         VLOG(2) << "Received: " << event.data() << endl;
         istringstream iss(static_cast<char*>(event.data()));
-        iss >> symbol >> ts >> price;
+        iss >> symbol >> ts >> type >> price;
 
-        LOG(INFO) << messages << ' ' << ts << ' ' << symbol << ' ' << price << endl;
+        LOG(INFO) << messages 
+		  << ' ' << ts 
+		  << ' ' << symbol 
+		  << ' ' << type
+		  << ' ' << price << endl;
         messages++;
       }
     }
