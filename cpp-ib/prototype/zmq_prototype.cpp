@@ -288,7 +288,15 @@ class Subscriber {
     socket.connect(FLAGS_endpoint.c_str());
     VLOG(1) << "Subscriber connected @ " << FLAGS_endpoint << endl;
 
-    socket.setsockopt(ZMQ_SUBSCRIBE, FLAGS_symbol.c_str(), FLAGS_symbol.length());
+    vector<string> symbols;
+    boost::split(symbols, FLAGS_symbol, boost::is_any_of(","));
+
+    vector<string>::iterator itr;
+    for (itr = symbols.begin(); itr != symbols.end(); ++itr) {
+      string sub = *itr;
+      LOG(INFO) << "Adding subscription " << sub << endl;
+      socket.setsockopt(ZMQ_SUBSCRIBE, sub.c_str(), sub.length());
+    }
   }
   
   void Run() {
