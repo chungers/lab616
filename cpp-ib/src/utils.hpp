@@ -6,6 +6,10 @@
 #include <cstdlib>
 #include <unistd.h>
 
+#include <sys/time.h>
+#include <time.h>
+#include <unistd.h>
+
 namespace lab616 {
 namespace utils {
 
@@ -22,6 +26,14 @@ inline void sleep_micros(int micros) {
   st.tv_nsec = (micros % 1000000) * 1000;
   nanosleep(&st, &rt);
 }
+
+/** Current time in micros */
+inline uint64_t now_micros() {
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  return static_cast<uint64_t>(tv.tv_sec) * 1000000 + tv.tv_usec;
+}
+
 
 } // utils
 } // lab616

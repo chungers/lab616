@@ -5,9 +5,6 @@
 #include <map>
 #include <stdio.h>
 #include <string.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <time.h>
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
@@ -87,12 +84,6 @@ DEFINE_bool(dataframe, false, "True if data is sent as binary frames.");
 DEFINE_bool(testmessage, false, "Ture if sending string 'TEST'.");
 DEFINE_string(symbol, "AAPL", "Symbol to subscribe (for --test=1 pubsub test subscriber.");
 DEFINE_bool(dumpmessage, false, "True to dump message.");
-
-inline uint64_t now_micros() {
-  struct timeval tv;
-  gettimeofday(&tv, NULL);
-  return static_cast<uint64_t>(tv.tv_sec) * 1000000 + tv.tv_usec;
-}
 
 struct Instrument;
 static map<int, Instrument*> TICKERS;
@@ -322,11 +313,15 @@ class Subscriber {
 	assert(receive(socket, &type));
 	assert(!receive(socket, price));
 
+        uint64_t receiveTs = now_micros();
+        uint64_t latencyMicros = receiveTs - ts;
+        
 	LOG(INFO) << messages << ' ' 
 		  << symbol << ' '
 		  << ts << ' '
 		  << type << ' ' 
-		  << price 
+		  << price
+                  << " (" << latencyMicros << ")"
 		  << endl;
 
       } else if (FLAGS_dumpmessage) {
@@ -390,11 +385,16 @@ class Subscriber {
         istringstream iss(static_cast<char*>(event.data()));
         iss >> symbol >> ts >> type >> price;
 
+        uint64_t receiveTs = now_micros();
+        uint64_t latencyMicros = receiveTs - ts;
+
         LOG(INFO) << messages 
 		  << ' ' << ts 
 		  << ' ' << symbol 
 		  << ' ' << type
-		  << ' ' << price << endl;
+		  << ' ' << price
+                  << " (" << latencyMicros << ")"
+                  << endl;
       }
     }
   }
