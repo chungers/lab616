@@ -229,16 +229,16 @@ class Publisher {
   void PublishPrice(const Instrument& ticker) {
     int64_t now = now_micros();
     VLOG(4) << ticker.symbol 
-	    << ' ' << now 
-	    << ' ' << ticker.type
-	    << ' ' << ticker.lastPrice << endl;
+            << ' ' << ticker.type
+            << ' ' << now 
+            << ' ' << ticker.lastPrice << endl;
 
     if (FLAGS_dataframe) {
 
       // message format = binary data frames
       frame(socket, ticker.symbol);
-      frame(socket, now);
       frame(socket, ticker.type);
+      frame(socket, now);
       last(socket, ticker.lastPrice);
 
     } else if (FLAGS_testmessage) {
@@ -253,8 +253,8 @@ class Publisher {
       // message format = string
       ostringstream mem;
       mem << ticker.symbol
-          << ' ' << now_micros()
           << ' ' << ticker.type
+          << ' ' << now_micros()
           << ' ' << ticker.lastPrice;
       zmq::message_t event(mem.str().length() + 1);
       memcpy((void*) event.data(), mem.str().c_str(), mem.str().length());
@@ -301,66 +301,66 @@ class Subscriber {
 
       if (FLAGS_dataframe) {
         
-	// message format = binary frames
-	uint64_t ts = 0;
-	string symbol;
-	string type;
-	double price;
+        // message format = binary frames
+        uint64_t ts = 0;
+        string symbol;
+        string type;
+        double price;
 
         bool more = false;
         assert(receive(socket, &symbol));
+        assert(receive(socket, &type));
         assert(receive(socket, ts));
-	assert(receive(socket, &type));
-	assert(!receive(socket, price));
+        assert(!receive(socket, price));
 
         uint64_t receiveTs = now_micros();
         uint64_t latencyMicros = receiveTs - ts;
         
-	LOG(INFO) << messages << ' ' 
-		  << symbol << ' '
-		  << ts << ' '
-		  << type << ' ' 
-		  << price
+        LOG(INFO) << messages << ' ' 
+                  << symbol << ' '
+                  << type << ' ' 
+                  << ts << ' '
+                  << price
                   << " (" << latencyMicros << ")"
-		  << endl;
+                  << endl;
 
       } else if (FLAGS_dumpmessage) {
 
-	cout << "--------------------------------" << endl;
-	while (1) {
-	  //  Process all parts of the message
-	  zmq::message_t message;
-	  socket.recv(&message);
+        cout << "--------------------------------" << endl;
+        while (1) {
+          //  Process all parts of the message
+          zmq::message_t message;
+          socket.recv(&message);
 
-	  //  Dump the message as text or binary
-	  std::string data(static_cast<char*>(message.data()));
-	  int size = message.size();
+          //  Dump the message as text or binary
+          std::string data(static_cast<char*>(message.data()));
+          int size = message.size();
 
-	  bool is_text = true;
-	  int char_nbr;
-	  unsigned char byte;
-	  for (char_nbr = 0; char_nbr < size; char_nbr++) {
+          bool is_text = true;
+          int char_nbr;
+          unsigned char byte;
+          for (char_nbr = 0; char_nbr < size; char_nbr++) {
             byte = data [char_nbr];
             if (byte < 32 || byte > 127)
               is_text = false;
-	  }
-	  printf ("[%03d] ", size);
+          }
+          printf ("[%03d] ", size);
 
-	  for (char_nbr = 0; char_nbr < size; char_nbr++) {
+          for (char_nbr = 0; char_nbr < size; char_nbr++) {
             if (is_text)
-	      printf ("%c", data [char_nbr]);
+              printf ("%c", data [char_nbr]);
             else
-	      printf ("%02X", (unsigned char) data [char_nbr]);
-	  }
-	  printf ("\n");
+              printf ("%02X", (unsigned char) data [char_nbr]);
+          }
+          printf ("\n");
 
-	  int64_t more;           //  Multipart detection
-	  size_t more_size = sizeof (more);
-	  socket.getsockopt(ZMQ_RCVMORE, &more, &more_size);
+          int64_t more;           //  Multipart detection
+          size_t more_size = sizeof (more);
+          socket.getsockopt(ZMQ_RCVMORE, &more, &more_size);
 
-	  if (!more)
+          if (!more)
             break;      //  Last message part
-	}
+        }
       } else if (FLAGS_testmessage) {
 
         // message format = constant 'TEST'
@@ -373,26 +373,26 @@ class Subscriber {
 
         // message format = string
 
-	zmq::message_t event;
-	socket.recv(&event);
+        zmq::message_t event;
+        socket.recv(&event);
 
         string symbol;
-	string type;
+        string type;
         uint64_t ts;
         double price;
 
         VLOG(5) << "Received: " << event.data() << endl;
         istringstream iss(static_cast<char*>(event.data()));
-        iss >> symbol >> ts >> type >> price;
+        iss >> symbol >> type >> ts >> price;
 
         uint64_t receiveTs = now_micros();
         uint64_t latencyMicros = receiveTs - ts;
 
         LOG(INFO) << messages 
-		  << ' ' << ts 
-		  << ' ' << symbol 
-		  << ' ' << type
-		  << ' ' << price
+                  << ' ' << symbol 
+                  << ' ' << type
+                  << ' ' << ts 
+                  << ' ' << price
                   << " (" << latencyMicros << ")"
                   << endl;
       }
@@ -423,7 +423,7 @@ int main(int argc, char** argv)
   switch (FLAGS_test) {
 
     /////////////////////////////////////
-    // Hello World!  
+    // Hello World!
     case 0 :
       if (FLAGS_server) {
         HelloServer server(&context);

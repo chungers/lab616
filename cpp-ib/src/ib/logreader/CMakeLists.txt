@@ -13,5 +13,6 @@ set(logreader_main_libs
   gflags
   glog
   tcmalloc
+  zmq
 )
 cpp_executable(logreader_main)
