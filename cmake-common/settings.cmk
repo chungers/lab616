@@ -15,6 +15,7 @@ message(STATUS "CMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}")
 # Root of source and tests
 set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
 set(TEST_DIR ${PROJECT_SOURCE_DIR}/test)
+set(PROTOTYPE_DIR ${PROJECT_SOURCE_DIR}/prototype)
 
 # Build directory contains the output of builds.
 set(BUILD_DIR ${PROJECT_SOURCE_DIR}/_build)
