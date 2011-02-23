@@ -29,7 +29,6 @@ set(LIBSIGC_PATH "/usr/local/include/sigc++-2.0")
 set(THIRD_PARTY_PATH ${PROJECT_SOURCE_DIR}/../third_party/cpp)
 set(LIBFASTFLOW_PATH ${PROJECT_SOURCE_DIR}/../third_party/cpp/fastflow)
 
-
 list(APPEND emacs_sys_includes
   ${LIBSIGC_PATH}
   ${THIRD_PARTY_PATH}
@@ -47,6 +46,7 @@ set(API_ROOT ${SRC_DIR}/ib/api/${IBAPI_VERSION})
 add_subdirectory(src)
 add_subdirectory(test/ib/mocks)
 add_subdirectory(test/ib)
+add_subdirectory(prototype)
 
 
 
