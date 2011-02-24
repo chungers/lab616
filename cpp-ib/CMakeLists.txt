@@ -8,9 +8,13 @@ project(IB)
 
 option(OPTIMIZE "Compiler optimization" ON)
 #set(OPTIMIZE_LEVEL 2)
+# -O2 -fomit-frame-pointer for prod (no profiling)
 
 # Build for debugging and profiling
-set(CFLAGS "-pg -g")
+# See http://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html
+#
+set(CFLAGS "-pg -g -W")
+
 
 # Macros to include
 include(${PROJECT_SOURCE_DIR}/../cmake-common/Init.cmk)

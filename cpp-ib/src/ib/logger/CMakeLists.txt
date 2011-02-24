@@ -1,18 +1,20 @@
 # //cpp-ib/src/ib/logger
 
 ######################
-set(logger_main_incs
+set(logger_incs
   ${GEN_DIR}
   ${SRC_DIR}
 )
-set(logger_main_srcs
+set(logger_srcs
   logger_main.cpp
 )
-set(logger_main_libs
+set(logger_libs
   v964_adapter
   boost_thread
   gflags
   glog
   tcmalloc
 )
-cpp_executable(logger_main)
+cpp_executable(logger)
+set_target_properties(logger PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${BUILD_DIR}")
