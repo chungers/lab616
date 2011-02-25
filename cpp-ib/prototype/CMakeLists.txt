@@ -56,3 +56,25 @@ set_target_properties(mongoose_prototype PROPERTIES
 set_target_properties(mongoose_prototype PROPERTIES
   LINK_FLAGS "-ldl -pthread")
 
+
+#########################################
+# Prototype: NTP Client
+set(ntpclient_incs
+  ${GEN_DIR}
+  ${SRC_DIR}
+  ${PROTOTYPE_DIR}
+  ${THIRD_PARTY_PATH}
+)
+set(ntpclient_srcs
+  NtpClientMain.cpp
+)
+set(ntpclient_libs
+  boost_system
+  boost_date_time
+  gflags
+  glog
+)
+cpp_executable(ntpclient)
+set_target_properties(ntpclient PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${BUILD_DIR}")
+
