@@ -46,6 +46,8 @@ macro(cpp_executable target)
   target_link_libraries(${target} ${${target}_libs})
   add_custom_target(${target}_lint 
     ${CPPLINT} ${${target}}_incs ${${target}_srcs})
+  set_target_properties(${target} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${BUILD_DIR}")
   install(TARGETS ${target} DESTINATION ${BUILD_DIR}/bin)
 endmacro(cpp_executable)
 
