@@ -21,9 +21,8 @@ using namespace std;
 using namespace boost;
 using namespace lab616::utils;
 
-DEFINE_bool(server, false, "Start server.");
-DEFINE_string(endpoint, "tcp://*:5555", "End point string.");
-DEFINE_string(symbol, "AAPL", "Symbol to subscribe (for --test=1 pubsub test subscriber.");
+DEFINE_string(endpoint, "tcp://localhost:5555", "Publisher end point.");
+DEFINE_string(symbol, "AAPL", "Symbol to subscribe");
 DEFINE_bool(dumpmessage, false, "True to dump message.");
 
 struct Instrument;
@@ -164,8 +163,65 @@ class Subscriber {
 
 
 
+static const char *mongoose_options[] = {
+  "document_root", ".",
+  "listening_ports", "8080",
+  "num_threads", "3",
+  NULL
+};
+
+static void get_qsvar(const struct mg_request_info *request_info,
+                      const char *name, char *dst, size_t dst_len) {
+  const char *qs = request_info->query_string;
+  mg_get_var(qs, strlen(qs == NULL ? "" : qs), name, dst, dst_len);
+}
+
+static const char * HTTP_200 =
+  "HTTP/1.1 200 OK\r\n"
+  "Cache: no-cache\r\n"
+  "Content-Type: application/x-javascript\r\n"
+  "\r\n";
 
 
+static void *event_handler(enum mg_event event,
+                           struct mg_connection *conn,
+                           const struct mg_request_info *request_info) {
+  char buff[] = "yes";
+  void *processed = reinterpret_cast<void *>(buff);
+
+  LOG(INFO) << "Request uri = " << request_info->uri
+            << " query string = " << request_info->query_string
+            << endl;
+
+  if (event == MG_NEW_REQUEST) {
+    if (strcmp(request_info->uri, "/echo") == 0) {
+      char message[256];
+      // Fetch parameter
+      get_qsvar(request_info, "message", message, sizeof(message));
+
+      VLOG(20) << "Echo request: " << message << endl;
+
+      mg_printf(conn, "%s", HTTP_200);
+      mg_printf(conn, "{ \"message\" : \"%s\" }\n", message);
+
+    } else if (strcmp(request_info->uri, "/varz") == 0) {
+
+      VLOG(20) << "varz request" << endl;
+
+      mg_printf(conn, "%s", HTTP_200);
+      mg_printf(conn, "%s\n", "{ \"hello\" : \"world\" }");
+
+    } else {
+      // No suitable handler found, mark as not processed. Mongoose will
+      // try to serve the request.
+      processed = NULL;
+    }
+  } else {
+    processed = NULL;
+  }
+
+  return processed;
+}
 
 ////////////////////////////////////////////////////////////////////////////
 // Logging command-line flags: --logtostderr --v=1
@@ -174,12 +230,22 @@ int main(int argc, char** argv)
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 
-  zmq::context_t context(1);
+  // Start Httpd
+  struct mg_context *ctx;
+  ctx = mg_start(&event_handler, mongoose_options);
+  assert(ctx != NULL);
 
+  LOG(INFO) << "httpd started." << endl;
+
+  // ZMQ Subscriber
+  zmq::context_t context(1);
   Subscriber subscriber(&context);
   subscriber.Run();
 
-  // Start Httpd
+  LOG(INFO) << "Stopping httpd." << endl;
+
+  // Stop httpd
+  mg_stop(ctx);
 
   return 0;
 }
