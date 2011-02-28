@@ -78,3 +78,26 @@ cpp_executable(ntpclient)
 set_target_properties(ntpclient PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${BUILD_DIR}")
 
+
+#########################################
+# Prototype: VARZ
+set(varz_incs
+  ${GEN_DIR}
+  ${SRC_DIR}
+  ${PROTOTYPE_DIR}
+  ${THIRD_PARTY_PATH}
+)
+set(varz_srcs
+  varz.cpp
+  varz_test.cpp
+  VarzMain.cpp
+)
+set(varz_libs
+  boost_system
+  boost_date_time
+  gflags
+  glog
+)
+cpp_executable(varz)
+
+
