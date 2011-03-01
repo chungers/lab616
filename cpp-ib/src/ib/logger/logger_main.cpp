@@ -239,6 +239,7 @@ int main(int argc, char** argv)
     signal(SIGTERM, SIG_IGN);
   }
 
+  google::SetUsageMessage("IB API client and logwriter of market data..");
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 

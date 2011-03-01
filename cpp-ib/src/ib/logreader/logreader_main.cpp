@@ -207,6 +207,7 @@ inline static bool ParseMap(const string& token, map<string, string>& nv) {
 //
 int  main(int argc, char** argv)
 {
+  google::SetUsageMessage("Logreader: reads and publishes market data from logfile.");
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 
