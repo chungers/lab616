@@ -32,7 +32,7 @@ using namespace std;
 
 DEFINE_string(file, "logfile", "The name of the log file.");
 DEFINE_string(endpoint, "tcp://*:5555", "End point string.");
-DEFINE_bool(publish, false, "True to publish at given endpoint.");
+DEFINE_bool(publish, true, "True to publish at given endpoint.");
 DEFINE_int32(playback, 1, "X times actual speed in log. 2 for 2X. 0 to scan.");
 DEFINE_int32(starthour, 9, "Hour EST to start.");
 
@@ -239,6 +239,7 @@ int  main(int argc, char** argv)
   MarketData* last = NULL;
   MarketData* curr = NULL;
   lab616::messaging::Message* publish = NULL;
+  int lines = 0;
 
   while (infile >> token) {
     // The tokens are space separated
@@ -269,6 +270,13 @@ int  main(int argc, char** argv)
 
             bool filtered_hour = hour_of_day(last->ts) >= FLAGS_starthour;
 
+            if (lines++ % 1000 == 0) {
+             LOG(INFO) << "["
+                       << hour_of_day(last->ts) << ":"
+                       << minute_of_hour(last->ts) << ":"
+                       << second_of_minute(last->ts)
+                       << "]";
+             }
             if (FLAGS_playback > 0 && filtered_hour) {
               lab616::utils::sleep_micros(sleep / FLAGS_playback);
 
