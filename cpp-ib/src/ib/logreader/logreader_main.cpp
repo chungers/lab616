@@ -35,6 +35,7 @@ DEFINE_string(endpoint, "tcp://*:5555", "End point string.");
 DEFINE_bool(publish, true, "True to publish at given endpoint.");
 DEFINE_int32(playback, 1, "X times actual speed in log. 2 for 2X. 0 to scan.");
 DEFINE_int32(starthour, 9, "Hour EST to start.");
+DEFINE_int32(startmin, 30, "Minute EST to start.");
 
 const char* NUMERIC_EVENTS[] = { "tickPrice", "tickSize", "tickGeneric" };
 
@@ -240,7 +241,7 @@ int  main(int argc, char** argv)
   MarketData* curr = NULL;
   lab616::messaging::Message* publish = NULL;
   int lines = 0;
-
+  uint64_t filtered_start_ts = lab616::utils::now_micros();
   while (infile >> token) {
     // The tokens are space separated
     if (token.find(',') != string::npos) {
@@ -269,6 +270,10 @@ int  main(int argc, char** argv)
             int sleep = curr->ts - last->ts - dt;
 
             bool filtered_hour = hour_of_day(last->ts) >= FLAGS_starthour;
+            bool filtered_min = minute_of_hour(last->ts) >= FLAGS_startmin;
+            if (filtered_hour && filtered_min && filtered_start_ts > last->ts) {
+              filtered_start_ts = last->ts;
+            }
 
             if (lines++ % 1000 == 0) {
              LOG(INFO) << "["
@@ -277,7 +282,7 @@ int  main(int argc, char** argv)
                        << second_of_minute(last->ts)
                        << "]";
              }
-            if (FLAGS_playback > 0 && filtered_hour) {
+            if (FLAGS_playback > 0 && last->ts > filtered_start_ts) {
               lab616::utils::sleep_micros(sleep / FLAGS_playback);
 
               publish->send(*socket);
