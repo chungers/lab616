@@ -1,7 +1,3 @@
-#include "common.hpp">
-#include "utils.hpp"
-#include "mongoose/mongoose.h"
-
 #include <iostream>
 #include <map>
 #include <stdio.h>
@@ -17,6 +13,13 @@
 #include <glog/logging.h>
 #include <zmq.hpp>
 
+#include "mongoose/mongoose.h"
+
+#include "common.hpp">
+#include "utils.hpp"
+#include "varz.hpp"
+
+
 using namespace std;
 using namespace boost;
 using namespace lab616::utils;
@@ -24,6 +27,14 @@ using namespace lab616::utils;
 DEFINE_string(endpoint, "tcp://localhost:5555", "Publisher end point.");
 DEFINE_string(symbol, "AAPL", "Symbol to subscribe");
 DEFINE_bool(dumpmessage, false, "True to dump message.");
+
+DEFINE_VARZ_int64(last_sample_micros, now_micros(), "Last sample timestamp.");
+DEFINE_VARZ_int64(now_sample_micros, now_micros(), "Current time in micros.");
+DEFINE_VARZ_int64(dt_sample_micros, 0, "Duration from last sample to now.");
+DEFINE_VARZ_double(sample_message_rate, 0., "Sampled message rate.");
+DEFINE_VARZ_int32(last_sample_messages, 0, "Number of messages @ last sample.");
+DEFINE_VARZ_int32(messages, 0, "Number of messages.");
+DEFINE_VARZ_double(message_rate, 0., "Message rate");
 
 struct Instrument;
 static map<int, Instrument*> TICKERS;
@@ -87,10 +98,12 @@ class Subscriber {
     LOG(INFO) << "Subscriber listening." << endl;
 
     bool loop = true;
-    int messages = 0;
-    while (loop) {
 
-      messages++;
+    uint64_t last_ts = now_micros();
+    int last_messages = 0;
+    int messages = 0;
+
+    while (loop) {
 
       if (FLAGS_dumpmessage) {
 
@@ -153,6 +166,17 @@ class Subscriber {
                   << " (" << latencyMicros << ")"
                   << endl;
       }
+
+      messages++;
+
+      uint64_t now = now_micros();
+      uint64_t duration = now - last_ts;
+      double durationSeconds = ((double) duration) / 1000000.;
+
+      VARZ_messages = messages;
+      VARZ_message_rate = (messages - last_messages) / durationSeconds;
+//      last_ts = now;
+//      last_messages = messages;
     }
   }
 
@@ -164,7 +188,7 @@ class Subscriber {
 
 
 static const char *mongoose_options[] = {
-  "document_root", ".",
+  "document_root", "www",
   "listening_ports", "8080",
   "num_threads", "3",
   NULL
@@ -179,13 +203,14 @@ static void get_qsvar(const struct mg_request_info *request_info,
 static const char * HTTP_200 =
   "HTTP/1.1 200 OK\r\n"
   "Cache: no-cache\r\n"
-  "Content-Type: application/x-javascript\r\n"
+  "Content-Type: application/json; charset=utf-8\r\n"
   "\r\n";
 
 
 static void *event_handler(enum mg_event event,
                            struct mg_connection *conn,
                            const struct mg_request_info *request_info) {
+  using namespace lab616::utils;
   char buff[] = "yes";
   void *processed = reinterpret_cast<void *>(buff);
 
@@ -194,6 +219,18 @@ static void *event_handler(enum mg_event event,
             << endl;
 
   if (event == MG_NEW_REQUEST) {
+
+    // Compute the message rate based on external sampling.
+    uint64_t now = now_micros();
+    uint64_t dt = now - VARZ_last_sample_micros;
+    int messages = VARZ_messages;
+
+    VARZ_now_sample_micros = now;
+    VARZ_dt_sample_micros = dt;
+    VARZ_sample_message_rate =
+          (double) (messages - VARZ_last_sample_messages) /
+          ((double) dt / 1000000.);
+
     if (strcmp(request_info->uri, "/echo") == 0) {
       char message[256];
       // Fetch parameter
@@ -207,15 +244,31 @@ static void *event_handler(enum mg_event event,
     } else if (strcmp(request_info->uri, "/varz") == 0) {
 
       VLOG(20) << "varz request" << endl;
-
       mg_printf(conn, "%s", HTTP_200);
-      mg_printf(conn, "%s\n", "{ \"hello\" : \"world\" }");
+      mg_printf(conn, "%s", "{");
+
+      vector<lab616::VarzInfo> varzs;
+      lab616::GetAllVarzs(&varzs);
+      int i = 0;
+      for (vector<lab616::VarzInfo>::iterator varz = varzs.begin();
+           varz != varzs.end();
+           ++varz) {
+        mg_printf(conn, "%s\"%s\" : \"%s\"",
+                  ((i++ == 0) ? "\n" : ",\n"),
+                  varz->name.c_str(), varz->current_value.c_str());
+      }
+
+      mg_printf(conn, "\n%s\n", "}");
 
     } else {
       // No suitable handler found, mark as not processed. Mongoose will
       // try to serve the request.
       processed = NULL;
     }
+
+    VARZ_last_sample_micros = now;
+    VARZ_last_sample_messages = messages;
+
   } else {
     processed = NULL;
   }
@@ -227,6 +280,7 @@ static void *event_handler(enum mg_event event,
 // Logging command-line flags: --logtostderr --v=1
 int main(int argc, char** argv)
 {
+  google::SetUsageMessage("Prototype for the mongoose httpd.");
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 

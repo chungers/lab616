@@ -37,6 +37,7 @@ set(mongoose_prototype_incs
   ${THIRD_PARTY_PATH}
 )
 set(mongoose_prototype_srcs
+  varz.cpp
   mongoose_prototype.cpp
   ${THIRD_PARTY_PATH}/mongoose/mongoose.c
 )

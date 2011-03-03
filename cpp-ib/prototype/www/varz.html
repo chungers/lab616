@@ -12,43 +12,42 @@
     <div id="div_g" style="width:800px; height:400px;"></div>
 
     <script type="text/javascript">
+      var REFRESH_RATE = 60 * 1000;  // msec
       var data = [];
 
       // populate at least one data point in the past.
       var t = new Date();
       var x = new Date(t.getTime() - 1 * 1000);
-      data.push([x, 0.]);
-
-      // start for tracking the duration
-      var start = t.getTime();
-      var messageInit = 0;
+      data.push([x, 0., 0.]);
 
       var g = new Dygraph(document.getElementById("div_g"), data,
                           {
                             drawPoints: true,
                             showRoller: true,
-                            valueRange: [0.0, 5.0],
-                            labels: ['Time', 'message_rate']
+                            valueRange: [0.0, 10.0],
+                            labels: ['Time', 'sample_message_rate', 'message_rate']
                           });
       setInterval(function() {
 
       // Sample the varz here.
-      var x = new Date();  // current time
-      var duration = x.getTime() - start;
-
       var varz_json = $.ajax(
       { url: "http://localhost:8080/varz", crossDomain: true,
         async: false, dataType : 'json' }).responseText;
 
       var varz = $.parseJSON(varz_json);
+      var now_millis = varz.now_sample_micros / 1000.;
+      var x = new Date(now_millis); // time from server
+      var y1 = varz.sample_message_rate;
+      var y2 = varz.message_rate;
 
-      if (messageInit == 0) messageInit = varz.messages;
-
-      var y = (varz.messages - messageInit) / duration * 1000.;
-
-      data.push([x, y]);
+      data.push([x, y1, y2]);
       g.updateOptions( { 'file': data } );
-      }, 5 * 1000); // in seconds
+
+      // Update for next sample:
+      last_t = now_millis;
+      last_messages = varz.messages;
+
+      }, REFRESH_RATE);
 
     </script>
 
