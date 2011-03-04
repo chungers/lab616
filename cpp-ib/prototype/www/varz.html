@@ -1,68 +1,101 @@
 <html>
   <head>
     <title>Message Rate VARZ</title>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/strftime-min.js"></script>
     <script type="text/javascript" src="js/rgbcolor.js"></script>
     <script type="text/javascript" src="js/dygraph-canvas.js"></script>
     <script type="text/javascript" src="js/dygraph.js"></script>
+    <script type="text/javascript" src="js/varz.js"></script>
   </head>
   <body>
-    <h3 style="width:800px; text-align: center;">Message Rate VARZ</h3>
-    <div id="div_g" style="width:800px; height:400px;"></div>
 
+    <div style="width:600px; float:left">
+      <h3 style="text-align: center;">Average Message Rate VARZ</h3>
+      <div id="div_g" style="width:600px; height:300px"></div>
+    </div>
+    <div style="width:600px; float:right">
+      <h3 style="text-align: center;">Message Rate VARZ</h3>
+      <div id="div_g2" style="width:600px; height:300px;"></div>
+    </div>
     <script type="text/javascript">
+      //console.debug = function() {}; // redefines function to disable logging.
       var sample_seconds = 5;
-      var rollPeriod = 6;
+      var labels = ['Time', 'message_rate'];
+
+      var initial = {
+        ts : 0,
+        messages : 0,
+        y1 : 0.,
+        y2 : 0.,
+      };
+      var varzSample = new Varz("http://localhost:8080/varz", initial,
+      function(lastVarz, varz) {
+        if (lastVarz == initial) {
+          return {
+            ts: varz.data_ts / 1000,
+            messages: varz.messages,
+            y1: varz.message_rate,
+            y2: 0.,
+          };
+        } else {
+          var ts_millis = varz.data_ts / 1000;
+          var d_messages = varz.messages - lastVarz.messages;
+          var d_t = (ts_millis - lastVarz.ts) / 1000; // seconds
+
+          console.debug("d_messages = " + d_messages + ", dt = " + d_t,
+                        ", messages = " + varz.messages +
+                        ", last = " + lastVarz.messages);
+          return {
+            ts: ts_millis,
+            messages: varz.messages,
+            y1: varz.message_rate,
+            y2: d_messages / d_t,
+          };
+        }
+      });
+
+      varzSample.sample();
+      var plotData = varzSample.plotData('ts', ['y1', 'y2']);
+      console.debug('VARZ = ' + plotData);
+
       var data = [];
+      var data2 = [];
+      data.push([plotData[0], plotData[1]]);
+      data2.push([plotData[0], plotData[2]]);
 
-      // populate at least one data point in the past.
-      var last_millis = (new Date()).getTime();
-      var last_messages = 0;
-
-      var x0 = new Date(last_millis - sample_seconds * 1000);
-      data.push([x0, 0., 0.]);
-
+      // Shows the average message_rate from server
       var g = new Dygraph(document.getElementById("div_g"), data,
       {
-      'drawPoints': true,
-      'showRoller': true,
-      'rollPeriod': rollPeriod,
-      //'valueRange': [0.0, 20.0],
-      'labels': ['Time', 'sample_message_rate', 'message_rate']
+        drawPoints: false,
+        showRoller: false,
+        rollPeriod: 1,
+        labels: labels,
+        //valueRange: [0.0, 10.],
       });
+
+      // Shows the computed message_rate as sampled by varzSampler.
+      var g2 = new Dygraph(document.getElementById("div_g2"), data2,
+      {
+        drawPoints: false,
+        showRoller: true,
+        rollPeriod: 12,
+        labels: labels,
+      });
+
+      // Set the interval timer
       setInterval(function() {
 
       // Sample the varz here.
-      var varz_json = $.ajax(
-      { url: "http://localhost:8080/varz", crossDomain: true,
-        async: false, dataType : 'json' }).responseText;
+      varzSample.sample();
+      var new_data = varzSample.plotData('ts', ['y1', 'y2']);
+      console.debug(new Date() + ", data = " + new_data);
 
-      var varz = $.parseJSON(varz_json);
+      data.push([new_data[0], new_data[1]]);
+      data2.push([new_data[0], new_data[2]]);
 
-      var now_millis = (new Date()).getTime();
-      var messages = varz.messages;
-      var d_messages = messages - last_messages;
-      var dt = (now_millis - last_millis) / 1000.;
-
-      var y1 = d_messages / dt;
-      var y2 = varz.message_rate;
-
-      var new_data = [new Date(now_millis), y1, y2];
-
-      console.log("dt = " + dt + ", sample_seconds = " + sample_seconds +
-      ", d_messages = " + d_messages + ", messages = " + messages +
-      ", y1 = " + y1 + ", y2 = " + y2);
-
-      if (last_messages > 0) {
-        // Make sure dt is within 80% of the sample interval.
-        data.push(new_data);
-        g.updateOptions( { 'file': data } );
-      }
-
-      // Update for next sample:
-      last_millis = now_millis;
-      last_messages = messages;
+      g.updateOptions( { labels: labels, file: data } );
+      g2.updateOptions( { labels: labels, file: data2 } );
 
       }, sample_seconds * 1000.);
 

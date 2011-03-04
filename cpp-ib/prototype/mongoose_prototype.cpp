@@ -28,7 +28,9 @@ DEFINE_string(endpoint, "tcp://localhost:5555", "Publisher end point.");
 DEFINE_string(symbol, "AAPL", "Symbol to subscribe");
 DEFINE_bool(dumpmessage, false, "True to dump message.");
 
-DEFINE_VARZ_int64(start_ts, now_micros(), "Start timestamp in micros.");
+DEFINE_VARZ_int64(start_ts, now_micros(), "Start real timestamp in micros.");
+DEFINE_VARZ_int64(data_start, 0, "Start event timestamp in micros.");
+DEFINE_VARZ_int64(data_ts, 0, "Event timestamp.");
 DEFINE_VARZ_int32(messages, 0, "Number of messages.");
 DEFINE_VARZ_double(message_rate, 0., "Message rate");
 
@@ -94,9 +96,7 @@ class Subscriber {
     LOG(INFO) << "Subscriber listening." << endl;
 
     bool loop = true;
-
-    uint64_t last_ts = now_micros();
-    int last_messages = 0;
+    uint64_t ts = 0;
     int messages = 0;
 
     while (loop) {
@@ -141,7 +141,6 @@ class Subscriber {
       } else {
 
         // message format = binary frames
-        uint64_t ts = 0;
         string symbol;
         string type;
         double price;
@@ -165,13 +164,16 @@ class Subscriber {
 
       messages++;
 
-      uint64_t now = now_micros();
-      double duration = (double) (now - VARZ_start_ts);
-      double durationSeconds = duration / 1000000.;
-
+      VARZ_data_ts = ts;
       VARZ_messages = messages;
-      VARZ_message_rate = (messages - last_messages) / durationSeconds;
 
+      if (VARZ_data_start == 0) {
+        VARZ_data_start = ts; // set once only.
+      } else {
+        double duration = (double) (ts - VARZ_data_start);
+        double durationSeconds = duration / 1000000.;
+        VARZ_message_rate = messages / durationSeconds;
+      }
     }
   }
 
