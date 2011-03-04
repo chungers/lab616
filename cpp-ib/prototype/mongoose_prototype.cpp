@@ -28,11 +28,7 @@ DEFINE_string(endpoint, "tcp://localhost:5555", "Publisher end point.");
 DEFINE_string(symbol, "AAPL", "Symbol to subscribe");
 DEFINE_bool(dumpmessage, false, "True to dump message.");
 
-DEFINE_VARZ_int64(last_sample_micros, now_micros(), "Last sample timestamp.");
-DEFINE_VARZ_int64(now_sample_micros, now_micros(), "Current time in micros.");
-DEFINE_VARZ_int64(dt_sample_micros, 0, "Duration from last sample to now.");
-DEFINE_VARZ_double(sample_message_rate, 0., "Sampled message rate.");
-DEFINE_VARZ_int32(last_sample_messages, 0, "Number of messages @ last sample.");
+DEFINE_VARZ_int64(start_ts, now_micros(), "Start timestamp in micros.");
 DEFINE_VARZ_int32(messages, 0, "Number of messages.");
 DEFINE_VARZ_double(message_rate, 0., "Message rate");
 
@@ -170,13 +166,12 @@ class Subscriber {
       messages++;
 
       uint64_t now = now_micros();
-      uint64_t duration = now - last_ts;
-      double durationSeconds = ((double) duration) / 1000000.;
+      double duration = (double) (now - VARZ_start_ts);
+      double durationSeconds = duration / 1000000.;
 
       VARZ_messages = messages;
       VARZ_message_rate = (messages - last_messages) / durationSeconds;
-//      last_ts = now;
-//      last_messages = messages;
+
     }
   }
 
@@ -220,17 +215,6 @@ static void *event_handler(enum mg_event event,
 
   if (event == MG_NEW_REQUEST) {
 
-    // Compute the message rate based on external sampling.
-    uint64_t now = now_micros();
-    uint64_t dt = now - VARZ_last_sample_micros;
-    int messages = VARZ_messages;
-
-    VARZ_now_sample_micros = now;
-    VARZ_dt_sample_micros = dt;
-    VARZ_sample_message_rate =
-          (double) (messages - VARZ_last_sample_messages) /
-          ((double) dt / 1000000.);
-
     if (strcmp(request_info->uri, "/echo") == 0) {
       char message[256];
       // Fetch parameter
@@ -265,9 +249,6 @@ static void *event_handler(enum mg_event event,
       // try to serve the request.
       processed = NULL;
     }
-
-    VARZ_last_sample_micros = now;
-    VARZ_last_sample_messages = messages;
 
   } else {
     processed = NULL;

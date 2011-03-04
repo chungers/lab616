@@ -12,21 +12,25 @@
     <div id="div_g" style="width:800px; height:400px;"></div>
 
     <script type="text/javascript">
-      var REFRESH_RATE = 60 * 1000;  // msec
+      var sample_seconds = 5;
+      var rollPeriod = 6;
       var data = [];
 
       // populate at least one data point in the past.
-      var t = new Date();
-      var x = new Date(t.getTime() - 1 * 1000);
-      data.push([x, 0., 0.]);
+      var last_millis = (new Date()).getTime();
+      var last_messages = 0;
+
+      var x0 = new Date(last_millis - sample_seconds * 1000);
+      data.push([x0, 0., 0.]);
 
       var g = new Dygraph(document.getElementById("div_g"), data,
-                          {
-                            drawPoints: true,
-                            showRoller: true,
-                            valueRange: [0.0, 10.0],
-                            labels: ['Time', 'sample_message_rate', 'message_rate']
-                          });
+      {
+      'drawPoints': true,
+      'showRoller': true,
+      'rollPeriod': rollPeriod,
+      //'valueRange': [0.0, 20.0],
+      'labels': ['Time', 'sample_message_rate', 'message_rate']
+      });
       setInterval(function() {
 
       // Sample the varz here.
@@ -35,25 +39,33 @@
         async: false, dataType : 'json' }).responseText;
 
       var varz = $.parseJSON(varz_json);
-      var now_millis = varz.now_sample_micros / 1000.;
-      var x = new Date(now_millis); // time from server
-      var y1 = varz.sample_message_rate;
+
+      var now_millis = (new Date()).getTime();
+      var messages = varz.messages;
+      var d_messages = messages - last_messages;
+      var dt = (now_millis - last_millis) / 1000.;
+
+      var y1 = d_messages / dt;
       var y2 = varz.message_rate;
 
-      data.push([x, y1, y2]);
-      g.updateOptions( { 'file': data } );
+      var new_data = [new Date(now_millis), y1, y2];
+
+      console.log("dt = " + dt + ", sample_seconds = " + sample_seconds +
+      ", d_messages = " + d_messages + ", messages = " + messages +
+      ", y1 = " + y1 + ", y2 = " + y2);
+
+      if (last_messages > 0) {
+        // Make sure dt is within 80% of the sample interval.
+        data.push(new_data);
+        g.updateOptions( { 'file': data } );
+      }
 
       // Update for next sample:
-      last_t = now_millis;
-      last_messages = varz.messages;
+      last_millis = now_millis;
+      last_messages = messages;
 
-      }, REFRESH_RATE);
+      }, sample_seconds * 1000.);
 
     </script>
-
-    <p>This test is modeled after a <a
-      href="http://www.highcharts.com/demo/?example=dynamic-update&theme=default">highcharts
-      test</a>. New points should appear once per second. Try zooming and
-    panning over to the right edge to watch them show up.</p>
   </body>
 </html>
