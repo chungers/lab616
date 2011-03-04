@@ -24,9 +24,15 @@ Varz.prototype.sample = function() {
    url: this.varzUrl,
    crossDomain: true,
    async: false, dataType : 'json' }).responseText;
-  var varzResp = $.parseJSON(varz_json);
-  // Call the custom parser to deconstruct the varz into hash:
-  this.varz = this.varzParser(this.last_varz, varzResp);
+
+  if (varz_json != null) {
+    var varzResp = $.parseJSON(varz_json);
+
+    // Call the custom parser to deconstruct the varz into hash:
+    this.varz = this.varzParser(this.last_varz, varzResp);
+  } else {
+    console.debug('No data!');
+  }
 };
 
 Varz.prototype.plotData = function(time_key, key_array) {

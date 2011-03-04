@@ -42,7 +42,7 @@
           var ts_millis = varz.data_ts / 1000;
           var d_messages = varz.messages - lastVarz.messages;
           var d_t = (ts_millis - lastVarz.ts) / 1000; // seconds
-
+          var rate = (d_t > 0) ? d_messages / d_t : 0;
           console.debug("d_messages = " + d_messages + ", dt = " + d_t,
                         ", messages = " + varz.messages +
                         ", last = " + lastVarz.messages);
@@ -50,7 +50,7 @@
             ts: ts_millis,
             messages: varz.messages,
             y1: varz.message_rate,
-            y2: d_messages / d_t,
+            y2: rate
           };
         }
       });
