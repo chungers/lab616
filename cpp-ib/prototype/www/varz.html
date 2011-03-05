@@ -47,16 +47,12 @@
                         ", messages = " + varz.messages +
                         ", last = " + lastVarz.messages);
 
-          if (d_t == 0) {
-            return null;
-          } else {
-            return {
-              ts: ts_millis,
-              messages: varz.messages,
-              y1: varz.message_rate,
-              y2: rate
-            };
-          }
+          return {
+            ts: ts_millis,
+            messages: varz.messages,
+            y1: varz.message_rate,
+            y2: rate
+          };
         }
       });
 
@@ -67,6 +63,11 @@
       }
       var plotData = varzSample.plotData('ts', ['y1', 'y2']);
       console.debug('VARZ = ' + plotData);
+
+      // from the first time point, compute the offset with
+      // the current time:
+      var now = new Date();
+      var offset = now.getTime() - plotData[0].getTime();
 
       var data = [];
       var data2 = [];
@@ -102,8 +103,18 @@
         var new_data = varzSample.plotData('ts', ['y1', 'y2']);
         console.debug(new Date() + ", data = " + new_data);
 
-        data.push([new_data[0], new_data[1]]);
-        data2.push([new_data[0], new_data[2]]);
+        // Use a different time -- the time is based on the
+        // the browser client's time, with an offset computed
+        // to match the incoming data's original time.  However,
+        // we allow this time to continue to advance, even when the
+        // server has no data any more.  This is so that we can
+        // observe a sharp drop in the data rate -- which will be
+        // useful to detect the case when the data feed is down.
+
+        var time = new Date((new Date()).getTime() - offset);
+
+        data.push([ time, new_data[1]]);
+        data2.push([ time, new_data[2]]);
 
         g.updateOptions( { labels: labels, file: data } );
         g2.updateOptions( { labels: labels, file: data2 } );
