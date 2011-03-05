@@ -197,6 +197,7 @@ static void get_qsvar(const struct mg_request_info *request_info,
   mg_get_var(qs, strlen(qs == NULL ? "" : qs), name, dst, dst_len);
 }
 
+
 static const char * HTTP_200 =
   "HTTP/1.1 200 OK\r\n"
   "Cache: no-cache\r\n"

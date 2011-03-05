@@ -30,8 +30,12 @@ Varz.prototype.sample = function() {
 
     // Call the custom parser to deconstruct the varz into hash:
     this.varz = this.varzParser(this.last_varz, varzResp);
+
+    return (this.varz != null);
   } else {
     console.debug('No data!');
+
+    return false;
   }
 };
 
