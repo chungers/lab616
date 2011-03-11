@@ -11,7 +11,7 @@
   <body>
 
     <div style="width:600px; float:left">
-      <h3 style="text-align: center;">Average Message Rate VARZ</h3>
+      <h3 style="text-align: center;">Bid/Ask/Mid</h3>
       <div id="div_g" style="width:600px; height:300px"></div>
     </div>
     <div style="width:600px; float:right">
@@ -21,13 +21,15 @@
     <script type="text/javascript">
       //console.debug = function() {}; // redefines function to disable logging.
       var sample_seconds = 5;
-      var labels = ['Time', 'message_rate'];
 
       var initial = {
         ts : 0,
         messages : 0,
         y1 : 0.,
         y2 : 0.,
+        bid : 0.,
+        ask : 0.,
+        mid : 0.,
       };
       var varzSample = new Varz("http://localhost:8080/varz", initial,
       function(lastVarz, varz) {
@@ -37,6 +39,9 @@
             messages: varz.messages,
             y1: varz.message_rate,
             y2: 0.,
+            bid : 0.,
+            ask : 0.,
+            mid : 0.,
           };
         } else {
           var ts_millis = varz.data_ts / 1000;
@@ -51,7 +56,10 @@
             ts: ts_millis,
             messages: varz.messages,
             y1: varz.message_rate,
-            y2: rate
+            y2: rate,
+            bid : varz.bid / 100,
+            ask : varz.ask / 100,
+            mid : varz.mid / 100,
           };
         }
       });
@@ -61,7 +69,7 @@
         console.log("No data yet. Waiting.");
         setTimeout(hasData = varzSample.sample(), 1000.);
       }
-      var plotData = varzSample.plotData('ts', ['y1', 'y2']);
+      var plotData = varzSample.plotData('ts', ['bid', 'mid', 'ask', 'y2']);
       console.debug('VARZ = ' + plotData);
 
       // from the first time point, compute the offset with
@@ -71,26 +79,40 @@
 
       var data = [];
       var data2 = [];
-      data.push([plotData[0], plotData[1]]);
-      data2.push([plotData[0], plotData[2]]);
+      var x = plotData[0];
+      var bid = plotData[1];
+      var mid = plotData[2];
+      var ask = plotData[3];
+      var rate = plotData[4];
 
-      // Shows the average message_rate from server
+      var p1 = [x, [bid, mid, ask]];
+      //var p1 = [x, mid];
+      var p2 = [x, rate];
+      console.debug("p1 = " + p1 + ", p2 = " + p2);
+      data.push(p1);
+      data2.push(p2);
+
       var g = new Dygraph(document.getElementById("div_g"), data,
       {
         drawPoints: false,
-        showRoller: false,
-        rollPeriod: 1,
-        labels: labels,
-        //valueRange: [0.0, 10.],
+        //showRoller: false,
+        //rollPeriod: 5,
+        //labels: ['Time', 'Price'], //'bid', 'mid', 'ask'],
+        customBars: true,
+        errorBars: true,
+        //logscale: false,
+        includeZero: false,
+        valueRange: [300.0, 400.],
       });
 
       // Shows the computed message_rate as sampled by varzSampler.
+
       var g2 = new Dygraph(document.getElementById("div_g2"), data2,
       {
         drawPoints: false,
         showRoller: true,
         rollPeriod: 12,
-        labels: labels,
+        labels: ['Time', 'Message Rate'],
       });
 
       // Set the interval timer
@@ -100,8 +122,7 @@
       var hasData = varzSample.sample();
       if (hasData) {
 
-        var new_data = varzSample.plotData('ts', ['y1', 'y2']);
-        console.debug(new Date() + ", data = " + new_data);
+        var plotData = varzSample.plotData('ts', ['bid', 'mid', 'ask', 'y2']);
 
         // Use a different time -- the time is based on the
         // the browser client's time, with an offset computed
@@ -113,11 +134,23 @@
 
         var time = new Date((new Date()).getTime() - offset);
 
-        data.push([ time, new_data[1]]);
-        data2.push([ time, new_data[2]]);
+        var x = plotData[0];
+        var bid = plotData[1];
+        var mid = plotData[2];
+        var ask = plotData[3];
+        var rate = plotData[4];
 
-        g.updateOptions( { labels: labels, file: data } );
-        g2.updateOptions( { labels: labels, file: data2 } );
+        var p1 = [x, [bid, mid, ask]];
+        //var p1 = [x, mid];
+        var p2 = [x, rate];
+
+        console.debug("p1 = " + p1 + ", p2 = " + p2);
+
+        data.push(p1);
+        data2.push(p2);
+
+        g.updateOptions( { file: data } );
+        g2.updateOptions( { file: data2 } );
 
       }
 

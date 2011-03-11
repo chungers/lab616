@@ -34,6 +34,10 @@ DEFINE_VARZ_int64(data_ts, 0, "Event timestamp.");
 DEFINE_VARZ_int32(messages, 0, "Number of messages.");
 DEFINE_VARZ_double(message_rate, 0., "Message rate");
 
+DEFINE_VARZ_int32(bid, 0, "bid");
+DEFINE_VARZ_int32(ask, 0, "ask");
+DEFINE_VARZ_int32(mid, 0, "mid");
+
 struct Instrument;
 static map<int, Instrument*> TICKERS;
 static string TICK_TYPES[] = { "BID", "ASK", "LAST" };
@@ -81,15 +85,9 @@ class Subscriber {
     socket.connect(FLAGS_endpoint.c_str());
     VLOG(1) << "Subscriber connected @ " << FLAGS_endpoint << endl;
 
-    vector<string> symbols;
-    boost::split(symbols, FLAGS_symbol, boost::is_any_of(","));
-
-    vector<string>::iterator itr;
-    for (itr = symbols.begin(); itr != symbols.end(); ++itr) {
-      string sub = *itr;
-      LOG(INFO) << "Adding subscription " << sub << endl;
-      socket.setsockopt(ZMQ_SUBSCRIBE, sub.c_str(), sub.length());
-    }
+    string sub = FLAGS_symbol;
+    socket.setsockopt(ZMQ_SUBSCRIBE, sub.c_str(), sub.length());
+    LOG(INFO) << "Adding subscription " << sub << endl;
   }
 
   void Run() {
@@ -153,6 +151,13 @@ class Subscriber {
         uint64_t receiveTs = now_micros();
         uint64_t latencyMicros = receiveTs - ts;
 
+        if (type.compare("BID") == 0) {
+          VARZ_bid = (int)(price * 100.);
+          VARZ_mid = VARZ_bid + (VARZ_ask - VARZ_bid) / 2;
+        } else if (type.compare("ASK") == 0) {
+          VARZ_ask = (int)(price * 100.);
+          VARZ_mid = VARZ_bid + (VARZ_ask - VARZ_bid) / 2;
+        }
         LOG(INFO) << messages << ' '
                   << symbol << ' '
                   << type << ' '
