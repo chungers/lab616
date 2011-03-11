@@ -21,6 +21,7 @@
     <script type="text/javascript">
       //console.debug = function() {}; // redefines function to disable logging.
       var sample_seconds = 5;
+      var CHARTS = 2;
 
       var initial = {
         ts : 0,
@@ -95,17 +96,15 @@
       var g = new Dygraph(document.getElementById("div_g"), data,
       {
         drawPoints: false,
-        //showRoller: false,
-        //rollPeriod: 5,
-        //labels: ['Time', 'Price'], //'bid', 'mid', 'ask'],
+        labels: ['Time', 'Price'],
         customBars: true,
         errorBars: true,
-        //logscale: false,
         includeZero: false,
-        valueRange: [300.0, 400.],
       });
 
       // Shows the computed message_rate as sampled by varzSampler.
+
+      if (CHARTS > 1) {
 
       var g2 = new Dygraph(document.getElementById("div_g2"), data2,
       {
@@ -113,8 +112,9 @@
         showRoller: true,
         rollPeriod: 12,
         labels: ['Time', 'Message Rate'],
+        includeZero: false,
       });
-
+      }
       // Set the interval timer
       setInterval(function() {
 
@@ -150,8 +150,10 @@
         data2.push(p2);
 
         g.updateOptions( { file: data } );
-        g2.updateOptions( { file: data2 } );
 
+        if (CHARTS > 1) {
+          g2.updateOptions( { file: data2 } );
+        }
       }
 
       }, sample_seconds * 1000.);
