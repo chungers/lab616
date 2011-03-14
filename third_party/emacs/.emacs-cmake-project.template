@@ -73,7 +73,7 @@
   (local-set-key "\C-cv" 'semantic-decoration-include-visit)
 
   ;; C-c p: Toggles between function declaration and actual implementation.
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+  (local-set-key "\C-ci" 'semantic-analyze-proto-impl-toggle)
 
   ;; C-c u: Finds all usage of symbol under cursor.
   (local-set-key "\C-cu" 'semantic-symref-symbol)
