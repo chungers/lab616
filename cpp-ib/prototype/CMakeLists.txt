@@ -101,4 +101,23 @@ set(varz_libs
 )
 cpp_executable(varz)
 
+#########################################
+# Prototype: asio
+set(asio_incs
+  ${GEN_DIR}
+  ${SRC_DIR}
+  ${PROTOTYPE_DIR}
+  ${THIRD_PARTY_PATH}
+)
+set(asio_srcs
+  asio_main.cpp
+)
+set(asio_libs
+  boost_system
+  boost_date_time
+  gflags
+  glog
+)
+cpp_executable(asio)
+
 
