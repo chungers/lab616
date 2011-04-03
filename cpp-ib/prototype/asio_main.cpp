@@ -5,6 +5,7 @@
 #include <string>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
+#include "asio_echo_client.hpp"
 #include "asio_echo_server.hpp"
 #include "asio_http.hpp"
 
@@ -43,6 +44,13 @@ int main(int argc, char* argv[])
       LOG(INFO) << "Starting echo server." << std::endl;
       EchoServer s(io_service, (short)FLAGS_port);
       io_service.run();
+
+    } else if (FLAGS_test.compare("echoClient") == 0) {
+
+      LOG(INFO) << "Starting echo client." << std::endl;
+      EchoClient c(io_service, FLAGS_host, "7777");
+      io_service.run();
+      c.start();
     }
 
   } catch (std::exception& e) {
