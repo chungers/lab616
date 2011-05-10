@@ -12,8 +12,8 @@ using boost::asio::ip::tcp;
 class TickSession
 {
 public:
-  TickSession(boost::asio::io_service& io_service)
-    : socket_(io_service)
+  TickSession(boost::asio::io_service& io_service, int delay)
+      : socket_(io_service), delay_(delay)
   {
   }
 
@@ -26,7 +26,7 @@ public:
   {
     LOG(INFO) << "Starting sending ticks." << std::endl;
 
-    sleep(1);
+    sleep(delay_);
     std::string msg("hello");
     LOG(INFO) << "Sending " << msg << std::endl;
 
@@ -52,6 +52,7 @@ public:
 
 private:
   tcp::socket socket_;
+  int delay_;
   enum { max_length = 1024 };
   char data_[max_length];
 };
@@ -59,11 +60,11 @@ private:
 class TickServer
 {
 public:
-  TickServer(boost::asio::io_service& io_service, short port)
+  TickServer(boost::asio::io_service& io_service, short port, int delay)
     : io_service_(io_service),
-      acceptor_(io_service, tcp::endpoint(tcp::v4(), port))
+      acceptor_(io_service, tcp::endpoint(tcp::v4(), port)), delay_(delay)
   {
-    TickSession* new_session = new TickSession(io_service_);
+    TickSession* new_session = new TickSession(io_service_, delay_);
 
     LOG(INFO) << "New session. Start to accept." << std::endl;
 
@@ -79,7 +80,7 @@ public:
     {
       new_session->start();
 
-      new_session = new TickSession(io_service_);
+      new_session = new TickSession(io_service_, delay_);
       acceptor_.async_accept(new_session->socket(),
           boost::bind(&TickServer::handle_accept, this, new_session,
             boost::asio::placeholders::error));
@@ -95,4 +96,5 @@ public:
 private:
   boost::asio::io_service& io_service_;
   tcp::acceptor acceptor_;
+  int delay_;
 };

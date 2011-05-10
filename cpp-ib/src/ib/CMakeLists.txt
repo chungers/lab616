@@ -28,9 +28,9 @@ add_dependencies(ib_events_proto ib_common_proto)
 add_dependencies(ib_actions_proto ib_common_proto)
 
 set(v964_adapter_incs
-  ${SRC_DIR}/ib/api/9.64beta
-  ${SRC_DIR}/ib/api/9.64beta/PosixSocketClient
-  ${SRC_DIR}/ib/api/9.64beta/Shared
+  ${SRC_DIR}/ib/api/${IBAPI_VERSION}
+  ${SRC_DIR}/ib/api/${IBAPI_VERSION}/PosixSocketClient
+  ${SRC_DIR}/ib/api/${IBAPI_VERSION}/Shared
   ${GEN_DIR}
   ${SRC_DIR}
   ${LIBSIGC_PATH}

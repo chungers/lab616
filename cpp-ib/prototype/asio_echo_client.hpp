@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+#include <sstream>
 #include <boost/asio.hpp>
 
 #include <glog/logging.h>
@@ -11,14 +12,18 @@ class EchoClient
 {
  public:
   EchoClient(boost::asio::io_service& io_service,
-             const std::string& server, const std::string& port)
+             const std::string& server, const short port)
       : socket_(io_service)
   {
+    std::ostringstream service_name;
+    service_name << port;
     tcp::resolver resolver(io_service);
-    tcp::resolver::query query(tcp::v4(), server, port);
+    tcp::resolver::query query(tcp::v4(), server, service_name.str());
     tcp::resolver::iterator iterator = resolver.resolve(query);
 
     socket_.connect(*iterator);
+
+    LOG(INFO) << "Connected.";
   }
 
   tcp::socket& socket() {

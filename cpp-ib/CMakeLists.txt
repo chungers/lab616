@@ -21,7 +21,7 @@ include(${PROJECT_SOURCE_DIR}/../cmake-common/Init.cmk)
 
 # IB API VERSION
 # This corresponds to the name of the subdirectory in //cpp-ib/src/ib/api
-set(IBAPI_VERSION "9.64beta")
+set(IBAPI_VERSION "9.64")
 
 list(APPEND emacs_includes
   /src/ib/api/${IBAPI_VERSION}
