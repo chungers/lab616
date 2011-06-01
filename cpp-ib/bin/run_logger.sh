@@ -7,6 +7,7 @@ TARGET=logger_main
 BIN=$HOME/_build/bin/$TARGET
 LOG_DIR=$HOME/src/ib/cl-logs
 TICKERS_FILE=$HOME/conf/tickers
+BOOKDATA_FILE=$HOME/conf/bookdata
 PID_FILE=$LOG_DIR/$TARGET.pid
 
 case $1 in
@@ -42,11 +43,21 @@ for t in $(sort $TICKERS_FILE); do
     fi
 done
 
-echo -e "Tickers = $TICKERS"
+BOOKDATA=""
+for t in $(sort $BOOKDATA_FILE); do
+    if [[ $BOOKDATA != "" ]]; then
+	BOOKDATA="$BOOKDATA,$t"
+    else
+	BOOKDATA="$t"
+    fi
+done
+echo -e "Tickers  = $TICKERS"
+echo -e "Bookdata = $BOOKDATA"
 
 CMD="$BIN --log_dir=$LOG_DIR \
 --client_id=1000 --v=4 \
 --tickdata_symbols=$TICKERS \
+--bookdata_symbols=$BOOKDATA \
 --option_symbol=SPY --option_strike=109 \
 --option_month=8 --option_day=20 --option_year=2010
 "
