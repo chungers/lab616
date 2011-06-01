@@ -24,9 +24,16 @@
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Lua Mode
+(autoload 'lua-mode
+ "@PROJECT_SOURCE_DIR@/../third_party/emacs/lua-mode/lua-mode.el" t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; CMake Mode
 (autoload 'cmake-mode
  "@PROJECT_SOURCE_DIR@/../third_party/emacs/cmake-mode.el" t)
+
+
 (setq auto-mode-alist
         (append
 	    '(("CMakeLists\\.txt\\'" . cmake-mode))
@@ -34,7 +41,11 @@
 	    '(("\\.cmake\\'" . cmake-mode))
 	    '(("\\.cmk\\'" . cmake-mode))
 	    '(("\\.proto\\'" . c++-mode))
+	    '(("\\.lua$" . lua-mode))
 	    auto-mode-alist))
+
+(add-hook 'lua-mode-hook 'turn-on-font-lock)
+(add-hook 'lua-mode-hook 'hs-minor-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; CDET C++ Project
