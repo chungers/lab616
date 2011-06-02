@@ -28,13 +28,18 @@ using namespace ib::events;
 DEFINE_string(host, "", "Hostname to connect.");
 DEFINE_int32(port, 4001, "Port");
 
+DEFINE_bool(test_backplane, false, "True to test backplane signaling.");
+
 DEFINE_bool(request_index, true, "True to request index feed.");
-DEFINE_string(tickdata_symbols, "",
+DEFINE_string(tickdata_symbols, "AAPL,GOOG,PCLN,NFLX",
               "Symbols for tickdata only, comma-delimited.");
-DEFINE_string(bookdata_symbols, "",
+DEFINE_string(bookdata_symbols, "AAPL,PCLN,NFLX",
               "Symbols for bookdata only, must be in tickdata_symbols");
 
 DEFINE_int32(client_id, 0, "Client Id.");
+
+
+DEFINE_bool(enable_options, false, "True to enable option-related calls.");
 
 DEFINE_string(option_symbol, "SPY", "Option underlying symbol");
 DEFINE_bool(option_call, true, "True for Calls.");
@@ -117,6 +122,21 @@ static void RequestOptionChain(ib::services::MarketDataInterface* md)
   }
 }
 
+static void RequestStockContractDetails(vector<string> symbols,
+                                        ib::services::MarketDataInterface* md)
+{
+  vector<string>::iterator itr;
+  unsigned int id;
+  for (itr = symbols.begin(); itr != symbols.end(); ++itr) {
+    if (itr->length()) {
+      id = md->RequestContractDetails(*itr);
+
+      VLOG(1) << "Requested Contract Details for " << *itr
+              << ", tickerId=" << id ;
+    }
+  }
+}
+
 static void RequestStockData(vector<string> symbols,
                              vector<string> bookdata_symbols,
                              ib::services::MarketDataInterface* md)
@@ -136,7 +156,7 @@ static void RequestStockData(vector<string> symbols,
       id = md->RequestTicks(*itr, getBook);
 
       VLOG(1) << "Requested " << *itr
-              << ", tickerId=" << id;
+              << ", tickerId=" << id << ", getBook=" << getBook;
 
       live_marketdata.push_back(id);
     }
@@ -228,9 +248,13 @@ void OnConnectConfirm()
 
   ib::services::MarketDataInterface* md = session->AccessMarketData();
   if (md) {
-    RequestOptionChain(md);
     RequestIndexData(md);
-    RequestOptionData(md);
+
+    if (FLAGS_enable_options) {
+      RequestOptionChain(md);
+      RequestOptionData(md);
+    }
+    RequestStockContractDetails(tickdata_tokens, md);
     RequestStockData(tickdata_tokens, bookdata_tokens, md);
   }
 }
@@ -277,19 +301,20 @@ int main(int argc, char** argv)
   session->RegisterCallbackOnDisconnect(boost::bind(OnDisconnect));
 
   // Receive signals
-  BidAskReceiver receiver1(1);
-  BidAskReceiver receiver2(2);
+  if (FLAGS_test_backplane) {
+    BidAskReceiver receiver1(1);
+    BidAskReceiver receiver2(2);
 
-  ib::signal::Selection select1;
-  ib::signal::Selection select2;
+    ib::signal::Selection select1;
+    ib::signal::Selection select2;
 
-  select1 << "GOOG" << "AAPL";
-  select2 << "SPY" << "QQQQ";
+    select1 << "GOOG" << "AAPL";
+    select2 << "SPY" << "QQQQ";
 
-  ib::BackPlane* backplane = session->GetBackPlane();
-  backplane->Register(&receiver1, &select1);
-  backplane->Register(&receiver2, &select2);
-
+    ib::BackPlane* backplane = session->GetBackPlane();
+    backplane->Register(&receiver1, &select1);
+    backplane->Register(&receiver2, &select2);
+  }
 
   // just wait for connection and disconnect events.
   session->Join();
