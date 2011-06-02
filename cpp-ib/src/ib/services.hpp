@@ -20,6 +20,10 @@ class MarketDataInterface
   virtual unsigned int RequestIndex(const string& symbol,
                                     const string& exchange) = 0;
 
+  // Requests contract details
+  // Returns the unique ticker id.
+  virtual unsigned int RequestContractDetails(const string& symbol) = 0;
+
   // Requests tick data for the given symbol.
   // Returns the unique ticker id.
   virtual unsigned int RequestTicks(const string& symbol,

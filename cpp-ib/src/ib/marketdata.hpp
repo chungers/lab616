@@ -30,6 +30,8 @@ class MarketDataImpl : public ib::services::MarketDataInterface
   virtual unsigned int RequestIndex(const string& symbol,
                                     const string& exchange);
 
+  virtual unsigned int RequestContractDetails(const string& symbol);
+
   virtual unsigned int RequestTicks(const string& symbol,
                                     bool marketDepth);
 

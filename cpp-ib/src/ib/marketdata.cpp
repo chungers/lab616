@@ -99,6 +99,15 @@ unsigned int MarketDataImpl::RequestIndex(const string& symbol,
   return id;
 }
 
+unsigned int MarketDataImpl::RequestContractDetails(const string& symbol)
+{
+  Contract c;
+  CreateContractForStock(symbol, &c);
+  TickerId id = SymbolToTickerId(symbol);
+  eclient_->reqContractDetails(id, c);
+  return id;
+}
+
 unsigned int MarketDataImpl::RequestTicks(const string& symbol,
                                           bool marketDepth)
 {
