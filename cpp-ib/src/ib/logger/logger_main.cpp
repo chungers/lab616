@@ -1,4 +1,5 @@
 
+#include <algorithm>
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,6 +31,8 @@ DEFINE_int32(port, 4001, "Port");
 DEFINE_bool(request_index, true, "True to request index feed.");
 DEFINE_string(tickdata_symbols, "",
               "Symbols for tickdata only, comma-delimited.");
+DEFINE_string(bookdata_symbols, "",
+              "Symbols for bookdata only, must be in tickdata_symbols");
 
 DEFINE_int32(client_id, 0, "Client Id.");
 
@@ -50,6 +53,7 @@ DEFINE_int32(option_chain_year, 0, "YYYY");
 
 ib::Session* session;
 vector<string> tickdata_tokens;
+vector<string> bookdata_tokens;
 
 vector<unsigned int> live_marketdata; // For clean up
 
@@ -114,13 +118,22 @@ static void RequestOptionChain(ib::services::MarketDataInterface* md)
 }
 
 static void RequestStockData(vector<string> symbols,
+                             vector<string> bookdata_symbols,
                              ib::services::MarketDataInterface* md)
 {
   vector<string>::iterator itr;
   unsigned int id;
   for (itr = symbols.begin(); itr != symbols.end(); ++itr) {
     if (itr->length()) {
-      id = md->RequestTicks(*itr, false);
+
+      // also check to see if the symbol is for bookdata
+      vector<string>::iterator inBookdataSymbols;
+      inBookdataSymbols = find(bookdata_symbols.begin(),
+                               bookdata_symbols.end(),
+                               *itr);
+      bool getBook = inBookdataSymbols != bookdata_symbols.end();
+
+      id = md->RequestTicks(*itr, getBook);
 
       VLOG(1) << "Requested " << *itr
               << ", tickerId=" << id;
@@ -218,7 +231,7 @@ void OnConnectConfirm()
     RequestOptionChain(md);
     RequestIndexData(md);
     RequestOptionData(md);
-    RequestStockData(tickdata_tokens, md);
+    RequestStockData(tickdata_tokens, bookdata_tokens, md);
   }
 }
 
@@ -249,6 +262,7 @@ int main(int argc, char** argv)
 
   // Split the string flag by comma:
   boost::split(tickdata_tokens, FLAGS_tickdata_symbols, boost::is_any_of(","));
+  boost::split(bookdata_tokens, FLAGS_bookdata_symbols, boost::is_any_of(","));
 
   // Connect
   session = new ib::Session(host, port, connection_id);
