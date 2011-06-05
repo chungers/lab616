@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_file_store.html" title="File based implementation of MessageStore." alt="" coords="5,83,107,112"/>
+<area shape="rect" href="$class_f_i_x_1_1_memory_store.html" title="Memory based implementation of MessageStore." alt="" coords="131,83,259,112"/>
+<area shape="rect" href="$class_f_i_x_1_1_null_store.html" title="Null implementation of MessageStore." alt="" coords="283,83,387,112"/>
+<area shape="rect" href="$class_f_i_x_1_1_session_state.html" title="Maintains all of state for the Session class." alt="" coords="411,83,539,112"/>
+</map>

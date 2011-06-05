@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_initiator.html" title="Base for classes which act as an initiator for establishing connections." alt="" coords="476,197,569,227"/>
+<area shape="rect" href="$class_f_i_x_1_1_log.html" title="This interface must be implemented to log messages and events." alt="" coords="116,5,188,35"/>
+<area shape="rect" href="$class_f_i_x_1_1_null_log.html" title="Null implementation of Log." alt="" coords="544,101,637,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_application.html" title="This interface must be implemented to define what your FIX application does." alt="" coords="64,101,179,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_message_store_factory.html" title="This interface must be implemented to create a MessageStore." alt="" coords="203,101,381,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_log_factory.html" title="This interface must be implemented to create a Log." alt="" coords="405,101,520,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_mutex.html" title="Portable implementation of a mutex." alt="" coords="677,101,763,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_session_settings.html" title="Container for setting dictionaries mapped to sessions." alt="" coords="795,101,939,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_dictionary.html" title="For storage and retrieval of key/value pairs." alt="" coords="813,5,920,35"/>
+</map>

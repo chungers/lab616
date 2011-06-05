@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_socket_connection.html" title="Encapsulates a socket file descriptor (single&#45;threaded)." alt="" coords="5,83,160,112"/>
+<area shape="rect" href="$class_f_i_x_1_1_threaded_socket_connection.html" title="Encapsulates a socket file descriptor (multi&#45;threaded)." alt="" coords="184,83,395,112"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_file_log_factory.html" title="Creates a file based implementation of Log." alt="" coords="5,83,141,112"/>
+<area shape="rect" href="$class_f_i_x_1_1_screen_log_factory.html" title="Creates a screen based implementation of Log." alt="" coords="165,83,320,112"/>
+</map>

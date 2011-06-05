@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_responder.html" title="Interface implements sending on and disconnecting a transport." alt="" coords="5,32,117,61"/>
+<area shape="rect" href="$class_f_i_x_1_1_socket_connection.html" title="Encapsulates a socket file descriptor (single&#45;threaded)." alt="" coords="193,5,348,35"/>
+<area shape="rect" href="$class_f_i_x_1_1_threaded_socket_connection.html" title="Encapsulates a socket file descriptor (multi&#45;threaded)." alt="" coords="165,59,376,88"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_log_factory.html" title="This interface must be implemented to create a Log." alt="" coords="5,101,120,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_session_settings.html" title="Container for setting dictionaries mapped to sessions." alt="" coords="144,101,288,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_dictionary.html" title="For storage and retrieval of key/value pairs." alt="" coords="163,5,269,35"/>
+</map>

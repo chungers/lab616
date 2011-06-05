@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_message_store.html" title="This interface must be implemented to store and retrieve messages and sequence numbers..." alt="" coords="5,5,139,35"/>
+<area shape="rect" href="$class_f_i_x_1_1_log.html" title="This interface must be implemented to log messages and events." alt="" coords="163,5,235,35"/>
+</map>

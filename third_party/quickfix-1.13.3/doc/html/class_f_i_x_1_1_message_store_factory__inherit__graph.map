@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_file_store_factory.html" title="Creates a file based implementation of MessageStore." alt="" coords="5,83,152,112"/>
+<area shape="rect" href="$class_f_i_x_1_1_memory_store_factory.html" title="Creates a memory based implementation of MessageStore." alt="" coords="176,83,347,112"/>
+<area shape="rect" href="$class_f_i_x_1_1_null_store_factory.html" title="Null implementation of MessageStore." alt="" coords="371,83,517,112"/>
+</map>
