@@ -121,3 +121,62 @@ set(asio_libs
 cpp_executable(asio)
 
 
+#########################################
+# Lib luabind
+option(LUABIND_DYNAMIC_LINK "Required to import symbols." ON)
+set(luabind_incs
+  ${THIRD_PARTY_PATH}/../lua/luabind
+)
+set(luabind_srcs
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/class.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/create_class.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/inheritance.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/pcall.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/wrapper_base.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/class_info.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/error.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/link_compatibility.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/scope.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/class_registry.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/exception_handler.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/object_rep.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/stack_content_by_name.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/class_rep.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/function.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/open.cpp
+  ${THIRD_PARTY_PATH}/../lua/luabind/src/weak_ref.cpp
+)
+set(luabind_libs
+  lua
+)
+cpp_library(luabind)
+set_target_properties(luabind PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${BUILD_DIR}")
+message(STATUS "Build directory = ${BUILD_DIR}")
+
+
+#########################################
+# Prototype: luahello
+
+set(luahello_incs
+  ${GEN_DIR}
+  ${SRC_DIR}
+  ${PROTOTYPE_DIR}
+  ${THIRD_PARTY_PATH}
+C  ${THIRD_PARTY_PATH}/../lua/luabind
+)
+set(luahello_srcs
+  luabind_main.cpp
+)
+set(luahello_libs
+  boost_system
+  boost_date_time
+  lua
+  luabind
+  gflags
+  glog
+)
+cpp_executable(luahello)
+
+
+
