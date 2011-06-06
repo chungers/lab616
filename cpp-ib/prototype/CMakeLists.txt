@@ -122,12 +122,20 @@ cpp_executable(asio)
 
 
 #########################################
-# Lib luabind
-option(LUABIND_DYNAMIC_LINK "Required to import symbols." ON)
-set(luabind_incs
+# Lib luabindstatic
+#
+# Note this is a locally compiled version
+# of the luabind library.  Luabind library
+# can also be built and installed using Boost
+# Boost.Build / BJam.  Boost.Build needs to
+# be installed in /usr/local/share/boost-build
+# and BOOST_BUILD_DIR needs to be set to this
+# before running bjam in the luabind directory.
+
+set(luabindstatic_incs
   ${THIRD_PARTY_PATH}/../lua/luabind
 )
-set(luabind_srcs
+set(luabindstatic_srcs
   ${THIRD_PARTY_PATH}/../lua/luabind/src/class.cpp
   ${THIRD_PARTY_PATH}/../lua/luabind/src/create_class.cpp
   ${THIRD_PARTY_PATH}/../lua/luabind/src/inheritance.cpp
@@ -146,11 +154,11 @@ set(luabind_srcs
   ${THIRD_PARTY_PATH}/../lua/luabind/src/open.cpp
   ${THIRD_PARTY_PATH}/../lua/luabind/src/weak_ref.cpp
 )
-set(luabind_libs
+set(luabindstatic_libs
   lua
 )
-cpp_library(luabind)
-set_target_properties(luabind PROPERTIES
+cpp_library(luabindstatic)
+set_target_properties(luabindstatic PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${BUILD_DIR}")
 message(STATUS "Build directory = ${BUILD_DIR}")
 
@@ -172,7 +180,7 @@ set(luahello_libs
   boost_system
   boost_date_time
   lua
-  luabind
+  luabindstatic
   gflags
   glog
 )
