@@ -180,9 +180,10 @@ set(luahello_libs
   boost_system
   boost_date_time
   lua
-  luabindstatic
+  luabind
   gflags
   glog
+  dl
 )
 cpp_executable(luahello)
 
