@@ -5,6 +5,14 @@ extern "C"
 #include "lauxlib.h"
 }
 
+#ifndef IB_USE_STD_STRING
+#define IB_USE_STD_STRING
+#endif
+
+#include <Shared/Contract.h>
+#include <Shared/EClient.h>
+#include <Shared/Order.h>
+
 #include <iostream>
 #include <luabind/luabind.hpp>
 #include <glog/logging.h>
@@ -36,12 +44,23 @@ extern "C" int init(lua_State* L)
 }
 
 
-void print_hello(int number) {
-  cout << "hello world " << number << endl;
+void print(int number) {
+  cout << "print_int: " << number << endl;
 }
 
-void message(const string& message) {
-  cout << "The message is: " << message << std::endl;
+void print(const string& message) {
+  cout << "print_strs: " << message << std::endl;
+}
+
+void print(const Contract& c) {
+  cout << "Contract: \n"
+       << "\ncondId         = " << c.conId
+       << "\nsymbol         = " << c.symbol
+       << "\nstrike         = " << c.strike
+       << "\ncurrency       = " << c.currency
+       << "\nmultiplier     = " << c.multiplier
+       << "\nincludeExpired = " << c.includeExpired
+       << std::endl;
 }
 
 int main(int argc, char* argv[]) {
@@ -60,17 +79,21 @@ int main(int argc, char* argv[]) {
 
   // Add our function to the state's global scope
   luabind::module(L) [
-      luabind::def("print_hello", print_hello),
-      luabind::def("show", message)
+      luabind::def("print", (void(*)(int))print),
+      luabind::def("print", (void(*)(const std::string&))print),
+      luabind::def("print", (void(*)(const Contract&))print),
+      luabind::class_<Contract>("Contract")
+      .def(luabind::constructor<>())
+      .def_readwrite("symbol", &Contract::symbol)
+      .def_readwrite("strike", &Contract::strike)
+      .def_readwrite("currency", &Contract::currency)
+      .def_readwrite("secType", &Contract::secType)
+      .def_readwrite("includeExpired", &Contract::includeExpired)
+      .def_readonly("conId", &Contract::conId)
+      .def_readonly("comboLegs", &Contract::comboLegs)
                       ];
 
   LOG(INFO) << "Starting interpreter." << std::endl;
-
-  // Now call our function in a lua script
-  luaL_dostring(L,
-                "print_hello(123)\n"
-                );
-
   LOG(INFO) << "Try to run file " << FLAGS_src.c_str() << std::endl;
 
   luaL_dofile(L, FLAGS_src.c_str());

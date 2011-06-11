@@ -171,12 +171,15 @@ set(luahello_incs
   ${SRC_DIR}
   ${PROTOTYPE_DIR}
   ${THIRD_PARTY_PATH}
-C  ${THIRD_PARTY_PATH}/../lua/luabind
+  ${SRC_DIR}/ib/api/9.64
+  ${SRC_DIR}/ib/api/9.64/PosixSocketClient
+  ${SRC_DIR}/ib/api/9.64/Shared
 )
 set(luahello_srcs
   luabind_main.cpp
 )
 set(luahello_libs
+  v964_adapter
   boost_system
   boost_date_time
   lua
