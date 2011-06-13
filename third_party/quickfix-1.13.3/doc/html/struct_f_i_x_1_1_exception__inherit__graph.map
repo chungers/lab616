@@ -1,0 +1,31 @@
+<map id="G" name="G">
+<area shape="rect" href="$struct_f_i_x_1_1_config_error.html" title="Application is not configured correctly" alt="" coords="223,5,337,35"/>
+<area shape="rect" href="$struct_f_i_x_1_1_data_dictionary_not_found.html" title="DataDictionary not found for BeginString or ApplVerID." alt="" coords="184,59,376,88"/>
+<area shape="rect" href="$struct_f_i_x_1_1_do_not_send.html" title="Indicates user does not want to send a message." alt="" coords="223,112,337,141"/>
+<area shape="rect" href="$struct_f_i_x_1_1_duplicate_field_number.html" title="Field shows up twice in the message." alt="" coords="192,165,368,195"/>
+<area shape="rect" href="$struct_f_i_x_1_1_field_convert_error.html" title="Unable to convert field into its native format." alt="" coords="204,219,356,248"/>
+<area shape="rect" href="$struct_f_i_x_1_1_field_not_found.html" title="Field not found inside a message." alt="" coords="213,272,347,301"/>
+<area shape="rect" href="$struct_f_i_x_1_1_incorrect_data_format.html" title="Field has a badly formatted value." alt="" coords="196,325,364,355"/>
+<area shape="rect" href="$struct_f_i_x_1_1_incorrect_message_structure.html" title="Message is not structured correctly." alt="" coords="176,379,384,408"/>
+<area shape="rect" href="$struct_f_i_x_1_1_incorrect_tag_value.html" title="Field has a value that is out of range." alt="" coords="203,432,357,461"/>
+<area shape="rect" href="$struct_f_i_x_1_1_invalid_message.html" title="Not a recognizable message." alt="" coords="209,485,351,515"/>
+<area shape="rect" href="$struct_f_i_x_1_1_invalid_message_type.html" title="Not a known message type." alt="" coords="195,539,365,568"/>
+<area shape="rect" href="$struct_f_i_x_1_1_invalid_tag_number.html" title="Tag number does not exist in specification." alt="" coords="203,592,357,621"/>
+<area shape="rect" href="$struct_f_i_x_1_1_i_o_exception.html" title="IO Error." alt="" coords="219,645,341,675"/>
+<area shape="rect" href="$struct_f_i_x_1_1_message_parse_error.html" title="Unable to parse message." alt="" coords="199,699,361,728"/>
+<area shape="rect" href="$struct_f_i_x_1_1_no_tag_value.html" title="Field exists in message without a value." alt="" coords="220,752,340,781"/>
+<area shape="rect" href="$struct_f_i_x_1_1_reject_logon.html" title="User wants to reject permission to logon." alt="" coords="219,805,341,835"/>
+<area shape="rect" href="$struct_f_i_x_1_1_repeated_tag.html" title="Repeated tag not part of repeating group." alt="" coords="217,859,343,888"/>
+<area shape="rect" href="$struct_f_i_x_1_1_repeating_group_count_mismatch.html" title="Repeated group count not equal to actual count." alt="" coords="163,912,397,941"/>
+<area shape="rect" href="$struct_f_i_x_1_1_required_tag_missing.html" title="Required field is not in message." alt="" coords="196,965,364,995"/>
+<area shape="rect" href="$struct_f_i_x_1_1_runtime_error.html" title="Application encountered serious error during runtime" alt="" coords="217,1019,343,1048"/>
+<area shape="rect" href="$struct_f_i_x_1_1_session_not_found.html" title="Session cannot be found for specified action." alt="" coords="204,1072,356,1101"/>
+<area shape="rect" href="$struct_f_i_x_1_1_socket_exception.html" title="Socket Error." alt="" coords="205,1125,355,1155"/>
+<area shape="rect" href="$struct_f_i_x_1_1_tag_not_defined_for_message.html" title="Field does not belong to message." alt="" coords="176,1179,384,1208"/>
+<area shape="rect" href="$struct_f_i_x_1_1_tag_out_of_order.html" title="Tag is not in the correct order." alt="" coords="211,1232,349,1261"/>
+<area shape="rect" href="$struct_f_i_x_1_1_unsupported_message_type.html" title="Message type not supported by application." alt="" coords="177,1285,383,1315"/>
+<area shape="rect" href="$struct_f_i_x_1_1_unsupported_version.html" title="Version of FIX is not supported." alt="" coords="197,1339,363,1368"/>
+<area shape="rect" href="$struct_f_i_x_1_1_socket_close_failed.html" title="Socket close operation failed." alt="" coords="445,1072,605,1101"/>
+<area shape="rect" href="$struct_f_i_x_1_1_socket_recv_failed.html" title="Socket recv operation failed." alt="" coords="448,1125,603,1155"/>
+<area shape="rect" href="$struct_f_i_x_1_1_socket_send_failed.html" title="Socket send operation failed." alt="" coords="448,1179,603,1208"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_initiator.html" title="Base for classes which act as an initiator for establishing connections." alt="" coords="5,5,99,35"/>
+<area shape="rect" href="$class_f_i_x_1_1_socket_connector_1_1_strategy.html" title="FIX::SocketConnector::Strategy" alt="" coords="123,5,331,35"/>
+</map>

@@ -1,0 +1,25 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_threaded_socket_connection.html" title="Encapsulates a socket file descriptor (multi&#45;threaded)." alt="" coords="1077,339,1288,368"/>
+<area shape="rect" href="$class_f_i_x_1_1_responder.html" title="Interface implements sending on and disconnecting a transport." alt="" coords="508,109,620,139"/>
+<area shape="rect" href="$class_f_i_x_1_1_session.html" title="Maintains the state and implements the logic of a FIX session." alt="" coords="857,327,953,356"/>
+<area shape="rect" href="$class_f_i_x_1_1_log.html" title="This interface must be implemented to log messages and events." alt="" coords="196,625,268,655"/>
+<area shape="rect" href="$class_f_i_x_1_1_session_state.html" title="Maintains all of state for the Session class." alt="" coords="500,336,628,365"/>
+<area shape="rect" href="$class_f_i_x_1_1_acceptor.html" title="Base for classes which act as an acceptor for incoming connections." alt="" coords="855,773,956,803"/>
+<area shape="rect" href="$class_f_i_x_1_1_null_log.html" title="Null implementation of Log." alt="" coords="517,873,611,903"/>
+<area shape="rect" href="$class_f_i_x_1_1_application.html" title="This interface must be implemented to define what your FIX application does." alt="" coords="507,496,621,525"/>
+<area shape="rect" href="$class_f_i_x_1_1_parser.html" title="Parses FIX messages off an input stream." alt="" coords="861,5,949,35"/>
+<area shape="rect" href="$class_f_i_x_1_1_message_store.html" title="This interface must be implemented to store and retrieve messages and sequence numbers..." alt="" coords="165,424,299,453"/>
+<area shape="rect" href="$class_f_i_x_1_1_utc_time_stamp.html" title="Date and Time represented in UTC." alt="" coords="164,360,300,389"/>
+<area shape="rect" href="$struct_f_i_x_1_1_date_time.html" title="Date and Time stored as a Julian day number and number of milliseconds since midnight..." alt="" coords="5,413,112,443"/>
+<area shape="rect" href="$class_f_i_x_1_1_utc_time_only.html" title="Time only represented in UTC." alt="" coords="169,521,295,551"/>
+<area shape="rect" href="$class_f_i_x_1_1_mutex.html" title="Portable implementation of a mutex." alt="" coords="189,233,275,263"/>
+<area shape="rect" href="$class_f_i_x_1_1_threaded_socket_acceptor.html" title="Threaded Socket implementation of Acceptor." alt="" coords="1084,404,1281,433"/>
+<area shape="rect" href="$class_f_i_x_1_1_session_i_d.html" title="Unique session id consists of BeginString, SenderCompID and TargetCompID." alt="" coords="509,389,619,419"/>
+<area shape="rect" href="$class_f_i_x_1_1_message_store_factory.html" title="This interface must be implemented to create a MessageStore." alt="" coords="475,743,653,772"/>
+<area shape="rect" href="$class_f_i_x_1_1_data_dictionary_provider.html" title="Queries for DataDictionary based on appropriate version of FIX." alt="" coords="472,163,656,192"/>
+<area shape="rect" href="$class_f_i_x_1_1_data_dictionary.html" title="Represents a data dictionary for a version of FIX." alt="" coords="164,13,300,43"/>
+<area shape="rect" href="$class_f_i_x_1_1_log_factory.html" title="This interface must be implemented to create a Log." alt="" coords="507,677,621,707"/>
+<area shape="rect" href="$class_f_i_x_1_1_time_range.html" title="Keeps track of when session is active." alt="" coords="507,443,621,472"/>
+<area shape="rect" href="$class_f_i_x_1_1_session_settings.html" title="Container for setting dictionaries mapped to sessions." alt="" coords="492,927,636,956"/>
+<area shape="rect" href="$class_f_i_x_1_1_dictionary.html" title="For storage and retrieval of key/value pairs." alt="" coords="179,927,285,956"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_utc_time_only.html" title="Time only represented in UTC." alt="" coords="5,85,131,115"/>
+<area shape="rect" href="$struct_f_i_x_1_1_date_time.html" title="Date and Time stored as a Julian day number and number of milliseconds since midnight..." alt="" coords="15,5,121,35"/>
+</map>

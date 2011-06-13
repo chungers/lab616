@@ -1,0 +1,17 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_session_state.html" title="Maintains all of state for the Session class." alt="" coords="500,147,628,176"/>
+<area shape="rect" href="$class_f_i_x_1_1_message_store.html" title="This interface must be implemented to store and retrieve messages and sequence numbers..." alt="" coords="165,176,299,205"/>
+<area shape="rect" href="$class_f_i_x_1_1_log.html" title="This interface must be implemented to log messages and events." alt="" coords="196,91,268,120"/>
+<area shape="rect" href="$class_f_i_x_1_1_utc_time_stamp.html" title="Date and Time represented in UTC." alt="" coords="164,23,300,52"/>
+<area shape="rect" href="$struct_f_i_x_1_1_date_time.html" title="Date and Time stored as a Julian day number and number of milliseconds since midnight..." alt="" coords="5,135,112,164"/>
+<area shape="rect" href="$class_f_i_x_1_1_utc_time_only.html" title="Time only represented in UTC." alt="" coords="169,315,295,344"/>
+<area shape="rect" href="$class_f_i_x_1_1_mutex.html" title="Portable implementation of a mutex." alt="" coords="189,244,275,273"/>
+<area shape="rect" href="$class_f_i_x_1_1_application.html" title="This interface must be implemented to define what your FIX application does." alt="" coords="507,389,621,419"/>
+<area shape="rect" href="$class_f_i_x_1_1_session_i_d.html" title="Unique session id consists of BeginString, SenderCompID and TargetCompID." alt="" coords="509,443,619,472"/>
+<area shape="rect" href="$class_f_i_x_1_1_responder.html" title="Interface implements sending on and disconnecting a transport." alt="" coords="508,496,620,525"/>
+<area shape="rect" href="$class_f_i_x_1_1_message_store_factory.html" title="This interface must be implemented to create a MessageStore." alt="" coords="475,549,653,579"/>
+<area shape="rect" href="$class_f_i_x_1_1_data_dictionary_provider.html" title="Queries for DataDictionary based on appropriate version of FIX." alt="" coords="472,603,656,632"/>
+<area shape="rect" href="$class_f_i_x_1_1_data_dictionary.html" title="Represents a data dictionary for a version of FIX." alt="" coords="164,603,300,632"/>
+<area shape="rect" href="$class_f_i_x_1_1_log_factory.html" title="This interface must be implemented to create a Log." alt="" coords="507,656,621,685"/>
+<area shape="rect" href="$class_f_i_x_1_1_time_range.html" title="Keeps track of when session is active." alt="" coords="507,336,621,365"/>
+</map>

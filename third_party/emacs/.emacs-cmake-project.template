@@ -10,6 +10,22 @@
 (setq default-directory "@PROJECT_SOURCE_DIR@/")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Basic colors, etc.
+(line-number-mode 1)
+(column-number-mode 1)
+(global-hl-line-mode 1) ;; highlights current line
+(set-background-color "grey12")
+(set-foreground-color "LightYellow2")
+(set-cursor-color "DarkRed")
+;; Sets the colors for all frames.
+(setq default-frame-alist
+      (append default-frame-alist
+              '((foreground-color . "LightYellow2")
+                (background-color . "grey12")
+                (cursor-color . "DarkRed")
+                )))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Git-Emacs
 (add-to-list 'load-path
  "@PROJECT_SOURCE_DIR@/../third_party/emacs/git-emacs")

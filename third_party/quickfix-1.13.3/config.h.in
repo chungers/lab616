@@ -1,0 +1,156 @@
+/* config.h.in.  Generated from configure.in by autoheader.  */
+
+/* Define if you want a C++ callstack to be displayed after crashing */
+#undef ENABLE_CALLSTACK
+
+/* Define if you want to use new_allocator */
+#undef ENABLE_NEW_ALLOCATOR
+
+/* The system has gethostbyname_r which takes a result as a pass-in param */
+#undef GETHOSTBYNAME_R_INPUTS_RESULT
+
+/* __gnu_cxx::bitmap_allocator exists */
+#undef HAVE_BITMAP_ALLOCATOR
+
+/* Define if you have boost framework */
+#undef HAVE_BOOST
+
+/* boost::fast_pool_allocator exists */
+#undef HAVE_BOOST_FAST_POOL_ALLOCATOR
+
+/* boost::pool_allocator exists */
+#undef HAVE_BOOST_POOL_ALLOCATOR
+
+/* whether or not we have to demangle names */
+#undef HAVE_CPLUS_DEMANGLE
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* found ftime */
+#undef HAVE_FTIME
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define if you have java */
+#undef HAVE_JAVA
+
+/* Define to 1 if you have the `compat' library (-lcompat). */
+#undef HAVE_LIBCOMPAT
+
+/* Define to 1 if you have the `c_r' library (-lc_r). */
+#undef HAVE_LIBC_R
+
+/* Define to 1 if you have the `nsl' library (-lnsl). */
+#undef HAVE_LIBNSL
+
+/* Define to 1 if you have the `pthread' library (-lpthread). */
+#undef HAVE_LIBPTHREAD
+
+/* Define to 1 if you have the `rt' library (-lrt). */
+#undef HAVE_LIBRT
+
+/* Define to 1 if you have the `socket' library (-lsocket). */
+#undef HAVE_LIBSOCKET
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* __gnu_cxx::mt_allocator exists */
+#undef HAVE_MT_ALLOCATOR
+
+/* Define if you have sql library (-lmysqlclient) */
+#undef HAVE_MYSQL
+
+/* __gnu_cxx::pool_allocator exists */
+#undef HAVE_POOL_ALLOCATOR
+
+/* Define if you have sql library (-lpq) */
+#undef HAVE_POSTGRESQL
+
+/* Define if you have python */
+#undef HAVE_PYTHON
+
+/* Define if you have ruby */
+#undef HAVE_RUBY
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdio.h> header file. */
+#undef HAVE_STDIO_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define if you have stlport library */
+#undef HAVE_STLPORT
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to the sub-directory in which libtool stores uninstalled libraries.
+   */
+#undef LT_OBJDIR
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* select statement decrements timeval parameter if interupted */
+#undef SELECT_MODIFIES_TIMEVAL
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* For location of set_terminate */
+#undef TERMINATE_IN_STD
+
+/* Whether or not we are using the new-style typeinfo header */
+#undef TYPEINFO_IN_STD
+
+/* The system supports AT&T STREAMS */
+#undef USING_STREAMS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
+   `char[]'. */
+#undef YYTEXT_POINTER
+
+/* enable reentrant system calls */
+#undef _REENTRANT
+
+/* socklen_t needs to be defined if the system doesn't define it */
+#undef socklen_t

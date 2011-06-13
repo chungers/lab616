@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_application.html" title="This interface must be implemented to define what your FIX application does." alt="" coords="5,5,120,35"/>
+<area shape="rect" href="$class_f_i_x_1_1_mutex.html" title="Portable implementation of a mutex." alt="" coords="144,5,229,35"/>
+</map>

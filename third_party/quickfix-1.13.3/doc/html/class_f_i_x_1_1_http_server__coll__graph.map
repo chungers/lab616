@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_socket_server_1_1_strategy.html" title="FIX::SocketServer::Strategy" alt="" coords="5,101,192,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_socket_server.html" title="Listens for and accepts incoming socket connections on a port." alt="" coords="216,101,344,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_socket_monitor.html" title="Monitors events on a collection of sockets." alt="" coords="213,5,347,35"/>
+<area shape="rect" href="$class_f_i_x_1_1_mutex.html" title="Portable implementation of a mutex." alt="" coords="368,101,453,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_session_settings.html" title="Container for setting dictionaries mapped to sessions." alt="" coords="477,101,621,131"/>
+<area shape="rect" href="$class_f_i_x_1_1_dictionary.html" title="For storage and retrieval of key/value pairs." alt="" coords="496,5,603,35"/>
+</map>

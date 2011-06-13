@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_local_date.html" title="Date only represented in local time." alt="" coords="181,5,288,35"/>
+<area shape="rect" href="$class_f_i_x_1_1_local_time_only.html" title="Time only represented in local time." alt="" coords="167,59,303,88"/>
+<area shape="rect" href="$class_f_i_x_1_1_local_time_stamp.html" title="Date and Time represented in local time." alt="" coords="161,112,308,141"/>
+<area shape="rect" href="$class_f_i_x_1_1_utc_date.html" title="Date only represented in UTC." alt="" coords="187,165,283,195"/>
+<area shape="rect" href="$class_f_i_x_1_1_utc_time_only.html" title="Time only represented in UTC." alt="" coords="172,219,297,248"/>
+<area shape="rect" href="$class_f_i_x_1_1_utc_time_stamp.html" title="Date and Time represented in UTC." alt="" coords="167,272,303,301"/>
+</map>

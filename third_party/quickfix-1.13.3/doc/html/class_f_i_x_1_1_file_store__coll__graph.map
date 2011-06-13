@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" href="$class_f_i_x_1_1_message_store.html" title="This interface must be implemented to store and retrieve messages and sequence numbers..." alt="" coords="5,85,139,115"/>
+<area shape="rect" href="$class_f_i_x_1_1_memory_store.html" title="Memory based implementation of MessageStore." alt="" coords="109,181,237,211"/>
+<area shape="rect" href="$class_f_i_x_1_1_utc_time_stamp.html" title="Date and Time represented in UTC." alt="" coords="163,85,299,115"/>
+<area shape="rect" href="$struct_f_i_x_1_1_date_time.html" title="Date and Time stored as a Julian day number and number of milliseconds since midnight..." alt="" coords="177,5,284,35"/>
+</map>
