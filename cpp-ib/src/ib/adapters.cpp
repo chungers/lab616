@@ -1,8 +1,10 @@
 #include <sys/time.h>
 #include <iostream>
 #include <boost/date_time.hpp>
-#include <ib/adapters.hpp>
 #include <glog/logging.h>
+
+#include "ib/adapters.hpp"
+
 
 // Verbose level.  Use flag --v=N where N >= VLOG_LEVEL_* to see.
 #define VLOG_LEVEL_ECLIENT  2
@@ -27,11 +29,11 @@ inline boost::posix_time::time_duration utc_micros()
 
 #define __f__(m) "," << #m << '=' << m
 
-#define LOG_EVENT				\
-  VLOG(VLOG_LEVEL_EWRAPPER)			\
-  << "cid=" << connection_id_			\
+#define LOG_EVENT                               \
+  VLOG(VLOG_LEVEL_EWRAPPER)                     \
+  << "cid=" << connection_id_                   \
   << ",ts_utc=" << utc_micros().total_microseconds()  \
-  << ",ts=" << now_micros()			\
+  << ",ts=" << now_micros()                     \
   << ",event=" << __func__
 
 #define __tick_type_enum(m) ",field=" << kTickTypes[m]
