@@ -190,5 +190,22 @@ set(luahello_libs
 )
 cpp_executable(luahello)
 
+#########################################
+# Prototype: quantlib
+set(quantlib_incs
+  ${GEN_DIR}
+  ${SRC_DIR}
+  ${PROTOTYPE_DIR}
+  ${THIRD_PARTY_PATH}
+)
+set(quantlib_srcs
+  quantlib_main.cpp
+)
+set(quantlib_libs
+  Quantlib
+  gflags
+  glog
+)
+cpp_executable(quantlib)
 
 
