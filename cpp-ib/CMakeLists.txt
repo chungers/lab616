@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.6)
 project(IB)
 
 option(OPTIMIZE "Compiler optimization" ON)
-#set(OPTIMIZE_LEVEL 2)
+set(OPTIMIZE_LEVEL 2)
 # -O2 -fomit-frame-pointer for prod (no profiling)
 
 # Build for debugging and profiling

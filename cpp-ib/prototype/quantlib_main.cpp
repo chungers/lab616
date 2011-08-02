@@ -14,12 +14,15 @@
 
 using namespace QuantLib;
 
+DEFINE_bool(call, false, "Call");
+DEFINE_bool(put, false, "Put");
+DEFINE_double(underlying, 0., "Underlying");
+DEFINE_double(strike, 0., "Strike");
+DEFINE_double(volatility, 0.45, "Implied volatility as real number");
+DEFINE_double(interestRate, 0.0025, "Interest rate as real number");
+DEFINE_double(dividendYield, 0., "Dividend yield as real number");
+DEFINE_int32(daysToExpiration, 0, "Days to expiration.");
 
-DEFINE_string(test, "http", "Which test to run.");
-DEFINE_string(host, "www.boost.org", "The host to connect to.");
-DEFINE_string(path, "/LICENSE_1_0.txt", "The path.");
-DEFINE_int32(port, 7777, "Port number (for EchoServer).");
-DEFINE_int32(delay, 1, "Delay for events");
 
 int main(int argc, char* argv[]) {
 
@@ -35,18 +38,23 @@ int main(int argc, char* argv[]) {
 
     // set up dates
     Calendar calendar = TARGET();
-    Date todaysDate(15, May, 1998);
-    Date settlementDate(17, May, 1998);
+    Date todaysDate = Date::todaysDate();
+    Date settlementDate = todaysDate;
+    Date maturity = todaysDate + FLAGS_daysToExpiration;
+    
+
     Settings::instance().evaluationDate() = todaysDate;
 
     // our options
-    Option::Type type(Option::Put);
-    Real underlying = 36;
-    Real strike = 40;
-    Spread dividendYield = 0.00;
-    Rate riskFreeRate = 0.06;
-    Volatility volatility = 0.20;
-    Date maturity(17, May, 1999);
+    Option::Type type((FLAGS_call) ?
+                      Option::Call :
+                      (FLAGS_put ? Option::Put : Option::Call));
+    Real underlying = FLAGS_underlying;
+    Real strike = FLAGS_strike;
+    Spread dividendYield = FLAGS_dividendYield;
+    Rate riskFreeRate = FLAGS_interestRate;
+    Volatility volatility = FLAGS_volatility;
+
     DayCounter dayCounter = Actual365Fixed();
 
     std::cout << "Option type = "  << type << std::endl;
@@ -69,10 +77,12 @@ int main(int argc, char* argv[]) {
               << std::setw(widths[3]) << std::left << "American"
               << std::endl;
 
+    /*
     std::vector<Date> exerciseDates;
     for (Integer i=1; i<=4; i++)
       exerciseDates.push_back(settlementDate + 3*i*Months);
-
+    */
+    
     boost::shared_ptr<Exercise> americanExercise(
         new AmericanExercise(settlementDate,
                              maturity));
