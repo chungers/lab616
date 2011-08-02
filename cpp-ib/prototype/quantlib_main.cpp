@@ -23,6 +23,38 @@ DEFINE_double(interestRate, 0.0025, "Interest rate as real number");
 DEFINE_double(dividendYield, 0., "Dividend yield as real number");
 DEFINE_int32(daysToExpiration, 0, "Days to expiration.");
 
+static Size widths[] = { 35, 14, 14, 14 };
+
+enum Greek { DELTA, GAMMA, THETA, VEGA, RHO, ITM_CASH_PROB };
+inline std::string getParam(Greek greek, VanillaOption& option) {
+  std::ostringstream oss;
+  try {
+    switch (greek) {
+      case DELTA: oss << option.delta(); break;
+      case GAMMA: oss << option.gamma(); break;
+      case THETA: oss << option.theta(); break;
+      case VEGA: oss << option.vega(); break;
+      case RHO: oss << option.rho(); break;
+      case ITM_CASH_PROB: oss << option.itmCashProbability(); break;
+    }
+  } catch (std::exception& e) {
+    oss << "N/A";
+  }
+  return oss.str();
+}
+
+inline void printResult(std::string method, VanillaOption& americanOption) {
+    std::cout << std::setw(widths[0]) << std::left << method
+              << std::fixed
+              << std::setw(widths[3]) << std::left << americanOption.NPV()
+              << std::setw(widths[3]) << std::left << getParam(DELTA, americanOption)
+              << std::setw(widths[3]) << std::left << getParam(GAMMA, americanOption)
+              << std::setw(widths[3]) << std::left << getParam(THETA, americanOption)
+              << std::setw(widths[3]) << std::left << getParam(VEGA, americanOption)
+              << std::setw(widths[3]) << std::left << getParam(RHO, americanOption)
+              << std::setw(widths[3]) << std::left << getParam(ITM_CASH_PROB, americanOption)
+              << std::endl;
+}
 
 int main(int argc, char* argv[]) {
 
@@ -72,9 +104,14 @@ int main(int argc, char* argv[]) {
     std::cout << std::endl ;
 
     // write column headings
-    Size widths[] = { 35, 14, 14, 14 };
     std::cout << std::setw(widths[0]) << std::left << "Method"
               << std::setw(widths[3]) << std::left << "American"
+              << std::setw(widths[3]) << std::left << "Delta"
+              << std::setw(widths[3]) << std::left << "Gamma"
+              << std::setw(widths[3]) << std::left << "Theta"
+              << std::setw(widths[3]) << std::left << "Vega"
+              << std::setw(widths[3]) << std::left << "Rho"
+              << std::setw(widths[3]) << std::left << "itmCashProbability"
               << std::endl;
 
     /*
@@ -116,19 +153,13 @@ int main(int argc, char* argv[]) {
     method = "Barone-Adesi/Whaley";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new BaroneAdesiWhaleyApproximationEngine(bsmProcess)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
 
     // Bjerksund and Stensland approximation for American
     method = "Bjerksund/Stensland";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new BjerksundStenslandApproximationEngine(bsmProcess)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
 
     // Finite differences
     Size timeSteps = 801;
@@ -136,73 +167,51 @@ int main(int argc, char* argv[]) {
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new FDAmericanEngine<CrankNicolson>(bsmProcess,
                                             timeSteps,timeSteps-1)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
 
     // Binomial method: Jarrow-Rudd
     method = "Binomial Jarrow-Rudd";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new BinomialVanillaEngine<JarrowRudd>(bsmProcess,timeSteps)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
+
+    // Binomial Cox-Ross-Rubinstein
     method = "Binomial Cox-Ross-Rubinstein";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new BinomialVanillaEngine<CoxRossRubinstein>(bsmProcess,
                                                      timeSteps)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
 
     // Binomial method: Additive equiprobabilities
     method = "Additive equiprobabilities";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new BinomialVanillaEngine<AdditiveEQPBinomialTree>(bsmProcess,
                                                            timeSteps)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
 
     // Binomial method: Binomial Trigeorgis
     method = "Binomial Trigeorgis";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new BinomialVanillaEngine<Trigeorgis>(bsmProcess,timeSteps)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
 
     // Binomial method: Binomial Tian
     method = "Binomial Tian";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new BinomialVanillaEngine<Tian>(bsmProcess,timeSteps)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
 
     // Binomial method: Binomial Leisen-Reimer
     method = "Binomial Leisen-Reimer";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new BinomialVanillaEngine<LeisenReimer>(bsmProcess,timeSteps)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
 
     // Binomial method: Binomial Joshi
     method = "Binomial Joshi";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
         new BinomialVanillaEngine<Joshi4>(bsmProcess,timeSteps)));
-    std::cout << std::setw(widths[0]) << std::left << method
-              << std::fixed
-              << std::setw(widths[3]) << std::left << americanOption.NPV()
-              << std::endl;
+    printResult(method, americanOption);
 
     // End test
     Real seconds = timer.elapsed();
