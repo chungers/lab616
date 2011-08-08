@@ -19,9 +19,10 @@ DEFINE_bool(put, false, "Put");
 DEFINE_double(underlying, 0., "Underlying");
 DEFINE_double(strike, 0., "Strike");
 DEFINE_double(volatility, 0.45, "Implied volatility as real number");
-DEFINE_double(interestRate, 0.0025, "Interest rate as real number");
+DEFINE_double(interestRate, 0.0016, "Interest rate as real number");
 DEFINE_double(dividendYield, 0., "Dividend yield as real number");
 DEFINE_int32(daysToExpiration, 0, "Days to expiration.");
+DEFINE_double(optionPrice, -1., "Price of the option.");
 
 static Size widths[] = { 35, 14, 14, 14 };
 
@@ -33,7 +34,7 @@ inline std::string getParam(Greek greek, VanillaOption& option) {
       case DELTA: oss << option.delta(); break;
       case GAMMA: oss << option.gamma(); break;
       case THETA: oss << option.thetaPerDay(); break;
-      case VEGA: oss << option.vega(); break;
+      case VEGA: oss << option.vega() / 100.; break;
       case RHO: oss << option.rho(); break;
       case ITM_CASH_PROB: oss << option.itmCashProbability(); break;
     }
@@ -45,7 +46,7 @@ inline std::string getParam(Greek greek, VanillaOption& option) {
 
 inline void printResult(std::string method, VanillaOption& americanOption,
                         const boost::shared_ptr<GeneralizedBlackScholesProcess>& bsmProcess) {
-  Real npv = americanOption.NPV();
+  Real npv = (FLAGS_optionPrice > -1.) ? FLAGS_optionPrice : americanOption.NPV();
   Real impliedVol = americanOption.impliedVolatility(npv,
                                                      bsmProcess,
                                                      1.0e-4,
@@ -67,7 +68,7 @@ inline void printResult(std::string method, VanillaOption& americanOption,
 
 int main(int argc, char* argv[]) {
 
-  google::SetUsageMessage("Prototype for the mongoose httpd.");
+  google::SetUsageMessage("Quantlib Prototype.");
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 
@@ -80,7 +81,7 @@ int main(int argc, char* argv[]) {
     // set up dates
     Calendar calendar = TARGET();
     Date todaysDate = Date::todaysDate();
-    Date settlementDate = todaysDate;
+    Date settlementDate = todaysDate + 1;
     Date maturity = todaysDate + FLAGS_daysToExpiration;
     
 
@@ -114,7 +115,7 @@ int main(int argc, char* argv[]) {
 
     // write column headings
     std::cout << std::setw(widths[0]) << std::left << "Method"
-              << std::setw(widths[3]) << std::left << "American"
+              << std::setw(widths[3]) << std::left << "Option"
               << std::setw(widths[3]) << std::left << "Delta"
               << std::setw(widths[3]) << std::left << "Gamma"
               << std::setw(widths[3]) << std::left << "Theta"
@@ -134,6 +135,9 @@ int main(int argc, char* argv[]) {
         new AmericanExercise(settlementDate,
                              maturity));
 
+    boost::shared_ptr<Exercise> europeanExercise(
+        new EuropeanExercise(maturity));
+    
     Handle<Quote> underlyingH(
         boost::shared_ptr<Quote>(new SimpleQuote(underlying)));
 
@@ -156,9 +160,16 @@ int main(int argc, char* argv[]) {
 
     // options
     VanillaOption americanOption(payoff, americanExercise);
+    VanillaOption europeanOption(payoff, europeanExercise);
 
     // Analytic formulas:
 
+    // Black-Scholes european exercise
+    method = "Black-Scholes";
+    europeanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+        new AnalyticEuropeanEngine(bsmProcess)));
+    printResult(method, europeanOption, bsmProcess);
+    
     // Barone-Adesi and Whaley approximation for American
     method = "Barone-Adesi/Whaley";
     americanOption.setPricingEngine(boost::shared_ptr<PricingEngine>(
