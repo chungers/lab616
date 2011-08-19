@@ -208,4 +208,29 @@ set(quantlib_libs
 )
 cpp_executable(quantlib)
 
+#########################################
+# Prototype: protocurses
+
+set(protocurses_incs
+  ${GEN_DIR}
+  ${SRC_DIR}
+  ${PROTOTYPE_DIR}
+  ${THIRD_PARTY_PATH}
+  ${SRC_DIR}/ib/api/9.64
+  ${SRC_DIR}/ib/api/9.64/PosixSocketClient
+  ${SRC_DIR}/ib/api/9.64/Shared
+)
+set(protocurses_srcs
+  protocurses_main.cpp
+)
+set(protocurses_libs
+  boost_system
+  boost_date_time
+  gflags
+  glog
+  ncurses
+)
+cpp_executable(protocurses)
+
+
 
