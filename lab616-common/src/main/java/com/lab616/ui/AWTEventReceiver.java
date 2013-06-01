@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 
 
 
@@ -39,7 +39,11 @@ public abstract class AWTEventReceiver<W, S>  implements AWTEventListener {
   public AWTEventReceiver(UIHandler<S> handler, UIHandler<S>... handlers) {
     Toolkit tk = Toolkit.getDefaultToolkit();
     tk.addAWTEventListener(this, getEventMask());
-    this.handlers = Lists.newArrayList(handler, handlers);
+    this.handlers = Lists.newArrayList();
+    this.handlers.add(handler);
+    for (UIHandler<S> h : handlers) {
+	this.handlers.add(h);
+    }
   }
 
   /**

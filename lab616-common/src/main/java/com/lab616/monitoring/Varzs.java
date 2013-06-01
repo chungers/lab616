@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.google.inject.internal.Maps;
+import com.google.common.collect.Maps;
 
 /**
  * Varz exporter class.

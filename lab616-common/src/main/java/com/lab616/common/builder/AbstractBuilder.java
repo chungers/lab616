@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import com.google.inject.internal.Maps;
+import com.google.common.collect.Maps;
 
 /**
  * A builder for IB API objects.

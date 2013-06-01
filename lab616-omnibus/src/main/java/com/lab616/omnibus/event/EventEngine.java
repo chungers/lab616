@@ -20,7 +20,7 @@ import com.espertech.esper.client.ConfigurationEngineDefaults.Threading;
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 import com.google.inject.name.Named;
 import com.lab616.common.flags.Flag;
 import com.lab616.common.flags.Flags;

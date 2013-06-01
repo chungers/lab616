@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 import com.lab616.common.logging.Logging;
 import com.lab616.omnibus.SystemEvent;
 

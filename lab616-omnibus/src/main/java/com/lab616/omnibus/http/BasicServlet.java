@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.inject.internal.Maps;
+import com.google.common.collect.Maps;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.VarzMap;
 import com.lab616.monitoring.Varzs;

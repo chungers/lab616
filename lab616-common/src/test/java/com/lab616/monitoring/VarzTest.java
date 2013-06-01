@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 
 import junit.framework.TestCase;
 

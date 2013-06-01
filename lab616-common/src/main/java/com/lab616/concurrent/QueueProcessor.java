@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.log4j.Logger;
 
 import com.google.common.base.Function;
-import com.google.inject.internal.Lists;
+import com.google.common.collect.Lists;
 import com.lab616.monitoring.Varz;
 import com.lab616.monitoring.VarzMap;
 import com.lab616.monitoring.Varzs;
