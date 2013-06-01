@@ -1,0 +1,443 @@
+IE 12:02:46:441 JTS-Main: Created on: 20130601
+IE 12:02:46:441 JTS-Main: ------------------------------- IB GATEWAY RESTART --------------------------------
+IE 12:02:46:445 JTS-Main: Jts dir is ./
+IE 12:02:46:489 JTS-Main: PROXY Installed custom selector
+IE 12:02:46:494 JTS-Main: LOCALE: Property locale_to_use=null
+IE 12:02:46:501 JTS-Main: LOCALE: JTS Locale=en_US  country=United States  variant=
+IE 12:02:46:501 JTS-Main: Region:America dr:false
+IE 12:02:46:501 JTS-Main: WebRegionURL Path:/java/classes/locales.jar URL:http://www.interactivebrokers.com/java/classes/locales.jar
+IE 12:02:46:505 JTS-Main: Starting to download 'http://www.interactivebrokers.com/java/classes/locales.jar' using HotBackup 'http://www.interactivebrokers.com/java/classes/locales.jar'
+IE 12:02:47:005 JTS-Main: getFileFromUrl: dest=/Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/locales.jar empty sourceSize=58460
+IE 12:02:47:005 JTS-Main: LOCALE: downloading file /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/locales.jar from http://www.interactivebrokers.com/java/classes/locales.jar
+IE 12:02:47:199 JTS-Main: Finished downloading file: /java/classes/locales.jar
+IE 12:02:47:199 JTS-Main: LOCALE: finished downloading /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/locales.jar
+IE 12:02:47:230 JTS-Main: LOCALE: loaded 9 supported locales
+IE 12:02:47:261 JTS-Main: LOCALE: loaded 8 countries
+IE 12:02:47:274 JTS-Main: LOCALE: from OS: en_US
+IE 12:02:47:275 JTS-Main: LOCALE: created classloader java.net.URLClassLoader@2804f2ec with file:/Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/locales.jar, parent: sun.misc.Launcher$AppClassLoader@1d9f953d
+IE 12:02:47:275 JTS-Main: LOCALE: Property locale_to_use=en
+IE 12:02:47:275 JTS-Main: LOCALE: JTS Locale=en_US  country=United States  variant=
+IE 12:02:47:275 JTS-Main: Locale=en_US  country=United States  variant=
+IE 12:02:47:585 JTS-Main: prohibiting class lookup [twslaunch.ji18n.LauncherLanguage]
+IE 12:02:47:779 JTS-Main: prohibiting class lookup [twslaunch.ji18n.LauncherLanguage_en]
+IE 12:02:47:779 JTS-Main: prohibiting class lookup [twslaunch.ji18n.LauncherLanguage_en_US]
+IE 12:02:47:781 JTS-Main: LOCALE: type: launcher intended: en_US actual:  size: 206
+IE 12:02:47:787 JTS-Main: Build 936.9f, May 3, 2013 1:45:34 PM
+IE 12:02:47:919 JTS-Main: LookAndFeelChangedListener installed
+IE 12:02:47:922 JTS-Main: JtsLookAndFeel initialized
+IE 12:02:48:054 JTS-Main: Current LAF: TWS LAF
+IE 12:02:48:055 AWT-EventQueue-0: java.lang.UnsupportedOperationException: Toolkit.getLockingKeyState
+IE 12:02:48:592 AWT-EventQueue-0: Started on 20130601-19:02:48
+IE 12:02:48:596 AWT-EventQueue-0: Default timezone:America/Los_Angeles name:Pacific Standard Time dst:3600000
+IE 12:02:48:596 AWT-EventQueue-0: java version = 1.6.0_45
+IE 12:02:48:596 AWT-EventQueue-0: sun.arch.data.model = 64
+IE 12:02:48:596 AWT-EventQueue-0: os = Mac OS X
+IE 12:02:48:596 AWT-EventQueue-0: runtime = Java(TM) SE Runtime Environment
+IE 12:02:48:596 AWT-EventQueue-0: vendor = Apple Inc.
+IE 12:02:48:596 AWT-EventQueue-0: vm name = Java HotSpot(TM) 64-Bit Server VM
+IE 12:02:51:496 JTS-DeadlockMonitor-2: Memory:total=517,760KB free=443,538KB HeapUsage: Max=517,760KB used=74,221KB committed=126,944KB NonHeapUsage: Max=133,120KB used=28,462KB committed=30,084KB
+IE 12:02:52:511 JTS-DeadlockMonitor-2: CPU:cur=0.08% avg=0.08% 30 min avg=0.08% 5 min avg=0.08% 1 min avg=0.08%
+IE 12:02:52:511 JTS-DeadlockMonitor-2: GC:called=21 times CPU used=0.36%
+IE 12:02:52:511 JTS-DeadlockMonitor-2: Finalizer:cur=0.00% avg=0.00% 30 min avg=0.00% 5 min avg=0.00% 1 min avg=0.00%
+IE 12:03:03:712 AWT-EventQueue-0: Setting dir is /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/./
+IE 12:03:03:713 AWT-EventQueue-0: PROXY Cleared HTTP proxy: no valid proxy is present (passing on :0)
+IE 12:03:03:714 AWT-EventQueue-0: SPLASH Creating screen with 5 steps
+IE 12:03:03:801 AWT-EventQueue-0: Contacting gw1.ibllc.com:4000 as user edemo
+IE 12:03:03:813 AWT-EventQueue-0: HTBP Hot Backup PGL generated:
+gw1.ibllc.com:4000
+gw1_hb1.ibllc.com:4000
+gw1_hb2.ibllc.com:4000
+
+IE 12:03:03:813 AWT-EventQueue-0: HTBP Usable connections list generated
+gw1.ibllc.com:4000
+gw1.ibllc.com:4000
+gw1_hb1.ibllc.com:4000
+gw1.ibllc.com:4000
+gw1_hb2.ibllc.com:4000
+
+IE 12:03:03:814 AWT-EventQueue-0: HTBP Main end point set:gw1.ibllc.com:4000 Strategy: ON
+IE 12:03:03:814 JTS-MainEndPointProbe-6: HTBP Starting PGL list probing:
+gw1.ibllc.com:4000
+gw1_hb1.ibllc.com:4000
+gw1_hb2.ibllc.com:4000
+
+IE 12:03:03:815 AWT-EventQueue-0: CONN CALC: Last connection attempt time is cleared!
+IE 12:03:03:815 AWT-EventQueue-0: CONN CALC: Last connection set as now:12:03:03:815
+IE 12:03:03:815 AWT-EventQueue-0: Prelogin delay:0
+IE 12:03:03:816 JTS-Login-7: Starting
+IE 12:03:03:818 JTS-Login-7: SPLASH Connecting to server
+IE 12:03:03:819 JTS-Login-7: Connecting gw1.ibllc.com:4000 timeout=20000
+IE 12:03:03:820 JTS-Order-Audit-8: Starting
+IE 12:03:04:237 JTS-Login-7: Connected to gw1.ibllc.com:4000 on local port 0 socket local addrs:port /10.0.1.2:61104
+IE 12:03:04:237 JTS-Login-7: Authenticating
+IE 12:03:04:239 JTS-CCPListener-10: Starting
+IE 12:03:04:240 JTS-CCPListener-10: Initial listener buffer size is 131400
+IE 12:03:04:240 JTS-CCPListener-10: Capping listener buffer size at 65536
+IE 12:03:04:246 JTS-Login-7: AuthTimeoutMonitor: deactivate
+IE 12:03:04:246 JTS-Login-7: AuthTimeoutMonitor: timeout=20000
+IE 12:03:04:246 JTS-Login-7: AuthTimeoutMonitor: activate
+IE 12:03:04:246 JTS-AuthTimeoutMonitorThread-12: Starting 
+IE 12:03:04:248 JTS-Login-7: LOGIN_TIME_MONITOR	 false 12:03:04:248 since start = 0 thread delay = 0 global delay = 0 tag=null, cls=AuthDispatcher method=connect
+IE 12:03:04:249 JTS-Login-7: SPLASH -0001 step 1 AuthDispatcher.connect
+IE 12:03:04:250 JTS-Login-7: Sending connect request
+IE 12:03:04:252 JTS-AuthDispatcher-11: Starting
+IE 12:03:04:254 JTS-Login-7: SPLASH Authenticating
+IE 12:03:04:255 JTS-Login-7: Terminating
+IE 12:03:04:339 JTS-AuthDispatcher-11: Received NS_DEMO_USER_RESPONSE
+IE 12:03:04:457 JTS-AuthDispatcher-11: SPLASH 0207 step 2 AuthDispatcher.processDataItr
+IE 12:03:04:459 JTS-AuthDispatcher-11: Received NS_AUTH_START: 1
+IE 12:03:04:459 JTS-AuthDispatcher-11: pwd time to expiry ms: 314057405000 days: 3635
+IE 12:03:04:459 JTS-AuthDispatcher-11:  NS_AUTH_START config=1 version=7 pwd=1 soft=0 token=0 initialTokenType=PWD
+IE 12:03:04:461 JTS-AuthDispatcher-11: Starting password Authentication
+IE 12:03:04:461 JTS-AuthDispatcher-11: sendXYZMessage: 777
+IE 12:03:04:543 JTS-AuthDispatcher-11: Receiver: 777
+IE 12:03:04:543 JTS-AuthDispatcher-11: processXYZMessage: 777 protocol version: 7
+IE 12:03:04:543 JTS-AuthDispatcher-11: Received AUTH_PARAMS
+IE 12:03:04:564 JTS-AuthDispatcher-11: sendXYZMessage: 777
+IE 12:03:04:648 JTS-AuthDispatcher-11: Receiver: 777
+IE 12:03:04:648 JTS-AuthDispatcher-11: processXYZMessage: 777 protocol version: 7
+IE 12:03:04:648 JTS-AuthDispatcher-11: Received SERVER_PARAMS
+IE 12:03:04:649 JTS-AuthDispatcher-11: sendXYZMessage: 777
+IE 12:03:04:735 JTS-AuthDispatcher-11: SPLASH 0279 step 2 AuthDispatcher.processDataItr
+IE 12:03:04:735 JTS-AuthDispatcher-11: Receiver: 777
+IE 12:03:04:735 JTS-AuthDispatcher-11: processXYZMessage: 777 protocol version: 7
+IE 12:03:04:735 JTS-AuthDispatcher-11: Received AUTH_RESULT
+IE 12:03:04:735 JTS-AuthDispatcher-11: Passed pwd authentication.
+IE 12:03:04:735 JTS-AuthDispatcher-11: Authentication completed.
+IE 12:03:04:817 JTS-AuthDispatcher-11: Received NS_CONNECT_RESPONSE
+IE 12:03:04:900 JTS-AuthDispatcher-11: Received NS_FIX_START
+IE 12:03:04:901 JTS-AuthDispatcher-11: Terminating
+IE 12:03:04:901 JTS-PostAuthenticate-19: AuthTimeoutMonitor: deactivate
+IE 12:03:04:901 JTS-PostAuthenticate-19: Authentication complete
+IE 12:03:04:903 JTS-AuthTimeoutMonitorThread-12: Terminating
+IE 12:03:04:916 AWT-EventQueue-0: jtsLookAndFeel uninitialized
+IE 12:03:04:916 AWT-EventQueue-0: JtsLookAndFeel initialized
+IE 12:03:04:921 JTS-PostAuthenticate-19: plugin support version =1.0
+IE 12:03:04:944 AWT-EventQueue-0: Current LAF: TWS LAF
+IE 12:03:04:954 JTS-PostAuthenticate-19: JDOMFactory Class =interface org.jdom.JDOMFactory
+IE 12:03:05:004 JTS-PostAuthenticate-19: hsqldb jdbc =class org.hsqldb.jdbcDriver 2.2
+IE 12:03:05:011 AWT-EventQueue-0: jtsLookAndFeel uninitialized
+IE 12:03:05:011 AWT-EventQueue-0: JtsLookAndFeel initialized
+IE 12:03:05:014 AWT-EventQueue-0: Current LAF: TWS LAF
+IE 12:03:05:015 JTS-LogonDispatcher-22: Starting
+IE 12:03:05:015 JTS-PostAuthenticate-19: LOGIN_TIME_MONITOR	 false 12:03:05:015 since start = 767 thread delay = 767 global delay = 0 tag=Step7, cls=AbstractFixLogonHandler method=setDispatcherAndStartFixLogon
+IE 12:03:05:016 JTS-PostAuthenticate-19: SPLASH Requesting startup parameters
+IE 12:03:05:016 JTS-PostAuthenticate-19: SPLASH 0281 step 3 AbstractFixLogonHandler.setDispatcherAndStartFixLogon
+IE 12:03:05:024 JTS-PostAuthenticate-19: pre-logon message successfully sent
+IE 12:03:05:027 JTS-PostAuthenticate-19: start ping with 1000 for: JTS-CCPPing-23
+IE 12:03:05:029 JTS-CCPPing-23: Starting
+IE 12:03:05:425 AWT-EventQueue-0: Currencies:[AUD, CAD, CHF, CNH, DKK, EUR, GBP, HKD, JPY, KRW, MXN, NOK, NZD, RUB, SEK, SGD, USD, BASE]
+IE 12:03:05:429 AWT-EventQueue-0: Enabled features: null
+IE 12:03:05:000 AWT-EventQueue-0: Setting time offset to -447 diff -447
+IE 12:03:05:005 AWT-EventQueue-0: manualTicketPermission null
+IE 12:03:05:008 AWT-EventQueue-0: WebRegionURL Path:/java/classes/language.jar URL:http://www.interactivebrokers.com/java/classes/language.jar
+IE 12:03:05:008 AWT-EventQueue-0: Starting to download 'http://www.interactivebrokers.com/java/classes/language.jar' using HotBackup 'http://www.interactivebrokers.com/java/classes/language.jar'
+IE 12:03:05:145 AWT-EventQueue-0: getFileFromUrl: dest=/Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/darykqwcs/language.jar empty sourceSize=2032590
+IE 12:03:05:145 AWT-EventQueue-0: LOCALE: downloading file /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/darykqwcs/language.jar from http://www.interactivebrokers.com/java/classes/language.jar
+IE 12:03:05:185 JTS-MainEndPointProbe-6: HTBP Hot Backup peer resolution failed:gw1_hb2.ibllc.com:4000
+IE 12:03:05:185 JTS-MainEndPointProbe-6: HTBP Usable connections list generated
+gw1.ibllc.com:4000
+gw1.ibllc.com:4000
+gw1_hb1.ibllc.com:4000
+
+IE 12:03:05:185 JTS-MainEndPointProbe-6: HTBP Top priority host duplicate removed:gw1.ibllc.com:4000
+IE 12:03:05:185 JTS-MainEndPointProbe-6: HTBP UGL updated after probe! Current index:0
+IE 12:03:07:895 AWT-EventQueue-0: Finished downloading file: /java/classes/language.jar
+IE 12:03:07:895 AWT-EventQueue-0: LOCALE: finished downloading /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/darykqwcs/language.jar
+IE 12:03:07:896 AWT-EventQueue-0: LOCALE: created classloader java.net.URLClassLoader@27f40b69 with file:/Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/darykqwcs/language.jar, parent: sun.misc.Launcher$AppClassLoader@1d9f953d
+IE 12:03:07:896 AWT-EventQueue-0: Locale=en_US  country=United States  variant=
+IE 12:03:07:896 AWT-EventQueue-0: prohibiting class lookup [ji18n.Language]
+IE 12:03:08:162 AWT-EventQueue-0: prohibiting class lookup [ji18n.Language_en]
+IE 12:03:08:163 AWT-EventQueue-0: prohibiting class lookup [ji18n.Language_en_US]
+IE 12:03:08:163 AWT-EventQueue-0: prohibiting resource lookup [ji18n/Language_en_US.properties]
+IE 12:03:08:192 AWT-EventQueue-0: LOCALE: type: full intended: en_US actual: en size: 11123
+IE 12:03:08:226 AWT-EventQueue-0: WebRegionURL Path:/java/classes/messageurls.properties URL:http://www.interactivebrokers.com/java/classes/messageurls.properties
+IE 12:03:08:227 AWT-EventQueue-0: Starting to download 'http://www.interactivebrokers.com/java/classes/messageurls.properties' using HotBackup 'http://www.interactivebrokers.com/java/classes/messageurls.properties'
+IE 12:03:08:366 AWT-EventQueue-0: getFileFromUrl: dest=/Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/messageurls.properties empty sourceSize=92
+IE 12:03:08:366 AWT-EventQueue-0: LOCALE: downloading file /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/messageurls.properties from http://www.interactivebrokers.com/java/classes/messageurls.properties
+IE 12:03:08:366 AWT-EventQueue-0: Finished downloading file: /java/classes/messageurls.properties
+IE 12:03:08:367 AWT-EventQueue-0: LOCALE: finished downloading /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/messageurls.properties
+IE 12:03:08:367 AWT-EventQueue-0: S3: CCP does not support S3
+IE 12:03:08:368 AWT-EventQueue-0: IBGateway connection to ccp succeeded
+IE 12:03:08:368 AWT-EventQueue-0: LOGIN_TIME_MONITOR	 false 12:03:08:815 since start = 4567 thread delay = 3800 global delay = 0 tag=Step6, cls=GatewayAdapter method=loginSuccess-1
+IE 12:03:08:368 AWT-EventQueue-0: SPLASH Loading resources
+IE 12:03:08:368 AWT-EventQueue-0: SPLASH 3799 step 4 GatewayAdapter.loginSuccess-1
+IE 12:03:08:499 AWT-EventQueue-0: EXEC Creating ExecReportMgr
+IE 12:03:08:543 AWT-EventQueue-0: LOGIN_TIME_MONITOR	 false 12:03:08:990 since start = 4742 thread delay = 175 global delay = 175 tag=Step4, cls=JConQueryTool method=JConQueryTool()-1
+IE 12:03:08:543 AWT-EventQueue-0: SPLASH Initializing environment
+IE 12:03:08:544 JTS-Async-26: Starting
+IE 12:03:08:544 JTS-AsyncNonLocked-27: Starting
+IE 12:03:08:565 AWT-EventQueue-0: JConQueryTool()-2
+IE 12:03:08:565 AWT-EventQueue-0: LOGIN_TIME_MONITOR	 false 12:03:09:012 since start = 4764 thread delay = 22 global delay = 22 tag=Step15, cls=GatewayAdapter method=loginSuccess-2
+IE 12:03:08:566 AWT-EventQueue-0: SPLASH Initializing resources
+IE 12:03:08:595 AWT-EventQueue-0: HTBP Peer connected current index:0 peer:gw1.ibllc.com:4000
+IE 12:03:08:597 JTS-LogonDispatcher-22: Terminating
+IE 12:03:08:597 JTS-CCPDispatcher-32: Starting
+IE 12:03:08:599 AWT-EventQueue-0: Currencies:[AUD, CAD, CHF, CNH, DKK, EUR, GBP, HKD, JPY, KRW, MXN, NOK, NZD, RUB, SEK, SGD, USD, BASE]
+IE 12:03:08:600 AWT-EventQueue-0: Enabled features: null
+IE 12:03:05:000 AWT-EventQueue-0: Setting time offset to -4049 diff -3602
+IE 12:03:05:000 AWT-EventQueue-0: manualTicketPermission null
+IE 12:03:05:000 AWT-EventQueue-0: Reconnection time cleared: argClearBackoff=true base=0 range=5000 next=0 disconnected=0
+IE 12:03:05:001 AWT-EventQueue-0: LOGIN_TIME_MONITOR	 false 12:03:09:050 since start = 4802 thread delay = 38 global delay = 38 tag=Step4, cls=JConQueryTool method=handlePreLogon
+IE 12:03:05:001 AWT-EventQueue-0: SPLASH Initializing environment
+IE 12:03:05:001 AWT-EventQueue-0: SPLASH 0235 step 5 JConQueryTool.handlePreLogon
+IE 12:03:05:001 AWT-EventQueue-0: Handling prelogon msg NORMAL
+IE 12:03:05:097 JTS-OrderRecovery-34: Starting
+IE 12:03:05:346 JTS-ContractDetails-36: Starting
+IE 12:03:05:458 AWT-EventQueue-0: Settings : loadFromXMLFile : Could not find settings file /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/darykqwcs/ibg.xml
+IE 12:03:05:482 AWT-EventQueue-0: autoexport set to stop: null, start: , stop: 
+IE 12:03:05:498 AWT-EventQueue-0: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:03:05:498 AWT-EventQueue-0: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:03:05:498 AWT-EventQueue-0: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:03:05:498 AWT-EventQueue-0: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:03:05:498 AWT-EventQueue-0: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:03:05:882 AWT-EventQueue-0: JConQueryTool.init()-3
+IE 12:03:05:883 AWT-EventQueue-0: JConQueryTool.init()-4
+IE 12:03:06:037 AWT-EventQueue-0: Resetting seqNum during preLogon  resetTime=  logonResetTime=null
+IE 12:03:06:124 JTS-CCPDispatcher-32: dayInit: new values: dayOfTheWeek: 7 (Sat), YYYYMMofToday: 201306, YYYYMMDDofToday: 20130601
+IE 12:03:06:300 JTS-CCPDispatcher-32: Currencies:[AUD, CAD, CHF, CNH, DKK, EUR, GBP, HKD, JPY, KRW, MXN, NOK, NZD, RUB, SEK, SGD, USD, BASE]
+IE 12:03:06:300 JTS-CCPDispatcher-32: Enabled features: 1DAYSORDER,ACCTALL,ACCTSUM,AD,ALGODEF,APIELOG,AWAYCMTAREV,BESTCLCR,BESTSCHED,BLOTTERGROUPS,BONDMENU,BT1,CMAG,COMBLAST,COMPN,CONSTOP,CONTSORT,CURRENTPRICEANDSIZE,CUSIP,DELAYMD,ESIGNAL,EVAPI,EXERCISE,EXTATTACH,FACLOSE,FXCONV,FXHEDGE,GREEKLIST,HALTED,HEDGECFD,HOMEGROUP,ICSLEG,IECOMBO1TO1,IECOMBOLEGMOD,IECOMBONESTED,IECOMBOPERLEGPRICE,IECOMBORELLMT,IGNOREYTW,ISW,JBA,LEDGER,LEGMARKUP,MANGAWAY,MDEXCH,MKTADDLIQ,MODELAVGPRICE,MODELFARM,MOODY,MOSAIC,NDMDERR,NIGHTLY,NONUSCOMBO,NONUSWHATIF,NSCAN,PAIRTRADE,PCTCHANGE,PHIST,POSTXPMRG,RELIND,SCALEDAYADJUST,SCALEFRAC,SCALEMOD,SCALEMODEL,SCALERANDOMIZE,SCALETIMEMOD,SCALETIMEMOD1,SCALEWHATIF,SEPLAST,SHOWLEGSEPARATE,SIMUPORTF,SLB,SLOWPOSUPD,SMODELS,STOPPROFITOFFSET,TAPE,TICKUNIT,UNRLAST,USEPARENTENDTIME,VIRTSEC,VOLAT,VOLATFUT,WGVISIBILITY
+IE 12:03:10:000 JTS-CCPDispatcher-32: Setting time offset to -351 diff 3698
+IE 12:03:10:001 JTS-CCPDispatcher-32: manualTicketPermission null
+IE 12:03:10:001 JTS-CCPDispatcher-32: Handling normal logon msg NORMAL
+IE 12:03:10:002 JTS-CCPDispatcher-32: Processing normal logon msg
+IE 12:03:10:002 JTS-CCPDispatcher-32: Restart quick=false cold=false logon=NORMAL batch=true
+IE 12:03:10:002 JTS-CCPDispatcher-32: SPLASH Processing startup parameters
+IE 12:03:10:002 JTS-CCPDispatcher-32: SPLASH 1303 step 6 JConQueryTool.processNormalLogon1-1
+IE 12:03:10:002 JTS-CCPDispatcher-32: Processing normal logon 1
+IE 12:03:10:003 JTS-CCPDispatcher-32: Updating seqNum during normal logon with 1
+IE 12:03:10:003 JTS-CCPDispatcher-32: Requesting compatible routing MARKET_DATA from CompatibleFarmEndPoints [md=useccphost:4000, mdFarm=ibdemo, hmds=useccphost:4000, hmdsFarm=demohmds]
+IE 12:03:10:009 JTS-CCPDispatcher-32: HTBP Hot Backup PGL generated:
+:0
+
+IE 12:03:10:009 JTS-CCPDispatcher-32: HTBP Usable connections list generated
+:0
+
+IE 12:03:10:009 JTS-CCPDispatcher-32: HTBP Main end point set::0 Strategy: SINGLE_HOST
+IE 12:03:10:011 JTS-CCPDispatcher-32: Farm ibdemo/UNCONNECTED: Creating ServiceConnection for:ibdemo
+IE 12:03:10:011 JTS-CCPDispatcher-32: Farm ibdemo/UNCONNECTED: Adding message to queue
+IE 12:03:10:011 JTS-CCPDispatcher-32: Farm ibdemo/UNCONNECTED: Starting connection thread
+IE 12:03:10:012 JTS-CCPDispatcher-32: Max API Backfill Years is set to 1
+IE 12:03:10:012 JTS-ServiceConnector-39: Farm ibdemo/STARTING: Connecting via ccp conman (ibdemo)...
+IE 12:03:10:012 JTS-ServiceConnector-39: Connecting gw1.ibllc.com:4000 timeout=0
+IE 12:03:10:012 JTS-ServiceConnector-39: CONN CALC: Last connection set as now:12:03:10:363
+IE 12:03:10:013 JTS-CCPDispatcher-32: Fast lockout exchanges:null
+IE 12:03:10:013 JTS-CCPDispatcher-32: API Max tickers=250, TWS Max tickers=250
+IE 12:03:10:013 JTS-CCPDispatcher-32: Split BidAsk/Last requests:true
+IE 12:03:10:013 JTS-CCPDispatcher-32: Combo Last requests:true
+IE 12:03:10:014 JTS-CCPDispatcher-32: Split BidAsk/Last requests:true
+IE 12:03:10:015 JTS-CCPDispatcher-32: Olympiad mode
+IE 12:03:10:032 JTS-CCPDispatcher-32: AccountReqManager init
+IE 12:03:10:032 JTS-AsyncNonLocked-27: CM sendAccountSubscription called for DU15186.
+IE 12:03:10:034 JTS-CCPDispatcher-32: ModelSummaryRequestMgr init
+IE 12:03:10:034 JTS-AsyncNonLocked-27: CM setting requested account spec to DU15186.
+IE 12:03:10:034 JTS-CCPDispatcher-32: SPLASH Loading order defaults
+IE 12:03:10:056 JTS-CCPDispatcher-32: No defaults for: CMDTY
+IE 12:03:10:061 JTS-CCPDispatcher-32: No defaults for: CMDTY
+IE 12:03:10:061 JTS-CCPDispatcher-32: SPLASH Initializing managers
+IE 12:03:10:062 JTS-SocketListener-41: API server listening on port 4001
+IE 12:03:10:076 JTS-CCPDispatcher-32: SPLASH Starting application
+IE 12:03:10:076 JTS-CCPDispatcher-32: Processing normal logon 2
+IE 12:03:10:076 JTS-CCPDispatcher-32: Processing normal logon 3
+IE 12:03:10:077 JTS-MDActivityCheckThread-43: Starting
+IE 12:03:10:079 JTS-CCPDispatcher-32: TradeRequests:ExecReportMgr-restoreExecutions: sending trades request for un-initialized storage: date=Sat Jun 01 12:03:10 PDT 2013
+IE 12:03:10:080 JTS-RestoreExecutions-45: TradeRequests:ExecReportMgr-restoreExecutions_: trades file not found /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/darykqwcs/Sat.trd
+IE 12:03:10:080 JTS-ExecNotifier-25: Starting
+IE 12:03:10:080 JTS-RestoreExecutions-45: TradeRequests:ReportStorage-sendWholeDayRequest: , requestId=today0, date=Sat Jun 01 12:03:10 PDT 2013, key=Sat
+IE 12:03:10:081 JTS-RestoreExecutions-45: Sending trade request from 20130601-07:00:00 to 20130602-07:00:00
+IE 12:03:10:081 JTS-CCPDispatcher-32: TradeDaysMgr - reconnect fillups started.
+IE 12:03:10:082 JTS-RestoreExecutions-45: TradeRequests:ExecReportMgr-Clearing Models
+IE 12:03:10:082 JTS-RestoreExecutions-45: TradeRequests:ExecReportMgr-Sending position request
+IE 12:03:10:082 AWT-EventQueue-0: SPLASH Closing screen and saving 6 steps
+IE 12:03:10:083 JTS-CCPDispatcher-32: LOGIN_TIME_MONITOR	 false 12:03:10:434 since start = 6186 thread delay = 1384 global delay = 0 tag=TURN OFF, cls=DelayReporter method=turnOff
+IE 12:03:10:083 JTS-CCPDispatcher-32: Re-trying batch requests:[]
+IE 12:03:10:083 JTS-Cleaner-28: Cleaning maps
+IE 12:03:10:083 JTS-CCPDispatcher-32: Current date:20130601 same:true
+IE 12:03:10:083 JTS-CCPDispatcher-32: Current order recovery state:NONE
+IE 12:03:10:083 JTS-RestoreExecutions-45: TradeRequests:ExecReportMgr-Sending ledger request
+IE 12:03:10:089 JTS-HmdsRouting requestor-42: Requesting compatible routing HISTORICAL_DATA from CompatibleFarmEndPoints [md=useccphost:4000, mdFarm=ibdemo, hmds=useccphost:4000, hmdsFarm=demohmds]
+IE 12:03:10:089 JTS-HmdsRouting requestor-42: HTBP Hot Backup PGL generated:
+:0
+
+IE 12:03:10:089 JTS-HmdsRouting requestor-42: HTBP Usable connections list generated
+:0
+
+IE 12:03:10:089 JTS-HmdsRouting requestor-42: HTBP Main end point set::0 Strategy: SINGLE_HOST
+IE 12:03:10:089 JTS-HmdsRouting requestor-42: Farm demohmds/UNCONNECTED: Creating ServiceConnection for:demohmds
+IE 12:03:10:089 JTS-HmdsRouting requestor-42: Farm demohmds/UNCONNECTED: Adding message to queue
+IE 12:03:10:089 JTS-HmdsRouting requestor-42: Farm demohmds/UNCONNECTED: Starting connection thread
+IE 12:03:10:091 JTS-ServiceConnector-46: Farm demohmds/STARTING: Connecting via ccp conman (demohmds)...
+IE 12:03:10:091 JTS-ServiceConnector-46: Connecting gw1.ibllc.com:4000 timeout=0
+IE 12:03:10:091 JTS-ServiceConnector-46: CONN CALC: Last connection set as now:12:03:10:442
+IE 12:03:10:095 JTS-ServiceConnector-39: Connected to gw1.ibllc.com:4000 on local port 0 socket local addrs:port /10.0.1.2:61109
+IE 12:03:10:095 JTS-ServiceConnector-39: Farm ibdemo/PRE_CCP: Connected, sending auth
+IE 12:03:10:095 JTS-ServiceConnector-39: Added to valid hosts list: gw1.ibllc.com
+IE 12:03:10:095 JTS-ibdemoListener-47: Starting
+IE 12:03:10:095 JTS-ibdemoListener-47: Initial listener buffer size is 131400
+IE 12:03:10:095 JTS-ibdemoListener-47: Capping listener buffer size at 65536
+IE 12:03:10:100 JTS-ServiceConnector-39: AuthTimeoutMonitor: deactivate
+IE 12:03:10:100 JTS-ibdemoDispatcher-48: Starting
+IE 12:03:10:100 JTS-ServiceConnector-39: AuthTimeoutMonitor: timeout=20000
+IE 12:03:10:100 JTS-ServiceConnector-39: AuthTimeoutMonitor: activate
+IE 12:03:10:100 JTS-AuthTimeoutMonitorThread-49: Starting 
+IE 12:03:10:101 JTS-ServiceConnector-39: start ping with 5000 for: JTS-ibdemoServicePreAuthPing-50
+IE 12:03:10:102 JTS-ibdemoServicePreAuthPing-50: Starting
+IE 12:03:10:174 JTS-ServiceConnector-46: Connected to gw1.ibllc.com:4000 on local port 0 socket local addrs:port /10.0.1.2:61110
+IE 12:03:10:174 JTS-ServiceConnector-46: Farm demohmds/PRE_CCP: Connected, sending auth
+IE 12:03:10:174 JTS-ServiceConnector-46: Added to valid hosts list: gw1.ibllc.com
+IE 12:03:10:174 JTS-demohmdsListener-52: Starting
+IE 12:03:10:176 JTS-demohmdsListener-52: Initial listener buffer size is 131400
+IE 12:03:10:176 JTS-ServiceConnector-46: AuthTimeoutMonitor: deactivate
+IE 12:03:10:176 JTS-demohmdsListener-52: Capping listener buffer size at 65536
+IE 12:03:10:176 JTS-ServiceConnector-46: AuthTimeoutMonitor: timeout=20000
+IE 12:03:10:176 JTS-demohmdsDispatcher-53: Starting
+IE 12:03:10:176 JTS-ServiceConnector-46: AuthTimeoutMonitor: activate
+IE 12:03:10:176 JTS-AuthTimeoutMonitorThread-54: Starting 
+IE 12:03:10:176 JTS-ServiceConnector-46: start ping with 5000 for: JTS-demohmdsServicePreAuthPing-55
+IE 12:03:10:177 JTS-demohmdsServicePreAuthPing-55: Starting
+IE 12:03:10:185 JTS-CCPDispatcher-32: Storage synced: ReportStorage[Sat, today=true]
+IE 12:03:10:263 JTS-demohmdsDispatcher-53: processing 35=S message - NSAuthorizationStart. params=7;520;1;32;-1;
+IE 12:03:10:263 JTS-demohmdsDispatcher-53:  NS_AUTH_START config=32 version=7 pwd=0 soft=2 token=0 initialTokenType=SOFT
+IE 12:03:10:263 JTS-demohmdsDispatcher-53: authenticating to mkt farm with session token
+IE 12:03:10:263 JTS-demohmdsDispatcher-53: Starting soft token Authentication
+IE 12:03:10:279 JTS-CCPDispatcher-32: Received live orders end marker.
+IE 12:03:10:281 JTS-CCPDispatcher-32: Lightweight position response received: [DU15186.]
+IE 12:03:10:285 JTS-CCPDispatcher-32: CM Received account reset event for DU15186. UNIVERSAL
+IE 12:03:10:332 JTS-CCPDispatcher-32: CM IB PORT DU15186./2/676091391: Received account reset event
+IE 12:03:10:345 JTS-demohmdsDispatcher-53: Received MD auth msg classid = 1
+IE 12:03:10:345 JTS-demohmdsDispatcher-53: Receiver: 772
+IE 12:03:10:349 JTS-CCPDispatcher-32: CM IB PORT DU15186./2/676091391: Finished loading portfolio
+IE 12:03:10:356 JTS-ibdemoDispatcher-48: processing 35=S message - NSAuthorizationStart. params=7;520;1;32;-1;
+IE 12:03:10:356 JTS-ibdemoDispatcher-48:  NS_AUTH_START config=32 version=7 pwd=0 soft=2 token=0 initialTokenType=SOFT
+IE 12:03:10:356 JTS-ibdemoDispatcher-48: authenticating to mkt farm with session token
+IE 12:03:10:356 JTS-ibdemoDispatcher-48: Starting soft token Authentication
+IE 12:03:10:427 JTS-demohmdsDispatcher-53: Received MD auth msg classid = 1
+IE 12:03:10:427 JTS-demohmdsDispatcher-53: Receiver: 772
+IE 12:03:10:428 JTS-demohmdsDispatcher-53: Received Result
+IE 12:03:10:428 JTS-demohmdsDispatcher-53: Passed session token authentication.
+IE 12:03:10:507 JTS-demohmdsDispatcher-53: Reconnection time cleared: argClearBackoff=true base=0 range=5000 next=0 disconnected=0
+IE 12:03:10:507 JTS-demohmdsDispatcher-53: AuthTimeoutMonitor: deactivate
+IE 12:03:10:508 JTS-AuthTimeoutMonitorThread-54: Terminating
+IE 12:03:10:508 JTS-demohmdsDispatcher-53: Farm demohmds/PRE_CCP: Authenticated via ccp conman(demohmds)
+IE 12:03:10:509 JTS-demohmdsServicePreAuthPing-55: Terminating
+IE 12:03:10:509 JTS-demohmdsDispatcher-53: start ping with 60000 for: JTS-demohmdsServicePing-57
+IE 12:03:10:511 JTS-demohmdsDispatcher-53: Farm demohmds/CCP: No DirectServiceSites - native background connection attempts skipped
+IE 12:03:10:511 JTS-demohmdsServicePing-57: Starting
+IE 12:03:10:597 JTS-demohmdsDispatcher-53: Compatible routing data:
+8=O9=007235=T6556=2*,*,DayChart|EODChart|ScanTop,*,-1,ibdemo100,4000,demohmds,r
+IE 12:03:10:598 JTS-demohmdsDispatcher-53: Farm demohmds/CCP: Stopping connection, keeping socket
+IE 12:03:10:598 JTS-demohmdsDispatcher-53: Disconnecting gw1.ibllc.com:4000 with status DISCONNECT_BY_DESIGN
+IE 12:03:10:598 JTS-demohmdsServicePing-57: Terminating
+IE 12:03:10:599 JTS-demohmdsDispatcher-53: AuthTimeoutMonitor: deactivate
+IE 12:03:10:600 JTS-demohmdsDispatcher-53: Send ping for transfer socket:demohmds at 1370113390951
+IE 12:03:10:601 JTS-Disconnected-58: Farm demohmds/UNCONNECTED: Lost active connection with disconnect status DISCONNECT_BY_DESIGN
+IE 12:03:10:601 JTS-Disconnected-58: Farm demohmds/UNCONNECTED: Not resetting
+IE 12:03:10:602 JTS-demohmdsDispatcher-53: Terminating
+IE 12:03:10:603 JTS-ForwardRouting-HISTORICAL_DATA-60: Save socket:demohmds gw1.ibllc.com:4000
+IE 12:03:10:603 JTS-ForwardRouting-HISTORICAL_DATA-60: handleCompatibleRouting HISTORICAL_DATA compmode=true ready=false farm=demohmds
+IE 12:03:10:605 JTS-AsyncNonLocked-27: Handle compatible routing:HISTORICAL_DATA table:
+*,*,DayChart|EODChart|ScanTop,*,-1,ibdemo100,4000,demohmds,r
+IE 12:03:10:606 JTS-ibdemoDispatcher-48: Received MD auth msg classid = 1
+IE 12:03:10:606 JTS-ibdemoDispatcher-48: Receiver: 772
+IE 12:03:10:681 JTS-demohmdsListener-52: Terminating
+IE 12:03:10:857 JTS-ibdemoDispatcher-48: Received MD auth msg classid = 1
+IE 12:03:10:857 JTS-ibdemoDispatcher-48: Receiver: 772
+IE 12:03:10:857 JTS-ibdemoDispatcher-48: Received Result
+IE 12:03:10:857 JTS-ibdemoDispatcher-48: Passed session token authentication.
+IE 12:03:10:857 JTS-ibdemoDispatcher-48: Reconnection time cleared: argClearBackoff=true base=0 range=5000 next=0 disconnected=0
+IE 12:03:10:857 JTS-ibdemoDispatcher-48: AuthTimeoutMonitor: deactivate
+IE 12:03:10:857 JTS-ibdemoDispatcher-48: Farm ibdemo/PRE_CCP: Authenticated via ccp conman(ibdemo)
+IE 12:03:10:857 JTS-AuthTimeoutMonitorThread-49: Terminating
+IE 12:03:10:858 JTS-ibdemoDispatcher-48: start ping with 60000 for: JTS-ibdemoServicePing-62
+IE 12:03:10:858 JTS-ibdemoServicePreAuthPing-50: Terminating
+IE 12:03:10:859 JTS-ibdemoDispatcher-48: Farm ibdemo/CCP: No DirectServiceSites - native background connection attempts skipped
+IE 12:03:10:859 JTS-ibdemoServicePing-62: Starting
+IE 12:03:11:107 JTS-ibdemoDispatcher-48: Compatible routing data:
+8=O9=008735=T6556=1NSE,STK,Frz,*,-1,ibdemo100,4000,ibdemo,r;*,*,*,*,-1,ibdemo100,4000,ibdemo,r
+IE 12:03:11:108 JTS-ibdemoDispatcher-48: Farm ibdemo/CCP: Stopping connection, keeping socket
+IE 12:03:11:108 JTS-ibdemoDispatcher-48: Disconnecting gw1.ibllc.com:4000 with status DISCONNECT_BY_DESIGN
+IE 12:03:11:108 JTS-ibdemoDispatcher-48: AuthTimeoutMonitor: deactivate
+IE 12:03:11:108 JTS-ibdemoServicePing-62: Terminating
+IE 12:03:11:109 JTS-ibdemoDispatcher-48: Send ping for transfer socket:ibdemo at 1370113391459
+IE 12:03:11:109 JTS-Disconnected-63: Farm ibdemo/UNCONNECTED: Lost active connection with disconnect status DISCONNECT_BY_DESIGN
+IE 12:03:11:109 JTS-Disconnected-63: Farm ibdemo/UNCONNECTED: Not resetting
+IE 12:03:11:110 JTS-ibdemoDispatcher-48: Terminating
+IE 12:03:11:111 JTS-ForwardRouting-MARKET_DATA-65: Save socket:ibdemo gw1.ibllc.com:4000
+IE 12:03:11:111 JTS-ForwardRouting-MARKET_DATA-65: handleCompatibleRouting MARKET_DATA compmode=true ready=false farm=ibdemo
+IE 12:03:11:112 JTS-AsyncNonLocked-27: Handle compatible routing:MARKET_DATA table:
+NSE,STK,Frz,*,-1,ibdemo100,4000,ibdemo,r;*,*,*,*,-1,ibdemo100,4000,ibdemo,r
+IE 12:03:11:358 JTS-ibdemoListener-47: Terminating
+IE 12:03:14:607 AWT-EventQueue-0: <html>IB Gateway<br>Copyright © 2000 LICENSOR to Interactive Brokers<br>ALL RIGHTS RESERVED<br><br>This software is covered by U.S. Patent No. 7.827.092.<br><br>This software uses JFreeChart class library from<br>Object Refinery Limited under the terms of the GNU<br>Lesser General Public Licence, which can be found here:<br>http://www.object-refinery.com/lgpl.html.<br><br>This product includes software developed by the JDOM<br>(http://www.jdom.org/) and ROME (http://rome.dev.java.net)<br>projects.<br><br>This software includes software developed by Hypersonic<br>SQL Group under its licence which can be found here<br>http://hsqldb.org/web/hsqlLicense.html.<br><br>This product includes unmodified software developed by<br>Pentaho Corporation (Mondrian 2.4.2.9831) under its license<br>that can be found at http://www.pentaho.com/license.<br><br>This product uses the "Secure Remote Password" cryptographic<br>authentication system developed by Tom Wu (tjw@CS.Stanford.EDU).<br><br>Build 936.9f, May 3, 2013 1:45:34 PM<br>Jolt Build 1.2.2, Jan 18, 2013 04:02:54 PM<br>Nia Build 1.11.2, Jan 18, 2013 04:06:23 PM<br>ModelNav Build 1.1.46, Jan 18, 2013 04:13:55 PM<br><br><br>Java Version: 1.6.0_45<br>OS: Mac OS X (x86_64, 10.8.3)<br><br><a href='http://www.interactivebrokers.com'>Interactive Brokers Home Page</a></html>
+IE 12:03:18:000 JTS-CCPDispatcher-32: Setting time offset to -402 diff -51
+IE 12:03:20:550 JTS-TransferPing-demohmds-59: Send ping for transfer socket:demohmds at 1370113400952
+IE 12:03:21:059 JTS-TransferPing-ibdemo-64: Send ping for transfer socket:ibdemo at 1370113401461
+IE 12:03:30:550 JTS-TransferPing-demohmds-59: Send ping for transfer socket:demohmds at 1370113410952
+IE 12:03:31:059 JTS-TransferPing-ibdemo-64: Send ping for transfer socket:ibdemo at 1370113411461
+IE 12:03:38:277 AWT-EventQueue-0: <html>IB Gateway<br>Copyright © 2000 LICENSOR to Interactive Brokers<br>ALL RIGHTS RESERVED<br><br>This software is covered by U.S. Patent No. 7.827.092.<br><br>This software uses JFreeChart class library from<br>Object Refinery Limited under the terms of the GNU<br>Lesser General Public Licence, which can be found here:<br>http://www.object-refinery.com/lgpl.html.<br><br>This product includes software developed by the JDOM<br>(http://www.jdom.org/) and ROME (http://rome.dev.java.net)<br>projects.<br><br>This software includes software developed by Hypersonic<br>SQL Group under its licence which can be found here<br>http://hsqldb.org/web/hsqlLicense.html.<br><br>This product includes unmodified software developed by<br>Pentaho Corporation (Mondrian 2.4.2.9831) under its license<br>that can be found at http://www.pentaho.com/license.<br><br>This product uses the "Secure Remote Password" cryptographic<br>authentication system developed by Tom Wu (tjw@CS.Stanford.EDU).<br><br>Build 936.9f, May 3, 2013 1:45:34 PM<br>Jolt Build 1.2.2, Jan 18, 2013 04:02:54 PM<br>Nia Build 1.11.2, Jan 18, 2013 04:06:23 PM<br>ModelNav Build 1.1.46, Jan 18, 2013 04:13:55 PM<br><br><br>Java Version: 1.6.0_45<br>OS: Mac OS X (x86_64, 10.8.3)<br><br><a href='http://www.interactivebrokers.com'>Interactive Brokers Home Page</a></html>
+IE 12:03:40:550 JTS-TransferPing-demohmds-59: Send ping for transfer socket:demohmds at 1370113420952
+IE 12:03:41:058 JTS-TransferPing-ibdemo-64: Send ping for transfer socket:ibdemo at 1370113421460
+IE 12:03:50:551 JTS-TransferPing-demohmds-59: Send ping for transfer socket:demohmds at 1370113430953
+IE 12:03:51:058 JTS-TransferPing-ibdemo-64: Send ping for transfer socket:ibdemo at 1370113431460
+IE 12:04:00:550 JTS-TransferPing-demohmds-59: Send ping for transfer socket:demohmds at 1370113440952
+IE 12:04:01:059 JTS-TransferPing-ibdemo-64: Send ping for transfer socket:ibdemo at 1370113441461
+IE 12:04:10:033 JTS-Cleaner-28: Cleaning maps
+IE 12:04:10:550 JTS-TransferPing-demohmds-59: Send ping for transfer socket:demohmds at 1370113450952
+IE 12:04:10:557 JTS-Fuse-sd-61: Reset transferrable socket:demohmds gw1.ibllc.com:4000
+IE 12:04:10:557 JTS-TransferPing-demohmds-59: Socket is closed
+IE 12:04:11:061 JTS-Fuse-sd-66: Reset transferrable socket:ibdemo gw1.ibllc.com:4000
+IE 12:04:36:425 AWT-EventQueue-0: The file /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/jts.ini does not exist
+IE 12:04:36:426 AWT-EventQueue-0: called cleanupMktSrvr
+IE 12:04:36:426 AWT-EventQueue-0: Destroy async. services.
+IE 12:04:36:426 AWT-EventQueue-0: Terminating Queues.
+IE 12:04:36:426 JTS-AsyncNonLocked-27: Terminating
+IE 12:04:36:426 JTS-Async-26: Terminating
+IE 12:04:36:428 AWT-EventQueue-0: Disconnecting gw1.ibllc.com:4000 with status DISCONNECT_ON_EXIT_SESSION
+IE 12:04:36:429 JTS-CCPPing-23: Terminating
+IE 12:04:36:429 AWT-EventQueue-0: AuthTimeoutMonitor: deactivate
+IE 12:04:36:429 JTS-CCPDispatcher-32: Terminating
+IE 12:04:36:429 AWT-EventQueue-0: CONN CALC: Last connection attempt time is cleared!
+IE 12:04:36:429 JTS-CCPListener-10: Socket for connection gw1.ibllc.com:4000 was closed by another thread
+IE 12:04:36:429 AWT-EventQueue-0: HTBP State cleared
+IE 12:04:36:429 JTS-CCPListener-10: Terminating
+IE 12:04:36:432 JTS-Disconnected-68: Connection to ccp disconnected.
+IE 12:04:36:433 JTS-Disconnected-68: Storing batch requests for retry:[]
+IE 12:04:36:433 AWT-EventQueue-0: Started invoke 'exitSessionGracefully' in AWT thread. In event thread = true
+IE 12:04:36:433 AWT-EventQueue-0: Started 'saveSettingsAndExitSession'
+IE 12:04:36:433 AWT-EventQueue-0: saveSettingsAndExitSession
+IE 12:04:36:433 JTS-Disconnected-68: IBGateway connection to ccp disconnected.
+IE 12:04:36:434 AWT-EventQueue-0: Shutdown started. 19 tasks to execute.
+IE 12:04:36:434 JTS-ShutdownTask-Saving_Settings-71: Control settins saving started.
+IE 12:04:36:434 JTS-ShutdownTask-Saving_Settings-71: Update order defaults
+IE 12:04:36:436 JTS-ShutdownTask-Saving_Settings-71: Saving IA settings
+IE 12:04:36:436 JTS-ShutdownTask-Saving_Settings-71: Saving displayed msg list
+IE 12:04:36:438 JTS-ShutdownTask-Saving_Settings-71: Saving xml
+IE 12:04:36:438 JTS-ShutdownTask-Saving_Settings-71: Saving settings to /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/darykqwcs/ibg.xml
+IE 12:04:36:569 JTS-ShutdownTask-Saving_Settings-71: Verifying saved file
+IE 12:04:36:907 JTS-ShutdownTask-Saving_Settings-71: autoexport set to stop: /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/, start: , stop: 
+IE 12:04:36:909 JTS-ShutdownTask-Saving_Settings-71: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:04:36:909 JTS-ShutdownTask-Saving_Settings-71: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:04:36:909 JTS-ShutdownTask-Saving_Settings-71: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:04:36:909 JTS-ShutdownTask-Saving_Settings-71: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:04:36:909 JTS-ShutdownTask-Saving_Settings-71: DelayedMarketDataList is created: Approved: ; Notified: ; Pre-populated: null
+IE 12:04:36:921 JTS-ShutdownTask-Saving_Settings-71: Verifying succeeded
+IE 12:04:36:921 JTS-ShutdownTask-Saving_Settings-71: Renaming saved file
+IE 12:04:36:921 JTS-ShutdownTask-Saving_Settings-71: Renaming succeeded
+IE 12:04:36:921 JTS-ShutdownTask-Saving_Settings-71: Settings file size:258213
+IE 12:04:36:921 JTS-ShutdownTask-Saving_Settings-71: Copying file /Users/david/github/lab616/third_party/interactivebrokers/ibg/IBJts/darykqwcs/ibg.Sat.xml
+IE 12:04:36:923 JTS-ShutdownTask-Saving_Settings-71: Copying succeeded
+IE 12:04:36:924 JTS-ShutdownTask-Saving_Settings-71: Done saving settings
+IE 12:04:36:924 JTS-ShutdownTask-Saving_Settings-71: Saving market rules
+IE 12:04:36:927 JTS-ShutdownTask-Saving_Settings-71: Saving sizeop settings
+IE 12:04:36:928 JTS-ShutdownTask-Saving_Settings-71: Control settins saving finished.
+IE 12:04:36:944 JTS-ShutdownTask-Disconnecting_from_Farms_and_Hmds-77: Disconnecting from farms and hmds
+IE 12:04:36:944 JTS-ShutdownTask-Disconnecting_from_Farms_and_Hmds-77: Disconnecting all farm connections
+IE 12:04:36:944 JTS-ShutdownTask-Disconnecting_from_Farms_and_Hmds-77: Disconnecting all farm connections
+IE 12:04:36:946 JTS-ShutdownTask-Closing_socket-80: Close socket.
+IE 12:04:36:946 JTS-ShutdownTask-Closing_audit-81: Close audit log-file.
+IE 12:04:36:946 JTS-Order-Audit-8: Terminating
+IE 12:04:36:948 JTS-ShutdownTask-Disconnecting_trades_sync_mgr-82: Disconnect 'TradesSyncMgr'
+IE 12:04:36:948 JTS-ShutdownTask-Closing_login_window-83: Close login window.
+IE 12:04:36:948 JTS-ShutdownTask-Closing_login_window-83: Disconnecting all farm connections
+IE 12:04:36:948 JTS-ShutdownTask-Closing_login_window-83: Disconnecting all farm connections
+IE 12:04:36:949 AWT-EventQueue-0: Shutdown thread finished.
+IE 12:04:36:949 AWT-EventQueue-0: Finished 'saveSettingsAndExitSession'

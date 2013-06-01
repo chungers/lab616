@@ -43,8 +43,8 @@ install ${TWS_API_DIR}/jtsclient.jar com.interactivebrokers com.interactivebroke
 ####################################################################################################
 # Interactive Brokers TWS + Gateway Client
 
-TWS_DIR=java/ib-tws-905/IBJts
-TWS_VERSION=905
+TWS_DIR=java/ib-ibg/IBJts
+TWS_VERSION=936.9f
 TWS_JARS=`ls ${TWS_DIR}/*.jar`
 TWS_GROUP="com.interactivebrokers"
 TWS_PREFIX="com.interactivebrokers.tws."
